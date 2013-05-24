@@ -77,7 +77,6 @@ class Personnel extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'departments' => array(self::HAS_MANY, 'Department', 'manager'),
 			'users' => array(self::BELONGS_TO, 'Users', 'id_user'),
 			'PostsHistory' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel'),
 			'Cabinet' => array(self::BELONGS_TO, 'Cabinet', 'id_cabinet'),
@@ -132,6 +131,9 @@ class Personnel extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array(
+        		'pageSize'=>9,
+    		),
 		));
 	}
 }

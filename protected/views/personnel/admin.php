@@ -28,6 +28,13 @@ $('.search-form form').submit(function(){
 
 <h1>Кадры</h1>
 
+<?php echo CHtml::link('Поиск','#',array('class'=>'search-button')); ?>
+<div class="search-form" style="display:none">
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div><!-- search-form -->
+
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'personnel-grid',

@@ -38,6 +38,8 @@ $('.search-form form').submit(function(){
 		'post',
 		'date_begin',
 		'date_end',
+       array( 'name'=>'personnel_posts_history[0]', 'value'=>'$data->personnel_posts_history[0]->allPersonelForPost($data->id)' ),
+		
 		array(
 			'class'=>'CButtonColumn',
 		),

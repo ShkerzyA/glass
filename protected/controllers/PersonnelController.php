@@ -122,15 +122,14 @@ class PersonnelController extends Controller
 	 */
 	public function actionIndex()
 	{
-	$dataProvider=new CActiveDataProvider('Personnel',array(
-    'criteria'=>array(
-        'order'=>'id ASC',
-    ),
-    'pagination'=>array(
-        'pageSize'=>3,
-    ),));
+
+		$model=new Personnel('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Personnel']))
+		$model->attributes=$_GET['Personnel'];
+
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'model'=>$model,
 		));
 	}
 

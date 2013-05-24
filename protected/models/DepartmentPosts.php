@@ -13,7 +13,8 @@
  * @property Department $idDepartment
  */
 class DepartmentPosts extends CActiveRecord
-{
+{		
+	public $id_post; //Люди, работающие на должности
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
@@ -56,7 +57,7 @@ class DepartmentPosts extends CActiveRecord
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, post, id_department, date_begin, date_end, department', 'safe', 'on'=>'search'),
+			array('id, post, id_department, date_begin, date_end, department, id_post', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -98,17 +99,25 @@ class DepartmentPosts extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with = array('department');
+		$criteria->with = array('personnel_posts_history','department');
+
+		//$all_person=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post=$this->id"));
+
+		//$this->inpost=1;
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('department.name', $this->department, true );
 		$criteria->compare('post',$this->post,true);
-		$criteria->compare('date_begin',$this->date_begin,true);
-		$criteria->compare('date_end',$this->date_end,true);
+		$criteria->compare('t.date_begin',$this->date_begin,true);
+		$criteria->compare('t.date_end',$this->date_end,true);
 
+		$criteria->compare('personnel_posts_history[0].id_post',$this->id);
+		
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
+
+
 }

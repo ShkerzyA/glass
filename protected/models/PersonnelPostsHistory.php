@@ -109,4 +109,19 @@ class PersonnelPostsHistory extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function allPersonelForPost($id_post){
+		$personnel=PersonnelPostsHistory::model()->with('personnel')->findAll(array('condition'=>"id_post=$id_post"));
+
+		//echo '<pre>';
+		//print_r($personnel[0]);
+		//echo '</pre>';
+		//$sSep=', ';
+		foreach ($personnel[0]->personnel as $itm) {
+			echo($itm);
+			//$aRes[] = $itm->surname;
+		}
+
+		//return implode($sSep, $aRes);
+	}
 }

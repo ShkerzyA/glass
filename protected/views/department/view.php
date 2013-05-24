@@ -21,38 +21,22 @@ $this->menu=array(
 <h1><?php echo $model->name; ?></h1>
 
 <table id="personTbl">
-	<tr>
-		<td id="right">Руководитель отдела:</td>
-		<td>
-<?php
-if(!empty($model->managerDep)){
-	$managerId=$model->managerDep->id;
-	echo "<a href='/glass/personnel/".$model->managerDep->id."'>".$model->managerDep->surname." ".$model->managerDep->name." ".$model->managerDep->patr."</a>";
-}else{
-	$managerId=0;
-}
-?>
-		</td>
-	</tr>
-	<tr>
-		<td id="right">Сотрудники отдела:</td>
-		<td>
-<?php
 
-	
-
+	<tr>
+		<td colspan=3 id="right">Сотрудники отдела:</td>
+<?php
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
 	if(!empty($DepPosts)){
 		foreach($DepPosts as $dp){
+			echo "<tr><td></td><td>".$dp->post."</td><td>";
 			foreach($dp->personnel_posts_history as $personnelPh){
-				if ($personnelPh->personnel->id!=$managerId)
 				echo "<a href='/glass/personnel/".$personnelPh->personnel->id."'>".$personnelPh->personnel->surname.' '.$personnelPh->personnel->name.' '.$personnelPh->personnel->patr."</a><br>";
 		
 			}
+			echo "</td></tr>";
 		}
 	}
 ?>
-		</td>
 	</tr>
 </table>
 

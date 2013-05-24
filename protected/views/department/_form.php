@@ -27,11 +27,6 @@
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'manager'); ?>
-		<?php echo $form->dropDownList($model,'manager',CHtml::listData(Personnel::model()->findall(),'id','surname'),array('empty' => '(Выберите руководителя')); ?>
-		<?php echo $form->error($model,'manager'); ?>
-	</div>
 
 		<div class="row">
 		<?php echo $form->labelEx($model,'date_begin'); ?>

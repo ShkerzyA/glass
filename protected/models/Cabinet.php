@@ -50,7 +50,7 @@ class Cabinet extends CActiveRecord
 			array('floor', 'length', 'max'=>3),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_building, name, num, floor, phone', 'safe', 'on'=>'search'),
+			array('id, id_building, name, num, floor, phone, building', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,7 +63,7 @@ class Cabinet extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'personnels' => array(self::HAS_MANY, 'Personnel', 'id_cabinet'),
-			'Building' => array(self::BELONGS_TO, 'Building', 'id_building'),
+			'building' => array(self::BELONGS_TO, 'Building', 'id_building'),
 		);
 	}
 
@@ -74,11 +74,11 @@ class Cabinet extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_building' => 'Id Building',
-			'name' => 'Name',
-			'num' => 'Num',
-			'floor' => 'Floor',
-			'phone' => 'Phone',
+			'name' => 'Название кабинета',
+			'num' => 'Номер кабинета',
+			'floor' => 'Этаж',
+			'phone' => 'Телефоны',
+			'building' => 'Здание',
 		);
 	}
 
@@ -93,12 +93,15 @@ class Cabinet extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->with=array('building');
+
 		$criteria->compare('id',$this->id);
 		$criteria->compare('id_building',$this->id_building);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('num',$this->num,true);
 		$criteria->compare('floor',$this->floor,true);
 		$criteria->compare('phone',$this->phone,true);
+		$criteria->compare('building.name',$this->building,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
