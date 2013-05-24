@@ -1,0 +1,108 @@
+.view2{
+	position: relative;
+	float: left;
+	width: 27%;
+	height: 250px;
+	margin: 30px 30px 0 0;
+	border: 2px solid #bfbfbf;
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #efffff;
+}
+
+.avatar{
+	width: auto;
+	height: 200px;
+	margin: 2px 2px 10px 2px;
+	text-align:center;
+	vertical-align: middle;
+}
+
+
+
+.avatar img{
+	max-width: 100%;
+	max-height: 100%;
+	box-shadow: 1px 1px 4px 1px #404040;
+}
+
+.fio{
+	text-align: center;
+}
+
+.auth{
+	font-family: sans-serif;
+	font-size: 10pt;
+}
+.auth a{
+	color: black;	
+	text-decoration: none;
+}
+
+.logout{
+	margin: 10px 5px 5px 5px;
+	background-color: rgba(240,240,240, 0.9);
+	border: 1px solid grey;
+	box-shadow: 2px 2px 10px 4px #404040;
+	padding: 3px;
+	border-radius: 4px;
+}
+.customtree,
+.customtree *{
+	font-size: 12pt;
+}
+
+.customtree .treeplate{
+	background-color: #e8e8e8;
+	box-shadow: 1px 1px 2px 1px #d8d8d8;
+	width: 100%;
+}
+
+.customtree .treeplate:hover{
+	background-color: #fafafa;
+}
+
+
+.customtree li{
+	width: auto;
+}
+
+#avPersonnel{
+	position: relative;
+	float: left;
+	width: 25%;
+}
+
+#dataPersonnel{
+	position: relative;
+	float: left;
+	width: 70%;
+}
+
+#dataPersonnel div{
+ margin-left: 10px;
+ margin-bottom: 10px;
+ font-size: 10pt;
+}
+
+#personTbl #right{
+	text-align: right;
+}
+
+#personTbl,#personTbl *{
+	font-size: 12pt;
+	vertical-align: top;
+}
+
+.clear{
+	position: relative;
+	width: 1px;
+	height: 1px;
+	clear: both;
+}
+
+.list-view .pager{
+	position: relative;
+	clear: both;
+	padding-top: 20px;
+}
