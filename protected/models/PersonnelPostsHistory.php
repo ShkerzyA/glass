@@ -117,8 +117,8 @@ class PersonnelPostsHistory extends CActiveRecord
 		//print_r($personnel[0]);
 		//echo '</pre>';
 		//$sSep=', ';
-		foreach ($personnel[0]->personnel as $itm) {
-			echo($itm);
+		foreach ($personnel as $itm) {
+			echo($itm['personnel']['surname'].' '.$itm['personnel']['name'].' '.$itm['personnel']['patr'].'</br>');
 			//$aRes[] = $itm->surname;
 		}
 

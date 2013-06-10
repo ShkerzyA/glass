@@ -111,7 +111,7 @@ class DepartmentPosts extends CActiveRecord
 		$criteria->compare('t.date_begin',$this->date_begin,true);
 		$criteria->compare('t.date_end',$this->date_end,true);
 
-		$criteria->compare('personnel_posts_history[0].id_post',$this->id);
+		$criteria->compare('personnel_posts_history.id_post',$this->id_post);
 		
 
 		return new CActiveDataProvider($this, array(

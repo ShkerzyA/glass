@@ -16,8 +16,12 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'id_personnel'); ?>
-		<?php echo $form->dropDownList($model,'id_personnel',CHtml::listData(Personnel::model()->findall(),'id','surname')); ?>
+		<?php echo $form->labelEx($model,'id_personnel'); 
+		$personnels=Personnel::model()->findall();
+		 echo $form->dropDownList($model,'id_personnel',CHtml::listData($personnels,'id',function($personnels) {
+			return CHtml::encode($personnels->surname.' '.$personnels->name.' '.$personnels->patr);
+		}	
+	)); ?>
 		<?php echo $form->error($model,'id_personnel'); ?>
 	</div>
 
