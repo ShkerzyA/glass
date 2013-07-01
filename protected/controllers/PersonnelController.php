@@ -1,4 +1,8 @@
 <?php
+//Yii::import('application.vendors.*');
+//require_once('phpExcelReader/reader.php');
+
+
 
 class PersonnelController extends Controller
 {
@@ -36,7 +40,7 @@ class PersonnelController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','import','ajaxPost'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -49,6 +53,11 @@ class PersonnelController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+	public function actionajaxPost(){
+		$id = Yii::app()->request->getPost('id');
+       	$model=new PersonnelPostsHistory;
+        $this->renderPartial('_form_post_hist', array('model'=>$model,'id'=>$id));
+	}
 	public function actionView($id)
 	{
 		$this->render('view',array(
@@ -101,6 +110,83 @@ class PersonnelController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionImport()
+	{
+		//$model=$this->loadModel();
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		//var_dump ( $_POST );
+		
+		if(isset($_POST['Xls'])){
+			$modelxls=new Xls();
+			$modelxls->attributes=$_POST['Xls'];
+            $modelxls->xls=CUploadedFile::getInstance($modelxls,'xls');
+            try {
+            	$modelxls->xls->saveAs(Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'import.xls');
+			} catch (Exception $e) {
+    			echo 'Не удалось загрузить файл';
+			}	
+
+			$phpExcelPath = Yii::getPathOfAlias('ext.PHPExcel.Classes');
+			spl_autoload_unregister(array('YiiBase','autoload'));
+
+			include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
+			include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
+    		$objPHPExcel=PHPExcel_IOFactory::load(Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR.'tmp'.DIRECTORY_SEPARATOR.'import.xls');
+    		$objPHPExcel->setActiveSheetIndex(0);
+			$aSheet = $objPHPExcel->getActiveSheet();
+			$bfg='';
+			$bfg.='<table cellpadding="0" cellspacing="0">';
+			//получим итератор строки и пройдемся по нему циклом
+
+			$mass_pers=array();
+			foreach($aSheet->getRowIterator() as $row){
+
+				$pers=array();
+				$bfg.="<tr>\r\n";
+				//получим итератор ячеек текущей строки
+				$cellIterator = $row->getCellIterator();
+				//пройдемся циклом по ячейкам строки
+					$i=0;
+					foreach($cellIterator as $cell){
+						//и выведем значения
+						$val = $cell->getCalculatedValue();
+						if(PHPExcel_Shared_Date::isDateTime($cell)) {
+     						$val = date('d.m.Y', PHPExcel_Shared_Date::ExcelToPHP($val)); 
+						}
+						if ($i==0){
+							$fio=explode(' ', $val);
+							$pers['surname']=$fio[0];
+       						$pers['name']=$fio[1];
+       						$pers['patr']=$fio[2];
+							$val=$fio[0]+$fio[1]+$fio[2];
+						}
+
+						$bfg.="<td>".$val."</td>";
+						$i++;
+				}
+				$mass_pers[]=$pers;	
+				$bfg.="<tr>\r\n";
+			}
+			$bfg.='</table>';
+       		spl_autoload_register(array('YiiBase','autoload'));
+
+       		foreach ($mass_pers as $pers) {
+       			$newpers=new Personnel();
+       			$newpers->surname=$pers['surname'];
+       			$newpers->name=$pers['name'];
+       			$newpers->patr=$pers['patr'];
+       			$newpers->save();
+       		}
+       		
+		} 
+
+		$this->render('import',array('bfg'=>$bfg));
+
 	}
 
 	/**

@@ -2,7 +2,23 @@
 /* @var $this PersonnelController */
 /* @var $model Personnel */
 /* @var $form CActiveForm */
+Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('ext.assets').'/modalAjax.js'),CClientScript::POS_END);
+
 ?>
+
+
+
+<div class="modalwind"><img src=/glass/images/close.png id="close" style="text-align: right;"><div id='PostInfo'></div></div>
+
+<?php echo CHtml::ajaxLink('[Должности]',CController::createUrl('Personnel/ajaxPost'), 
+                                       array('type' => 'POST',
+                                             'data'=>array('id'=>$model->id),
+                                             'update' => '#PostInfo',
+                                             'complete' => 'function(){$(".modalwind").show();}',
+                                            )
+                                       );
+ ?>
+
 
 <div class="form">
 
@@ -12,7 +28,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Поле с <span class="required">*</span> обязательно для заполнения.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -59,5 +75,8 @@
 	</div>
 
 <?php $this->endWidget(); ?>
+
+
+
 
 </div><!-- form -->

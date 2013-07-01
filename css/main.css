@@ -277,3 +277,23 @@ div.search-form
 
 
 
+.modalwind{
+	background: #0f0f4d;
+	position: absolute;
+	top: 40px;
+	left: 40px;
+	z-index: 9;
+}
+
+.modalwind div{
+	margin: 4px;
+	background: #dadee0;
+	margin-top: 3px;
+	margin-left: 3px;
+	margin-bottom: 3px;
+	margin-right: 3px;
+
+}
+
+
+

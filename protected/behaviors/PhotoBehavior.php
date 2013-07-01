@@ -1,7 +1,7 @@
 <?php 
 class PhotoBehavior extends CActiveRecordBehavior{
     
-    public function beforeSave(){
+    public function beforeSave($event){
        if(($this->owner->scenario=='insert' || $this->owner->scenario=='update') &&
             ($document=CUploadedFile::getInstance($this->owner,'photo'))){
                 $sourcePath = pathinfo($document->getName());
@@ -19,7 +19,7 @@ class PhotoBehavior extends CActiveRecordBehavior{
     }
 
 
-    public function beforeDelete(){
+    public function beforeDelete($event){
         $this->deletePhoto(); // удалили модель? удаляем и файл
         return true;
     }

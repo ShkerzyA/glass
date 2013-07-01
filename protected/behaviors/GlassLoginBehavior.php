@@ -8,7 +8,7 @@ class GlassLoginBehavior extends CActiveRecordBehavior{
 
     }
 
-    public function beforeSave()
+    public function beforeSave($event)
     {
         
         $this->owner->password = $this->hash($this->owner->password);
