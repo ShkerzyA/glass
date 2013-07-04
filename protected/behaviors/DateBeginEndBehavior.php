@@ -11,7 +11,7 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
 
 
 
-    public function beforeSave(){
+    public function beforeSave($event){
                 if(!empty($this->owner->date_begin)){
                     $this->owner->date_begin = date('Y-m-d', strtotime($this->owner->date_begin));//strtotime($this->date_start);
                 }else{
@@ -25,7 +25,7 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
                 }
     }
 
-    public function afterFind() {
+    public function afterFind($event) {
 
         if(!empty($this->owner->date_begin)){
             $date = date('d.m.Y', strtotime($this->owner->date_begin));
