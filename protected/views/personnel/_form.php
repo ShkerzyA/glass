@@ -10,7 +10,16 @@ Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('e
 
 <div class="modalwind"><img src=/glass/images/close.png id="close" style="text-align: right;"><div id='PostInfo'></div></div>
 
-<?php echo CHtml::ajaxLink('[Должности]',CController::createUrl('Personnel/ajaxPost'), 
+<?php echo CHtml::ajaxLink('[Должности/Создать]',CController::createUrl('Personnel/ajaxPost'), 
+                                       array('type' => 'POST',
+                                             'data'=>array('id'=>$model->id),
+                                             'update' => '#PostInfo',
+                                             'complete' => 'function(){$(".modalwind").show();}',
+                                            )
+                                       );
+ ?>
+
+ <?php echo CHtml::ajaxLink('[Должности/Управление]',CController::createUrl('Personnel/ajaxPostAdm'), 
                                        array('type' => 'POST',
                                              'data'=>array('id'=>$model->id),
                                              'update' => '#PostInfo',

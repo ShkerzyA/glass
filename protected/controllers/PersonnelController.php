@@ -40,7 +40,7 @@ class PersonnelController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','import','ajaxPost'),
+				'actions'=>array('admin','delete','import','ajaxPost','ajaxPostAdm'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -56,8 +56,21 @@ class PersonnelController extends Controller
 	public function actionajaxPost(){
 		$id = Yii::app()->request->getPost('id');
        	$model=new PersonnelPostsHistory;
-        $this->renderPartial('_form_post_hist', array('model'=>$model,'id'=>$id));
+        $this->renderPartial('_form_post_hist', array('model'=>$model,'id'=>$id), false, true);
 	}
+
+	public function actionajaxPostAdm(){
+		$id = Yii::app()->request->getPost('id');
+		$dataprov=new CActiveDataProvider('PersonnelPostsHistory', array(
+    'criteria'=>array(
+        'condition'=>'id_personnel='.$id,
+    ),));
+
+        $this->renderPartial('admin_post_hist', array('models'=>$dataprov,'id'=>$id), false, true);
+	}
+
+
+
 	public function actionView($id)
 	{
 		$this->render('view',array(

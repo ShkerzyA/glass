@@ -282,7 +282,7 @@ div.search-form
 	position: absolute;
 	top: 40px;
 	left: 40px;
-	z-index: 9;
+	/*z-index: 1; */
 }
 
 .modalwind div{
