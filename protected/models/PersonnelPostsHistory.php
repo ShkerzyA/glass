@@ -97,7 +97,13 @@ class PersonnelPostsHistory extends CActiveRecord
 		$criteria->with = array('personnel','department_posts');
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('id_personnel',$this->id_personnel);
+
+		if(!empty($_GET['id_personnel'])){
+			$criteria->compare('id_personnel',$_GET['id_personnel']);
+		}else{
+			$criteria->compare('id_personnel',$this->id_personnel);	
+		}
+		
 		$criteria->compare('id_post',$this->id_post);
 		$criteria->compare('date_begin',$this->date_begin,true);
 		$criteria->compare('date_end',$this->date_end,true);

@@ -8,7 +8,7 @@ Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('e
 
 
 
-<div class="modalwind"><img src=/glass/images/close.png id="close" style="text-align: right;"><div id='PostInfo'></div></div>
+<div class="modalwind" style="display: none;"><img src=/glass/images/close.png id="close" style="text-align: right;"><div id='PostInfo'></div></div>
 
 <?php echo CHtml::ajaxLink('[Должности/Создать]',CController::createUrl('Personnel/ajaxPost'), 
                                        array('type' => 'POST',

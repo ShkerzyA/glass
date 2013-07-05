@@ -1,10 +1,6 @@
-/*$(document).ready(function() {
-	$(".treeview li").live('click',function sum(){ 
-		jQuery(function($) {
-		jQuery("#d1").treeview({'url':'/glass/department/ajaxFillTree'});
-		}); 
-
+$(document).ready(function() {
+	$("#close").live('click',function sum(){ 
+		$('#PostInfo').empty();
+		$('.modalwind').hide();
 	});
-});*/
-
-alert('Ну и ну');
+});

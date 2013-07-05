@@ -31,7 +31,8 @@ $('.search-form form').submit(function(){
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'personnel-posts-history-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->search(array('criteria'=>array(
+        'condition'=>'id_personnel=2'))),
 	'filter'=>$model,
 	'columns'=>array(
         array( 'name'=>'personnel', 'value'=>'$data->personnel->surname' ),

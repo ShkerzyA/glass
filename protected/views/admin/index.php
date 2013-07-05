@@ -8,12 +8,11 @@ $this->breadcrumbs=array(
 
 
 
-$this->widget('zii.widgets.CMenu', array(
-    'items'=>array(
+$this->menu=array(
       array('label'=>'GII', 'url'=>array('/gii')),
 	array('label'=>'Пользователи', 'url'=>array('/users/admin'),'items'=>array(
-		array('label'=>'Роли', 'url'=>array('/usersPosts/admin')),
-		array('label'=>'Права', 'url'=>array('/usersRules/admin'))
+		/*array('label'=>'Роли', 'url'=>array('/usersPosts/admin')),
+		array('label'=>'Права', 'url'=>array('/usersRules/admin')) */
 		)),
 	array('label'=>'Кадры', 'url'=>array('/personnel/admin'),'items'=>array(
 		array('label'=>'Импорт кадров', 'url'=>array('/personnel/import')),
@@ -25,7 +24,6 @@ $this->widget('zii.widgets.CMenu', array(
 	array('label'=>'Здания', 'url'=>array('/building/admin'),'items'=>array(
 		array('label'=>'Кабинеты', 'url'=>array('/cabinet/admin')), 
 		)),
-    ),
-));
+);
 
 ?>
