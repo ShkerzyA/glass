@@ -17,13 +17,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'id_building'); ?>
-		<?php echo $form->textField($model,'id_building'); ?>
+		<?php echo $form->label($model,'id_floor'); ?>
+		<?php echo $form->textField($model,'id_floor'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->label($model,'cname'); ?>
+		<?php echo $form->textField($model,'cname',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
 	<div class="row">
@@ -32,17 +32,12 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'floor'); ?>
-		<?php echo $form->textField($model,'floor',array('size'=>3,'maxlength'=>3)); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'phone'); ?>
-		<?php echo $form->textField($model,'phone',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>100)); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo CHtml::submitButton('Искать'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

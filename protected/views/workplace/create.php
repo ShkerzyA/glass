@@ -1,6 +1,6 @@
 <?php
-/* @var $this CabinetController */
-/* @var $model Cabinet */
+/* @var $this WorkplaceController */
+/* @var $model Workplace */
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),

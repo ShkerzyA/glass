@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),
-	$model->name,
+	$model->id,
 );
 
 $this->menu=array(
@@ -23,6 +23,6 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'adress',
-		'name',
+		'bname',
 	),
 )); ?>

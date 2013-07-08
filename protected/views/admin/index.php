@@ -24,6 +24,7 @@ $this->menu=array(
 	array('label'=>'Здания', 'url'=>array('/building/admin'),'items'=>array(
 		array('label'=>'Этажи', 'url'=>array('/floor/admin')), 
 		array('label'=>'Кабинеты', 'url'=>array('/cabinet/admin')), 
+		array('label'=>'Рабочие места', 'url'=>array('/workplace/admin')),
 		)),
 );
 

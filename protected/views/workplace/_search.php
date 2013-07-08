@@ -1,6 +1,6 @@
 <?php
-/* @var $this BuildingController */
-/* @var $model Building */
+/* @var $this WorkplaceController */
+/* @var $model Workplace */
 /* @var $form CActiveForm */
 ?>
 
@@ -17,13 +17,18 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'adress'); ?>
-		<?php echo $form->textField($model,'adress',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->label($model,'id_cabinet'); ?>
+		<?php echo $form->textField($model,'id_cabinet'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'bname'); ?>
-		<?php echo $form->textField($model,'bname',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->label($model,'id_personnel'); ?>
+		<?php echo $form->textField($model,'id_personnel'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'wname'); ?>
+		<?php echo $form->textField($model,'wname',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
 	<div class="row buttons">

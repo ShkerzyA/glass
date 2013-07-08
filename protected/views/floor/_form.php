@@ -21,24 +21,24 @@
 
 		<?php $tmp=Building::model()->findall();
 echo $form->dropDownList($model,"id_building",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->bname);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_building'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->labelEx($model,'fnum'); ?>
 
-		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'fnum',array('size'=>10,'maxlength'=>10)); ?>
 
-		<?php echo $form->error($model,'name'); ?>
+		<?php echo $form->error($model,'fnum'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'num'); ?>
+		<?php echo $form->labelEx($model,'fname'); ?>
 
-		<?php echo $form->textField($model,'num',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->textField($model,'fname'); ?>
 
-		<?php echo $form->error($model,'num'); ?>
+		<?php echo $form->error($model,'fname'); ?>
 	</div>
 
 	<div class="row buttons">

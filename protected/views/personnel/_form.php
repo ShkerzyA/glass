@@ -10,25 +10,6 @@ Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('e
 
 <div class="modalwind" style="display: none;"><img src=/glass/images/close.png id="close" style="text-align: right;"><div id='PostInfo'></div></div>
 
-<?php echo CHtml::ajaxLink('[Должности/Создать]',CController::createUrl('Personnel/ajaxPost'), 
-                                       array('type' => 'POST',
-                                             'data'=>array('id'=>$model->id),
-                                             'update' => '#PostInfo',
-                                             'complete' => 'function(){$(".modalwind").show();}',
-                                            )
-                                       );
- ?>
-
- <?php echo CHtml::ajaxLink('[Должности/Управление]',CController::createUrl('Personnel/ajaxPostAdm'), 
-                                       array('type' => 'POST',
-                                             'data'=>array('id'=>$model->id),
-                                             'update' => '#PostInfo',
-                                             'complete' => 'function(){$(".modalwind").show();}',
-                                            )
-                                       );
- ?>
-
-
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -71,11 +52,6 @@ Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('e
 		<?php echo $form->error($model,'id_user'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_cabinet'); ?>
-		<?php echo $form->dropDownList($model,'id_cabinet',CHtml::listData(Cabinet::model()->findall(),'id','name'),array('empty' => '(Кабинет)')); ?>
-		<?php echo $form->error($model,'id_cabinet'); ?>
-	</div>
 
 
 

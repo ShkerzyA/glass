@@ -74,7 +74,7 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 	<?php
 
 	foreach ($rel as $v) {
-		echo "public \${$v['name']}{$v['fk']};";
+		echo "public \${$v['name']}{$v['fk']};\n";
 		# code...
 	}
 	?>

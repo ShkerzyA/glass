@@ -1,6 +1,6 @@
 <?php
-/* @var $this CabinetController */
-/* @var $model Cabinet */
+/* @var $this WorkplaceController */
+/* @var $model Workplace */
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),
@@ -23,12 +23,15 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 array(               
-            	'label'=>'Floor',
+            	'label'=>'Cabinet',
             	'type'=>'raw',
-            	'value'=>CHtml::link(CHtml::encode($model->idFloor->fname),
-                array('Floor/view','id'=>$model->idFloor->id)),
-        ),		'cname',
-		'num',
-		'phone',
+            	'value'=>CHtml::link(CHtml::encode($model->idCabinet->cname),
+                array('Cabinet/view','id'=>$model->idCabinet->id)),
+        ),array(               
+            	'label'=>'Personnel',
+            	'type'=>'raw',
+            	'value'=>CHtml::link(CHtml::encode($model->idPersonnel->surname),
+                array('Personnel/view','id'=>$model->idPersonnel->id)),
+        ),		'wname',
 	),
 )); ?>

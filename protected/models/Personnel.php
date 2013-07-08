@@ -79,7 +79,7 @@ class Personnel extends CActiveRecord
 		return array(
 			'users' => array(self::BELONGS_TO, 'Users', 'id_user'),
 			'PostsHistory' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel'),
-			'Cabinet' => array(self::BELONGS_TO, 'Cabinet', 'id_cabinet'),
+			'idWorkplace' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
 		);
 	}
 
@@ -126,7 +126,6 @@ class Personnel extends CActiveRecord
 		$criteria->compare('photo',$this->photo,true);
 		$criteria->compare('id_user',$this->id_user);
 		$criteria->compare('username',$this->username,true);
-		$criteria->compare('id_cabinet',$this->id_cabinet);
 
 
 		return new CActiveDataProvider($this, array(

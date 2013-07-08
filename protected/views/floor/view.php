@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),
-	$model->name,
+	$model->id,
 );
 
 $this->menu=array(
@@ -25,9 +25,9 @@ $this->menu=array(
 array(               
             	'label'=>'Building',
             	'type'=>'raw',
-            	'value'=>CHtml::link(CHtml::encode($model->idBuilding->name),
+            	'value'=>CHtml::link(CHtml::encode($model->idBuilding->bname),
                 array('Building/view','id'=>$model->idBuilding->id)),
-        ),		'name',
-		'num',
+        ),		'fnum',
+		'fname',
 	),
 )); ?>

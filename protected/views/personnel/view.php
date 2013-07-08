@@ -23,10 +23,10 @@ $this->menu=array(
 	<?php 
 
 
-	echo'<div><b>'.CHtml::encode($model->surname).' '.CHtml::encode($model->name).' '.CHtml::encode($model->patr).'</b> (тел.'.($ph=(!empty($model->Cabinet))?CHtml::encode($model->Cabinet->phone):'').')</div>';
-	if (!empty($model->Cabinet)){
-		echo'<div>Кабинет: "'.CHtml::encode($model->Cabinet->name).' №'.CHtml::encode($model->Cabinet->num).'" '.CHtml::encode($model->Cabinet->building->name).' '.CHtml::encode($model->Cabinet->floor).'эт. </div>';
-	}
+	//echo'<div><b>'.CHtml::encode($model->surname).' '.CHtml::encode($model->name).' '.CHtml::encode($model->patr).'</b> (тел.'.($ph=(!empty($model->Cabinet))?CHtml::encode($model->Cabinet->phone):'').')</div>';
+	//if (!empty($model->Cabinet)){
+	//	echo'<div>Кабинет: "'.CHtml::encode($model->Cabinet->name).' №'.CHtml::encode($model->Cabinet->num).'" '.CHtml::encode($model->Cabinet->building->name).' '.CHtml::encode($model->Cabinet->floor).'эт. </div>';
+	//}
 	echo"<br><div><h3>Занимаемые должности:</h3>";
 	foreach($model->PostsHistory as $posts){
 		$date_end=CHtml::encode($posts->date_end);

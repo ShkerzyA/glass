@@ -1,5 +1,5 @@
 <?php
-/* @var $this CabinetController */
+/* @var $this WorkplaceController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(

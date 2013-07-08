@@ -1,19 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "sex".
+ * This is the model class for table "floor".
  *
- * The followings are the available columns in table 'sex':
+ * The followings are the available columns in table 'floor':
  * @property integer $id
+ * @property integer $id_building
  * @property string $name
+ * @property string $num
+ *		 * The followings are the available model relations:
+
+
+ * @property Building $idBuilding
  */
-class Sex extends CActiveRecord
+class Floor extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Sex the static model class
+	 * @return Floor the static model class
 	 */
+	public static $modelLabelS='Этаж';
+	public static $modelLabelP='Этажи';
+	
+	public $idBuildingid_building;
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -24,7 +35,7 @@ class Sex extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'sex';
+		return 'floor';
 	}
 
 	/**
@@ -35,11 +46,14 @@ class Sex extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'required'),
+			array('id_building', 'required'),
+			array('id_building', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>50),
+			array('num', 'length', 'max'=>10),
+		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on'=>'search'),
+			array('id, id_building, name, num,idBuildingid_building', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -51,6 +65,7 @@ class Sex extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idBuilding' => array(self::BELONGS_TO, 'Building', 'id_building'),
 		);
 	}
 
@@ -61,7 +76,10 @@ class Sex extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
+			'id_building' => 'Id Здания',
+			'name' => 'Название',
+			'num' => 'Номер',
+			'idBuildingid_building' => 'Здание',
 		);
 	}
 
@@ -76,8 +94,15 @@ class Sex extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->with=array('idBuilding' => array('alias' => 'building'),);
 		$criteria->compare('id',$this->id);
+		if(!empty($_GET['id_building']))
+				$criteria->compare('id_building',$_GET['id_building']);
+		else
+				$criteria->compare('id_building',$this->id_building);
 		$criteria->compare('name',$this->name,true);
+		$criteria->compare('num',$this->num,true);
+		$criteria->compare('building.id_building',$this->idBuildingid_building,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

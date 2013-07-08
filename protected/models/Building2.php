@@ -1,33 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "floor".
+ * This is the model class for table "building".
  *
- * The followings are the available columns in table 'floor':
+ * The followings are the available columns in table 'building':
  * @property integer $id
- * @property integer $id_building
- * @property string $fnum
- * @property string $fname
+ * @property string $adress
+ * @property string $name
  *		 * The followings are the available model relations:
 
 
  * @property Cabinet[] $cabinets
 
 
- * @property Building $idBuilding
+ * @property Floor[] $floors
  */
-class Floor extends CActiveRecord
+class Building extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Floor the static model class
+	 * @return Building the static model class
 	 */
-	public static $modelLabelS='Этаж';
-	public static $modelLabelP='Этажи';
+	public static $modelLabelS='Здание';
+	public static $modelLabelP='Здания';
 	
-	public $cabinetsid_floor;public $idBuildingid_building;
-
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -38,7 +35,7 @@ class Floor extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'floor';
+		return 'building';
 	}
 
 	/**
@@ -49,14 +46,11 @@ class Floor extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_building', 'required'),
-			array('id_building', 'numerical', 'integerOnly'=>true),
-			array('fnum', 'length', 'max'=>10),
-			array('fname', 'safe'),
-		
+			array('adress', 'length', 'max'=>100),
+			array('name', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_building, fnum, fname,cabinetsid_floor,idBuildingid_building', 'safe', 'on'=>'search'),
+			array('id, adress, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -68,8 +62,8 @@ class Floor extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'cabinets' => array(self::HAS_MANY, 'Cabinet', 'id_floor'),
-			'idBuilding' => array(self::BELONGS_TO, 'Building', 'id_building'),
+			'cabinets' => array(self::HAS_MANY, 'Cabinet', 'id_building'),
+			'floors' => array(self::HAS_MANY, 'Floor', 'id_building'),
 		);
 	}
 
@@ -80,11 +74,8 @@ class Floor extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_building' => 'Id Здания',
-			'fnum' => 'Номер',
-			'fname' => 'Название',
-			'cabinetsid_floor' => 'Кабинеты',
-			'idBuildingid_building' => 'Здание',
+			'adress' => 'Адрес',
+			'name' => 'Название',
 		);
 	}
 
@@ -99,16 +90,9 @@ class Floor extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('cabinets' => array('alias' => 'cabinet'),'idBuilding' => array('alias' => 'building'),);
 		$criteria->compare('id',$this->id);
-		if(!empty($_GET['id_building']))
-				$criteria->compare('id_building',$_GET['id_building']);
-		else
-				$criteria->compare('id_building',$this->id_building);
-		$criteria->compare('fnum',$this->fnum,true);
-		$criteria->compare('fname',$this->fname,true);
-		$criteria->compare('cabinet.fname',$this->cabinetsid_floor,true);
-		$criteria->compare('building.bname',$this->idBuildingid_building,true);
+		$criteria->compare('adress',$this->adress,true);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -1,6 +1,6 @@
 <?php
-/* @var $this CabinetController */
-/* @var $model Cabinet */
+/* @var $this WorkplaceController */
+/* @var $model Workplace */
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),
@@ -20,7 +20,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#cabinet-grid').yiiGridView('update', {
+	$('#workplace-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -39,15 +39,14 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'cabinet-grid',
+	'id'=>'workplace-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array( 'name'=>'idFloorid_floor', 'value'=>'$data->idFloor->fname' ),
-		'cname',
-		'num',
-		'phone',
+		array( 'name'=>'idCabinetid_cabinet', 'value'=>'$data->idCabinet->cname' ),
+		array( 'name'=>'idPersonnelid_personnel', 'value'=>'$data->idPersonnel->surname' ),
+		'wname',
 		array(
 			'class'=>'CButtonColumn',
 		),

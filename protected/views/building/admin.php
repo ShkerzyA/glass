@@ -45,7 +45,7 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'adress',
-		'name',
+		'bname',
 		array(
 			'class'=>'CButtonColumn',
 		),

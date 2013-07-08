@@ -1,6 +1,6 @@
 <?php
 
-class CabinetController extends Controller
+class WorkplaceController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -62,14 +62,14 @@ class CabinetController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new Cabinet;
+		$model=new Workplace;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Cabinet']))
+		if(isset($_POST['Workplace']))
 		{
-			$model->attributes=$_POST['Cabinet'];
+			$model->attributes=$_POST['Workplace'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -91,9 +91,9 @@ class CabinetController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Cabinet']))
+		if(isset($_POST['Workplace']))
 		{
-			$model->attributes=$_POST['Cabinet'];
+			$model->attributes=$_POST['Workplace'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -122,9 +122,9 @@ class CabinetController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Cabinet');
+		$dataProvider=new CActiveDataProvider('Workplace');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider, 'modelLabelP'=>Cabinet::$modelLabelP,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Workplace::$modelLabelP,
 		));
 	}
 
@@ -133,10 +133,10 @@ class CabinetController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Cabinet('search');
+		$model=new Workplace('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Cabinet']))
-			$model->attributes=$_GET['Cabinet'];
+		if(isset($_GET['Workplace']))
+			$model->attributes=$_GET['Workplace'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -147,12 +147,12 @@ class CabinetController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Cabinet the loaded model
+	 * @return Workplace the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Cabinet::model()->findByPk($id);
+		$model=Workplace::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -160,11 +160,11 @@ class CabinetController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Cabinet $model the model to be validated
+	 * @param Workplace $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='cabinet-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='workplace-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
