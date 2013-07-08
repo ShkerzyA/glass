@@ -15,6 +15,18 @@ echo "\$this->breadcrumbs=array(
 	$label=>array('index'),
 	\$model->{$nameColumn},
 );\n";
+
+
+$model=new $this->model;
+$rel=array();
+
+foreach ($model->metaData->relations as $relations){
+	$rel['search'][]=$relations->foreignKey;
+	$rel[$relations->foreignKey]['name']=$relations->name;
+    $rel[$relations->foreignKey]['className']=$relations->className;
+    $rel[$relations->foreignKey]['foreignKey']=$relations->foreignKey;
+} 
+
 ?>
 
 $this->menu=array(
@@ -33,7 +45,17 @@ $this->menu=array(
 	'attributes'=>array(
 <?php
 foreach($this->tableSchema->columns as $column)
-	echo "\t\t'".$column->name."',\n";
+
+	if (in_array($column->name,$rel['search'])){
+		echo "array(               
+            	'label'=>'{$rel[$column->name]['className']}',
+            	'type'=>'raw',
+            	'value'=>CHtml::link(CHtml::encode(\$model->{$rel[$column->name]['name']}->{$rel[$column->name]['foreignKey']}),
+                array('{$rel[$column->name]['className']}/view','id'=>\$model->{$rel[$column->name]['name']}->id)),
+        ),";
+	}else{
+		echo "\t\t'".$column->name."',\n";
+	}
 ?>
 	),
 )); ?>

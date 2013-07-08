@@ -21,7 +21,7 @@
 
 		<?php $tmp=Building::model()->findall();
 echo $form->dropDownList($model,"id_building",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->name.' '.$tmp->adress);})); ?>
+				return CHtml::encode($tmp->id_building)},array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_building'); ?>
 	</div>
 

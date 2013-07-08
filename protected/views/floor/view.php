@@ -22,8 +22,12 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'id_building',
-		'name',
+array(               
+            	'label'=>'Building',
+            	'type'=>'raw',
+            	'value'=>CHtml::link(CHtml::encode($model->idBuilding->name),
+                array('Building/view','id'=>$model->idBuilding->id)),
+        ),		'name',
 		'num',
 	),
 )); ?>

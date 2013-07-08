@@ -14,8 +14,8 @@ $this->menu=array(
 	array('label'=>'Отобразить', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Управление ', 'url'=>array('admin')),
 );
-	$this->menu["details"]=array(array('label'=>'Cabinet', 'url'=>array('Cabinet/admin', 'id_building'=>$model->id)),
-array('label'=>'Floor', 'url'=>array('Floor/admin', 'id_building'=>$model->id)),
+	$this->menu["details"]=array(array('label'=>'Кабинеты', 'url'=>array('Cabinet/admin', 'id_building'=>$model->id)),
+array('label'=>'Этажи', 'url'=>array('Floor/admin', 'id_building'=>$model->id)),
 );
 ?>
 
