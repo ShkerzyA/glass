@@ -124,7 +124,7 @@ class FloorController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('Floor');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Floor::$modelLabelP,
 		));
 	}
 

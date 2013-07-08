@@ -20,10 +20,14 @@
  * @property <?php echo $column->type.' $'.$column->name."\n"; ?>
 <?php endforeach; ?>
 <?php if(!empty($relations)): ?>
- *
+ *		<?php $fk=array(); ?>
  * The followings are the available model relations:
 <?php foreach($relations as $name=>$relation): ?>
+
+
  * @property <?php
+	$tmpr=explode("'",$relation);
+	$fk[]=$tmpr[3];
 	if (preg_match("~^array\(self::([^,]+), '([^']+)', '([^']+)'\)$~", $relation, $matches))
     {
         $relationType = $matches[1];
@@ -57,8 +61,8 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 	 * @param string $className active record class name.
 	 * @return <?php echo $modelClass; ?> the static model class
 	 */
-	public $modelLabelS='<?php echo $modelClass; ?>';
-	public $modelLabelP='<?php echo $modelClass; ?>';
+	public static $modelLabelS='<?php echo $modelClass; ?>';
+	public static $modelLabelP='<?php echo $modelClass; ?>';
 	
 	public static function model($className=__CLASS__)
 	{
@@ -140,6 +144,14 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 <?php
 foreach($columns as $name=>$column)
 {
+	
+
+	if (in_array($name,$fk)){
+		echo "\t\tif(!empty(\$_GET['$name']))
+		\t\t\$criteria->compare('$name',\$_GET['$name']);
+		else\n\t\t";
+	}
+
 	if($column->type==='string')
 	{
 		echo "\t\t\$criteria->compare('$name',\$this->$name,true);\n";

@@ -9,7 +9,7 @@
 /* @var $model <?php echo $this->getModelClass(); ?> */
 
 <?php
-$label='$model->modelLabelP';
+$label='$model::$modelLabelP';
 echo "\$this->breadcrumbs=array(
 	$label=>array('index'),
 	'Управление',
@@ -37,7 +37,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Управление  "<?php echo "<?php"; ?>  echo $model->modelLabelP; ?>"</h1>
+<h1>Управление  "<?php echo "<?php"; ?>  echo $model::$modelLabelP; ?>"</h1>
 
 
 <?php echo "<?php echo CHtml::link('Расширенный поиск','#',array('class'=>'search-button')); ?>"; ?>

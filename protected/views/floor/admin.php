@@ -3,7 +3,7 @@
 /* @var $model Floor */
 
 $this->breadcrumbs=array(
-	$model->modelLabelP=>array('index'),
+	$model::$modelLabelP=>array('index'),
 	'Управление',
 );
 
@@ -28,7 +28,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Управление  "<?php  echo $model->modelLabelP; ?>"</h1>
+<h1>Управление  "<?php  echo $model::$modelLabelP; ?>"</h1>
 
 
 <?php echo CHtml::link('Расширенный поиск','#',array('class'=>'search-button')); ?>

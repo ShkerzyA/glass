@@ -51,6 +51,9 @@ class PersonnelPostsHistoryController extends Controller
 	 */
 	public function actionView($id)
 	{
+		echo '<pre>';
+		var_dump($this->loadModel($id));
+		echo '</pre>';
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));

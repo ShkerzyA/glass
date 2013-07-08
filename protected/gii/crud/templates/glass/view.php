@@ -10,7 +10,7 @@
 
 <?php
 $nameColumn=$this->guessNameColumn($this->tableSchema->columns);
-$label='$model->modelLabelP';
+$label='$model::$modelLabelP';
 echo "\$this->breadcrumbs=array(
 	$label=>array('index'),
 	\$model->{$nameColumn},
@@ -26,7 +26,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Отобразить "<?php echo "<?php"; ?>  echo $model->modelLabelS; ?>" <?php echo " #<?php echo \$model->{$this->tableSchema->primaryKey}; ?>"; ?></h1> 
+<h1>Отобразить "<?php echo "<?php"; ?>  echo $model::$modelLabelS; ?>" <?php echo " #<?php echo \$model->{$this->tableSchema->primaryKey}; ?>"; ?></h1> 
 
 <?php echo "<?php"; ?> $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

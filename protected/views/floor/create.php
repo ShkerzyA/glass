@@ -3,7 +3,7 @@
 /* @var $model Floor */
 
 $this->breadcrumbs=array(
-	$model->modelLabelP=>array('index'),
+	$model::$modelLabelP=>array('index'),
 	'Создать',
 );
 
@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Создать "<?php  echo $model->modelLabelS; ?>"</h1>
+<h1>Создать "<?php  echo $model::$modelLabelS; ?>"</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

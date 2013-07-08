@@ -16,6 +16,19 @@
 			'htmlOptions'=>array('class'=>'operations'),
 		));
 		$this->endWidget();
+
+
+
+		if (!empty($this->menu['details'])){
+			$this->beginWidget('zii.widgets.CPortlet', array(
+				'title'=>'Детали',
+			));
+			$this->widget('zii.widgets.CMenu', array(
+				'items'=>$this->menu['details'],
+				'htmlOptions'=>array('class'=>'operations'),
+			));
+			$this->endWidget();
+		}
 	?>
 	</div><!-- sidebar -->
 </div>

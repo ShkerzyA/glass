@@ -9,7 +9,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 <?php
-$label='$model->modelLabelP';
+$label='$modelLabelP';
 echo "\$this->breadcrumbs=array(
 	''.$label,
 );\n";
@@ -21,7 +21,7 @@ $this->menu=array(
 );
 ?>
 
-<h1><?php echo "<?php"; ?>  echo $model->modelLabelP; ?></h1>
+<h1><?php echo "<?php"; ?>  echo $modelLabelP; ?></h1>
 
 <?php echo "<?php"; ?> $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

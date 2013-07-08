@@ -6,9 +6,14 @@
  * The followings are the available columns in table 'building':
  * @property integer $id
  * @property string $adress
- *
- * The followings are the available model relations:
+ * @property string $name
+ *		 * The followings are the available model relations:
+
+
  * @property Cabinet[] $cabinets
+
+
+ * @property Floor[] $floors
  */
 class Building extends CActiveRecord
 {
@@ -17,6 +22,9 @@ class Building extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Building the static model class
 	 */
+	public static $modelLabelS='Здание';
+	public static $modelLabelP='Здания';
+	
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -38,11 +46,11 @@ class Building extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'length', 'max'=>50),
 			array('adress', 'length', 'max'=>100),
+			array('name', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, adress', 'safe', 'on'=>'search'),
+			array('id, adress, name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,6 +63,7 @@ class Building extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'cabinets' => array(self::HAS_MANY, 'Cabinet', 'id_building'),
+			'floors' => array(self::HAS_MANY, 'Floor', 'id_building'),
 		);
 	}
 
@@ -65,8 +74,8 @@ class Building extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Название',
-			'adress' => 'Адрес',
+			'adress' => 'Adress',
+			'name' => 'Name',
 		);
 	}
 
@@ -82,8 +91,8 @@ class Building extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
 		$criteria->compare('adress',$this->adress,true);
+		$criteria->compare('name',$this->name,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

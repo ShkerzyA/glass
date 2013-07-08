@@ -124,7 +124,7 @@ class BuildingController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('Building');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Building::$modelLabelP,
 		));
 	}
 

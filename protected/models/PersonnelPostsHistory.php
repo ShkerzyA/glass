@@ -117,8 +117,8 @@ class PersonnelPostsHistory extends CActiveRecord
 	}
 
 	public function allPersonelForPost($id_post){
+		//$personnel=PersonnelPostsHistory::model()->with('personnel')->findAll(array('condition'=>"id_post=$id_post"));
 		$personnel=PersonnelPostsHistory::model()->with('personnel')->findAll(array('condition'=>"id_post=$id_post"));
-
 		//echo '<pre>';
 		//print_r($personnel[0]);
 		//echo '</pre>';

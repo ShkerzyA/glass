@@ -8,8 +8,9 @@
  * @property integer $id_building
  * @property string $name
  * @property string $num
- *
- * The followings are the available model relations:
+ *		 * The followings are the available model relations:
+
+
  * @property Building $idBuilding
  */
 class Floor extends CActiveRecord
@@ -19,8 +20,8 @@ class Floor extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Floor the static model class
 	 */
-	public $modelLabelS='Этаж';
-	public $modelLabelP='Этажи';
+	public static $modelLabelS='Этаж';
+	public static $modelLabelP='Этажи';
 	
 	public static function model($className=__CLASS__)
 	{
@@ -90,7 +91,10 @@ class Floor extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-		$criteria->compare('id_building',$this->id_building);
+		if(!empty($_GET['id_building']))
+				$criteria->compare('id_building',$_GET['id_building']);
+		else
+				$criteria->compare('id_building',$this->id_building);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('num',$this->num,true);
 
