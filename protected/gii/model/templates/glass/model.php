@@ -27,7 +27,14 @@
 
  * @property <?php
 	$tmpr=explode("'",$relation);
+
+	$rel[$name]['name']=$name;
+	$rel[$name]['tbl']=mb_strtolower($tmpr[1]);
+	//mb_convert_case((iconv('UTF-8','WINDOWS-1251',$_POST['surname'])), MB_CASE_TITLE, 'WINDOWS-1251'))
+	$rel[$name]['fk']=$tmpr[3];
 	$fk[]=$tmpr[3];
+
+	
 	if (preg_match("~^array\(self::([^,]+), '([^']+)', '([^']+)'\)$~", $relation, $matches))
     {
         $relationType = $matches[1];
@@ -64,6 +71,15 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 	public static $modelLabelS='<?php echo $modelClass; ?>';
 	public static $modelLabelP='<?php echo $modelClass; ?>';
 	
+	<?php
+
+	foreach ($rel as $v) {
+		echo "public \${$v['name']}{$v['fk']};";
+		# code...
+	}
+	?>
+
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -98,9 +114,15 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 <?php foreach($rules as $rule): ?>
 			<?php echo $rule.",\n"; ?>
 <?php endforeach; ?>
+		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('<?php echo implode(', ', array_keys($columns)); ?>', 'safe', 'on'=>'search'),
+			array('<?php 
+					echo implode(', ', array_keys($columns));
+					foreach ($rel as $v) {
+						echo ",{$v['name']}{$v['fk']}";# code...
+					}
+					?>', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -127,6 +149,9 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 <?php foreach($labels as $name=>$label): ?>
 			<?php echo "'$name' => '$label',\n"; ?>
 <?php endforeach; ?>
+<?php foreach ($rel as $v): ?>
+			<?php echo "'".$v['name'].$v['fk'].'\' => \''.$v['fk']."',\n"; ?>
+<?php endforeach; ?>
 		);
 	}
 
@@ -142,6 +167,15 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 		$criteria=new CDbCriteria;
 
 <?php
+if (!empty($rel)){
+	echo "\t\t\$criteria->with=array(";
+	foreach ($rel as $v){
+		echo "'{$v['name']}' => array('alias' => '{$v['tbl']}'),";
+	}	
+	echo");\n";
+}
+
+
 foreach($columns as $name=>$column)
 {
 	
@@ -161,6 +195,11 @@ foreach($columns as $name=>$column)
 		echo "\t\t\$criteria->compare('$name',\$this->$name);\n";
 	}
 }
+
+foreach ($rel as $v){
+	echo "\t\t\$criteria->compare('{$v['tbl']}.{$v['fk']}',\$this->{$v['name']}{$v['fk']},true);\n";
+}
+
 ?>
 
 		return new CActiveDataProvider($this, array(

@@ -44,7 +44,7 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'id_building',
+		array( 'name'=>'idBuildingid_building', 'value'=>'$data->idBuilding->name' ),
 		'name',
 		'num',
 		array(

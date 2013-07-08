@@ -54,7 +54,7 @@ foreach($this->tableSchema->columns as $column)
 			if (in_array($column->name, $searchfk)){
 				echo '<?php $tmp='.$fk[$column->name]['className'].'::model()->findall();'."\n";
 		 		echo 'echo $form->dropDownList($model,"'.$fk[$column->name]['foreignKey'].'",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->'.$fk[$column->name]['foreignKey'].')},array(\'empty\' => \'\')); ?>';
+				return CHtml::encode($tmp->'.$fk[$column->name]['foreignKey'].');}),array(\'empty\' => \'\')); ?>';
 			}else{
 				echo "<?php echo ".$this->generateActiveField($this->modelClass,$column)."; ?>\n"; 
 			}

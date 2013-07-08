@@ -55,12 +55,29 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 <?php
 $count=0;
+$model=new $this->model;
+$rel=array();
+
+foreach ($model->metaData->relations as $relations){
+	$rel['search'][]=$relations->foreignKey;
+	$rel[$relations->foreignKey]['name']=$relations->name;
+    $rel[$relations->foreignKey]['className']=$relations->className;
+    $rel[$relations->foreignKey]['foreignKey']=$relations->foreignKey;
+} 
+
+
 foreach($this->tableSchema->columns as $column)
 {
 
 	if(++$count==7)
 		echo "\t\t/*\n";
-	echo "\t\t'".$column->name."',\n";
+
+	if (in_array($column->name,$rel['search'])){
+		echo "\t\tarray( 'name'=>'{$rel[$column->name]['name']}{$rel[$column->name]['foreignKey']}', 'value'=>'\$data->{$rel[$column->name]['name']}->{$rel[$column->name]['foreignKey']}' ),\n";
+	}else{
+		echo "\t\t'".$column->name."',\n";	
+	}
+	
 }
 if($count>=7)
 	echo "\t\t*/\n";

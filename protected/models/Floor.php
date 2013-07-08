@@ -23,6 +23,8 @@ class Floor extends CActiveRecord
 	public static $modelLabelS='Этаж';
 	public static $modelLabelP='Этажи';
 	
+	public $idBuildingid_building;
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -48,9 +50,10 @@ class Floor extends CActiveRecord
 			array('id_building', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>50),
 			array('num', 'length', 'max'=>10),
+		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_building, name, num', 'safe', 'on'=>'search'),
+			array('id, id_building, name, num,idBuildingid_building', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -73,9 +76,10 @@ class Floor extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_building' => 'Id Building',
-			'name' => 'Name',
-			'num' => 'Num',
+			'id_building' => 'Id Здания',
+			'name' => 'Название',
+			'num' => 'Номер',
+			'idBuildingid_building' => 'Здание',
 		);
 	}
 
@@ -90,6 +94,7 @@ class Floor extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->with=array('idBuilding' => array('alias' => 'building'),);
 		$criteria->compare('id',$this->id);
 		if(!empty($_GET['id_building']))
 				$criteria->compare('id_building',$_GET['id_building']);
@@ -97,6 +102,7 @@ class Floor extends CActiveRecord
 				$criteria->compare('id_building',$this->id_building);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('num',$this->num,true);
+		$criteria->compare('building.id_building',$this->idBuildingid_building,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

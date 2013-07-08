@@ -74,8 +74,8 @@ class Building extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'adress' => 'Adress',
-			'name' => 'Name',
+			'adress' => 'Адрес',
+			'name' => 'Название',
 		);
 	}
 

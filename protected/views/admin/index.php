@@ -22,6 +22,7 @@ $this->menu=array(
 		array('label'=>'Должности', 'url'=>array('/departmentPosts/admin')),
 		)),
 	array('label'=>'Здания', 'url'=>array('/building/admin'),'items'=>array(
+		array('label'=>'Этажи', 'url'=>array('/floor/admin')), 
 		array('label'=>'Кабинеты', 'url'=>array('/cabinet/admin')), 
 		)),
 );
