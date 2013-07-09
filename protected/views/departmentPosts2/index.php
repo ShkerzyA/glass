@@ -1,18 +1,18 @@
 <?php
-/* @var $this DepartmentController */
+/* @var $this PersonnelPostsController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	''.$modelLabelP,
+	'Personnel Posts',
 );
 
 $this->menu=array(
-	array('label'=>'Создать', 'url'=>array('create')),
-	array('label'=>'Управление', 'url'=>array('admin')),
+	array('label'=>'Create PersonnelPosts', 'url'=>array('create')),
+	array('label'=>'Manage PersonnelPosts', 'url'=>array('admin')),
 );
 ?>
 
-<h1><?php  echo $modelLabelP; ?></h1>
+<h1>Personnel Posts</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

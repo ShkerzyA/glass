@@ -1,6 +1,6 @@
 <?php
-/* @var $this DepartmentPostsController */
-/* @var $data DepartmentPosts */
+/* @var $this PersonnelPostsController */
+/* @var $data PersonnelPosts */
 ?>
 
 <div class="view">
@@ -14,15 +14,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_department')); ?>:</b>
-	<?php echo CHtml::encode($data->idDepartment->name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('date_begin')); ?>:</b>
-	<?php echo CHtml::encode($data->date_begin); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('date_end')); ?>:</b>
-	<?php echo CHtml::encode($data->date_end); ?>
+	<?php echo CHtml::encode($data->id_department); ?>
 	<br />
 
 

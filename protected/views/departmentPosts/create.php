@@ -1,18 +1,18 @@
 <?php
-/* @var $this PersonnelPostsController */
-/* @var $model PersonnelPosts */
+/* @var $this DepartmentPostsController */
+/* @var $model DepartmentPosts */
 
 $this->breadcrumbs=array(
-	'Personnel Posts'=>array('index'),
-	'Create',
+	$model::$modelLabelP=>array('index'),
+	'Создать',
 );
 
 $this->menu=array(
-	array('label'=>'List PersonnelPosts', 'url'=>array('index')),
-	array('label'=>'Manage PersonnelPosts', 'url'=>array('admin')),
+	array('label'=>'Список', 'url'=>array('index')),
+	array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create PersonnelPosts</h1>
+<h1>Создать "<?php  echo $model::$modelLabelS; ?>"</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

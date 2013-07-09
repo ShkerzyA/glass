@@ -26,18 +26,8 @@
 		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'date_begin'); ?>
-		<?php echo $form->textField($model,'date_begin'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'date_end'); ?>
-		<?php echo $form->textField($model,'date_end'); ?>
-	</div>
-
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Искать'); ?>
+		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

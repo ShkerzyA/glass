@@ -1,6 +1,6 @@
 <?php
-/* @var $this DepartmentPostsController */
-/* @var $model DepartmentPosts */
+/* @var $this PersonnelPostsController */
+/* @var $model PersonnelPosts */
 /* @var $form CActiveForm */
 ?>
 
@@ -18,7 +18,7 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'post'); ?>
-		<?php echo $form->textField($model,'post',array('size'=>60,'maxlength'=>80)); ?>
+		<?php echo $form->textField($model,'post',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 
 	<div class="row">
@@ -26,18 +26,8 @@
 		<?php echo $form->textField($model,'id_department'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'date_begin'); ?>
-		<?php echo $form->textField($model,'date_begin'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'date_end'); ?>
-		<?php echo $form->textField($model,'date_end'); ?>
-	</div>
-
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Искать'); ?>
+		<?php echo CHtml::submitButton('Search'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

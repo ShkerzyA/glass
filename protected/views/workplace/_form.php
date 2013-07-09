@@ -21,7 +21,7 @@
 
 		<?php $tmp=Cabinet::model()->findall();
 echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->cname);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->idFloor->idBuilding->bname.'/'.$tmp->idFloor->fname.'/'.$tmp->cname.' #'.$tmp->num);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_cabinet'); ?>
 	</div>
 
@@ -30,7 +30,7 @@ echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function(
 
 		<?php $tmp=Personnel::model()->findall();
 echo $form->dropDownList($model,"id_personnel",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->surname);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->surname.' '.$tmp->name.' '.$tmp->patr);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_personnel'); ?>
 	</div>
 

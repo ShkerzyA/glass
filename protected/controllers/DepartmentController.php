@@ -55,13 +55,12 @@ class DepartmentController extends Controller
         'with'=>'commentCount',
     	));
 
-		$DepPosts=DepartmentPosts::model()->with('personnel_posts_history:working')->with('personnel_posts_history.personnel')->working()->findAll(array('condition'=>"id_department=$id"));
+		$DepPosts=DepartmentPosts::model()->with('personnelPostsHistories','personnelPostsHistories.personnel')->working()->findAll(array('condition'=>"id_department=$id"));
 		$this->render('view',array(
 			'DepPosts'=>$DepPosts,
 			'model'=>$this->loadModel($id),
 		));
 	}
-
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -128,10 +127,9 @@ class DepartmentController extends Controller
 	 */
 	public function actionIndex()
 	{
-
 		$dataProvider=new CActiveDataProvider('Department');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Department::$modelLabelP,
 		));
 	}
 
@@ -149,8 +147,8 @@ class DepartmentController extends Controller
 			'model'=>$model,
 		));
 	}
-        
-            public function actionTree()
+
+	public function actionTree()
     {
         // рендерим файлик отображения tree.php
         $this->render('tree');
@@ -185,7 +183,6 @@ class DepartmentController extends Controller
         );
         exit();
     }
-
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

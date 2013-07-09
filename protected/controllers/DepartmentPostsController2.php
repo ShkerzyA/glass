@@ -51,6 +51,7 @@ class DepartmentPostsController extends Controller
 	 */
 	public function actionView($id)
 	{
+
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -124,7 +125,7 @@ class DepartmentPostsController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('DepartmentPosts');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider, 'modelLabelP'=>DepartmentPosts::$modelLabelP,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -164,7 +165,7 @@ class DepartmentPostsController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='department-posts-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='personnel-posts-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

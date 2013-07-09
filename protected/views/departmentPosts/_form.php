@@ -1,69 +1,56 @@
 <?php
-/* @var $this PersonnelPostsController */
-/* @var $model PersonnelPosts */
+/* @var $this DepartmentPostsController */
+/* @var $model DepartmentPosts */
 /* @var $form CActiveForm */
 ?>
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'personnel-posts-form',
+	'id'=>'department-posts-form',
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Поля с <span class="required">*</span> обязательны.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'post'); ?>
-		<?php echo $form->textField($model,'post',array('size'=>50,'maxlength'=>50)); ?>
+
+		<?php echo $form->textField($model,'post',array('size'=>60,'maxlength'=>80)); ?>
+
 		<?php echo $form->error($model,'post'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_department'); ?>
-		<?php echo $form->dropDownList($model,'id_department',CHtml::listData(Department::model()->findall(),'id','name')); ?>
+
+		<?php $tmp=Department::model()->findall();
+echo $form->dropDownList($model,"id_department",CHtml::listData($tmp,"id",function($tmp) {
+				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_department'); ?>
 	</div>
 
-		<div class="row">
+	<div class="row">
 		<?php echo $form->labelEx($model,'date_begin'); ?>
-		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-   'name' => 'date_begin',
-   'model' => $model,
-   'attribute' => 'date_begin',
-   'language' => 'ru',
-   'options' => array(
-       'showAnim' => 'fold',
-   ),
-   'htmlOptions' => array(
-       'style' => 'height:20px;'
-   ),
-));?>
+
+		<?php echo $form->textField($model,'date_begin'); ?>
+
 		<?php echo $form->error($model,'date_begin'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'date_end'); ?>
-		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-   'name' => 'date_end',
-   'model' => $model,
-   'attribute' => 'date_end',
-   'language' => 'ru',
-   'options' => array(
-       'showAnim' => 'fold',
-   ),
-   'htmlOptions' => array(
-       'style' => 'height:20px;'
-   ),
-));?>
+
+		<?php echo $form->textField($model,'date_end'); ?>
+
 		<?php echo $form->error($model,'date_end'); ?>
 	</div>
 
-
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

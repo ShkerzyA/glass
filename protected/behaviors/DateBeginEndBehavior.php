@@ -9,8 +9,6 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
         return $this->owner;
     }
 
-
-
     public function beforeSave($event){
                 if(!empty($this->owner->date_begin)){
                     $this->owner->date_begin = date('Y-m-d', strtotime($this->owner->date_begin));//strtotime($this->date_start);

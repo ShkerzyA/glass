@@ -23,8 +23,8 @@ class Workplace extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Workplace the static model class
 	 */
-	public static $modelLabelS='Workplace';
-	public static $modelLabelP='Workplace';
+	public static $modelLabelS='Рабочее место';
+	public static $modelLabelP='Рабочие места';
 	
 	public $idPersonnelid_personnel;
 public $idCabinetid_cabinet;
@@ -80,11 +80,11 @@ public $idCabinetid_cabinet;
 	{
 		return array(
 			'id' => 'ID',
-			'id_cabinet' => 'Id Cabinet',
-			'id_personnel' => 'Id Personnel',
-			'wname' => 'Wname',
-			'idPersonnelid_personnel' => 'id_personnel',
-			'idCabinetid_cabinet' => 'id_cabinet',
+			'id_cabinet' => 'Кабинет',
+			'id_personnel' => 'Персонал',
+			'wname' => 'Рабочее место',
+			'idPersonnelid_personnel' => 'Персонал',
+			'idCabinetid_cabinet' => 'Кабинет',
 		);
 	}
 
@@ -111,7 +111,7 @@ public $idCabinetid_cabinet;
 				$criteria->compare('id_personnel',$this->id_personnel);
 		$criteria->compare('wname',$this->wname,true);
 		$criteria->compare('personnel.id_personnel',$this->idPersonnelid_personnel,true);
-		$criteria->compare('cabinet.id_cabinet',$this->idCabinetid_cabinet,true);
+		$criteria->compare('cabinet.cname',$this->idCabinetid_cabinet,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

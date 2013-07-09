@@ -82,7 +82,7 @@ class Cabinet extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_floor' => 'Id Этаж',
+			'id_floor' => 'Здание/Этаж',
 			'cname' => 'Название',
 			'num' => 'Номер',
 			'phone' => 'Телефон',

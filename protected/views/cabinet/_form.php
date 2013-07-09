@@ -21,7 +21,7 @@
 
 		<?php $tmp=Floor::model()->findall();
 echo $form->dropDownList($model,"id_floor",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->fname);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->idBuilding->bname.'/'.$tmp->fname);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_floor'); ?>
 	</div>
 
