@@ -7,11 +7,6 @@ $this->breadcrumbs=array(
 	'Импорт',
 );
 
-$this->menu=array(
-	array('label'=>'List Personnel', 'url'=>array('index')),
-	array('label'=>'Create Personnel', 'url'=>array('create')),
-	array('label'=>'Manage Personnel', 'url'=>array('admin')),
-);
 ?>
 
 <h1>Импорт кадров из .xls</h1>

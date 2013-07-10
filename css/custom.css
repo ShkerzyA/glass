@@ -92,6 +92,7 @@
 #personTbl,#personTbl *{
 	font-size: 12pt;
 	vertical-align: top;
+	border-collapse: collapse;
 }
 
 .clear{
@@ -105,4 +106,10 @@
 	position: relative;
 	clear: both;
 	padding-top: 20px;
+}
+
+
+.persList{
+	border-top: 2px solid #040404;
+	border-bottom: 2px solid #040404;
 }

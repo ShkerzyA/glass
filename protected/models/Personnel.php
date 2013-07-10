@@ -64,7 +64,7 @@ class Personnel extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user,id_cabinet', 'numerical', 'integerOnly'=>true),
+			array('id_user', 'numerical', 'integerOnly'=>true),
 			array('surname, name, patr', 'length', 'max'=>50),
 			array('photo', 'length', 'max'=>200),
 			// The following rule is used by search().

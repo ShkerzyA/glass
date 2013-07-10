@@ -29,15 +29,25 @@ $this->menu=array(
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
 	if(!empty($DepPosts)){
 		foreach($DepPosts as $dp){
-			echo "<tr><td id='right'>";
+			echo "<tr><td class='persList' id='right'>";
 			if (!empty($dp->islead))
 				echo '<b>';
-			echo $dp->post."</b></td><td>";
+			echo $dp->post."</b></td><td class='persList'>";
+			if(!empty($dp->personnelPostsHistories)){
 			foreach($dp->personnelPostsHistories as $personnelPh){
+
+				if ($personnelPh->inactive())
+					echo '<span style="text-decoration: line-through">';
+				else
+					echo '<span>';
 				echo "<a href='/glass/personnel/".$personnelPh->idPersonnel->id."'>".$personnelPh->idPersonnel->surname.' '.$personnelPh->idPersonnel->name.' '.$personnelPh->idPersonnel->patr."</a><br>";
 				echo "(c ".$personnelPh->date_begin.($de=(!empty($personnelPh->date_end))?(" по ".$personnelPh->date_end):'').") <br>";
 			}
-			echo "</td></tr>";
+			}else{
+				echo '-//-';
+			}
+
+			echo "</span></td></tr>";
 		}
 	}
 ?>

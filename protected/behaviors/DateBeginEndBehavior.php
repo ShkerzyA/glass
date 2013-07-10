@@ -9,11 +9,25 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
         return $this->owner;
     }
 
+    public function inactive(){
+        if(empty($this->owner->date_end))
+            return False;
+
+        $d1=new DateTime($this->owner->date_end);
+        $d2=new DateTime();
+        if ($d1>$d2){
+            return False;
+        }else{
+            return True;
+        }
+    }
+
+
     public function beforeSave($event){
                 if(!empty($this->owner->date_begin)){
                     $this->owner->date_begin = date('Y-m-d', strtotime($this->owner->date_begin));//strtotime($this->date_start);
                 }else{
-                    $this->owner->date_begin=null;
+                    $this->owner->date_begin=date('Y-m-d');
                 }
 
                 if(!empty($this->owner->date_end)){

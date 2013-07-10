@@ -55,7 +55,21 @@ class DepartmentController extends Controller
         'with'=>'commentCount',
     	));
 
-		$DepPosts=DepartmentPosts::model()->with('idDepartment','personnelPostsHistories')->working()->findAll(array('condition'=>"id_department=$id",'order'=>'islead DESC'));
+		//$DepPosts=DepartmentPosts::model()->with('idDepartment','personnelPostsHistories')->working()->findAll(array('condition'=>"id_department=$id",'order'=>'islead DESC'));
+		
+
+		$DepPosts=DepartmentPosts::model()->working()->	with(array(
+    'personnelPostsHistories'=>array(
+       // 'select'=>True,
+        'joinType'=>'LEFT JOIN',
+        'alias'=>'j',
+        'order'=>'j.date_end DESC'
+    ),
+))->findAll(array('condition'=>"id_department=$id",'order'=>'islead DESC, t.date_begin ASC'));
+
+
+
+
 		$this->render('view',array(
 			'DepPosts'=>$DepPosts,
 			'model'=>$this->loadModel($id),

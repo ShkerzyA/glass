@@ -5,7 +5,7 @@ class PhotoBehavior extends CActiveRecordBehavior{
        if(($this->owner->scenario=='insert' || $this->owner->scenario=='update') &&
             ($document=CUploadedFile::getInstance($this->owner,'photo'))){
                 $sourcePath = pathinfo($document->getName());
-                $fileName = mktime() .'.'. $sourcePath['extension'];  // имя будущего файла в базе и ФС
+                $fileName = date('YmdHsi') .'.'. $sourcePath['extension'];  // имя будущего файла в базе и ФС
                 $this->deletePhoto(); // старый документ удалим, потому что загружаем новый
                 $this->owner->photo=$document;
                 $this->owner->photo->saveAs(

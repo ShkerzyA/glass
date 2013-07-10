@@ -80,7 +80,7 @@ public $personnelPostsHistoriesid_post;
 		// class name for the relations automatically generated below.
 		return array(
 			'idDepartment' => array(self::BELONGS_TO, 'Department', 'id_department'),
-			'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post','order'=>''),
+			'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post','order'=>'t.date_end DESC'),
 		);
 	}
 
@@ -122,7 +122,7 @@ public $personnelPostsHistoriesid_post;
 		$criteria->compare('date_begin',$this->date_begin,true);
 		$criteria->compare('date_end',$this->date_end,true);
         $criteria->compare('islead',$this->islead,true);
-		$criteria->compare('department.id_department',$this->idDepartmentid_department,true);
+		$criteria->compare('department.name',$this->idDepartmentid_department,true);
 		$criteria->compare('personnel_posts_history.post',$this->personnelPostsHistoriesid_post,true);
 
 		return new CActiveDataProvider($this, array(
