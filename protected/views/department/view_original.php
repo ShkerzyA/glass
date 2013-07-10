@@ -20,22 +20,18 @@ $this->menu=array(
 
 <h1><?php echo $model->name; ?></h1>
 
-<table id="personTbl" align=center>
+<table id="personTbl">
 
 	<tr>
-		<td id='right'>Штатная структура:</td>
-		<td>Сотрудники:</td>
+		<td colspan=3 id="right">Сотрудники отдела:</td>
 <?php
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
 	if(!empty($DepPosts)){
 		foreach($DepPosts as $dp){
-			echo "<tr><td id='right'>";
-			if (!empty($dp->islead))
-				echo '<b>';
-			echo $dp->post."</b></td><td>";
+			echo "<tr><td></td><td>".$dp->post."</td><td>";
 			foreach($dp->personnelPostsHistories as $personnelPh){
 				echo "<a href='/glass/personnel/".$personnelPh->idPersonnel->id."'>".$personnelPh->idPersonnel->surname.' '.$personnelPh->idPersonnel->name.' '.$personnelPh->idPersonnel->patr."</a><br>";
-				echo "(c ".$personnelPh->date_begin.($de=(!empty($personnelPh->date_end))?(" по ".$personnelPh->date_end):'').") <br>";
+		
 			}
 			echo "</td></tr>";
 		}

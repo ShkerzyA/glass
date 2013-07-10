@@ -34,6 +34,14 @@ $this->menu=array(
 		echo'<div>'.CHtml::encode($posts->idPost->idDepartment->name).'/'.($ps=(!empty($posts->idPost))?CHtml::encode($posts->idPost->post):'').' <nobr>(c '.CHtml::encode($posts->date_begin).$date_end.')</nobr></div>';
 	}
 	echo '</div>';
+
+	echo"<br><div><h3>Оснащение рабочего места:</h3>";
+	if(!empty($model->workplaces->equipments)){
+		foreach($model->workplaces->equipments as $equipments){
+			echo'<div>'.CHtml::encode($equipments->ename).' (С/Н: '.CHtml::encode($equipments->serial).')</nobr></div>';
+		}	
+	}
+	echo '</div>';
 	?>
 </div>
 

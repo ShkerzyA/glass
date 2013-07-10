@@ -80,7 +80,7 @@ class Department extends CActiveRecord
 		return array(
 			'idParent' => array(self::BELONGS_TO, 'Department', 'id_parent'),
             'departments' => array(self::HAS_MANY, 'Department', 'id_parent'),
-            'departmentPosts' => array(self::HAS_MANY, 'DepartmentPosts', 'id_department'),
+            'departmentPosts' => array(self::HAS_MANY, 'DepartmentPosts', 'id_department','order'=>'post DESC'),
 		);
 	}
 

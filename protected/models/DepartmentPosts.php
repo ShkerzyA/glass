@@ -61,11 +61,13 @@ public $personnelPostsHistoriesid_post;
 		return array(
 			array('id_department', 'numerical', 'integerOnly'=>true),
 			array('post', 'length', 'max'=>80),
+
+			array('islead', 'length', 'max'=>2),
 			array('date_begin, date_end', 'date', 'format'=>'dd.MM.yyyy'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, post, id_department, date_begin, date_end,idDepartmentid_department,personnelPostsHistoriesid_post', 'safe', 'on'=>'search'),
+			array('id, post, id_department, date_begin, date_end,islead,idDepartmentid_department,personnelPostsHistoriesid_post', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -78,7 +80,7 @@ public $personnelPostsHistoriesid_post;
 		// class name for the relations automatically generated below.
 		return array(
 			'idDepartment' => array(self::BELONGS_TO, 'Department', 'id_department'),
-			'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post'),
+			'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post','order'=>''),
 		);
 	}
 
@@ -95,6 +97,7 @@ public $personnelPostsHistoriesid_post;
 			'date_end' => 'Дата окончания',
 			'idDepartmentid_department' => 'Отдел',
 			'personnelPostsHistoriesid_post' => 'Должность',
+			'islead' => 'Является руководителем',
 		);
 	}
 
@@ -118,6 +121,7 @@ public $personnelPostsHistoriesid_post;
 				$criteria->compare('id_department',$this->id_department);
 		$criteria->compare('date_begin',$this->date_begin,true);
 		$criteria->compare('date_end',$this->date_end,true);
+        $criteria->compare('islead',$this->islead,true);
 		$criteria->compare('department.id_department',$this->idDepartmentid_department,true);
 		$criteria->compare('personnel_posts_history.post',$this->personnelPostsHistoriesid_post,true);
 

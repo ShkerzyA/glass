@@ -74,7 +74,7 @@ class PersonnelController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel($id)->with('workplaces','workplaces.idCabinet'),
+			'model'=>$this->loadModel($id)->with('workplaces'),
 		));
 	}
 
@@ -226,10 +226,11 @@ class PersonnelController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Personnel']))
 		$model->attributes=$_GET['Personnel'];
-
 		$this->render('index',array(
 			'model'=>$model,
 		));
+
+
 	}
 
 	/**

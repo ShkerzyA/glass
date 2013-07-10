@@ -55,7 +55,7 @@ class DepartmentController extends Controller
         'with'=>'commentCount',
     	));
 
-		$DepPosts=DepartmentPosts::model()->with('personnelPostsHistories','personnelPostsHistories.idPersonnel')->working()->findAll(array('condition'=>"id_department=$id"));
+		$DepPosts=DepartmentPosts::model()->with('idDepartment','personnelPostsHistories')->working()->findAll(array('condition'=>"id_department=$id",'order'=>'islead DESC'));
 		$this->render('view',array(
 			'DepPosts'=>$DepPosts,
 			'model'=>$this->loadModel($id),

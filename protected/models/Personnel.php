@@ -120,7 +120,10 @@ class Personnel extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
+
         $criteria=new CDbCriteria;
+
+        $criteria->order='photo ASC, surname ASC';
 
         $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnel_posts_history'),);
         $criteria->compare('id',$this->id);
@@ -135,6 +138,7 @@ class Personnel extends CActiveRecord
         $criteria->compare('users.username',$this->idUserid_user,true);
         $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
         $criteria->compare('personnel_posts_history.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
+
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,

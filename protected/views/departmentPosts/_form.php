@@ -25,6 +25,14 @@
 	</div>
 
 	<div class="row">
+        <?php echo $form->labelEx($model,'islead'); ?>
+
+        <?php echo $form->checkBox($model,'islead',array('value'=>1,'size'=>2,'maxlength'=>2)); ?>
+
+        <?php echo $form->error($model,'islead'); ?>
+    </div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'id_department'); ?>
 
 		<?php $tmp=Department::model()->findall();
