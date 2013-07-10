@@ -54,6 +54,7 @@ class PersonnelPostsHistory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('id_post','freeOnly'),
 			array('id_personnel, id_post', 'numerical', 'integerOnly'=>true),
 			array('date_begin, date_end', 'date','format'=>'dd.MM.yyyy'),
 			// The following rule is used by search().
@@ -62,6 +63,15 @@ class PersonnelPostsHistory extends CActiveRecord
 			array('id, id_personnel, id_post, date_begin, date_end,idPersonnelid_personnel,idPostid_post', 'safe', 'on'=>'search'),
 		);
 	}
+
+	public function freeOnly()
+    {   
+    	$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post={$_POST['PersonnelPostsHistory']['id_post']} and (date_end is null or date_end>current_date) and id_personnel<>{$_POST['PersonnelPostsHistory']['id_personnel']}"));
+        foreach ($Ph as $v){
+        	$this->addError('PersonnelPostsHistory["id_post"]','Выбранная должность в данный момент занята '.$v->idPersonnel->surname.' '.$v->idPersonnel->name.' '.$v->idPersonnel->patr);
+        }
+        
+    }
 
 	/**
 	 * @return array relational rules.

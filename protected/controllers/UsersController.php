@@ -124,7 +124,7 @@ class UsersController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('Users');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Users::$modelLabelP,
 		));
 	}
 
@@ -135,7 +135,8 @@ class UsersController extends Controller
 	{
 		$model=new Users('search');
 		$model->unsetAttributes();  // clear any default values
-	
+		if(isset($_GET['Users']))
+			$model->attributes=$_GET['Users'];
 
 		$this->render('admin',array(
 			'model'=>$model,

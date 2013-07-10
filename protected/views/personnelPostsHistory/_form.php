@@ -25,12 +25,14 @@
 		<?php echo $form->error($model,'id_personnel'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_post'); ?>
+	    <div class="row">
+        <?php echo $form->labelEx($model,'id_post'); ?>
 
-		<?php echo $form->dropDownList($model,'id_post',CHtml::listData(DepartmentPosts::model()->findall(),'id','post')); ?>
-		<?php echo $form->error($model,'id_post'); ?>
-	</div>
+        <?php $tmp=DepartmentPosts::model()->findall();
+echo $form->dropDownList($model,"id_post",CHtml::listData($tmp,"id",function($tmp) {
+                return CHtml::encode($tmp->idDepartment->name.'/'.$tmp->post.' #'.$tmp->id);}),array('empty' => '')); ?>
+        <?php echo $form->error($model,'id_post'); ?>
+    </div>
 
 
 	<div class="row">

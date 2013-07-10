@@ -8,11 +8,16 @@
  * @property string $username
  * @property string $password
  * @property integer $id_post
- *
- * The followings are the available model relations:
+ *		 * The followings are the available model relations:
+
+
  * @property UsersRules[] $usersRules
- * @property Personnel[] $personnels
+
+
  * @property UsersPosts $idPost
+
+
+ * @property Personnel[] $personnels
  */
 class Users extends CActiveRecord
 {
@@ -21,7 +26,18 @@ class Users extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Users the static model class
 	 */
+	public static $modelLabelS='Пользователь';
+	public static $modelLabelP='Пользователи';
+	
+	public $usersRulesid_user;
+public $idPostid_post;
+public $personnelsid_user;
 
+
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
+	}
 
 	public function behaviors(){
 		return array(
@@ -30,11 +46,6 @@ class Users extends CActiveRecord
 				'class'=>'application.behaviors.GlassLoginBehavior',
 				),
 			);
-	}
-	
-	public static function model($className=__CLASS__)
-	{
-		return parent::model($className);
 	}
 
 	/**
@@ -55,9 +66,10 @@ class Users extends CActiveRecord
 		return array(
 			array('id_post', 'numerical', 'integerOnly'=>true),
 			array('username, password', 'length', 'max'=>50),
+		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, id_post', 'safe', 'on'=>'search'),
+			array('id, username, password, id_post,usersRulesid_user,idPostid_post,personnelsid_user', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,8 +82,8 @@ class Users extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'usersRules' => array(self::HAS_MANY, 'UsersRules', 'id_user'),
-			'personnels' => array(self::HAS_ONE, 'Personnel', 'id_user'),
 			'idPost' => array(self::BELONGS_TO, 'UsersPosts', 'id_post'),
+			'personnels' => array(self::HAS_MANY, 'Personnel', 'id_user'),
 		);
 	}
 
@@ -82,9 +94,12 @@ class Users extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'username' => 'Username',
-			'password' => 'Password',
-			'id_post' => 'Id Post',
+			'username' => 'Логин',
+			'password' => 'Пароль',
+			'id_post' => 'Роль',
+			'usersRulesid_user' => 'Правила',
+			'idPostid_post' => 'Роль',
+			'personnelsid_user' => 'Сотрудник',
 		);
 	}
 
@@ -99,10 +114,17 @@ class Users extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->with=array('usersRules' => array('alias' => 'usersrules'),'idPost' => array('alias' => 'usersposts'),'personnels' => array('alias' => 'personnel'),);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
-		$criteria->compare('id_post',$this->id_post);
+		if(!empty($_GET['id_post']))
+				$criteria->compare('id_post',$_GET['id_post']);
+		else
+				$criteria->compare('id_post',$this->id_post);
+		$criteria->compare('usersrules.id_user',$this->usersRulesid_user,true);
+		$criteria->compare('usersposts.id_post',$this->idPostid_post,true);
+		$criteria->compare('personnel.id_user',$this->personnelsid_user,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
