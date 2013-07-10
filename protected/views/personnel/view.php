@@ -23,15 +23,15 @@ $this->menu=array(
 	<?php 
 
 
-	//echo'<div><b>'.CHtml::encode($model->surname).' '.CHtml::encode($model->name).' '.CHtml::encode($model->patr).'</b> (тел.'.($ph=(!empty($model->Cabinet))?CHtml::encode($model->Cabinet->phone):'').')</div>';
-	//if (!empty($model->Cabinet)){
-	//	echo'<div>Кабинет: "'.CHtml::encode($model->Cabinet->name).' №'.CHtml::encode($model->Cabinet->num).'" '.CHtml::encode($model->Cabinet->building->name).' '.CHtml::encode($model->Cabinet->floor).'эт. </div>';
-	//}
+	echo'<div><b>'.CHtml::encode($model->surname).' '.CHtml::encode($model->name).' '.CHtml::encode($model->patr).'</b> (тел.'.($ph=(!empty($model->workplaces))?CHtml::encode($model->workplaces->idCabinet->phone):'').')</div>';
+	if (!empty($model->workplaces->idCabinet)){
+		echo'<div>Кабинет: "'.CHtml::encode($model->workplaces->idCabinet->cname).' №'.CHtml::encode($model->workplaces->idCabinet->num).'" '.CHtml::encode($model->workplaces->idCabinet->idFloor->fname).' '.CHtml::encode($model->workplaces->idCabinet->idFloor->idBuilding->bname).'</div>';
+	}
 	echo"<br><div><h3>Занимаемые должности:</h3>";
-	foreach($model->PostsHistory as $posts){
+	foreach($model->personnelPostsHistories as $posts){
 		$date_end=CHtml::encode($posts->date_end);
-		$date_end=(!empty($date_end))?$date_end:'по наст. время';
-		echo'<div>'.CHtml::encode($posts->department_posts->department->name).'('.($ps=(!empty($posts->department_posts))?CHtml::encode($posts->department_posts->post):'').') ('.CHtml::encode($posts->date_begin).'-'.$date_end.')</div>';
+		$date_end=(!empty($date_end))?'  по '.$date_end:'';
+		echo'<div>'.CHtml::encode($posts->idPost->idDepartment->name).'/'.($ps=(!empty($posts->idPost))?CHtml::encode($posts->idPost->post):'').' <nobr>(c '.CHtml::encode($posts->date_begin).$date_end.')</nobr></div>';
 	}
 	echo '</div>';
 	?>

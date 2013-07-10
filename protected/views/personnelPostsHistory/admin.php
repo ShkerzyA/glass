@@ -3,13 +3,13 @@
 /* @var $model PersonnelPostsHistory */
 
 $this->breadcrumbs=array(
-	'Personnel Posts Histories'=>array('index'),
-	'Manage',
+    $model::$modelLabelP=>array('index'),
+    'Управление',
 );
 
 $this->menu=array(
-	array('label'=>'Список', 'url'=>array('index')),
-	array('label'=>'Создать', 'url'=>array('create')),
+    array('label'=>'Список', 'url'=>array('index')),
+    array('label'=>'Создать', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Кадры. Должности</h1>
+<h1>Управление  "<?php  echo $model::$modelLabelP; ?>"</h1>
 
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
@@ -35,8 +35,8 @@ $('.search-form form').submit(function(){
         'condition'=>'id_personnel=2'))),
 	'filter'=>$model,
 	'columns'=>array(
-        array( 'name'=>'personnel', 'value'=>'$data->personnel->surname' ),
-        array( 'name'=>'department_posts', 'value'=>'$data->department_posts->post' ),
+        array( 'name'=>'idPersonnelid_personnel', 'value'=>'$data->idPersonnel->surname." ".$data->idPersonnel->name." ".$data->idPersonnel->patr' ),
+        array( 'name'=>'idPostid_post', 'value'=>'$data->idPost->idDepartment->name."/".$data->idPost->post' ),
 		'date_begin',
 		'date_end',
 		array(

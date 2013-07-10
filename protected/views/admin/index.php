@@ -6,7 +6,10 @@ $this->breadcrumbs=array(
 	'Администратор',
 );
 
-$this->menu=array(array('label'=>'GII', 'url'=>array('/gii')),);
+$this->menu=array(
+			array('label'=>'GII', 'url'=>array('/gii')),
+			array('label'=>'Импорт кадров', 'url'=>array('/personnel/import')),
+			);
 
 $this->menu['all_menu']=array(
 	array('title'=>'Персонал','items'=>array(
@@ -15,7 +18,6 @@ $this->menu['all_menu']=array(
 		array('label'=>'Права', 'url'=>array('/usersRules/admin')) */
 		)),
 		array('label'=>'Кадры', 'url'=>array('/personnel/admin'),'items'=>array(
-			array('label'=>'Импорт кадров', 'url'=>array('/personnel/import')),
 			array('label'=>'Должности кадров', 'url'=>array('/personnelPostsHistory/admin')),
 		)),
 	)),
@@ -31,6 +33,11 @@ $this->menu['all_menu']=array(
 			array('label'=>'Кабинеты', 'url'=>array('/cabinet/admin')), 
 			array('label'=>'Рабочие места', 'url'=>array('/workplace/admin')),
 		)),
+	)),
+
+	array('title'=>'Оборудование','items'=>array(
+		array('label'=>'Оборудование', 'url'=>array('/equipment/admin')), 
+
 	)),
 
 	

@@ -1,6 +1,6 @@
 <?php
-/* @var $this PersonnelPostsHistoryController */
-/* @var $model PersonnelPostsHistory */
+/* @var $this EquipmentController */
+/* @var $model Equipment */
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),

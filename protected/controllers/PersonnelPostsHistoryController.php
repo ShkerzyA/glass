@@ -125,7 +125,7 @@ class PersonnelPostsHistoryController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('PersonnelPostsHistory');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider,  'modelLabelP'=>PersonnelPostsHistory::$modelLabelP,
 		));
 	}
 

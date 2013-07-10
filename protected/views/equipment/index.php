@@ -1,14 +1,14 @@
 <?php
-/* @var $this PersonnelPostsHistoryController */
+/* @var $this EquipmentController */
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-    ''.$modelLabelP,
+	''.$modelLabelP,
 );
 
 $this->menu=array(
-    array('label'=>'Создать', 'url'=>array('create')),
-    array('label'=>'Управление', 'url'=>array('admin')),
+	array('label'=>'Создать', 'url'=>array('create')),
+	array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
 

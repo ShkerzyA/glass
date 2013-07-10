@@ -1,6 +1,6 @@
 <?php
 
-class DepartmentController extends Controller
+class EquipmentController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,7 +28,7 @@ class DepartmentController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','tree','AjaxFillTree'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -51,30 +51,25 @@ class DepartmentController extends Controller
 	 */
 	public function actionView($id)
 	{
-		$criteria=new CDbCriteria(array(
-        'with'=>'commentCount',
-    	));
-
-		$DepPosts=DepartmentPosts::model()->with('personnelPostsHistories','personnelPostsHistories.idPersonnel')->working()->findAll(array('condition'=>"id_department=$id"));
 		$this->render('view',array(
-			'DepPosts'=>$DepPosts,
 			'model'=>$this->loadModel($id),
 		));
 	}
+
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 	public function actionCreate()
 	{
-		$model=new Department;
+		$model=new Equipment;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Department']))
+		if(isset($_POST['Equipment']))
 		{
-			$model->attributes=$_POST['Department'];
+			$model->attributes=$_POST['Equipment'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -96,9 +91,9 @@ class DepartmentController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Department']))
+		if(isset($_POST['Equipment']))
 		{
-			$model->attributes=$_POST['Department'];
+			$model->attributes=$_POST['Equipment'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -127,9 +122,9 @@ class DepartmentController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Department');
+		$dataProvider=new CActiveDataProvider('Equipment');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider, 'modelLabelP'=>Department::$modelLabelP,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Equipment::$modelLabelP,
 		));
 	}
 
@@ -138,61 +133,26 @@ class DepartmentController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Department('search');
+		$model=new Equipment('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Department']))
-			$model->attributes=$_GET['Department'];
+		if(isset($_GET['Equipment']))
+			$model->attributes=$_GET['Equipment'];
 
 		$this->render('admin',array(
 			'model'=>$model,
 		));
 	}
 
-	public function actionTree()
-    {
-        // рендерим файлик отображения tree.php
-        $this->render('tree');
-    }
-
-    public function actionAjaxFillTree()
-    {
-        // если пробуют получить прямой доступ к экшину (не через ajax)
-        // тогда обрубаем "крылья")) т.е. возвращаем белую страницу
-        if (!Yii::app()->request->isAjaxRequest) {
-            exit();
-        }
-
-        // с какого узла начинаем вывод дерева? 0 - с первого
-        $parentId = 'is null';
-        if (isset($_GET['root']) && $_GET['root'] !== 'source') {
-            $parentId = '='.(int) $_GET['root'];
-        }
-        // сам запрос на получение данных детей (через обычный LEFT JOIN)
-        $req = Yii::app()->db->createCommand(
-            "SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
-        );
-        $children = $req->queryAll();
-
-
-        //print_r($children);
-        // возвращаем данные
-        echo str_replace(
-            '"hasChildren":"0"',
-            '"hasChildren":false',
-            CTreeView::saveDataAsJson($children)
-        );
-        exit();
-    }
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Department the loaded model
+	 * @return Equipment the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Department::model()->findByPk($id);
+		$model=Equipment::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -200,11 +160,11 @@ class DepartmentController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Department $model the model to be validated
+	 * @param Equipment $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='department-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='equipment-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

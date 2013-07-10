@@ -27,7 +27,8 @@ class Workplace extends CActiveRecord
 	public static $modelLabelP='Рабочие места';
 	
 	public $idPersonnelid_personnel;
-public $idCabinetid_cabinet;
+	public $idCabinetid_cabinet;
+	public $equipmentsid_workplace;
 
 
 	public static function model($className=__CLASS__)
@@ -56,7 +57,7 @@ public $idCabinetid_cabinet;
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_cabinet, id_personnel, wname,idPersonnelid_personnel,idCabinetid_cabinet', 'safe', 'on'=>'search'),
+			array('id, id_cabinet, id_personnel, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -70,6 +71,7 @@ public $idCabinetid_cabinet;
 		return array(
 			'idPersonnel' => array(self::BELONGS_TO, 'Personnel', 'id_personnel'),
 			'idCabinet' => array(self::BELONGS_TO, 'Cabinet', 'id_cabinet'),
+            'equipments' => array(self::HAS_MANY, 'Equipment', 'id_workplace'),
 		);
 	}
 
@@ -85,6 +87,7 @@ public $idCabinetid_cabinet;
 			'wname' => 'Рабочее место',
 			'idPersonnelid_personnel' => 'Персонал',
 			'idCabinetid_cabinet' => 'Кабинет',
+            'equipmentsid_workplace' => 'Оборудование',
 		);
 	}
 
@@ -112,6 +115,7 @@ public $idCabinetid_cabinet;
 		$criteria->compare('wname',$this->wname,true);
 		$criteria->compare('personnel.id_personnel',$this->idPersonnelid_personnel,true);
 		$criteria->compare('cabinet.cname',$this->idCabinetid_cabinet,true);
+        $criteria->compare('equipment.ename',$this->equipmentsid_workplace,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -30,7 +30,7 @@ $this->menu=array(
 		foreach($DepPosts as $dp){
 			echo "<tr><td></td><td>".$dp->post."</td><td>";
 			foreach($dp->personnelPostsHistories as $personnelPh){
-				echo "<a href='/glass/personnel/".$personnelPh->personnel->id."'>".$personnelPh->personnel->surname.' '.$personnelPh->personnel->name.' '.$personnelPh->personnel->patr."</a><br>";
+				echo "<a href='/glass/personnel/".$personnelPh->idPersonnel->id."'>".$personnelPh->idPersonnel->surname.' '.$personnelPh->idPersonnel->name.' '.$personnelPh->idPersonnel->patr."</a><br>";
 		
 			}
 			echo "</td></tr>";

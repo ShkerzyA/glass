@@ -27,8 +27,12 @@ class Personnel extends CActiveRecord
 	 * @return Personnel the static model class
 	 */
 
-	public $username;
-
+	public static $modelLabelS='Кадры';
+    public static $modelLabelP='Кадры';
+    
+    public $idUserid_user;
+	public $workplacesid_personnel;
+	public $personnelPostsHistoriesid_personnel;
 
 	public function behaviors(){
 		return array(
@@ -41,7 +45,7 @@ class Personnel extends CActiveRecord
 	
 	public static function model($className=__CLASS__)
 	{
-		return parent::model($className)->with('users');
+		return parent::model($className)->with('idUser');
 	}
 
 	/**
@@ -65,7 +69,7 @@ class Personnel extends CActiveRecord
 			array('photo', 'length', 'max'=>200),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, surname, name, patr, photo, id_user, id_cabinet, username',  'safe', 'on'=>'search'),
+			array('id, surname, name, patr, photo, id_user,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,9 +81,13 @@ class Personnel extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'users' => array(self::BELONGS_TO, 'Users', 'id_user'),
-			'PostsHistory' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel'),
-			'idWorkplace' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
+			//'users' => array(self::BELONGS_TO, 'Users', 'id_user'),
+			//'PostsHistory' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel'),
+			//'idWorkplace' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
+
+			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
+            'workplaces' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
+            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel'),
 		);
 	}
 
@@ -97,6 +105,9 @@ class Personnel extends CActiveRecord
 			'username' => 'Логин',
 			'id_user' => 'Пользователь',
 			'id_cabinet' => 'Кабинет',
+			'idUserid_user' => 'Пользователь',
+            'workplacesid_personnel' => 'Рабочее место',
+            'personnelPostsHistoriesid_personnel' => 'Занимаемые должности',
 		);
 	}
 
@@ -104,35 +115,29 @@ class Personnel extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$usser=Users::model()->findByPk($this->id_user);
+        $criteria=new CDbCriteria;
 
-		print_r($usser);
-		//$this->username=$usser->username;
+        $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnel_posts_history'),);
+        $criteria->compare('id',$this->id);
+        $criteria->compare('surname',$this->surname,true);
+        $criteria->compare('name',$this->name,true);
+        $criteria->compare('patr',$this->patr,true);
+        $criteria->compare('photo',$this->photo,true);
+        if(!empty($_GET['id_user']))
+                $criteria->compare('id_user',$_GET['id_user']);
+        else
+                $criteria->compare('id_user',$this->id_user);
+        $criteria->compare('users.username',$this->idUserid_user,true);
+        $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
+        $criteria->compare('personnel_posts_history.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
 
-		$criteria=new CDbCriteria;
-
-
-		$criteria->with = array('users');
-
-		$criteria->compare('id',$this->id);
-		$criteria->compare('surname',$this->surname,true);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('patr',$this->patr,true);
-		$criteria->compare('photo',$this->photo,true);
-		$criteria->compare('id_user',$this->id_user);
-		$criteria->compare('username',$this->username,true);
-
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-			'pagination'=>array(
-        		'pageSize'=>9,
-    		),
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 }

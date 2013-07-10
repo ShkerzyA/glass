@@ -21,6 +21,11 @@ class PersonnelPostsHistory extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return PersonnelPostsHistory the static model class
 	 */
+	public static $modelLabelS='Занимаемые должности';
+    public static $modelLabelP='Занимаемые должности';
+   	public $idPersonnelid_personnel;
+	public $idPostid_post;
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -53,7 +58,8 @@ class PersonnelPostsHistory extends CActiveRecord
 			array('date_begin, date_end', 'date','format'=>'dd.MM.yyyy'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_personnel, id_post, department_posts, date_begin, date_end, personnel', 'safe', 'on'=>'search'),
+			//array('id, id_personnel, id_post, department_posts, date_begin, date_end, personnel', 'safe', 'on'=>'search'),
+			array('id, id_personnel, id_post, date_begin, date_end,idPersonnelid_personnel,idPostid_post', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -65,8 +71,10 @@ class PersonnelPostsHistory extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'personnel' => array(self::BELONGS_TO, 'Personnel', 'id_personnel'),
-			'department_posts' => array(self::BELONGS_TO, 'DepartmentPosts', 'id_post'),
+			//'personnel' => array(self::BELONGS_TO, 'Personnel', 'id_personnel'),
+			//'department_posts' => array(self::BELONGS_TO, 'DepartmentPosts', 'id_post'),
+			'idPersonnel' => array(self::BELONGS_TO, 'Personnel', 'id_personnel'),
+            'idPost' => array(self::BELONGS_TO, 'DepartmentPosts', 'id_post'),
 		);
 	}
 
@@ -80,6 +88,8 @@ class PersonnelPostsHistory extends CActiveRecord
 			'department_posts' => 'Должность',
 			'date_begin' => 'Дата начала',
 			'date_end' => 'Дата окончания',
+            'idPersonnelid_personnel' => 'Сотрудник',
+            'idPostid_post' => 'Должность',
 		);
 	}
 
@@ -87,34 +97,32 @@ class PersonnelPostsHistory extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+ 	public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria=new CDbCriteria;
 
-		$criteria->with = array('personnel','department_posts');
+        $criteria->with=array('idPersonnel' => array('alias' => 'personnel'),'idPost' => array('alias' => 'department_posts'),);
+        $criteria->compare('id',$this->id);
+        if(!empty($_GET['id_personnel']))
+                $criteria->compare('id_personnel',$_GET['id_personnel']);
+        else
+                $criteria->compare('id_personnel',$this->id_personnel);
+        if(!empty($_GET['id_post']))
+                $criteria->compare('id_post',$_GET['id_post']);
+        else
+                $criteria->compare('id_post',$this->id_post);
+        $criteria->compare('date_begin',$this->date_begin,true);
+        $criteria->compare('date_end',$this->date_end,true);
+        $criteria->compare('personnel.surname',$this->idPersonnelid_personnel,true);
+        $criteria->compare('department_posts.post',$this->idPostid_post,true);
 
-		$criteria->compare('id',$this->id);
-
-		if(!empty($_GET['id_personnel'])){
-			$criteria->compare('id_personnel',$_GET['id_personnel']);
-		}else{
-			$criteria->compare('id_personnel',$this->id_personnel);	
-		}
-		
-		$criteria->compare('id_post',$this->id_post);
-		$criteria->compare('date_begin',$this->date_begin,true);
-		$criteria->compare('date_end',$this->date_end,true);
-
-		$criteria->compare('personnel.surname', $this->personnel, true );
-		$criteria->compare('department_posts.post', $this->department_posts, true );
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 
 	public function allPersonelForPost($id_post){
 		//$personnel=PersonnelPostsHistory::model()->with('personnel')->findAll(array('condition'=>"id_post=$id_post"));

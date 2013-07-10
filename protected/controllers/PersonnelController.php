@@ -74,7 +74,7 @@ class PersonnelController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id)->with('workplaces','workplaces.idCabinet'),
 		));
 	}
 
