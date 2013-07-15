@@ -36,13 +36,20 @@ class DepartmentPostsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','import'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionImport()
+	{
+		$xls=new Xls();
+		$result=$xls->import_DepartmentPosts();
+		$this->render('import',array('result'=>$result));
 	}
 
 	/**

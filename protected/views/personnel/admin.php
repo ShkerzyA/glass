@@ -47,6 +47,9 @@ $('.search-form form').submit(function(){
         'patr',
         'photo',
         array( 'name'=>'idUserid_user', 'value'=>'$data->idUser->username' ),
+        'birthday',
+        'date_begin',
+        'date_end',
         array(
             'class'=>'CButtonColumn',
         ),

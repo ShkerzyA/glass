@@ -31,7 +31,12 @@ $this->menu=array(
 	foreach($model->personnelPostsHistories as $posts){
 		$date_end=CHtml::encode($posts->date_end);
 		$date_end=(!empty($date_end))?'  по '.$date_end:'';
+		if ($posts->inactive())
+					echo '<span style="text-decoration: line-through">';
+				else
+					echo '<span>';
 		echo'<div>'.CHtml::encode($posts->idPost->idDepartment->name).'/'.($ps=(!empty($posts->idPost))?CHtml::encode($posts->idPost->post):'').' <nobr>(c '.CHtml::encode($posts->date_begin).$date_end.')</nobr></div>';
+	echo "</span>";
 	}
 	echo '</div>';
 

@@ -15,7 +15,6 @@ $this->menu=array(
 	array('label'=>'Delete Department', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Department', 'url'=>array('admin')),
 );*/
-
 ?>
 
 <h1><?php echo $model->name; ?></h1>
@@ -23,13 +22,13 @@ $this->menu=array(
 <table id="personTbl" align=center>
 
 	<tr>
-		<td id='right'>Штатная структура:</td>
+		<td>Штатная структура:</td>
 		<td>Сотрудники:</td>
 <?php
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
 	if(!empty($DepPosts)){
 		foreach($DepPosts as $dp){
-			echo "<tr><td class='persList' id='right'>";
+			echo "<tr><td class='persList'>";
 			if (!empty($dp->islead))
 				echo '<b>';
 			echo $dp->post."</b></td><td class='persList'>";

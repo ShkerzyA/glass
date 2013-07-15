@@ -78,7 +78,7 @@ class Department extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'idParent' => array(self::BELONGS_TO, 'Department', 'id_parent'),
+			'idParent' => array(self::BELONGS_TO, 'Department', 'id_parent','alias'=>'parent_dept'),
             'departments' => array(self::HAS_MANY, 'Department', 'id_parent'),
             'departmentPosts' => array(self::HAS_MANY, 'DepartmentPosts', 'id_department','order'=>'post DESC'),
 		);
@@ -115,7 +115,7 @@ class Department extends CActiveRecord
 		$criteria->with=array('idParent' => array('alias' => 'department'),'departments' => array('alias' => 'departments'),'departmentPosts' => array('alias' => 'department_posts'),);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('id_parent',$this->id_parent);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('t.name',$this->name,true);
 		$criteria->compare('date_begin',$this->date_begin,true);
 		$criteria->compare('date_end',$this->date_end,true);
 		$criteria->compare('department.name',$this->idParentid_parent,true);

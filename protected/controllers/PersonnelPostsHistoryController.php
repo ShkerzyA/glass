@@ -36,7 +36,7 @@ class PersonnelPostsHistoryController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','import'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -49,6 +49,14 @@ class PersonnelPostsHistoryController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+
+	public function actionImport()
+	{
+		$xls=new Xls();
+		$result=$xls->import_PersonnelPostsHistory();
+		$this->render('import',array('result'=>$result));
+	}
+
 	public function actionView($id)
 	{
 		

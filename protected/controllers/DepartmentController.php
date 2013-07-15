@@ -36,7 +36,7 @@ class DepartmentController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','import'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -49,8 +49,18 @@ class DepartmentController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+
+	public function actionImport()
+	{
+		$xls=new Xls();
+		$result=$xls->import_Department();
+		$this->render('import',array('result'=>$result));
+	}
+
+
 	public function actionView($id)
 	{
+		$this->layout='//layouts/column1';
 		$criteria=new CDbCriteria(array(
         'with'=>'commentCount',
     	));
@@ -141,6 +151,7 @@ class DepartmentController extends Controller
 	 */
 	public function actionIndex()
 	{
+
 		$dataProvider=new CActiveDataProvider('Department');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider, 'modelLabelP'=>Department::$modelLabelP,
@@ -165,6 +176,7 @@ class DepartmentController extends Controller
 	public function actionTree()
     {
         // рендерим файлик отображения tree.php
+        $this->layout='//layouts/column1';
         $this->render('tree');
     }
 

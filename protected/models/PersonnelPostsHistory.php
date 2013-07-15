@@ -66,10 +66,16 @@ class PersonnelPostsHistory extends CActiveRecord
 
 	public function freeOnly()
     {   
-    	$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post={$_POST['PersonnelPostsHistory']['id_post']} and (date_end is null or date_end>current_date) and id_personnel<>{$_POST['PersonnelPostsHistory']['id_personnel']}"));
-        foreach ($Ph as $v){
-        	$this->addError('PersonnelPostsHistory["id_post"]','Выбранная должность в данный момент занята '.$v->idPersonnel->surname.' '.$v->idPersonnel->name.' '.$v->idPersonnel->patr);
-        }
+
+    	if(!empty($_POST['PersonnelPostsHistory']))
+    		$this->attributes=$_POST['PersonnelPostsHistory'];
+
+    	echo $this->id_post;
+
+    	//$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post=".$this->id_post." and (date_end is null or date_end>current_date) and id_personnel<>".$this->id_personnel.""));
+        //foreach ($Ph as $v){
+        //	$this->addError('PersonnelPostsHistory["id_post"]','Выбранная должность в данный момент занята '.$v->idPersonnel->surname.' '.$v->idPersonnel->name.' '.$v->idPersonnel->patr);
+        //}
         
     }
 

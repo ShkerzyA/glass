@@ -9,6 +9,9 @@ $this->breadcrumbs=array(
 $this->menu=array(
 			array('label'=>'GII', 'url'=>array('/gii')),
 			array('label'=>'Импорт кадров', 'url'=>array('/personnel/import')),
+			array('label'=>'Импорт Отделов', 'url'=>array('/department/import')),
+			array('label'=>'Импорт Штатной структуры', 'url'=>array('/departmentPosts/import')),
+			array('label'=>'Импорт Истории должностей', 'url'=>array('/personnelPostsHistory/import')),
 			);
 
 $this->menu['all_menu']=array(

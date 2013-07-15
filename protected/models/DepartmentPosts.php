@@ -59,15 +59,13 @@ public $personnelPostsHistoriesid_post;
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_department', 'numerical', 'integerOnly'=>true),
+			array('id_department,islead,kod_parus', 'numerical', 'integerOnly'=>true),
 			array('post', 'length', 'max'=>80),
-
-			array('islead', 'length', 'max'=>2),
 			array('date_begin, date_end', 'date', 'format'=>'dd.MM.yyyy'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, post, id_department, date_begin, date_end,islead,idDepartmentid_department,personnelPostsHistoriesid_post', 'safe', 'on'=>'search'),
+			array('id, post, id_department, date_begin, date_end, islead, kod_parus, idDepartmentid_department, personnelPostsHistoriesid_post', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -97,6 +95,7 @@ public $personnelPostsHistoriesid_post;
 			'date_end' => 'Дата окончания',
 			'idDepartmentid_department' => 'Отдел',
 			'personnelPostsHistoriesid_post' => 'Должность',
+            'kod_parus' => 'Номер в Парусе',
 			'islead' => 'Является руководителем',
 		);
 	}
@@ -122,6 +121,7 @@ public $personnelPostsHistoriesid_post;
 		$criteria->compare('date_begin',$this->date_begin,true);
 		$criteria->compare('date_end',$this->date_end,true);
         $criteria->compare('islead',$this->islead,true);
+        $criteria->compare('kod_parus',$this->kod_parus);
 		$criteria->compare('department.name',$this->idDepartmentid_department,true);
 		$criteria->compare('personnel_posts_history.post',$this->personnelPostsHistoriesid_post,true);
 

@@ -3,13 +3,13 @@
 /* @var $model Personnel */
 
 $this->breadcrumbs=array(
-	'Кадры'=>array('index'),
+	'Отделы'=>array('index'),
 	'Импорт',
 );
 
 ?>
 
-<h1>Импорт кадров из .xls</h1>
+<h1>Импорт Истории должностей из .xls</h1>
 
 
 <div class="form">
@@ -18,8 +18,7 @@ $this->breadcrumbs=array(
 	echo CHtml::beginForm('','post',array('enctype'=>'multipart/form-data')); 
 	$model=new Xls();
 	?>
-	<p>excel файл должен быть подготовлен перед импортом по порядку Ф,И,О, дата рождения, дата приема, дата увольнения
-	</p>
+	
 	<div class="row">
 		<?php echo CHtml::activefileField($model,'xls'); ?>
 	</div>
@@ -28,7 +27,7 @@ $this->breadcrumbs=array(
 		<?php echo CHtml::submitButton('Импорт'); ?>
 	</div>
 
-	<?php if (!empty($bfg)) echo $bfg;?>
+	<?php if (!empty($result)) echo $result;?>
 
 <?php CHtml::endForm(); ?>
 </div>

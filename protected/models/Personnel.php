@@ -40,6 +40,9 @@ class Personnel extends CActiveRecord
 			'Photo'=>array(
 				'class'=>'application.behaviors.PhotoBehavior',
 				),
+			'DateBeginEnd'=>array(
+				'class'=>'application.behaviors.DateBeginEndBehavior',
+				),
 			);
 	}
 	
@@ -47,6 +50,7 @@ class Personnel extends CActiveRecord
 	{
 		return parent::model($className)->with('idUser');
 	}
+
 
 	/**
 	 * @return string the associated database table name
@@ -67,9 +71,10 @@ class Personnel extends CActiveRecord
 			array('id_user', 'numerical', 'integerOnly'=>true),
 			array('surname, name, patr', 'length', 'max'=>50),
 			array('photo', 'length', 'max'=>200),
+            array('birthday, date_begin, date_end', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, surname, name, patr, photo, id_user,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel', 'safe', 'on'=>'search'),
+			array('id, surname, name, patr, photo, id_user, birthday, date_begin, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -105,6 +110,9 @@ class Personnel extends CActiveRecord
 			'username' => 'Логин',
 			'id_user' => 'Пользователь',
 			'id_cabinet' => 'Кабинет',
+			'birthday' => 'Дата рождения',
+            'date_begin' => 'Дата приема',
+            'date_end' => 'Дата увольнения',
 			'idUserid_user' => 'Пользователь',
             'workplacesid_personnel' => 'Рабочее место',
             'personnelPostsHistoriesid_personnel' => 'Занимаемые должности',
@@ -130,6 +138,9 @@ class Personnel extends CActiveRecord
         $criteria->compare('surname',$this->surname,true);
         $criteria->compare('name',$this->name,true);
         $criteria->compare('patr',$this->patr,true);
+        $criteria->compare('birthday',$this->birthday,true);
+        $criteria->compare('date_begin',$this->date_begin,true);
+        $criteria->compare('date_end',$this->date_end,true);
         $criteria->compare('photo',$this->photo,true);
         if(!empty($_GET['id_user']))
                 $criteria->compare('id_user',$_GET['id_user']);
@@ -142,6 +153,9 @@ class Personnel extends CActiveRecord
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
+            'pagination'=>array(
+            	'pageSize'=>9
+            ),
         ));
     }
 }
