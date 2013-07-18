@@ -17,13 +17,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'id_parent'); ?>
-		<?php echo $form->textField($model,'id_parent'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>150)); ?>
 	</div>
 
 	<div class="row">
@@ -34,6 +29,16 @@
 	<div class="row">
 		<?php echo $form->label($model,'date_end'); ?>
 		<?php echo $form->textField($model,'date_end'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'subdiv_rn'); ?>
+		<?php echo $form->textField($model,'subdiv_rn',array('size'=>10,'maxlength'=>10)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'parent_subdiv_rn'); ?>
+		<?php echo $form->textField($model,'parent_subdiv_rn',array('size'=>10,'maxlength'=>10)); ?>
 	</div>
 
 	<div class="row buttons">

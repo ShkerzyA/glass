@@ -50,29 +50,34 @@ class Xls extends CFormModel{
 					$i=0;
 					foreach($cellIterator as $cell){
 
+						$val = $cell->getCalculatedValue();
+						if(PHPExcel_Shared_Date::isDateTime($cell)) {
+							$val = date('d.m.Y', PHPExcel_Shared_Date::ExcelToPHP($val)); 
+						}
 						switch ($i) {
 							case '1':
-								$val = $cell->getCalculatedValue();
+								//$val = $cell->getCalculatedValue();
 								$pers['surname']=$val;
 								break;
 							case '2':
-								$val = $cell->getCalculatedValue();
+								//$val = $cell->getCalculatedValue();
        							$pers['name']=$val;
 								break;
 							case '3':
-								$val = $cell->getCalculatedValue();
+								//$val = $cell->getCalculatedValue();
        							$pers['patr']=$val;
 								break;
-							case '4':
-								$val = date('d.m.Y', PHPExcel_Shared_Date::ExcelToPHP($val)); 
+							case '5':
+								//$val = $cell->getCalculatedValue();
+								//$val = date('d.m.Y', PHPExcel_Shared_Date::ExcelToPHP($val)); 
 								$pers['birthday']=$val;
 								break;
-							case '5':
-								$val = date('d.m.Y', PHPExcel_Shared_Date::ExcelToPHP($val)); 
+							case '6':
 								$pers['date_begin']=$val;
 								break;
-							case '6':
-								$val = date('d.m.Y', PHPExcel_Shared_Date::ExcelToPHP($val)); 
+							case '7':
+								//$val = $cell->getCalculatedValue();
+								//$val = date('d.m.Y', PHPExcel_Shared_Date::ExcelToPHP($val)); 
 								$pers['date_end']=$val;
 								break;
 							default:

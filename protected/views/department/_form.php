@@ -17,17 +17,6 @@
 
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'id_parent'); ?>
-
-		<?php $tmp=Department::model()->findall();
-				echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($tmp) {
-                return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
-        <?php echo $form->error($model,'id_parent'); ?>
-
-		<?php echo $form->error($model,'id_parent'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 
 		<?php echo $form->textField($model,'name',array('size'=>50,'maxlength'=>50)); ?>
@@ -68,6 +57,24 @@
 ));?>
 		<?php echo $form->error($model,'date_end'); ?>
 	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'subdiv_rn'); ?>
+
+		<?php echo $form->textField($model,'subdiv_rn',array('size'=>10,'maxlength'=>10)); ?>
+
+		<?php echo $form->error($model,'subdiv_rn'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'parent_subdiv_rn'); ?>
+
+		<?php $tmp=Department::model()->findall();
+echo $form->dropDownList($model,"parent_subdiv_rn",CHtml::listData($tmp,"subdiv_rn",function($tmp) {
+				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
+		<?php echo $form->error($model,'parent_subdiv_rn'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
 	</div>

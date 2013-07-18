@@ -24,9 +24,9 @@ class Department extends CActiveRecord
 	public static $modelLabelS='Отдел';
 	public static $modelLabelP='Отделы';
 	
-	public $idParentid_parent;
-	public $departmentsid_parent;
-	public $departmentPostsid_department;
+ public $parentSubdivRnparent_subdiv_rn;
+public $departmentsparent_subdiv_rn;
+public $departmentPostspost_subdiv_rn;
 
 
 
@@ -54,35 +54,35 @@ class Department extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('date_begin', 'required'),
-			array('id_parent', 'numerical', 'integerOnly'=>true),
-			array('name', 'length', 'max'=>50),
-			array('date_end', 'safe'),
-		
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, id_parent, name, date_begin, date_end,departmentPostsid_department', 'safe', 'on'=>'search'),
-		);
-	}
+	    public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('date_begin', 'required'),
+            array('name', 'length', 'max'=>150),
+            array('subdiv_rn, parent_subdiv_rn', 'length', 'max'=>10),
+            array('date_end', 'safe'),
+        	array('subdiv_rn', 'unique'),
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, name, date_begin, date_end, subdiv_rn, parent_subdiv_rn,parentSubdivRnparent_subdiv_rn,departmentsparent_subdiv_rn,departmentPostspost_subdiv_rn', 'safe', 'on'=>'search'),
+        );
+    }
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'idParent' => array(self::BELONGS_TO, 'Department', 'id_parent','alias'=>'parent_dept'),
-            'departments' => array(self::HAS_MANY, 'Department', 'id_parent'),
-            'departmentPosts' => array(self::HAS_MANY, 'DepartmentPosts', 'id_department','order'=>'post DESC'),
-		);
-	}
+	  public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'parentSubdivRn' => array(self::BELONGS_TO, 'Department', 'parent_subdiv_rn'),
+            'departments' => array(self::HAS_MANY, 'Department', 'parent_subdiv_rn'),
+            'departmentPosts' => array(self::HAS_MANY, 'DepartmentPosts', 'post_subdiv_rn'),
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -91,39 +91,52 @@ class Department extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_parent' => 'Вышестоящий отдел',
 			'name' => 'Название отдела',
 			'date_begin' => 'Начало работы',
 			'date_end' => 'Окончание работы',
-			'departmentPostsid_department' => 'Должности отдела',
-			'idParentid_parent' => 'Вышестоящий отдел',
-            'departmentsid_parent' => 'Дочерние отделы',
+
+            'subdiv_rn' => 'Код Отдела в Парусе',
+            'parent_subdiv_rn' => 'Вышестоящий отдел в парусе',
+            'parentSubdivRnparent_subdiv_rn' => 'Вышестоящий отдел',
+            'departmentsparent_subdiv_rn' => 'Подчиненные отделы',
+            'departmentPostspost_subdiv_rn' => 'Код должностей в парусе',
 		);
 	}
 
-	/**
-	 * Retrieves a list of models based on the current search/filter conditions.
-	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
 
-		$criteria=new CDbCriteria;
 
-		$criteria->with=array('idParent' => array('alias' => 'department'),'departments' => array('alias' => 'departments'),'departmentPosts' => array('alias' => 'department_posts'),);
-		$criteria->compare('id',$this->id);
-		$criteria->compare('id_parent',$this->id_parent);
-		$criteria->compare('t.name',$this->name,true);
-		$criteria->compare('date_begin',$this->date_begin,true);
-		$criteria->compare('date_end',$this->date_end,true);
-		$criteria->compare('department.name',$this->idParentid_parent,true);
-        //$criteria->compare('department.id_parent',$this->departmentsid_parent,true);
-		$criteria->compare('department_posts.name',$this->departmentPostsid_department,true);
-
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
+	public function beforeSave() {
+        foreach ($this->attributes as $key => $value)
+                if (!$value)
+                        $this->$key = NULL;
+                
+        return parent::beforeSave();
 	}
+
+	    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria=new CDbCriteria;
+
+        $criteria->with=array('parentSubdivRn' => array('alias' => 'department'),'departments' => array('alias' => 'departments'),'departmentPosts' => array('alias' => 'departmentposts'),);
+        $criteria->compare('id',$this->id);
+        $criteria->compare('t.name',$this->name,true);
+        $criteria->compare('date_begin',$this->date_begin,true);
+        $criteria->compare('date_end',$this->date_end,true);
+        $criteria->compare('subdiv_rn',$this->subdiv_rn,true);
+        if(!empty($_GET['parent_subdiv_rn']))
+                $criteria->compare('parent_subdiv_rn',$_GET['parent_subdiv_rn'],true);
+        else
+                $criteria->compare('parent_subdiv_rn',$this->parent_subdiv_rn,true);
+        $criteria->compare('department.name',$this->parentSubdivRnparent_subdiv_rn,true);
+        $criteria->compare('departments.name',$this->departmentsparent_subdiv_rn,true);
+        $criteria->compare('department_posts.name',$this->departmentPostspost_subdiv_rn,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
+
 }

@@ -23,12 +23,14 @@ $this->menu=array(
 	'attributes'=>array(
 		'id',
 		'post',
+		'date_begin',
+		'date_end',
+		'islead',
+		'kod_parus',
 array(               
             	'label'=>'Department',
             	'type'=>'raw',
-            	'value'=>CHtml::link(CHtml::encode($model->idDepartment->name),
-                array('Department/view','id'=>$model->idDepartment->id)),
-        ),		'date_begin',
-		'date_end',
-	),
+            	'value'=>CHtml::link(CHtml::encode($model->postSubdivRn->name),
+                array('Department/view','id'=>$model->postSubdivRn->id)),
+        ),	),
 )); ?>

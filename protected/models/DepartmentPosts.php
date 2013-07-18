@@ -27,9 +27,8 @@ class DepartmentPosts extends CActiveRecord
 	public static $modelLabelS='Штатная структура';
 	public static $modelLabelP='Штатная структура';
 	
-	public $idDepartmentid_department;
-public $personnelPostsHistoriesid_post;
-
+   public $personnelPostsHistoriesid_post;
+public $postSubdivRnpost_subdiv_rn;
 
 	public static function model($className=__CLASS__)
 	{
@@ -54,33 +53,34 @@ public $personnelPostsHistoriesid_post;
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules()
-	{
-		// NOTE: you should only define rules for those attributes that
-		// will receive user inputs.
-		return array(
-			array('id_department,islead,kod_parus', 'numerical', 'integerOnly'=>true),
-			array('post', 'length', 'max'=>80),
-			array('date_begin, date_end', 'date', 'format'=>'dd.MM.yyyy'),
-		
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, post, id_department, date_begin, date_end, islead, kod_parus, idDepartmentid_department, personnelPostsHistoriesid_post', 'safe', 'on'=>'search'),
-		);
-	}
+   public function rules()
+    {
+        // NOTE: you should only define rules for those attributes that
+        // will receive user inputs.
+        return array(
+            array('islead, kod_parus', 'numerical', 'integerOnly'=>true),
+            array('post', 'length', 'max'=>80),
+            array('post_subdiv_rn', 'length', 'max'=>10),
+            array('date_begin, date_end', 'safe'),
+        
+            // The following rule is used by search().
+            // Please remove those attributes that should not be searched.
+            array('id, post, date_begin, date_end, islead, kod_parus, post_subdiv_rn,personnelPostsHistoriesid_post,postSubdivRnpost_subdiv_rn', 'safe', 'on'=>'search'),
+        );
+    }
 
 	/**
 	 * @return array relational rules.
 	 */
-	public function relations()
-	{
-		// NOTE: you may need to adjust the relation name and the related
-		// class name for the relations automatically generated below.
-		return array(
-			'idDepartment' => array(self::BELONGS_TO, 'Department', 'id_department'),
-			'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post','order'=>'t.date_end DESC'),
-		);
-	}
+   public function relations()
+    {
+        // NOTE: you may need to adjust the relation name and the related
+        // class name for the relations automatically generated below.
+        return array(
+            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post'),
+            'postSubdivRn' => array(self::BELONGS_TO, 'Department', 'post_subdiv_rn'),
+        );
+    }
 
 	/**
 	 * @return array customized attribute labels (name=>label)
@@ -97,6 +97,9 @@ public $personnelPostsHistoriesid_post;
 			'personnelPostsHistoriesid_post' => 'Должность',
             'kod_parus' => 'Номер в Парусе',
 			'islead' => 'Является руководителем',
+            'post_subdiv_rn' => 'Post Subdiv Rn',
+            'personnelPostsHistoriesid_post' => 'id_post',
+            'postSubdivRnpost_subdiv_rn' => 'post_subdiv_rn',
 		);
 	}
 
@@ -104,29 +107,29 @@ public $personnelPostsHistoriesid_post;
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+    public function search()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-		$criteria=new CDbCriteria;
+        $criteria=new CDbCriteria;
 
-		$criteria->with=array('idDepartment' => array('alias' => 'department'),'personnelPostsHistories' => array('alias' => 'personnel_posts_history'),);
-		$criteria->compare('id',$this->id);
-		$criteria->compare('post',$this->post,true);
-		if(!empty($_GET['id_department']))
-				$criteria->compare('id_department',$_GET['id_department']);
-		else
-				$criteria->compare('id_department',$this->id_department);
-		$criteria->compare('date_begin',$this->date_begin,true);
-		$criteria->compare('date_end',$this->date_end,true);
-        $criteria->compare('islead',$this->islead,true);
+        $criteria->with=array('personnelPostsHistories' => array('alias' => 'personnelpostshistory'),'postSubdivRn' => array('alias' => 'department'),);
+        $criteria->compare('id',$this->id);
+        $criteria->compare('post',$this->post,true);
+        $criteria->compare('date_begin',$this->date_begin,true);
+        $criteria->compare('date_end',$this->date_end,true);
+        $criteria->compare('islead',$this->islead);
         $criteria->compare('kod_parus',$this->kod_parus);
-		$criteria->compare('department.name',$this->idDepartmentid_department,true);
-		$criteria->compare('personnel_posts_history.post',$this->personnelPostsHistoriesid_post,true);
+        if(!empty($_GET['post_subdiv_rn']))
+                $criteria->compare('post_subdiv_rn',$_GET['post_subdiv_rn']);
+        else
+                $criteria->compare('post_subdiv_rn',$this->post_subdiv_rn,true);
+        $criteria->compare('personnelpostshistory.id_post',$this->personnelPostsHistoriesid_post,true);
+        $criteria->compare('department.post_subdiv_rn',$this->postSubdivRnpost_subdiv_rn,true);
 
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-	}
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
+    }
 }

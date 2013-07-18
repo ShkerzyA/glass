@@ -44,10 +44,11 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array( 'name'=>'idParentid_parent', 'value'=>'$data->idParent->name' ),
 		'name',
 		'date_begin',
 		'date_end',
+		'subdiv_rn',
+		array( 'name'=>'parentSubdivRnparent_subdiv_rn', 'value'=>'$data->parentSubdivRn->name' ),
 		array(
 			'class'=>'CButtonColumn',
 		),

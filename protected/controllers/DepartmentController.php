@@ -61,6 +61,7 @@ class DepartmentController extends Controller
 	public function actionView($id)
 	{
 		$this->layout='//layouts/column1';
+		$model=$this->loadModel($id);
 		$criteria=new CDbCriteria(array(
         'with'=>'commentCount',
     	));
@@ -75,14 +76,14 @@ class DepartmentController extends Controller
         'alias'=>'j',
         'order'=>'j.date_end DESC'
     ),
-))->findAll(array('condition'=>"id_department=$id",'order'=>'islead DESC, t.date_begin ASC'));
+))->findAll(array('condition'=>"post_subdiv_rn='$model->subdiv_rn'",'order'=>'islead DESC, t.date_begin ASC'));
 
 
 
 
 		$this->render('view',array(
 			'DepPosts'=>$DepPosts,
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
 	/**
@@ -191,12 +192,17 @@ class DepartmentController extends Controller
         // с какого узла начинаем вывод дерева? 0 - с первого
         $parentId = 'is null';
         if (isset($_GET['root']) && $_GET['root'] !== 'source') {
-            $parentId = '='.(int) $_GET['root'];
+
+        	$parent=Department::model()->findByPk($_GET['root']);
+
+            $parentId = '=\''.(string) $parent->subdiv_rn.'\'' ;
         }
         // сам запрос на получение данных детей (через обычный LEFT JOIN)
         $req = Yii::app()->db->createCommand(
-            "SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
+            //"SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
+        	"SELECT m1.subdiv_rn, m1.id, m1.name AS text, m1.parent_subdiv_rn as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.subdiv_rn=m2.parent_subdiv_rn WHERE m1.parent_subdiv_rn $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
         );
+
         $children = $req->queryAll();
 
 

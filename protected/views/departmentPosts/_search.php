@@ -22,11 +22,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'id_department'); ?>
-		<?php echo $form->textField($model,'id_department'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'date_begin'); ?>
 		<?php echo $form->textField($model,'date_begin'); ?>
 	</div>
@@ -34,6 +29,21 @@
 	<div class="row">
 		<?php echo $form->label($model,'date_end'); ?>
 		<?php echo $form->textField($model,'date_end'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'islead'); ?>
+		<?php echo $form->textField($model,'islead'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'kod_parus'); ?>
+		<?php echo $form->textField($model,'kod_parus'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'post_subdiv_rn'); ?>
+		<?php echo $form->textField($model,'post_subdiv_rn',array('size'=>10,'maxlength'=>10)); ?>
 	</div>
 
 	<div class="row buttons">

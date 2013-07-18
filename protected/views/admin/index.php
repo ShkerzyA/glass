@@ -15,6 +15,12 @@ $this->menu=array(
 			);
 
 $this->menu['all_menu']=array(
+	array('title'=>'MyDbase','items'=>array(
+		array('label'=>'Список кадров', 'url'=>array('/MyDbase/ReadPerson')),
+		array('label'=>'Отделы', 'url'=>array('/MyDbase/ReadOtdel')),
+	)),
+
+
 	array('title'=>'Персонал','items'=>array(
 		array('label'=>'Пользователи', 'url'=>array('/users/admin'),'items'=>array(
 		/*array('label'=>'Роли', 'url'=>array('/usersPosts/admin')),

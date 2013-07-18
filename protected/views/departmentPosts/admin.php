@@ -45,9 +45,13 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'post',
-		array( 'name'=>'idDepartmentid_department', 'value'=>'$data->idDepartment->name' ),
 		'date_begin',
 		'date_end',
+		'islead',
+		'kod_parus',
+		/*
+		array( 'name'=>'postSubdivRnpost_subdiv_rn', 'value'=>'$data->postSubdivRn->post_subdiv_rn' ),
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),
