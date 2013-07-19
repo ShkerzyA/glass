@@ -37,8 +37,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'kod_parus'); ?>
-		<?php echo $form->textField($model,'kod_parus'); ?>
+		<?php echo $form->label($model,'post_rn'); ?>
+		<?php echo $form->textField($model,'post_rn'); ?>
 	</div>
 
 	<div class="row">

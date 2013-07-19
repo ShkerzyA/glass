@@ -58,7 +58,7 @@ class MyDbase extends CFormModel{
 			$dep->subdiv_rn=$v['SUBDIV_RN'];
 			//$dep->parent_subdiv_rn=$v['PARENTPARENT'];
 			$dep->save();
-			//var_dump($dep->getErrors()); 
+			//var_dump($depPost->getErrors()); //вызывает задвоение 
 		}
 
 		foreach ($zSubDiv as $v) {
@@ -94,11 +94,96 @@ class MyDbase extends CFormModel{
        			else if(trim($v['SEX'])=='Ж')
        				$newpers->sex=1;
        			$newpers->save();
-       			var_dump($newpers->getErrors());
+       			//var_dump($depPost->getErrors()); //вызывает задвоение
 		}
 
  		return $personnel;
  	}
+
+ 	public function otdelPostsImport(){
+
+ 	
+ 		$posts=$this->read_table('zpost.dbf','POST_RN');
+ 		$zpostch=$this->read_table('zpostch.dbf');
+ 		$ztipdol=$this->read_table('ztipdol.dbf','TIPDOL_RN');
+
+		foreach ($posts as &$v) {
+			$t=$v['POST_RN'];
+			$v['zpostch']=array_filter($zpostch, function($var) use ($t){return ($var['POSTBS_RN']==$t);});
+			$v['ztipdol']=$ztipdol[$v['TIPDOL_RN']];
+		}
+
+		foreach ($posts as $v) {
+
+			foreach ($v['zpostch'] as $z) {
+				$i=0;
+				while($i<$z['STQNT']){
+					$depPost=new DepartmentPosts();
+       				$depPost->post=trim($v['ztipdol']['NAME']);
+       				$depPost->post_rn=$v['POST_RN'];
+       				$depPost->date_begin=substr($z['CHSTARTDAT'] , 6,2).'.'.substr($z['CHSTARTDAT'] , 4,2).'.'.substr($z['CHSTARTDAT'] ,0,4);
+       				$depPost->date_end=substr($z['CHENDDATE'] , 6,2).'.'.substr($z['CHENDDATE'] , 4,2).'.'.substr($z['CHENDDATE'] ,0,4);
+       				$depPost->post_subdiv_rn=trim($v['SUBDIV_RN']);
+       				$depPost->save();
+       				//var_dump($depPost->getErrors()); //вызывает задвоение
+					$i++;	
+				}
+			}
+				
+		}
+
+		DepartmentPosts::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
+
+ 		return $posts;
+
+ 	}
+
+ 	public function personnelPostsHistoryImport(){
+
+ 		//$wtf=array();
+ 		//$posts=$this->read_table('zpost.dbf','POST_RN');
+ 		$zfcac=$this->read_table('zfcac.dbf');
+ 		//$ztipdol=$this->read_table('ztipdol.dbf','TIPDOL_RN');
+ 		$zank=$this->read_table('zank.dbf','ANK_RN');
+
+		foreach ($zfcac as &$v) {
+			$x=$v['ANK_RN'];
+			$v['ank']=array_filter($zank, function($var) use ($x){return ($var['ANK_RN']==$x);});
+		}
+
+		//$x=0;
+		foreach ($zfcac as $v) {
+			$posts=DepartmentPosts::model()->findAll(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));
+
+			foreach ($v['ank'] as $z) {
+				$pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>trim($z['ORGBASE_RN']))));
+				$postH=new PersonnelPostsHistory();
+				$postH->id_personnel=$pers->id;
+				$postH->date_begin=substr($z['JOBBEGIN'] , 6,2).'.'.substr($z['JOBBEGIN'] , 4,2).'.'.substr($z['JOBBEGIN'] ,0,4);
+				$postH->date_end=substr($z['JOBEND'] , 6,2).'.'.substr($z['JOBEND'] , 4,2).'.'.substr($z['JOBEND'] ,0,4);
+				
+				foreach ($posts as $post){
+					if($post->freeOnly()){
+						$postH->id_post=$post->id;
+						$postH->save();
+						//var_dump($postH->getErrors());
+						//$wtf[]=$postH->attributes;
+						break;
+					}
+					
+				}
+			}
+			//$x++;
+			//if ($x>20)
+			//	break;
+
+		}
+		PersonnelPostsHistory::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
+
+ 		//return $zfcac;
+ 		//return $wtf;
+ 	}
+
 
 
 }

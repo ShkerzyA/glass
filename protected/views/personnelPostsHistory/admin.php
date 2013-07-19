@@ -36,7 +36,7 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
         array( 'name'=>'idPersonnelid_personnel', 'value'=>'$data->idPersonnel->surname." ".$data->idPersonnel->name." ".$data->idPersonnel->patr' ),
-        array( 'name'=>'idPostid_post', 'value'=>'$data->idPost->idDepartment->name."/".$data->idPost->post' ),
+        array( 'name'=>'idPostid_post', 'value'=>'$data->idPost->postSubdivRn->name."/".$data->idPost->post' ),
 		'date_begin',
 		'date_end',
 		array(

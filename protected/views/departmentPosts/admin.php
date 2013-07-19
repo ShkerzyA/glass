@@ -48,7 +48,7 @@ $('.search-form form').submit(function(){
 		'date_begin',
 		'date_end',
 		'islead',
-		'kod_parus',
+		'post_rn',
 		/*
 		array( 'name'=>'postSubdivRnpost_subdiv_rn', 'value'=>'$data->postSubdivRn->post_subdiv_rn' ),
 		*/

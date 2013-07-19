@@ -60,7 +60,7 @@ public $departmentPostspost_subdiv_rn;
         // will receive user inputs.
         return array(
             array('date_begin', 'required'),
-            array('name', 'length', 'max'=>150),
+            array('name', 'length', 'max'=>100),
             array('subdiv_rn, parent_subdiv_rn', 'length', 'max'=>10),
             array('date_end', 'safe'),
         	array('subdiv_rn', 'unique'),

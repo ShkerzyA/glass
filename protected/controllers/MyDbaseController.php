@@ -28,7 +28,7 @@ class MyDbaseController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('ReadPerson','ImportOtdel','ImportPersonnel'),
+				'actions'=>array('ReadPerson','ImportOtdel','ImportPersonnel','ImportOtdelPosts','ImportPersonnelPostsHistory'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -54,7 +54,7 @@ class MyDbaseController extends Controller
 		));
 	}
 
-		public function actionImportOtdel()
+	public function actionImportOtdel()
 	{
 		$model=new MyDbase;
 		
@@ -66,11 +66,35 @@ class MyDbaseController extends Controller
 		));
 	}
 
-		public function actionImportPersonnel()
+	public function actionImportPersonnel()
 	{
 		$model=new MyDbase;
 		
 		$result=$model->personnelImport();
+
+		$this->render('ShowMass',array(
+			'model'=>$model,
+			'result'=>$result,
+		));
+	}
+
+	public function actionImportOtdelPosts()
+	{
+		$model=new MyDbase;
+		
+		$result=$model->otdelPostsImport();
+
+		$this->render('ShowMass',array(
+			'model'=>$model,
+			'result'=>$result,
+		));
+	}
+
+	public function actionImportPersonnelPostsHistory()
+	{
+		$model=new MyDbase;
+		
+		$result=$model->personnelPostsHistoryImport();
 
 		$this->render('ShowMass',array(
 			'model'=>$model,

@@ -58,17 +58,32 @@ public $postSubdivRnpost_subdiv_rn;
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('islead, kod_parus', 'numerical', 'integerOnly'=>true),
-            array('post', 'length', 'max'=>80),
+            array('islead', 'numerical', 'integerOnly'=>true),
+            array('post', 'length', 'max'=>200),
             array('post_subdiv_rn', 'length', 'max'=>10),
             array('date_begin, date_end', 'safe'),
-        
+            array('post_rn', 'length', 'max'=>8),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, post, date_begin, date_end, islead, kod_parus, post_subdiv_rn,personnelPostsHistoriesid_post,postSubdivRnpost_subdiv_rn', 'safe', 'on'=>'search'),
+            array('id, post, date_begin, date_end, islead,  post_rn, post_subdiv_rn,personnelPostsHistoriesid_post,postSubdivRnpost_subdiv_rn', 'safe', 'on'=>'search'),
         );
     }
 
+
+    public function freeOnly()
+    {   
+
+    	if(!empty($_POST['DepartmentPosts']))
+    		$this->attributes=$_POST['DepartmentPosts'];
+
+    	$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post=".$this->id." and (date_end is null or date_end>current_date)"));
+        if (!empty($Ph)){
+        	return False;
+        }
+        else {
+        	return True;
+        }
+    }
 	/**
 	 * @return array relational rules.
 	 */
@@ -95,7 +110,7 @@ public $postSubdivRnpost_subdiv_rn;
 			'date_end' => 'Дата окончания',
 			'idDepartmentid_department' => 'Отдел',
 			'personnelPostsHistoriesid_post' => 'Должность',
-            'kod_parus' => 'Номер в Парусе',
+            'post_rn' => 'Код в парусе',
 			'islead' => 'Является руководителем',
             'post_subdiv_rn' => 'Post Subdiv Rn',
             'personnelPostsHistoriesid_post' => 'id_post',
@@ -120,7 +135,7 @@ public $postSubdivRnpost_subdiv_rn;
         $criteria->compare('date_begin',$this->date_begin,true);
         $criteria->compare('date_end',$this->date_end,true);
         $criteria->compare('islead',$this->islead);
-        $criteria->compare('kod_parus',$this->kod_parus);
+        $criteria->compare('post_rn',$this->post_rn,true);
         if(!empty($_GET['post_subdiv_rn']))
                 $criteria->compare('post_subdiv_rn',$_GET['post_subdiv_rn']);
         else

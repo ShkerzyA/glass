@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),
-	'Список кадров',
+	'',
 );
 
 /*

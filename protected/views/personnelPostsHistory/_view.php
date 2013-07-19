@@ -14,7 +14,7 @@
     <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('id_post')); ?>:</b>
-    <?php echo CHtml::encode($data->idPost->idDepartment->name.'/'.$data->idPost->post); ?>
+    <?php echo CHtml::encode($data->idPost->postSubdivRn->name.'/'.$data->idPost->post); ?>
     <br />
 
     <b><?php echo CHtml::encode($data->getAttributeLabel('date_begin')); ?>:</b>

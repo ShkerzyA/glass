@@ -1,3 +1,4 @@
+<h1>Отделы</h1>
 <?php
 $this->widget(
     'CTreeView',

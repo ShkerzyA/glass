@@ -56,7 +56,7 @@ class PersonnelPostsHistory extends CActiveRecord
 		return array(
 			array('id_post','freeOnly'),
 			array('id_personnel, id_post', 'numerical', 'integerOnly'=>true),
-			array('date_begin, date_end', 'date','format'=>'dd.MM.yyyy'),
+			array('date_begin', 'date','format'=>'dd.MM.yyyy'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			//array('id, id_personnel, id_post, department_posts, date_begin, date_end, personnel', 'safe', 'on'=>'search'),
@@ -70,12 +70,12 @@ class PersonnelPostsHistory extends CActiveRecord
     	if(!empty($_POST['PersonnelPostsHistory']))
     		$this->attributes=$_POST['PersonnelPostsHistory'];
 
-    	echo $this->id_post;
+    	//echo $this->id_post;
 
-    	//$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post=".$this->id_post." and (date_end is null or date_end>current_date) and id_personnel<>".$this->id_personnel.""));
-        //foreach ($Ph as $v){
-        //	$this->addError('PersonnelPostsHistory["id_post"]','Выбранная должность в данный момент занята '.$v->idPersonnel->surname.' '.$v->idPersonnel->name.' '.$v->idPersonnel->patr);
-        //}
+    	$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post=".$this->id_post." and (date_end is null or date_end>current_date) and id_personnel<>".$this->id_personnel.""));
+        foreach ($Ph as $v){
+        	$this->addError('PersonnelPostsHistory["id_post"]','Выбранная должность в данный момент занята '.$v->idPersonnel->surname.' '.$v->idPersonnel->name.' '.$v->idPersonnel->patr);
+        }
         
     }
 

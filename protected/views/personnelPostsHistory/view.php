@@ -30,7 +30,7 @@ array(
         ),array(               
                 'label'=>'Должность',
                 'type'=>'raw',
-                'value'=>CHtml::link(CHtml::encode($model->idPost->idDepartment->name.'/'.$model->idPost->post.' #'.$model->id),
+                'value'=>CHtml::link(CHtml::encode($model->idPost->postSubdivRn->name.'/'.$model->idPost->post.' #'.$model->id),
                 array('DepartmentPosts/view','id'=>$model->idPost->id)),
         ),        'date_begin',
         'date_end',
