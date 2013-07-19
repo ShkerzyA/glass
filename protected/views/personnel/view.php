@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	'Кадры'=>array('index'),
-	$model->name,
+	$model->surname.' '.$model->name,
 );
 
 $this->menu=array(
@@ -22,8 +22,19 @@ $this->menu=array(
 <div id="dataPersonnel">
 	<?php 
 
+	if($model->sex===0){
+		$sex='Мужской';
+	}else if($model->sex===1){
+		$sex='Женский';
+	}else
+	{
+		$sex='Не указан';
+	}
+
+	$birthday=(!empty($model->birthday))?date('d.m.Y',strtotime($model->birthday)):'-//-';
 
 	echo'<div><b>'.CHtml::encode($model->surname).' '.CHtml::encode($model->name).' '.CHtml::encode($model->patr).'</b> (тел.'.($ph=(!empty($model->workplaces))?CHtml::encode($model->workplaces->idCabinet->phone):'').')</div>';
+	echo'<div><b>Дата рождения: '.CHtml::encode($birthday).' (Пол: '.CHtml::encode($sex).')</div>';
 	if (!empty($model->workplaces->idCabinet)){
 		echo'<div>Кабинет: "'.CHtml::encode($model->workplaces->idCabinet->cname).' №'.CHtml::encode($model->workplaces->idCabinet->num).'" '.CHtml::encode($model->workplaces->idCabinet->idFloor->fname).' '.CHtml::encode($model->workplaces->idCabinet->idFloor->idBuilding->bname).'</div>';
 	}

@@ -17,7 +17,8 @@ $this->menu=array(
 $this->menu['all_menu']=array(
 	array('title'=>'MyDbase','items'=>array(
 		array('label'=>'Список кадров', 'url'=>array('/MyDbase/ReadPerson')),
-		array('label'=>'Отделы', 'url'=>array('/MyDbase/ReadOtdel')),
+		array('label'=>'Импорт Отделов', 'url'=>array('/MyDbase/importOtdel')),
+		array('label'=>'Импорт Кадров', 'url'=>array('/MyDbase/importPersonnel')),
 	)),
 
 

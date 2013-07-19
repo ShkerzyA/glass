@@ -68,13 +68,15 @@ class Personnel extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_user', 'numerical', 'integerOnly'=>true),
+			array('id_user,sex', 'numerical', 'integerOnly'=>true),
 			array('surname, name, patr', 'length', 'max'=>50),
 			array('photo', 'length', 'max'=>200),
             array('birthday, date_begin, date_end', 'safe'),
+            array('orbase_rn', 'length', 'max'=>8),
+            array('orbase_rn', 'unique',),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, surname, name, patr, photo, id_user, birthday, date_begin, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel', 'safe', 'on'=>'search'),
+			array('id, surname, name, patr, photo, id_user, birthday, date_begin, orbase_rn, sex, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -116,6 +118,8 @@ class Personnel extends CActiveRecord
 			'idUserid_user' => 'Пользователь',
             'workplacesid_personnel' => 'Рабочее место',
             'personnelPostsHistoriesid_personnel' => 'Занимаемые должности',
+            'orbase_rn' => 'Код в парусе',
+            'sex' => 'Пол',
 		);
 	}
 
@@ -142,6 +146,8 @@ class Personnel extends CActiveRecord
         $criteria->compare('date_begin',$this->date_begin,true);
         $criteria->compare('date_end',$this->date_end,true);
         $criteria->compare('photo',$this->photo,true);
+        $criteria->compare('orbase_rn',$this->orbase_rn,true);
+        $criteria->compare('sex',$this->sex);
         if(!empty($_GET['id_user']))
                 $criteria->compare('id_user',$_GET['id_user']);
         else
