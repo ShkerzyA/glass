@@ -77,6 +77,10 @@ public $postSubdivRnpost_subdiv_rn;
     		$this->attributes=$_POST['DepartmentPosts'];
 
     	$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post=".$this->id." and (date_end is null or date_end>current_date)"));
+
+    	echo '<pre>';
+    	print_r($Ph->attributes);
+    	echo '</pre>';
         if (!empty($Ph)){
         	return False;
         }

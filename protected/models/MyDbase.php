@@ -141,9 +141,7 @@ class MyDbase extends CFormModel{
  	public function personnelPostsHistoryImport(){
 
  		//$wtf=array();
- 		//$posts=$this->read_table('zpost.dbf','POST_RN');
  		$zfcac=$this->read_table('zfcac.dbf');
- 		//$ztipdol=$this->read_table('ztipdol.dbf','TIPDOL_RN');
  		$zank=$this->read_table('zank.dbf','ANK_RN');
 
 		foreach ($zfcac as &$v) {
@@ -154,13 +152,15 @@ class MyDbase extends CFormModel{
 		//$x=0;
 		foreach ($zfcac as $v) {
 			$posts=DepartmentPosts::model()->findAll(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));
-
 			foreach ($v['ank'] as $z) {
 				$pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>trim($z['ORGBASE_RN']))));
 				$postH=new PersonnelPostsHistory();
 				$postH->id_personnel=$pers->id;
 				$postH->date_begin=substr($z['JOBBEGIN'] , 6,2).'.'.substr($z['JOBBEGIN'] , 4,2).'.'.substr($z['JOBBEGIN'] ,0,4);
-				$postH->date_end=substr($z['JOBEND'] , 6,2).'.'.substr($z['JOBEND'] , 4,2).'.'.substr($z['JOBEND'] ,0,4);
+
+				$date_end=date('d.m.Y',strtotime(substr($z['JOBEND'] , 6,2).'.'.substr($z['JOBEND'] , 4,2).'.'.substr($z['JOBEND'] ,0,4)));
+				$date_end=($date_end!='01.01.1970')?$date_end:NULL;
+				$postH->date_end=$date_end;
 				
 				foreach ($posts as $post){
 					if($post->freeOnly()){
@@ -169,7 +169,9 @@ class MyDbase extends CFormModel{
 						//var_dump($postH->getErrors());
 						//$wtf[]=$postH->attributes;
 						break;
-					}
+					}//else{
+					//	echo'Уже занят';
+					//
 					
 				}
 			}
@@ -178,7 +180,7 @@ class MyDbase extends CFormModel{
 			//	break;
 
 		}
-		PersonnelPostsHistory::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
+		//PersonnelPostsHistory::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
 
  		//return $zfcac;
  		//return $wtf;
