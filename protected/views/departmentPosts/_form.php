@@ -1,33 +1,34 @@
-<?php
-/* @var $this PersonnelPostsController */
-/* @var $model PersonnelPosts */
-/* @var $form CActiveForm */
-?>
+
 
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
-	'id'=>'personnel-posts-form',
-	'enableAjaxValidation'=>false,
+    'id'=>'department-posts-form',
+    'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+    <p class="note">Поля с <span class="required">*</span> обязательны.</p>
 
-	<?php echo $form->errorSummary($model); ?>
+    <?php echo $form->errorSummary($model); ?>
+
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'post'); ?>
+
+        <?php echo $form->textField($model,'post',array('size'=>60,'maxlength'=>80)); ?>
+
+        <?php echo $form->error($model,'post'); ?>
+    </div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'post'); ?>
-		<?php echo $form->textField($model,'post',array('size'=>50,'maxlength'=>50)); ?>
-		<?php echo $form->error($model,'post'); ?>
-	</div>
+        <?php echo $form->labelEx($model,'islead'); ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_department'); ?>
-		<?php echo $form->dropDownList($model,'id_department',CHtml::listData(Department::model()->findall(),'id','name')); ?>
-		<?php echo $form->error($model,'id_department'); ?>
-	</div>
+        <?php echo $form->checkBox($model,'islead',array('value'=>1,'size'=>2,'maxlength'=>2)); ?>
 
-		<div class="row">
+        <?php echo $form->error($model,'islead'); ?>
+    </div>
+
+    	<div class="row">
 		<?php echo $form->labelEx($model,'date_begin'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
    'name' => 'date_begin',
@@ -61,11 +62,28 @@
 		<?php echo $form->error($model,'date_end'); ?>
 	</div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model,'kod_parus'); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+        <?php echo $form->textField($model,'kod_parus'); ?>
+
+        <?php echo $form->error($model,'kod_parus'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'post_subdiv_rn'); ?>
+
+
+        <?php $tmp=Department::model()->findall();
+echo $form->dropDownList($model,"post_subdiv_rn",CHtml::listData($tmp,"subdiv_rn",function($tmp) {
+                return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
+        <?php echo $form->error($model,'post_subdiv_rn'); ?>
+    </div>
+
+    <div class="row buttons">
+        <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
+    </div>
 
 <?php $this->endWidget(); ?>
 
-</div><!-- form -->
+</div>

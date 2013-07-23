@@ -3,13 +3,13 @@
 /* @var $model Personnel */
 
 $this->breadcrumbs=array(
-	'Кадры'=>array('index'),
-	'Управление',
+    $model::$modelLabelP=>array('index'),
+    'Управление',
 );
 
 $this->menu=array(
-	array('label'=>'Кадры', 'url'=>array('index')),
-	array('label'=>'Создать', 'url'=>array('create')),
+    array('label'=>'Список', 'url'=>array('index')),
+    array('label'=>'Создать', 'url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -37,17 +37,21 @@ $('.search-form form').submit(function(){
 
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'personnel-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'surname',
-		'name',
-        array( 'name'=>'username', 'value'=>'$data->users->username', ),
-		'patr',
-		'photo',
-		array(
-			'class'=>'CButtonColumn',
-		),
-	),
+    'id'=>'personnel-grid',
+    'dataProvider'=>$model->search(),
+    'filter'=>$model,
+    'columns'=>array(
+        'id',
+        'surname',
+        'name',
+        'patr',
+        'photo',
+        array( 'name'=>'idUserid_user', 'value'=>'$data->idUser->username' ),
+        'birthday',
+        'date_begin',
+        'date_end',
+        array(
+            'class'=>'CButtonColumn',
+        ),
+    ),
 )); ?>

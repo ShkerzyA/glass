@@ -36,13 +36,20 @@ class DepartmentPostsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','import'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionImport()
+	{
+		$xls=new Xls();
+		$result=$xls->import_DepartmentPosts();
+		$this->render('import',array('result'=>$result));
 	}
 
 	/**
@@ -124,7 +131,7 @@ class DepartmentPostsController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('DepartmentPosts');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>DepartmentPosts::$modelLabelP,
 		));
 	}
 
@@ -164,7 +171,7 @@ class DepartmentPostsController extends Controller
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='personnel-posts-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='department-posts-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

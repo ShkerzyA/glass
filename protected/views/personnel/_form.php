@@ -2,7 +2,13 @@
 /* @var $this PersonnelController */
 /* @var $model Personnel */
 /* @var $form CActiveForm */
+Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('ext.assets').'/modalAjax.js'),CClientScript::POS_END);
+
 ?>
+
+
+
+<div class="modalwind" style="display: none;"><img src=/glass/images/close.png id="close" style="text-align: right;"><div id='PostInfo'></div></div>
 
 <div class="form">
 
@@ -12,7 +18,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Поле с <span class="required">*</span> обязательно для заполнения.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -46,11 +52,57 @@
 		<?php echo $form->error($model,'id_user'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'id_cabinet'); ?>
-		<?php echo $form->dropDownList($model,'id_cabinet',CHtml::listData(Cabinet::model()->findall(),'id','name'),array('empty' => '(Кабинет)')); ?>
-		<?php echo $form->error($model,'id_cabinet'); ?>
+		<div class="row">
+		<?php echo $form->labelEx($model,'birthday'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+   'name' => 'birthday',
+   'model' => $model,
+   'attribute' => 'birthday',
+   'language' => 'ru',
+   'options' => array(
+       'showAnim' => 'fold',
+   ),
+   'htmlOptions' => array(
+       'style' => 'height:20px;'
+   ),
+));?>
+		<?php echo $form->error($model,'date_end'); ?>
 	</div>
+
+		<div class="row">
+		<?php echo $form->labelEx($model,'date_begin'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+   'name' => 'date_begin',
+   'model' => $model,
+   'attribute' => 'date_begin',
+   'language' => 'ru',
+   'options' => array(
+       'showAnim' => 'fold',
+   ),
+   'htmlOptions' => array(
+       'style' => 'height:20px;'
+   ),
+));?>
+		<?php echo $form->error($model,'date_begin'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'date_end'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+   'name' => 'date_end',
+   'model' => $model,
+   'attribute' => 'date_end',
+   'language' => 'ru',
+   'options' => array(
+       'showAnim' => 'fold',
+   ),
+   'htmlOptions' => array(
+       'style' => 'height:20px;'
+   ),
+));?>
+		<?php echo $form->error($model,'date_end'); ?>
+	</div>
+
 
 
 
@@ -59,5 +111,8 @@
 	</div>
 
 <?php $this->endWidget(); ?>
+
+
+
 
 </div><!-- form -->

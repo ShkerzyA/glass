@@ -124,7 +124,7 @@ class CabinetController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('Cabinet');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Cabinet::$modelLabelP,
 		));
 	}
 

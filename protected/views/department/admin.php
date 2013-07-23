@@ -3,14 +3,16 @@
 /* @var $model Department */
 
 $this->breadcrumbs=array(
-	'Departments'=>array('index'),
-	'Manage',
+	$model::$modelLabelP=>array('index'),
+	'Управление',
 );
 
 $this->menu=array(
-	array('label'=>'Список отделов', 'url'=>array('index')),
-	array('label'=>'Создать отдел', 'url'=>array('create')),
+	array('label'=>'Список', 'url'=>array('index')),
+	array('label'=>'Создать', 'url'=>array('create')),
 );
+
+
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
@@ -26,10 +28,10 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Отделы</h1>
+<h1>Управление  "<?php  echo $model::$modelLabelP; ?>"</h1>
 
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link('Расширенный поиск','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
@@ -45,6 +47,8 @@ $('.search-form form').submit(function(){
 		'name',
 		'date_begin',
 		'date_end',
+		'subdiv_rn',
+		array( 'name'=>'parentSubdivRnparent_subdiv_rn', 'value'=>'$data->parentSubdivRn->name' ),
 		array(
 			'class'=>'CButtonColumn',
 		),

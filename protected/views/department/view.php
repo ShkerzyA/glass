@@ -15,25 +15,38 @@ $this->menu=array(
 	array('label'=>'Delete Department', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Manage Department', 'url'=>array('admin')),
 );*/
-
 ?>
 
 <h1><?php echo $model->name; ?></h1>
 
-<table id="personTbl">
+<table id="personTbl" align=center>
 
 	<tr>
-		<td colspan=3 id="right">Сотрудники отдела:</td>
+		<td>Штатная структура:</td>
+		<td>Сотрудники:</td>
 <?php
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
 	if(!empty($DepPosts)){
 		foreach($DepPosts as $dp){
-			echo "<tr><td></td><td>".$dp->post."</td><td>";
-			foreach($dp->personnel_posts_history as $personnelPh){
-				echo "<a href='/glass/personnel/".$personnelPh->personnel->id."'>".$personnelPh->personnel->surname.' '.$personnelPh->personnel->name.' '.$personnelPh->personnel->patr."</a><br>";
-		
+			echo "<tr><td class='persList'>";
+			if (!empty($dp->islead))
+				echo '<b>';
+			echo $dp->post."</b></td><td class='persList'>";
+			if(!empty($dp->personnelPostsHistories)){
+			foreach($dp->personnelPostsHistories as $personnelPh){
+
+				if ($personnelPh->inactive())
+					echo '<span style="text-decoration: line-through">';
+				else
+					echo '<span>';
+				echo "<a href='/glass/personnel/".$personnelPh->idPersonnel->id."'>".$personnelPh->idPersonnel->surname.' '.$personnelPh->idPersonnel->name.' '.$personnelPh->idPersonnel->patr."</a><br>";
+				echo "(c ".$personnelPh->date_begin.($de=(!empty($personnelPh->date_end))?(" по ".$personnelPh->date_end):'').") <br>";
 			}
-			echo "</td></tr>";
+			}else{
+				echo '-//-';
+			}
+
+			echo "</span></td></tr>";
 		}
 	}
 ?>

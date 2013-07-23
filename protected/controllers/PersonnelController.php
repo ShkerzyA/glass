@@ -1,4 +1,8 @@
 <?php
+//Yii::import('application.vendors.*');
+//require_once('phpExcelReader/reader.php');
+
+
 
 class PersonnelController extends Controller
 {
@@ -36,7 +40,7 @@ class PersonnelController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','import','ajaxPost','ajaxPostAdm'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -49,10 +53,28 @@ class PersonnelController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+	public function actionajaxPost(){
+		$id = Yii::app()->request->getPost('id');
+       	$model=new PersonnelPostsHistory;
+        $this->renderPartial('_form_post_hist', array('model'=>$model,'id'=>$id), false, true);
+	}
+
+	public function actionajaxPostAdm(){
+		$id = Yii::app()->request->getPost('id');
+		$dataprov=new CActiveDataProvider('PersonnelPostsHistory', array(
+    'criteria'=>array(
+        'condition'=>'id_personnel='.$id,
+    ),));
+
+        $this->renderPartial('admin_post_hist', array('models'=>$dataprov,'id'=>$id), false, true);
+	}
+
+
+
 	public function actionView($id)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$this->loadModel($id)->with('workplaces,PersonnelPostsHistory'),
 		));
 	}
 
@@ -103,6 +125,15 @@ class PersonnelController extends Controller
 		));
 	}
 
+	public function actionImport()
+	{
+	
+		$xls=new Xls();
+		$bgf=$xls->import_Personnel();
+		$this->render('import',array('bfg'=>$bfg));
+
+	}
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -128,9 +159,12 @@ class PersonnelController extends Controller
 		if(isset($_GET['Personnel']))
 		$model->attributes=$_GET['Personnel'];
 
+
 		$this->render('index',array(
 			'model'=>$model,
 		));
+
+
 	}
 
 	/**
@@ -157,7 +191,8 @@ class PersonnelController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Personnel::model()->findByPk($id);
+		$model=Personnel::model()->with(array('personnelPostsHistories'=>array('alias'=>'personnel_posts_history')))->find(array('condition'=>'t.id='.$id,'order'=>'personnel_posts_history.date_end DESC'));
+		//$model=Personnel::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

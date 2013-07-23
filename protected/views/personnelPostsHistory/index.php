@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Personnel Posts Histories',
+    ''.$modelLabelP,
 );
 
 $this->menu=array(
-	array('label'=>'Create PersonnelPostsHistory', 'url'=>array('create')),
-	array('label'=>'Manage PersonnelPostsHistory', 'url'=>array('admin')),
+    array('label'=>'Создать', 'url'=>array('create')),
+    array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Personnel Posts Histories</h1>
+<h1><?php  echo $modelLabelP; ?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

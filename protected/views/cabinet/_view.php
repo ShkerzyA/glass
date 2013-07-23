@@ -9,20 +9,16 @@
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_building')); ?>:</b>
-	<?php echo CHtml::encode($data->id_building); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id_floor')); ?>:</b>
+	<?php echo CHtml::encode($data->idFloor->fname); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-	<?php echo CHtml::encode($data->name); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('cname')); ?>:</b>
+	<?php echo CHtml::encode($data->cname); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('num')); ?>:</b>
 	<?php echo CHtml::encode($data->num); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('floor')); ?>:</b>
-	<?php echo CHtml::encode($data->floor); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('phone')); ?>:</b>

@@ -3,19 +3,25 @@
 /* @var $model Personnel */
 
 $this->breadcrumbs=array(
-	'Personnels'=>array('index'),
+	'Кадры'=>array('index'),
 	$model->name=>array('view','id'=>$model->id),
 	'Update',
 );
 
 $this->menu=array(
-	array('label'=>'List Personnel', 'url'=>array('index')),
-	array('label'=>'Create Personnel', 'url'=>array('create')),
-	array('label'=>'View Personnel', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Personnel', 'url'=>array('admin')),
+    array('label'=>'Список', 'url'=>array('index')),
+    array('label'=>'Создать', 'url'=>array('create')),
+    array('label'=>'Отобразить', 'url'=>array('view', 'id'=>$model->id)),
+    array('label'=>'Управление ', 'url'=>array('admin')),
 );
+    $this->menu["details"]=array(
+array('label'=>'Рабочее место', 'url'=>array('Workplace/admin', 'id_personnel'=>$model->id)),
+array('label'=>'Занимаемые должности', 'url'=>array('PersonnelPostsHistory/admin', 'id_personnel'=>$model->id)),
+);
+
+
 ?>
 
-<h1>Update Personnel <?php echo $model->id; ?></h1>
+<h1>Сотрудник <u><?php echo ($model->surname.' '.$model->name.' '.$model->patr); ?></u></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -3,19 +3,21 @@
 /* @var $model Building */
 
 $this->breadcrumbs=array(
-	'Buildings'=>array('index'),
+	$model::$modelLabelP=>array('index'),
 	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Изменить',
 );
 
 $this->menu=array(
-	array('label'=>'List Building', 'url'=>array('index')),
-	array('label'=>'Create Building', 'url'=>array('create')),
-	array('label'=>'View Building', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Building', 'url'=>array('admin')),
+	array('label'=>'Список', 'url'=>array('index')),
+	array('label'=>'Создать', 'url'=>array('create')),
+	array('label'=>'Отобразить', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Управление ', 'url'=>array('admin')),
+);
+	$this->menu["details"]=array(array('label'=>'Этажи', 'url'=>array('Floor/admin', 'id_building'=>$model->id)),
 );
 ?>
 
-<h1>Update Building <?php echo $model->id; ?></h1>
+<h1>Изменить <?php  echo $model::$modelLabelS; ?>  <?php echo $model->id; ?></h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

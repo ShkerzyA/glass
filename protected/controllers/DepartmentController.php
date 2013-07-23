@@ -36,7 +36,7 @@ class DepartmentController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','import'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -49,19 +49,43 @@ class DepartmentController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+
+	public function actionImport()
+	{
+		$xls=new Xls();
+		$result=$xls->import_Department();
+		$this->render('import',array('result'=>$result));
+	}
+
+
 	public function actionView($id)
 	{
+		$this->layout='//layouts/column1';
+		$model=$this->loadModel($id);
 		$criteria=new CDbCriteria(array(
         'with'=>'commentCount',
     	));
 
-		$DepPosts=DepartmentPosts::model()->with('personnel_posts_history:working')->with('personnel_posts_history.personnel')->working()->findAll(array('condition'=>"id_department=$id"));
+		//$DepPosts=DepartmentPosts::model()->with('idDepartment','personnelPostsHistories')->working()->findAll(array('condition'=>"id_department=$id",'order'=>'islead DESC'));
+		
+
+		$DepPosts=DepartmentPosts::model()->working()->	with(array(
+    'personnelPostsHistories'=>array(
+       // 'select'=>True,
+        'joinType'=>'LEFT JOIN',
+        'alias'=>'j',
+        'order'=>'j.date_end DESC'
+    ),
+))->findAll(array('condition'=>"post_subdiv_rn='$model->subdiv_rn'",'order'=>'islead DESC, t.date_begin ASC'));
+
+
+
+
 		$this->render('view',array(
 			'DepPosts'=>$DepPosts,
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
-
 	/**
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -131,7 +155,7 @@ class DepartmentController extends Controller
 
 		$dataProvider=new CActiveDataProvider('Department');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Department::$modelLabelP,
 		));
 	}
 
@@ -149,10 +173,11 @@ class DepartmentController extends Controller
 			'model'=>$model,
 		));
 	}
-        
-            public function actionTree()
+
+	public function actionTree()
     {
         // рендерим файлик отображения tree.php
+        $this->layout='//layouts/column1';
         $this->render('tree');
     }
 
@@ -167,12 +192,17 @@ class DepartmentController extends Controller
         // с какого узла начинаем вывод дерева? 0 - с первого
         $parentId = 'is null';
         if (isset($_GET['root']) && $_GET['root'] !== 'source') {
-            $parentId = '='.(int) $_GET['root'];
+
+        	$parent=Department::model()->findByPk($_GET['root']);
+
+            $parentId = '=\''.(string) $parent->subdiv_rn.'\'' ;
         }
         // сам запрос на получение данных детей (через обычный LEFT JOIN)
         $req = Yii::app()->db->createCommand(
-            "SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
+            //"SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
+        	"SELECT m1.subdiv_rn, m1.id, m1.name AS text, m1.parent_subdiv_rn as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.subdiv_rn=m2.parent_subdiv_rn WHERE m1.parent_subdiv_rn $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
         );
+
         $children = $req->queryAll();
 
 
@@ -185,7 +215,6 @@ class DepartmentController extends Controller
         );
         exit();
     }
-
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.

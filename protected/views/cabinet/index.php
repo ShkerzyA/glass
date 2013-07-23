@@ -3,16 +3,16 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Cabinets',
+	''.$modelLabelP,
 );
 
 $this->menu=array(
-	array('label'=>'Create Cabinet', 'url'=>array('create')),
-	array('label'=>'Manage Cabinet', 'url'=>array('admin')),
+	array('label'=>'Создать', 'url'=>array('create')),
+	array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Cabinets</h1>
+<h1><?php  echo $modelLabelP; ?></h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

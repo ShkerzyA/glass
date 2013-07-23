@@ -6,9 +6,11 @@
  * The followings are the available columns in table 'building':
  * @property integer $id
  * @property string $adress
- *
- * The followings are the available model relations:
- * @property Cabinet[] $cabinets
+ * @property string $bname
+ *		 * The followings are the available model relations:
+
+
+ * @property Floor[] $floors
  */
 class Building extends CActiveRecord
 {
@@ -17,6 +19,11 @@ class Building extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Building the static model class
 	 */
+	public static $modelLabelS='Здание';
+	public static $modelLabelP='Здания';
+	
+	public $floorsid_building;
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -38,11 +45,12 @@ class Building extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'length', 'max'=>50),
 			array('adress', 'length', 'max'=>100),
+			array('bname', 'length', 'max'=>50),
+		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, adress', 'safe', 'on'=>'search'),
+			array('id, adress, bname,floorsid_building', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -54,7 +62,7 @@ class Building extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'cabinets' => array(self::HAS_MANY, 'Cabinet', 'id_building'),
+			'floors' => array(self::HAS_MANY, 'Floor', 'id_building'),
 		);
 	}
 
@@ -65,8 +73,9 @@ class Building extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Название',
 			'adress' => 'Адрес',
+			'bname' => 'Название',
+			'floorsid_building' => 'Этаж',
 		);
 	}
 
@@ -81,9 +90,11 @@ class Building extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->with=array('floors' => array('alias' => 'floor'),);
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
 		$criteria->compare('adress',$this->adress,true);
+		$criteria->compare('bname',$this->bname,true);
+		$criteria->compare('floor.fname',$this->floorsid_building,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

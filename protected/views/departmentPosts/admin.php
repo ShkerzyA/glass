@@ -1,9 +1,9 @@
 <?php
-/* @var $this PersonnelPostsController */
-/* @var $model PersonnelPosts */
+/* @var $this DepartmentPostsController */
+/* @var $model DepartmentPosts */
 
 $this->breadcrumbs=array(
-	'Должности персонала'=>array('index'),
+	$model::$modelLabelP=>array('index'),
 	'Управление',
 );
 
@@ -12,13 +12,15 @@ $this->menu=array(
 	array('label'=>'Создать', 'url'=>array('create')),
 );
 
+
+
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#personnel-posts-grid').yiiGridView('update', {
+	$('#department-posts-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -26,22 +28,30 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Должности персонала</h1>
+<h1>Управление  "<?php  echo $model::$modelLabelP; ?>"</h1>
 
+
+<?php echo CHtml::link('Расширенный поиск','#',array('class'=>'search-button')); ?>
+<div class="search-form" style="display:none">
+<?php $this->renderPartial('_search',array(
+	'model'=>$model,
+)); ?>
+</div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'personnel-posts-grid',
+	'id'=>'department-posts-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-        array( 'name'=>'department', 'value'=>'$data->department->name' ),
+		'id',
 		'post',
 		'date_begin',
 		'date_end',
-       	
-       	array( 'name'=>'personnel_posts_history[0]', 'value'=>'$data->personnel_posts_history[0]->allPersonelForPost($data->id)' ),
-       	
-		
+		'islead',
+		'post_rn',
+		/*
+		array( 'name'=>'postSubdivRnpost_subdiv_rn', 'value'=>'$data->postSubdivRn->post_subdiv_rn' ),
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

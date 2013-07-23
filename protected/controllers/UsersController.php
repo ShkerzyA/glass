@@ -124,7 +124,7 @@ class UsersController extends Controller
 	{
 		$dataProvider=new CActiveDataProvider('Users');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Users::$modelLabelP,
 		));
 	}
 

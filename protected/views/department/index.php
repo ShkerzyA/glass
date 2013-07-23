@@ -3,19 +3,18 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Отделы',
+	''.$modelLabelP,
 );
 
 $this->menu=array(
-	array('label'=>'Создать отдел', 'url'=>array('create')),
-	array('label'=>'Управление отделами', 'url'=>array('admin')),
-	array('label'=>'Отделы(дерево)', 'url'=>array('tree')),
+	array('label'=>'Создать', 'url'=>array('create')),
+	array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Отделы</h1>
+<h1><?php  echo $modelLabelP; ?></h1>
 
- <?php $this->widget('zii.widgets.CListView', array(
+<?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
-)); ?> 
+)); ?>

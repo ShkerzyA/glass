@@ -6,25 +6,55 @@ $this->breadcrumbs=array(
 	'Администратор',
 );
 
+$this->menu=array(
+			array('label'=>'GII', 'url'=>array('/gii')),
+			array('label'=>'Импорт кадров', 'url'=>array('/personnel/import')),
+			array('label'=>'Импорт Отделов', 'url'=>array('/department/import')),
+			array('label'=>'Импорт Штатной структуры', 'url'=>array('/departmentPosts/import')),
+			array('label'=>'Импорт Истории должностей', 'url'=>array('/personnelPostsHistory/import')),
+			);
+
+$this->menu['all_menu']=array(
+	array('title'=>'MyDbase','items'=>array(
+		array('label'=>'Список кадров', 'url'=>array('/MyDbase/ReadPerson')),
+		array('label'=>'Импорт Отделов', 'url'=>array('/MyDbase/importOtdel')),
+		array('label'=>'Импорт Кадров', 'url'=>array('/MyDbase/importPersonnel')),
+		array('label'=>'Импорт Штатных должностей', 'url'=>array('/MyDbase/importOtdelPosts')),
+		array('label'=>'Импорт Истории должностей', 'url'=>array('/MyDbase/ImportPersonnelPostsHistory')),
+	)),
 
 
-$this->widget('zii.widgets.CMenu', array(
-    'items'=>array(
-      array('label'=>'GII', 'url'=>array('/gii')),
-	array('label'=>'Пользователи', 'url'=>array('/users/admin'),'items'=>array(
-		array('label'=>'Роли', 'url'=>array('/usersPosts/admin')),
-		array('label'=>'Права', 'url'=>array('/usersRules/admin'))
+	array('title'=>'Персонал','items'=>array(
+		array('label'=>'Пользователи', 'url'=>array('/users/admin'),'items'=>array(
+		/*array('label'=>'Роли', 'url'=>array('/usersPosts/admin')),
+		array('label'=>'Права', 'url'=>array('/usersRules/admin')) */
 		)),
-	array('label'=>'Кадры', 'url'=>array('/personnel/admin'),'items'=>array(
-		array('label'=>'Должности кадров', 'url'=>array('/personnelPostsHistory/admin')),
+		array('label'=>'Кадры', 'url'=>array('/personnel/admin'),'items'=>array(
+			array('label'=>'Должности кадров', 'url'=>array('/personnelPostsHistory/admin')),
 		)),
-	array('label'=>'Отделы', 'url'=>array('/department/admin'),'items'=>array(
-		array('label'=>'Должности', 'url'=>array('/departmentPosts/admin')),
+	)),
+	array('title'=>'Структура','items'=>array(
+		array('label'=>'Отделы', 'url'=>array('/department/admin'),'items'=>array(
+			array('label'=>'Должности', 'url'=>array('/departmentPosts/admin')),
 		)),
-	array('label'=>'Здания', 'url'=>array('/building/admin'),'items'=>array(
-		array('label'=>'Кабинеты', 'url'=>array('/cabinet/admin')), 
+		
+	)),
+	array('title'=>'Здания','items'=>array(
+		array('label'=>'Здания', 'url'=>array('/building/admin'),'items'=>array(
+			array('label'=>'Этажи', 'url'=>array('/floor/admin')), 
+			array('label'=>'Кабинеты', 'url'=>array('/cabinet/admin')), 
+			array('label'=>'Рабочие места', 'url'=>array('/workplace/admin')),
 		)),
-    ),
-));
+	)),
+
+	array('title'=>'Оборудование','items'=>array(
+		array('label'=>'Оборудование', 'url'=>array('/equipment/admin')), 
+
+	)),
+
+	
+	);
+
+//$this->menu=;
 
 ?>

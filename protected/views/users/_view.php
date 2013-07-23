@@ -18,7 +18,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_post')); ?>:</b>
-	<?php echo CHtml::encode($data->id_post); ?>
+	<?php echo CHtml::encode($data->idPost->post); ?>
 	<br />
 
 
