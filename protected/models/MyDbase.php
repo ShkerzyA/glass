@@ -152,15 +152,23 @@ class MyDbase extends CFormModel{
 		//$x=0;
 		foreach ($zfcac as $v) {
 			$posts=DepartmentPosts::model()->findAll(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));
+			$date_begin=date('d.m.Y',strtotime(substr($v['STARTDATE'] , 6,2).'.'.substr($v['STARTDATE'] , 4,2).'.'.substr($v['STARTDATE'] ,0,4)));
+			$date_end=date('d.m.Y',strtotime(substr($v['ENDDATE'] , 6,2).'.'.substr($v['ENDDATE'] , 4,2).'.'.substr($v['ENDDATE'] ,0,4)));
+			$date_end=($date_end!='01.01.1970')?$date_end:NULL;
 			foreach ($v['ank'] as $z) {
 				$pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>trim($z['ORGBASE_RN']))));
+				
 				$postH=new PersonnelPostsHistory();
 				$postH->id_personnel=$pers->id;
-				$postH->date_begin=substr($z['JOBBEGIN'] , 6,2).'.'.substr($z['JOBBEGIN'] , 4,2).'.'.substr($z['JOBBEGIN'] ,0,4);
-
-				$date_end=date('d.m.Y',strtotime(substr($z['JOBEND'] , 6,2).'.'.substr($z['JOBEND'] , 4,2).'.'.substr($z['JOBEND'] ,0,4)));
-				$date_end=($date_end!='01.01.1970')?$date_end:NULL;
+				$postH->is_main=$v['ISMAINISP'];
+				$postH->date_begin=$date_begin;
 				$postH->date_end=$date_end;
+				//$postH->date_begin=substr($z['JOBBEGIN'] , 6,2).'.'.substr($z['JOBBEGIN'] , 4,2).'.'.substr($z['JOBBEGIN'] ,0,4);
+				//$date_end=date('d.m.Y',strtotime(substr($z['JOBEND'] , 6,2).'.'.substr($z['JOBEND'] , 4,2).'.'.substr($z['JOBEND'] ,0,4)));
+				//$date_end=(strtotime($date_end)>strtotime($v['ENDDATE']))?(date('d.m.Y',strtotime($v['ENDDATE']))):$date_end;
+				
+				
+				
 				
 				foreach ($posts as $post){
 					if($post->freeOnly()){

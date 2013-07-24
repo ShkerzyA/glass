@@ -62,13 +62,7 @@
 		<?php echo $form->error($model,'date_end'); ?>
 	</div>
 
-    <div class="row">
-        <?php echo $form->labelEx($model,'kod_parus'); ?>
 
-        <?php echo $form->textField($model,'kod_parus'); ?>
-
-        <?php echo $form->error($model,'kod_parus'); ?>
-    </div>
 
     <div class="row">
         <?php echo $form->labelEx($model,'post_subdiv_rn'); ?>

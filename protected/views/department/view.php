@@ -40,7 +40,14 @@ $this->menu=array(
 				else
 					echo '<span>';
 				echo "<a href='/glass/personnel/".$personnelPh->idPersonnel->id."'>".$personnelPh->idPersonnel->surname.' '.$personnelPh->idPersonnel->name.' '.$personnelPh->idPersonnel->patr."</a><br>";
-				echo "(c ".$personnelPh->date_begin.($de=(!empty($personnelPh->date_end))?(" по ".$personnelPh->date_end):'').") <br>";
+				echo "(c ".$personnelPh->date_begin.($de=(!empty($personnelPh->date_end))?(" по ".$personnelPh->date_end):'').")";
+				if($personnelPh->is_main==1){
+					echo ' основная';
+				}else{
+					echo ' совместительство';
+				}
+
+				echo"<br>";
 			}
 			}else{
 				echo '-//-';

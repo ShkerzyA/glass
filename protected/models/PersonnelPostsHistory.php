@@ -55,12 +55,12 @@ class PersonnelPostsHistory extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_post','freeOnly'),
-			array('id_personnel, id_post', 'numerical', 'integerOnly'=>true),
+			array('id_personnel, id_post, is_main', 'numerical', 'integerOnly'=>true),
 			array('date_begin', 'date','format'=>'dd.MM.yyyy'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			//array('id, id_personnel, id_post, department_posts, date_begin, date_end, personnel', 'safe', 'on'=>'search'),
-			array('id, id_personnel, id_post, date_begin, date_end,idPersonnelid_personnel,idPostid_post', 'safe', 'on'=>'search'),
+			array('id, id_personnel, id_post, date_begin, date_end, is_main,idPersonnelid_personnel,idPostid_post', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -104,6 +104,7 @@ class PersonnelPostsHistory extends CActiveRecord
 			'department_posts' => 'Должность',
 			'date_begin' => 'Дата начала',
 			'date_end' => 'Дата окончания',
+			'is_main' => 'Тип должности',
             'idPersonnelid_personnel' => 'Сотрудник',
             'idPostid_post' => 'Должность',
 		);
@@ -130,6 +131,7 @@ class PersonnelPostsHistory extends CActiveRecord
                 $criteria->compare('id_post',$_GET['id_post']);
         else
                 $criteria->compare('id_post',$this->id_post);
+        $criteria->compare('is_main',$this->is_main);
         $criteria->compare('date_begin',$this->date_begin,true);
         $criteria->compare('date_end',$this->date_end,true);
         $criteria->compare('personnel.surname',$this->idPersonnelid_personnel,true);
