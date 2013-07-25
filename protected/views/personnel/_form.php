@@ -41,6 +41,13 @@ Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('e
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'orbase_rn'); ?>
+		<?php echo $form->textField($model,'orbase_rn',array('size'=>10,'maxlength'=>10)); ?>
+		<?php echo $form->error($model,'orbase_rn'); ?>
+	</div>
+	
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'photo'); ?>
 		<?php echo $form->fileField($model,'photo',array('size'=>50,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'photo'); ?>

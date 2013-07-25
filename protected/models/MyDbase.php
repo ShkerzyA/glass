@@ -76,6 +76,12 @@ class MyDbase extends CFormModel{
 
  	public function personnelImport(){
  		$personnel=$this->read_table('person.dbf','ORBASE_RN');
+ 		$zank=$this->read_table('zank.dbf','ANK_RN');
+
+		foreach ($personnel as &$v) {
+			$x=$v['ORBASE_RN'];
+			$v['ank']=array_filter($zank, function($var) use ($x){return ($var['ORGBASE_RN']==$x);});
+		}
 
 		foreach ($personnel as $v) {
 
@@ -88,6 +94,20 @@ class MyDbase extends CFormModel{
        			$newpers->name=trim($v['FIRSTNAME']);
        			$newpers->patr=trim($v['SECONDNAME']);
        			$newpers->birthday=date('d.m.Y',strtotime($v['BIRTHDAY']));
+
+       			$date_begin=array();
+       			$date_end=array();
+
+       			if (!empty($v['ank'])){
+       				foreach ($v['ank'] as $q) {
+       					$date_begin[]=new DateTime(date('d.m.Y',strtotime(substr($q['JOBBEGIN'] , 6,2).'.'.substr($q['JOBBEGIN'] , 4,2).'.'.substr($q['JOBBEGIN'] ,0,4))));
+						$date_end[]=new DateTime(date('d.m.Y',strtotime(substr($q['JOBEND'] , 6,2).'.'.substr($q['JOBEND'] , 4,2).'.'.substr($q['JOBEND'] ,0,4))));
+       				}
+
+       				$newpers->date_begin=min($date_begin)->format('d.m.Y');
+       				$newpers->date_end=max($date_end)->format('d.m.Y');
+       				$newpers->date_end=($newpers->date_end!='01.01.1970')?$newpers->date_end:NULL;
+       			}
        			$newpers->orbase_rn=$v['ORBASE_RN'];
        			if(trim($v['SEX'])=='М')
        				$newpers->sex=0;
