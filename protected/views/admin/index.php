@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 			array('label'=>'GII', 'url'=>array('/gii')),
+			array('label'=>'Hardcore', 'url'=>array('/myAdmin')),
 
 			);
 

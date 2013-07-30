@@ -204,7 +204,7 @@ class DepartmentController extends Controller
         );
 
         $children = $req->queryAll();
-
+       
 
         //print_r($children);
         // возвращаем данные
