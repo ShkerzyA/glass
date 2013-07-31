@@ -1,6 +1,6 @@
-<h1>Здания</h1>
+<h1>Stuff</h1>
 <?php
 $this->widget(
     'CTreeView',
-    array('url' => array('AjaxFillBuilding'),'control'=>'id','htmlOptions'=>array('class'=>'customtree'))
+    array('url' => array('/Building/rootFillTree'),'control'=>'id','htmlOptions'=>array('class'=>'customtree'))
 ); ?>

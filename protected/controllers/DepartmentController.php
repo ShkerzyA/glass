@@ -204,6 +204,10 @@ class DepartmentController extends Controller
         );
 
         $children = $req->queryAll();
+
+        foreach ($children as &$v) {
+        	$v['control']='Department';
+        }
        
 
         //print_r($children);

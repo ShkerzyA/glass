@@ -52,14 +52,15 @@
 	font-size: 12pt;
 }
 
-.customtree .treeplate{
+.customtree li{
 	background-color: #e8e8e8;
 	box-shadow: 1px 1px 2px 1px #d8d8d8;
 	width: 100%;
+	margin: 5px;
 }
 
-.customtree .treeplate:hover{
-	background-color: #fafafa;
+.customtree li:hover{
+	/* background-color: #fafafa; */
 }
 
 
