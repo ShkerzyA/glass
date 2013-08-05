@@ -202,11 +202,10 @@ class DepartmentController extends Controller
             //"SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
         	"SELECT m1.subdiv_rn, m1.id, m1.name AS text, m1.parent_subdiv_rn as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.subdiv_rn=m2.parent_subdiv_rn WHERE m1.parent_subdiv_rn $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
         );
-
         $children = $req->queryAll();
 
         foreach ($children as &$v) {
-        	$v['control']='Department';
+        	$v['contr']='Department';
         }
        
 

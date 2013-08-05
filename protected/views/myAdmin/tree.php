@@ -1,4 +1,4 @@
-<h1>Stuff</h1>
+<h1>Географическое местоположение</h1>
 <?php
 $this->widget(
     'CTreeView',

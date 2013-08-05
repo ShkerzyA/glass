@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 			array('label'=>'GII', 'url'=>array('/gii')),
-			array('label'=>'Hardcore', 'url'=>array('/myAdmin')),
+			array('label'=>'КККОД дерево', 'url'=>array('/myAdmin')),
 
 			);
 

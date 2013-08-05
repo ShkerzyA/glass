@@ -2,7 +2,7 @@
 /* @var $this PersonnelController */
 /* @var $model Personnel */
 /* @var $form CActiveForm */
-Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('ext.assets').'/modalAjax.js'),CClientScript::POS_END);
+//Yii::app()->clientScript->registerScriptFile(CHtml::asset(Yii::getPathOfAlias('ext.assets').'/modalAjax.js'),CClientScript::POS_END);
 
 ?>
 

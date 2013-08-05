@@ -17,7 +17,13 @@ $this->menu=array(
 ?>
 
 <div id="avPersonnel">
-	<div class="avatar"> <div><img src="<?php echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($model->photo)); ?>"></div> </div>
+	<?php if(!empty($model->photo)): ?>
+		<div class="avatar"> <div><img src="<?php echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($model->photo)); ?>"></div> </div>
+	<?php else: ?>
+		<div class="avatar"> <div><img src="<?php echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg'); ?>"></div> </div>
+	<?php endif; ?>
+
+
 </div>
 <div id="dataPersonnel">
 	<?php 
