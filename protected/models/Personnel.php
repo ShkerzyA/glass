@@ -34,6 +34,15 @@ class Personnel extends CActiveRecord
 	public $workplacesid_personnel;
 	public $personnelPostsHistoriesid_personnel;
 
+
+	 public function defaultScope()
+    {
+        return array(
+            'order'=>'surname ASC',
+        );
+    }
+
+
 	public function behaviors(){
 		return array(
             // наше поведение для работы с файлом

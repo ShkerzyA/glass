@@ -21,7 +21,7 @@
 
 		<?php $tmp=Cabinet::model()->findall();
 echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->idFloor->idBuilding->bname.'/'.$tmp->idFloor->fname.'/'.$tmp->cname.' #'.$tmp->num);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->idFloor->idBuilding->bname.'/'.$tmp->idFloor->fname.'/'.$tmp->cname.' №'.$tmp->num);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_cabinet'); ?>
 	</div>
 

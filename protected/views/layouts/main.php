@@ -35,6 +35,7 @@
 			'items'=>array(
 				array('label'=>'Кадры', 'url'=>array('/personnel')),
                                 array('label'=>'Отделы', 'url'=>array('/department/tree')),
+                                array('label'=>'КККОД', 'url'=>array('/myAdmin')),
 				array('label'=>'Админ', 'url'=>array('/admin'), 'visible'=>(Yii::app()->user->name=='admin'))
 			),
 		)); ?>

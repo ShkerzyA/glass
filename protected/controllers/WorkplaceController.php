@@ -144,7 +144,7 @@ class WorkplaceController extends Controller
         // сам запрос на получение данных детей (через обычный LEFT JOIN)
         $req = Yii::app()->db->createCommand(
             //"SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
-        	"SELECT m1.id, m1.surname||' '||m1.name AS text, m1.id as parent_id, 0 AS \"hasChildren\" FROM workplace as m2 left join personnel AS m1 on (m2.id_personnel=m1.id) $parentId GROUP BY m1.id  ORDER BY m1.surname ASC"
+        	"SELECT m1.id, m1.surname||' '||m1.name||' '||m1.patr AS text, m1.id as parent_id, 0 AS \"hasChildren\" FROM workplace as m2 left join personnel AS m1 on (m2.id_personnel=m1.id) $parentId GROUP BY m1.id  ORDER BY m1.surname ASC"
         );
 
         $children = $req->queryAll();

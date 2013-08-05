@@ -42,7 +42,7 @@ $this->menu=array(
 	echo'<div><b>'.CHtml::encode($model->surname).' '.CHtml::encode($model->name).' '.CHtml::encode($model->patr).'</b> (тел.'.($ph=(!empty($model->workplaces))?CHtml::encode($model->workplaces->idCabinet->phone):'').')</div>';
 	echo'<div><b>Дата рождения: '.CHtml::encode($birthday).' (Пол: '.CHtml::encode($sex).')</div>';
 	if (!empty($model->workplaces->idCabinet)){
-		echo'<div>Кабинет: "'.CHtml::encode($model->workplaces->idCabinet->cname).' №'.CHtml::encode($model->workplaces->idCabinet->num).'" '.CHtml::encode($model->workplaces->idCabinet->idFloor->fname).' '.CHtml::encode($model->workplaces->idCabinet->idFloor->idBuilding->bname).'</div>';
+		echo'<div>Кабинет: "'.CHtml::encode($model->workplaces->idCabinet->cname).' каб. №'.CHtml::encode($model->workplaces->idCabinet->num).'" '.CHtml::encode($model->workplaces->idCabinet->idFloor->fname).' '.CHtml::encode($model->workplaces->idCabinet->idFloor->idBuilding->bname).'</div>';
 	}
 	echo"<br><div><h3>Занимаемые должности:</h3>";
 	foreach($model->personnelPostsHistories as $posts){
