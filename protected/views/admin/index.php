@@ -41,6 +41,7 @@ $this->menu['all_menu']=array(
 	array('title'=>'Структура','items'=>array(
 		array('label'=>'Отделы', 'url'=>array('/department/admin'),'items'=>array(
 			array('label'=>'Должности', 'url'=>array('/departmentPosts/admin')),
+			array('label'=>'Группы должностей', 'url'=>array('/PostsGroups/admin')),
 		)),
 		
 	)),

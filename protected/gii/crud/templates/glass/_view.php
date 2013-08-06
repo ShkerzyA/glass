@@ -32,6 +32,9 @@ foreach($this->tableSchema->columns as $column)
 	if(++$count==7)
 		echo "\t<?php /*\n";
 	echo "\t<b><?php echo CHtml::encode(\$data->getAttributeLabel('{$column->name}')); ?>:</b>\n";
+
+	$rel['search']=(!empty($rel['search']))?$rel['search']:array();
+
 	if (in_array($column->name,$rel['search'])){
 		echo "\t<?php echo CHtml::encode(\$data->{$rel[$column->name]['name']}->{$column->name}); ?>\n\t<br />\n\n";
 	}else{

@@ -71,7 +71,7 @@ foreach($this->tableSchema->columns as $column)
 
 	if(++$count==7)
 		echo "\t\t/*\n";
-
+	$rel['search']=(!empty($rel['search']))?$rel['search']:array();
 	if (in_array($column->name,$rel['search'])){
 		echo "\t\tarray( 'name'=>'{$rel[$column->name]['name']}{$rel[$column->name]['foreignKey']}', 'value'=>'\$data->{$rel[$column->name]['name']}->{$rel[$column->name]['foreignKey']}' ),\n";
 	}else{

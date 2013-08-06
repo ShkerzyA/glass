@@ -73,10 +73,11 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 	
 	<?php
 
-	foreach ($rel as $v) {
-		echo "public \${$v['name']}{$v['fk']};\n";
-		# code...
-	}
+	if(!empty($rel))
+		foreach ($rel as $v) {
+			echo "public \${$v['name']}{$v['fk']};\n";
+			# code...
+		}
 	?>
 
 
@@ -119,6 +120,7 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 			// Please remove those attributes that should not be searched.
 			array('<?php 
 					echo implode(', ', array_keys($columns));
+					if(!empty($rel))
 					foreach ($rel as $v) {
 						echo ",{$v['name']}{$v['fk']}";# code...
 					}
@@ -149,9 +151,11 @@ class <?php echo $modelClass; ?> extends <?php echo $this->baseClass."\n"; ?>
 <?php foreach($labels as $name=>$label): ?>
 			<?php echo "'$name' => '$label',\n"; ?>
 <?php endforeach; ?>
+<?php if(!empty($rel)): ?>
 <?php foreach ($rel as $v): ?>
 			<?php echo "'".$v['name'].$v['fk'].'\' => \''.$v['fk']."',\n"; ?>
 <?php endforeach; ?>
+<?php endif; ?>
 		);
 	}
 
@@ -180,6 +184,8 @@ foreach($columns as $name=>$column)
 {
 	
 
+
+	if(!empty($fk))
 	if (in_array($name,$fk)){
 		echo "\t\tif(!empty(\$_GET['$name']))
 		\t\t\$criteria->compare('$name',\$_GET['$name']);
@@ -195,7 +201,7 @@ foreach($columns as $name=>$column)
 		echo "\t\t\$criteria->compare('$name',\$this->$name);\n";
 	}
 }
-
+if(!empty($rel))
 foreach ($rel as $v){
 	echo "\t\t\$criteria->compare('{$v['tbl']}.{$v['fk']}',\$this->{$v['name']}{$v['fk']},true);\n";
 }

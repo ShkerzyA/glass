@@ -45,7 +45,7 @@ $this->menu=array(
 	'attributes'=>array(
 <?php
 foreach($this->tableSchema->columns as $column)
-
+	$rel['search']=(!empty($rel['search']))?$rel['search']:array();
 	if (in_array($column->name,$rel['search'])){
 		echo "array(               
             	'label'=>'{$rel[$column->name]['className']}',

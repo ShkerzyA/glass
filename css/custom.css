@@ -57,7 +57,7 @@
 
 .customtree .platetree{
 	display: block;
-	background-color: #e8e8e8;
+	background-color: #e8e8e8; 
 	box-shadow: 1px 1px 2px 1px #d8d8d8;
 	width: 100%;
 	margin: 2px;
@@ -70,6 +70,20 @@
 
 .customtree li{
 	width: auto;
+}
+
+.catalogs .platetree{
+	background: url(../images/folder_24.png) no-repeat #e8e8e8; 
+	box-shadow: 1px 1px 2px 1px #d8d8d8;
+}
+
+.catalogs .platetree:hover{
+	background: url(../images/folder_add_24.png) no-repeat; 
+}
+
+
+.catalogs .platetree a{
+	margin-left: 30px; 
 }
 
 #avPersonnel{

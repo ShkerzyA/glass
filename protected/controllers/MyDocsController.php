@@ -1,6 +1,6 @@
 <?php
 
-class MyAdminController extends Controller
+class MyDocsController extends Controller
 {
 	public function actionIndex()
 	{
