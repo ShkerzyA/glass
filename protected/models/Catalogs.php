@@ -43,7 +43,14 @@ public $owner0owner;
 	{
 		return parent::model($className);
 	}
-
+	
+	public function behaviors(){
+		return array(
+			'Multichoise'=>array(
+				'class'=>'application.behaviors.MultichoiseBehavior',
+				),
+			);
+	}
 	/**
 	 * @return string the associated database table name
 	 */
@@ -114,7 +121,7 @@ public $owner0owner;
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('docs' => array('alias' => 'docs'),'idParent' => array('alias' => 'catalogs'),'catalogs' => array('alias' => 'catalogs'),'owner0' => array('alias' => 'departmentposts'),);
+		$criteria->with=array('docs' => array('alias' => 'docs'),'idParent' => array('alias' => 'catalogsP'),'catalogs' => array('alias' => 'catalogs'),'owner0' => array('alias' => 'departmentposts'),);
 		$criteria->compare('id',$this->id);
 		if(!empty($_GET['id_parent']))
 				$criteria->compare('id_parent',$_GET['id_parent']);
@@ -127,9 +134,9 @@ public $owner0owner;
 				$criteria->compare('owner',$this->owner);
 		$criteria->compare('groups',$this->groups,true);
 		$criteria->compare('docs.id_catalog',$this->docsid_catalog,true);
-		$criteria->compare('catalogs.id_parent',$this->idParentid_parent,true);
-		$criteria->compare('catalogs.id_parent',$this->catalogsid_parent,true);
-		$criteria->compare('departmentposts.owner',$this->owner0owner,true);
+		$criteria->compare('catalogsP.id',$this->idParentid_parent,true);
+		$criteria->compare('catalogs.id',$this->catalogsid_parent,true);
+		$criteria->compare('departmentposts.post',$this->owner0owner,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

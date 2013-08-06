@@ -45,7 +45,25 @@ return array(
 			'allowAutoLogin'=>true,
 		),
 		// uncomment the following to enable URLs in path-format
-		
+	'clientScript'=>array(
+	    'packages' => array(
+	       // Уникальное имя пакета
+	       'multichoise' => array(
+	            // Где искать подключаемые файлы JS и CSS
+	            'baseUrl' => '/glass/js/multichoise/',
+	            // Если включен дебаг-режим, то подключает /js/highcharts/highcharts.src.js
+	            // Иначе /js/highcharts/highcharts.js
+	            'js'=>array('multi.choise.js'),
+	            //'js'=>array(YII_DEBUG ? 'highcharts.src.js' : 'highcharts.js'),
+	            // Подключает файл /js/highcharts/highcharts.css
+	          	 // 'css' => array('highcharts.css'),
+	            // Зависимость от другого пакета
+	            'depends'=>array('jquery'),
+	        ),
+    	)
+	),		
+
+
 		'urlManager'=>array(
 			'showScriptName'=>false,
 			'urlFormat'=>'path',
@@ -84,10 +102,13 @@ return array(
 		),
 	),
 
+
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 		// this is used in contact page
-		'adminEmail'=>'webmaster@example.com',
+		'adminEmail'=>'al_i_88@mail.ru',
+
+
 	),
 );

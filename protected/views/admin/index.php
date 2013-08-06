@@ -58,6 +58,11 @@ $this->menu['all_menu']=array(
 
 	)),
 
+	array('title'=>'Знания','items'=>array(
+		array('label'=>'Каталоги', 'url'=>array('/catalogs/admin')), 
+
+	)),
+
 	
 	);
 

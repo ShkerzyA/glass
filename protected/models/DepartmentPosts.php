@@ -40,6 +40,9 @@ public $postSubdivRnpost_subdiv_rn;
 			'DateBeginEnd'=>array(
 				'class'=>'application.behaviors.DateBeginEndBehavior',
 				),
+            'Multichoise'=>array(
+                'class'=>'application.behaviors.MultichoiseBehavior',
+                ),
 			);
 	}
 	/**
@@ -63,9 +66,10 @@ public $postSubdivRnpost_subdiv_rn;
             array('post_subdiv_rn', 'length', 'max'=>10),
             array('date_begin, date_end', 'safe'),
             array('post_rn', 'length', 'max'=>8),
+            array('groups', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, post, date_begin, date_end, islead,  post_rn, post_subdiv_rn,personnelPostsHistoriesid_post,postSubdivRnpost_subdiv_rn', 'safe', 'on'=>'search'),
+            array('id, post, date_begin, date_end, islead, groups, post_rn, post_subdiv_rn,personnelPostsHistoriesid_post,postSubdivRnpost_subdiv_rn', 'safe', 'on'=>'search'),
         );
     }
 
@@ -119,6 +123,7 @@ public $postSubdivRnpost_subdiv_rn;
             'post_subdiv_rn' => 'Post Subdiv Rn',
             'personnelPostsHistoriesid_post' => 'id_post',
             'postSubdivRnpost_subdiv_rn' => 'post_subdiv_rn',
+            'groups' => 'Группы',
 		);
 	}
 
@@ -140,6 +145,7 @@ public $postSubdivRnpost_subdiv_rn;
         $criteria->compare('date_end',$this->date_end,true);
         $criteria->compare('islead',$this->islead);
         $criteria->compare('post_rn',$this->post_rn,true);
+        $criteria->compare('groups',$this->groups,true);
         if(!empty($_GET['post_subdiv_rn']))
                 $criteria->compare('post_subdiv_rn',$_GET['post_subdiv_rn']);
         else
