@@ -70,8 +70,8 @@ class PostsGroups extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'group_name' => 'Group Name',
-			'group_key' => 'Group Key',
+			'Название группы' => 'Group Name',
+			'Ключ' => 'Group Key',
 		);
 	}
 

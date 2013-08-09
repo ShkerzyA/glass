@@ -25,9 +25,6 @@
 	<?php echo CHtml::encode($data->islead); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('kod_parus')); ?>:</b>
-	<?php echo CHtml::encode($data->kod_parus); ?>
-	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('post_subdiv_rn')); ?>:</b>
 	<?php echo CHtml::encode($data->postSubdivRn->name); ?>

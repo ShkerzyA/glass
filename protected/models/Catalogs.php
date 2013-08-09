@@ -99,14 +99,14 @@ public $owner0owner;
 	{
 		return array(
 			'id' => 'ID',
-			'id_parent' => 'Id Parent',
-			'cat_name' => 'Cat Name',
-			'owner' => 'Owner',
-			'groups' => 'Groups',
+			'id_parent' => 'Родительский каталог',
+			'cat_name' => 'Название каталога',
+			'owner' => 'Владелец',
+			'groups' => 'Группы',
 			'docsid_catalog' => 'id_catalog',
-			'idParentid_parent' => 'id_parent',
-			'catalogsid_parent' => 'id_parent',
-			'owner0owner' => 'owner',
+			'idParentid_parent' => 'Родительский каталог',
+			'catalogsid_parent' => 'Дочерние каталоги',
+			'owner0owner' => 'Владелец',
 		);
 	}
 

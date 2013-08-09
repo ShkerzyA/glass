@@ -2,7 +2,6 @@
 /* @var $this CatalogsController */
 /* @var $model Catalogs */
 /* @var $form CActiveForm */
-Yii::app()->clientScript->registerPackage('multichoise');
 ?>
 
 <div class="form">
@@ -45,11 +44,11 @@ echo $form->dropDownList($model,"owner",CHtml::listData($tmp,"id",function($tmp)
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'groups'); ?>
-
-		<?php echo $form->textField($model,'groups'); ?>
-
+		<?php echo Multichoise::getField($model); ?>
 		<?php echo $form->error($model,'groups'); ?>
 	</div>
+
+	<br>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>

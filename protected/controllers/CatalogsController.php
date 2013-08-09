@@ -92,6 +92,8 @@ class CatalogsController extends Controller
             exit();
         }
 
+        Yii::app()->user;
+
         // с какого узла начинаем вывод дерева? 0 - с первого
         $parentId = '';
         if (isset($_GET['root']) && $_GET['root'] !== 'source') {
@@ -102,6 +104,9 @@ class CatalogsController extends Controller
             //"SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
         	"SELECT m1.id, m1.cat_name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM catalogs AS m1 LEFT JOIN catalogs AS m2 ON m1.id=m2.id_parent  $parentId GROUP BY m1.id  ORDER BY m1.cat_name ASC"
         );
+
+        //!!!
+        // М.б. все группы должности пользователя храняться в массиве, и делать where (элемент массива)  in groups or (следующий элемент) in groups or id_pers=owner
 
         $children = $req->queryAll();
 

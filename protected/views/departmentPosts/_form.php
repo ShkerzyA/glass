@@ -74,6 +74,12 @@ echo $form->dropDownList($model,"post_subdiv_rn",CHtml::listData($tmp,"subdiv_rn
         <?php echo $form->error($model,'post_subdiv_rn'); ?>
     </div>
 
+    <div class="row">
+    <?php echo $form->labelEx($model,'groups'); ?>
+    <?php echo Multichoise::getField($model); ?>
+    <?php echo $form->error($model,'groups'); ?>
+  </div>
+    
     <div class="row buttons">
         <?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
     </div>

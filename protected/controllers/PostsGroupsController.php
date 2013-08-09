@@ -36,7 +36,7 @@ class PostsGroupsController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','allgroups'),
 				'users'=>array('admin'),
 			),
 			array('deny',  // deny all users
@@ -60,6 +60,15 @@ class PostsGroupsController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
+	public function actionAllgroups(){
+		if(Yii::app()->request->isAjaxRequest){
+			$model=PostsGroups::model()->findAll();
+			$this->renderPartial('choise_group', array('model'=>$model), false, true);
+		}else{
+			exit();
+		}
+	}
+
 	public function actionCreate()
 	{
 		$model=new PostsGroups;
