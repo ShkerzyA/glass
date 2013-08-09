@@ -83,7 +83,7 @@ public $personnelsid_user;
 		return array(
 			'usersRules' => array(self::HAS_MANY, 'UsersRules', 'id_user'),
 			'idPost' => array(self::BELONGS_TO, 'UsersPosts', 'id_post'),
-			'personnels' => array(self::HAS_MANY, 'Personnel', 'id_user'),
+			'personnels' => array(self::HAS_ONE, 'Personnel', 'id_user'),
 		);
 	}
 

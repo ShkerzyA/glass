@@ -60,11 +60,25 @@ class CatalogsController extends Controller
         }else{
         	$parentId = 'WHERE m1.id_parent is null ';
         }
+
+  		$onlyGroups=' ';
+        if(!empty(Yii::app()->user->groups )){
+        	$onlyGroups=' AND (FALSE ';
+       		foreach (Yii::app()->user->groups as $v) {
+       			if(!empty($v))
+       	 		$onlyGroups.="OR m1.groups @> '{".$v."}'::character varying[] ";
+        	}
+        	$id_posts=implode(',',Yii::app()->user->id_posts);
+
+        	$onlyGroups.="OR m1.owner in (".$id_posts.")";
+
+        	$onlyGroups.=' ) ';
+        }
+        
+        $sql="SELECT m1.id, m1.cat_name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM catalogs AS m1 LEFT JOIN catalogs AS m2 ON m1.id=m2.id_parent  $parentId $onlyGroups GROUP BY m1.id  ORDER BY m1.cat_name ASC";
+        //echo $sql;
         // сам запрос на получение данных детей (через обычный LEFT JOIN)
-        $req = Yii::app()->db->createCommand(
-            //"SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
-        	"SELECT m1.id, m1.cat_name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM catalogs AS m1 LEFT JOIN catalogs AS m2 ON m1.id=m2.id_parent  $parentId GROUP BY m1.id  ORDER BY m1.cat_name ASC"
-        );
+        $req = Yii::app()->db->createCommand($sql);
 
         $children = $req->queryAll();
 
@@ -99,10 +113,25 @@ class CatalogsController extends Controller
         if (isset($_GET['root']) && $_GET['root'] !== 'source') {
             $parentId = 'WHERE m1.id_parent='.(int)$_GET['root'].' ';
         }
+
+        $onlyGroups=' ';
+        if(!empty(Yii::app()->user->groups )){
+        	$onlyGroups=' AND (FALSE ';
+       		foreach (Yii::app()->user->groups as $v) {
+       			if(!empty($v))
+       	 		$onlyGroups.="OR m1.groups @> '{".$v."}'::character varying[] ";
+        	}
+        	$id_posts=implode(',',Yii::app()->user->id_posts);
+
+        	$onlyGroups.="OR m1.owner in (".$id_posts.")";
+
+        	$onlyGroups.=' ) ';
+        }
+
         // сам запрос на получение данных детей (через обычный LEFT JOIN)
         $req = Yii::app()->db->createCommand(
             //"SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
-        	"SELECT m1.id, m1.cat_name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM catalogs AS m1 LEFT JOIN catalogs AS m2 ON m1.id=m2.id_parent  $parentId GROUP BY m1.id  ORDER BY m1.cat_name ASC"
+        	"SELECT m1.id, m1.cat_name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM catalogs AS m1 LEFT JOIN catalogs AS m2 ON m1.id=m2.id_parent  $parentId  $onlyGroups  GROUP BY m1.id  ORDER BY m1.cat_name ASC"
         );
 
         //!!!

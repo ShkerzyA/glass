@@ -45,7 +45,7 @@
 	border: 1px solid grey;
 	box-shadow: 2px 2px 10px 4px #404040;
 	padding: 3px;
-	border-radius: 4px;
+	border-radius: 2px;
 }
 .customtree,
 .customtree ul{
@@ -133,7 +133,7 @@
 	border-bottom: 2px solid #040404;
 }
 
-select,option, input{
+select,option{
 	width: 90%;
 }
 

@@ -42,7 +42,8 @@
 
 
 <?php if(!Yii::app()->user->isGuest):?>
-<span class=auth><a href="<?php echo(Yii::app()->request->baseUrl); ?>/site/logout"><div class=logout><?php echo(Yii::app()->user->name).' '?> (выход) </div></a></span>
+	<?php $patr=(!empty(Yii::app()->user->patr))?(Yii::app()->user->patr):''; ?>
+<span class=auth><a href="<?php echo(Yii::app()->request->baseUrl); ?>/site/logout"><div class=logout><?php echo(Yii::app()->user->name).' '.$patr.' '?> (выход) </div></a></span>
 <?php endif?>
 
 
