@@ -5,7 +5,7 @@ body
 	padding: 0;
 	color: #040404;
 	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: #dadee0 url('../images/wood.jpg') repeat;
+	background: #dadee0;
 
 }
 
@@ -21,7 +21,7 @@ body
 
 #header
 {
-	background: #0F0F4D url("../images/head_bg.jpg");
+	background: #0F0F4D;
 	margin: 0;
 	padding: 0;
 	border-top: 3px solid #C9E0ED;

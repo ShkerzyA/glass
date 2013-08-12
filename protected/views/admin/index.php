@@ -13,20 +13,7 @@ $this->menu=array(
 			);
 
 $this->menu['all_menu']=array(
-	array('title'=>'MyDbase (нажимать нежно, сразу импорт)','items'=>array(
-		array('label'=>'Список кадров', 'url'=>array('/MyDbase/ReadPerson')),
-		array('label'=>'Импорт Отделов', 'url'=>array('/MyDbase/importOtdel')),
-		array('label'=>'Импорт Кадров', 'url'=>array('/MyDbase/importPersonnel')),
-		array('label'=>'Импорт Штатных должностей', 'url'=>array('/MyDbase/importOtdelPosts')),
-		array('label'=>'Импорт Истории должностей', 'url'=>array('/MyDbase/ImportPersonnelPostsHistory')),
-	)),
 
-	array('title'=>'Тупиковая ветвь, импорт из excel','items'=>array(
-			array('label'=>'Импорт кадров', 'url'=>array('/personnel/import')),
-			array('label'=>'Импорт Отделов', 'url'=>array('/department/import')),
-			array('label'=>'Импорт Штатной структуры', 'url'=>array('/departmentPosts/import')),
-			array('label'=>'Импорт Истории должностей', 'url'=>array('/personnelPostsHistory/import')),
-	)),
 
 
 	array('title'=>'Персонал','items'=>array(
@@ -60,7 +47,22 @@ $this->menu['all_menu']=array(
 
 	array('title'=>'Знания','items'=>array(
 		array('label'=>'Каталоги', 'url'=>array('/catalogs/admin')), 
+		array('label'=>'Документы', 'url'=>array('/docs/admin')), 
+	)),
 
+		array('title'=>'MyDbase (нажимать нежно, сразу импорт)','items'=>array(
+		array('label'=>'Список кадров', 'url'=>array('/MyDbase/ReadPerson')),
+		array('label'=>'Импорт Отделов', 'url'=>array('/MyDbase/importOtdel')),
+		array('label'=>'Импорт Кадров', 'url'=>array('/MyDbase/importPersonnel')),
+		array('label'=>'Импорт Штатных должностей', 'url'=>array('/MyDbase/importOtdelPosts')),
+		array('label'=>'Импорт Истории должностей', 'url'=>array('/MyDbase/ImportPersonnelPostsHistory')),
+	)),
+
+	array('title'=>'Тупиковая ветвь, импорт из excel','items'=>array(
+			array('label'=>'Импорт кадров', 'url'=>array('/personnel/import')),
+			array('label'=>'Импорт Отделов', 'url'=>array('/department/import')),
+			array('label'=>'Импорт Штатной структуры', 'url'=>array('/departmentPosts/import')),
+			array('label'=>'Импорт Истории должностей', 'url'=>array('/personnelPostsHistory/import')),
 	)),
 
 	

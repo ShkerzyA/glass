@@ -6,10 +6,6 @@
 
 ?>
 
-
-
-<div class="modalwind" style="display: none;"><img src=/glass/images/close.png id="close" style="text-align: right;"><div id='PostInfo'></div></div>
-
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
