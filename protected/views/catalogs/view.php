@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),
-	$model->id,
+	$model->cat_name,
 );
 
 $this->menu=array(
@@ -16,11 +16,22 @@ $this->menu=array(
 );
 ?>
 
-<h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
+<h1><?php  echo $model::$modelLabelS; ?>: <?php echo $model->cat_name; ?></h1> 
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'groups',
-	),
-)); ?>
+<h3>Владелец: <?php 
+echo ($model->owner0->post);
+$person=$model->owner0->personnelPostsHistories[0]->idPersonnel;
+
+echo ('  <i>'.$person->surname.' '.$person->name.' '.$person->patr.'</i>');
+?></h3> 
+
+<?php 
+if (!empty($docs)){
+	foreach ($docs as $v){
+		echo '<div>'.$v->doc_name.'</div>';
+	}
+}else{
+	echo '<h3>Нет документов</h3>';
+}
+
+?>

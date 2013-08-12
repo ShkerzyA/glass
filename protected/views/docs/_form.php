@@ -78,7 +78,7 @@ echo $form->dropDownList($model,"id_catalog",CHtml::listData($tmp,"id",function(
 	<div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>
 
-		<?php echo $form->textField($model,'type'); ?>
+		<?php echo $form->dropDownList($model,'type',array('0' => 'Документ', '1' => 'Ссылка')); ?>
 
 		<?php echo $form->error($model,'type'); ?>
 	</div>

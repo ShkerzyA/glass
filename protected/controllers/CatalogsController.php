@@ -61,7 +61,7 @@ class CatalogsController extends Controller
         	$parentId = 'WHERE m1.id_parent is null ';
         }
 
-  		$onlyGroups=' ';
+  		$onlyGroups=' false ';
         if(!empty(Yii::app()->user->groups )){
         	$onlyGroups=' AND (FALSE ';
        		foreach (Yii::app()->user->groups as $v) {
@@ -114,7 +114,7 @@ class CatalogsController extends Controller
             $parentId = 'WHERE m1.id_parent='.(int)$_GET['root'].' ';
         }
 
-        $onlyGroups=' ';
+        $onlyGroups=' false ';
         if(!empty(Yii::app()->user->groups )){
         	$onlyGroups=' AND (FALSE ';
        		foreach (Yii::app()->user->groups as $v) {
@@ -160,8 +160,12 @@ class CatalogsController extends Controller
 	 */
 	public function actionView($id)
 	{
+
+		$model=$this->loadModel($id);
+
+		$docs=Docs::model()->working()->findAll(array('condition'=>"id_catalog='$model->id'",'order'=>'doc_name ASC, t.date_begin ASC'));
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,'docs'=>$docs,
 		));
 	}
 
@@ -261,7 +265,10 @@ class CatalogsController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Catalogs::model()->findByPk($id);
+		$model=Catalogs::model()->with(array(
+			'owner0',
+			'owner0.personnelPostsHistories'=>array('order'=>'"personnelPostsHistories".date_begin DESC'),
+			))->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
