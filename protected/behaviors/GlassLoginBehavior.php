@@ -10,8 +10,11 @@ class GlassLoginBehavior extends CActiveRecordBehavior{
 
     public function beforeSave($event)
     {
-        
-        $this->owner->password = $this->hash($this->owner->password);
+        if(0<(strlen($this->owner->password)) and (strlen($this->owner->password)<25)){
+            $this->owner->password = $this->hash($this->owner->password);    
+        }else{
+            unset($this->owner->password);
+        }
         return true;
     }
 

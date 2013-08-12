@@ -37,7 +37,7 @@
                                 array('label'=>'Отделы', 'url'=>array('/department/tree')),
                                 array('label'=>'КККОД', 'url'=>array('/myAdmin')),
                                 array('label'=>'Знания', 'url'=>array('/myDocs')),
-				array('label'=>'Админ', 'url'=>array('/admin'), 'visible'=>(Yii::app()->user->name=='Александр'))
+				array('label'=>'Админ', 'url'=>array('/admin'), 'visible'=>(Yii::app()->user->role=='administrator'))
 			),
 		)); ?>
 	</div><!-- mainmenu -->

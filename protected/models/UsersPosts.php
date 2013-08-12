@@ -39,6 +39,7 @@ class UsersPosts extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('post', 'length', 'max'=>50),
+			array('role', 'length', 'max'=>50),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, post', 'safe', 'on'=>'search'),
@@ -64,7 +65,9 @@ class UsersPosts extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'post' => 'Post',
+			'post' => 'Название',
+			'role' => 'Роль',
+
 		);
 	}
 
@@ -81,6 +84,7 @@ class UsersPosts extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('post',$this->post,true);
+		$criteria->compare('role',$this->role,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -21,6 +21,10 @@
  */
 class Users extends CActiveRecord
 {
+	const ROLE_ADMIN = 'administrator';
+    const ROLE_MODER = 'moderator';
+    const ROLE_USER = 'user';
+    const ROLE_BANNED = 'banned';
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
