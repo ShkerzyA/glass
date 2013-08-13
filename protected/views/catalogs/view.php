@@ -28,7 +28,13 @@ echo ('  <i>'.$person->surname.' '.$person->name.' '.$person->patr.'</i>');
 <?php 
 if (!empty($docs)){
 	foreach ($docs as $v){
-		echo '<div>'.$v->doc_name.'</div>';
+		echo '<div style="border-radius: 3px; min-height: 46px; border-bottom: 2px solid #444; margin: 3px; background: url(\'../images/doc.png\') no-repeat; padding-left: 40px;">
+		'.$v->doc_name.'
+		('.$v->date_begin.')
+		'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.
+		'<br>'.($link=(!empty($v->link))?'<a target="_blank" href=/glass/media/docs/'.$v->link.'>Вложение</a>':'').
+		'<br>'.substr($v->text_docs,0,300).'...'.
+		'</div>';
 	}
 }else{
 	echo '<h3>Нет документов</h3>';
