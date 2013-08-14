@@ -46,7 +46,6 @@ $('.search-form form').submit(function(){
 		'id',
 		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->post' ),
 		'doc_name',
-		'text_docs',
 		'link',
 		'date_begin',
 		/*
