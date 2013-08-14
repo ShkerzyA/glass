@@ -69,7 +69,6 @@ public $creator0creator;
 			array('creator, type, id_catalog', 'numerical', 'integerOnly'=>true),
 			array('doc_name, link', 'length', 'max'=>100),
 			array('text_docs, date_begin, date_end', 'safe'),
-		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, creator, doc_name, text_docs, link, date_begin, date_end, type, id_catalog,idCatalogid_catalog,creator0creator', 'safe', 'on'=>'search'),

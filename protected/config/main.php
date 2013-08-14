@@ -117,7 +117,6 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'al_i_88@mail.ru',
-
-
+		'right_ext'=>array('jpg','jpeg','JPG','JPEG','doc','docx','DOC','DOCX','rar','zip','xls','xlsx','png','gif','pdf','djvu','txt','tif'),
 	),
 );

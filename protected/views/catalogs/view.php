@@ -29,7 +29,7 @@ echo ('  <i>'.$person->surname.' '.$person->name.' '.$person->patr.'</i>');
 if (!empty($docs)){
 	foreach ($docs as $v){
 		echo '<div style="border-radius: 3px; min-height: 46px; border-bottom: 2px solid #444; margin: 3px; background: url(\'../images/doc.png\') no-repeat; padding-left: 40px;">
-		'.$v->doc_name.'
+		<a href=/glass/docs/'.$v->id.'>'.$v->doc_name.'</a>
 		('.$v->date_begin.')
 		'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.
 		'<br>'.($link=(!empty($v->link))?'<a target="_blank" href=/glass/media/docs/'.$v->link.'>Вложение</a>':'').
