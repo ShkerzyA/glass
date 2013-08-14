@@ -1,7 +1,6 @@
 <?php 
 class FileBehavior extends CActiveRecordBehavior{
     
-
     public function attach($owner) {
         parent::attach($owner);
                 
@@ -16,12 +15,7 @@ class FileBehavior extends CActiveRecordBehavior{
     public function beforeSave($event){
        if(($this->owner->scenario=='insert' || $this->owner->scenario=='update') &&
             ($document=CUploadedFile::getInstance($this->owner,'link'))){
-                $sourcePath = pathinfo($document->getName());
-
-              //  if(!in_array($sourcePath['extension'],Yii::app()->params['right_ext'])){
-               //     return false;
-              //  }
-                    
+                $sourcePath = pathinfo($document->getName());  
                 $fileName = date('YmdHsi') .'.'. $sourcePath['extension'];  // имя будущего файла в базе и ФС
                 $this->deleteFile(); // старый документ удалим, потому что загружаем новый
                 $this->owner->link=$document;
@@ -43,7 +37,6 @@ class FileBehavior extends CActiveRecordBehavior{
  
     public function deleteFile(){
         $filePath=Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR.'docs'.DIRECTORY_SEPARATOR.$this->owner->link;
-        echo $filePath;
         if(is_file($filePath))
             unlink($filePath);
         return true;

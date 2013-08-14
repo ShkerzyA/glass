@@ -1,6 +1,17 @@
 <?php 
 class PhotoBehavior extends CActiveRecordBehavior{
     
+    public function attach($owner) {
+        parent::attach($owner);
+                
+        $owner = $this->getOwner();
+
+        $validators = $owner->getValidatorList();
+        $params = array('types'=>'jpg,jpeg,png,gif','allowEmpty'=>true); // etc
+        $validator = CValidator::createValidator('file', $owner, 'photo',$params );
+        $validators->add($validator);
+    }   
+
     public function beforeSave($event){
        if(($this->owner->scenario=='insert' || $this->owner->scenario=='update') &&
             ($document=CUploadedFile::getInstance($this->owner,'photo'))){
