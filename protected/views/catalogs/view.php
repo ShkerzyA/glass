@@ -15,26 +15,34 @@ $this->menu=array(
 	array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
+<h2 style="margin: 2px;"><?php echo $model->cat_name; ?></h2> 
 
-<h1><?php  echo $model::$modelLabelS; ?>: <?php echo $model->cat_name; ?></h1> 
-
-<h3>Владелец: <?php 
+<h4 style="text-align: right; margin: 2px"><span style='color: #D0D0D0'>владелец: </span> <?php 
 echo ($model->owner0->post);
 $person=$model->owner0->personnelPostsHistories[0]->idPersonnel;
 
-echo ('  <i>'.$person->surname.' '.$person->name.' '.$person->patr.'</i>');
-?></h3> 
-
+echo ('  <i>'.$person->surname.' '.mb_substr($person->name,0,1,'utf-8').'. '.mb_substr($person->patr,0,1,'utf-8').'.</i>');
+?></h4> 
+<hr>
 <?php 
 if (!empty($docs)){
 	foreach ($docs as $v){
-		echo '<div style="border-radius: 3px; min-height: 46px; border-bottom: 2px solid #444; margin: 3px; background: url(\'../images/doc.png\') no-repeat; padding-left: 40px;">
-		<a href=/glass/docs/'.$v->id.'>'.$v->doc_name.'</a>
-		('.$v->date_begin.')
-		'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.
-		'<br>'.($link=(!empty($v->link))?'<a target="_blank" href=/glass/media/docs/'.$v->link.'>Вложение</a>':'').
+
+		
+		if(!empty($v->link)){
+			$fl=explode('.', $v->link);
+			$file='<a target="_blank" href=/glass/media/docs/'.$v->link.'><img class=s16 src="/glass/images/ico/'.$fl[1].'.png"></a>';
+		}else{
+			$file='нет вложений';
+		}
+
+
+		echo '<div style="border-radius: 3px; min-height: 46px; margin: 3px; background: url(\'../images/doc.png\') no-repeat; padding-left: 40px;">
+		<a href=/glass/docs/'.$v->id.'><h4 style="margin: 3px;">'.$v->doc_name.'</h4></a>
+		<div style="position: relative; float: right; text-align: right"><i>'.$v->date_begin.'<br>'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.mb_substr($v->creator0->personnelPostsHistories[0]->idPersonnel->name,0,1,'utf-8').'. '.mb_substr($v->creator0->personnelPostsHistories[0]->idPersonnel->patr,0,1,'utf-8').'.</i></div>'.
+		$file.
 		'<br>'.substr($v->text_docs,0,300).'...'.
-		'</div>';
+		'</div><hr>';
 	}
 }else{
 	echo '<h3>Нет документов</h3>';

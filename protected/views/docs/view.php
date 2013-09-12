@@ -16,14 +16,21 @@ $this->menu=array(
 );
 ?>
 
-<h1>Отобразить <?php  echo $model::$modelLabelS; ?>  "<?php echo $model->doc_name; ?>"</h1> 
+<h1 style="margin: 3px"><?php  echo $model::$modelLabelS; ?>  "<?php echo $model->doc_name; ?>"</h1> 
 
 <?php
-echo '<div style="border-radius: 3px; min-height: 46px; border-bottom: 2px solid #444; margin: 3px; background: url(\'../images/doc.png\') no-repeat; padding-left: 40px;">
 
-		('.$model->date_begin.')
-		'.$model->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->patr.
-		'<br>'.($link=(!empty($model->link))?'<a target="_blank" href=/glass/media/docs/'.$model->link.'>Вложение</a>':'').
+		if(!empty($model->link)){
+			$fl=explode('.', $model->link);
+			$file='<a target="_blank" href=/glass/media/docs/'.$model->link.'><img class=s16 src="/glass/images/ico/'.$fl[1].'.png"></a>';
+		}else{
+			$file='нет вложений';
+		}
+
+echo '<div style="border-radius: 3px; min-height: 46px; background: padding-left: 40px;">
+		<div style="position: relative; float: right; text-align: right"><i>'.$model->date_begin.'</i></div>
+		'.$model->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->patr.' '.
+		'<br><span style="margin: 10px; color: #D0D0D0">вложения: </span>'.$file.'<hr>'.
 		'<br>'.$model->text_docs.
 		'</div>';
 

@@ -199,3 +199,9 @@ select,option{
 .lock{
 	overflow: auto;
 }
+
+.s16{
+	margin: 5px;
+	height: 20px;
+	width: 20px;
+}
