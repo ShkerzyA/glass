@@ -205,3 +205,15 @@ select,option{
 	height: 20px;
 	width: 20px;
 }
+.phonetable{
+	margin: 10px;
+}
+.phonetable, .phonetable *{
+	border: 1px solid #d4d4d4;
+	border-collapse: none;
+}
+
+.phonetable th{
+	background: #040404;
+	color: white;
+}

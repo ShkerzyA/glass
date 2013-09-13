@@ -17,12 +17,12 @@ $this->menu=array(
 ?>
 <h2 style="margin: 2px;"><?php echo $model->cat_name; ?></h2> 
 
-<h4 style="text-align: right; margin: 2px"><span style='color: #D0D0D0'>владелец: </span> <?php 
+<h6 style="text-align: right; margin: 2px"><span style='color: #D0D0D0'>владелец: </span> <?php 
 echo ($model->owner0->post);
 $person=$model->owner0->personnelPostsHistories[0]->idPersonnel;
 
 echo ('  <i>'.$person->surname.' '.mb_substr($person->name,0,1,'utf-8').'. '.mb_substr($person->patr,0,1,'utf-8').'.</i>');
-?></h4> 
+?></h6> 
 <hr>
 <?php 
 if (!empty($docs)){
@@ -45,7 +45,7 @@ if (!empty($docs)){
 		'</div><hr>';
 	}
 }else{
-	echo '<h3>Нет документов</h3>';
+	echo '<h5 align=center>Нет документов</h5>';
 }
 
 ?>

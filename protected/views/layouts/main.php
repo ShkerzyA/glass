@@ -33,10 +33,11 @@
 				array('label'=>'Контакты', 'url'=>array('/site/page', 'view'=>'about')),-->
 		<?php $this->widget('application.widgets.MyMenu',array(
 			'items'=>array(
+				array('label'=>'Справочник', 'url'=>array('/personnel/phones')),
 				array('label'=>'Кадры', 'url'=>array('/personnel')),
-                                array('label'=>'Отделы', 'url'=>array('/department/tree')),
-                                array('label'=>'КККОД', 'url'=>array('/myAdmin')),
-                                array('label'=>'Знания', 'url'=>array('/myDocs')),
+                array('label'=>'Отделы', 'url'=>array('/department/tree')),
+                array('label'=>'КККОД', 'url'=>array('/myAdmin')),
+                array('label'=>'Знания', 'url'=>array('/myDocs')),
 				array('label'=>'Админ', 'url'=>array('/admin'), 'visible'=>(Yii::app()->user->role=='administrator'))
 			),
 		)); ?>

@@ -88,7 +88,7 @@ body
  line-height: 40px;
  height: 40px;
  padding: 0 20px;
- width: 80px;
+ min-width: 80px;
  color: #385c5b;
  letter-spacing: 1px;
  text-transform: uppercase;
@@ -108,7 +108,7 @@ body
 	font-size:12px;
 	font-weight:bold;
 	text-decoration:none;
-	padding:5px 8px;
+	padding:5px 0px;
 }
 
 #mainmenu ul li:hover, #mainmenu ul li.active
