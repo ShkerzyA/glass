@@ -136,6 +136,7 @@ class Personnel extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+
     public function search()
     {
         // Warning: Please modify the following code to remove attributes that
@@ -170,6 +171,54 @@ class Personnel extends CActiveRecord
             'criteria'=>$criteria,
             'pagination'=>array(
             	'pageSize'=>9
+            ),
+        ));
+    }
+
+
+        public function search_phones()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+
+        $criteria=new CDbCriteria;
+
+        $criteria->order='photo ASC, surname ASC';
+        $pag=20;
+        foreach ($this->attributes as $x) {
+        	if(!empty($x)){
+        		$pag=100;
+        		break;
+        	}
+        }
+        
+
+        $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnel_posts_history','condition'=>"\"personnel_posts_history\".date_end is NULL",'together'=>True),);
+        //$criteria->condition=;
+        $criteria->compare('id',$this->id);
+        $criteria->compare('surname',$this->surname,true);
+        $criteria->compare('name',$this->name,true);
+        $criteria->compare('patr',$this->patr,true);
+        $criteria->compare('birthday',$this->birthday,true);
+        $criteria->compare('date_begin',$this->date_begin,true);
+        $criteria->compare('date_end',$this->date_end,true);
+        $criteria->compare('photo',$this->photo,true);
+        $criteria->compare('orbase_rn',$this->orbase_rn,true);
+        $criteria->compare('sex',$this->sex);
+        if(!empty($_GET['id_user']))
+                $criteria->compare('id_user',$_GET['id_user']);
+        else
+                $criteria->compare('id_user',$this->id_user);
+        $criteria->compare('users.username',$this->idUserid_user,true);
+        $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
+        $criteria->compare('personnel_posts_history.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
+
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination'=>array(
+            	'pageSize'=>$pag
             ),
         ));
     }
