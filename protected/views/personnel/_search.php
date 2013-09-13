@@ -25,6 +25,11 @@
 		<?php echo $form->label($model,'patr'); ?>
 		<?php echo $form->textField($model,'patr',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
+
+	<div class="inline">
+		<?php echo $form->label($model,'departments_name'); ?>
+		<?php echo $form->textField($model,'departments_name',array('size'=>50,'maxlength'=>50)); ?>
+	</div>
 	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Поиск'); ?>

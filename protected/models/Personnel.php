@@ -33,7 +33,7 @@ class Personnel extends CActiveRecord
     public $idUserid_user;
 	public $workplacesid_personnel;
 	public $personnelPostsHistoriesid_personnel;
-
+    public $departments_name;
 
 	 public function defaultScope()
     {
@@ -85,7 +85,7 @@ class Personnel extends CActiveRecord
             array('orbase_rn', 'unique',),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, surname, name, patr, photo, id_user, birthday, date_begin, orbase_rn, sex, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel', 'safe', 'on'=>'search'),
+			array('id, surname, name, patr, photo, id_user, birthday, date_begin, orbase_rn, sex, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel,departments_name', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -125,6 +125,7 @@ class Personnel extends CActiveRecord
             'date_begin' => 'Дата приема',
             'date_end' => 'Дата увольнения',
 			'idUserid_user' => 'Пользователь',
+            'departments_name' => 'Отдел',
             'workplacesid_personnel' => 'Рабочее место',
             'personnelPostsHistoriesid_personnel' => 'Занимаемые должности',
             'orbase_rn' => 'Код в парусе',
@@ -165,6 +166,7 @@ class Personnel extends CActiveRecord
         $criteria->compare('users.username',$this->idUserid_user,true);
         $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
         $criteria->compare('personnel_posts_history.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
+        
 
 
         return new CActiveDataProvider($this, array(
@@ -194,7 +196,11 @@ class Personnel extends CActiveRecord
         }
         
 
-        $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnel_posts_history','condition'=>"\"personnel_posts_history\".date_end is NULL",'together'=>True),);
+        $criteria->with=array(
+            'idUser' => array('alias' => 'users'),
+            'workplaces' => array('alias' => 'workplace'),
+            'personnelPostsHistories' => array('alias' => 'personnel_posts_history','condition'=>"\"personnel_posts_history\".date_end is NULL",'together'=>True),
+            'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'));
         //$criteria->condition=;
         $criteria->compare('id',$this->id);
         $criteria->compare('surname',$this->surname,true);
@@ -213,7 +219,8 @@ class Personnel extends CActiveRecord
         $criteria->compare('users.username',$this->idUserid_user,true);
         $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
         $criteria->compare('personnel_posts_history.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
-
+        $criteria->compare('departments.name',$this->departments_name,true);
+        $criteria->order='departments.name ASC';
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
