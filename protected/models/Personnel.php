@@ -201,6 +201,7 @@ class Personnel extends CActiveRecord
         $criteria->with=array(
             'idUser' => array('alias' => 'users'),
             'workplaces' => array('alias' => 'workplace'),
+            'workplaces.idCabinet' => array('alias' => 'cabinet'),
             'personnelPostsHistories' => array('alias' => 'personnel_posts_history','condition'=>"\"personnel_posts_history\".date_end is NULL",'together'=>True),
             'personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
             'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
@@ -238,6 +239,8 @@ class Personnel extends CActiveRecord
             $criteria2->compare('LOWER(patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(department_posts.post)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(cabinet.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(cabinet.num)',mb_strtolower($v,'UTF-8'),true, 'OR' );
         $criteria->mergeWith($criteria2);
         }
       

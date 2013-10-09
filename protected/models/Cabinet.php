@@ -29,6 +29,15 @@ class Cabinet extends CActiveRecord
 	
 	public $idFloorid_floor;public $workplacesid_cabinet;
 
+	public function behaviors(){
+		return array(
+			'PreFill'=>array(
+				'class'=>'application.behaviors.PreFillBehavior',
+				),
+			);
+	}
+
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);

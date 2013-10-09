@@ -139,8 +139,7 @@ class BuildingController extends Controller
         $children = $req->queryAll();
 
         foreach ($children as &$v) {
-        	$v['contr']='Floor';
-        	$v['action']="<a href=/glass/".$v['contr']."/add_child/".$v['id']."><img align=right src=/glass/images/add.png></a><a href=/glass/".$v['contr']."/update/".$v['id']."><img align=right src=/glass/images/update.png></a>";
+        	$v=array_merge($v,ruleButton::get($v[id],'Floor','Cabinet'));
         }
        
         //print_r($children);

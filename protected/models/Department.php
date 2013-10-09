@@ -40,6 +40,9 @@ public $departmentPostspost_subdiv_rn;
 			'DateBeginEnd'=>array(
 				'class'=>'application.behaviors.DateBeginEndBehavior',
 				),
+            'PreFill'=>array(
+                'class'=>'application.behaviors.PreFillBehavior',
+                ),
 			);
 	}
 	

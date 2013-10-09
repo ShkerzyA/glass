@@ -101,11 +101,10 @@ class FloorController extends Controller
         );
 
         $children = $req->queryAll();
-
-        foreach ($children as &$v) {
-        	$v['contr']='Cabinet';
+       	
+       	foreach ($children as &$v) {
+        	$v=array_merge($v,ruleButton::get($v[id],'Cabinet','Workplace'));
         }
-       
 
         //print_r($children);
         // возвращаем данные

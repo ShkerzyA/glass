@@ -43,6 +43,9 @@ public $postSubdivRnpost_subdiv_rn;
             'Multichoise'=>array(
                 'class'=>'application.behaviors.MultichoiseBehavior',
                 ),
+            'PreFill'=>array(
+                'class'=>'application.behaviors.PreFillBehavior',
+                ),
 			);
 	}
 	/**

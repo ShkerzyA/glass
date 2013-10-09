@@ -30,6 +30,13 @@ class Workplace extends CActiveRecord
 	public $idCabinetid_cabinet;
 	public $equipmentsid_workplace;
 
+	public function behaviors(){
+		return array(
+			'PreFill'=>array(
+				'class'=>'application.behaviors.PreFillBehavior',
+				),
+			);
+	}
 
 	public static function model($className=__CLASS__)
 	{

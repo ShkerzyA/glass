@@ -49,6 +49,9 @@ public $owner0owner;
 			'Multichoise'=>array(
 				'class'=>'application.behaviors.MultichoiseBehavior',
 				),
+			'PreFill'=>array(
+				'class'=>'application.behaviors.PreFillBehavior',
+				),
 			);
 	}
 	/**
