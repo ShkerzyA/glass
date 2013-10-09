@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),
-	$model->id,
+	$model->cname,
 );
 
 $this->menu=array(
@@ -16,19 +16,33 @@ $this->menu=array(
 );
 ?>
 
-<h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-array(               
-            	'label'=>'Floor',
-            	'type'=>'raw',
-            	'value'=>CHtml::link(CHtml::encode($model->idFloor->fname),
-                array('Floor/view','id'=>$model->idFloor->id)),
-        ),		'cname',
-		'num',
-		'phone',
-	),
-)); ?>
+<h3 algn=center><?php echo $model->idFloor->idBuilding->bname.'/'.$model->idFloor->fname.'<br>'.$model->cname.' каб. №'.$model->num.' (телефон: '.$model->phone.')'; ?></h3>
+
+<table id="personTbl" align=center>
+
+	<tr>
+		<td>Сотрудник:</td>
+		<td>Рабочее место:</td>
+<?php
+	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
+	if(!empty($model->workplaces)){
+		foreach($model->workplaces as $wp){
+			echo "<tr><td class='persList'>";
+			echo $wp->idPersonnel->surname.' '.$wp->idPersonnel->name.' '.$wp->idPersonnel->patr;
+			echo"</td><td class='persList'>";
+			
+			if(!empty($wp->equipments)){
+				foreach($wp->equipments as $equipments){
+					echo'<div>'.CHtml::encode($equipments->ename).' (С/Н:'.CHtml::encode($equipments->serial).')</nobr></div>';
+				}	
+			}else{
+				echo '-//-';
+			}
+		}
+		echo "</td></tr>";
+	}
+	
+?>
+	</tr>
+</table>

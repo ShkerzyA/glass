@@ -51,8 +51,28 @@ class CabinetController extends Controller
 	 */
 	public function actionView($id)
 	{
+
+
+	$model=Cabinet::model()->with(array(
+    	'workplaces'=>array(
+       // 'select'=>True,
+        'joinType'=>'LEFT JOIN',
+        'alias'=>'w'
+    	),
+    	'workplaces.idPersonnel'=>array(
+       // 'select'=>True,
+        'joinType'=>'LEFT JOIN',
+        'alias'=>'p'
+    	),
+    	'workplaces.equipments'=>array(
+       // 'select'=>True,
+        'joinType'=>'LEFT JOIN',
+        'alias'=>'e'
+    	),
+	))->findByPk($id);
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
 
