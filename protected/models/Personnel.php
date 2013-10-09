@@ -34,6 +34,7 @@ class Personnel extends CActiveRecord
 	public $workplacesid_personnel;
 	public $personnelPostsHistoriesid_personnel;
     public $departments_name;
+    public $allfields;
 
 	 public function defaultScope()
     {
@@ -85,7 +86,7 @@ class Personnel extends CActiveRecord
             array('orbase_rn', 'unique',),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, surname, name, patr, photo, id_user, birthday, date_begin, orbase_rn, sex, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel,departments_name', 'safe', 'on'=>'search'),
+			array('id, surname, name, patr, photo, id_user, birthday, date_begin, orbase_rn, sex, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel,departments_name,allfields', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -129,6 +130,7 @@ class Personnel extends CActiveRecord
             'workplacesid_personnel' => 'Рабочее место',
             'personnelPostsHistoriesid_personnel' => 'Занимаемые должности',
             'orbase_rn' => 'Код в парусе',
+            'allfields' => 'Поиск',
             'sex' => 'Пол',
 		);
 	}
@@ -150,9 +152,9 @@ class Personnel extends CActiveRecord
 
         $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnel_posts_history'),);
         $criteria->compare('id',$this->id);
-        $criteria->compare('surname',$this->surname,true);
-        $criteria->compare('name',$this->name,true);
-        $criteria->compare('patr',$this->patr,true);
+        $criteria->compare('LOWER(surname)',mb_strtolower($this->surname,'UTF-8'),true);
+        $criteria->compare('LOWER(name)',mb_strtolower($this->name,'UTF-8'),true);
+        $criteria->compare('LOWER(patr)',mb_strtolower($this->patr,'UTF-8'),true);
         $criteria->compare('birthday',$this->birthday,true);
         $criteria->compare('date_begin',$this->date_begin,true);
         $criteria->compare('date_end',$this->date_end,true);
@@ -200,11 +202,13 @@ class Personnel extends CActiveRecord
             'idUser' => array('alias' => 'users'),
             'workplaces' => array('alias' => 'workplace'),
             'personnelPostsHistories' => array('alias' => 'personnel_posts_history','condition'=>"\"personnel_posts_history\".date_end is NULL",'together'=>True),
-            'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'));
+            'personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
+            'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
         //$criteria->condition=;
+        /*
         $criteria->compare('id',$this->id);
         $criteria->compare('surname',$this->surname,true);
-        $criteria->compare('name',$this->name,true);
+        $criteria->compare('t.name',$this->name,true);
         $criteria->compare('patr',$this->patr,true);
         $criteria->compare('birthday',$this->birthday,true);
         $criteria->compare('date_begin',$this->date_begin,true);
@@ -220,6 +224,23 @@ class Personnel extends CActiveRecord
         $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
         $criteria->compare('personnel_posts_history.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
         $criteria->compare('departments.name',$this->departments_name,true);
+        $criteria->compare('t.surname or t.name or t.patr',$this->allfields,true); */
+
+
+        $criteria->compare('id',$this->id);
+
+        $words=explode(" ",$this->allfields);
+
+        foreach ($words as $v) {
+        $criteria2=new CDbCriteria;
+            $criteria2->compare('LOWER(surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(t.name)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(department_posts.post)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+        $criteria->mergeWith($criteria2);
+        }
+      
         $criteria->order='departments.name ASC';
 
         return new CActiveDataProvider($this, array(

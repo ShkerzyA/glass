@@ -33,7 +33,7 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 
 <?php echo CHtml::link($searcimg,'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:block">
-<?php $this->renderPartial('_search',array(
+<?php $this->renderPartial('_uni_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->

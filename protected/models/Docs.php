@@ -48,6 +48,9 @@ public $creator0creator;
 			'DateBeginEnd'=>array(
 				'class'=>'application.behaviors.DateBeginEndBehavior',
 				),
+			'PreFill'=>array(
+				'class'=>'application.behaviors.PreFillBehavior',
+				),
 			);
 	}
 	/**

@@ -29,6 +29,20 @@ class Building extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function behaviors(){
+		return array(
+			'File'=>array(
+				'class'=>'application.behaviors.FileBehavior',
+				),
+			'DateBeginEnd'=>array(
+				'class'=>'application.behaviors.DateBeginEndBehavior',
+				),
+			'PreFill'=>array(
+				'class'=>'application.behaviors.PreFillBehavior',
+				),
+			);
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */

@@ -11,6 +11,8 @@ class FloorController extends Controller
 	/**
 	 * @return array action filters
 	 */
+
+
 	public function filters()
 	{
 		return array(
@@ -77,7 +79,7 @@ class FloorController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
-	}
+	} 
 
 	    public function actionAjaxFillTree()
     {

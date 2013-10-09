@@ -11,6 +11,7 @@ class BuildingController extends Controller
 	/**
 	 * @return array action filters
 	 */
+
 	public function filters()
 	{
 		return array(
@@ -101,7 +102,7 @@ class BuildingController extends Controller
         $children = $req->queryAll();
 
         foreach ($children as &$v) {
-        	$v['contr']='Building';
+        	$v=array_merge($v,ruleButton::get($v[id],'Building','Floor'));
         }
        
 
@@ -139,9 +140,9 @@ class BuildingController extends Controller
 
         foreach ($children as &$v) {
         	$v['contr']='Floor';
+        	$v['action']="<a href=/glass/".$v['contr']."/add_child/".$v['id']."><img align=right src=/glass/images/add.png></a><a href=/glass/".$v['contr']."/update/".$v['id']."><img align=right src=/glass/images/update.png></a>";
         }
        
-
         //print_r($children);
         // возвращаем данные
         echo str_replace(

@@ -33,6 +33,13 @@ class Floor extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function behaviors(){
+		return array(
+			'PreFill'=>array(
+				'class'=>'application.behaviors.PreFillBehavior',
+				),
+			);
+	}
 	/**
 	 * @return string the associated database table name
 	 */
