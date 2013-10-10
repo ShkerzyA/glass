@@ -2,6 +2,8 @@
 /* @var $this CatalogsController */
 /* @var $model Catalogs */
 /* @var $form CActiveForm */
+
+
 ?>
 
 <div class="form">
@@ -33,14 +35,19 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 		<?php echo $form->error($model,'cat_name'); ?>
 	</div>
 
+
+<?php if($model->scenario!='insert'):?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'owner'); ?>
 
-		<?php $tmp=DepartmentPosts::model()->findall();
-echo $form->dropDownList($model,"owner",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->post);}),array('empty' => '')); ?>
+		<?php 
+			$tmp=DepartmentPosts::model()->findall();
+			echo $form->dropDownList($model,"owner",CHtml::listData($tmp,"id",function($tmp) {
+			return CHtml::encode($tmp->post);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'owner'); ?>
 	</div>
+
+<?php endif; ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'groups'); ?>

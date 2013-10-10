@@ -16,7 +16,8 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-
+<?php if($model->scenario!='insert'):?>
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'creator'); ?>
 
@@ -28,6 +29,9 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 				return CHtml::encode($tmp->personnelPostsHistories[0]->idPersonnel->surname.' '.$tmp->personnelPostsHistories[0]->idPersonnel->name.'('.$tmp->post.')');}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
+
+<?php endif; ?>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_catalog'); ?>

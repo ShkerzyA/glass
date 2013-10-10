@@ -28,8 +28,8 @@ $this->menu=array(
 		}
 
 echo '<div style="border-radius: 3px; min-height: 46px; background: padding-left: 40px;">
-		<div style="position: relative; float: right; text-align: right"><i>'.$model->date_begin.'</i></div>
-		'.$model->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->patr.' '.
+		<div style="position: relative; float: right; text-align: right"><i>'.$model->date_begin.'<br>
+		'.$model->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</i></div> '.
 		'<br><span style="margin: 10px; color: #D0D0D0">вложения: </span>'.$file.'<hr>'.
 		'<br>'.$model->text_docs.
 		'</div>';

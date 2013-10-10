@@ -6,8 +6,7 @@ Class ruleButton{
 								'Department'=>array(),
 								'DepartmentPosts'=>array(),
 								'Workplace'=>array(),
-								'Catalogs'=>array('id_parent'=>array('type'=>'parent','val'=>'id'),
-													'owner'=>array('type'=>'user','val'=>'s')),
+								'Catalogs'=>array('id_parent'=>array('type'=>'parent','val'=>'id'),),
 								'Docs'=>array(),
 					);
 

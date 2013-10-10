@@ -51,6 +51,9 @@ public $creator0creator;
 			'PreFill'=>array(
 				'class'=>'application.behaviors.PreFillBehavior',
 				),
+			'FixedOwner'=>array(
+				'class'=>'application.behaviors.FixedOwnerBehavior',
+				),
 			);
 	}
 	/**
