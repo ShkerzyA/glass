@@ -15,11 +15,16 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 
+	<?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
+
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
+
+
+
 <div id="header">
 		<div id="auth">
 			<?php $this->widget('application.widgets.GlassAuth'); ?>
@@ -56,7 +61,48 @@
 	</div><!-- footer -->
 
 </div><!-- page -->
+<?php 
 
+echo<<<END
+<script type='text/javascript'>
+$(function () {
+ var scroll_timer;
+ var displayed = false;
+ var \$message = $("#scrollToTop");
+ var \$window = $(window);
+ var top = $(document.body).children(0).position().top;
+
+ \$window.scroll(function () {
+  window.clearTimeout(scroll_timer);
+  scroll_timer = window.setTimeout(function () { 
+   if (\$window.scrollTop()<=top+50) {
+    displayed = false;
+    \$message.fadeOut(200);
+   } else if (displayed == false) {
+    displayed = true;
+    \$message.stop(true, true).fadeIn(200).click(function() {
+     \$message.fadeOut(200);
+    });
+   }
+  }, 100);
+ });
+});
+
+function sttopmode(elem,over) {
+ if (over) {
+  elem.style.backgroundColor="rgba(0,0,0,0.1)";
+ } else {
+  elem.style.backgroundColor="rgba(255,255,255,0)";
+ }
+}
+
+</script>
+<div id='scrollToTop' style='display:none; z-index:999; background:rgba(255,255,255,0); position:fixed; top:0px; right:0px;
+           width:50px; color:#939393; line-height:16px; height:100%; padding-top:10px; text-align:center; cursor:pointer;'
+           onClick='scroll(0,0); return false' onMouseOver='sttopmode(this,true)' onMouseOut='sttopmode(this,false)'>&#9650<div>Наверх</div></div> 
+END;
+
+?>
 </body>
 </html>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/custom.css" />

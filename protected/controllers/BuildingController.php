@@ -52,8 +52,21 @@ class BuildingController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model=Building::model()->with(array(
+    	'floors'=>array(
+       // 'select'=>True,
+        'joinType'=>'LEFT JOIN',
+        'alias'=>'f'
+    	),
+    	'floors.cabinets'=>array(
+       // 'select'=>True,
+        'joinType'=>'LEFT JOIN',
+        'alias'=>'c'
+    	),
+	))->findByPk($id);
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
 

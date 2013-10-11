@@ -112,7 +112,10 @@ class Cabinet extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->with=array('idFloor' => array('alias' => 'floor'),'workplaces' => array('alias' => 'workplace'),);
-		$criteria->compare('id',$this->id);
+		if(!empty($_GET['id_cabinet']))
+			$criteria->compare('t.id',$_GET['id_cabinet']);
+		else
+			$criteria->compare('t.id',$this->id);
 		if(!empty($_GET['id_floor']))
 				$criteria->compare('id_floor',$_GET['id_floor']);
 		else

@@ -217,3 +217,9 @@ select,option{
 	background: #040404;
 	color: white;
 }
+
+.hierarchy div{
+	margin-left: 10%;
+
+}
+

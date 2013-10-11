@@ -151,7 +151,6 @@ class Personnel extends CActiveRecord
         $criteria->order='photo ASC, surname ASC';
 
         $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnel_posts_history'),);
-        $criteria->compare('id',$this->id);
         $criteria->compare('LOWER(surname)',mb_strtolower($this->surname,'UTF-8'),true);
         $criteria->compare('LOWER(name)',mb_strtolower($this->name,'UTF-8'),true);
         $criteria->compare('LOWER(patr)',mb_strtolower($this->patr,'UTF-8'),true);
@@ -165,6 +164,11 @@ class Personnel extends CActiveRecord
                 $criteria->compare('id_user',$_GET['id_user']);
         else
                 $criteria->compare('id_user',$this->id_user);
+
+        if(!empty($_GET['id_personnel']))
+                $criteria->compare('t.id',$_GET['id_personnel']);
+        else
+                $criteria->compare('t.id',$this->id);
         $criteria->compare('users.username',$this->idUserid_user,true);
         $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
         $criteria->compare('personnel_posts_history.id_personnel',$this->personnelPostsHistoriesid_personnel,true);

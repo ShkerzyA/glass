@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),
-	$model->id,
+	$model->bname,
 );
 
 $this->menu=array(
@@ -16,13 +16,21 @@ $this->menu=array(
 );
 ?>
 
-<h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
+<h3><?php  echo $model->bname.' ('.$model->adress.')';?></h3> 
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-		'adress',
-		'bname',
-	),
-)); ?>
+<div class="hierarchy">
+<?php
+if (!empty ($model->floors))
+	foreach ($model->floors as $floor) {
+		echo '<div>'.$floor->fname;
+		if(!empty($floor->cabinets))
+			foreach ($floor->cabinets as $cabinet) {
+				echo '<a href='.Yii::app()->homeUrl.'Cabinet/'.$cabinet->id.'><div>'.$cabinet->cname.' каб. №'.$cabinet->num.'</div></a>';
+			}
+		echo'</div>';
+	}
+
+?>
+</div>
+
+

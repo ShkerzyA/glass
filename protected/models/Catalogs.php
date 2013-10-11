@@ -130,9 +130,9 @@ public $owner0owner;
 		$criteria->with=array('docs' => array('alias' => 'docs'),'idParent' => array('alias' => 'catalogsP'),'catalogs' => array('alias' => 'catalogs'),'owner0' => array('alias' => 'departmentposts'),);
 		$criteria->compare('id',$this->id);
 		if(!empty($_GET['id_parent']))
-				$criteria->compare('id_parent',$_GET['id_parent']);
+				$criteria->compare('t.id_parent',$_GET['id_parent']);
 		else
-				$criteria->compare('id_parent',$this->id_parent);
+				$criteria->compare('t.id_parent',$this->id_parent);
 		$criteria->compare('cat_name',$this->cat_name,true);
 		if(!empty($_GET['owner']))
 				$criteria->compare('owner',$_GET['owner']);

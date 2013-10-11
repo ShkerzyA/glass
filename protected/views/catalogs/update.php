@@ -14,10 +14,8 @@ $this->menu=array(
 	array('label'=>'Отобразить', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Управление ', 'url'=>array('admin')),
 );
-	$this->menu["details"]=array(array('label'=>'Docs', 'url'=>array('Docs/admin', 'id_catalog'=>$model->id)),
-array('label'=>'Catalogs', 'url'=>array('Catalogs/admin', 'id_parent'=>$model->id)),
-array('label'=>'Catalogs', 'url'=>array('Catalogs/admin', 'id_parent'=>$model->id)),
-array('label'=>'DepartmentPosts', 'url'=>array('DepartmentPosts/admin', 'owner'=>$model->id)),
+	$this->menu["details"]=array(array('label'=>'Документы', 'url'=>array('Docs/admin', 'id_catalog'=>$model->id)),
+array('label'=>'Дочерние каталоги', 'url'=>array('Catalogs/admin', 'id_parent'=>$model->id)),
 );
 ?>
 
