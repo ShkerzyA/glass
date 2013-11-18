@@ -84,7 +84,7 @@ return array(
 		),
 		
 		'db'=>array(
-			'connectionString' => 'pgsql:host=localhost;dbname=glass',
+			'connectionString' => 'pgsql:host=localhost;dbname=test_glass',
 			'username' => 'al',
 			'password' => '123',
 			'charset' => 'utf8',

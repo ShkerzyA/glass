@@ -51,7 +51,10 @@ class MyDbase extends CFormModel{
 
 		foreach ($zSubDiv as $v) {
 
-			$dep=new Department();
+			$dep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['SUBDIV_RN'])));
+			if(empty($dep)){
+				$dep=new Department();	
+			}
 			$dep->name=trim($v['NAME']);
 			$dep->date_begin=substr($v['STARTDATE'] , 6,2).'.'.substr($v['STARTDATE'] , 4,2).'.'.substr($v['STARTDATE'] , 0,4);
             $dep->date_end=substr($v['ENDDATE'] , 6,2).'.'.substr($v['ENDDATE'] , 4,2).'.'.substr($v['ENDDATE'] ,0,4);
