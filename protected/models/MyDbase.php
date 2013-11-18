@@ -141,7 +141,12 @@ class MyDbase extends CFormModel{
 			foreach ($v['zpostch'] as $z) {
 				$i=0;
 				while($i<$z['STQNT']){
-					$depPost=new DepartmentPosts();
+
+					if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])))){
+						$depPost=$findPost;
+					}else{
+						$depPost=new DepartmentPosts();
+					}
        				$depPost->post=trim($v['ztipdol']['NAME']);
        				$depPost->post_rn=$v['POST_RN'];
        				$depPost->date_begin=substr($z['CHSTARTDAT'] , 6,2).'.'.substr($z['CHSTARTDAT'] , 4,2).'.'.substr($z['CHSTARTDAT'] ,0,4);
@@ -173,6 +178,7 @@ class MyDbase extends CFormModel{
 		}
 
 		//$x=0;
+		PersonnelPostsHistory::model()->deleteAll();
 		foreach ($zfcac as $v) {
 			$posts=DepartmentPosts::model()->findAll(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));
 			$date_begin=date('d.m.Y',strtotime(substr($v['STARTDATE'] , 6,2).'.'.substr($v['STARTDATE'] , 4,2).'.'.substr($v['STARTDATE'] ,0,4)));
@@ -215,6 +221,7 @@ class MyDbase extends CFormModel{
 
  		//return $zfcac;
  		//return $wtf;
+ 		echo 'Синхронизация завершена';
  	}
 
 
