@@ -17,7 +17,7 @@ $this->menu=array(
 );*/
 ?>
 
-<h1><?php echo $model->name; ?></h1>
+<h1><?php echo $model->name; ?></h1> <div class="add_unit fl_right" id="add_task">добавить задание</div>
 
 <table id="personTbl" align=center>
 

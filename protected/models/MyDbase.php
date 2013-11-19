@@ -142,7 +142,7 @@ class MyDbase extends CFormModel{
 				$i=0;
 				while($i<$z['STQNT']){
 
-					if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])))){
+					if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn and upd_flag is NULL','params'=>array(":post_rn"=>$v['POST_RN'])))){
 						$depPost=$findPost;
 					}else{
 						$depPost=new DepartmentPosts();
@@ -152,6 +152,7 @@ class MyDbase extends CFormModel{
        				$depPost->date_begin=substr($z['CHSTARTDAT'] , 6,2).'.'.substr($z['CHSTARTDAT'] , 4,2).'.'.substr($z['CHSTARTDAT'] ,0,4);
        				$depPost->date_end=substr($z['CHENDDATE'] , 6,2).'.'.substr($z['CHENDDATE'] , 4,2).'.'.substr($z['CHENDDATE'] ,0,4);
        				$depPost->post_subdiv_rn=trim($v['SUBDIV_RN']);
+       				$depPost->upd_flag=1;
        				$depPost->save();
        				//var_dump($depPost->getErrors()); //вызывает задвоение
 					$i++;	
@@ -160,6 +161,7 @@ class MyDbase extends CFormModel{
 				
 		}
 
+		DepartmentPosts::model()->updateAll(array('upd_flag' => NULL));
 		DepartmentPosts::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
 
  		return $posts;

@@ -167,6 +167,10 @@ select,option{
 	float: left;	
 }
 
+.fl_right{
+	float: right;
+}
+
 .close_this{
 	position: relative;
 	float: right;

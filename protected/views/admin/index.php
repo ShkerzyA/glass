@@ -48,6 +48,7 @@ $this->menu['all_menu']=array(
 	array('title'=>'Знания','items'=>array(
 		array('label'=>'Каталоги', 'url'=>array('/catalogs/admin')), 
 		array('label'=>'Документы', 'url'=>array('/docs/admin')), 
+		array('label'=>'Задачи', 'url'=>array('/tasks/admin')), 
 	)),
 
 		array('title'=>'MyDbase (нажимать нежно, сразу импорт)','items'=>array(

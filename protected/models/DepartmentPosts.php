@@ -27,8 +27,8 @@ class DepartmentPosts extends CActiveRecord
 	public static $modelLabelS='Штатная структура';
 	public static $modelLabelP='Штатная структура';
 	
-   public $personnelPostsHistoriesid_post;
-public $postSubdivRnpost_subdiv_rn;
+    public $personnelPostsHistoriesid_post;
+    public $postSubdivRnpost_subdiv_rn;
 
 	public static function model($className=__CLASS__)
 	{
@@ -64,7 +64,7 @@ public $postSubdivRnpost_subdiv_rn;
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('islead', 'numerical', 'integerOnly'=>true),
+            array('islead, upd_flag', 'numerical', 'integerOnly'=>true),
             array('post', 'length', 'max'=>200),
             array('post_subdiv_rn', 'length', 'max'=>10),
             array('date_begin, date_end', 'safe'),
@@ -72,7 +72,7 @@ public $postSubdivRnpost_subdiv_rn;
             array('groups', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, post, date_begin, date_end, islead, groups, post_rn, post_subdiv_rn,personnelPostsHistoriesid_post,postSubdivRnpost_subdiv_rn', 'safe', 'on'=>'search'),
+            array('id, post, date_begin, date_end, islead, upd_flag groups, post_rn, post_subdiv_rn,personnelPostsHistoriesid_post,postSubdivRnpost_subdiv_rn', 'safe', 'on'=>'search'),
         );
     }
 
@@ -123,6 +123,7 @@ public $postSubdivRnpost_subdiv_rn;
 			'personnelPostsHistoriesid_post' => 'Должность',
             'post_rn' => 'Код в парусе',
 			'islead' => 'Является руководителем',
+            'upd_flag' => 'служебный флаг. для синхронизации',
             'post_subdiv_rn' => 'Post Subdiv Rn',
             'personnelPostsHistoriesid_post' => 'id_post',
             'postSubdivRnpost_subdiv_rn' => 'post_subdiv_rn',
