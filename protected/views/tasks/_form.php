@@ -31,7 +31,7 @@
 
 		<?php echo $form->error($model,'ttext'); ?>
 	</div>
-<?php if(Yii::app()->user->role=='administrator'): ?>
+<?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'date_begin'); ?>
 

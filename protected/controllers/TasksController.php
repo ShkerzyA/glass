@@ -28,7 +28,7 @@ class TasksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','helpDesk','saveMessage'),
+				'actions'=>array('index','view','helpDesk','saveMessage','saveStatus'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -51,6 +51,8 @@ class TasksController extends Controller
 	 */
 	public function actionView($id)
 	{
+
+		Yii::app()->session['Task_id']=$id;
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -85,8 +87,28 @@ class TasksController extends Controller
 			echo $_POST['mess'];
 			
 			$model->ttext=$_POST['mess'];
+			$model->type=1;
+			$model->id_task=Yii::app()->session['Task_id'];
 
 			$model->save();
+		}
+	}	
+
+	public function actionSaveStatus(){
+		if(Yii::app()->request->isAjaxRequest){
+
+
+			$model=Tasks::model()->findByPk(Yii::app()->session['Task_id']);
+			$model_act=new TasksActions;	
+			echo $_POST['stat'];
+			$model->status=$_POST['stat'];
+			$model->save();
+			
+			$model_act->ttext=$_POST['stat'];
+			$model_act->type=0;
+			$model_act->id_task=Yii::app()->session['Task_id'];
+
+			$model_act->save();
 		}
 	}	
 

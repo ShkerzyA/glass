@@ -84,7 +84,7 @@ public $idTaskid_task;
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'creator0' => array(self::BELONGS_TO, 'Personnel', 'id'),
+			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
 			'idTask' => array(self::BELONGS_TO, 'Tasks', 'id_task'),
 		);
 	}
@@ -117,7 +117,7 @@ public $idTaskid_task;
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('creator0' => array('alias' => 'departmentposts'),'idTask' => array('alias' => 'tasks'),);
+		$criteria->with=array('creator0' => array('alias' => 'creator0'),'idTask' => array('alias' => 'idTask'),);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('ttext',$this->ttext,true);
 		$criteria->compare('date_begin',$this->date_begin,true);
@@ -130,8 +130,8 @@ public $idTaskid_task;
 				$criteria->compare('id_task',$_GET['id_task']);
 		else
 				$criteria->compare('id_task',$this->id_task);
-		$criteria->compare('departmentposts.creator',$this->creator0creator,true);
-		$criteria->compare('tasks.id_task',$this->idTaskid_task,true);
+		$criteria->compare('creator0.creator',$this->creator0creator,true);
+		$criteria->compare('idTask.id_task',$this->idTaskid_task,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

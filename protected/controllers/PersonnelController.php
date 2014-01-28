@@ -154,6 +154,7 @@ class PersonnelController extends Controller
 	public function actionIndex()
 	{
 
+		$this->layout='//layouts/column1';
 		$model=new Personnel('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Personnel']))

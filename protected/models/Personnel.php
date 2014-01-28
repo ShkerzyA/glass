@@ -105,7 +105,7 @@ class Personnel extends CActiveRecord
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
             'workplaces' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
             'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel'),
-            'TaskActions' => array(self::HAS_MANY, 'TaskActions', 'creator'),
+            'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'creator'),
 		);
 	}
 

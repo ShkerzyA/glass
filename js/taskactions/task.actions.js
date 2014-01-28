@@ -12,6 +12,10 @@ function init(){
     $('#put_message').live('click',function(){ 
         save_comment();
     });
+
+    $('#status_task').live('change',function(){
+        change_status();
+    });
 }
 document.ready(init());
 
@@ -23,9 +27,29 @@ function save_comment(){
         $.post("/glass/tasks/saveMessage", {mess: mess},
             function(data, status) {
                 if (status == "success") {
-                    alert(data);
+                    $('#message').empty();
+                    $('.modal_window_back').hide();
+                    $('.modal_window').hide();
+                    window.location.reload();
                 }else{
                 	alert('Ошибка');
+                }
+            },"html"
+        );
+    }
+
+}
+
+
+function change_status(){
+    stat=$('#status_task').val();
+    if (stat) {
+        $.post("/glass/tasks/saveStatus", {stat: stat},
+            function(data, status) {
+                if (status == "success") {
+                    window.location.reload();
+                }else{
+                    alert('Ошибка');
                 }
             },"html"
         );

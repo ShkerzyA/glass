@@ -151,11 +151,11 @@ select,option{
 	height: 20px;
 
 	border-radius: 4px;
-	border: 2px groove black;
+	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
 }
 
 .add_unit, .join_group{
-	background: url('../images/add.png') 99% 2px no-repeat #c7fda4;
+	background: url('../images/add.png') 99% 2px no-repeat #ebf4e6;
 	cursor: pointer;
 }
 
@@ -228,11 +228,12 @@ select,option{
 }
 
 .taskpanel{
-	border: 2px groove black;
+	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
 	border-radius: 3px;
 	padding: 2px;
 	background: #fabaca;
 	margin: 5px;
+	margin-top: 10px;
 	width: auto;
 }
 
@@ -241,11 +242,11 @@ select,option{
 }
 
 .done{
-	background: #c7fda4;
+	background: #ebf4e6;
 }
 
 .closed{
-	background: #f4ac93;
+	background: #f9ede8;
 }
 
 
@@ -268,6 +269,9 @@ select,option{
 }
 
 .portlet-decoration{
+	background: #0F0F4D;
+	border-left: 5px solid white;
+	box-shadow: 1px 1px 3px black;
 }
 
 .portlet-decoration, .portlet-content{
@@ -275,7 +279,53 @@ select,option{
 
 }
 
+.portlet-title{
+	color: white;
+}
+
 .portlet-content{
 	border:2px solid #DADEE0;
 	background: #F0F0F0;
+}
+
+#status_task{
+	margin: 3px;
+	padding: 2px;
+	height: 26px;
+
+	border-radius: 4px;
+	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
+	cursor: pointer;
+	width: 32%;
+	float: right;
+}
+
+.comment{
+	width: 100%;
+	background: white;
+	margin: 3px;
+	margin-top: 15px;
+	min-height: 50px;
+	padding: 2px;
+	border-radius: 3px;
+	box-shadow: 1px 1px 5px 5px white;
+}
+
+.comment-topline{
+	width: 100%;
+	border-bottom: 1px solid #040404;
+	text-align: right;
+}
+
+.sign{
+	
+	background: white;
+	padding: 3px;
+	position: relative; 
+	float: right; 
+	text-align: right;
+}
+
+.norm_text{
+	font-size: 14pt;
 }
