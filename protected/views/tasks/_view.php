@@ -30,12 +30,12 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('creator')); ?>:</b>
-	<?php echo CHtml::encode($data->creator0->creator); ?>
+	<?php echo CHtml::encode($data->creator0->post); ?>
 	<br />
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('executor')); ?>:</b>
-	<?php echo CHtml::encode($data->executor0->executor); ?>
+	<?php echo CHtml::encode($data->executor0->post); ?>
 	<br />
 
 	*/ ?>

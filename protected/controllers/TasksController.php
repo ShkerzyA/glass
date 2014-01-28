@@ -28,12 +28,12 @@ class TasksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','helpDesk','saveMessage'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'roles'=>array('moderator'),
+				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -79,6 +79,36 @@ class TasksController extends Controller
 		));
 	}
 
+	public function actionSaveMessage(){
+		if(Yii::app()->request->isAjaxRequest){
+			$model=new TasksActions;	
+			echo $_POST['mess'];
+			
+			$model->ttext=$_POST['mess'];
+
+			$model->save();
+		}
+	}	
+
+		public function actionCreateActions()
+	{
+		$model=new TasksActions;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['TasksActions']))
+		{
+			$model->attributes=$_POST['TasksActions'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('createactions',array(
+			'model'=>$model,
+		));
+	}
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -115,6 +145,21 @@ class TasksController extends Controller
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}
+
+	public function actionHelpDesk($id_department,$status='0,1,2,3,4'){
+		$this->layout='//layouts/column1';
+
+		$fu=new TasksActions;
+
+		//echo'<pre>';
+		//print_r($fu);
+		//echo'</pre>';
+
+		$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status in (".$status.")"));
+		$this->render('helpdesk',array(
+			'model'=>$model,
+		));
 	}
 
 	/**

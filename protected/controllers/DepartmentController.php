@@ -73,8 +73,8 @@ class DepartmentController extends Controller
     'personnelPostsHistories'=>array(
        // 'select'=>True,
         'joinType'=>'LEFT JOIN',
-        'alias'=>'j',
-        'order'=>'j.date_end DESC'
+        'alias'=>'personnelPostsHistories',
+        'order'=>'"personnelPostsHistories".date_end DESC'
     ),
 ))->findAll(array('condition'=>"post_subdiv_rn='$model->subdiv_rn'",'order'=>'islead DESC, t.date_begin ASC'));
 

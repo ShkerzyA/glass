@@ -24,17 +24,17 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
 
 
     public function beforeSave($event){
-                if(!empty($this->owner->date_begin)){
-                    $this->owner->date_begin = date('Y-m-d', strtotime($this->owner->date_begin));//strtotime($this->date_start);
-                }else{
-                    $this->owner->date_begin=date('Y-m-d');
-                }
 
-                if(!empty($this->owner->date_end)){
-                    $this->owner->date_end = date('Y-m-d', strtotime($this->owner->date_end));//strtotime($this->date_start);
-                }else{
-                    $this->owner->date_end=null;
-                }
+        if(!empty($this->owner->date_begin)){
+            $this->owner->date_begin=date('Y-m-d', strtotime($this->owner->date_begin));
+        }else{
+            $this->owner->date_begin=date('Y-m-d'); 
+        } 
+        if(!empty($this->owner->date_end)){
+            $this->owner->date_end = date('Y-m-d', strtotime($this->owner->date_end));//strtotime($this->date_start);
+        }else{
+            $this->owner->date_end=null;
+        }
     }
 
     public function afterFind($event) {

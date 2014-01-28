@@ -47,6 +47,37 @@ class Tasks extends CActiveRecord
 		return 'tasks';
 	}
 
+	public function getStatus(){
+		return array(  	0 => 'Назначено',
+						1 => 'Принято',
+						2 => 'Выполнено',
+						3 => 'Не выполнено',
+						4 => 'Подтверждено выполнение');
+	}
+
+	public function gimmeStatus(){
+		$status=array(  0 => array('label'=>'Назначено','css_class'=>'open'),
+						1 => array('label'=>'Принято','css_class'=>'open'),
+						2 => array('label'=>'Выполнено','css_class'=>'done'),
+						3 => array('label'=>'Не выполнено','css_class'=>'closed'),
+						4 => array('label'=>'Подтверждено выполнение','css_class'=>'done'));
+		return $status[$this->status];
+	}
+
+	public function behaviors(){
+	return array(
+			'DateBeginEnd'=>array(
+				'class'=>'application.behaviors.DateBeginEndBehavior',
+				),
+			'PreFill'=>array(
+				'class'=>'application.behaviors.PreFillBehavior',
+				),
+			'FixedOwner'=>array(
+				'class'=>'application.behaviors.FixedOwnerBehavior',
+				),
+			);
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -55,13 +86,13 @@ class Tasks extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, creator, executor', 'numerical', 'integerOnly'=>true),
+			array('type, creator, executor, id_department, status', 'numerical', 'integerOnly'=>true),
 			array('tname', 'length', 'max'=>100),
 			array('ttext, date_begin, date_end', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tname, ttext, date_begin, date_end, type, creator, executor,creator0creator,executor0executor', 'safe', 'on'=>'search'),
+			array('id, tname, ttext, date_begin, date_end, type, id_department, status, creator, executor,creator0creator,executor0executor', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,6 +106,7 @@ class Tasks extends CActiveRecord
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'DepartmentPosts', 'creator'),
 			'executor0' => array(self::BELONGS_TO, 'DepartmentPosts', 'executor'),
+			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),
 		);
 	}
 
@@ -85,15 +117,17 @@ class Tasks extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'tname' => 'Tname',
-			'ttext' => 'Ttext',
+			'tname' => 'Заголовок',
+			'ttext' => 'Описание заявки',
 			'date_begin' => 'Date Begin',
 			'date_end' => 'Date End',
-			'type' => 'Type',
-			'creator' => 'Creator',
-			'executor' => 'Executor',
-			'creator0creator' => 'creator',
-			'executor0executor' => 'executor',
+			'type' => 'Тип',
+			'creator' => 'Создатель',
+			'executor' => 'Исполнитель',
+			'id_department' => 'Отдел', 
+			'status' => 'Статус',
+			'creator0creator' => 'Создатель',
+			'executor0executor' => 'Исполнитель',
 		);
 	}
 
@@ -114,6 +148,8 @@ class Tasks extends CActiveRecord
 		$criteria->compare('ttext',$this->ttext,true);
 		$criteria->compare('date_begin',$this->date_begin,true);
 		$criteria->compare('date_end',$this->date_end,true);
+		$criteria->compare('id_department',$this->date_end,true);
+		$criteria->compare('status',$this->date_end,true);
 		$criteria->compare('type',$this->type);
 		if(!empty($_GET['creator']))
 				$criteria->compare('creator',$_GET['creator']);

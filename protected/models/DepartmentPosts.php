@@ -98,12 +98,11 @@ class DepartmentPosts extends CActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
-   public function relations()
-    {
+   public function relations(){
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post'),
+            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post','alias'=>'personnelPostsHistories','order'=>'"personnelPostsHistories".date_end DESC'),
             'postSubdivRn' => array(self::BELONGS_TO, 'Department', 'post_subdiv_rn'),
         );
     }
@@ -142,7 +141,7 @@ class DepartmentPosts extends CActiveRecord
 
         $criteria=new CDbCriteria;
 
-        $criteria->with=array('personnelPostsHistories' => array('alias' => 'personnelpostshistory'),'postSubdivRn' => array('alias' => 'department'),);
+        $criteria->with=array('personnelPostsHistories' => array('alias' => 'personnelPostsHistories'),'postSubdivRn' => array('alias' => 'department'),);
         $criteria->compare('id',$this->id);
         $criteria->compare('post',$this->post,true);
         $criteria->compare('date_begin',$this->date_begin,true);
@@ -154,7 +153,7 @@ class DepartmentPosts extends CActiveRecord
                 $criteria->compare('post_subdiv_rn',$_GET['post_subdiv_rn']);
         else
                 $criteria->compare('post_subdiv_rn',$this->post_subdiv_rn,true);
-        $criteria->compare('personnelpostshistory.id_post',$this->personnelPostsHistoriesid_post,true);
+        $criteria->compare('personnelPostsHistories.id_post',$this->personnelPostsHistoriesid_post,true);
         $criteria->compare('department.post_subdiv_rn',$this->postSubdivRnpost_subdiv_rn,true);
 
         return new CActiveDataProvider($this, array(

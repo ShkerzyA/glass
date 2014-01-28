@@ -43,6 +43,7 @@
                 array('label'=>'Отделы', 'url'=>array('/department/tree')),
                 array('label'=>'КККОД', 'url'=>array('/myAdmin')),
                 array('label'=>'Знания', 'url'=>array('/myDocs')),
+                array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk?id_department=1011')),
 				array('label'=>'Админ', 'url'=>array('/admin'), 'visible'=>(Yii::app()->user->role=='administrator'))
 			),
 		)); ?>

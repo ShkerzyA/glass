@@ -67,6 +67,13 @@ class DocsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
+
+		$md=$model->getMetadata();
+
+
+		//print_r($md);
+
+		print_r($md->columns['date_begin']->dbType);
 		if(isset($_POST['Docs']))
 		{
 			$model->attributes=$_POST['Docs'];
