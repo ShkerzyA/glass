@@ -142,7 +142,7 @@ class DepartmentPosts extends CActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->with=array('personnelPostsHistories' => array('alias' => 'personnelPostsHistories'),'postSubdivRn' => array('alias' => 'department'),);
-        $criteria->compare('id',$this->id);
+        $criteria->compare('t.id',$this->id);
         $criteria->compare('post',$this->post,true);
         $criteria->compare('date_begin',$this->date_begin,true);
         $criteria->compare('date_end',$this->date_end,true);
@@ -153,6 +153,10 @@ class DepartmentPosts extends CActiveRecord
                 $criteria->compare('post_subdiv_rn',$_GET['post_subdiv_rn']);
         else
                 $criteria->compare('post_subdiv_rn',$this->post_subdiv_rn,true);
+        if(!empty($_GET['id_post']))
+                $criteria->compare('t.id',$_GET['id_post']);
+        else
+                $criteria->compare('t.id',$this->id);
         $criteria->compare('personnelPostsHistories.id_post',$this->personnelPostsHistoriesid_post,true);
         $criteria->compare('department.post_subdiv_rn',$this->postSubdivRnpost_subdiv_rn,true);
 
