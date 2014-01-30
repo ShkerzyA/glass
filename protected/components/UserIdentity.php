@@ -29,16 +29,22 @@ class UserIdentity extends CUserIdentity
 
             $temp='';
             $id_posts=array();
+
+            $islead=0;
             if(!empty($user->personnels->personnelPostsHistories))
             foreach ($user->personnels->personnelPostsHistories as $v){
                 $temp.=$v->idPost->groups;
                 $id_posts[]=$v->idPost->id;
+                if($v->idPost->islead==1){
+                    $islead=1;
+                }
             }
             $temp=explode(',',$temp);
             $groups=array_unique($temp);
 
             $this->setState('groups', $groups);
             $this->setState('id_posts',$id_posts);
+            $this->setState('islead',$islead);
             $this->errorCode=self::ERROR_NONE;
         }
         return $this->errorCode==self::ERROR_NONE;

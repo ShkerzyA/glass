@@ -17,8 +17,13 @@ $this->breadcrumbs=array(
 		<div class="taskpanel <?php echo $status['css_class']; ?>">
 			<?php echo $v['tname']; ?>
 			<div style="position: relative; float: right;">
-				<?php echo $status['label']; ?>
-				<?php echo $v->date_begin; ?>
+				<?php 	echo $status['label'].' '; 
+						if(!empty($v->executor0)){
+							echo('('.$v->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->name,0,1,"utf8").'. '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->patr,0,1,"utf8").'.)');	
+						}
+						echo ' '.$v->date_begin; 
+				?>
+				
 			</div>
 		</div>
 	</a>

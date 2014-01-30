@@ -8,7 +8,7 @@ class PreFillBehavior extends CActiveRecordBehavior{
                 $this->owner->attributes=$_GET[$model_name];
             }
         }
-    }
+    } 
 } 
 
 ?>

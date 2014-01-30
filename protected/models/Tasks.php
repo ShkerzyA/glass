@@ -48,11 +48,19 @@ class Tasks extends CActiveRecord
 	}
 
 	public function getStatus(){
-		return array(  	0 => 'Назначено',
+
+		$status=array(  0 => 'Назначено',
 						1 => 'Принято',
 						2 => 'Выполнено',
-						3 => 'Не выполнено',
-						4 => 'Подтверждено выполнение');
+						3 => 'Не выполнено');
+		if(!empty(Yii::app()->user->islead)){
+			if(Yii::app()->user->islead==1){
+				$status[4]='Подтверждено выполнение';
+			}	
+		}
+		
+
+		return $status;
 	}
 
 	public function gimmeStatus(){

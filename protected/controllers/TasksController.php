@@ -102,6 +102,12 @@ class TasksController extends Controller
 			$model_act=new TasksActions;	
 			echo $_POST['stat'];
 			$model->status=$_POST['stat'];
+
+			if(($_POST['stat']==1) and(empty($model->executor))){
+				$model->executor=Yii::app()->user->id_posts[0];
+			}
+
+
 			$model->save();
 			
 			$model_act->ttext=$_POST['stat'];
@@ -169,7 +175,7 @@ class TasksController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	public function actionHelpDesk($id_department,$status='0,1,2,3,4'){
+	public function actionHelpDesk($id_department,$status='4'){
 		$this->layout='//layouts/column1';
 
 		$fu=new TasksActions;
@@ -178,7 +184,7 @@ class TasksController extends Controller
 		//print_r($fu);
 		//echo'</pre>';
 
-		$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status in (".$status.")"));
+		$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status not in (".$status.")"));
 		$this->render('helpdesk',array(
 			'model'=>$model,
 		));

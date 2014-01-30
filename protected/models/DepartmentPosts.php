@@ -85,9 +85,9 @@ class DepartmentPosts extends CActiveRecord
 
     	$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post=".$this->id." and (date_end is null or date_end>current_date)"));
 
-    	echo '<pre>';
-    	print_r($Ph->attributes);
-    	echo '</pre>';
+    	//echo '<pre>';
+    	//print_r($Ph->attributes);
+    	//echo '</pre>';
         if (!empty($Ph)){
         	return False;
         }

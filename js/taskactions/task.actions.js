@@ -13,6 +13,12 @@ function init(){
         save_comment();
     });
 
+    $("#message").live('keydown',function(e){
+        if(e.ctrlKey && e.keyCode==13){
+            save_comment();
+        }
+    });
+
     $('#status_task').live('change',function(){
         change_status();
     });

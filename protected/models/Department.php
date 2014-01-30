@@ -135,7 +135,7 @@ public $departmentPostspost_subdiv_rn;
                 $criteria->compare('parent_subdiv_rn',$this->parent_subdiv_rn,true);
         $criteria->compare('department.name',$this->parentSubdivRnparent_subdiv_rn,true);
         $criteria->compare('departments.name',$this->departmentsparent_subdiv_rn,true);
-        $criteria->compare('department_posts.name',$this->departmentPostspost_subdiv_rn,true);
+        //$criteria->compare('department_posts.name',$this->departmentPostspost_subdiv_rn,true);
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
