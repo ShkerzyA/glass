@@ -21,7 +21,7 @@ $this->breadcrumbs=array(
 						if(!empty($v->executor0)){
 							echo('('.$v->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->name,0,1,"utf8").'. '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->patr,0,1,"utf8").'.)');	
 						}
-						echo ' '.$v->date_begin; 
+						echo ' '.$v->timestamp; 
 				?>
 				
 			</div>

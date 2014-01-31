@@ -33,19 +33,19 @@
 	</div>
 <?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
 	<div class="row">
-		<?php echo $form->labelEx($model,'date_begin'); ?>
+		<?php echo $form->labelEx($model,'timestamp'); ?>
 
-		<?php echo $form->textField($model,'date_begin'); ?>
+		<?php echo $form->textField($model,'timestamp'); ?>
 
-		<?php echo $form->error($model,'date_begin'); ?>
+		<?php echo $form->error($model,'timestamp'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'date_end'); ?>
+		<?php echo $form->labelEx($model,'timestamp_end'); ?>
 
-		<?php echo $form->textField($model,'date_end'); ?>
+		<?php echo $form->textField($model,'timestamp_end'); ?>
 
-		<?php echo $form->error($model,'date_end'); ?>
+		<?php echo $form->error($model,'timestamp_end'); ?>
 	</div>
 <!--
 	<div class="row">

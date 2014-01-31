@@ -46,8 +46,8 @@ $('.search-form form').submit(function(){
 		'id',
 		'tname',
 		'ttext',
-		'date_begin',
-		'date_end',
+		'timestamp',
+		'timestamp_end',
 		'type',
 		/*
 		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->creator' ),

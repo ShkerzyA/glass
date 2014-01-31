@@ -103,6 +103,10 @@ class UsersController extends Controller
 		));
 	}
 
+	public function actionChangePass(){
+		
+	}
+
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.

@@ -17,11 +17,11 @@
 	<?php echo CHtml::encode($data->ttext); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('date_begin')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('timestamp')); ?>:</b>
 	<?php echo CHtml::encode($data->date_begin); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('date_end')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('timestamp_end')); ?>:</b>
 	<?php echo CHtml::encode($data->date_end); ?>
 	<br />
 

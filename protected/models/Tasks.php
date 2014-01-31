@@ -74,8 +74,8 @@ class Tasks extends CActiveRecord
 
 	public function behaviors(){
 	return array(
-			'DateBeginEnd'=>array(
-				'class'=>'application.behaviors.DateBeginEndBehavior',
+			'TimeStamp'=>array(
+				'class'=>'application.behaviors.TimeStampBehavior',
 				),
 			'PreFill'=>array(
 				'class'=>'application.behaviors.PreFillBehavior',
@@ -96,11 +96,11 @@ class Tasks extends CActiveRecord
 		return array(
 			array('type, creator, executor, id_department, status', 'numerical', 'integerOnly'=>true),
 			array('tname', 'length', 'max'=>100),
-			array('ttext, date_begin, date_end', 'safe'),
+			array('ttext, timestamp, timestamp_end', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tname, ttext, date_begin, date_end, type, id_department, status, creator, executor,creator0creator,executor0executor', 'safe', 'on'=>'search'),
+			array('id, tname, ttext, timestamp, timestamp_end, type, id_department, status, creator, executor,creator0creator,executor0executor', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -127,8 +127,8 @@ class Tasks extends CActiveRecord
 			'id' => 'ID',
 			'tname' => 'Заголовок',
 			'ttext' => 'Описание заявки',
-			'date_begin' => 'Date Begin',
-			'date_end' => 'Date End',
+			'timestamp' => 'Date Begin',
+			'timestamp_end' => 'Date End',
 			'type' => 'Тип',
 			'creator' => 'Создатель',
 			'executor' => 'Исполнитель',
@@ -154,10 +154,10 @@ class Tasks extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('tname',$this->tname,true);
 		$criteria->compare('ttext',$this->ttext,true);
-		$criteria->compare('date_begin',$this->date_begin,true);
-		$criteria->compare('date_end',$this->date_end,true);
-		$criteria->compare('id_department',$this->date_end,true);
-		$criteria->compare('status',$this->date_end,true);
+		$criteria->compare('timestamp',$this->timestamp,true);
+		$criteria->compare('timestamp_end',$this->timestamp_end,true);
+		$criteria->compare('id_department',$this->id_department,true);
+		$criteria->compare('status',$this->status,true);
 		$criteria->compare('type',$this->type);
 		if(!empty($_GET['creator']))
 				$criteria->compare('creator',$_GET['creator']);

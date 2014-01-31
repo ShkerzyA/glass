@@ -1,6 +1,8 @@
 <!--				array('label'=>'Вход', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Выход ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest) -->
 
+
+<?php Yii::app()->clientScript->registerPackage('userjs'); ?>
 <?php if(Yii::app()->user->isGuest):?>
 
 		<div class="form">
@@ -43,7 +45,7 @@
 
 <?php if(!Yii::app()->user->isGuest):?>
 	<?php $patr=(!empty(Yii::app()->user->patr))?(Yii::app()->user->patr):''; ?>
-<span class=auth><a href="<?php echo(Yii::app()->request->baseUrl); ?>/site/logout"><div class=logout><?php echo(Yii::app()->user->name).' '.$patr.' '?> (выход) </div></a></span>
+<span class=auth><div class=logout style="color: black"><span id="userEd"><?php echo(Yii::app()->user->name).' '.$patr.' '?></span><a href="<?php echo(Yii::app()->request->baseUrl); ?>/site/logout">(выход) </a> </div></span>
 <?php endif?>
 
 

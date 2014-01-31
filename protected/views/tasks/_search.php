@@ -27,13 +27,13 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'date_begin'); ?>
-		<?php echo $form->textField($model,'date_begin'); ?>
+		<?php echo $form->label($model,'timestamp'); ?>
+		<?php echo $form->textField($model,'timestamp'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'date_end'); ?>
-		<?php echo $form->textField($model,'date_end'); ?>
+		<?php echo $form->label($model,'timestamp_end'); ?>
+		<?php echo $form->textField($model,'timestamp_end'); ?>
 	</div>
 
 	<div class="row">

@@ -33,7 +33,7 @@ $this->menu=array(
 <?php
 echo '<div style="border-radius: 3px; min-height: 46px; background: padding-left: 40px;">
 		<div style="position: relative; float: left;"><h2>'.$model->tname.'</h2></div>
-		<div style="position: relative; float: right; text-align: right"><i>'.$model->date_begin.'<br>
+		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
 		Создатель:  '.$model->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</i></div> '.
 		'<hr><p class="norm_text">'.$model->ttext.'</p>
 		<span style="float: right">Исполнитель: '.$model->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->executor0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->executor0->personnelPostsHistories[0]->idPersonnel->patr.'</span></div><hr>';
@@ -46,7 +46,7 @@ echo '<div style="border-radius: 3px; min-height: 46px; background: padding-left
 			if($action->type==0){
 				echo '<b>"'.$status_arr[$action->ttext].'"</b> Статус задачи изменен';
 			}else{
-				echo $action->ttext;	
+				echo '<pre style="overflov: none;">'.$action->ttext.'</pre>';	
 			}
 			echo'</div>';
 		}
