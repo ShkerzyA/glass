@@ -28,7 +28,7 @@ class DepartmentPostsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','depposts'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -50,6 +50,15 @@ class DepartmentPostsController extends Controller
 		$xls=new Xls();
 		$result=$xls->import_DepartmentPosts();
 		$this->render('import',array('result'=>$result));
+	}
+
+	public function actionDepposts(){
+		if(Yii::app()->request->isAjaxRequest){
+			$model=DepartmentPosts::model()->working()->with("postSubdivRn")->findall(array('condition'=>'"postSubdivRn".id='.$_POST['id_department']));
+			$this->renderPartial('choise_posts', array('model'=>$model), false, true);
+		}else{
+			exit();
+		}
 	}
 
 	/**

@@ -49,9 +49,7 @@ $('.search-form form').submit(function(){
 		'link',
 		'date_begin',
 		/*
-		'date_end',
-		'type',
-		array( 'name'=>'idCatalogid_catalog', 'value'=>'$data->idCatalog->id_catalog' ),
+		'date_end'
 		*/
 		array(
 			'class'=>'CButtonColumn',

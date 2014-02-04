@@ -145,7 +145,7 @@ select,option{
 }
 
 
-.add_unit, .choise_unit, .join_group{
+.add_unit, .choise_unit, .join_group,.join_post{
 	margin: 3px;
 	padding: 2px;
 	height: 20px;
@@ -154,12 +154,12 @@ select,option{
 	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
 }
 
-.add_unit, .join_group{
+.add_unit, .join_group ,.join_post{
 	background: url('../images/add.png') 99% 2px no-repeat #ebf4e6;
 	cursor: pointer;
 }
 
-.join_group{
+.join_group,.join_post{
 	padding-right: 20px;	
 }
 
@@ -187,7 +187,7 @@ select,option{
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,0.2);
-	z-index: 120;
+	z-index: 90;
 }
 .window_awesom{
 	background: #f4f4f4;
@@ -357,4 +357,9 @@ pre {
 	left: 3px;
 	top: 3px;
 	z-index: 100;
+}
+
+textarea{
+	width: 99%;
+	min-height: 400px;
 }

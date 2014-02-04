@@ -72,12 +72,12 @@ public $creator0creator;
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('creator, type, id_catalog', 'numerical', 'integerOnly'=>true),
+			array('creator,  id_catalog', 'numerical', 'integerOnly'=>true),
 			array('doc_name, link', 'length', 'max'=>100),
 			array('text_docs, date_begin, date_end', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, creator, doc_name, text_docs, link, date_begin, date_end, type, id_catalog,idCatalogid_catalog,creator0creator', 'safe', 'on'=>'search'),
+			array('id, creator, doc_name, text_docs, link, date_begin, date_end, id_catalog,idCatalogid_catalog,creator0creator', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -107,7 +107,6 @@ public $creator0creator;
 			'link' => 'Ссылка',
 			'date_begin' => 'Дата создания',
 			'date_end' => 'Дата закрытия',
-			'type' => 'Тип',
 			'id_catalog' => 'Каталог',
 			'idCatalogid_catalog' => 'Каталог',
 			'creator0creator' => 'Создатель',
@@ -136,7 +135,6 @@ public $creator0creator;
 		$criteria->compare('link',$this->link,true);
 		$criteria->compare('date_begin',$this->date_begin,true);
 		$criteria->compare('date_end',$this->date_end,true);
-		$criteria->compare('type',$this->type);
 		if(!empty($_GET['id_catalog']))
 				$criteria->compare('id_catalog',$_GET['id_catalog']);
 		else

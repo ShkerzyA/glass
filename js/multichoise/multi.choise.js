@@ -3,19 +3,38 @@ function init(){
 		$('.'+this.id).remove();
 	});
 
-	$('.add_unit').live('click',function(){ 
+	$('#add_group').live('click',function(){ 
 		$('.modal2').remove();
 		getAjax_groups();
+	});
+
+	$('#add_post').live('click',function(){ 
+		$('.modal2').remove();
+		getAjax_posts();
 	});
 
 	$('.join_group').live('click',function(){ 
 		$('.'+this.id).remove();
 		$('.multichoise').prepend('<div class="choise_unit '+this.id+'"><input type=hidden name="groups['+this.id+']" value='+this.id+'>'+this.getAttribute('text')+'<div id='+this.id+' class="close_this"></div></div>');
 	});
+
+	$('.join_post').live('click',function(){ 
+		$('.'+this.id).remove();
+		$('.multichoise').prepend('<div class="choise_unit '+this.id+'"><input type=hidden name="executors['+this.id+']" value='+this.id+'>'+this.getAttribute('text')+'<div id='+this.id+' class="close_this"></div></div>');
+	});
 }
 
 function getAjax_groups(){
 	$.post('/glass/PostsGroups/allgroups',{},function(data,status){
+		if(status=='success'){
+			show_groups(data);
+		}
+	},'html');
+}
+
+function getAjax_posts(){
+	var dep=$('#id_dep').val();
+	$.post('/glass/DepartmentPosts/depposts',{id_department: dep},function(data,status){
 		if(status=='success'){
 			show_groups(data);
 		}

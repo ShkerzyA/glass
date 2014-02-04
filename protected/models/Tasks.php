@@ -83,6 +83,9 @@ class Tasks extends CActiveRecord
 			'FixedOwner'=>array(
 				'class'=>'application.behaviors.FixedOwnerBehavior',
 				),
+			'Multichoise'=>array(
+				'class'=>'application.behaviors.MultichoiseBehavior',
+				),
 			);
 	}
 
@@ -94,13 +97,15 @@ class Tasks extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, creator, executor, id_department, status', 'numerical', 'integerOnly'=>true),
+			array('type, creator, id_department, status', 'numerical', 'integerOnly'=>true),
 			array('tname', 'length', 'max'=>100),
 			array('ttext, timestamp, timestamp_end', 'safe'),
+
+			array('executors', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tname, ttext, timestamp, timestamp_end, type, id_department, status, creator, executor,creator0creator,executor0executor', 'safe', 'on'=>'search'),
+			array('id, tname, ttext, timestamp, timestamp_end, type, id_department, status, creator, executors,creator0creator,executor0executor', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -113,7 +118,6 @@ class Tasks extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'DepartmentPosts', 'creator'),
-			'executor0' => array(self::BELONGS_TO, 'DepartmentPosts', 'executor'),
 			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),
 		);
 	}
@@ -131,11 +135,10 @@ class Tasks extends CActiveRecord
 			'timestamp_end' => 'Date End',
 			'type' => 'Тип',
 			'creator' => 'Создатель',
-			'executor' => 'Исполнитель',
+			'executors' => 'Посвященные',
 			'id_department' => 'Отдел', 
 			'status' => 'Статус',
 			'creator0creator' => 'Создатель',
-			'executor0executor' => 'Исполнитель',
 		);
 	}
 
@@ -163,12 +166,11 @@ class Tasks extends CActiveRecord
 				$criteria->compare('creator',$_GET['creator']);
 		else
 				$criteria->compare('creator',$this->creator);
-		if(!empty($_GET['executor']))
-				$criteria->compare('executor',$_GET['executor']);
+		if(!empty($_GET['executors']))
+				$criteria->compare('executors',$_GET['executors']);
 		else
-				$criteria->compare('executor',$this->executor);
+				$criteria->compare('executors',$this->executors,true);
 		$criteria->compare('departmentposts.creator',$this->creator0creator,true);
-		$criteria->compare('departmentposts1.executor',$this->executor0executor,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

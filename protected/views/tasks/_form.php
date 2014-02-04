@@ -9,13 +9,15 @@
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'tasks-form',
 	'enableAjaxValidation'=>false,
-)); ?>
+)); 
+?>
+
 
 	<p class="note">Поля с <span class="required">*</span> обязательны.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
-
+	<input type=hidden name=id_dep id=id_dep value="<?php echo $model->id_department ?>">
 	<div class="row">
 		<?php echo $form->labelEx($model,'tname'); ?>
 
@@ -91,16 +93,22 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 <?php endif; ?>
+ <!--
 	<div class="row">
-		<?php echo $form->labelEx($model,'executor'); ?>
+		<?php //echo $form->labelEx($model,'executor'); ?>
 
 		<?php
-		$tmp=DepartmentPosts::model()->working()->with("postSubdivRn")->findall(array('condition'=>'"postSubdivRn".id='.$model->id_department));
-echo $form->dropDownList($model,"executor",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->personnelPostsHistories[0]->idPersonnel->surname.' '.$tmp->personnelPostsHistories[0]->idPersonnel->name);}),array('empty' => '')); ?>
-		<?php echo $form->error($model,'executor'); ?>
-	</div>
+		//$tmp=DepartmentPosts::model()->working()->with("postSubdivRn")->findall(array('condition'=>'"postSubdivRn".id='.$model->id_department));
+//echo $form->dropDownList($model,"executor",CHtml::listData($tmp,"id",function($tmp) {
+				//return CHtml::encode($tmp->personnelPostsHistories[0]->idPersonnel->surname.' '.$tmp->personnelPostsHistories[0]->idPersonnel->name);}),array('empty' => '')); ?>
+		<?php //echo $form->error($model,'executor'); ?>
+	</div> -->
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'executors'); ?>
+		<?php echo Multichoise::getFieldPosts($model); ?>
+		<?php echo $form->error($model,'executors'); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>

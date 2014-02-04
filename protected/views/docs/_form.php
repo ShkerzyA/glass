@@ -33,6 +33,7 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 <?php endif; ?>
 
 
+<?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_catalog'); ?>
 
@@ -41,6 +42,8 @@ echo $form->dropDownList($model,"id_catalog",CHtml::listData($tmp,"id",function(
 				return CHtml::encode($tmp->cat_name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_catalog'); ?>
 	</div>
+
+<?php endif; ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'doc_name'); ?>
@@ -66,6 +69,8 @@ echo $form->dropDownList($model,"id_catalog",CHtml::listData($tmp,"id",function(
 		<?php echo $form->error($model,'link'); ?>
 	</div>
 
+<?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'date_begin'); ?>
 
@@ -82,13 +87,8 @@ echo $form->dropDownList($model,"id_catalog",CHtml::listData($tmp,"id",function(
 		<?php echo $form->error($model,'date_end'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'type'); ?>
+<?php endif; ?>
 
-		<?php echo $form->dropDownList($model,'type',array('0' => 'Документ', '1' => 'Ссылка')); ?>
-
-		<?php echo $form->error($model,'type'); ?>
-	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>

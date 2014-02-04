@@ -34,10 +34,6 @@
 	<br />
 
 	
-	<b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
-	<?php echo CHtml::encode($data->type); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_catalog')); ?>:</b>
 	<?php echo CHtml::encode($data->idCatalog->cat_name); ?>
 	<br />

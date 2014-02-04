@@ -39,7 +39,17 @@ echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
 		Создатель:  '.$model->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</i></div>'.
 		'<hr><p class="norm_text"><pre>'.$model->ttext.'</pre></p>
-		<span style="float: right">Исполнитель: '.$model->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->executor0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->executor0->personnelPostsHistories[0]->idPersonnel->patr.'</span></div> ';
+		<span style="float: right">Сопричастные: ';
+		$tmp=explode(',',$model->executors); 
+		$exec=array();
+				foreach ($tmp as $v){
+					if(!empty($v)){
+						$pers=DepartmentPosts::model()->findByPk($v);
+						$exec[]=CHtml::encode($pers->personnelPostsHistories[0]->idPersonnel->surname.' '.$pers->personnelPostsHistories[0]->idPersonnel->name);
+					}
+				}	
+				echo (implode(', ', $exec));
+		echo '</span></div> ';
 
 
 		foreach ($model->TasksActions as $action){
