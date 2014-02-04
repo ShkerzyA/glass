@@ -301,12 +301,12 @@ select,option{
 }
 
 .comment{
-	width: 100%;
+	width: 99%;
 	background: white;
 	margin: 3px;
 	margin-top: 15px;
 	min-height: 50px;
-	padding: 2px;
+	padding: 4px;
 	border-radius: 3px;
 	box-shadow: 1px 1px 5px 5px white;
 }
@@ -328,4 +328,33 @@ select,option{
 
 .norm_text{
 	font-size: 14pt;
+
+	text-align: justify;
+}
+
+pre {
+ white-space: pre-wrap;       /* css-3 */
+ white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+ white-space: -pre-wrap;      /* Opera 4-6 */
+ white-space: -o-pre-wrap;    /* Opera 7 */
+ word-wrap: break-word;       /* Internet Explorer 5.5+ */
+ width: 99%;
+}
+
+
+
+#taskbody{
+	border-radius: 3px; 
+	min-height: 46px; 
+
+	padding: 10px;
+	padding-bottom: 20px;
+	margin-bottom: 10px;
+}	
+
+#omsk{
+	position: absolute;
+	left: 3px;
+	top: 3px;
+	z-index: 100;
 }

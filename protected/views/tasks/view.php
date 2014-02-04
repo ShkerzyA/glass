@@ -16,6 +16,8 @@ $this->menu=array(
 	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Управление', 'url'=>array('admin')),
 );}
+
+
 	$status_arr=$model->getStatus();
 
 	$status=$model->gimmeStatus();
@@ -31,12 +33,13 @@ $this->menu=array(
 <div style="position: relative; clear: both;"></div>
 
 <?php
-echo '<div style="border-radius: 3px; min-height: 46px; background: padding-left: 40px;">
+
+echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: left;"><h2>'.$model->tname.'</h2></div>
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
-		Создатель:  '.$model->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</i></div> '.
-		'<hr><p class="norm_text">'.$model->ttext.'</p>
-		<span style="float: right">Исполнитель: '.$model->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->executor0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->executor0->personnelPostsHistories[0]->idPersonnel->patr.'</span></div><hr>';
+		Создатель:  '.$model->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</i></div>'.
+		'<hr><p class="norm_text"><pre>'.$model->ttext.'</pre></p>
+		<span style="float: right">Исполнитель: '.$model->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->executor0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->executor0->personnelPostsHistories[0]->idPersonnel->patr.'</span></div> ';
 
 
 		foreach ($model->TasksActions as $action){

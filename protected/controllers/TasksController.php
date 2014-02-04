@@ -28,11 +28,11 @@ class TasksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','helpDesk','saveMessage','saveStatus'),
+				'actions'=>array('index','view','helpDesk'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','saveMessage','saveStatus'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -103,7 +103,7 @@ class TasksController extends Controller
 			echo $_POST['stat'];
 			$model->status=$_POST['stat'];
 
-			if(($_POST['stat']==1) and(empty($model->executor))){
+			if(($_POST['stat']==1 or $_POST['stat']==2) and(empty($model->executor))){
 				$model->executor=Yii::app()->user->id_posts[0];
 			}
 
@@ -175,8 +175,8 @@ class TasksController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	public function actionHelpDesk($id_department,$status='4'){
-		$this->layout='//layouts/column1';
+	public function actionHelpDesk($id_department,$type=0){
+		$this->layout='//layouts/column2';
 
 		$fu=new TasksActions;
 
@@ -184,7 +184,29 @@ class TasksController extends Controller
 		//print_r($fu);
 		//echo'</pre>';
 
-		$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status not in (".$status.")"));
+		switch ($type) {
+			//все, кроме помеченных как просмотренные
+			case '0':
+				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status not in (4)",'order'=>"status asc,timestamp desc"));
+				break;
+			//текущие
+			case '1':
+				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status in (0,1) ",'order'=>"status asc,timestamp desc"));
+				break;
+			
+			//все
+			case '2':
+				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." ",'order'=>"status asc,timestamp desc"));
+				break;
+			
+			default:
+				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status not in (4)",'order'=>"status asc,timestamp desc"));
+				break;
+		}
+
+
+
+		
 		$this->render('helpdesk',array(
 			'model'=>$model,
 		));

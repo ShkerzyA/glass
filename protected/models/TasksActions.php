@@ -29,7 +29,7 @@ class TasksActions extends CActiveRecord
 	public static $modelLabelP='TasksActions';
 	
 	public $creator0creator;
-public $idTaskid_task;
+	public $idTaskid_task;
 
 
 	public static function model($className=__CLASS__)

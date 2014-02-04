@@ -30,11 +30,11 @@ class TimeStampBehavior extends CActiveRecordBehavior{
         }else{
             $this->owner->timestamp=date('Y-m-d H:i:s'); 
         }
-        if(property_exists($this->owner, 'timestamp_end')){
+        if(isset($this->owner->timestamp_end)){
             if(!empty($this->owner->timestamp_end)){
-                $this->owner->timestamp_end = date('Y-m-d H:i:s', strtotime($this->owner->timestamp_end));//strtotime($this->date_start);
+                $this->owner->timestamp_end=date('Y-m-d H:i:s', strtotime($this->owner->timestamp_end));//strtotime($this->date_start);
             }else{
-                $this->owner->timestamp_end=null;
+                $this->owner->timestamp_end=NULL;
             }  
         }
         
@@ -48,7 +48,7 @@ class TimeStampBehavior extends CActiveRecordBehavior{
         }
 
          if(!empty($this->owner->timestamp_end)){
-            $date = date('d.m.Y', strtotime($this->owner->timestamp_end));
+            $date = date('d.m.Y H:i:s', strtotime($this->owner->timestamp_end));
             $this->owner->timestamp_end = $date;
         }
     }

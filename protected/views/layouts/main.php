@@ -22,8 +22,11 @@
 </head>
 
 <body>
-
-
+<?php if(!(Yii::app()->user->isGuest)): ?>
+	<?php if ((Yii::app()->user->role=='!administrator') or (Yii::app()->user->username=='pvn') or true): ?>
+		<div id='omsk'><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/nyan.gif"></div>
+	<?php endif; ?>
+<?php endif; ?>
 
 <div id="header">
 		<div id="auth">

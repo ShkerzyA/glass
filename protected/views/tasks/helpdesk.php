@@ -5,7 +5,23 @@
 $this->breadcrumbs=array(
 );
 
+//$this->menu=array('title'=>'Фильтры','items'=>array( array('label'=>'По умолчанию', 'url'=>array('HelpDesk?id_department=1011&&type=0'))));
+
+
+
+$this->menu['all_menu']=array(
+	array('title'=>'Фильтры задач','items'=>array(
+		array('label'=>'По умолчанию', 'url'=>array('HelpDesk?id_department='.$model[0]->id_department.'&&type=0'),'items'=>array(
+		)),
+		array('label'=>'Текущие', 'url'=>array('HelpDesk?id_department='.$model[0]->id_department.'&&type=1'),'items'=>array(
+			array('label'=>'Все', 'url'=>array('HelpDesk?id_department='.$model[0]->id_department.'&&type=2')),
+		)),
+	))
+	);
+
+
 ?>
+<meta http-equiv="Refresh" content="60" />
 <a href="/glass/tasks/create?Tasks[id_department]=1011">
 <div id="add_task" class="add_unit fl_right">добавить задачу</div>
 </a>
