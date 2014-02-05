@@ -1,6 +1,6 @@
 function init(){
 	$('#userEd').live('click',function(){ 
-		alert("жмется и мигает");
+		alert("попап смена пароля");
 	});
 }
 document.ready(init());
