@@ -44,7 +44,7 @@ function getAjax_posts(){
 function show_groups(data){
 	coords=$('.add_unit').offset();
 	
-	$('.multichoise').append(data);
+	$('html').append(data);
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
 }
 

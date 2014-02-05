@@ -28,7 +28,7 @@ class UsersController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','rootFillTree','AjaxFillTree'),
+				'actions'=>array('index','view','rootFillTree','AjaxFillTree','ModalForm'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -101,6 +101,15 @@ class UsersController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionModalForm(){
+		if(Yii::app()->request->isAjaxRequest){
+			$model=Users::model()->findByPk(Yii::app()->user->id);
+			$this->renderPartial('modalForm', array('model'=>$model), false, true);
+		}else{
+			exit();
+		}
 	}
 
 	public function actionChangePass(){

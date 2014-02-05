@@ -1,12 +1,20 @@
 function init(){
 	$('#userEd').live('click',function(){ 
-		alert("попап смена пароля");
+		load_modalForm();
+	});
+
+	$('.close_this').live('click',function(){ 
+		$('.'+this.id).remove();
 	});
 }
 document.ready(init());
 
 
 
-function load_window_config(){
-
+function load_modalForm(){
+	$.post('/glass/Users/modalForm',{},function(data,status){
+		if(status=='success'){
+			$('html').append('<div class="back"><div class="window_awesom"><div id="back" class="close_this"></div>'+ data + '</div>');
+		}
+	},'html');
 }

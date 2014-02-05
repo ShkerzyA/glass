@@ -181,6 +181,10 @@ select,option{
 	cursor: pointer;
 }
 .back{
+	
+}
+
+.back_in_black{
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -191,12 +195,15 @@ select,option{
 }
 .window_awesom{
 	background: #f4f4f4;
+
 	overflow: auto;
-	margin: 3px;
+	margin: 0 auto;
 	padding: 3px;
 	border: 2px groove #ffffff;
 	border-radius: 4px;
 	position: absolute;
+	text-align: center;
+
 	z-index: 99;
 	
 }

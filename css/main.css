@@ -65,7 +65,7 @@ body
 {
 	margin-top: -40px; 
 	position: relative;
-	z-index: 99;
+	z-index: 10;
 }
 
 #mainmenu .inset{
