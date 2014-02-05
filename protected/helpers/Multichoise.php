@@ -4,7 +4,7 @@ Class MultiChoise{
 		Yii::app()->clientScript->registerPackage('multichoise');
 
 		$result="<div class='multichoise'>";
-			
+					echo'<input type=hidden name=group_anchor>';
 				$tmp=explode(',',$model->groups); 
 				foreach ($tmp as $v){
 					if(!empty($v)){
@@ -24,7 +24,7 @@ Class MultiChoise{
 		Yii::app()->clientScript->registerPackage('multichoise');
 
 		$result="<div class='multichoise'>";
-			
+					echo'<input type=hidden name=group_anchor>';
 				$tmp=explode(',',$model->executors); 
 				foreach ($tmp as $v){
 					if(!empty($v)){
