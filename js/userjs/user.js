@@ -7,7 +7,7 @@ function init(){
 		$('.'+this.id).remove();
 	});
 }
-document.ready(init());
+$(document).ready(init());
 
 
 
