@@ -46,10 +46,6 @@
 		<?php echo $form->textField($model,'creator'); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'executor'); ?>
-		<?php echo $form->textField($model,'executor'); ?>
-	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Искать'); ?>

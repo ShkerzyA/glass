@@ -135,7 +135,7 @@ class Tasks extends CActiveRecord
 			'timestamp_end' => 'Date End',
 			'type' => 'Тип',
 			'creator' => 'Создатель',
-			'executors' => 'Посвященные',
+			'executors' => 'Сопричастные',
 			'id_department' => 'Отдел', 
 			'status' => 'Статус',
 			'creator0creator' => 'Создатель',
@@ -153,7 +153,7 @@ class Tasks extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('creator0' => array('alias' => 'departmentposts'),'executor0' => array('alias' => 'departmentposts1'),);
+		$criteria->with=array('creator0' => array('alias' => 'departmentposts'),);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('tname',$this->tname,true);
 		$criteria->compare('ttext',$this->ttext,true);

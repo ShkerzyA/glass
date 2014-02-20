@@ -1,53 +1,47 @@
 <?php 
 class MultichoiseBehavior extends CActiveRecordBehavior{
 
+    public $own=array('DepartmentPosts'=>'groups','Tasks'=>'executors');
+
+    private function getField(){
+        $model_name=trim(get_class($this->owner));
+        $val=$this->own[$model_name];
+        return $val;
+    }
 
     public function beforeSave($event){
+            // автоматически передаём каждое сообщение роутеру лога
+//Yii::getLogger()->autoFlush = 1;
+// автоматически пишем сообщения при получении логгером
+//Yii::getLogger()->autoDump = true;
 
-            if(isset($this->owner->groups)){
-                if(isset($_POST['group_anchor'])){
-                    if(!empty($_POST['groups'])){
-                        $tmp=$_POST['groups'];
-                        if (is_array($tmp)){
-                            $tmp=array_unique($tmp);
-                            $this->owner->groups=implode(',',$tmp);
-                        }
-                    } else {
-                            $this->owner->groups='';
-                    }
-                }
-                $this->owner->groups='{'.$this->owner->groups.'}';          //array_unique чтоб одинаковых групп кучу не вписывали  
-            } 
 
-            if(isset($this->owner->executors)){
-                if(isset($_POST['group_anchor'])){
-                    if(!empty($_POST['executors'])){
-                        $tmp=$_POST['executors'];
-                        if (is_array($tmp)){
-                            $tmp=array_unique($tmp);
-                            $this->owner->executors=implode(',',$tmp);
-                        }
-                    } else {
-                            $this->owner->executors='';
+            
+            $val=$this->getField();
+            if(isset($_POST['group_anchor'])){
+                   if(!empty($_POST[$val])){
+                    $tmp=$_POST[$val];
+                     if (is_array($tmp)){
+                        $tmp=array_unique($tmp);
+                        $this->owner->$val=implode(',',$tmp);
                     }
-                          //array_unique чтоб одинаковых групп кучу не вписывали  
+                } else {
+                        $this->owner->$val='';
                 }
-                $this->owner->executors='{'.$this->owner->executors.'}'; 
-            }
+            }      //array_unique чтоб одинаковых групп кучу не вписывали  
+            $this->owner->$val='{'.$this->owner->$val.'}';
+           
+
                     
     }
 
     public function afterFind($event) {
+        $val=$this->getField();
         if($this->owner->scenario=='update'){
-            if(!empty($this->owner->groups)){
-                $tmp=substr($this->owner->groups,1,-1);
-                $this->owner->groups=$tmp;
+            if(!empty($this->owner->$val)){
+                $tmp=substr($this->owner->$val,1,-1);
+                $this->owner->$val=$tmp;
             }
-            if(!empty($this->owner->executors)){
-                $tmp=substr($this->owner->executors,1,-1);
-                $this->owner->executors=$tmp;
-            }
-            
         }
     }
 } 

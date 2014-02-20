@@ -112,6 +112,8 @@ return array(
 			'username' => 'al',
 			'password' => '123',
 			'charset' => 'utf8',
+			'enableProfiling'=>true,
+        	'enableParamLogging' => true,
 		),
 
 		'errorHandler'=>array(
@@ -119,20 +121,16 @@ return array(
 			'errorAction'=>'site/error',
 		),
 		'log'=>array(
-			'class'=>'CLogRouter',
-			'routes'=>array(
-				array(
-					'class'=>'CFileLogRoute',
-					'levels'=>'error, warning',
-				),
-				// uncomment the following to show log messages on web pages
-				/*
-				array(
-					'class'=>'CWebLogRoute',
-				),
-				*/
-			),
-		),
+            'class'=>'CLogRouter',
+            'routes'=>array(
+                array(
+                    'class'=>'CWebLogRoute',
+            		'categories'=>'system.*',
+            		'except'=>'system.db.ar.*',
+            		'showInFireBug' => true
+                ),
+            ),
+        ),
 	),
 
 
