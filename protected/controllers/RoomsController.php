@@ -1,6 +1,6 @@
 <?php
 
-class DepartmentPostsController extends Controller
+class RoomsController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,7 +28,7 @@ class DepartmentPostsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','depposts','deppostsall'),
+				'actions'=>array('index','view','list','show'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -36,38 +36,13 @@ class DepartmentPostsController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','import'),
+				'actions'=>array('admin','delete'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
 		);
-	}
-
-	public function actionImport()
-	{
-		$xls=new Xls();
-		$result=$xls->import_DepartmentPosts();
-		$this->render('import',array('result'=>$result));
-	}
-
-	public function actionDepposts(){
-		if(Yii::app()->request->isAjaxRequest){
-			$model=DepartmentPosts::model()->working()->with("postSubdivRn")->findall(array('condition'=>'"postSubdivRn".id='.$_POST['id_department']));
-			$this->renderPartial('choise_posts', array('model'=>$model), false, true);
-		}else{
-			exit();
-		}
-	}
-
-	public function actionDeppostsAll(){
-		if(Yii::app()->request->isAjaxRequest){
-			$model=DepartmentPosts::model()->working()->with("postSubdivRn")->findall();
-			$this->renderPartial('choise_posts', array('model'=>$model), false, true);
-		}else{
-			exit();
-		}
 	}
 
 	/**
@@ -87,14 +62,14 @@ class DepartmentPostsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new DepartmentPosts;
+		$model=new Rooms;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['DepartmentPosts']))
+		if(isset($_POST['Rooms']))
 		{
-			$model->attributes=$_POST['DepartmentPosts'];
+			$model->attributes=$_POST['Rooms'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -103,6 +78,22 @@ class DepartmentPostsController extends Controller
 			'model'=>$model,
 		));
 	}
+
+	public function actionList(){
+		$model=Rooms::model()->findAll();
+		$this->render('list',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionShow($id){
+		$models=Rooms::model()->findAll();
+		$model=Events::model()->findAll(array('condition'=>'t.id_room='.$id));
+		$this->render('show',array(
+			'model'=>$model,'models'=>$models,
+		));
+	}
+
 
 	/**
 	 * Updates a particular model.
@@ -116,9 +107,9 @@ class DepartmentPostsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['DepartmentPosts']))
+		if(isset($_POST['Rooms']))
 		{
-			$model->attributes=$_POST['DepartmentPosts'];
+			$model->attributes=$_POST['Rooms'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -147,9 +138,9 @@ class DepartmentPostsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('DepartmentPosts');
+		$dataProvider=new CActiveDataProvider('Rooms');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider, 'modelLabelP'=>DepartmentPosts::$modelLabelP,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Rooms::$modelLabelP,
 		));
 	}
 
@@ -158,10 +149,10 @@ class DepartmentPostsController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new DepartmentPosts('search');
+		$model=new Rooms('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['DepartmentPosts']))
-			$model->attributes=$_GET['DepartmentPosts'];
+		if(isset($_GET['Rooms']))
+			$model->attributes=$_GET['Rooms'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -172,12 +163,13 @@ class DepartmentPostsController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return DepartmentPosts the loaded model
+	 * @return Rooms the loaded model
 	 * @throws CHttpException
 	 */
+
 	public function loadModel($id)
 	{
-		$model=DepartmentPosts::model()->findByPk($id);
+		$model=Rooms::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -185,11 +177,11 @@ class DepartmentPostsController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param DepartmentPosts $model the model to be validated
+	 * @param Rooms $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='department-posts-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='rooms-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

@@ -38,5 +38,24 @@ Class MultiChoise{
 		$result.="<div id='add_post' class='add_unit'>Добавить</div></div>";
 		return $result;
 	}
+
+	public static function getFieldRoomPosts($model){
+		Yii::app()->clientScript->registerPackage('multichoise');
+
+		$result="<div class='multichoise'>";
+					echo'<input type=hidden name=group_anchor>';
+				$tmp=explode(',',$model->managers); 
+				foreach ($tmp as $v){
+					if(!empty($v)){
+					$pers=DepartmentPosts::model()->findAll();
+					$result.="<div class='choise_unit $v'>
+						<input type=hidden name='managers[$v]' value=$v>".(CHtml::encode($pers->personnelPostsHistories[0]->idPersonnel->surname.' '.$pers->personnelPostsHistories[0]->idPersonnel->name))."
+						<div id=$v class='close_this'></div>
+					</div>";
+					}
+				}	
+		$result.="<div id='add_roompost' class='add_unit'>Добавить</div></div>";
+		return $result;
+	}
 }
 ?>
