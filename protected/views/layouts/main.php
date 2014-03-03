@@ -47,7 +47,7 @@
                 array('label'=>'КККОД', 'url'=>array('/myAdmin')),
                 array('label'=>'Знания', 'url'=>array('/myDocs')),
                 array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk?id_department=1011')),
-                array('label'=>'События', 'url'=>array('/rooms/list')),
+                array('label'=>'События', 'url'=>array('/rooms/show')),
 				array('label'=>'Админ', 'url'=>array('/admin'), 'visible'=>(Yii::app()->user->role=='administrator'))
 			),
 		)); ?>

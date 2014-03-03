@@ -22,7 +22,7 @@ $this->menu['all_menu']=array(
 
 ?>
 <meta http-equiv="Refresh" content="60" />
-<a href="/glass/tasks/create?Tasks[id_department]=1011">
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=1011">
 <div id="add_task" class="add_unit fl_right">добавить задачу</div>
 </a>
 <br><br><br>

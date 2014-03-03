@@ -7,8 +7,12 @@ class PreFillBehavior extends CActiveRecordBehavior{
             if(!empty($_GET[$model_name])){
                 $this->owner->attributes=$_GET[$model_name];
             }
+            if(!empty(Yii::app()->session[$model_name])){
+                $this->owner->attributes=Yii::app()->session[$model_name];
+            }
         }
     } 
+
 } 
 
 ?>

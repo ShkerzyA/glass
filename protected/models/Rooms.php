@@ -59,7 +59,7 @@ class Rooms extends CActiveRecord
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_cabinet, managers,idCabinetid_cabinet', 'safe', 'on'=>'search'),
+			array('id, id_cabinet, managers,eventsid_room,idCabinetid_cabinet', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,6 +71,7 @@ class Rooms extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'events' => array(self::HAS_MANY, 'Events', 'id_room'),
 			'idCabinet' => array(self::BELONGS_TO, 'Cabinet', 'id_cabinet'),
 		);
 	}
@@ -83,6 +84,8 @@ class Rooms extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'id_cabinet' => 'Id Cabinet',
+
+			'eventsid_room' => 'id_room',
 			'managers' => 'Managers',
 			'idCabinetid_cabinet' => 'id_cabinet',
 		);
@@ -99,12 +102,13 @@ class Rooms extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('idCabinet' => array('alias' => 'cabinet'),);
+		$criteria->with=array('events' => array('alias' => 'events'),'idCabinet' => array('alias' => 'cabinet'),);
 		$criteria->compare('id',$this->id);
 		if(!empty($_GET['id_cabinet']))
 				$criteria->compare('id_cabinet',$_GET['id_cabinet']);
 		else
 				$criteria->compare('id_cabinet',$this->id_cabinet);
+		$criteria->compare('events.id_room',$this->eventsid_room,true);
 		$criteria->compare('managers',$this->managers,true);
 		$criteria->compare('cabinet.id_cabinet',$this->idCabinetid_cabinet,true);
 

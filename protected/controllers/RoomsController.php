@@ -28,7 +28,7 @@ class RoomsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','list','show'),
+				'actions'=>array('index','view','show'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -79,18 +79,31 @@ class RoomsController extends Controller
 		));
 	}
 
-	public function actionList(){
-		$model=Rooms::model()->findAll();
-		$this->render('list',array(
-			'model'=>$model,
-		));
-	}
-
-	public function actionShow($id){
+	public function actionShow($id=NULL){
 		$models=Rooms::model()->findAll();
-		$model=Events::model()->findAll(array('condition'=>'t.id_room='.$id));
+
+		if($id!=NULL){
+			Yii::app()->session['Rooms_id']=$id;
+		}else if(empty(Yii::app()->session['Rooms_id'])){
+			Yii::app()->session['Rooms_id']=0;
+		}
+
+
+		if(!empty($_GET['date'])){
+			Yii::app()->session['Rooms_date']=new DateTime($_GET['date']);
+		}else if(empty(Yii::app()->session['Rooms_date'])){
+			Yii::app()->session['Rooms_date']=new DateTime(date('Y-m-d'));
+		}
+
+		if(!empty(Yii::app()->session['Rooms_id'])){
+			$model=Rooms::model()->findByPk(Yii::app()->session['Rooms_id']);
+		}
+
+		$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and t.date=\''.Yii::app()->session['Rooms_date']->format('Y-m-d').'\''));	
+
+		
 		$this->render('show',array(
-			'model'=>$model,'models'=>$models,
+			'model'=>$model,'models'=>$models,'events'=>$events
 		));
 	}
 

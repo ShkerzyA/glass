@@ -56,6 +56,11 @@
 		<?php echo $form->textField($model,'status'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->label($model,'date'); ?>
+		<?php echo $form->textField($model,'date'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Искать'); ?>
 	</div>

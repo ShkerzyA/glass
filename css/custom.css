@@ -245,7 +245,7 @@ select,option{
 }
 
 .open{
- 	background: #e6e6e6;
+ 	background: #fcfcfc;
 }
 
 .done{
@@ -369,4 +369,92 @@ pre {
 textarea{
 	width: 99%;
 	min-height: 400px;
+}
+
+.day{
+ 	position: absolute;
+ 	left: 20px;
+ 	top: 70px;
+ 	width: 95%;
+ 	background: #F0F0F0;
+ 	font-size: 12pt;
+}
+
+.corps{
+	margin: 5px;
+	overflow: hidden;
+	border: 1px solid red;
+}
+
+.day div{
+	width: 100%;
+	height: 88px;
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+	border-left: 2px solid;
+	border-right: 2px solid;
+
+	border-color: grey;
+	border-radius: 3px;
+}
+.event{
+	padding: 0px;
+
+	position: absolute;
+	width: 98%;
+	border-radius: 10px;
+	border: 1px solid black;
+	overflow: hidden;
+	z-index: 2;
+}
+
+.event.closed{
+	z-index: 1;
+	opacity: 0.3;
+}
+
+.event:hover{
+	z-index: 5;
+}
+
+.event *{
+	margin: 2px;
+}
+
+.event p{
+	font-size: 14pt;
+	font-weight: bold;
+}
+
+.event .status{
+	position: absolute;
+	right: 2px;
+	bottom: 2px;
+}
+
+.event .time{
+	position: absolute;
+	right: 2px;
+	top: 2px;
+}
+
+.event .creator{
+	position: absolute;
+	left: 2px;
+	bottom: 2px;
+}
+
+.day_event{
+	position: absolute;
+ 	left: 70px;
+ 	top: 70px;
+ 	width: 87%;
+ 	z-index: 10;
+ 	/*padding-left: 10px; */
+ 	border-left: 6px groove; 
+
+	border-color: grey;
+ 	height: 900px;
+  	/*border: 10px solid red;*/
+
 }

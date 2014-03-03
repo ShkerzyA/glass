@@ -28,12 +28,12 @@ class EventsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','saveMessage','saveStatus'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'roles'=>array('moderator'),
+				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -51,10 +51,48 @@ class EventsController extends Controller
 	 */
 	public function actionView($id)
 	{
+		Yii::app()->session['Event_id']=$id;
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
+
+	public function actionSaveMessage(){
+		if(Yii::app()->request->isAjaxRequest){
+			$model=new EventsActions;	
+			echo $_POST['mess'];
+			
+			$model->ttext=$_POST['mess'];
+			$model->type=1;
+			$model->id_event=Yii::app()->session['Event_id'];
+
+			$model->save();
+		}
+	}	
+
+	public function actionSaveStatus(){
+		if(Yii::app()->request->isAjaxRequest){
+
+
+			$model=Events::model()->findByPk(Yii::app()->session['Event_id']);
+			$model_act=new EventsActions;	
+			echo $_POST['stat'];
+			$model->status=$_POST['stat'];
+
+			//if(($_POST['stat']==1 or $_POST['stat']==2) and(empty($model->executor))){
+			//	$model->executor=Yii::app()->user->id_posts[0];
+			//}
+
+
+			$model->save();
+			
+			$model_act->ttext=$_POST['stat'];
+			$model_act->type=0;
+			$model_act->id_event=Yii::app()->session['Event_id'];
+
+			$model_act->save();
+		}
+	}	
 
 	/**
 	 * Creates a new model.

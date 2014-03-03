@@ -15,6 +15,7 @@ $this->menu=array(
 	array('label'=>'Управление ', 'url'=>array('admin')),
 );
 	$this->menu["details"]=array(array('label'=>'DepartmentPosts', 'url'=>array('DepartmentPosts/admin', 'creator'=>$model->id)),
+array('label'=>'Rooms', 'url'=>array('Rooms/admin', 'id_room'=>$model->id)),
 );
 ?>
 

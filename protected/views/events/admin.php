@@ -47,12 +47,13 @@ $('.search-form form').submit(function(){
 		'name',
 		'description',
 		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->post' ),
-		'id_room',
+		array( 'name'=>'idRoomid_room', 'value'=>'$data->idRoom->idCabinet->cname' ),
 		'timestamp',
 		/*
 		'timestamp_end',
 		'repeat',
 		'status',
+		'date',
 		*/
 		array(
 			'class'=>'CButtonColumn',

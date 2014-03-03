@@ -17,7 +17,7 @@ $this->menu=array(
 );*/
 ?>
 
-<h1><?php echo $model->name; ?></h1> <a href=/glass/tasks/create?Tasks[id_department]=<?php echo $model->id ?>><div class="add_unit fl_right" id="add_task">добавить заявку</div></a>
+<h1><?php echo $model->name; ?></h1> <a href=<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=<?php echo $model->id ?>><div class="add_unit fl_right" id="add_task">добавить заявку</div></a>
 
 <table id="personTbl" align=center>
 

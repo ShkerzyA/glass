@@ -22,7 +22,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_room')); ?>:</b>
-	<?php echo CHtml::encode($data->id_room); ?>
+	<?php echo CHtml::encode($data->idRoom->id_room); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('timestamp')); ?>:</b>
@@ -40,6 +40,10 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
 	<?php echo CHtml::encode($data->status); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('date')); ?>:</b>
+	<?php echo CHtml::encode($data->date); ?>
 	<br />
 
 	*/ ?>
