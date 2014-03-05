@@ -83,11 +83,11 @@ class Rooms extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_cabinet' => 'Id Cabinet',
+			'id_cabinet' => 'Кабинет',
 
-			'eventsid_room' => 'id_room',
-			'managers' => 'Managers',
-			'idCabinetid_cabinet' => 'id_cabinet',
+			'eventsid_room' => 'События',
+			'managers' => 'Ответственные',
+			'idCabinetid_cabinet' => 'Кабинет',
 		);
 	}
 
@@ -108,7 +108,7 @@ class Rooms extends CActiveRecord
 				$criteria->compare('id_cabinet',$_GET['id_cabinet']);
 		else
 				$criteria->compare('id_cabinet',$this->id_cabinet);
-		$criteria->compare('events.id_room',$this->eventsid_room,true);
+		$criteria->compare('events.id_room',$this->idCabinet->cname,true);
 		$criteria->compare('managers',$this->managers,true);
 		$criteria->compare('cabinet.id_cabinet',$this->idCabinetid_cabinet,true);
 

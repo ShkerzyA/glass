@@ -47,7 +47,7 @@ Class MultiChoise{
 				$tmp=explode(',',$model->managers); 
 				foreach ($tmp as $v){
 					if(!empty($v)){
-					$pers=DepartmentPosts::model()->findAll();
+					$pers=DepartmentPosts::model()->findByPk($v);
 					$result.="<div class='choise_unit $v'>
 						<input type=hidden name='managers[$v]' value=$v>".(CHtml::encode($pers->personnelPostsHistories[0]->idPersonnel->surname.' '.$pers->personnelPostsHistories[0]->idPersonnel->name))."
 						<div id=$v class='close_this'></div>

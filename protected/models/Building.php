@@ -31,12 +31,12 @@ class Building extends CActiveRecord
 
 	public function behaviors(){
 		return array(
-			'File'=>array(
-				'class'=>'application.behaviors.FileBehavior',
-				),
-			'DateBeginEnd'=>array(
-				'class'=>'application.behaviors.DateBeginEndBehavior',
-				),
+			//'File'=>array(
+			//	'class'=>'application.behaviors.FileBehavior',
+			//	),
+			//'DateBeginEnd'=>array(
+			//	'class'=>'application.behaviors.DateBeginEndBehavior',
+			//	),
 			'PreFill'=>array(
 				'class'=>'application.behaviors.PreFillBehavior',
 				),

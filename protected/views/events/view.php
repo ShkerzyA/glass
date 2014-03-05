@@ -21,7 +21,10 @@ $this->menu=array(
 	$status_arr=$model->getStatus();
 
 	$status=$model->gimmeStatus();
-	echo(CHtml::dropDownList('status_task',$model->status,$status_arr,array('class'=>$status['css_class']))); 
+	if ($model->isChangeStatus()){
+		echo(CHtml::dropDownList('status_task',$model->status,$status_arr,array('class'=>$status['css_class']))); 	
+	}
+	
 ?>
 <div class=modal_window_back style="display: none"></div>
 <div id="add_task_act" class="add_unit fl_right">добавить сообщение</div>

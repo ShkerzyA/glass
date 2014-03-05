@@ -24,7 +24,7 @@ $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
 	array('label'=>'Создать', 'url'=>array('create')),
 	array('label'=>'Отобразить', 'url'=>array('view', 'id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>)),
-	array('label'=>'Управление ', 'url'=>array('admin')),
+	array('label'=>'Управление ', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
 	<?php 
 	if(!empty($model->metaData->relations)){

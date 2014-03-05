@@ -105,6 +105,15 @@ public $idRoomid_room;
 		);
 	}
 
+	public function isChangeStatus(){
+		$managers=explode(',',$this->idRoom->managers);
+		foreach (Yii::app()->user->id_posts as $id_post)  {
+			if(in_array($id_post,$managers))
+				return true;
+		}
+		return false;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */

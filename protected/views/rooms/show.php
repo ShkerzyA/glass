@@ -14,7 +14,7 @@ $this->menu=array(
 
 $rooms_list=array();
 foreach ($models as $v){
-	$rooms_list[]=array('label'=>$v->idCabinet->cname, 'url'=>array('Rooms/show/'.$v->id));
+	$rooms_list[]=array('label'=>$v->idCabinet->cname.' '.$v->idCabinet->num, 'url'=>array('Rooms/show/'.$v->id));
 }
 
 $this->menu['all_menu']=array(

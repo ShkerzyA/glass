@@ -34,7 +34,7 @@ $this->menu=array(
 	array('label'=>'Создать', 'url'=>array('create')),
 	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>)),
 	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model-><?php echo $this->tableSchema->primaryKey; ?>),'confirm'=>'Вы уверены?')),
-	array('label'=>'Управление', 'url'=>array('admin')),
+	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
 ?>
 

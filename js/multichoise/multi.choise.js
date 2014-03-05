@@ -1,3 +1,4 @@
+var globalTimeout = null; 
 function init(){
 	$('.close_this').live('click',function(){ 
 		$('.'+this.id).remove();
@@ -13,10 +14,16 @@ function init(){
 		getAjax_posts();
 	});
 
+
 	$('#add_roompost').live('click',function(){ 
 		$('.modal2').remove();
 		getAjax_roomposts();
 	});
+
+	$('#search_surname').live('keyup',function(){
+        if(globalTimeout != null) clearTimeout(globalTimeout);  
+        globalTimeout =setTimeout(getAjax_roomposts,600);  
+    });
 
 	$('.join_group').live('click',function(){ 
 		$('.'+this.id).remove();
@@ -26,6 +33,11 @@ function init(){
 	$('.join_post').live('click',function(){ 
 		$('.'+this.id).remove();
 		$('.multichoise').prepend('<div class="choise_unit '+this.id+'"><input type=hidden name="executors['+this.id+']" value='+this.id+'>'+this.getAttribute('text')+'<div id='+this.id+' class="close_this"></div></div>');
+	});
+
+	$('.join_managers').live('click',function(){ 
+		$('.'+this.id).remove();
+		$('.multichoise').prepend('<div class="choise_unit '+this.id+'"><input type=hidden name="managers['+this.id+']" value='+this.id+'>'+this.getAttribute('text')+'<div id='+this.id+' class="close_this"></div></div>');
 	});
 }
 
@@ -47,8 +59,9 @@ function getAjax_posts(){
 }
 
 function getAjax_roomposts(){
-	var dep=$('#id_dep').val();
-	$.post('/glass/DepartmentPosts/deppostsall',{id_department: dep},function(data,status){
+	var search=$('#search_surname').val();
+	//alert(search);
+	$.post('/glass/DepartmentPosts/deppostsall',{search: search},function(data,status){
 		if(status=='success'){
 			show_groups(data);
 		}
@@ -56,6 +69,8 @@ function getAjax_roomposts(){
 }
 
 function show_groups(data){
+
+	$('.back').remove();
 	coords=$('.add_unit').offset();
 	
 	$('html').append(data);

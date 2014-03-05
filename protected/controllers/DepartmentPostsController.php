@@ -63,8 +63,14 @@ class DepartmentPostsController extends Controller
 
 	public function actionDeppostsAll(){
 		if(Yii::app()->request->isAjaxRequest){
-			$model=DepartmentPosts::model()->working()->with("postSubdivRn")->findall();
-			$this->renderPartial('choise_posts', array('model'=>$model), false, true);
+			if(!empty($_POST['search'])){
+				$surname=$_POST['search'];
+			}else{
+				$surname='no';
+			}
+
+			$model=DepartmentPosts::model()->working()->with("personnelPostsHistories","personnelPostsHistories.idPersonnel")->findall(array('condition'=>'LOWER("idPersonnel".surname) LIKE (\''.mb_strtolower($surname,'UTF-8').'%\')'));
+			$this->renderPartial('choise_managers', array('model'=>$model), false, true);
 		}else{
 			exit();
 		}
