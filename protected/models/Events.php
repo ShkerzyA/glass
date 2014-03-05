@@ -144,7 +144,7 @@ public $idRoomid_room;
     		((timestamp>'".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or (timestamp_end>'".$this->timestamp."' and timestamp_end<'".$this->timestamp_end."') or (timestamp<'".$this->timestamp."' and timestamp_end>'".$this->timestamp_end."'))
     		and status not in (2)"));
         foreach ($Ph as $v){
-        	$this->addError('Events["id_post"]','Выбранное время занято. Событие "'.$v->name.'"');
+        	$this->addError('Events["id_post"]','Выбранное время занято. Событие "'.$v->name.'"('.$v->timestamp.'-'.$v->timestamp_end.')');
         }
         
     }
