@@ -12,7 +12,8 @@ class MyDbase extends CFormModel{
 	public static $modelLabelS='Операции с Dbase';
 	public static $modelLabelP='Операции с Dbase';
 	public $dbase;
- 	private $pathToDb='/home/al/localhost/www/onko2003/data/';
+ 	//private $pathToDb='/home/al/localhost/www/onko2003/data/';
+ 	private $pathToDb='smb://sun/onko2003/data/';
 
  	public function read_table($tablename,$keycolumn=NULL){
  		$result=array();

@@ -208,7 +208,7 @@ class PersonnelController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=Personnel::model()->with(array('personnelPostsHistories'=>array('alias'=>'personnel_posts_history')))->find(array('condition'=>'t.id='.$id,'order'=>'personnel_posts_history.date_end DESC'));
+		$model=Personnel::model()->with(array('personnelPostsHistories'=>array('alias'=>'personnelPostsHistories')))->find(array('condition'=>'t.id='.$id,'order'=>'"personnelPostsHistories".date_end DESC'));
 		//$model=Personnel::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');

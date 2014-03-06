@@ -78,7 +78,7 @@ function init(){
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
 
-		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>60)); ?>
+		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>45)); ?>
 
 		<?php echo $form->error($model,'name'); ?>
 	</div>

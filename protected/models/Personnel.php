@@ -104,7 +104,7 @@ class Personnel extends CActiveRecord
 
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
             'workplaces' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
-            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel'),
+            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel','alias'=>'personnelPostsHistories','order'=>'"personnelPostsHistories".date_end DESC, "personnelPostsHistories".date_begin DESC'),
             'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'creator'),
 		);
 	}
@@ -151,7 +151,7 @@ class Personnel extends CActiveRecord
 
         $criteria->order='photo ASC, surname ASC';
 
-        $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnel_posts_history'),);
+        $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnelPostsHistories'),);
         $criteria->compare('LOWER(surname)',mb_strtolower($this->surname,'UTF-8'),true);
         $criteria->compare('LOWER(name)',mb_strtolower($this->name,'UTF-8'),true);
         $criteria->compare('LOWER(patr)',mb_strtolower($this->patr,'UTF-8'),true);
@@ -172,7 +172,7 @@ class Personnel extends CActiveRecord
                 $criteria->compare('t.id',$this->id);
         $criteria->compare('users.username',$this->idUserid_user,true);
         $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
-        $criteria->compare('personnel_posts_history.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
+        $criteria->compare('personnelPostsHistories.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
         
 
 
@@ -207,7 +207,7 @@ class Personnel extends CActiveRecord
             'idUser' => array('alias' => 'users'),
             'workplaces' => array('alias' => 'workplace'),
             'workplaces.idCabinet' => array('alias' => 'cabinet'),
-            'personnelPostsHistories' => array('alias' => 'personnel_posts_history','condition'=>"\"personnel_posts_history\".date_end is NULL",'together'=>True),
+            'personnelPostsHistories' => array('alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL",'together'=>True),
             'personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
             'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
         //$criteria->condition=;

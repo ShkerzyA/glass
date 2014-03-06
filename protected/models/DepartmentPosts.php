@@ -102,7 +102,7 @@ class DepartmentPosts extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post','alias'=>'personnelPostsHistories','order'=>'"personnelPostsHistories".date_end DESC'),
+            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post','alias'=>'personnelPostsHistories','order'=>'"personnelPostsHistories".date_end DESC, "personnelPostsHistories".date_begin DESC'),
             'postSubdivRn' => array(self::BELONGS_TO, 'Department', 'post_subdiv_rn'),
         );
     }
