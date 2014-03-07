@@ -7,23 +7,32 @@ $this->breadcrumbs=array(
 	$model->id,
 );
 
+
 Yii::app()->clientScript->registerPackage('eventactions');
-if(Yii::app()->user->role=='administrator'){
-$this->menu=array(
-	array('label'=>'Список', 'url'=>array('index')),
-	array('label'=>'Создать', 'url'=>array('create')),
-	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Управление', 'url'=>array('admin')),
-);}
+if(!(Yii::app()->user->isGuest)){
+ 	$posts=Yii::app()->user->id_posts;
+}else{
+	$posts=array();
+}
+	$this->menu=array(
+		array('label'=>'Список', 'url'=>array('index'),'visible'=>(Yii::app()->user->role=='administrator')),
+		array('label'=>'Создать', 'url'=>array('create'),'visible'=>(Yii::app()->user->role=='administrator')),
+		array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>(in_array($model->creator,$posts))),
+		array('label'=>'Удалить', 'url'=>'#','visible'=>(Yii::app()->user->role=='administrator'), 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+		array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
+	);
+
 
 
 	$status_arr=$model->getStatus();
 
 	$status=$model->gimmeStatus();
-	if ($model->isChangeStatus()){
-		echo(CHtml::dropDownList('status_task',$model->status,$status_arr,array('class'=>$status['css_class']))); 	
+	if(!(Yii::app()->user->isGuest)){
+		if ($model->isChangeStatus()){
+			echo(CHtml::dropDownList('status_task',$model->status,$status_arr,array('class'=>$status['css_class']))); 	
+		}
 	}
+	
 	
 ?>
 <div class=modal_window_back style="display: none"></div>
@@ -51,7 +60,7 @@ echo '<div class="comment " id="taskbody">
 			echo'<div class="comment-topline"><i>'.$action->creator0->surname.' '.$action->creator0->name.' '.$action->creator0->patr.'</i> &nbsp;&nbsp;&nbsp; '.$action->timestamp.'</div>';
 			echo'<div class="sign"></div>';
 			if($action->type==0){
-				echo '<b>"'.$status_arr[$action->ttext].'"</b> Статус задачи изменен';
+				echo '<b>"'.$status_arr[$action->ttext].'"</b> Статус события изменен';
 			}else{
 				echo '<pre style="overflov: none;">'.$action->ttext.'</pre>';	
 			}
