@@ -16,6 +16,48 @@ class Xls extends CFormModel{
         );
     } 
 
+    public function load($table){
+    	$phpExcelPath = Yii::getPathOfAlias('ext.PHPExcel.Classes');
+		spl_autoload_unregister(array('YiiBase','autoload'));
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
+		/*
+    	$objPHPExcel=PHPExcel_IOFactory::load(Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.$table);
+    	$objPHPExcel->setReadDataOnly(true);
+    	$objPHPExcel->setActiveSheetIndex(0);
+		$aSheet = $objPHPExcel->getActiveSheet();
+		foreach($aSheet->getRowIterator() as $row){
+			$cellIterator = $row->getCellIterator();
+			foreach($cellIterator as $cell){
+				$val = $cell->getCalculatedValue();
+				if(PHPExcel_Shared_Date::isDateTime($cell)) {
+					$val = date('d.m.Y', PHPExcel_Shared_Date::ExcelToPHP($val)); 
+				}
+				echo iconv('UTF-8','cp1251',$val);
+			}
+		}
+		*/
+		$inputFileName=Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.$table;
+		$inputFileType = PHPExcel_IOFactory::identify($inputFileName); // Определяем тип
+		$objReader = PHPExcel_IOFactory::createReader($inputFileType); // Создаем ридер
+		$objReader->setReadDataOnly(true); // Очень сильно влияет и на память и на время, это если нужны только данные... Плюс нужно смотреть ограничения...
+		$worksheetNames = $objReader->listWorksheetNames($inputFileName); // Читаем имена страниц// Постранично читаем данные 
+		foreach ($worksheetNames as $wsName) { 
+			$objReader->setLoadSheetsOnly($wsName); 
+			$oExcel = $objReader->load($inputFileName); 
+			$oExcel->setActiveSheetIndexByName($wsName); 
+			$aSheet = $oExcel->getActiveSheet(); 
+			foreach ($aSheet->getRowIterator() as $rowId => $row) { 
+				$cellIterator = $row->getCellIterator(); 
+				$cellIterator->setIterateOnlyExistingCells(false); 
+				foreach($cellIterator as $cellId=>$cell) { // здесь код... 
+					echo $cellId.' '.$cell;
+				} 
+			}
+		}
+
+    }
+
     public function import_Personnel(){
     	if(isset($_POST['Xls'])){
 			$modelxls=new Xls();

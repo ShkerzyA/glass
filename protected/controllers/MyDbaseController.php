@@ -28,7 +28,7 @@ class MyDbaseController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('ReadPerson','ImportOtdel','ImportPersonnel','ImportOtdelPosts','ImportPersonnelPostsHistory'),
+				'actions'=>array('ReadPerson','ImportOtdel','ImportPersonnel','ImportOtdelPosts','ImportPersonnelPostsHistory','load_xls'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -41,6 +41,13 @@ class MyDbaseController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+
+	public function actionLoad_xls(){
+
+		$xls=new Xls();
+		$xls->load('ZFCAC.xls');
+
+	}
 
 	public function actionReadPerson()
 	{
