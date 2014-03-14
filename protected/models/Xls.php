@@ -17,6 +17,88 @@ class Xls extends CFormModel{
     } 
 
     public function load($table){
+
+    	$file=Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.$table;
+
+    	$chunkSize = 2000;		//размер считываемых строк за раз
+		$startRow = 1;			//начинаем читать со строки 2, в PHPExcel первая строка имеет индекс 1, и как правило это строка заголовков
+		$exit = false;			//флаг выхода
+		$empty_value = 0;
+		
+
+    	$phpExcelPath = Yii::getPathOfAlias('ext.PHPExcel.Classes');
+		spl_autoload_unregister(array('YiiBase','autoload'));
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'chunkReadFilter.php');
+
+		if (!file_exists($file)) {
+ 		   exit();
+		}
+
+		$objReader = PHPExcel_IOFactory::createReaderForFile($file);
+		$objReader->setReadDataOnly(true);
+
+		$chunkFilter = new chunkReadFilter(); 
+		$objReader->setReadFilter($chunkFilter); 
+		//внешний цикл, пока файл не кончится
+		$foo=1;
+		while ( !$exit ) 
+		{
+   			$chunkFilter->setRows($startRow,$chunkSize); 	//устанавливаем знаечние фильтра
+    		$objPHPExcel = $objReader->load($file);		//открываем файл
+    		$objPHPExcel->setActiveSheetIndex(0);		//устанавливаем индекс активной страницы
+    		$objWorksheet = $objPHPExcel->getActiveSheet();	//делаем активной нужную страницу
+
+    		$empty_value=0;
+    		for ($i = $startRow; $i < $startRow + $chunkSize; $i++) 	//внутренний цикл по строкам
+    		{	
+    			
+    			$row = $objPHPExcel->getActiveSheet()->getRowIterator($i)->current();
+				$cellIterator = $row->getCellIterator();
+				$cellIterator->setIterateOnlyExistingCells(false);
+
+				//print_r($cellIterator);
+
+	//			echo iconv('UTF-8','cp1251',$cellIterator[0]->getValue()).' | ' ;
+
+				echo $foo.' | ';
+				$foo++;
+				$num_col=1;
+				foreach ($cellIterator as $cell) {
+					if ($num_col==1){
+						if(empty(trim($cell->getValue()))){
+							//echo 'пустое значение';
+						   	$empty_value++;		
+						}
+					}
+    				echo iconv('UTF-8','cp1251',$cell->getValue()).' | ' ;
+        			$num_col++;
+				}
+				if ($empty_value > 2){			//после трех пустых значений, завершаем обработку файла, думая, что это конец
+           		 		$exit = true;	
+            			break;		
+        		}
+				echo '<br>';
+    			/*
+        		$value = trim(htmlspecialchars($objWorksheet->getCellByColumnAndRow(0, $i)->getValue()));		//получаем первое знаение в строке
+        		if ( empty($value) )		//проверяем значение на пустоту
+            	$empty_value++;			
+        		if ($empty_value == 3)		//после трех пустых значений, завершаем обработку файла, думая, что это конец
+        		{	
+           		 	$exit = true;	
+            		continue;		
+        		}	*/
+
+        		//echo $foo.iconv('UTF-8','cp1251',$value).'<br>';
+        		
+        		/*Манипуляции с данными каким Вам угодно способом, в PHPExcel их превеликое множество*/
+    		}
+    		$objPHPExcel->disconnectWorksheets(); 				//чистим 
+    		unset($objPHPExcel); 						//память
+    		$startRow += $chunkSize;					//переходим на следующий шаг цикла, увеличивая строку, с которой будем читать файл
+		}
+    	/*
     	$phpExcelPath = Yii::getPathOfAlias('ext.PHPExcel.Classes');
 		spl_autoload_unregister(array('YiiBase','autoload'));
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
@@ -37,6 +119,7 @@ class Xls extends CFormModel{
 			}
 		}
 		*/
+		/*
 		$inputFileName=Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.$table;
 		$inputFileType = PHPExcel_IOFactory::identify($inputFileName); // Определяем тип
 		$objReader = PHPExcel_IOFactory::createReader($inputFileType); // Создаем ридер
@@ -55,6 +138,7 @@ class Xls extends CFormModel{
 				} 
 			}
 		}
+		*/
 
     }
 

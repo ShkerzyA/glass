@@ -46,16 +46,52 @@ public $idRoomid_room;
 						1 => 'Одобрено',
 						2 => 'Отклонено',
 						3 => 'Требует уточнения');
-		/*
-		if(!empty(Yii::app()->user->islead)){
-			if(Yii::app()->user->islead==1){
-				$status[4]='Подтверждено выполнение';
-			}	
-		}*/
-		
+	
 
 		return $status;
 	}
+
+	public function isShow($date){
+		$pass=false;
+		if(!empty($this->repeat)){
+				$i=new DateTime($this->date);
+				switch ($this->repeat) {
+					case '1':
+						$pass=true;
+						break;
+
+					case '2':
+						if($i->format('w')==$date->format('w'))
+							$pass=true;
+						break;
+
+					case '3':
+						if($i->format('d')==$date->format('d'))
+							$pass=true;
+						continue;
+						break;
+					
+					default:
+						break;
+				}
+
+			}
+			else if($date->format('Y-m-d')==$this->date){
+				$pass=true;
+			}
+			return $pass;
+	}
+
+	public function getRepeat(){
+		$repeat=array(  
+						1 => 'Каждый день',
+						2 => 'Каждую неделю',
+						3 => 'Каждый месяц');
+
+
+		return $repeat;
+	}
+
 
 	public function gimmeStatus(){
 		$status=array(  0 => array('label'=>'Заявка','css_class'=>'open'),
@@ -140,12 +176,25 @@ public $idRoomid_room;
 
     	//echo $this->id_post;
 
-    	$Ph=Events::model()->findAll(array('condition'=>"id_room=".$this->id_room." and date='".$this->date."' and  
+    	$Ph=Events::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."' or repeat=1) and  
     		((timestamp>'".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or (timestamp_end>'".$this->timestamp."' and timestamp_end<'".$this->timestamp_end."') or (timestamp<'".$this->timestamp."' and timestamp_end>'".$this->timestamp_end."'))
     		and status not in (2)"));
         foreach ($Ph as $v){
         	$this->addError('Events["id_post"]','Выбранное время занято. Событие "'.$v->name.'"('.$v->timestamp.'-'.$v->timestamp_end.')');
         }
+
+        $Ph=Events::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (repeat in (2,3)) and  
+    		((timestamp>'".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or (timestamp_end>'".$this->timestamp."' and timestamp_end<'".$this->timestamp_end."') or (timestamp<'".$this->timestamp."' and timestamp_end>'".$this->timestamp_end."'))
+    		and status not in (2)"));
+
+        foreach ($Ph as $v){
+        	$dat=new DateTime($this->date);
+        	if($v->isShow($dat)){
+        		$this->addError('Events["id_post"]','Выбранное время занято. Событие "'.$v->name.'"('.$v->date.') ('.$v->timestamp.'-'.$v->timestamp_end.')');	
+        	}
+        }
+
+
         
     }
 

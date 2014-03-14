@@ -117,6 +117,14 @@ function init(){
 		<?php echo $form->error($model,'description'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'repeat'); ?>
+
+		<?php echo $form->dropDownList($model,'repeat',$model->getRepeat(),
+              array('empty' => '')); ?>
+
+		<?php echo $form->error($model,'repeat'); ?>
+	</div>
 
 	
 
@@ -139,15 +147,7 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 				return CHtml::encode($tmp->idCabinet->cname.' '.$tmp->idCabinet->num);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_room'); ?>
 	</div>
-<!--
-	<div class="row">
-		<?php echo $form->labelEx($model,'repeat'); ?>
 
-		<?php echo $form->textField($model,'repeat'); ?>
-
-		<?php echo $form->error($model,'repeat'); ?>
-	</div>
--->
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 

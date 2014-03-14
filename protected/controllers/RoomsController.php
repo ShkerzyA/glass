@@ -80,6 +80,7 @@ class RoomsController extends Controller
 	}
 
 	public function actionShow($id=NULL){
+		$this->layout='//layouts/column1';
 		$models=Rooms::model()->findAll();
 
 		if($id!=NULL){
@@ -95,15 +96,46 @@ class RoomsController extends Controller
 			Yii::app()->session['Rooms_date']=new DateTime(date('Y-m-d'));
 		}
 
+		if(!empty($_GET['Show_type'])){
+			Yii::app()->session['Show_type']=$_GET['Show_type'];
+		}else if(empty(Yii::app()->session['Show_type'])){
+			Yii::app()->session['Show_type']='day';
+		}
+
+
 		if(!empty(Yii::app()->session['Rooms_id'])){
 			$model=Rooms::model()->findByPk(Yii::app()->session['Rooms_id']);
 		}
 
-		$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and t.date=\''.Yii::app()->session['Rooms_date']->format('Y-m-d').'\''));	
+		$week=array();
+
+		switch (Yii::app()->session['Show_type']) {
+			case 'day':
+					$week['begin']=clone Yii::app()->session['Rooms_date'];
+					$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date=\''.Yii::app()->session['Rooms_date']->format('Y-m-d').'\') or t.repeat is not null)'));	
+				break;
+			case 'week':
+					$week['begin']=clone Yii::app()->session['Rooms_date'];
+					$dow=$week['begin']->format('N');
+					$week['begin']->modify('-'.($dow-1).' days');
+					$week['end']=clone Yii::app()->session['Rooms_date'];
+					$week['end']->modify('+'.(7-$dow).' days');
+
+
+
+					$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC'));	
+				# code...
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+		
 
 		
 		$this->render('show',array(
-			'model'=>$model,'models'=>$models,'events'=>$events
+			'model'=>$model,'models'=>$models,'events'=>$events,'week'=>$week
 		));
 	}
 

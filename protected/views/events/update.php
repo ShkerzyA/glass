@@ -19,6 +19,6 @@ array('label'=>'Rooms', 'url'=>array('Rooms/admin', 'id_room'=>$model->id)),
 );
 ?>
 
-<h1>Изменить <?php  echo $model::$modelLabelS; ?>  <?php echo $model->id; ?></h1>
+<h2>Изменить событие <?php  echo($model->date.' в помещении "'.$model->idRoom->idCabinet->cname.' '.$model->idRoom->idCabinet->num); ?>"</h2>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

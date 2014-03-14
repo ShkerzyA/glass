@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Создать "<?php  echo $model::$modelLabelS; ?>"</h1>
+<h2>Создать событие <?php  echo($model->date.' в помещении "'.$model->idRoom->idCabinet->cname.' '.$model->idRoom->idCabinet->num); ?>"</h2>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

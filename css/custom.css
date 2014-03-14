@@ -163,14 +163,15 @@ select,option{
 	padding-right: 20px;	
 }
 
-.add_unit, .choise_unit{
-	width: 32%;
+.add_unit, .choise_unit, .trinity_left{
+	width: 25%;
 	float: left;	
 }
 
 .fl_right{
 	float: right;
 }
+
 
 .close_this{
 	position: relative;
@@ -371,13 +372,39 @@ textarea{
 	min-height: 400px;
 }
 
+.day, .day_event{
+	top: 40px;
+ 	
+}
+
 .day{
- 	position: absolute;
+	min-width: 930px;
+ 	position: relative;
  	left: 20px;
- 	top: 70px;
  	width: 95%;
- 	background: #F0F0F0;
  	font-size: 12pt;
+ 	padding-bottom: 60px;
+}
+
+.day_event, .week_event{
+	border-color: grey;
+}
+
+.day_event{
+	position: absolute;
+ 	left: 70px;
+ 	width: 92%;
+ 	z-index: 10;
+}
+
+.week_event{
+
+	border-left: 2px solid gray;
+	position: relative;
+ 	width: 13%;
+ 	height: 700px;
+ 	float: left;
+ 	z-index: 10;
 }
 
 .corps{
@@ -387,8 +414,9 @@ textarea{
 }
 
 .day div{
-	width: 100%;
-	height: 88px;
+
+	width: 95%;
+	height: 70px;
 	border-top: 2px solid;
 	
 	/*
@@ -398,15 +426,22 @@ textarea{
 		border-radius: 0px;*/
 
 	border-color: grey;
-
 }
+
+.leaf .day div  {
+	width: 100%;
+}
+.leaf .day_event{
+	width: 95%;
+}
+
 .event{
 	padding: 0px;
 
 	position: absolute;
 	width: 98%;
 	border-radius: 3px;
-	border: 1px solid black;
+	border: 1px solid gray;
 	overflow: hidden;
 	z-index: 2;
 }
@@ -421,7 +456,18 @@ textarea{
 }
 
 .event *{
-	margin: 2px;
+	margin: 1px;
+
+	white-space: pre;
+	margin-top:  0px;
+	margin-bottom: 0px;
+}
+
+.leaf .event p{
+	font-size: 10pt;
+	font-weight: bold;
+	left: 10px;
+	top: 2%;
 }
 
 .event p{
@@ -449,17 +495,51 @@ textarea{
 	bottom: 2%;
 }
 
-.day_event{
-	position: absolute;
- 	left: 70px;
- 	top: 70px;
- 	width: 87%;
- 	z-index: 10;
- 	/*padding-left: 10px; */
- 	border-left: 6px groove; 
 
-	border-color: grey;
- 	height: 900px;
-  	/*border: 10px solid red;*/
+
+.cornice{
+	width:950px; 
+	background: #F0F0F0; 
+	margin:  0 0 -5px -20px; 
+	/*z-index: 2; */
+	position: relative;
+}
+
+
+.fullwidth{
+	width: 95%;
+}
+
+.leaf{
+
+	margin: 4px;
+ 	background: #F0F0F0;
+ 	/*min-height: 100%;*/
+	position: absolute;
+	overflow-y: visible;
+	z-index: 1;
+	width: 95%;
+	min-width: 930px;
+	left: 3%;
+	box-shadow: 1px 1px 3px 0 #000000, -2px -2px 3px 0 #FFFFFF;
+
+}
+.current{
+	background-color: rgba(255,255,255,0.6);
+
+}
+
+.leaf_slim{
+
+	margin: 0px auto;
+ 	background: #F0F0F0;
+
+ 	/*min-height: 100%;*/
+	position: absolute;
+	overflow-y: visible;
+	z-index: 1;
+	width: 930px;
+	box-shadow: -20px 0px 0px 0px #F0F0F0;
+	/*box-shadow: 1px 1px 3px 0 #000000, -2px -2px 3px 0 #FFFFFF;*/
 
 }

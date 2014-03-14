@@ -1,3 +1,4 @@
+<div class=hide_p>
 <?php
 /* @var $this RoomsController */
 /* @var $dataProvider CActiveDataProvider */
@@ -5,11 +6,11 @@
 $this->breadcrumbs=array(
 	''.$modelLabelP,
 );
-
+/*
 $this->menu=array(
 	array('label'=>'Создать', 'url'=>array('create'),'visible'=>(Yii::app()->user->role=='administrator')),
 	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
-);
+);*/
 
 
 $rooms_list=array();
@@ -17,9 +18,9 @@ foreach ($models as $v){
 	$rooms_list[]=array('label'=>$v->idCabinet->cname.' '.$v->idCabinet->num, 'url'=>array('Rooms/show/'.$v->id));
 }
 
-$this->menu['all_menu']=array(
+/*$this->menu['all_menu']=array(
 	array('title'=>'Местоположение','items'=>$rooms_list),
-)
+)*/
 
 ?>
 <script>
@@ -28,6 +29,14 @@ $(document).ready(init());
 function init(){
 	$('#date').live('change', function go(){
 		location="?date="+$('#date').val();
+	});
+
+	$('#Room_id').live('change', function go(){
+		location="?id="+$('#Room_id').val();
+	});
+
+	$('#Show_type').live('change', function go(){
+		location="?Show_type="+$('#Show_type').val();
 	});
 }
 
@@ -41,9 +50,10 @@ function init(){
    'value' => $val=(!empty(Yii::app()->session['Rooms_date'])?Yii::app()->session['Rooms_date']->format('d.m.Y'):''),
    'options' => array(
        'showAnim' => 'fold',
+       'zIndex' => 50,
    ),
    'htmlOptions' => array(
-       'style' => 'height:20px;',
+       	'style' => 'height:20px;',
    		'placeholder'=>'дата события'
    ),
 ));?>
@@ -55,52 +65,48 @@ if(!empty(Yii::app()->session['Rooms_date']) && !empty(Yii::app()->session['Room
 	</a>';
 }
 
+$tmp=Rooms::model()->findall();
+$rooms=array();
+foreach ($tmp as $r) {
+	$rooms[$r->id]=$r->idCabinet->cname.' '.$r->idCabinet->num;
+	# code...
+}
+
+echo'<div class="trinity_left">';
+echo(CHtml::dropDownList('Room_id',$model->id,$rooms,array('empty'=>'Выберите помещение'))); 
+echo'</div>';
+
+$type=array(
+	'day'=>'День',
+	'week'=>'Неделя'
+	);
+
+echo'<div class="trinity_left">';
+echo(CHtml::dropDownList('Show_type',$val=(!empty(Yii::app()->session['Show_type'])?Yii::app()->session['Show_type']:''),$type,array('empty'=>''))); 
+echo'</div>';
+
+
 
 ?>
 
-<?php echo ('<span style="font-size: 14pt">'.$model->idCabinet->cname.' '.$model->idCabinet->num.'</span>'); ?>
-
-
-
-<div class=day>
- <div>08:00</div>
- <div>09:00</div>
- <div>10:00</div>
- <div>11:00</div>
- <div>12:00</div>
- <div>13:00</div>
- <div>14:00</div>
- <div>15:00</div>
- <div>16:00</div>
- <div>17:00</div>
-
-
+<?php //echo ('<span style="font-size: 14pt">'.$model->idCabinet->cname.' '.$model->idCabinet->num.'</span>'); ?>
 
 </div>
+<br>
+<div class="cornice">&nbsp;</div>
+<?php
+switch (Yii::app()->session['Show_type']) {
+	case 'day':
+		echo $this->renderPartial('_day', array('model'=>$model,'events'=>$events,'week'=>$week)); 
+		break;
+	case 'week':
+		echo $this->renderPartial('_week', array('model'=>$model,'events'=>$events,'week'=>$week)); 
+		break;
 
-<div class=day_event>
-	<?php
-		foreach ($events as $v){
+	default:
+		# code...
+		break;
+}
 
-			$time1=explode(':', $v->timestamp);
-			$time2=explode(':', $v->timestamp_end);
-
-			$x1=($time1[0]*60+$time1[1]);
-			$x2=($time2[0]*60+$time2[1]);
-
-			$top=($x1-480)*1.5;
-			$height=($x2-$x1)*1.5;
-
-			$status=$v->gimmeStatus();
-			echo'<a href='.Yii::app()->request->baseUrl.'/events/'.$v->id.'>';
-			echo '<div class="event '.$status['css_class'].'" style="top: '.$top.'px; height: '.$height.'px">';
-				echo '<p>'.$v->name.'</p>';
-				//echo '<div class=corps>'.$v->description.'</div>';
-				echo '<div class=status>'.$status['label'].'</div>';
-				echo '<div class=time>'.$v->timestamp.' - '.$v->timestamp_end.'</div>';
-				echo '<div class=creator>'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</div>';
-			echo '</div></a>';
-		}
-	?>
-</div>
+?>
 

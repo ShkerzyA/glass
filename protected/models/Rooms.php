@@ -46,6 +46,7 @@ class Rooms extends CActiveRecord
 		return 'rooms';
 	}
 
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
