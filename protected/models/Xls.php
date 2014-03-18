@@ -73,6 +73,7 @@ class Xls extends CFormModel{
 						}
 					}
     				echo iconv('UTF-8','cp1251',$cell->getValue()).' | ' ;
+    				//echo $cell->getValue();
         			$num_col++;
 				}
 				if ($empty_value > 2){			//после трех пустых значений, завершаем обработку файла, думая, что это конец

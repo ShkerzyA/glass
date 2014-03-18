@@ -1,5 +1,5 @@
 <div class=leaf>
-
+	<input name="print" class="hide_p" type="button" style="float: right;"value="Печать" onclick="window.print();"> 
 	<div class=day>
  		<div>08:00</div>
  		<div>09:00</div>
@@ -50,8 +50,8 @@
 			$x1=($time1[0]*60+$time1[1]);
 			$x2=($time2[0]*60+$time2[1]);
 
-			$top=($x1-480)*1.2;
-			$height=($x2-$x1)*1.2;
+			$top=($x1-480);
+			$height=($x2-$x1);
 
 			$status=$v->gimmeStatus();
 			echo'<a href='.Yii::app()->request->baseUrl.'/events/'.$v->id.' title="'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'('.$status['label'].')">';

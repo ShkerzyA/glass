@@ -45,7 +45,7 @@ class MyDbaseController extends Controller
 	public function actionLoad_xls(){
 
 		$xls=new Xls();
-		$xls->load('ZFCAC.xls');
+		$xls->load('zank.xls');
 
 	}
 

@@ -32,8 +32,8 @@
 			$x1=($time1[0]*60+$time1[1]);
 			$x2=($time2[0]*60+$time2[1]);
 
-			$top=($x1-480)*1.2;
-			$height=($x2-$x1)*1.2;
+			$top=($x1-480);
+			$height=($x2-$x1);
 
 			$status=$v->gimmeStatus();
 			echo'<a href='.Yii::app()->request->baseUrl.'/events/'.$v->id.'>';

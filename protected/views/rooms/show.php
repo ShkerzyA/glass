@@ -42,7 +42,32 @@ function init(){
 
 </script>
 
-<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+
+
+
+<?php
+if(!empty(Yii::app()->session['Rooms_date']) && !empty(Yii::app()->session['Rooms_id'])){
+	echo '<a href="/glass/events/create?Events[date]='.Yii::app()->session['Rooms_date']->format('d.m.Y').' && Events[id_room]='.Yii::app()->session['Rooms_id'].'">
+		<div id="add_task" class="add_unit fl_right">запланировать событие</div>
+	</a>';
+}
+
+
+$tmp=Rooms::model()->findall();
+$rooms=array();
+foreach ($tmp as $r) {
+	$rooms[$r->id]=$r->idCabinet->cname.' '.$r->idCabinet->num;
+	# code...
+}
+
+
+
+echo'<div class="trinity_left">';
+echo(CHtml::dropDownList('Room_id',$model->id,$rooms,array('empty'=>'Выберите помещение'))); 
+echo'</div>';
+
+echo'<div class="trinity_left">';
+$this->widget('zii.widgets.jui.CJuiDatePicker', array(
    'name' => 'date',
    'model' => $event,
    'attribute' => 'date_begin',
@@ -56,30 +81,15 @@ function init(){
        	'style' => 'height:20px;',
    		'placeholder'=>'дата события'
    ),
-));?>
-
-<?php
-if(!empty(Yii::app()->session['Rooms_date']) && !empty(Yii::app()->session['Rooms_id'])){
-	echo '<a href="/glass/events/create?Events[date]='.Yii::app()->session['Rooms_date']->format('d.m.Y').' && Events[id_room]='.Yii::app()->session['Rooms_id'].'">
-		<div id="add_task" class="add_unit fl_right">запланировать событие</div>
-	</a>';
-}
-
-$tmp=Rooms::model()->findall();
-$rooms=array();
-foreach ($tmp as $r) {
-	$rooms[$r->id]=$r->idCabinet->cname.' '.$r->idCabinet->num;
-	# code...
-}
-
-echo'<div class="trinity_left">';
-echo(CHtml::dropDownList('Room_id',$model->id,$rooms,array('empty'=>'Выберите помещение'))); 
+));
 echo'</div>';
 
 $type=array(
 	'day'=>'День',
 	'week'=>'Неделя'
 	);
+
+
 
 echo'<div class="trinity_left">';
 echo(CHtml::dropDownList('Show_type',$val=(!empty(Yii::app()->session['Show_type'])?Yii::app()->session['Show_type']:''),$type,array('empty'=>''))); 
@@ -93,7 +103,12 @@ echo'</div>';
 
 </div>
 <br>
+<br>
 <div class="cornice">&nbsp;</div>
+
+
+
+
 <?php
 switch (Yii::app()->session['Show_type']) {
 	case 'day':

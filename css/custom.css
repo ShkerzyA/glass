@@ -164,7 +164,7 @@ select,option{
 }
 
 .add_unit, .choise_unit, .trinity_left{
-	width: 25%;
+	width: 24%;
 	float: left;	
 }
 
@@ -402,7 +402,7 @@ textarea{
 	border-left: 2px solid gray;
 	position: relative;
  	width: 13%;
- 	height: 700px;
+ 	height: 600px;
  	float: left;
  	z-index: 10;
 }
@@ -416,7 +416,7 @@ textarea{
 .day div{
 
 	width: 95%;
-	height: 70px;
+	height: 58px;
 	border-top: 2px solid;
 	
 	/*
@@ -471,7 +471,7 @@ textarea{
 }
 
 .event p{
-	font-size: 14pt;
+	font-size: 12pt;
 	font-weight: bold;
 	left: 10px;
 	top: 4%;
@@ -526,7 +526,6 @@ textarea{
 }
 .current{
 	background-color: rgba(255,255,255,0.6);
-
 }
 
 .leaf_slim{

@@ -141,6 +141,18 @@ public $idRoomid_room;
 		);
 	}
 
+	public function afterFind() {
+
+        	if(!empty($this->timestamp)){
+        		$this->timestamp=substr($this->timestamp,0,5);
+        	}
+
+        	if(!empty($this->timestamp_end)){
+        		$this->timestamp_end=substr($this->timestamp_end,0,5);
+        	}
+       
+    	}
+
 	public function isChangeStatus(){
 		$managers=explode(',',$this->idRoom->managers);
 		foreach (Yii::app()->user->id_posts as $id_post)  {
