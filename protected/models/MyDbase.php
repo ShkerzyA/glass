@@ -12,8 +12,8 @@ class MyDbase extends CFormModel{
 	public static $modelLabelS='Операции с Dbase';
 	public static $modelLabelP='Операции с Dbase';
 	public $dbase;
- 	//private $pathToDb='/home/al/localhost/www/onko2003/data/';
- 	private $pathToDb='smb://sun/onko2003/data/';
+ 	private $pathToDb='/home/al/localhost/www/glass/base/';
+ 	//private $pathToDb='smb://sun/onko2003/data/';
 
  	public function read_table($tablename,$keycolumn=NULL){
  		$result=array();
@@ -22,12 +22,11 @@ class MyDbase extends CFormModel{
  			$row=dbase_get_record_with_names($this->dbase,$i);
 
  			foreach ($row as &$v){
- 				$v=iconv('cp1251','UTF8', $v);
+ 				$v=trim(iconv('cp1251','UTF8', $v));
  			}
  			if(!empty($keycolumn)){
- 				$result[$row[$keycolumn]]=$row;
+ 				$result[trim($row[$keycolumn])]=$row;
  			}else{
-
  				$result[]=$row;
  			}
 
@@ -40,14 +39,22 @@ class MyDbase extends CFormModel{
 
 
  	public function otdelImport(){
- 		$zSubDiv=$this->read_table('ZSUBDIV.DBF','CATALOG_RN');
- 		$acatalog=$this->read_table('ACATALOG.DBF','RN');
-		
-		$acatalog=array_filter($acatalog, function($var){return ($var['UNIT_RN']=="001g");});
 
+ 		$acatalog=$this->read_table('ACATALOG.DBF','N1');
+ 		$zSubDiv=$this->read_table('zsubdiv.dbf','CATALOG_RN');
+		
+		//$acatalog=array_filter($acatalog, function($var){return ($var['UNIT_RN']=="001g");});
+
+ 		//print_r ($zSubDiv);
+		echo'<pre>'; 		
+		//print_r ($acatalog);
+		echo'</pre>';
+		//print_r ($zSubDiv);
+
+		
 		foreach ($zSubDiv as &$v){
 			$v['cataloginfo']=$acatalog[$v['CATALOG_RN']];
-			$v['PARENTPARENT']=$zSubDiv[$v['cataloginfo']['PARENT_RN']]['SUBDIV_RN'];
+			$v['PARENTPARENT']=$zSubDiv[trim($v['cataloginfo']['N2'])]['SUBDIV_RN'];
 		}
 
 		foreach ($zSubDiv as $v) {
@@ -74,13 +81,13 @@ class MyDbase extends CFormModel{
 		Department::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
 
  		//$result[]=$acatalog;
- 		return $zSubDiv;
+ 		return $zSubDiv; 
  	}
 
 
  	public function personnelImport(){
- 		$personnel=$this->read_table('PERSON.DBF','ORBASE_RN');
- 		$zank=$this->read_table('ZANK.DBF','ANK_RN');
+ 		$personnel=$this->read_table('person.dbf','ORBASE_RN');
+ 		$zank=$this->read_table('zank.dbf','ANK_RN');
 
 		foreach ($personnel as &$v) {
 			$x=$v['ORBASE_RN'];
@@ -131,7 +138,7 @@ class MyDbase extends CFormModel{
  	
  		$posts=$this->read_table('ZPOST.DBF','POST_RN');
  		$zpostch=$this->read_table('ZPOSTCH.DBF');
- 		$ztipdol=$this->read_table('ZTIPDOL.DBF','TIPDOL_RN');
+ 		$ztipdol=$this->read_table('zTipDol.DBF','TIPDOL_RN');
 
 		foreach ($posts as &$v) {
 			$t=$v['POST_RN'];
@@ -147,6 +154,7 @@ class MyDbase extends CFormModel{
 						if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn and upd_flag is NULL','params'=>array(":post_rn"=>$v['POST_RN'])))){
 							$depPost=$findPost;
 						}else{
+							echo '1';
 							$depPost=new DepartmentPosts();
 						}
        					$depPost->post=trim($v['ztipdol']['NAME']);
@@ -178,17 +186,15 @@ class MyDbase extends CFormModel{
 
  		//$wtf=array();
  		$zfcac=$this->read_table('ZFCAC.DBF');
- 		$zank=$this->read_table('ZANK.DBF','ANK_RN');
+ 		$zank=$this->read_table('zank.dbf','ANK_RN');
 
 		foreach ($zfcac as &$v) {
 			$x=$v['ANK_RN'];
-			$v['ank']=array_filter($zank, function($var) use ($x){return ($var['ANK_RN']==$x);});
+			//echo($v['ANK_RN']).'<br>';
+			$v['ank']=array_filter($zank, function($var) use ($x){return ($var['ANK_RN']===$x);});
+
 		}
 		unset($zank);
-
-		//print_r($zfcac);
-		//print_r($zank);
-		//$x=0;
 		PersonnelPostsHistory::model()->deleteAll();
 
 		
@@ -197,9 +203,11 @@ class MyDbase extends CFormModel{
 			$date_begin=date('d.m.Y',strtotime(substr($v['STARTDATE'] , 6,2).'.'.substr($v['STARTDATE'] , 4,2).'.'.substr($v['STARTDATE'] ,0,4)));
 			$date_end=date('d.m.Y',strtotime(substr($v['ENDDATE'] , 6,2).'.'.substr($v['ENDDATE'] , 4,2).'.'.substr($v['ENDDATE'] ,0,4)));
 			$date_end=($date_end!='01.01.1970')?$date_end:NULL;
+			if(!empty($v['ank']))
 			foreach ($v['ank'] as $z) {
+
 				$pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>trim($z['ORGBASE_RN']))));
-				
+				//echo $pers->surname.' | '.$z['ORGBASE_RN'].'<br>';
 				$postH=new PersonnelPostsHistory();
 				$postH->id_personnel=$pers->id;
 				$postH->is_main=$v['ISMAINISP'];
@@ -216,16 +224,13 @@ class MyDbase extends CFormModel{
 					}//else{
 				}
 			}
-			//$x++;
-			//if ($x>20)
-			//	break;
-
 		}
 		//PersonnelPostsHistory::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
 
  		//return $zfcac;
  		//return $wtf;
  		echo 'Синхронизация завершена';
+ 		
  	}
 
 

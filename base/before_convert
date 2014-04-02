@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 cd /home/al/localhost/www/glass/base
-#sudo mount.cifs -o username=guest,password="" //sun/onko2003/data onko2003/
+sudo mount.cifs -o username=guest,password="" //sun/onko2003/data onko2003/
 
 echo "start"
 
@@ -13,21 +13,21 @@ cp onko2003/ZPOSTCH.DBF ZPOSTCH.DBF
 cp onko2003/zsubdiv.dbf zsubdiv.dbf
 cp onko2003/zTipDol.DBF zTipDol.DBF
 
-rm *.xls
-rm *.csv
+#rm *.xls
+#rm *.csv
 
-soffice --convert-to xls *.*
+#soffice --convert-to xls *.*
 
-soffice --convert-to csv *.xls
+#soffice --convert-to csv *.xls
 
-rm *.xls
+#rm *.xls
 
 
 echo "end"
 
 exit
 
-#sudo umount onko2003
+sudo umount onko2003
 
 
 
