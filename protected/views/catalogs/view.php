@@ -33,7 +33,7 @@ if (!empty($docs)){
 		
 		if(!empty($v->link)){
 			$fl=explode('.', $v->link);
-			$file='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$v->link.'><img class=s16 src="'.Yii::app()->request->baseUrl.'/images/ico/'.$fl[1].'.png"></a>';
+			$file='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$v->link.'><img class=s16 src="'.Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png"></a>';
 		}else{
 			$file='нет вложений';
 		}

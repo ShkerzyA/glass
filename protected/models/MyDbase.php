@@ -95,6 +95,11 @@ class MyDbase extends CFormModel{
 		}
 
 		foreach ($personnel as $v) {
+				if(empty($v['PASSPORT_R'])){
+					//$pers=Personnel::model()->deleteAll(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>$v['ORBASE_RN'])));
+					continue;
+				}
+					
 
 				if($pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>$v['ORBASE_RN'])))){
 					$newpers=$pers;

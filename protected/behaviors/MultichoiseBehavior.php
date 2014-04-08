@@ -1,7 +1,7 @@
 <?php 
 class MultichoiseBehavior extends CActiveRecordBehavior{
 
-    public $own=array('DepartmentPosts'=>'groups','Tasks'=>'executors','Rooms'=>'managers');
+    public $own=array('DepartmentPosts'=>'groups','Tasks'=>'executors','Rooms'=>'managers','Catalogs'=>'groups');
 
     private function getField(){
         $model_name=trim(get_class($this->owner));

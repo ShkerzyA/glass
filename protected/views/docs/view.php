@@ -22,7 +22,7 @@ $this->menu=array(
 
 		if(!empty($model->link)){
 			$fl=explode('.', $model->link);
-			$file='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$model->link.'><img class=s16 src="'.Yii::app()->request->baseUrl.'/images/ico/'.$fl[1].'.png"></a>';
+			$file='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$model->link.'><img class=s16 src="'.Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png"></a>';
 		}else{
 			$file='нет вложений';
 		}
