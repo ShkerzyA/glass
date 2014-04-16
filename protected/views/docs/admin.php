@@ -44,7 +44,7 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->post' ),
+		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->surname' ),
 		'doc_name',
 		'link',
 		'date_begin',

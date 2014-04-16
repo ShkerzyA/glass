@@ -46,7 +46,7 @@ $('.search-form form').submit(function(){
 		'id',
 		'name',
 		'description',
-		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->post' ),
+		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->surname' ),
 		array( 'name'=>'idRoomid_room', 'value'=>'$data->idRoom->idCabinet->cname' ),
 		'timestamp',
 		/*

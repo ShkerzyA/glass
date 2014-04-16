@@ -51,7 +51,7 @@ function getAjax_groups(){
 
 function getAjax_posts(){
 	var dep=$('#id_dep').val();
-	$.post('/glass/DepartmentPosts/depposts',{id_department: dep},function(data,status){
+	$.post('/glass/Personnel/depposts',{id_department: dep},function(data,status){
 		if(status=='success'){
 			show_groups(data);
 		}
@@ -61,7 +61,7 @@ function getAjax_posts(){
 function getAjax_roomposts(){
 	var search=$('#search_surname').val();
 	//alert(search);
-	$.post('/glass/DepartmentPosts/deppostsall',{search: search},function(data,status){
+	$.post('/glass/Personnel/deppostsall',{search: search},function(data,status){
 		if(status=='success'){
 			show_groups(data);
 		}

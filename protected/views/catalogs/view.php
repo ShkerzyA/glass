@@ -19,8 +19,8 @@ $this->menu=array(
 <a href=/glass/docs/create?Docs[id_catalog]=<?php echo $model->id ?>><div class="add_unit">Добавить документ</div></a>
 
 <h6 style="text-align: right; margin: 2px"><span style='color: #D0D0D0'>владелец: </span> <?php 
-echo ($model->owner0->post);
-$person=$model->owner0->personnelPostsHistories[0]->idPersonnel;
+//echo ($model->owner0->post);
+$person=$model->owner0;
 
 echo ('  <i>'.$person->surname.' '.mb_substr($person->name,0,1,'utf-8').'. '.mb_substr($person->patr,0,1,'utf-8').'.</i>');
 ?></h6> 

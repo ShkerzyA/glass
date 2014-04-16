@@ -65,6 +65,7 @@ class DepartmentPosts extends CActiveRecord
         // will receive user inputs.
         return array(
             array('islead, upd_flag', 'numerical', 'integerOnly'=>true),
+            array('rate', 'numerical'),
             array('post', 'length', 'max'=>200),
             array('post_subdiv_rn', 'length', 'max'=>10),
             array('date_begin, date_end', 'safe'),
@@ -72,13 +73,15 @@ class DepartmentPosts extends CActiveRecord
             array('groups', 'safe'),
             // The following rule is used by search().
             // Please remove those attributes that should not be searched.
-            array('id, post, date_begin, date_end, islead, upd_flag groups, post_rn, post_subdiv_rn,personnelPostsHistoriesid_post,postSubdivRnpost_subdiv_rn', 'safe', 'on'=>'search'),
+            array('id, post, date_begin, date_end, islead, upd_flag groups, post_rn, post_subdiv_rn,personnelPostsHistoriesid_post,postSubdivRnpost_subdiv_rn,rate', 'safe', 'on'=>'search'),
         );
     }
 
 
     public function freeOnly()
     {   
+
+        return True;
 
     	if(!empty($_POST['DepartmentPosts']))
     		$this->attributes=$_POST['DepartmentPosts'];
@@ -127,6 +130,7 @@ class DepartmentPosts extends CActiveRecord
             'personnelPostsHistoriesid_post' => 'id_post',
             'postSubdivRnpost_subdiv_rn' => 'post_subdiv_rn',
             'groups' => 'Группы',
+            'rate' => 'Ставка',
 		);
 	}
 
@@ -149,6 +153,7 @@ class DepartmentPosts extends CActiveRecord
         $criteria->compare('islead',$this->islead);
         $criteria->compare('post_rn',$this->post_rn,true);
         $criteria->compare('groups',$this->groups,true);
+        $criteria->compare('rate',$this->rate);
         if(!empty($_GET['post_subdiv_rn']))
                 $criteria->compare('post_subdiv_rn',$_GET['post_subdiv_rn']);
         else

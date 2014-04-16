@@ -28,7 +28,7 @@ class DepartmentPostsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','depposts','deppostsall'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -52,29 +52,7 @@ class DepartmentPostsController extends Controller
 		$this->render('import',array('result'=>$result));
 	}
 
-	public function actionDepposts(){
-		if(Yii::app()->request->isAjaxRequest){
-			$model=DepartmentPosts::model()->working()->with("postSubdivRn")->findall(array('condition'=>'"postSubdivRn".id='.$_POST['id_department']));
-			$this->renderPartial('choise_posts', array('model'=>$model), false, true);
-		}else{
-			exit();
-		}
-	}
 
-	public function actionDeppostsAll(){
-		if(Yii::app()->request->isAjaxRequest){
-			if(!empty($_POST['search'])){
-				$surname=$_POST['search'];
-			}else{
-				$surname='no';
-			}
-
-			$model=DepartmentPosts::model()->working()->with("personnelPostsHistories","personnelPostsHistories.idPersonnel")->findall(array('condition'=>'LOWER("idPersonnel".surname) LIKE (\''.mb_strtolower($surname,'UTF-8').'%\')'));
-			$this->renderPartial('choise_managers', array('model'=>$model), false, true);
-		}else{
-			exit();
-		}
-	}
 
 	/**
 	 * Displays a particular model.

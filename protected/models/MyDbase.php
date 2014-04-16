@@ -147,15 +147,13 @@ class MyDbase extends CFormModel{
 
 		foreach ($posts as &$v) {
 			$t=$v['POST_RN'];
-			$v['zpostch']=array_filter($zpostch, function($var) use ($t){return ($var['POSTBS_RN']==$t);});
+			$v['zpostch']=array_filter($zpostch, function($var) use ($t){return ($var['POSTBS_RN']===$t);});
 			$v['ztipdol']=$ztipdol[$v['TIPDOL_RN']];
 		}
 
 		foreach ($posts as $v) {
 
 			foreach ($v['zpostch'] as $z) {
-				$i=0;
-				while($i<$z['STQNT']){
 						if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn and upd_flag is NULL','params'=>array(":post_rn"=>$v['POST_RN'])))){
 							$depPost=$findPost;
 						}else{
@@ -172,10 +170,9 @@ class MyDbase extends CFormModel{
        						$depPost->post_subdiv_rn='XXXX';
        					}
        					$depPost->upd_flag=1;
+       					$depPost->rate=$z['STQNT'];
        					$depPost->save();
-       					$i++;
        					//var_dump($depPost->getErrors()); //вызывает задвоение	
-				}
 			}
 				
 		}
@@ -215,9 +212,9 @@ class MyDbase extends CFormModel{
 			echo ($v['FCAC_RN'].'<br>');
 
 			if(!empty(trim($v['POST_RN']))){
-				$posts=DepartmentPosts::model()->findAll(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));	
+				$post=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));	
 			}else{
-				$posts=DepartmentPosts::model()->findAll(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$posts_tabl[$v['TIPDOL_RN']]['POST_RN'])));
+				$post=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$posts_tabl[$v['TIPDOL_RN']]['POST_RN'])));
 			}
 			
 			$date_begin=date('d.m.Y',strtotime(substr($v['STARTDATE'] , 6,2).'.'.substr($v['STARTDATE'] , 4,2).'.'.substr($v['STARTDATE'] ,0,4)));
@@ -238,16 +235,9 @@ class MyDbase extends CFormModel{
 				$postH->is_main=$v['ISMAINISP'];
 				$postH->date_begin=$date_begin;
 				$postH->date_end=$date_end;
+				$postH->id_post=$post->id;
+				$postH->save();
 				
-				foreach ($posts as $post){
-					if($post->freeOnly()){
-						$postH->id_post=$post->id;
-						$postH->save();
-						//var_dump($postH->getErrors());
-						//$wtf[]=$postH->attributes;
-						break;
-					}//else{
-				}
 			}
 		}
 		//PersonnelPostsHistory::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');

@@ -41,9 +41,9 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 		<?php echo $form->labelEx($model,'owner'); ?>
 
 		<?php 
-			$tmp=DepartmentPosts::model()->findall();
+			$tmp=Personnel::model()->findall();
 			echo $form->dropDownList($model,"owner",CHtml::listData($tmp,"id",function($tmp) {
-			return CHtml::encode($tmp->post);}),array('empty' => '')); ?>
+			return CHtml::encode($tmp->surname.' '.$tmp->name.' '.$tmp->patr);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'owner'); ?>
 	</div>
 

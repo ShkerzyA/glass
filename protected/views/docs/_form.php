@@ -22,11 +22,11 @@
 		<?php echo $form->labelEx($model,'creator'); ?>
 
 		<?php 
-		$tmp=DepartmentPosts::model()->with(array(
+		$tmp=Personnel::model()->with(array(
 			'personnelPostsHistories'=>array('order'=>'"personnelPostsHistories".date_begin DESC'),
 			))->findall();
 echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->personnelPostsHistories[0]->idPersonnel->surname.' '.$tmp->personnelPostsHistories[0]->idPersonnel->name.'('.$tmp->post.')');}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->surname.' '.$tmp->name.);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 

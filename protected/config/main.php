@@ -35,7 +35,7 @@ return array(
                     //'application.models.*',
                 ),
                 //'excludeModels'=>array(),
-         ),
+        ),
 		
 	),
 
@@ -120,7 +120,7 @@ return array(
 		),
 		
 		'db'=>array(
-			'connectionString' => 'pgsql:host=localhost;dbname=glass',
+			'connectionString' => 'pgsql:host=localhost;dbname=glassNG',
 			'username' => 'al',
 			'password' => '123',
 			'charset' => 'utf8',

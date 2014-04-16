@@ -87,9 +87,9 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'creator'); ?>
 
-		<?php $tmp=DepartmentPosts::model()->working()->findall();
+		<?php $tmp=Personnel::model()->working()->findall();
 echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->personnelPostsHistories[0]->idPersonnel->surname.' '.$tmp->personnelPostsHistories[0]->idPersonnel->name);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->surname.' '.$tmp->name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 <?php endif; ?>

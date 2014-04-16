@@ -32,7 +32,7 @@ class PersonnelController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','phones','rootFillTree','AjaxFillTree'),
+				'actions'=>array('index','view','phones','rootFillTree','AjaxFillTree','depposts','deppostsall'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -69,7 +69,33 @@ class PersonnelController extends Controller
         $this->renderPartial('admin_post_hist', array('models'=>$dataprov,'id'=>$id), false, true);
 	}
 
+	/*
+	
 
+	public function actionDeppostsAll(){
+		if(Yii::app()->request->isAjaxRequest){
+			if(!empty($_POST['search'])){
+				$surname=$_POST['search'];
+			}else{
+				$surname='no';
+			}
+
+			$model=DepartmentPosts::model()->working()->with("personnelPostsHistories","personnelPostsHistories.idPersonnel")->findall(array('condition'=>'LOWER("idPersonnel".surname) LIKE (\''.mb_strtolower($surname,'UTF-8').'%\')'));
+			$this->renderPartial('choise_managers', array('model'=>$model), false, true);
+		}else{
+			exit();
+		}
+	}
+	*/
+
+	public function actionDepposts(){
+		if(Yii::app()->request->isAjaxRequest){
+			$model=Personnel::model()->working()->with('personnelPostsHistories')->with('personnelPostsHistories.idPost')->with("personnelPostsHistories.idPost.postSubdivRn")->findall(array('condition'=>'"postSubdivRn".id='.$_POST['id_department']));
+			$this->renderPartial('choise_posts', array('model'=>$model), false, true);
+		}else{
+			exit();
+		}
+	}
 
 	public function actionView($id)
 	{
@@ -77,6 +103,8 @@ class PersonnelController extends Controller
 			'model'=>$this->loadModel($id)->with('workplaces,PersonnelPostsHistory'),
 		));
 	}
+
+
 
 	/**
 	 * Creates a new model.

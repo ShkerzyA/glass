@@ -133,9 +133,9 @@ function init(){
 		<div class="row">
 		<?php echo $form->labelEx($model,'creator'); ?>
 
-		<?php $tmp=DepartmentPosts::model()->findall();
+		<?php $tmp=Personnel::model()->findall();
 echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->post);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->surname.' '.$tmp->name.' '.$tmp->patr);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 

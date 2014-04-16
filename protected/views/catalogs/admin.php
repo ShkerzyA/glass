@@ -46,7 +46,7 @@ $('.search-form form').submit(function(){
 		'id',
 		array( 'name'=>'catalogsid_parent', 'value'=>'$data->catalogs->cat_name' ),
 		'cat_name',
-		array( 'name'=>'owner0owner', 'value'=>'$data->owner0->post' ),
+		array( 'name'=>'owner0owner', 'value'=>'$data->owner0->surname." ".$data->owner0->name." ".$data->owner0->patr' ),
 		'groups',
 		array(
 			'class'=>'CButtonColumn',

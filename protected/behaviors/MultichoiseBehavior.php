@@ -30,6 +30,8 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
                 }
             }      //array_unique чтоб одинаковых групп кучу не вписывали  
             $this->owner->$val='{'.$this->owner->$val.'}';
+
+            echo $this->owner->$val;
            
 
                     

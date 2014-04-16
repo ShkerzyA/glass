@@ -8,12 +8,8 @@ class FixedOwnerBehavior extends CActiveRecordBehavior{
             $model_name=trim(get_class($this->owner));
             $val=$this->own[$model_name];
             switch ($model_name) {
-                case 'TasksActions':
-                case 'EventsActions':
-                        $this->owner->$val=Yii::app()->user->id_pers;  
-                    break;
                 default:
-                        $this->owner->$val=Yii::app()->user->id_posts[0];  
+                        $this->owner->$val=Yii::app()->user->id_pers; 
                     break;
             }
 

@@ -67,6 +67,8 @@ class PersonnelPostsHistory extends CActiveRecord
 	public function freeOnly()
     {   
 
+    	return false;
+
     	if(!empty($_POST['PersonnelPostsHistory']))
     		$this->attributes=$_POST['PersonnelPostsHistory'];
 

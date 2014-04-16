@@ -31,7 +31,7 @@ $this->menu=array(
 			echo "<tr><td class='persList'>";
 			if (!empty($dp->islead))
 				echo '<b>';
-			echo $dp->post."</b></td><td class='persList'>";
+			echo $dp->post." (".$dp->rate.")</b></td><td class='persList'>";
 			if(!empty($dp->personnelPostsHistories)){
 			foreach($dp->personnelPostsHistories as $personnelPh){
 

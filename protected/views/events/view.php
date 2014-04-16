@@ -10,14 +10,14 @@ $this->breadcrumbs=array(
 
 Yii::app()->clientScript->registerPackage('eventactions');
 if(!(Yii::app()->user->isGuest)){
- 	$posts=Yii::app()->user->id_posts;
+ 	$id_pers=Yii::app()->user->id_pers;
 }else{
-	$posts=array();
+	$id_pers=array();
 }
 	$this->menu=array(
 		array('label'=>'Список', 'url'=>array('index'),'visible'=>(Yii::app()->user->role=='administrator')),
 		array('label'=>'Создать', 'url'=>array('create'),'visible'=>(Yii::app()->user->role=='administrator')),
-		array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>(in_array($model->creator,$posts))),
+		array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>($model->creator==$id_pers)),
 		array('label'=>'Удалить', 'url'=>'#','visible'=>(Yii::app()->user->role=='administrator'), 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 		array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 	);
@@ -49,7 +49,7 @@ if(!(Yii::app()->user->isGuest)){
 echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: left;"><h2>'.$model->name.'</h2></div>
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->date.' ('.$model->timestamp.'-'.$model->timestamp_end.')<br>
-		Создатель:  '.$model->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$model->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</i></div>'.
+		Создатель:  '.$model->creator0->surname.' '.$model->creator0->name.' '.$model->creator0->patr.'</i></div>'.
 		'<hr><p class="norm_text"><pre>'.$model->description.'</pre></p>
 		</div> ';
 

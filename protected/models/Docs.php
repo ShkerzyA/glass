@@ -90,7 +90,7 @@ public $creator0creator;
 		// class name for the relations automatically generated below.
 		return array(
 			'idCatalog' => array(self::BELONGS_TO, 'Catalogs', 'id_catalog'),
-			'creator0' => array(self::BELONGS_TO, 'DepartmentPosts', 'creator'),
+			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
 		);
 	}
 
@@ -124,7 +124,7 @@ public $creator0creator;
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('idCatalog' => array('alias' => 'catalogs'),'creator0' => array('alias' => 'departmentposts'),);
+		$criteria->with=array('idCatalog' => array('alias' => 'catalogs'),'creator0' => array('alias' => 'personnel'),);
 		$criteria->compare('id',$this->id);
 		if(!empty($_GET['creator']))
 				$criteria->compare('creator',$_GET['creator']);
@@ -140,7 +140,7 @@ public $creator0creator;
 		else
 				$criteria->compare('id_catalog',$this->id_catalog);
 		$criteria->compare('catalogs.id_catalog',$this->idCatalogid_catalog,true);
-		$criteria->compare('departmentposts.post',$this->creator0creator,true);
+		$criteria->compare('personnel.post',$this->creator0creator,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

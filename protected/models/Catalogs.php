@@ -94,7 +94,7 @@ public $owner0owner;
 			'docs' => array(self::HAS_MANY, 'Docs', 'id_catalog'),
 			'idParent' => array(self::BELONGS_TO, 'Catalogs', 'id_parent'),
 			'catalogs' => array(self::HAS_MANY, 'Catalogs', 'id_parent'),
-			'owner0' => array(self::BELONGS_TO, 'DepartmentPosts', 'owner'),
+			'owner0' => array(self::BELONGS_TO, 'Personnel', 'owner'),
 		);
 	}
 
@@ -127,7 +127,7 @@ public $owner0owner;
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('docs' => array('alias' => 'docs'),'idParent' => array('alias' => 'catalogsP'),'catalogs' => array('alias' => 'catalogs'),'owner0' => array('alias' => 'departmentposts'),);
+		$criteria->with=array('docs' => array('alias' => 'docs'),'idParent' => array('alias' => 'catalogsP'),'catalogs' => array('alias' => 'catalogs'),'owner0' => array('alias' => 'personnel'),);
 		$criteria->compare('id',$this->id);
 		if(!empty($_GET['id_parent']))
 				$criteria->compare('t.id_parent',$_GET['id_parent']);
@@ -142,7 +142,7 @@ public $owner0owner;
 		$criteria->compare('docs.id_catalog',$this->docsid_catalog,true);
 		$criteria->compare('catalogsP.id',$this->idParentid_parent,true);
 		$criteria->compare('catalogs.id',$this->catalogsid_parent,true);
-		$criteria->compare('departmentposts.post',$this->owner0owner,true);
+		$criteria->compare('personnel.surname',$this->owner0owner,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

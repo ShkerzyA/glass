@@ -170,7 +170,7 @@ public $idRoomid_room;
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'creator0' => array(self::BELONGS_TO, 'DepartmentPosts', 'creator'),
+			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
 			'idRoom' => array(self::BELONGS_TO, 'Rooms', 'id_room'),
 			'EventsActions' => array(self::HAS_MANY, 'EventsActions', 'id_event','alias'=>'EventsActions','order'=>'"EventsActions".timestamp DESC'),
 		);
