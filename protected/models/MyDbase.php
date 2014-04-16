@@ -190,6 +190,7 @@ class MyDbase extends CFormModel{
  	public function personnelPostsHistoryImport(){
 
  		//$wtf=array();
+ 		
  		$zfcac=$this->read_table('ZFCAC.DBF');
  		$zank=$this->read_table('zank.dbf','ANK_RN');
 
@@ -200,14 +201,33 @@ class MyDbase extends CFormModel{
 
 		}
 		unset($zank);
+		$posts_tabl=$this->read_table('ZPOST.DBF','TIPDOL_RN');
 		PersonnelPostsHistory::model()->deleteAll();
 
-		
+		//$g=0;
 		foreach ($zfcac as $v) {
-			$posts=DepartmentPosts::model()->findAll(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));
+			/*$g++;
+			if($g>100){
+				break;
+			}*/
+
+			//echo '|'.$v['POST_RN'].'|<br>';
+			echo ($v['FCAC_RN'].'<br>');
+
+			if(!empty(trim($v['POST_RN']))){
+				$posts=DepartmentPosts::model()->findAll(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));	
+			}else{
+				$posts=DepartmentPosts::model()->findAll(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$posts_tabl[$v['TIPDOL_RN']]['POST_RN'])));
+			}
+			
 			$date_begin=date('d.m.Y',strtotime(substr($v['STARTDATE'] , 6,2).'.'.substr($v['STARTDATE'] , 4,2).'.'.substr($v['STARTDATE'] ,0,4)));
-			$date_end=date('d.m.Y',strtotime(substr($v['ENDDATE'] , 6,2).'.'.substr($v['ENDDATE'] , 4,2).'.'.substr($v['ENDDATE'] ,0,4)));
-			$date_end=($date_end!='01.01.1970')?$date_end:NULL;
+			if(strripos($v['ENDDATE'],'8888')){
+				$date_end=NULL;
+			}else{
+				$date_end=date('d.m.Y',strtotime(substr($v['ENDDATE'] , 6,2).'.'.substr($v['ENDDATE'] , 4,2).'.'.substr($v['ENDDATE'] ,0,4)));
+				$date_end=($date_end!='01.01.1970')?$date_end:NULL;	
+			}
+			
 			if(!empty($v['ank']))
 			foreach ($v['ank'] as $z) {
 
