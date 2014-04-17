@@ -175,7 +175,7 @@ class TasksController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	public function actionHelpDesk($id_department,$type=0){
+	public function actionHelpDesk($id_department,$type=1){
 		$this->layout='//layouts/column2';
 
 		$fu=new TasksActions;
@@ -200,7 +200,7 @@ class TasksController extends Controller
 				break;
 			
 			default:
-				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status not in (4)",'order'=>"status asc,timestamp desc"));
+				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status in (0,1) ",'order'=>"status asc,timestamp desc"));
 				break;
 		}
 

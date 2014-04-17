@@ -13,11 +13,7 @@
  * @property integer $creator
  * @property integer $executor
  *		 * The followings are the available model relations:
-
-
  * @property DepartmentPosts $creator0
-
-
  * @property DepartmentPosts $executor0
  */
 class Tasks extends CActiveRecord
@@ -99,13 +95,14 @@ class Tasks extends CActiveRecord
 		return array(
 			array('type, creator, id_department, status', 'numerical', 'integerOnly'=>true),
 			array('tname', 'length', 'max'=>100),
+			array('group', 'length', 'max'=>255),
 			array('ttext, timestamp, timestamp_end', 'safe'),
 
 			array('executors', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tname, ttext, timestamp, timestamp_end, type, id_department, status, creator, executors,creator0creator,executor0executor', 'safe', 'on'=>'search'),
+			array('id, tname, ttext, timestamp, timestamp_end, type, id_department, status, creator, executors,creator0creator,executor0executor,group', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -139,6 +136,7 @@ class Tasks extends CActiveRecord
 			'id_department' => 'Отдел', 
 			'status' => 'Статус',
 			'creator0creator' => 'Создатель',
+			'group' => 'Группа',
 		);
 	}
 
@@ -146,10 +144,18 @@ class Tasks extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
+
+	public function beforeSave(){
+		$this->group='{'.$this->group.'}';
+		return parent::beforeSave();
+	}
+
+    public function afterFind(){
+    	$this->group=substr($this->group,1,-1);
+		return parent::afterFind();
+    } 
+
+	public function search(){
 
 		$criteria=new CDbCriteria;
 
@@ -161,6 +167,7 @@ class Tasks extends CActiveRecord
 		$criteria->compare('timestamp_end',$this->timestamp_end,true);
 		$criteria->compare('id_department',$this->id_department,true);
 		$criteria->compare('status',$this->status,true);
+		$criteria->compare('group',$this->group,true);
 		$criteria->compare('type',$this->type);
 		if(!empty($_GET['creator']))
 				$criteria->compare('creator',$_GET['creator']);

@@ -93,6 +93,17 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 <?php endif; ?>
+
+<?php if($model->scenario!='insert'):?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'group'); ?>
+
+		<?php $tmp=PostsGroups::model()->findall();
+echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",function($tmp) {
+				return CHtml::encode($tmp->group_name);}),array('empty' => '')); ?>
+		<?php echo $form->error($model,'group'); ?>
+	</div>
+<?php endif; ?>
  <!--
 	<div class="row">
 		<?php //echo $form->labelEx($model,'executor'); ?>
