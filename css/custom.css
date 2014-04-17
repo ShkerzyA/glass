@@ -542,3 +542,11 @@ textarea{
 	/*box-shadow: 1px 1px 3px 0 #000000, -2px -2px 3px 0 #FFFFFF;*/
 
 }
+
+.red{
+	color: red;
+}
+
+.green{
+	color: green;
+}

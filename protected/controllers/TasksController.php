@@ -198,7 +198,11 @@ class TasksController extends Controller
 			case '2':
 				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." ",'order'=>"status asc,timestamp desc"));
 				break;
-			
+
+			//за день
+			case '3':
+				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and (timestamp>'".date('d.m.Y')." 00:00:00' or timestamp_end>'".date('d.m.Y')." 00:00:00')",'order'=>"status asc,timestamp desc"));
+				break;
 			default:
 				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status in (0,1) ",'order'=>"status asc,timestamp desc"));
 				break;

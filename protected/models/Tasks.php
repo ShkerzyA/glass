@@ -60,11 +60,11 @@ class Tasks extends CActiveRecord
 	}
 
 	public function gimmeStatus(){
-		$status=array(  0 => array('label'=>'Назначено','css_class'=>'open'),
-						1 => array('label'=>'Принято','css_class'=>'open'),
-						2 => array('label'=>'Выполнено','css_class'=>'done'),
-						3 => array('label'=>'Не выполнено','css_class'=>'closed'),
-						4 => array('label'=>'Подтверждено выполнение','css_class'=>'done'));
+		$status=array(  0 => array('label'=>'Назначено','css_class'=>'open','css_status'=>'red'),
+						1 => array('label'=>'Принято','css_class'=>'open','css_status'=>'green'),
+						2 => array('label'=>'Выполнено','css_class'=>'done','css_status'=>'green'),
+						3 => array('label'=>'Не выполнено','css_class'=>'closed','css_status'=>'red'),
+						4 => array('label'=>'Подтверждено выполнение','css_class'=>'done','css_status'=>'green'));
 		return $status[$this->status];
 	}
 

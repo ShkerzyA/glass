@@ -13,7 +13,9 @@ $this->menu['all_menu']=array(
 	array('title'=>'Фильтры задач','items'=>array(
 		array('label'=>'По умолчанию', 'url'=>array('HelpDesk?id_department='.$model[0]->id_department.'&&type=0'),'items'=>array(
 		)),
-		array('label'=>'Текущие', 'url'=>array('HelpDesk?id_department='.$model[0]->id_department.'&&type=1'),'items'=>array(
+		array('label'=>'В работе', 'url'=>array('HelpDesk?id_department='.$model[0]->id_department.'&&type=1'),'items'=>array(
+
+			array('label'=>'За сегодня', 'url'=>array('HelpDesk?id_department='.$model[0]->id_department.'&&type=3')),
 			array('label'=>'Все', 'url'=>array('HelpDesk?id_department='.$model[0]->id_department.'&&type=2')),
 		)),
 	))
@@ -33,7 +35,7 @@ $this->menu['all_menu']=array(
 		<div class="taskpanel <?php echo $status['css_class']; ?>">
 			<?php echo $v['tname']; ?>
 			<div style="position: relative; float: right;">
-				<?php 	echo $status['label'].' '; 
+				<?php 	echo ('<span class='.$status['css_status'].'>'.$status['label'].' </span>'); 
 						if(!empty($v->executor0)){
 							echo('('.$v->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->name,0,1,"utf8").'. '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->patr,0,1,"utf8").'.)');	
 						}
