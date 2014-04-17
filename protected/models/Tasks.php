@@ -59,6 +59,11 @@ class Tasks extends CActiveRecord
 		return $status;
 	}
 
+	public function tasksUnits(){
+
+		return $result;
+	}
+
 	public function gimmeStatus(){
 		$status=array(  0 => array('label'=>'Назначено','css_class'=>'open','css_status'=>'red'),
 						1 => array('label'=>'Принято','css_class'=>'open','css_status'=>'green'),
@@ -115,7 +120,7 @@ class Tasks extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
-			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),
+			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp ASC'),
 		);
 	}
 

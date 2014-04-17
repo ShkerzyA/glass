@@ -24,6 +24,7 @@ $this->menu['all_menu']=array(
 
 ?>
 <meta http-equiv="Refresh" content="60" />
+<a href=<?php echo(Yii::app()->request->baseUrl) ?>/tasks/helpDesk?id_department=1012&&group=deedfdf><div class="inset">Электрики</div></a>
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=1011">
 <div id="add_task" class="add_unit fl_right">добавить задачу</div>
 </a>
