@@ -11,12 +11,13 @@
 	'method'=>'get',
 )); ?>
 
+
 		<div class="inline">
 		<?php echo $form->label($model,'allfields'); ?>
 		<?php echo $form->textField($model,'allfields',array('size'=>50,'maxlength'=>50)); ?>
 	</div>
 	
-	<div class="row buttons">
+	<div class="row buttons inline">
 		<?php echo CHtml::submitButton('Поиск'); ?>
 	</div>
 

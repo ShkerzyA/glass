@@ -24,7 +24,7 @@
 
 <body>
 <?php if(!(Yii::app()->user->isGuest)): ?>
-	<?php if ((Yii::app()->user->role=='!administrator') or (Yii::app()->user->username=='pvn') or true): ?>
+	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
 		<div id='omsk'><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/nyan.gif"></div>
 	<?php endif; ?>
 <?php endif; ?>

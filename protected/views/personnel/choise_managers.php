@@ -13,9 +13,7 @@
 <br>
 <?php 
 	foreach ($model as $v){
-		if(!empty($v->personnelPostsHistories[0])){
-			echo "<div id='$v->id' text='".$v->personnelPostsHistories[0]->idPersonnel->surname."  ".$v->personnelPostsHistories[0]->idPersonnel->name."' class='join_managers'>".$v->personnelPostsHistories[0]->idPersonnel->surname."  ".$v->personnelPostsHistories[0]->idPersonnel->name."/".$v->post."</div>";	
-		}
+			echo "<div id='$v->id' text='".$v->surname."  ".$v->name."' class='join_managers'>".$v->surname."  ".$v->name."</div>";	
 		
 	}
 ?>

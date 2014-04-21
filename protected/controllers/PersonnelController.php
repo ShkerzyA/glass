@@ -69,7 +69,7 @@ class PersonnelController extends Controller
         $this->renderPartial('admin_post_hist', array('models'=>$dataprov,'id'=>$id), false, true);
 	}
 
-	/*
+	
 	
 
 	public function actionDeppostsAll(){
@@ -80,13 +80,13 @@ class PersonnelController extends Controller
 				$surname='no';
 			}
 
-			$model=DepartmentPosts::model()->working()->with("personnelPostsHistories","personnelPostsHistories.idPersonnel")->findall(array('condition'=>'LOWER("idPersonnel".surname) LIKE (\''.mb_strtolower($surname,'UTF-8').'%\')'));
+			$model=Personnel::model()->working()->with('personnelPostsHistories')->with('personnelPostsHistories.idPost')->with("personnelPostsHistories.idPost.postSubdivRn")->findall(array('condition'=>'LOWER("t".surname) LIKE (\''.mb_strtolower($surname,'UTF-8').'%\')'));
 			$this->renderPartial('choise_managers', array('model'=>$model), false, true);
 		}else{
 			exit();
 		}
 	}
-	*/
+	
 
 	public function actionDepposts(){
 		if(Yii::app()->request->isAjaxRequest){
