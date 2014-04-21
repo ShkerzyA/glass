@@ -113,9 +113,9 @@ class TasksController extends Controller
 			echo $_POST['stat'];
 			$model->status=$_POST['stat'];
 
-			//if(($_POST['stat']==1 or $_POST['stat']==2) and(empty($model->executor))){
-			//	$model->executor=Yii::app()->user->id_posts[0];
-			//}
+			if($_POST['stat']==1 or $_POST['stat']==2){
+				$model->timestamp_end=date('d.m.Y H:i:s');
+			}
 
 
 			$model->save();
