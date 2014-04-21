@@ -552,6 +552,22 @@ textarea{
 }
 
 .inset2{
+	/*box-shadow:  0px 0px 0px 1px white, 0px 0px 0px 2px black ; */
+	 box-shadow: 3px 0px 1px 1px rgba(0, 0, 0, .7);
+	position: relative;
+	float: left;
+	padding: 5px;
+	margin-right: 5px;
+}
+
+.inset2.active{
+	box-shadow: 3px -3px 1px 1px rgba(0, 0, 0, .7);
+}
+
+/*
+
+
+.inset2{
 	border-radius: 3px;
 	box-shadow: 0px -4px 1px 1px black;
 	position: relative;
@@ -575,3 +591,4 @@ textarea{
 .downp{
 	background: white;
 }
+*/
