@@ -11,7 +11,7 @@ class TasksController extends Controller
 	public $group;
 
 	public $tasks_menu=array(
-		array('name'=>'Компьютерщики','id_department'=>'1011','group'=>''),
+		array('name'=>'IT crowd','id_department'=>'1011','group'=>''),
 		array('name'=>'Плотники','id_department'=>'1074','group'=>'carpenters'),
 		array('name'=>'Сантехники','id_department'=>'1074','group'=>'plumbers'),
 		array('name'=>'Электрики','id_department'=>'1074','group'=>'electricians'),
@@ -185,7 +185,7 @@ class TasksController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	public function actionHelpDesk($id_department,$type=1,$group=NULL){
+	public function actionHelpDesk($id_department,$type=3,$group=NULL){
 		$this->layout='//layouts/column2';
 		$this->id_department=$id_department;
 		$this->group=$group;
@@ -213,7 +213,7 @@ class TasksController extends Controller
 
 			//за день
 			case '3':
-				$condition="id_department=".$id_department." and (timestamp>'".date('d.m.Y')." 00:00:00' or timestamp_end>'".date('d.m.Y')." 00:00:00')";
+				$condition="id_department=".$id_department." and ((timestamp>'".date('d.m.Y')." 00:00:00' or timestamp_end>'".date('d.m.Y')." 00:00:00') or status in (0,1))";
 				$order="status asc,timestamp desc";
 				break;
 			default:

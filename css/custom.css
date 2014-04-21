@@ -7,7 +7,7 @@
 	margin: 30px 30px 0 0;
 	border: 2px solid #bfbfbf;
 	padding: 5px;
-	border-radius: 5px;
+	border-radius: 2px;
 	background-color: #dfdfdf;
 }
 
@@ -150,7 +150,7 @@ select,option{
 	padding: 2px;
 	height: 20px;
 
-	border-radius: 4px;
+	border-radius: 2px;
 	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
 }
 
@@ -201,7 +201,7 @@ select,option{
 	margin: 0 auto;
 	padding: 3px;
 	border: 2px groove #ffffff;
-	border-radius: 4px;
+	border-radius: 2px;
 	position: absolute;
 	text-align: left;
 
@@ -237,7 +237,7 @@ select,option{
 
 .taskpanel{
 	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
-	border-radius: 3px;
+	border-radius: 2px;
 	padding: 2px;
 	background: #fabaca;
 	margin: 5px;
@@ -283,7 +283,7 @@ select,option{
 }
 
 .portlet-decoration, .portlet-content{
-	border-radius: 5px;
+	border-radius: 2px;
 
 }
 
@@ -301,7 +301,7 @@ select,option{
 	padding: 2px;
 	height: 26px;
 
-	border-radius: 4px;
+	border-radius: 2px;
 	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
 	cursor: pointer;
 	width: 32%;
@@ -315,7 +315,7 @@ select,option{
 	margin-top: 15px;
 	min-height: 50px;
 	padding: 4px;
-	border-radius: 3px;
+	border-radius: 2px;
 	box-shadow: 1px 1px 5px 5px white;
 }
 
@@ -352,7 +352,7 @@ pre {
 
 
 #taskbody{
-	border-radius: 3px; 
+	border-radius: 2px; 
 	min-height: 46px; 
 
 	padding: 10px;
@@ -440,7 +440,7 @@ textarea{
 
 	position: absolute;
 	width: 98%;
-	border-radius: 3px;
+	border-radius: 2px;
 	border: 1px solid gray;
 	overflow: hidden;
 	z-index: 2;
@@ -553,22 +553,23 @@ textarea{
 
 .inset2{
 	/*box-shadow:  0px 0px 0px 1px white, 0px 0px 0px 2px black ; */
-	 box-shadow: 3px 0px 1px 1px rgba(0, 0, 0, .7);
+	
+	box-shadow: -2px 0px 1px 1px rgba(0, 0, 0, .7);
 	position: relative;
 	float: left;
 	padding: 5px;
-	margin-right: 5px;
+	margin-right: 7px;
 }
 
 .inset2.active{
-	box-shadow: 3px -3px 1px 1px rgba(0, 0, 0, .7);
+	box-shadow: -2px -2px 1px 1px rgba(0, 0, 0, .7);
 }
 
 /*
 
 
 .inset2{
-	border-radius: 3px;
+	border-radius: 2px;
 	box-shadow: 0px -4px 1px 1px black;
 	position: relative;
 	float: left;

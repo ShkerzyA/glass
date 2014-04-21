@@ -48,7 +48,12 @@ $this->menu['all_menu']=array(
 						if(!empty($v->executor0)){
 							echo('('.$v->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->name,0,1,"utf8").'. '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->patr,0,1,"utf8").'.)');	
 						}
-						echo ' '.$v->timestamp; 
+						if(!empty($v->timestamp_end)){
+							echo '('.$v->timestamp_end.')';
+						}else{
+							echo '('.$v->timestamp.')';
+						}
+						
 				?>
 				
 			</div>
