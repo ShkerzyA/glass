@@ -19,9 +19,12 @@ $this->menu=array(
 
 
 	$status_arr=$model->getStatus();
-
 	$status=$model->gimmeStatus();
-	echo(CHtml::dropDownList('status_task',$model->status,$status_arr,array('class'=>$status['css_class']))); 
+
+	if(in_array($model->id_department,Yii::app()->user->id_departments) and (empty($model->group) or in_array($model->group,Yii::app()->user->group))){
+	
+		echo(CHtml::dropDownList('status_task',$model->status,$status_arr,array('class'=>$status['css_class']))); 
+	}
 ?>
 <div class=modal_window_back style="display: none"></div>
 <div id="add_task_act" class="add_unit fl_right">добавить сообщение</div>

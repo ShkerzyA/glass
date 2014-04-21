@@ -7,6 +7,16 @@ class TasksController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+	public $id_department;
+	public $group;
+
+	public $tasks_menu=array(
+		array('name'=>'Компьютерщики','id_department'=>'1011','group'=>''),
+		array('name'=>'Плотники','id_department'=>'1074','group'=>'carpenters'),
+		array('name'=>'Сантехники','id_department'=>'1074','group'=>'plumbers'),
+		array('name'=>'Электрики','id_department'=>'1074','group'=>'electricians'),
+		array('name'=>'Вентиляция','id_department'=>'1074','group'=>'ventilation'),
+		);
 
 	/**
 	 * @return array action filters
@@ -175,40 +185,46 @@ class TasksController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-	public function actionHelpDesk($id_department,$type=1){
+	public function actionHelpDesk($id_department,$type=1,$group=NULL){
 		$this->layout='//layouts/column2';
+		$this->id_department=$id_department;
+		$this->group=$group;
 
-		$fu=new TasksActions;
+		//$fu=new TasksActions;
 
-		//echo'<pre>';
-		//print_r($fu);
-		//echo'</pre>';
 
 		switch ($type) {
 			//все, кроме помеченных как просмотренные
 			case '0':
-				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status not in (4)",'order'=>"status asc,timestamp desc"));
+				$condition="id_department=".$id_department." and status not in (4)";
+				$order="status asc,timestamp desc";
 				break;
 			//текущие
 			case '1':
-				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status in (0,1) ",'order'=>"status asc,timestamp desc"));
+				$condition="id_department=".$id_department." and status in (0,1) ";
+				$order="status asc,timestamp desc";
 				break;
 			
 			//все
 			case '2':
-				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." ",'order'=>"status asc,timestamp desc"));
+				$condition="id_department=".$id_department." ";
+				$order="status asc,timestamp desc";
 				break;
 
 			//за день
 			case '3':
-				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and (timestamp>'".date('d.m.Y')." 00:00:00' or timestamp_end>'".date('d.m.Y')." 00:00:00')",'order'=>"status asc,timestamp desc"));
+				$condition="id_department=".$id_department." and (timestamp>'".date('d.m.Y')." 00:00:00' or timestamp_end>'".date('d.m.Y')." 00:00:00')";
+				$order="status asc,timestamp desc";
 				break;
 			default:
-				$model=Tasks::model()->findAll(array('condition'=>"id_department=".$id_department." and status in (0,1) ",'order'=>"status asc,timestamp desc"));
-				break;
+				
+			break;
 		}
 
+		if(!empty($this->group))
+			$condition.=" and '".$this->group."'=ANY(\"group\")";
 
+		$model=Tasks::model()->findAll(array('condition'=>$condition,'order'=>$order));
 
 		
 		$this->render('helpdesk',array(

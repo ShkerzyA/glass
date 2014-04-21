@@ -30,12 +30,14 @@ class UserIdentity extends CUserIdentity
 
             $temp='';
             $id_posts=array();
+            $id_departments=array();
 
             $islead=0;
             if(!empty($user->personnels->personnelPostsHistories))
             foreach ($user->personnels->personnelPostsHistories as $v){
                 $temp.=$v->idPost->groups;
                 $id_posts[]=$v->idPost->id;
+                $id_departments[]=$v->idPost->postSubdivRn->id;
                 if($v->idPost->islead==1){
                     $islead=1;
                 }
@@ -45,6 +47,7 @@ class UserIdentity extends CUserIdentity
 
             $this->setState('groups', $groups);
             $this->setState('id_posts',$id_posts);
+            $this->setState('id_departments',$id_departments);
             $this->setState('islead',$islead);
             $this->errorCode=self::ERROR_NONE;
         }
