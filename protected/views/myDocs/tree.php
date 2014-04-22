@@ -1,4 +1,4 @@
-<h1>Знания</h1>
+<h1>Документы</h1>
 <?php
 $this->widget(
     'CTreeView',

@@ -38,6 +38,12 @@ $this->menu['all_menu']=array(
 </a>
 <br><br><br>
 
+
+<?php 
+if($this->isHorn)
+	echo '<audio src="'.$this->horn.'" autoplay="true"></audio>';	
+?>
+
 <?php foreach ($model as $v): ?>
 	<a href=/glass/tasks/<?php echo $v->id; ?>>
 		<?php $status=$v->gimmeStatus(); ?>

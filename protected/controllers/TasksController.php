@@ -9,6 +9,8 @@ class TasksController extends Controller
 	public $layout='//layouts/column2';
 	public $id_department;
 	public $group;
+	public $horn;
+	public $isHorn;
 
 	public $tasks_menu=array(
 		array('name'=>'IT crowd','id_department'=>'1011','group'=>''),
@@ -18,6 +20,10 @@ class TasksController extends Controller
 		array('name'=>'Вентиляция','id_department'=>'1074','group'=>'ventilation'),
 		);
 
+	public function init(){
+		$this->horn=Yii::app()->request->baseUrl.'/media/tripod.ogg';
+		$this->isHorn=false;
+	}
 	/**
 	 * @return array action filters
 	 */
@@ -191,6 +197,22 @@ class TasksController extends Controller
 		$this->group=$group;
 
 		//$fu=new TasksActions;
+
+		if(!Yii::app()->user->isGuest){
+			$condition="id_department=".$id_department;
+			if(!empty($this->group))
+				$condition.=" and '".$this->group."'=ANY(\"group\")";
+			$order="timestamp desc LIMIT 10";
+			$model=Tasks::model()->findAll(array('condition'=>$condition,'order'=>$order));
+
+			if(in_array($this->id_department,Yii::app()->user->id_departments)){
+				if(Yii::app()->user->last_task!=$model[0]->id){
+					if(!empty(Yii::app()->user->last_task))
+						$this->isHorn=true;
+					Yii::app()->user->last_task=$model[0]->id;
+				}
+			}
+		}
 
 
 		switch ($type) {

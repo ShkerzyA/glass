@@ -13,7 +13,7 @@
 <br>
 <?php 
 	foreach ($model as $v){
-			echo "<div id='$v->id' text='".$v->surname."  ".$v->name."' class='join_managers'>".$v->surname."  ".$v->name."</div>";	
+			echo "<div id='$v->id' text='".$v->surname."  ".$v->name."' class='join_managers'>".$v->surname."  ".$v->name."/".$v->id."</div>";	
 		
 	}
 ?>

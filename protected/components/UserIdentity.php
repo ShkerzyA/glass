@@ -27,6 +27,7 @@ class UserIdentity extends CUserIdentity
             $this->setState('name', $user->personnels->name);
             $this->setState('patr', $user->personnels->patr);
             $this->setState('id_pers', $user->personnels->id);
+            $this->setState('last_task','');
 
             $temp='';
             $id_posts=array();

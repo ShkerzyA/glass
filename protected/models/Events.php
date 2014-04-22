@@ -33,7 +33,7 @@ class Events extends CActiveRecord
 	public static $modelLabelP='События';
 	
 	public $creator0creator;
-public $idRoomid_room;
+	public $idRoomid_room;
 
 
 	public static function model($className=__CLASS__)
@@ -154,6 +154,8 @@ public $idRoomid_room;
     	}
 
 	public function isChangeStatus(){
+		if(in_array('secretaries', Yii::app()->user->groups))
+			return true;
 		$managers=explode(',',$this->idRoom->managers);
 		if(in_array(Yii::app()->user->id_pers,$managers)){
 			return true;

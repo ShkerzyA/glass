@@ -43,13 +43,13 @@
 		<?php $this->widget('application.widgets.MyMenu',array(
 			'items'=>array(
 				array('label'=>'Справочник', 'url'=>array('/personnel/phones')),
-				array('label'=>'Кадры', 'url'=>array('/personnel')),
+				array('label'=>'Кадры', 'url'=>array('/personnel/index')),
                 array('label'=>'Отделы', 'url'=>array('/department/tree')),
-                array('label'=>'КККОД', 'url'=>array('/myAdmin')),
-                array('label'=>'Знания', 'url'=>array('/myDocs')),
-                array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk?id_department=1011')),
+                array('label'=>'КККОД', 'url'=>array('/myAdmin/index')),
+                array('label'=>'Документы', 'url'=>array('/myDocs/index')),
+                array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk','id_department'=>1011)),
                 array('label'=>'События', 'url'=>array('/rooms/show')),
-				array('label'=>'Админ', 'url'=>array('/admin'), 'visible'=>(Yii::app()->user->role=='administrator'))
+				array('label'=>'Админ', 'url'=>array('/admin/index'), 'visible'=>(Yii::app()->user->role=='administrator'))
 			),
 		)); ?>
 	</div><!-- mainmenu -->

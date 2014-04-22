@@ -26,7 +26,7 @@
 			'personnelPostsHistories'=>array('order'=>'"personnelPostsHistories".date_begin DESC'),
 			))->findall();
 echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->surname.' '.$tmp->name.);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->surname.' '.$tmp->name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 
