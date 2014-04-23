@@ -3,7 +3,7 @@
 /* @var $model Tasks */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('rooms/show'),
+	$model::$modelLabelP=>array('rooms/show'), 
 	$model->id,
 );
 
