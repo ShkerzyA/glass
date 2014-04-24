@@ -58,8 +58,18 @@ echo '<div class="comment " id="taskbody">
 
 		foreach ($model->TasksActions as $action){
 			echo'<div class="comment">';
+			
 			echo'<div class="comment-topline"><i>'.$action->creator0->surname.' '.$action->creator0->name.' '.$action->creator0->patr.'</i> &nbsp;&nbsp;&nbsp; '.$action->timestamp.'</div>';
 			echo'<div class="sign"></div>';
+
+			echo'<div style="position: relative; float: left; height: 60px; margin: 5px;"> <img height=100% src="';
+			if (!empty($action->creator0->photo)){
+				echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($action->creator0->photo)); 
+			}else{
+				echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
+			}
+			echo'"></div>';
+
 			if($action->type==0){
 				echo '<b>"'.$status_arr[$action->ttext].'"</b> Статус задачи изменен';
 			}else{
