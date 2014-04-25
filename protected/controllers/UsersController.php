@@ -104,8 +104,28 @@ class UsersController extends Controller
 	}
 
 	public function actionModalForm(){
+
+		
+
+		if(isset($_POST['Personnel']))
+		{
+
+			$mpers=Personnel::model()->findByPk(Yii::app()->user->id_pers);
+			$mpers->attributes=$_POST['Personnel'];
+			$mpers->save();
+		}
+
+		$model=Users::model()->findByPk(Yii::app()->user->id);
+		if(isset($_POST['Users']))
+		{
+			
+			$model->attributes=$_POST['Users'];
+			$model->save();
+			$this->redirect(array('/'));
+		}
+		
+
 		if(Yii::app()->request->isAjaxRequest){
-			$model=Users::model()->findByPk(Yii::app()->user->id);
 			$this->renderPartial('modalForm', array('model'=>$model), false, true);
 		}else{
 			exit();

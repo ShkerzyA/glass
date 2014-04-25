@@ -9,12 +9,10 @@ function init(){
 }
 $(document).ready(init());
 
-
-
 function load_modalForm(){
 	$.post('/glass/Users/modalForm',{},function(data,status){
 		if(status=='success'){
-			$('html').append('<div class="back"><div class="window_awesom"><div id="back" class="close_this"></div>'+ data + '</div>');
+			$('html').append('<div class="back"><div class="window_awesom" style="right: 5px; top: 5px;"><div id="back" class="close_this"></div>'+ data + '</div>');
 		}
 	},'html');
 }

@@ -149,12 +149,12 @@ class Personnel extends CActiveRecord
 
         $criteria=new CDbCriteria;
 
-        $criteria->order='photo ASC, surname ASC';
+        $criteria->order='t.photo ASC, t.surname ASC';
 
-        $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnelPostsHistories'),);
-        $criteria->compare('LOWER(surname)',mb_strtolower($this->surname,'UTF-8'),true);
-        $criteria->compare('LOWER(name)',mb_strtolower($this->name,'UTF-8'),true);
-        $criteria->compare('LOWER(patr)',mb_strtolower($this->patr,'UTF-8'),true);
+        $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnelPostsHistories'));
+        $criteria->compare('LOWER(t.surname)',mb_strtolower($this->surname,'UTF-8'),true);
+        $criteria->compare('LOWER(t.name)',mb_strtolower($this->name,'UTF-8'),true);
+        $criteria->compare('LOWER(t.patr)',mb_strtolower($this->patr,'UTF-8'),true);
         $criteria->compare('birthday',$this->birthday,true);
         $criteria->compare('date_begin',$this->date_begin,true);
         $criteria->compare('date_end',$this->date_end,true);
@@ -169,7 +169,7 @@ class Personnel extends CActiveRecord
         if(!empty($_GET['id_personnel']))
                 $criteria->compare('t.id',$_GET['id_personnel']);
         else
-                $criteria->compare('t.id',$this->id);
+                $criteria->compare('t.id',$this->id); 
         $criteria->compare('users.username',$this->idUserid_user,true);
         $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
         $criteria->compare('personnelPostsHistories.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
