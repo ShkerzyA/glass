@@ -223,7 +223,7 @@ class TasksController extends Controller
 				break;
 			//текущие
 			case '1':
-				$condition="id_department=".$id_department." and status in (0,1) ";
+				$condition="id_department=".$id_department." and status in (0,1,5) ";
 				$order="status asc,timestamp desc";
 				break;
 			
@@ -235,7 +235,7 @@ class TasksController extends Controller
 
 			//за день
 			case '3':
-				$condition="id_department=".$id_department." and ((timestamp>'".date('d.m.Y')." 00:00:00' or timestamp_end>'".date('d.m.Y')." 00:00:00') or status in (0,1))";
+				$condition="id_department=".$id_department." and ((timestamp>'".date('d.m.Y')." 00:00:00' or timestamp_end>'".date('d.m.Y')." 00:00:00') or status in (0,1,5))";
 				$order="status asc,timestamp desc";
 				break;
 			default:

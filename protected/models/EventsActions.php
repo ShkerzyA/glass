@@ -84,7 +84,7 @@ public $idEventid_event;
 		// class name for the relations automatically generated below.
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
-			'idEvent' => array(self::BELONGS_TO, 'Tasks', 'id_event'),
+			'idEvent' => array(self::BELONGS_TO, 'Events', 'id_event'),
 		);
 	}
 
@@ -116,7 +116,7 @@ public $idEventid_event;
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('creator0' => array('alias' => 'personnel'),'idEvent' => array('alias' => 'tasks'),);
+		$criteria->with=array('creator0' => array('alias' => 'personnel'),'idEvent' => array('alias' => 'events'),);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('ttext',$this->ttext,true);
 		$criteria->compare('timestamp',$this->timestamp,true);
@@ -130,7 +130,7 @@ public $idEventid_event;
 		else
 				$criteria->compare('creator',$this->creator);
 		$criteria->compare('personnel.creator',$this->creator0creator,true);
-		$criteria->compare('tasks.id_event',$this->idEventid_event,true);
+		$criteria->compare('events.id_event',$this->idEventid_event,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

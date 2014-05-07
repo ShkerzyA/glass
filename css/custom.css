@@ -253,6 +253,11 @@ select,option{
 	background: #ebf4e6;
 }
 
+.neurtal{
+	background: #fafafa;
+	color: gray;
+}
+
 .closed{
 	background: #f9ede8;
 }
@@ -552,6 +557,10 @@ textarea{
 
 .green{
 	color: green;
+}
+
+.gray{
+	color: gray;
 }
 
 .inset2{
