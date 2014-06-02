@@ -20,13 +20,13 @@ $this->menu=array(
 
 	$status_arr=$model->getStatus();
 	$status=$model->gimmeStatus();
-if(!(Yii::app()->user->isGuest)){
-	if(in_array($model->id_department,Yii::app()->user->id_departments) and (empty($model->group) or in_array($model->group,Yii::app()->user->group))){
-	
+	if(Yii::app()->user->checkAccess('saveStatus',array('mod'=>$model))){
 		echo(CHtml::dropDownList('status_task',$model->status,$status_arr,array('class'=>$status['css_class']))); 
 	}
-}
+
 ?>
+
+<?php if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))): ?>
 <div class=modal_window_back style="display: none"></div>
 <div id="add_task_act" class="add_unit fl_right">добавить сообщение</div>
 <div style="border: 1px solid grey; position: absolute; margin-top: 40px; z-index: 88; display: none; background: #F0F0F0" class=modal_window>
@@ -34,8 +34,10 @@ if(!(Yii::app()->user->isGuest)){
 	<textarea style="width: 98%;" name="message" id="message" placeholder="сохранить комментарий: ctrl+enter"></textarea><br>
 	<input type=button name="put_message" id="put_message" value="сохранить комментарий">
 </div>
-<div style="position: relative; clear: both;"></div>
 
+<?php endif; ?>
+<div style="position: relative; clear: both;"></div>
+<input type=hidden name=idmodel id=idmodel value="<?php echo $model->id ?>">
 <?php
 
 echo '<div class="comment " id="taskbody">

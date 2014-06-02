@@ -48,8 +48,16 @@ class TasksController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','saveMessage','saveStatus'),
+				'actions'=>array('create','update'),
 				'roles'=>array('user'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('saveMessage'),
+				'roles'=>array('saveMessage'=>array('mod'=>$mod=Tasks::model()->findByPk($id))),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('saveStatus'),
+				'roles'=>array('saveStatus'=>array('mod'=>$mod=Tasks::model()->findByPk($id))),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -97,24 +105,24 @@ class TasksController extends Controller
 		));
 	}
 
-	public function actionSaveMessage(){
+	public function actionSaveMessage($id){
 		if(Yii::app()->request->isAjaxRequest){
 			$model=new TasksActions;	
 			echo $_POST['mess'];
 			
 			$model->ttext=$_POST['mess'];
 			$model->type=1;
-			$model->id_task=Yii::app()->session['Task_id'];
+			$model->id_task=$id;
 
 			$model->save();
 		}
 	}	
 
-	public function actionSaveStatus(){
+	public function actionSaveStatus($id){
 		if(Yii::app()->request->isAjaxRequest){
 
 
-			$model=Tasks::model()->findByPk(Yii::app()->session['Task_id']);
+			$model=Tasks::model()->findByPk($id);
 			$model_act=new TasksActions;	
 			echo $_POST['stat'];
 			$model->status=$_POST['stat'];
@@ -123,13 +131,10 @@ class TasksController extends Controller
 				$model->timestamp_end=date('d.m.Y H:i:s');
 			}
 
-
 			$model->save();
-			
 			$model_act->ttext=$_POST['stat'];
 			$model_act->type=0;
-			$model_act->id_task=Yii::app()->session['Task_id'];
-
+			$model_act->id_task=$id;
 			$model_act->save();
 		}
 	}	

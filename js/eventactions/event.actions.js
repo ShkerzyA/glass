@@ -29,8 +29,9 @@ document.ready(init());
 
 function save_comment(){
 	mess=$('#message').val();
+    id=$('#idmodel').val();
     if (mess) {
-        $.post("/glass/events/saveMessage", {mess: mess},
+        $.post("/glass/events/saveMessage/"+id, {mess: mess},
             function(data, status) {
                 if (status == "success") {
                     $('#message').empty();
@@ -49,8 +50,9 @@ function save_comment(){
 
 function change_status(){
     stat=$('#status_task').val();
+    id=$('#idmodel').val();
     if (stat) {
-        $.post("/glass/events/saveStatus", {stat: stat},
+        $.post("/glass/events/saveStatus/"+id, {stat: stat},
             function(data, status) {
                 if (status == "success") {
                     window.location.reload();

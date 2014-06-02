@@ -43,6 +43,14 @@ class Tasks extends CActiveRecord
 		return 'tasks';
 	}
 
+	public function isChangeStatus(){
+		if(in_array($this->id_department,Yii::app()->user->id_departments) and (empty($this->group) or in_array($this->group,Yii::app()->user->group))){
+			return true; 
+		}else {
+			return false;
+		}
+	}
+
 	public function getStatus(){
 
 		$status=array(  0 => 'Назначено',

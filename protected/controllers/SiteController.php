@@ -46,6 +46,68 @@ class SiteController extends Controller
 		}
 	}
 
+public function actionInstall(){
+	$auth=Yii::app()->authManager;
+    $auth->clearAll();
+ 
+    //Операции управления пользователями.
+    $auth->createOperation('index', 'Просмотр');
+    $auth->createOperation('view', 'Просмотр');
+    $auth->createOperation('create', 'Создать');
+    $auth->createOperation('update', 'Создать');
+    $auth->createOperation('admin', 'Создать');
+    $auth->createOperation('delete', 'Создать');
+    $auth->createOperation('save', 'Сохранить');
+    $auth->createOperation('saveMessage', 'Сохранить Сообщение');
+    $auth->createOperation('saveStatus', 'Изменить статус Задачи');
+    $auth->createOperation('saveStatusEv', 'Изменить статус События');
+
+ 
+    //$bizRule='return Yii::app()->user->id==Tasks::loadmodel()->$params["id"]->u_id;';
+    //$task = $auth->createTask('OwnSaveMessage', 'изменение своих данных', $bizRule);
+    //$task->addChild('saveMessage');
+
+
+   	$bizRule='return (in_array($params["mod"]->id_department,Yii::app()->user->id_departments) and (empty($params["mod"]->group) or in_array($params["mod"]->group,Yii::app()->user->group)));';
+    $task = $auth->createTask('OwnSaveStatus', 'Изменение своих задач', $bizRule);
+    $task->addChild('saveStatus', 'Изменить статус');
+
+    $bizRule='$params["mod"]->isChangeStatus();';
+    $task = $auth->createTask('ManagerSaveStatusEv', 'Изменение подконтрольных событий', $bizRule);
+    $task->addChild('saveStatusEv', 'Изменить статус');
+
+    $guest = $auth->createRole('guest');
+	$guest->addChild('index');
+	$guest->addChild('view');    
+
+    $user = $auth->createRole('user');
+    $user->addChild('guest');
+    $user->addChild('create');
+  	$user->addChild('saveMessage');
+  	$user->addChild('OwnSaveStatus');
+  	$user->addChild('ManagerSaveStatusEv');
+
+    $moderator = $auth->createRole('moderator');
+    $moderator->addChild('user');
+    $moderator->addChild('update');
+    $moderator->addChild('save');
+    $moderator->addChild('saveStatus'); 
+    $moderator->addChild('saveStatusEv'); 
+
+
+    $administrator = $auth->createRole('administrator');
+    $administrator->addChild('moderator');
+    $administrator->addChild('admin');
+    $administrator->addChild('delete');
+
+
+	//Тут добавляется тот функционал, который не укладывается в общую пирамиду наследования  
+
+    $auth->save();
+ 
+    $this->render('install');
+}
+
 	/**
 	 * Displays the contact page
 	 */
