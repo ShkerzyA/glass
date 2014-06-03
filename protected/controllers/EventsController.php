@@ -61,40 +61,10 @@ class EventsController extends Controller
 	 */
 	public function actionView($id)
 	{
-		Yii::app()->session['Event_id']=$id;
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
 	}
-
-	public function actionSaveMessage($id){
-		if(Yii::app()->request->isAjaxRequest){
-			$model=new EventsActions;	
-			echo $_POST['mess'];
-			
-			$model->ttext=$_POST['mess'];
-			$model->type=1;
-			$model->id_event=$id;
-
-			$model->save();
-		}
-	}	
-
-	public function actionSaveStatus($id){
-		if(Yii::app()->request->isAjaxRequest){
-
-			$model=Events::model()->findByPk($id);
-			$model_act=new EventsActions;	
-			$model->status=$_POST['stat'];
-			$model->save();
-			
-			$model_act->ttext=$_POST['stat'];
-			$model_act->type=0;
-			$model_act->id_event=$id;
-
-			$model_act->save();
-		}
-	}	
 
 	/**
 	 * Creates a new model.

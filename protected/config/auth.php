@@ -92,7 +92,7 @@ return array (
   array (
     'type' => 1,
     'description' => 'Изменение подконтрольных событий',
-    'bizRule' => '$params["mod"]->isChangeStatus();',
+    'bizRule' => 'return $params["mod"]->isChangeStatus();',
     'data' => NULL,
     'children' => 
     array (

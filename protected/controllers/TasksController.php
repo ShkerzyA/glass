@@ -75,8 +75,6 @@ class TasksController extends Controller
 	 */
 	public function actionView($id)
 	{
-
-		Yii::app()->session['Task_id']=$id;
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
@@ -104,40 +102,6 @@ class TasksController extends Controller
 			'model'=>$model,
 		));
 	}
-
-	public function actionSaveMessage($id){
-		if(Yii::app()->request->isAjaxRequest){
-			$model=new TasksActions;	
-			echo $_POST['mess'];
-			
-			$model->ttext=$_POST['mess'];
-			$model->type=1;
-			$model->id_task=$id;
-
-			$model->save();
-		}
-	}	
-
-	public function actionSaveStatus($id){
-		if(Yii::app()->request->isAjaxRequest){
-
-
-			$model=Tasks::model()->findByPk($id);
-			$model_act=new TasksActions;	
-			echo $_POST['stat'];
-			$model->status=$_POST['stat'];
-
-			if($_POST['stat']==1 or $_POST['stat']==2){
-				$model->timestamp_end=date('d.m.Y H:i:s');
-			}
-
-			$model->save();
-			$model_act->ttext=$_POST['stat'];
-			$model_act->type=0;
-			$model_act->id_task=$id;
-			$model_act->save();
-		}
-	}	
 
 		public function actionCreateActions()
 	{

@@ -163,9 +163,7 @@ class Events extends CActiveRecord
 		return false;
 	}
 
-	/**
-	 * @return array relational rules.
-	 */
+	
 	public function relations()
 	{
 		// NOTE: you may need to adjust the relation name and the related

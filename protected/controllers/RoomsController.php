@@ -106,9 +106,10 @@ class RoomsController extends Controller
 		if(!empty(Yii::app()->session['Rooms_id'])){
 			$model=Rooms::model()->findByPk(Yii::app()->session['Rooms_id']);
 		}
-
+	
 		$week=array();
 
+		
 		switch (Yii::app()->session['Show_type']) {
 			case 'day':
 					$week['begin']=clone Yii::app()->session['Rooms_date'];
@@ -119,7 +120,7 @@ class RoomsController extends Controller
 					$dow=$week['begin']->format('N');
 					$week['begin']->modify('-'.($dow-1).' days');
 					$week['end']=clone Yii::app()->session['Rooms_date'];
-					$week['end']->modify('+'.(7-$dow).' days');
+					$week['end']->modify('+'.(7-$dow).' days'); 
 
 
 
@@ -130,8 +131,7 @@ class RoomsController extends Controller
 			default:
 				# code...
 				break;
-		}
-		
+		}	
 
 		
 		$this->render('show',array(

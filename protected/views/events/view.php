@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 );
 
 
-Yii::app()->clientScript->registerPackage('eventactions');
+Yii::app()->clientScript->registerPackage('actions');
 if(!(Yii::app()->user->isGuest)){
  	$id_pers=Yii::app()->user->id_pers;
 }else{
@@ -29,23 +29,19 @@ if(!(Yii::app()->user->isGuest)){
 	$status=$model->gimmeStatus();
 	if(!(Yii::app()->user->isGuest)){
 		if ($model->isChangeStatus()){
-			echo(CHtml::dropDownList('status_task',$model->status,$status_arr,array('class'=>$status['css_class']))); 	
+			echo(CHtml::dropDownList('status',$model->status,$status_arr,array('class'=>$status['css_class']))); 	
 		}
 	}
 	
 	
 ?>
-<?php if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))): ?>
-<div class=modal_window_back style="display: none"></div>
-<div id="add_task_act" class="add_unit fl_right">добавить сообщение</div>
-<div style="border: 1px solid grey; position: absolute; margin-top: 40px; z-index: 88; display: none; background: #F0F0F0" class=modal_window>
-	<div class=close_this style="align: right; "></div>
-	<textarea style="width: 98%;" name="message" id="message" placeholder="сохранить комментарий: ctrl+enter"></textarea><br>
-	<input type=button name="put_message" id="put_message" value="сохранить комментарий">
-</div>
-<?php endif; ?>
-<div style="position: relative; clear: both;"></div>
-<input type=hidden name=idmodel id=idmodel value="<?php echo $model->id ?>">
+<?php 
+if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))){
+	echo ActionHelper::message();
+}
+	echo ActionHelper::info($model);
+?>
+	
 
 <?php
 

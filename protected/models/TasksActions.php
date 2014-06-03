@@ -59,6 +59,20 @@ class TasksActions extends CActiveRecord
 			);
 	}
 
+	public function saveMessage(){
+
+		$this->ttext=$_POST['mess'];
+		$this->type=1;
+		$this->save();
+	}
+
+
+	public function saveStatus(){
+		$this->ttext=$_POST['stat'];
+		$this->type=0;
+		$this->save();
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

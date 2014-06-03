@@ -4,7 +4,7 @@ function init(){
 		$('.modal_window_back').hide();
 	});
 
-	$('#add_task_act').live('click',function(){ 
+	$('#add_act').live('click',function(){ 
 		$('.modal_window_back').show();
 		$('.modal_window').show();
 	});
@@ -19,7 +19,7 @@ function init(){
         }
     });
 
-    $('#status_task').live('change',function(){
+    $('#status').live('change',function(){
         change_status();
     });
 }
@@ -30,8 +30,9 @@ document.ready(init());
 function save_comment(){
 	mess=$('#message').val();
     id=$('#idmodel').val();
+    factoryObj=$('#factoryObj').val();
     if (mess) {
-        $.post("/glass/tasks/saveMessage/"+id, {mess: mess},
+        $.post("/glass/actions/saveMessage", {id: id, factoryObj: factoryObj, mess: mess},
             function(data, status) {
                 if (status == "success") {
                     $('#message').empty();
@@ -49,10 +50,12 @@ function save_comment(){
 
 
 function change_status(){
-    stat=$('#status_task').val();
+    stat=$('#status').val();
     id=$('#idmodel').val();
+    factoryObj=$('#factoryObj').val();
+
     if (stat) {
-        $.post("/glass/tasks/saveStatus/"+id, {stat: stat},
+        $.post("/glass/actions/saveStatus", {id: id, factoryObj: factoryObj ,stat: stat},
             function(data, status) {
                 if (status == "success") {
                     window.location.reload();

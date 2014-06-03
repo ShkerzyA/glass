@@ -29,13 +29,14 @@ class EventsActions extends CActiveRecord
 	public static $modelLabelP='EventsActions';
 	
 	public $creator0creator;
-public $idEventid_event;
+	public $idEventid_event;
 
 
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+
 
 	/**
 	 * @return string the associated database table name
@@ -57,6 +58,20 @@ public $idEventid_event;
 				'class'=>'application.behaviors.FixedOwnerBehavior',
 				),
 			);
+	}
+
+	public function saveMessage(){
+
+		$this->ttext=$_POST['mess'];
+		$this->type=1;
+		$this->save();
+	}
+
+
+	public function saveStatus(){
+		$this->ttext=$_POST['stat'];
+		$this->type=0;
+		$this->save();
 	}
 	/**
 	 * @return array validation rules for model attributes.

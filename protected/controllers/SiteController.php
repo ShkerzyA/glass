@@ -74,7 +74,7 @@ public function actionInstall(){
     $task = $auth->createTask('OwnSaveStatus', 'Изменение статуса задач своего отдела', $bizRule);
     $task->addChild('saveStatus', 'Изменить статус');
 
-    $bizRule='$params["mod"]->isChangeStatus();';
+    $bizRule='return $params["mod"]->isChangeStatus();';
     $task = $auth->createTask('ManagerSaveStatusEv', 'Изменение подконтрольных событий', $bizRule);
     $task->addChild('saveStatusEv', 'Изменить статус');
 
