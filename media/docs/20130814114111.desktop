@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=QIP 2012
-Exec=env WINEPREFIX="/home/al/.wine" wine C:\\\\Program\\ Files\\\\QIP\\ 2012\\\\qip.exe 
-Type=Application
-StartupNotify=true
-Comment=Нажмите, чтобы запустить QIP
-Path=/home/al/.wine/dosdevices/c:/Program Files/QIP 2012
-Icon=0096_qip.0
