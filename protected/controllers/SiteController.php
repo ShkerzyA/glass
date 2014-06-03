@@ -61,6 +61,8 @@ public function actionInstall(){
     $auth->createOperation('saveMessage', 'Сохранить Сообщение');
     $auth->createOperation('saveStatus', 'Изменить статус Задачи');
     $auth->createOperation('saveStatusEv', 'Изменить статус События');
+    $auth->createOperation('updateEv', 'Редактировать событие');
+
 
  
     //$bizRule='return Yii::app()->user->id==Tasks::loadmodel()->$params["id"]->u_id;';
@@ -69,12 +71,16 @@ public function actionInstall(){
 
 
    	$bizRule='return (in_array($params["mod"]->id_department,Yii::app()->user->id_departments) and (empty($params["mod"]->group) or in_array($params["mod"]->group,Yii::app()->user->group)));';
-    $task = $auth->createTask('OwnSaveStatus', 'Изменение своих задач', $bizRule);
+    $task = $auth->createTask('OwnSaveStatus', 'Изменение статуса задач своего отдела', $bizRule);
     $task->addChild('saveStatus', 'Изменить статус');
 
     $bizRule='$params["mod"]->isChangeStatus();';
     $task = $auth->createTask('ManagerSaveStatusEv', 'Изменение подконтрольных событий', $bizRule);
     $task->addChild('saveStatusEv', 'Изменить статус');
+
+    $bizRule='return $params["mod"]->creator==Yii::app()->user->id_pers;';
+    $task = $auth->createTask('OwnUpdateEv', 'Изменение своих событий', $bizRule);
+    $task->addChild('updateEv', 'Изменить статус');
 
     $guest = $auth->createRole('guest');
 	$guest->addChild('index');
@@ -86,6 +92,7 @@ public function actionInstall(){
   	$user->addChild('saveMessage');
   	$user->addChild('OwnSaveStatus');
   	$user->addChild('ManagerSaveStatusEv');
+  	$user->addChild('OwnUpdateEv');
 
     $moderator = $auth->createRole('moderator');
     $moderator->addChild('user');
@@ -93,6 +100,7 @@ public function actionInstall(){
     $moderator->addChild('save');
     $moderator->addChild('saveStatus'); 
     $moderator->addChild('saveStatusEv'); 
+    $moderator->addChild('updateEv'); 
 
 
     $administrator = $auth->createRole('administrator');

@@ -70,10 +70,17 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'updateEv' => 
+  array (
+    'type' => 0,
+    'description' => 'Редактировать событие',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'OwnSaveStatus' => 
   array (
     'type' => 1,
-    'description' => 'Изменение своих задач',
+    'description' => 'Изменение статуса задач своего отдела',
     'bizRule' => 'return (in_array($params["mod"]->id_department,Yii::app()->user->id_departments) and (empty($params["mod"]->group) or in_array($params["mod"]->group,Yii::app()->user->group)));',
     'data' => NULL,
     'children' => 
@@ -90,6 +97,17 @@ return array (
     'children' => 
     array (
       0 => 'saveStatusEv',
+    ),
+  ),
+  'OwnUpdateEv' => 
+  array (
+    'type' => 1,
+    'description' => 'Изменение своих событий',
+    'bizRule' => 'return $params["mod"]->creator==Yii::app()->user->id_pers;',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'updateEv',
     ),
   ),
   'guest' => 
@@ -117,6 +135,7 @@ return array (
       2 => 'saveMessage',
       3 => 'OwnSaveStatus',
       4 => 'ManagerSaveStatusEv',
+      5 => 'OwnUpdateEv',
     ),
   ),
   'moderator' => 
@@ -132,6 +151,7 @@ return array (
       2 => 'save',
       3 => 'saveStatus',
       4 => 'saveStatusEv',
+      5 => 'updateEv',
     ),
   ),
   'administrator' => 

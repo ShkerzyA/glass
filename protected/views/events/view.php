@@ -17,7 +17,7 @@ if(!(Yii::app()->user->isGuest)){
 	$this->menu=array(
 		array('label'=>'Список', 'url'=>array('index'),'visible'=>(Yii::app()->user->role=='administrator')),
 		array('label'=>'Создать', 'url'=>array('create'),'visible'=>(Yii::app()->user->role=='administrator')),
-		array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>($model->creator==$id_pers)),
+		array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('updateEv',array('mod'=>$model)))),
 		array('label'=>'Удалить', 'url'=>'#','visible'=>(Yii::app()->user->role=='administrator'), 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 		array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 	);
