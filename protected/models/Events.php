@@ -82,6 +82,17 @@ class Events extends CActiveRecord
 			return $pass;
 	}
 
+	public function isOwner(){
+		if(Yii::app()->user->isGuest)
+			return False;
+		if($this->creator==Yii::app()->user->id_pers)
+			return True;
+		else
+			return False;
+
+		
+	}
+
 	public function getRepeat(){
 		$repeat=array(  
 						1 => 'Каждый день',

@@ -81,7 +81,7 @@ return array (
   array (
     'type' => 1,
     'description' => 'Изменение статуса задач своего отдела',
-    'bizRule' => 'return (in_array($params["mod"]->id_department,Yii::app()->user->id_departments) and (empty($params["mod"]->group) or in_array($params["mod"]->group,Yii::app()->user->group)));',
+    'bizRule' => 'return $params["mod"]->isChangeStatus();',
     'data' => NULL,
     'children' => 
     array (
@@ -103,7 +103,7 @@ return array (
   array (
     'type' => 1,
     'description' => 'Изменение своих событий',
-    'bizRule' => 'return $params["mod"]->creator==Yii::app()->user->id_pers;',
+    'bizRule' => 'return $params["mod"]->isOwner()',
     'data' => NULL,
     'children' => 
     array (

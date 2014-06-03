@@ -70,7 +70,7 @@ public function actionInstall(){
     //$task->addChild('saveMessage');
 
 
-   	$bizRule='return (in_array($params["mod"]->id_department,Yii::app()->user->id_departments) and (empty($params["mod"]->group) or in_array($params["mod"]->group,Yii::app()->user->group)));';
+   	$bizRule='return $params["mod"]->isChangeStatus();';
     $task = $auth->createTask('OwnSaveStatus', 'Изменение статуса задач своего отдела', $bizRule);
     $task->addChild('saveStatus', 'Изменить статус');
 
@@ -78,7 +78,7 @@ public function actionInstall(){
     $task = $auth->createTask('ManagerSaveStatusEv', 'Изменение подконтрольных событий', $bizRule);
     $task->addChild('saveStatusEv', 'Изменить статус');
 
-    $bizRule='return $params["mod"]->creator==Yii::app()->user->id_pers;';
+    $bizRule='return $params["mod"]->isOwner()';
     $task = $auth->createTask('OwnUpdateEv', 'Изменение своих событий', $bizRule);
     $task->addChild('updateEv', 'Изменить статус');
 
