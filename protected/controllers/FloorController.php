@@ -111,7 +111,7 @@ class FloorController extends Controller
         echo str_replace(
             '"hasChildren":"0"',
             '"hasChildren":false',
-            CTreeView::saveDataAsJson($children)
+            MyTreeView::saveDataAsJson($children)
         );
         exit();
     }

@@ -157,7 +157,7 @@ class MyDbase extends CFormModel{
 						if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn and upd_flag is NULL','params'=>array(":post_rn"=>$v['POST_RN'])))){
 							$depPost=$findPost;
 						}else{
-							echo '1';
+							echo 'создана должность<br>';
 							$depPost=new DepartmentPosts();
 						}
        					$depPost->post=trim($v['ztipdol']['NAME']);

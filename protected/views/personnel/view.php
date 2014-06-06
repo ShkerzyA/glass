@@ -60,7 +60,7 @@ $this->menu=array(
 	echo"<br><div><h3>Рабочее место:</h3>";
 	if(!empty($model->workplaces->equipments)){
 		foreach($model->workplaces->equipments as $equipments){
-			echo'<div>'.CHtml::encode($equipments->ename).' (С/Н: '.CHtml::encode($equipments->serial).')</nobr></div>';
+			echo'<div>'.CHtml::encode($equipments->mark).' (С/Н: '.CHtml::encode($equipments->serial).')</nobr></div>';
 		}	
 	}
 	echo '</div>';

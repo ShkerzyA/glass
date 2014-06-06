@@ -11,8 +11,8 @@ $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
 	array('label'=>'Создать', 'url'=>array('create')),
 	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Управление', 'url'=>array('admin')),
+	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Вы уверены?')),
+	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
 ?>
 
@@ -21,13 +21,6 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
-array(               
-            	'label'=>'Workplace',
-            	'type'=>'raw',
-            	'value'=>CHtml::link(CHtml::encode($model->idWorkplace->wname),
-                array('Workplace/view','id'=>$model->idWorkplace->id)),
-        ),		'serial',
-		'ename',
+		'notes',
 	),
 )); ?>

@@ -27,8 +27,33 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'ename'); ?>
-		<?php echo $form->textField($model,'ename',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->label($model,'type'); ?>
+		<?php echo $form->textField($model,'type'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'producer'); ?>
+		<?php echo $form->textField($model,'producer'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'mark'); ?>
+		<?php echo $form->textField($model,'mark',array('size'=>60,'maxlength'=>200)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'inv'); ?>
+		<?php echo $form->textField($model,'inv',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'status'); ?>
+		<?php echo $form->textField($model,'status'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'notes'); ?>
+		<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
 	</div>
 
 	<div class="row buttons">

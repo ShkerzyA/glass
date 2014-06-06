@@ -43,9 +43,17 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
+		'id',
 		array( 'name'=>'idWorkplaceid_workplace', 'value'=>'$data->idWorkplace->wname' ),
 		'serial',
-		'ename',
+		'type',
+		'producer',
+		'mark',
+		/*
+		'inv',
+		'status',
+		'notes',
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

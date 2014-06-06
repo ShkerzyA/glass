@@ -17,11 +17,7 @@ Class ruleButton{
 			
 
 			$v['contr']=$contr;
-		if(Yii::app()->user->role=='administrator' or Yii::app()->user->role=='moderator'){
-
 			$parent=$contr::model()->find(array("condition"=>"id='$id'"));
-
-	
 			foreach (self::$corps[$contr] as $k => $val){
 				if($val['type']=='parent'){
 					$attr_arg[]="".$child."[".$k."]=".$parent->$val['val'];	
@@ -36,12 +32,14 @@ Class ruleButton{
 				
 			}
 			$attr='?'.implode('&&',$attr_arg);
-			
+			$v['action']="<a href=/glass/".$v['contr']."/update/".$id."><img align=right src=/glass/images/update.png></a>";
+			return $v;
+	}
 
 
-			$v['action']="<a href=/glass/".$child."/create/".$id."".$attr."><img align=right src=/glass/images/add.png></a><a href=/glass/".$v['contr']."/update/".$id."><img align=right src=/glass/images/update.png></a>";
-		}
-		return $v;
+	public static function add($id,$contr){
+		$parent=$contr::model()->find(array("condition"=>"id='$id'"));
+
 	}
 }
 ?>

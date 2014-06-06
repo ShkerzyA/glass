@@ -12,9 +12,9 @@ $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
 	array('label'=>'Создать', 'url'=>array('create')),
 	array('label'=>'Отобразить', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Управление ', 'url'=>array('admin')),
+	array('label'=>'Управление ', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
-	$this->menu["details"]=array(array('label'=>'Местоположение', 'url'=>array('Workplace/admin', 'id_workplace'=>$model->id)),
+	$this->menu["details"]=array(array('label'=>'Workplace', 'url'=>array('Workplace/admin', 'id_workplace'=>$model->id)),
 );
 ?>
 

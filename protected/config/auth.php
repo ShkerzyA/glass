@@ -56,6 +56,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'changeObjects' => 
+  array (
+    'type' => 0,
+    'description' => 'Создавать и изменять Здания, Этажи, Кабинеты, Рабочие места, Оборудование',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'saveStatus' => 
   array (
     'type' => 0,
@@ -149,9 +156,10 @@ return array (
       0 => 'user',
       1 => 'update',
       2 => 'save',
-      3 => 'saveStatus',
-      4 => 'saveStatusEv',
-      5 => 'updateEv',
+      3 => 'changeObjects',
+      4 => 'saveStatus',
+      5 => 'saveStatusEv',
+      6 => 'updateEv',
     ),
   ),
   'administrator' => 

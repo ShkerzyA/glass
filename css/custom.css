@@ -27,6 +27,10 @@
 	box-shadow: 1px 1px 3px 0px black, -2px -2px 3px 0px white;
 }
 
+li#create div{
+	background: url('../images/add.png') 99% 2px no-repeat #ebf4e6;
+}
+
 .fio{
 	text-align: center;
 }

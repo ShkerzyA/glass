@@ -7,7 +7,12 @@
  * @property integer $id
  * @property integer $id_workplace
  * @property string $serial
- * @property string $ename
+ * @property integer $type
+ * @property integer $producer
+ * @property string $mark
+ * @property string $inv
+ * @property integer $status
+ * @property string $notes
  *		 * The followings are the available model relations:
 
 
@@ -47,12 +52,14 @@ class Equipment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_workplace', 'numerical', 'integerOnly'=>true),
-			array('serial, ename', 'length', 'max'=>100),
+			array('id_workplace, type, producer, status', 'numerical', 'integerOnly'=>true),
+			array('serial, inv', 'length', 'max'=>100),
+			array('mark', 'length', 'max'=>200),
+			array('notes', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_workplace, serial, ename,idWorkplaceid_workplace', 'safe', 'on'=>'search'),
+			array('id, id_workplace, serial, type, producer, mark, inv, status, notes,idWorkplaceid_workplace', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -75,10 +82,15 @@ class Equipment extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'id_workplace' => 'Местонахождение',
-			'serial' => 'С/Н',
-			'ename' => 'Название',
-			'idWorkplaceid_workplace' => 'Местонахождение',
+			'id_workplace' => 'Рабочее место',
+			'serial' => 'Серийный номер',
+			'type' => 'Тип',
+			'producer' => 'Производитель',
+			'mark' => 'Модель',
+			'inv' => 'Инвентарный номер',
+			'status' => 'Состояние',
+			'notes' => 'Примечания',
+			'idWorkplaceid_workplace' => 'Рабочее место',
 		);
 	}
 
@@ -100,8 +112,13 @@ class Equipment extends CActiveRecord
 		else
 				$criteria->compare('id_workplace',$this->id_workplace);
 		$criteria->compare('serial',$this->serial,true);
-		$criteria->compare('ename',$this->ename,true);
-		$criteria->compare('workplace.wname',$this->idWorkplaceid_workplace,true);
+		$criteria->compare('type',$this->type);
+		$criteria->compare('producer',$this->producer);
+		$criteria->compare('mark',$this->mark,true);
+		$criteria->compare('inv',$this->inv,true);
+		$criteria->compare('status',$this->status);
+		$criteria->compare('notes',$this->notes,true);
+		$criteria->compare('workplace.id_workplace',$this->idWorkplaceid_workplace,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

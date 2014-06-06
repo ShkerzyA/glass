@@ -59,6 +59,7 @@ public function actionInstall(){
     $auth->createOperation('delete', 'Создать');
     $auth->createOperation('save', 'Сохранить');
     $auth->createOperation('saveMessage', 'Сохранить Сообщение');
+    $auth->createOperation('changeObjects', 'Создавать и изменять Здания, Этажи, Кабинеты, Рабочие места, Оборудование');
     $auth->createOperation('saveStatus', 'Изменить статус Задачи');
     $auth->createOperation('saveStatusEv', 'Изменить статус События');
     $auth->createOperation('updateEv', 'Редактировать событие');
@@ -98,6 +99,7 @@ public function actionInstall(){
     $moderator->addChild('user');
     $moderator->addChild('update');
     $moderator->addChild('save');
+    $moderator->addChild('changeObjects');
     $moderator->addChild('saveStatus'); 
     $moderator->addChild('saveStatusEv'); 
     $moderator->addChild('updateEv'); 
