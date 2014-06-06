@@ -40,15 +40,6 @@ class EventsController extends Controller
 				'roles'=>array('administrator'),
 			),
 
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('saveMessage'),
-				'roles'=>array('saveMessage'=>array('mod'=>$mod=Events::model()->findByPk($id))),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('saveStatus'),
-				'roles'=>array('saveStatusEv'=>array('mod'=>$mod=Events::model()->findByPk($id))),
-			),
-
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),

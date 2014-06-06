@@ -110,7 +110,7 @@ return array(
 		
 		'db'=>array(
 			'connectionString' => 'pgsql:host=localhost;dbname=glassNG',
-			'username' => 'al',
+			'username' => 'postgres',
 			'password' => '123',
 			'charset' => 'utf8',
 			'enableProfiling'=>true,
