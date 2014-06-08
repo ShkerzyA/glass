@@ -21,6 +21,13 @@ class Building extends CActiveRecord
 	 */
 	public static $modelLabelS='Здание';
 	public static $modelLabelP='Здания';
+
+	public static $tree=array(
+		'parent_id'=>'id',
+		'query'=>"SELECT m1.id, m1.bname AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM building AS m1 LEFT JOIN floor AS m2 ON m1.id=m2.id_building",
+		'group'=>'GROUP BY m1.id  ORDER BY m1.bname ASC',
+		'child'=>'Floor',
+		);
 	
 	public $floorsid_building;
 

@@ -25,6 +25,14 @@ class Floor extends CActiveRecord
 	 */
 	public static $modelLabelS='Этаж';
 	public static $modelLabelP='Этажи';
+
+	public static $tree=array(
+		'parent_id'=>'id_building',
+		'query'=>"SELECT m1.id, m1.fname AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM floor AS m1 LEFT JOIN cabinet AS m2 ON m1.id=m2.id_floor",
+		'group'=>'GROUP BY m1.id  ORDER BY m1.fnum ASC',
+		'child'=>'Cabinet',
+		'parent_id'=>'id_building'
+	);
 	
 	public $cabinetsid_floor;public $idBuildingid_building;
 

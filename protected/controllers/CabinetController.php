@@ -19,6 +19,13 @@ class CabinetController extends Controller
 		);
 	}
 
+	 public function actions()
+    {
+        return array(
+            'ajaxFillTree'=>'application.controllers.actions.actionAjaxFillTree',
+        );
+    }
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -99,41 +106,7 @@ class CabinetController extends Controller
 		));
 	}
 
-		public function actionAjaxFillTree()
-    {
-        // если пробуют получить прямой доступ к экшину (не через ajax)
-        // тогда обрубаем "крылья")) т.е. возвращаем белую страницу
-        if (!Yii::app()->request->isAjaxRequest) {
-            exit();
-        }
 
-        // с какого узла начинаем вывод дерева? 0 - с первого
-      	$parentId = '';
-        if (isset($_GET['root']) && $_GET['root'] !== 'source') {
-            $parentId = 'WHERE m1.id_cabinet='.(int)$_GET['root'].' ';
-        }
-        // сам запрос на получение данных детей (через обычный LEFT JOIN)
-        $req = Yii::app()->db->createCommand(
-            //"SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
-        	"SELECT m1.id, m1.wname AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM workplace AS m1 LEFT JOIN personnel AS m2 ON m1.id_personnel=m2.id $parentId GROUP BY m1.id  ORDER BY m1.wname ASC"
-        );
-
-        $children = $req->queryAll();
-
-        foreach ($children as &$v) {
-        	$v['contr']='Workplace';
-        }
-       
-
-        //print_r($children);
-        // возвращаем данные
-        echo str_replace(
-            '"hasChildren":"0"',
-            '"hasChildren":false',
-            MyTreeView::saveDataAsJson($children)
-        );
-        exit();
-    }
 
 	/**
 	 * Updates a particular model.

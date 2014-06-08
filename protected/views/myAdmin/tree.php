@@ -2,5 +2,5 @@
 <?php
 $this->widget(
     'MyTreeView',
-    array('url' => array('/Building/rootFillTree'),'control'=>'id','htmlOptions'=>array('class'=>'customtree'))
+    array('url' => array('/Building/ajaxFillTree'),'control'=>'id','htmlOptions'=>array('class'=>'customtree'))
 ); ?>

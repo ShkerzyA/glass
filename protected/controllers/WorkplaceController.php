@@ -19,6 +19,14 @@ class WorkplaceController extends Controller
 		);
 	}
 
+	
+	 public function actions()
+    {
+        return array(
+            'ajaxFillTree'=>'application.controllers.actions.actionAjaxFillTree',
+        );
+    }
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -128,7 +136,7 @@ class WorkplaceController extends Controller
 		));
 	}
 
-	public function actionAjaxFillTree()
+	public function actionAjaxddddFillTree()
     {
         // если пробуют получить прямой доступ к экшину (не через ajax)
         // тогда обрубаем "крылья")) т.е. возвращаем белую страницу
