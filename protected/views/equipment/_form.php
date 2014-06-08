@@ -3,6 +3,19 @@
 /* @var $model Equipment */
 /* @var $form CActiveForm */
 ?>
+<script>
+	function init(){
+		$('#Equipment_type').live('change',function(){ 
+
+			
+			$('#Equipment_producer option:first').attr('selected', 'selected');
+			$('.c0, .c1, .c2, .c3, .c4, .c5').hide();
+			$('.c'+($(this).val())).show();
+			
+		});
+	}
+	$(document).ready(init);
+</script>
 
 <div class="form">
 
@@ -21,7 +34,7 @@
 
 		<?php $tmp=Workplace::model()->findall();
 echo $form->dropDownList($model,"id_workplace",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->wname);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->idCabinet->cname.' '.$tmp->idCabinet->num.'/'.$tmp->wname);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_workplace'); ?>
 	</div>
 
@@ -36,7 +49,7 @@ echo $form->dropDownList($model,"id_workplace",CHtml::listData($tmp,"id",functio
 	<div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>
 
-		<?php echo $form->textField($model,'type'); ?>
+		<?php echo $form->dropDownList($model,'type',$model->getType()); ?>
 
 		<?php echo $form->error($model,'type'); ?>
 	</div>
@@ -44,7 +57,8 @@ echo $form->dropDownList($model,"id_workplace",CHtml::listData($tmp,"id",functio
 	<div class="row">
 		<?php echo $form->labelEx($model,'producer'); ?>
 
-		<?php echo $form->textField($model,'producer'); ?>
+		<?php $prod=$model->getProducer();?>
+		<?php echo $form->dropDownList($model,'producer',$prod['values'],array('empty' => '','options'=>$prod['css_class'])); ?>
 
 		<?php echo $form->error($model,'producer'); ?>
 	</div>
@@ -68,7 +82,7 @@ echo $form->dropDownList($model,"id_workplace",CHtml::listData($tmp,"id",functio
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 
-		<?php echo $form->textField($model,'status'); ?>
+		<?php echo $form->dropDownList($model,'status',$model->getStatus()); ?>
 
 		<?php echo $form->error($model,'status'); ?>
 	</div>

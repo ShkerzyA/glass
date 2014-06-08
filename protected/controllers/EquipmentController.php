@@ -79,6 +79,26 @@ class EquipmentController extends Controller
 		));
 	}
 
+
+		public function actionCreatePack()
+	{
+		$model=new Equipment;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Equipment']))
+		{
+			$model->attributes=$_POST['Equipment'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('createPack',array(
+			'model'=>$model,
+		));
+	}
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.

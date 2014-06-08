@@ -36,6 +36,14 @@ class Equipment extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function behaviors(){
+		return array(
+			'PreFill'=>array(
+				'class'=>'application.behaviors.PreFillBehavior',
+				),
+			);
+	}
+	
 	/**
 	 * @return string the associated database table name
 	 */
@@ -47,6 +55,36 @@ class Equipment extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
+	public function getType(){
+		return array(
+			0=>'Системный блок',
+			1=>'Монитор',
+			2=>'МФУ',
+			3=>'Переферия',
+			4=>'Сетевое оборудование',
+			5=>'Прочее',
+		);
+	}
+
+	public function getProducer(){
+		return array(
+			'values'=>(array(0=>'HP',1=>'Samsung',2=>'LOC')),
+			'css_class'=>(array(
+				0=>array('class'=>'c0 c2'),
+				1=>array('class'=>'c1 c2'),
+				2=>array('class'=>'c1'),)
+			),
+		);
+	}
+
+	public function getStatus(){
+		return array(
+			0=>'Активно',
+			1=>'Неактивно',
+			);
+	}
+
+
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that

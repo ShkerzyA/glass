@@ -25,30 +25,27 @@ $this->menu=array(
 </a>
 <?php endif; ?>
 
-<table id="personTbl" align=center>
 
-	<tr>
-		<td>Сотрудник:</td>
-		<td>Рабочее место:</td>
+
+<div style="clear: both"></div>
 <?php
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
 	if(!empty($model->workplaces)){
+		
 		foreach($model->workplaces as $wp){
-			echo "<tr><td class='persList'>";
+			echo'<a href="'.Yii::app()->request->baseUrl.'/Workplace/'.$wp->id.'"><div class="taskpanel open">';
 			echo $wp->idPersonnel->surname.' '.$wp->idPersonnel->name.' '.$wp->idPersonnel->patr;
-			echo"</td><td class='persList'>";
-			
 			if(!empty($wp->equipments)){
 				foreach($wp->equipments as $equipments){
-					echo'<div>'.CHtml::encode($equipments->ename).' (С/Н:'.CHtml::encode($equipments->serial).')</nobr></div>';
+					echo'<div>'.CHtml::encode($equipments->mark).' (С/Н:'.CHtml::encode($equipments->serial).')</nobr></div>';
 				}	
 			}else{
 				echo '-//-';
 			}
+
+		echo "</div></a>";
 		}
-		echo "</td></tr>";
 	}
 	
 ?>
-	</tr>
-</table>
+	
