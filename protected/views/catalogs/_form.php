@@ -51,7 +51,7 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'groups'); ?>
-		<?php echo Multichoise::getField($model); ?>
+		<?php echo Customfields::multigroup($model); ?>
 		<?php echo $form->error($model,'groups'); ?>
 	</div>
 

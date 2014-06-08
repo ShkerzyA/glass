@@ -15,9 +15,15 @@ $this->menu=array(
 	array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
-
+<?php $ruleWP=Yii::app()->user->checkAccess('ruleWorkplaces'); ?>
 
 <h3 algn=center><?php echo $model->idFloor->idBuilding->bname.'/'.$model->idFloor->fname.'<br>'.$model->cname.' каб. №'.$model->num.' (телефон: '.$model->phone.')'; ?></h3>
+
+<?php if($ruleWP):?>
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/workplace/create?Workplace[id_cabinet]=<?php echo $model->id ?>">
+	<div id="add_task" class="add_unit fl_right">добавить рабочее место</div>
+</a>
+<?php endif; ?>
 
 <table id="personTbl" align=center>
 

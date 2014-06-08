@@ -39,12 +39,19 @@
             }
         }
 
+        $attr='';
+        if(!empty($tree['parent_id']) and !empty($idP)){
+            $attr='?'.$modelName.'['.$tree['parent_id'].']='.$idP;
+        }
+
+        $children[]=array('id'=>'create'.$attr,'text'=>'Добавить','selfname'=>$modelName,'hasChildren'=>0);
+
         //print_r($children);
         // возвращаем данные
         echo str_replace(
             '"hasChildren":"0"',
             '"hasChildren":false',
-            MyTreeView::saveDataAsJson($children,$modelName,$tree['parent_id'],$idP)
+            MyTreeView::saveDataAsJson($children)
         ); 
         exit();
     }

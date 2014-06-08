@@ -6,6 +6,7 @@ Class ruleButton{
 			$v['action']="<a href=/glass/".$selfname."/update/".$id."><img align=right src=/glass/images/update.png></a>";
 			$v['contr']=$contr;
 			$v['selfname']=$selfname;
+			$v['hasChildren']=1; //Чтоб во все элементы добавлять, временное решение.
 			return $v;
 	}
 

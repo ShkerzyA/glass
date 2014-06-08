@@ -25,12 +25,13 @@ echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function(
 		<?php echo $form->error($model,'id_cabinet'); ?>
 	</div>
 
+
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_personnel'); ?>
 
-		<?php $tmp=Personnel::model()->findall();
-echo $form->dropDownList($model,"id_personnel",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->surname.' '.$tmp->name.' '.$tmp->patr);}),array('empty' => '')); ?>
+		<?php echo Customfields::searchPersonnel($model,'id_personnel'); ?>
+
 		<?php echo $form->error($model,'id_personnel'); ?>
 	</div>
 

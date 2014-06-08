@@ -37,9 +37,9 @@ if(!(Yii::app()->user->isGuest)){
 ?>
 <?php 
 if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))){
-	echo ActionHelper::message();
+	$this->renderPartial('/actions/message', array(), false, false);
 }
-	echo ActionHelper::info($model);
+	$this->renderPartial('/actions/info', array('model'=>$model), false, false);
 ?>
 	
 

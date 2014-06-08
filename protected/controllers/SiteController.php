@@ -63,6 +63,7 @@ public function actionInstall(){
     $auth->createOperation('saveStatus', 'Изменить статус Задачи');
     $auth->createOperation('saveStatusEv', 'Изменить статус События');
     $auth->createOperation('updateEv', 'Редактировать событие');
+    $auth->createOperation('ruleWorkplaces', 'Управление рабочими местами');
 
 
  
@@ -100,6 +101,7 @@ public function actionInstall(){
     $moderator->addChild('update');
     $moderator->addChild('save');
     $moderator->addChild('changeObjects');
+     $moderator->addChild('ruleWorkplaces');
     $moderator->addChild('saveStatus'); 
     $moderator->addChild('saveStatusEv'); 
     $moderator->addChild('updateEv'); 
