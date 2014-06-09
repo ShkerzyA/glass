@@ -120,6 +120,9 @@ class BuildingController extends Controller
         	}
         }
 
+       
+       
+
         //print_r($children);
         // возвращаем данные
         echo str_replace(
@@ -153,7 +156,7 @@ class BuildingController extends Controller
         $children = $req->queryAll();
 
         foreach ($children as &$v) {
-        	$v=array_merge($v,ruleButton::get($v[id],'Floor','Cabinet'));
+        	//$v=array_merge($v,ruleButton::get($v[id],'Floor','Cabinet'));
         }
 
        

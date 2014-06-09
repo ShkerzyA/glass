@@ -21,6 +21,7 @@ class Building extends CActiveRecord
 	 */
 	public static $modelLabelS='Здание';
 	public static $modelLabelP='Здания';
+	public static $child='Floor';
 	
 	public $floorsid_building;
 
