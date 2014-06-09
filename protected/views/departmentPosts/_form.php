@@ -76,7 +76,7 @@ echo $form->dropDownList($model,"post_subdiv_rn",CHtml::listData($tmp,"subdiv_rn
 
     <div class="row">
     <?php echo $form->labelEx($model,'groups'); ?>
-    <?php echo Multichoise::getField($model); ?>
+    <?php echo Customfields::multigroup(($model); ?>
     <?php echo $form->error($model,'groups'); ?>
   </div>
     

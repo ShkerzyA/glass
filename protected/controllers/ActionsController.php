@@ -14,7 +14,8 @@ class ActionsController extends Controller
 	 * @return array action filters
 	 */
 
-	public function init(){
+
+	public function init(){ 
 		switch ($_POST['factoryObj']) {
 			case 'events':
 				$this->parent=Events::model()->findByPk($_POST['id']);
@@ -67,7 +68,9 @@ class ActionsController extends Controller
 	public function actionSaveMessage(){
 
 		if(Yii::app()->request->isAjaxRequest){
-			$this->act->saveMessage();
+			if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$this->parent))){
+				$this->act->saveMessage();
+			}
 		}
 
 	}
@@ -75,14 +78,15 @@ class ActionsController extends Controller
 	public function actionSaveStatus(){
 
 		if(Yii::app()->request->isAjaxRequest){
+			if(Yii::app()->user->checkAccess('saveStatus',array('mod'=>$this->parent))){
 
-			$this->parent->status=$_POST['stat'];
-			if($_POST['stat']==1 or $_POST['stat']==2){
-				$this->parent->timestamp_end=date('d.m.Y H:i:s');
+				$this->parent->status=$_POST['stat'];
+				if($_POST['stat']==1 or $_POST['stat']==2){
+					$this->parent->timestamp_end=date('d.m.Y H:i:s');
+				}
+				$this->parent->save();
+				$this->act->saveStatus();
 			}
-			$this->parent->save();
-
-			$this->act->saveStatus();
 		}
 
 	}

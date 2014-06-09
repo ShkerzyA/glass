@@ -28,10 +28,10 @@ echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function(
 	<div class="row">
 		<?php echo $form->labelEx($model,'managers'); ?>
 
-		<?php echo Multichoise::getFieldRoomPosts($model); ?>
+		<?php echo Customfields::multiPersonnel($model,'managers'); ?>
 
 		<?php echo $form->error($model,'managers'); ?>
-	</div>
+	</div> 
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>

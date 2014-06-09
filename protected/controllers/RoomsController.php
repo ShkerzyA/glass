@@ -99,12 +99,14 @@ class RoomsController extends Controller
 		if(!empty($_GET['Show_type'])){
 			Yii::app()->session['Show_type']=$_GET['Show_type'];
 		}else if(empty(Yii::app()->session['Show_type'])){
-			Yii::app()->session['Show_type']='day';
+			Yii::app()->session['Show_type']='week';
 		}
 
 
 		if(!empty(Yii::app()->session['Rooms_id'])){
 			$model=Rooms::model()->findByPk(Yii::app()->session['Rooms_id']);
+		}else{
+			$model=new Rooms();
 		}
 	
 		$week=array();

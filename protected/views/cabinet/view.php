@@ -15,34 +15,37 @@ $this->menu=array(
 	array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
-
+<?php $ruleWP=Yii::app()->user->checkAccess('ruleWorkplaces'); ?>
 
 <h3 algn=center><?php echo $model->idFloor->idBuilding->bname.'/'.$model->idFloor->fname.'<br>'.$model->cname.' каб. №'.$model->num.' (телефон: '.$model->phone.')'; ?></h3>
 
-<table id="personTbl" align=center>
+<?php if($ruleWP):?>
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/workplace/create?Workplace[id_cabinet]=<?php echo $model->id ?>">
+	<div id="add_task" class="add_unit fl_right">добавить рабочее место</div>
+</a>
+<?php endif; ?>
 
-	<tr>
-		<td>Сотрудник:</td>
-		<td>Рабочее место:</td>
+
+
+<div style="clear: both"></div>
 <?php
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
 	if(!empty($model->workplaces)){
+		
 		foreach($model->workplaces as $wp){
-			echo "<tr><td class='persList'>";
+			echo'<a href="'.Yii::app()->request->baseUrl.'/Workplace/'.$wp->id.'"><div class="taskpanel open">';
 			echo $wp->idPersonnel->surname.' '.$wp->idPersonnel->name.' '.$wp->idPersonnel->patr;
-			echo"</td><td class='persList'>";
-			
 			if(!empty($wp->equipments)){
 				foreach($wp->equipments as $equipments){
-					echo'<div>'.CHtml::encode($equipments->ename).' (С/Н:'.CHtml::encode($equipments->serial).')</nobr></div>';
+					echo'<div>'.CHtml::encode($equipments->mark).' (С/Н:'.CHtml::encode($equipments->serial).')</nobr></div>';
 				}	
 			}else{
 				echo '-//-';
 			}
+
+		echo "</div></a>";
 		}
-		echo "</td></tr>";
 	}
 	
 ?>
-	</tr>
-</table>
+	

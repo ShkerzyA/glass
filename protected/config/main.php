@@ -58,12 +58,12 @@ return array(
 	'clientScript'=>array(
 	    'packages' => array(
 	       // Уникальное имя пакета
-	       'multichoise' => array(
+	       'customfields' => array(
 	            // Где искать подключаемые файлы JS и CSS
-	            'baseUrl' => '/glass/js/multichoise/',
+	            'baseUrl' => '/glass/js/customfields/',
 	            // Если включен дебаг-режим, то подключает /js/highcharts/highcharts.src.js
 	            // Иначе /js/highcharts/highcharts.js
-	            'js'=>array('multi.choise.js'),
+	            'js'=>array('custom.fields.js'),
 	            //'js'=>array(YII_DEBUG ? 'highcharts.src.js' : 'highcharts.js'),
 	            // Подключает файл /js/highcharts/highcharts.css
 	          	 // 'css' => array('highcharts.css'),
@@ -110,7 +110,7 @@ return array(
 		
 		'db'=>array(
 			'connectionString' => 'pgsql:host=localhost;dbname=glassNG',
-			'username' => 'al',
+			'username' => 'postgres',
 			'password' => '123',
 			'charset' => 'utf8',
 			'enableProfiling'=>true,
@@ -120,7 +120,7 @@ return array(
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
-		),
+		),/*
 		'log'=>array(
             'class'=>'CLogRouter',
             'routes'=>array(
@@ -131,7 +131,7 @@ return array(
             		'showInFireBug' => true
                 ),
             ),
-        ),
+        ),*/
 	),
 
 

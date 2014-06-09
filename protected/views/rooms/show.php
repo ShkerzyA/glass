@@ -2,10 +2,10 @@
 <?php
 /* @var $this RoomsController */
 /* @var $dataProvider CActiveDataProvider */
-
+/*
 $this->breadcrumbs=array(
 	''.$modelLabelP,
-);
+); */
 /*
 $this->menu=array(
 	array('label'=>'Создать', 'url'=>array('create'),'visible'=>(Yii::app()->user->role=='administrator')),
@@ -69,7 +69,6 @@ echo'</div>';
 echo'<div class="trinity_left">';
 $this->widget('zii.widgets.jui.CJuiDatePicker', array(
    'name' => 'date',
-   'model' => $event,
    'attribute' => 'date_begin',
    'language' => 'ru',
    'value' => $val=(!empty(Yii::app()->session['Rooms_date'])?Yii::app()->session['Rooms_date']->format('d.m.Y'):''),

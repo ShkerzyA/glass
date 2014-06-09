@@ -32,7 +32,7 @@ class PersonnelController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','phones','rootFillTree','AjaxFillTree','depposts','deppostsall'),
+				'actions'=>array('index','view','phones','rootFillTree','AjaxFillTree','depposts','surnameSearch'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -72,7 +72,7 @@ class PersonnelController extends Controller
 	
 	
 
-	public function actionDeppostsAll(){
+	public function actionSurnameSearch(){
 		if(Yii::app()->request->isAjaxRequest){
 			if(!empty($_POST['search'])){
 				$surname=$_POST['search'];
@@ -81,7 +81,7 @@ class PersonnelController extends Controller
 			}
 
 			$model=Personnel::model()->working()->with('personnelPostsHistories')->with('personnelPostsHistories.idPost')->with("personnelPostsHistories.idPost.postSubdivRn")->findall(array('condition'=>'LOWER("t".surname) LIKE (\''.mb_strtolower($surname,'UTF-8').'%\')'));
-			$this->renderPartial('choise_managers', array('model'=>$model), false, true);
+			$this->renderPartial('surnameSearch', array('model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$_POST['modelN']), false, true);
 		}else{
 			exit();
 		}

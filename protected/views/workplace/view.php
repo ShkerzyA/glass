@@ -18,6 +18,13 @@ $this->menu=array(
 
 <h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
 
+<?php $ruleWP=Yii::app()->user->checkAccess('ruleWorkplaces'); ?>
+<?php if($ruleWP):?>
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/create?Equipment[id_workplace]=<?php echo $model->id ?>">
+	<div id="add_task" class="add_unit fl_right">добавить оборудование</div>
+</a>
+<?php endif; ?>
+
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(

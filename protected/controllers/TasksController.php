@@ -51,14 +51,6 @@ class TasksController extends Controller
 				'actions'=>array('create','update'),
 				'roles'=>array('user'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('saveMessage'),
-				'roles'=>array('saveMessage'=>array('mod'=>$mod=Tasks::model()->findByPk($id))),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('saveStatus'),
-				'roles'=>array('saveStatus'=>array('mod'=>$mod=Tasks::model()->findByPk($id))),
-			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
 				'roles'=>array('administrator'),

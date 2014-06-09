@@ -26,6 +26,14 @@ class Workplace extends CActiveRecord
 	public static $modelLabelS='Рабочее место';
 	public static $modelLabelP='Рабочие места';
 	
+
+	public static $tree=array(
+		'parent_id'=>'id_cabinet',
+		'query'=>"SELECT m1.id, m1.wname AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM workplace AS m1 LEFT JOIN personnel AS m2 ON m1.id_personnel=m2.id",
+		'group'=>'GROUP BY m1.id  ORDER BY m1.wname ASC',
+		'child'=>'Personnel',
+	);
+
 	public $idPersonnelid_personnel;
 	public $idCabinetid_cabinet;
 	public $equipmentsid_workplace;

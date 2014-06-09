@@ -84,6 +84,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'ruleWorkplaces' => 
+  array (
+    'type' => 0,
+    'description' => 'Управление рабочими местами',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'OwnSaveStatus' => 
   array (
     'type' => 1,
@@ -157,9 +164,10 @@ return array (
       1 => 'update',
       2 => 'save',
       3 => 'changeObjects',
-      4 => 'saveStatus',
-      5 => 'saveStatusEv',
-      6 => 'updateEv',
+      4 => 'ruleWorkplaces',
+      5 => 'saveStatus',
+      6 => 'saveStatusEv',
+      7 => 'updateEv',
     ),
   ),
   'administrator' => 

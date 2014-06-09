@@ -206,6 +206,7 @@ class DepartmentController extends Controller
 
         foreach ($children as &$v) {
         	$v['contr']='Department';
+        	$v['selfname']='Department';
         }
        
 
