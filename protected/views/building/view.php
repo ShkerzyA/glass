@@ -3,7 +3,7 @@
 /* @var $model Building */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
+	'КККОД'=>array('/myAdmin/index'),
 	$model->bname,
 );
 
@@ -22,11 +22,9 @@ $this->menu=array(
 <?php
 if (!empty ($model->floors))
 	foreach ($model->floors as $floor) {
-		echo '<div>'.$floor->fname;
+		echo '<div class="hipanel done">'.$floor->fname;
 		if(!empty($floor->cabinets))
-			foreach ($floor->cabinets as $cabinet) {
-				echo '<a href='.Yii::app()->homeUrl.'Cabinet/'.$cabinet->id.'><div>'.$cabinet->cname.' каб. №'.$cabinet->num.'</div></a>';
-			}
+			$this->renderPartial('/cabinet/compactview',array('cabinets'=>$floor->cabinets),false,false);
 		echo'</div>';
 	}
 

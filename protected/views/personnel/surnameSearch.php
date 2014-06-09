@@ -15,11 +15,11 @@
 
 	if(!empty($modelN)){
 		foreach ($model as $v){
-			echo "<div id='$v->id' text='".$v->surname."  ".$v->name."' class='replace_personnel' field=".$modelN."[".$field."]>".$v->surname."  ".$v->name."/".$v->id."</div>";	
+			echo "<div id='$v->id' text='".$v->surname." ".$v->name." ".$v->patr."' class='replace_personnel' field=".$modelN."[".$field."]>".$v->surname." ".$v->name." ".$v->patr."</div>";	
 		}	
 	}else{
 		foreach ($model as $v){
-			echo "<div id='$v->id' text='".$v->surname."  ".$v->name."' class='join_personnel' field=".$field.">".$v->surname."  ".$v->name."/".$v->id."</div>";	
+			echo "<div id='$v->id' text='".$v->surname." ".$v->name." ".$v->patr."' class='join_personnel' field=".$field.">".$v->surname." ".$v->name." ".$v->patr."</div>";	
 		}	
 	}
 	

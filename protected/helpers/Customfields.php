@@ -71,7 +71,7 @@ Class Customfields{
 						if(!empty($tmp)){
 							$pers=Personnel::model()->findByPk($tmp);
 							$result.="<div class='choise_unit $v'>
-								<input type=hidden name='".get_class($model)."[".$field."]' value=$tmp>".(CHtml::encode($pers->surname.' '.$pers->name))."
+								<input type=hidden name='".get_class($model)."[".$field."]' value=$tmp>".(CHtml::encode($pers->surname.' '.$pers->name.' '.$pers->patr))."
 								<div id=$tmp class='close_this'></div>
 							</div>";
 						}

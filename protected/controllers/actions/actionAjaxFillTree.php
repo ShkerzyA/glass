@@ -32,19 +32,30 @@
         $children = $req->queryAll();
 
 
-       	if(Yii::app()->user->checkAccess('changeObjects')){
-            foreach ($children as &$v) {
-                //child - выполняет роль контроллера, при формировании дерева. $modelName - для ссылок.
-                $v=array_merge($v,ruleButton::get($v[id],$modelName,$tree['child']));
+       	$change=Yii::app()->user->checkAccess('changeObjects');
+        foreach ($children as &$v) {
+            if($change){
+                $v['action']="<a href=/glass/".$modelName."/update/".$v['id']."><img align=right src=/glass/images/update.png></a>";
+                if($modelName=='Workplace'){
+                    $v['hasChildren']=0;    
+                }else{
+                    $v['hasChildren']=1;    
+                }
+                    
+                
             }
+            $v['contr']=$tree['child'];
+            $v['selfname']=$modelName;   
         }
+        
 
         $attr='';
         if(!empty($tree['parent_id']) and !empty($idP)){
             $attr='?'.$modelName.'['.$tree['parent_id'].']='.$idP;
         }
-
-        $children[]=array('id'=>'create'.$attr,'text'=>'Добавить','selfname'=>$modelName,'hasChildren'=>0);
+        if($change){
+            $children[]=array('id'=>'create'.$attr,'text'=>'<img src="/glass/images/add.png">Добавить','selfname'=>$modelName,'hasChildren'=>0);
+        }
 
         //print_r($children);
         // возвращаем данные

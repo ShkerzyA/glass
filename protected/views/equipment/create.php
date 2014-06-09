@@ -3,7 +3,7 @@
 /* @var $model Equipment */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
+	'Рабочее место'=>array('/Workplace/view/'.$model->id_workplace),
 	'Создать',
 );
 

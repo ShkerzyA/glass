@@ -3,8 +3,9 @@
 /* @var $model Workplace */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
-	$model->id,
+	($model->idCabinet->idFloor->idBuilding->bname)=>array("/building/".$model->idCabinet->idFloor->idBuilding->id),
+	($model->idCabinet->cname.' '.$model->idCabinet->num)=>array("/cabinet/".$model->idCabinet->id),
+	$model->wname,
 );
 
 $this->menu=array(
@@ -16,16 +17,20 @@ $this->menu=array(
 );
 ?>
 
-<h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
+<h1><?php  echo $model->wname?></h1> 
 
 <?php $ruleWP=Yii::app()->user->checkAccess('ruleWorkplaces'); ?>
 <?php if($ruleWP):?>
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/create?Equipment[id_workplace]=<?php echo $model->id ?>">
 	<div id="add_task" class="add_unit fl_right">добавить оборудование</div>
 </a>
+
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/createPack?Equipment[id_workplace]=<?php echo $model->id ?>">
+	<div id="add_task" class="add_unit fl_right">добавить набор</div>
+</a>
 <?php endif; ?>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php /* $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
@@ -41,4 +46,32 @@ array(
                 array('Personnel/view','id'=>$model->idPersonnel->id)),
         ),		'wname',
 	),
-)); ?>
+)); */?> 
+
+<div style="clear: both"></div>
+<dl>
+  <dt>Кабинет</dt>
+   <dd><?php echo ($model->idCabinet->cname.' '.$model->idCabinet->num) ?></dd>
+  <dt>Сотрудник</dt>
+   <dd><?php 
+   	if(!empty($model->idPersonnel)){
+   		echo ($model->idPersonnel->surname.' '.$model->idPersonnel->name.' '.$model->idPersonnel->patr);		
+   	}else{
+   		echo '-//-';
+   	}
+   	?>
+    </dd>
+</dl>
+	
+	<?php
+	  if(!empty($model->equipments)) 
+		$this->renderPartial('/equipment/tableview',array('equipments'=>$model->equipments),false,false); 
+	?>
+    
+
+
+
+
+
+
+

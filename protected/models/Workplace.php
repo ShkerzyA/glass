@@ -29,8 +29,8 @@ class Workplace extends CActiveRecord
 
 	public static $tree=array(
 		'parent_id'=>'id_cabinet',
-		'query'=>"SELECT m1.id, m1.wname AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM workplace AS m1 LEFT JOIN personnel AS m2 ON m1.id_personnel=m2.id",
-		'group'=>'GROUP BY m1.id  ORDER BY m1.wname ASC',
+		'query'=>"SELECT m1.id, array_to_string(array[m1.wname,'(',m2.surname,m2.name,m2.patr,')'],' ') AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM workplace AS m1 LEFT JOIN personnel AS m2 ON m1.id_personnel=m2.id",
+		'group'=>'GROUP BY m1.id, m2.surname, m2.name, m2.patr ORDER BY m1.wname ASC',
 		'child'=>'Personnel',
 	);
 

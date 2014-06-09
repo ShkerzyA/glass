@@ -3,8 +3,9 @@
 /* @var $model Floor */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
-	$model->id,
+	'КККОД'=>array('/myAdmin/index'),
+	$model->idBuilding->bname=>array('/Building/'.$model->idBuilding->id),
+	$model->fname.' '.$model->fnum,
 );
 
 $this->menu=array(
@@ -16,18 +17,13 @@ $this->menu=array(
 );
 ?>
 
-<h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
+<h1><?php echo $model->fname.' '.$model->fnum; ?></h1> 
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'id',
-array(               
-            	'label'=>'Building',
-            	'type'=>'raw',
-            	'value'=>CHtml::link(CHtml::encode($model->idBuilding->bname),
-                array('Building/view','id'=>$model->idBuilding->id)),
-        ),		'fnum',
-		'fname',
-	),
-)); ?>
+	<?php 
+
+		if(!empty($model->cabinets)){
+			$this->renderPartial('/cabinet/compactview',array('cabinets'=>$model->cabinets),false,false);
+		}
+
+	?>
+

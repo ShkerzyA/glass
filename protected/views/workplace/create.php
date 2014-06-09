@@ -3,7 +3,7 @@
 /* @var $model Workplace */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
+	$model->idCabinet->cname=>array('/cabinet/view/'.$model->idCabinet->id),
 	'Создать',
 );
 

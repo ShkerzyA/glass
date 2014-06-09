@@ -3,7 +3,8 @@
 /* @var $model Cabinet */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
+	$model->idFloor->idBuilding->bname=>array('/building/view/'.$model->idFloor->idBuilding->id),
+	$model->idFloor->fname=>array('/floor/view/'.$model->idFloor->id),
 	$model->cname,
 );
 
@@ -23,6 +24,8 @@ $this->menu=array(
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/workplace/create?Workplace[id_cabinet]=<?php echo $model->id ?>">
 	<div id="add_task" class="add_unit fl_right">добавить рабочее место</div>
 </a>
+
+
 <?php endif; ?>
 
 
@@ -33,14 +36,10 @@ $this->menu=array(
 	if(!empty($model->workplaces)){
 		
 		foreach($model->workplaces as $wp){
-			echo'<a href="'.Yii::app()->request->baseUrl.'/Workplace/'.$wp->id.'"><div class="taskpanel open">';
-			echo $wp->idPersonnel->surname.' '.$wp->idPersonnel->name.' '.$wp->idPersonnel->patr;
+			echo'<a href="'.Yii::app()->request->baseUrl.'/Workplace/'.$wp->id.'"><div class="hipanel open">';
+			echo '<h4>'.$wp->idPersonnel->surname.' '.$wp->idPersonnel->name.' '.$wp->idPersonnel->patr.'</h4>';
 			if(!empty($wp->equipments)){
-				foreach($wp->equipments as $equipments){
-					echo'<div>'.CHtml::encode($equipments->mark).' (С/Н:'.CHtml::encode($equipments->serial).')</nobr></div>';
-				}	
-			}else{
-				echo '-//-';
+				$this->renderPartial('/equipment/compactview',array('equipments'=>$wp->equipments),false,false); 
 			}
 
 		echo "</div></a>";
