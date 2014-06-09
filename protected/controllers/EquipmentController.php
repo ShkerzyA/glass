@@ -32,7 +32,7 @@ class EquipmentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','createPack','update'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -71,7 +71,7 @@ class EquipmentController extends Controller
 		{
 			$model->attributes=$_POST['Equipment'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
 		}
 
 		$this->render('create',array(
@@ -80,23 +80,42 @@ class EquipmentController extends Controller
 	}
 
 
-		public function actionCreatePack()
+	public function actionCreatePack()
 	{
-		$model=new Equipment;
+		$this->layout='//layouts/column1';
+		$items[]=new Equipment;
+		$items[]=new Equipment;
+		$items[]=new Equipment;
+		$items[]=new Equipment;
+		$items[]=new Equipment;
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+		$items[0]->type=2;
 
-		if(isset($_POST['Equipment']))
-		{
-			$model->attributes=$_POST['Equipment'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+		foreach ($items as &$it) {
+			$it->id_workplace=$_GET['Equipment']['id_workplace'];
+			//$it->id_workplace=23;
 		}
 
-		$this->render('createPack',array(
-			'model'=>$model,
-		));
+    	if(isset($_POST['Equipment']))
+    	{
+       		$valid=true;
+        	foreach($items as $i=>&$item)
+        	{
+            	if(isset($_POST['Equipment'][$i]))
+                	$item->attributes=$_POST['Equipment'][$i];
+            	$valid=$item->validate() && $valid;
+        	}
+        	if($valid){
+        		foreach ($items as $item) {
+        			$item->save();
+        		}
+        		$this->redirect(array('/Workplace/view','id'=>$items[0]->id_workplace));
+        	}
+        		  // все элементы корректны
+            
+    	}
+    	// отображаем представление с формой для ввода табличных данных
+    	$this->render('createPack',array('items'=>$items));
 	}
 
 	/**

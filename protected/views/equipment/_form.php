@@ -33,7 +33,7 @@
 		<?php echo $form->labelEx($model,'id_workplace'); ?>
 
 		<?php $tmp=Workplace::model()->findall();
-echo $form->dropDownList($model,"id_workplace",CHtml::listData($tmp,"id",function($tmp) {
+				echo $form->dropDownList($model,"id_workplace",CHtml::listData($tmp,"id",function($tmp) {
 				return CHtml::encode($tmp->idCabinet->cname.' '.$tmp->idCabinet->num.'/'.$tmp->wname);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_workplace'); ?>
 	</div>
