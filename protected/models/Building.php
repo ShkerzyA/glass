@@ -21,9 +21,6 @@ class Building extends CActiveRecord
 	 */
 	public static $modelLabelS='Здание';
 	public static $modelLabelP='Здания';
-<<<<<<< HEAD
-	public static $child='Floor';
-=======
 
 	public static $tree=array(
 		'parent_id'=>'id',
@@ -31,8 +28,6 @@ class Building extends CActiveRecord
 		'group'=>'GROUP BY m1.id  ORDER BY m1.bname ASC',
 		'child'=>'Floor',
 		);
->>>>>>> 955daf8d5839e2563248ba1008e353fc73400ffd
-	
 	public $floorsid_building;
 
 	public static function model($className=__CLASS__)
