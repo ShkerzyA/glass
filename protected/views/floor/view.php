@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 	$model->fname.' '.$model->fnum,
 );
 
+if(Yii::app()->user->checkAccess('moderator')){
 $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
 	array('label'=>'Создать', 'url'=>array('create')),
@@ -15,6 +16,7 @@ $this->menu=array(
 	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Управление', 'url'=>array('admin')),
 );
+}
 ?>
 
 <h1><?php echo $model->fname.' '.$model->fnum; ?></h1> 

@@ -36,16 +36,13 @@
         foreach ($children as &$v) {
             if($change){
                 $v['action']="<a href=/glass/".$modelName."/update/".$v['id']."><img align=right src=/glass/images/update.png></a>";
-                if($modelName=='Workplace'){
-                    $v['hasChildren']=0;    
-                }else{
-                    $v['hasChildren']=1;    
-                }
-                    
-                
-            }
+                $v['hasChildren']=1;      
+            } 
             $v['contr']=$tree['child'];
-            $v['selfname']=$modelName;   
+            $v['selfname']=$modelName; 
+            if($modelName=='Workplace'){
+                $v['hasChildren']=0;
+            }
         }
         
 
