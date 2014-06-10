@@ -88,7 +88,10 @@ class EquipmentController extends Controller
 		$items[]=new Equipment;
 		$items[]=new Equipment;
 
-		$items[0]->type=2;
+		$items[0]->attributes=array('type'=>'0');
+		$items[1]->attributes=array('type'=>'1');
+		$items[2]->attributes=array('type'=>'6');
+		$items[3]->attributes=array('type'=>'7');
 
 		//$items[4]->type=3;
 

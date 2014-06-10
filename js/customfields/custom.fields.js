@@ -93,11 +93,14 @@ function getAjax_markSearch(id){
 	id_s=id.replace("mark", ""); 
 	type=$('#'+id_s+'type').val();
 	producer=$('#'+id_s+'producer').val();
-	$.post('/glass/Equipment/markSearch',{type: type, producer: producer},function(data,status){
-		if(status=='success'){
-			show_under(id,data);
-		}
-	},'html');
+	if(type.length && producer.length){
+		$.post('/glass/Equipment/markSearch',{type: type, producer: producer},function(data,status){
+			if(status=='success'){
+				show_under(id,data);
+			}
+		},'html');	
+	}
+	
 }
 
 function show_groups(data){
@@ -114,7 +117,7 @@ function show_under(id,data){
 	coords=$('#'+id).offset();
 	
 	$('html').append(data);
-	$('html').append('<input type=hidden id=target_id name=target_id value="'+id+'">');
+	$('.window_awesom').append('<input type=hidden id=target_id name=target_id value="'+id+'">');
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
 }
 

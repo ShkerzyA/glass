@@ -59,28 +59,63 @@ class Equipment extends CActiveRecord
 		return array(
 			0=>'Системный блок',
 			1=>'Монитор',
-			2=>'МФУ',
-			3=>'Переферия',
-			4=>'Сетевое оборудование',
-			5=>'Прочее',
+			2=>'Принтер',
+			3=>'МФУ',
+			4=>'Копир',
+			5=>'Сканер',
+			6=>'Телефон(IP)',
+			7=>'ИБП',
+			8=>'Коммутатор',
+			9=>'Ноутбук',
 		);
 	}
 
 	public function getProducer(){
 		return array(
-			'values'=>(array(0=>'HP',1=>'Samsung',2=>'LOC')),
+			'values'=>(array(
+				0=>'HP',
+				1=>'Samsung',
+				2=>'Xerox',
+				3=>'Kraftway',
+				4=>'Canon',
+				5=>'Asus',
+				6=>'Aquarius',
+				7=>'LG',
+				8=>'LOC',
+				9=>'Acer',
+				10=>'Avaya',
+				11=>'Powercom',
+				12=>'Ippon',
+				13=>'D-link',
+				14=>'Zyxel',
+				)),
 			'css_class'=>(array(
-				0=>array('class'=>'c0 c2'),
-				1=>array('class'=>'c1 c2'),
-				2=>array('class'=>'c1'),)
+				0=>array('class'=>'c0 c3 с5 с6 c9'),
+				1=>array('class'=>'c1 c2 c3 c4 c5'),
+				2=>array('class'=>'c2 c3 c4 c5'),
+				3=>array('class'=>'c0 c1'),
+				4=>array('class'=>'c2 c3'),
+				5=>array('class'=>'c1 c9'),
+				6=>array('class'=>'c0 c1'),
+				7=>array('class'=>'c1 c2 c3 c4 c5'),
+				8=>array('class'=>'c1'),
+				9=>array('class'=>'c1 c9'),
+				10=>array('class'=>'c6'),
+				11=>array('class'=>'c7'),
+				12=>array('class'=>'c7'),
+				13=>array('class'=>'c8'),
+				14=>array('class'=>'c8'),)
 			),
 		);
 	}
 
 	public function getStatus(){
 		return array(
-			0=>'Активно',
-			1=>'Неактивно',
+			0=>'В эксплуатации',
+			1=>'Не в эксплуатации',
+			2=>'Неисправно',
+			3=>'К списанию',
+			4=>'Списано',
 			);
 	}
 

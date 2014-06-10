@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Создать "<?php  echo $model::$modelLabelS; ?>"</h1>
+<h2>Добавить задачу</h2>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

@@ -12,8 +12,10 @@
 )); 
 ?>
 
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
+	</div>
 
-	<p class="note">Поля с <span class="required">*</span> обязательны.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -121,10 +123,7 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 		<?php echo $form->error($model,'executors'); ?>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
-	</div>
-
+	
 
 <?php $this->endWidget(); ?>
 

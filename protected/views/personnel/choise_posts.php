@@ -12,7 +12,7 @@
 <?php 
 	foreach ($model as $v){
 		if(!empty($v)){
-			echo "<div id='$v->id' text='".$v->surname."  ".$v->name."' class='join_post'>".$v->surname."  ".$v->name."</div>";	
+			echo "<div id='$v->id' text='".$v->surname." ".$v->name." ".$v->patr."' class='join_post'>".$v->surname." ".$v->name." ".$v->patr."</div>";	
 		}
 		
 	}

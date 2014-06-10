@@ -7,11 +7,10 @@ Yii::app()->clientScript->registerPackage('customfields');
 
 <script>
 	function init(){
-		$('#Equipment_type').live('change',function(){ 
+		$('#Equipment_type').live('change',function (){ 
 
-			
 			$('#Equipment_producer option:first').attr('selected', 'selected');
-			$('.c0, .c1, .c2, .c3, .c4, .c5').hide();
+			$('#Equipment_producer option').hide();
 			$('.c'+($(this).val())).show();
 			
 		});
@@ -26,11 +25,9 @@ Yii::app()->clientScript->registerPackage('customfields');
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Поля с <span class="required">*</span> обязательны.</p>
-
 	<?php echo $form->errorSummary($model); ?>
 
-
+<?php if($model->scenario!='insert'): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_workplace'); ?>
 
@@ -39,19 +36,14 @@ Yii::app()->clientScript->registerPackage('customfields');
 				return CHtml::encode($tmp->idCabinet->cname.' '.$tmp->idCabinet->num.'/'.$tmp->wname);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_workplace'); ?>
 	</div>
+<?php endif; ?>
 
-	<div class="row">
-		<?php echo $form->labelEx($model,'serial'); ?>
 
-		<?php echo $form->textField($model,'serial',array('size'=>60,'maxlength'=>100)); ?>
-
-		<?php echo $form->error($model,'serial'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>
 
-		<?php echo $form->dropDownList($model,'type',$model->getType()); ?>
+		<?php echo $form->dropDownList($model,'type',$model->getType(),array('empty' => '')); ?>
 
 		<?php echo $form->error($model,'type'); ?>
 	</div>
@@ -68,9 +60,17 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row">
 		<?php echo $form->labelEx($model,'mark'); ?>
 
-		<?php echo $form->textField($model,'mark',array('size'=>60,'maxlength'=>200,'class'=>'marksearch')); ?>
+		<?php echo $form->textField($model,'mark',array('size'=>60,'maxlength'=>200,'class'=>'marksearch','autocomplete'=>"off")); ?>
 
 		<?php echo $form->error($model,'mark'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'serial'); ?>
+
+		<?php echo $form->textField($model,'serial',array('size'=>60,'maxlength'=>100)); ?>
+
+		<?php echo $form->error($model,'serial'); ?>
 	</div>
 
 	<div class="row">
@@ -92,7 +92,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row">
 		<?php echo $form->labelEx($model,'notes'); ?>
 
-		<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'notes',array('rows'=>1, 'cols'=>1)); ?>
 
 		<?php echo $form->error($model,'notes'); ?>
 	</div>
