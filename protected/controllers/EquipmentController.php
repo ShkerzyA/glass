@@ -32,7 +32,7 @@ class EquipmentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','createPack','update'),
+				'actions'=>array('create','createPack','update','markSearch'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -87,9 +87,10 @@ class EquipmentController extends Controller
 		$items[]=new Equipment;
 		$items[]=new Equipment;
 		$items[]=new Equipment;
-		$items[]=new Equipment;
 
 		$items[0]->type=2;
+
+		//$items[4]->type=3;
 
 		foreach ($items as &$it) {
 			$it->id_workplace=$_GET['Equipment']['id_workplace'];
@@ -101,18 +102,18 @@ class EquipmentController extends Controller
        		$valid=true;
         	foreach($items as $i=>&$item)
         	{
+        		echo $i;
             	if(isset($_POST['Equipment'][$i]))
                 	$item->attributes=$_POST['Equipment'][$i];
             	$valid=$item->validate() && $valid;
         	}
+        	$items=array_reverse($items);
         	if($valid){
         		foreach ($items as $item) {
         			$item->save();
         		}
         		$this->redirect(array('/Workplace/view','id'=>$items[0]->id_workplace));
         	}
-        		  // все элементы корректны
-            
     	}
     	// отображаем представление с формой для ввода табличных данных
     	$this->render('createPack',array('items'=>$items));
@@ -142,6 +143,25 @@ class EquipmentController extends Controller
 		));
 	}
 
+	public function actionMarkSearch(){
+		if(!Yii::app()->request->isAjaxRequest){
+			exit();
+		}
+			if(!empty($_POST['search'])){
+				$surname=$_POST['search'];
+			}else{
+				$surname='no';
+			}
+
+			$criteria = new CDbCriteria;
+			$criteria->select = "mark";
+			$criteria->condition = "type=:type and producer=:producer";
+			$criteria->params = array(':type'=>$_POST['type'],':producer'=>$_POST['producer']);
+			$criteria->distinct = True;
+
+			$model=Equipment::model()->findall($criteria);
+			$this->renderPartial('markSearch', array('model'=>$model), false, false);
+	}
 	/**
 	 * Deletes a particular model.
 	 * If deletion is successful, the browser will be redirected to the 'admin' page.

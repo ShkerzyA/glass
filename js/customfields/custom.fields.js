@@ -14,6 +14,19 @@ function init(){
 		getAjax_posts();
 	});
 
+	$('.add_mark').live('click',function(){ 
+		text=$(this).text();
+		t_id=$('#target_id').val();
+		$('#'+t_id).val(text);
+		$('.back').remove();
+		
+	});
+
+	$('.marksearch').live('click',function(){
+		id=$(this).attr('id');
+        if(globalTimeout != null) clearTimeout(globalTimeout);  
+        globalTimeout =setTimeout(function(){ getAjax_markSearch(id) },100);  
+    });
 
 	$('#add_personnel').live('click',function(){ 
 		$('.modal2').remove();
@@ -76,12 +89,32 @@ function getAjax_surnameSearch(){
 	},'html');
 }
 
+function getAjax_markSearch(id){
+	id_s=id.replace("mark", ""); 
+	type=$('#'+id_s+'type').val();
+	producer=$('#'+id_s+'producer').val();
+	$.post('/glass/Equipment/markSearch',{type: type, producer: producer},function(data,status){
+		if(status=='success'){
+			show_under(id,data);
+		}
+	},'html');
+}
+
 function show_groups(data){
 
 	$('.back').remove();
 	coords=$('.add_unit').offset();
 	
 	$('html').append(data);
+	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
+}
+
+function show_under(id,data){
+
+	coords=$('#'+id).offset();
+	
+	$('html').append(data);
+	$('html').append('<input type=hidden id=target_id name=target_id value="'+id+'">');
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
 }
 

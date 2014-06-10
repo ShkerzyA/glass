@@ -2,7 +2,9 @@
 /* @var $this EquipmentController */
 /* @var $model Equipment */
 /* @var $form CActiveForm */
+Yii::app()->clientScript->registerPackage('customfields');
 ?>
+
 <script>
 	function init(){
 		$('#Equipment_type').live('change',function(){ 
@@ -66,7 +68,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'mark'); ?>
 
-		<?php echo $form->textField($model,'mark',array('size'=>60,'maxlength'=>200)); ?>
+		<?php echo $form->textField($model,'mark',array('size'=>60,'maxlength'=>200,'class'=>'marksearch')); ?>
 
 		<?php echo $form->error($model,'mark'); ?>
 	</div>

@@ -11,7 +11,37 @@ $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index'),'visible'=>(Yii::app()->user->role=='administrator')),
 	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
+
+Yii::app()->clientScript->registerPackage('customfields');
+
 ?>
+
+<script>
+
+	function init(){
+		var i=0;
+		while($("#Equipment_"+i+"_type").length) {
+	
+		//for (i=0; i<8; i++) {
+			$('#Equipment_'+i+'_type').live('change',function(){ 
+				var id=$(this).attr('id');
+				var val=$(this).val();
+				id=id.split('_');
+				filter(id[1],val);
+			
+			});
+			i++;
+		}
+	}
+
+	function filter(i,val){
+		$('#Equipment_'+i+'_producer option:first').attr('selected', 'selected');
+		$('#Equipment_'+i+'_producer .c0, #Equipment_'+i+'_producer .c1,#Equipment_'+i+'_producer .c2,#Equipment_'+i+'_producer .c3,#Equipment_'+i+'_producer .c4,#Equipment_'+i+'_producer .c5').hide();
+		$('#Equipment_'+i+'_producer .c'+val).show();
+	}
+	$(document).ready(init);
+</script>
+
 <div class=leaf>
 <h1>Добавить оборудование</h1>
 
@@ -36,7 +66,7 @@ $this->menu=array(
 <?php $prod=$item->getProducer();?>
 <td><?php echo CHtml::activedropDownList($item,"[$i]producer", $prod['values'],array('empty' => '','options'=>$prod['css_class'])); ?></td>
 
-<td><?php echo CHtml::activeTextField($item,"[$i]mark"); ?></td>
+<td><?php echo CHtml::activeTextField($item,"[$i]mark",array('maxlength'=>200,'class'=>'marksearch')); ?></td>
 <td><?php echo CHtml::activeTextField($item,"[$i]inv"); ?></td>
 
 <td><?php echo CHtml::activedropDownList($item,"[$i]status", $item->getStatus()); ?></td>
