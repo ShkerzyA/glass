@@ -1,8 +1,3 @@
-
-/* @var $this EquipmentController */
-/* @var $model Equipment */
-
-
 <div class="back">
 <div class="window_awesom">
 <div id="back" class='close_this'></div>

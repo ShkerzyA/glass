@@ -39,7 +39,12 @@ $this->menu=array(
 		
 		foreach($model->workplaces as $wp){
 			echo'<a href="'.Yii::app()->request->baseUrl.'/Workplace/'.$wp->id.'"><div class="hipanel open">';
-			echo '<h4>'.$wp->idPersonnel->surname.' '.$wp->idPersonnel->name.' '.$wp->idPersonnel->patr.'</h4>';
+			if(!empty($wp->idPersonnel)){
+				echo '<h4>'.$wp->idPersonnel->surname.' '.$wp->idPersonnel->name.' '.$wp->idPersonnel->patr.'</h4>';	
+			}else{
+				echo '<h4>'.$wp->wname.'</h4>';
+			}
+			
 			if(!empty($wp->equipments)){
 				$this->renderPartial('/equipment/compactview',array('equipments'=>$wp->equipments),false,false); 
 			}
