@@ -54,9 +54,9 @@ public function actionInstall(){
     $auth->createOperation('index', 'Просмотр');
     $auth->createOperation('view', 'Просмотр');
     $auth->createOperation('create', 'Создать');
-    $auth->createOperation('update', 'Создать');
-    $auth->createOperation('admin', 'Создать');
-    $auth->createOperation('delete', 'Создать');
+    $auth->createOperation('update', 'Изменить');
+    $auth->createOperation('admin', 'Управление');
+    $auth->createOperation('delete', 'Удалить');
     $auth->createOperation('save', 'Сохранить');
     $auth->createOperation('saveMessage', 'Сохранить Сообщение');
     $auth->createOperation('changeObjects', 'Создавать и изменять Здания, Этажи, Кабинеты, Рабочие места, Оборудование');
@@ -99,9 +99,10 @@ public function actionInstall(){
     $moderator = $auth->createRole('moderator');
     $moderator->addChild('user');
     $moderator->addChild('update');
+    $moderator->addChild('delete');
     $moderator->addChild('save');
     $moderator->addChild('changeObjects');
-     $moderator->addChild('ruleWorkplaces');
+    $moderator->addChild('ruleWorkplaces');
     $moderator->addChild('saveStatus'); 
     $moderator->addChild('saveStatusEv'); 
     $moderator->addChild('updateEv'); 
@@ -110,7 +111,6 @@ public function actionInstall(){
     $administrator = $auth->createRole('administrator');
     $administrator->addChild('moderator');
     $administrator->addChild('admin');
-    $administrator->addChild('delete');
 
 
 	//Тут добавляется тот функционал, который не укладывается в общую пирамиду наследования  

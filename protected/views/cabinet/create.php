@@ -3,8 +3,9 @@
 /* @var $model Cabinet */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
-	'Создать',
+	$model->idFloor->idBuilding->bname=>array('/building/view/'.$model->idFloor->idBuilding->id),
+	$model->idFloor->fname=>array('/floor/view/'.$model->idFloor->id),
+	$model->cname,
 );
 
 $this->menu=array(

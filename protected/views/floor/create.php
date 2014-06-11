@@ -3,6 +3,7 @@
 /* @var $model Floor */
 
 $this->breadcrumbs=array(
+	'этаж'=>array('/floor/view/'.$model->id_building),
 	$model::$modelLabelP=>array('index'),
 	'Создать',
 );

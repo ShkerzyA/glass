@@ -18,8 +18,15 @@ $this->menu=array(
 );
 }
 ?>
+<?php $ruleWP=Yii::app()->user->checkAccess('ruleWorkplaces'); ?>
 
-<h1><?php echo $model->fname.' '.$model->fnum; ?></h1> 
+<?php if($ruleWP):?>
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/cabinet/create?Cabinet[id_floor]=<?php echo $model->id ?>">
+	<div id="add_task" class="add_unit fl_right">добавить кабинет</div>
+</a>
+<?php endif; ?>
+
+<h1><?php echo $model->fname.' '.$model->fnum; ?></h1> </a>
 
 	<?php 
 

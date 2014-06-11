@@ -25,7 +25,7 @@ if(Yii::app()->user->checkAccess('moderator')){
 <?php
 if (!empty ($model->floors))
 	foreach ($model->floors as $floor) {
-		echo '<div class="hipanel done">'.$floor->fname;
+		echo '<div class="hipanel done"><a href="'.$this->createUrl('Floor/view',array('id'=>$floor->id)).'">'.$floor->fname.'</a>';
 		if(!empty($floor->cabinets))
 			$this->renderPartial('/cabinet/compactview',array('cabinets'=>$floor->cabinets),false,false);
 		echo'</div>';
