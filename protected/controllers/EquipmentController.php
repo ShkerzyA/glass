@@ -113,7 +113,8 @@ class EquipmentController extends Controller
         	$items=array_reverse($items);
         	if($valid){
         		foreach ($items as $item) {
-        			$item->save();
+        			if(!empty($item->mark))
+        				$item->save();
         		}
         		$this->redirect(array('/Workplace/view','id'=>$items[0]->id_workplace));
         	}
