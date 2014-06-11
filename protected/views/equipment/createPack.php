@@ -21,6 +21,12 @@ Yii::app()->clientScript->registerPackage('customfields');
 	function init(){
 		var i=0; 
 
+		$(this).live('keydown',function(e){
+        	if(e.keyCode==13){
+            	return false;
+        	}
+    	});
+
 		while($("#Equipment_"+i+"_producer").length) {
 	
 		//for (i=0; i<8; i++) {
@@ -56,7 +62,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 <h1>Добавить оборудование</h1>
 
 <div class="form">
-<?php echo CHtml::beginForm(); ?>
+<?php echo CHtml::beginForm();?>
 <table>
 
 <tr>

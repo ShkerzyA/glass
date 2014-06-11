@@ -3,9 +3,8 @@
 /* @var $model Equipment */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Изменить',
+	'Рабочее место'=>array('/Workplace/view/'.$model->id_workplace),
+	'Создать',
 );
 
 $this->menu=array(

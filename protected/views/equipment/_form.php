@@ -7,6 +7,13 @@ Yii::app()->clientScript->registerPackage('customfields');
 
 <script>
 	function init(){
+
+		$(this).live('keydown',function(e){
+        	if(e.keyCode==13){
+            	return false;
+        	}
+    	});
+
 		$('#Equipment_type').live('change',function (){ 
 
 			$('#Equipment_producer option:first').attr('selected', 'selected');
@@ -68,7 +75,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row">
 		<?php echo $form->labelEx($model,'serial'); ?>
 
-		<?php echo $form->textField($model,'serial',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'serial',array('size'=>60,'maxlength'=>100,'autocomplete'=>"off")); ?>
 
 		<?php echo $form->error($model,'serial'); ?>
 	</div>
@@ -76,7 +83,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row">
 		<?php echo $form->labelEx($model,'inv'); ?>
 
-		<?php echo $form->textField($model,'inv',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'inv',array('size'=>60,'maxlength'=>100,'autocomplete'=>"off")); ?>
 
 		<?php echo $form->error($model,'inv'); ?>
 	</div>

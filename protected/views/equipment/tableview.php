@@ -4,6 +4,9 @@
 $type=$equipments[0]->getType();
 $producer=$equipments[0]->getProducer()['values'];
 $status=$equipments[0]->getStatus();
+
+
+$rul=Yii::app()->user->checkAccess("ruleWorkplaces");
 ?>
 
    	<table class=phonetable>
@@ -15,10 +18,19 @@ $status=$equipments[0]->getStatus();
    			<th>Инвентарный номер</th>
    			<th>Состояние</th>
    			<th>Примечания</th>
+
+            <?php if($rul) echo '<th>Редактировать</th>'; ?>
    		</tr>
 <?php
    	foreach ($equipments as $eq){
-   		echo'<tr><td>'.$eq->serial.'</td><td>'.$type[$eq->type].'</td><td>'.$producer[$eq->producer].'</td><td>'.$eq->mark.'</td><td>'.$eq->inv.'</td><td>'.$status[$eq->status].'</td><td>'.$eq->notes.'</td></tr>';
-   	}
+         if($rul){
+            $edit='<td><a href="'.$this->createUrl('/equipment/update/',array('id'=>$eq->id)).'"><img src="'.$this->createUrl('/images/update.png').'"</a>';
+            $edit.=CHtml::link('<img src="'.$this->createUrl('/images/delete.png').'">','#',array('submit'=>array('/equipment/delete','id'=>$eq->id),'confirm' => 'Вы уверены?')).'</td>';
+         }else{
+            $edit='';
+         }
+   		echo'<tr><td>'.$eq->serial.'</td><td>'.$type[$eq->type].'</td><td>'.$producer[$eq->producer].'</td><td>'.$eq->mark.'</td><td>'.$eq->inv.'</td><td>'.$status[$eq->status].'</td><td>'.$eq->notes.'</td>'.$edit.'</tr>';
+   
+      }
 ?>
 </table>	
