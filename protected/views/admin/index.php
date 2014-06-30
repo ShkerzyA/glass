@@ -42,6 +42,7 @@ $this->menu['all_menu']=array(
 	array('title'=>'Мероприятия','items'=>array(
 		array('label'=>'Местоположение', 'url'=>array('/rooms/admin'),'items'=>array(
 			array('label'=>'События', 'url'=>array('/events/admin')), 
+			array('label'=>'Операции', 'url'=>array('/eventsoper/admin')), 
 		)),
 	)),
 

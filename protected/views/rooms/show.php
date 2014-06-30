@@ -13,10 +13,10 @@ $this->menu=array(
 );*/
 
 
-$rooms_list=array();
+/*$rooms_list=array();
 foreach ($models as $v){
 	$rooms_list[]=array('label'=>$v->idCabinet->cname.' '.$v->idCabinet->num, 'url'=>array('Rooms/show/'.$v->id));
-}
+}*/
 
 /*$this->menu['all_menu']=array(
 	array('title'=>'Местоположение','items'=>$rooms_list),
@@ -42,6 +42,18 @@ function init(){
 
 </script>
 
+<?php foreach ($this->events_menu as $x): ?>
+
+	<a href=<?php echo(Yii::app()->request->baseUrl) ?>/rooms/show?Event_type=<?php echo $x['type'] ?>>
+		<div class="inset2 <?php echo $cl_act=($x['type']==Yii::app()->session['Event_type'])?'active':''; ?>"><?php echo $x['name'] ?>
+			<div class=downp></div>
+		</div>
+	</a>
+<?php endforeach; ?>
+<br><br>
+<br>
+<div style="clear: both"></div>
+
 
 
 
@@ -53,9 +65,7 @@ if(!empty(Yii::app()->session['Rooms_date']) && !empty(Yii::app()->session['Room
 }
 
 
-$tmp=Rooms::model()->findall();
-$rooms=array();
-foreach ($tmp as $r) {
+foreach ($roomsM as $r) {
 	$rooms[$r->id]=$r->idCabinet->cname.' '.$r->idCabinet->num;
 	# code...
 }

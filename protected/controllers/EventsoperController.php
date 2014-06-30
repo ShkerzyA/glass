@@ -1,22 +1,16 @@
 <?php
 
-class EventsController extends Controller
+class EventsoperController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-	public $modelname='Events';
 
 	/**
 	 * @return array action filters
-
-
-
 	 */
-
-
 	public function filters()
 	{
 		return array(
@@ -34,18 +28,17 @@ class EventsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','saveMessage','saveStatus'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete'),
-				'roles'=>array('user'),
+				'actions'=>array('create','update'),
+				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
+				'actions'=>array('admin','delete'),
 				'roles'=>array('administrator'),
 			),
-
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -69,14 +62,14 @@ class EventsController extends Controller
 	 */
 	public function actionCreate()
 	{
-		$model=new $this->modelname;
+		$model=new Eventsoper;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST[$this->modelname]))
+		if(isset($_POST['Eventsoper']))
 		{
-			$model->attributes=$_POST[$this->modelname];
+			$model->attributes=$_POST['Eventsoper'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -98,9 +91,9 @@ class EventsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Events']))
+		if(isset($_POST['Eventsoper']))
 		{
-			$model->attributes=$_POST['Events'];
+			$model->attributes=$_POST['Eventsoper'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -129,9 +122,9 @@ class EventsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Events');
+		$dataProvider=new CActiveDataProvider('Eventsoper');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider, 'modelLabelP'=>Events::$modelLabelP,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Eventsoper::$modelLabelP,
 		));
 	}
 
@@ -140,10 +133,10 @@ class EventsController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new Events('search');
+		$model=new Eventsoper('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Events']))
-			$model->attributes=$_GET['Events'];
+		if(isset($_GET['Eventsoper']))
+			$model->attributes=$_GET['Eventsoper'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -154,12 +147,12 @@ class EventsController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Events the loaded model
+	 * @return Eventsoper the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Events::model()->findByPk($id);
+		$model=Eventsoper::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -167,11 +160,11 @@ class EventsController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Events $model the model to be validated
+	 * @param Eventsoper $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='events-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='eventsoper-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

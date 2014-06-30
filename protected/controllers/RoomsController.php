@@ -8,6 +8,12 @@ class RoomsController extends Controller
 	 */
 	public $layout='//layouts/column2';
 
+	public $events_menu=array(
+		array('name'=>'События','type'=>'events'),
+		array('name'=>'План операций','type'=>'eventsOpPl'),
+		array('name'=>'Мониторинг операция','type'=>'eventsOpMon')
+		);
+
 	/**
 	 * @return array action filters
 	 */
@@ -81,7 +87,7 @@ class RoomsController extends Controller
 
 	public function actionShow($id=NULL){
 		$this->layout='//layouts/column1';
-		$models=Rooms::model()->findAll();
+		$rooms=Rooms::model()->findAll();
 
 		if($id!=NULL){
 			Yii::app()->session['Rooms_id']=$id;
@@ -102,6 +108,12 @@ class RoomsController extends Controller
 			Yii::app()->session['Show_type']='week';
 		}
 
+		if(!empty($_GET['Event_type'])){
+			Yii::app()->session['Event_type']=$_GET['Event_type'];
+		}else if(empty(Yii::app()->session['Event_type'])){
+			Yii::app()->session['Event_type']='f**koff';
+		}
+
 
 		if(!empty(Yii::app()->session['Rooms_id'])){
 			$model=Rooms::model()->findByPk(Yii::app()->session['Rooms_id']);
@@ -111,11 +123,12 @@ class RoomsController extends Controller
 	
 		$week=array();
 
-		
+		/*
 		switch (Yii::app()->session['Show_type']) {
 			case 'day':
 					$week['begin']=clone Yii::app()->session['Rooms_date'];
-					$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date=\''.Yii::app()->session['Rooms_date']->format('Y-m-d').'\') or t.repeat is not null)'));	
+					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date=\''.Yii::app()->session['Rooms_date']->format('Y-m-d').'\') or t.repeat is not null)');
+					//$events=Events::model()->findAll();	
 				break;
 			case 'week':
 					$week['begin']=clone Yii::app()->session['Rooms_date'];
@@ -125,19 +138,40 @@ class RoomsController extends Controller
 					$week['end']->modify('+'.(7-$dow).' days'); 
 
 
-
-					$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC'));	
+					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC');
+					//$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC'));	
 				# code...
 				break;
 			
 			default:
 				# code...
 				break;
-		}	
 
+		}	*/
+		switch (Yii::app()->session['Event_type']) {
+			case 'events':
+					$event=new Events;
+				break;
+			case 'eventsOpPl':
+					$event=new Eventsoper;
+				break;
+			case 'eventsOpMon':
+					$event=new Eventsoper;
+				break;
+			
+			default:
+					$event=new Events;
+				break;
+
+		}
+		
+		$res=$event->findEvents(Yii::app()->session['Show_type'],Yii::app()->session['Rooms_date']);
+
+		$events=$res['events'];
+		$week=$res['week'];
 		
 		$this->render('show',array(
-			'model'=>$model,'models'=>$models,'events'=>$events,'week'=>$week
+			'model'=>$model,'roomsM'=>$rooms,'events'=>$events,'week'=>$week
 		));
 	}
 

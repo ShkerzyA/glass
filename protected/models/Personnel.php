@@ -39,7 +39,7 @@ class Personnel extends CActiveRecord
 	 public function defaultScope()
     {
         return array(
-            'order'=>'surname ASC',
+            //'order'=>'surname ASC',
         );
     }
 
@@ -106,6 +106,7 @@ class Personnel extends CActiveRecord
             'workplaces' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
             'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel','alias'=>'personnelPostsHistories','order'=>'"personnelPostsHistories".date_end DESC, "personnelPostsHistories".date_begin DESC'),
             'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'creator'),
+            'Eventsoper' => array(self::HAS_MANY, 'Eventsoper', 'creator'),
 		);
 	}
 

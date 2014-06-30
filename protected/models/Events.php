@@ -51,6 +51,34 @@ class Events extends CActiveRecord
 		return $status;
 	}
 
+
+	public function findEvents($showtype,$date){
+		switch ($showtype){
+			case 'day':
+					$week['begin']=clone $date;
+					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date=\''.$week['begin']->format('Y-m-d').'\') or t.repeat is not null)');
+					//$events=Events::model()->findAll();	
+				break;
+			case 'week':
+					$week['begin']=clone $date;
+					$dow=$week['begin']->format('N');
+					$week['begin']->modify('-'.($dow-1).' days');
+					$week['end']=clone Yii::app()->session['Rooms_date'];
+					$week['end']->modify('+'.(7-$dow).' days'); 
+					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC');
+					//$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC'));	
+				# code...
+				break;
+			
+			default:
+				# code...
+				break;	
+			}
+			$events=Events::model()->findAll($criteria);
+			return array('week'=>$week,'events'=>$events);
+	}
+
+
 	public function isShow($date){
 		$pass=false;
 		if(!empty($this->repeat)){
