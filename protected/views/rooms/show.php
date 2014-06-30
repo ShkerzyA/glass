@@ -59,7 +59,20 @@ function init(){
 
 <?php
 if(!empty(Yii::app()->session['Rooms_date']) && !empty(Yii::app()->session['Rooms_id'])){
-	echo '<a href="/glass/events/create?Events[date]='.Yii::app()->session['Rooms_date']->format('d.m.Y').' && Events[id_room]='.Yii::app()->session['Rooms_id'].'">
+	switch (Yii::app()->session['Event_type']) {
+		case 'events':
+			$m='Events';
+			break;
+		case 'eventsOpPl':
+		case 'eventsOpMon':
+			$m='Eventsoper';
+			break;
+		
+		default:
+			# code...
+			break;
+	}
+	echo '<a href="/glass/'.$m.'/create?'.$m.'[date]='.Yii::app()->session['Rooms_date']->format('d.m.Y').' && '.$m.'[id_room]='.Yii::app()->session['Rooms_id'].'">
 		<div id="add_task" class="add_unit fl_right">запланировать событие</div>
 	</a>';
 }
@@ -121,10 +134,10 @@ echo'</div>';
 <?php
 switch (Yii::app()->session['Show_type']) {
 	case 'day':
-		echo $this->renderPartial('_day', array('model'=>$model,'events'=>$events,'week'=>$week)); 
+		echo $this->renderPartial('/'.strtolower($m).'/_day', array('model'=>$model,'events'=>$events,'week'=>$week)); 
 		break;
 	case 'week':
-		echo $this->renderPartial('_week', array('model'=>$model,'events'=>$events,'week'=>$week)); 
+		echo $this->renderPartial('/'.strtolower($m).'/_week', array('model'=>$model,'events'=>$events,'week'=>$week)); 
 		break;
 
 	default:

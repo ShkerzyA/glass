@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_room')); ?>:</b>
-	<?php echo CHtml::encode($data->idRoom->id_room); ?>
+	<?php echo CHtml::encode($data->idRoom->idCabinet->cname); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('date')); ?>:</b>
@@ -30,7 +30,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('creator')); ?>:</b>
-	<?php echo CHtml::encode($data->creator0->creator); ?>
+	<?php echo CHtml::encode($data->creator0->surname); ?>
 	<br />
 
 	<?php /*

@@ -32,6 +32,13 @@ echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function(
 
 		<?php echo $form->error($model,'managers'); ?>
 	</div> 
+	<div class="row">
+		<?php echo $form->labelEx($model,'type'); ?>
+
+	<?php echo $form->dropDownList($model,'type',$model->getType(),
+              array('empty' => '')); ?>
+    	<?php echo $form->error($model,'type'); ?>
+	</div> 
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>

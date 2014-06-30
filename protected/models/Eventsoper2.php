@@ -34,18 +34,21 @@
 
  * @property Rooms $idRoom
  */
-class Eventsoper extends Events
+class Eventsoper extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
 	 * @return Eventsoper the static model class
 	 */
-	public static $modelLabelS='Операция';
-	public static $modelLabelP='Операции';
-	public $operator0operator;
-	public $anesthesiologist0anesthesiologist;
-	public $operation0operation;
+	public static $modelLabelS='Eventsoper';
+	public static $modelLabelP='Eventsoper';
+	
+	public $creator0creator;
+public $operator0operator;
+public $anesthesiologist0anesthesiologist;
+public $operation0operation;
+public $idRoomid_room;
 
 	public function getTypeOper(){
 		$status=array(  0 => 'полостная',
@@ -56,10 +59,38 @@ class Eventsoper extends Events
 		return $status;
 	}
 
+	public function findEvents($showtype,$date){
+		switch ($showtype){
+			case 'day':
+					$week['begin']=clone $date;
+					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date=\''.$week['begin']->format('Y-m-d').'\') )');
+					//$events=Events::model()->findAll();	
+				break;
+			case 'week':
+					$week['begin']=clone $date;
+					$dow=$week['begin']->format('N');
+					$week['begin']->modify('-'.($dow-1).' days');
+					$week['end']=clone Yii::app()->session['Rooms_date'];
+					$week['end']->modify('+'.(7-$dow).' days'); 
+					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') )','order'=>'t.date ASC');
+					//$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC'));	
+				# code...
+				break;
+			
+			default:
+				# code...
+				break;	
+			}
+			$events=Events::model()->findAll($criteria);
+			return array('week'=>$week,'events'=>$events);
+	}
+
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
 	}
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -76,7 +107,6 @@ class Eventsoper extends Events
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id','freeOnly'),
 			array('id_room, creator, operator, anesthesiologist, operation, type_operation', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
 			array('date, timestamp, timestamp_end, date_gosp, brigade', 'safe'),
@@ -101,43 +131,6 @@ class Eventsoper extends Events
 			'operation0' => array(self::BELONGS_TO, 'ListOperations', 'operation'),
 			'idRoom' => array(self::BELONGS_TO, 'Rooms', 'id_room'),
 		);
-	}
-
-	public function isShow($date){
-		$pass=false;
-		if($date->format('Y-m-d')==$this->date){
-			$pass=true;
-		}
-		return $pass;
-	}
-
-
-		public function findEvents($showtype,$date){
-		switch ($showtype){
-			case 'day':
-					$week['begin']=clone $date;
-					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date=\''.$week['begin']->format('Y-m-d').'\'))');
-					//$events=Events::model()->findAll();	
-				break;
-			case 'week':
-					$week['begin']=clone $date;
-					$dow=$week['begin']->format('N');
-					$week['begin']->modify('-'.($dow-1).' days');
-					$week['end']=clone Yii::app()->session['Rooms_date'];
-					$week['end']->modify('+'.(7-$dow).' days'); 
-					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\'))','order'=>'t.date ASC');
-					//$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC'));	
-				# code...
-				break;
-			
-			default:
-				# code...
-				break;	
-			}
-			//$events=Eventsoper::model()->findAll($criteria);
-			$events=Eventsoper::model()->findAll();
-			//print_r($events);
-			return array('week'=>$week,'events'=>$events);
 	}
 
 	/**
@@ -166,22 +159,6 @@ class Eventsoper extends Events
 			'idRoomid_room' => 'id_room',
 		);
 	}
-
-	public function freeOnly()
-    {   
-
-    	if(!empty($_POST['Eventsoper']))
-    		$this->attributes=$_POST['Eventsoper'];
-
-    	//echo $this->id_post;
-
-    	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and  
-    		((timestamp>'".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or (timestamp_end>'".$this->timestamp."' and timestamp_end<'".$this->timestamp_end."') or (timestamp<'".$this->timestamp."' and timestamp_end>'".$this->timestamp_end."'))"));
-        foreach ($Ph as $v){
-        	$this->addError('Eventsoper["id_post"]','Выбранное время занято. Событие "'.$v->operation.'"('.$v->timestamp.'-'.$v->timestamp_end.')');
-        }
-        
-    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

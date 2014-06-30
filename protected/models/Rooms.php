@@ -46,6 +46,13 @@ class Rooms extends CActiveRecord
 		return 'rooms';
 	}
 
+	public function getType(){
+		return array(
+			0=>'Презентационные',
+			1=>'Операционные'
+			);
+	}
+
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -55,7 +62,7 @@ class Rooms extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_cabinet', 'numerical', 'integerOnly'=>true),
+			array('id_cabinet,type','numerical', 'integerOnly'=>true),
 			array('managers', 'safe'),
 		
 			// The following rule is used by search().

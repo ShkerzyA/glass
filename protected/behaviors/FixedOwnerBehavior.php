@@ -1,7 +1,7 @@
 <?php 
 class FixedOwnerBehavior extends CActiveRecordBehavior{
     
-    public $own=array('Docs'=>'creator','Catalogs'=>'owner','Tasks'=>'creator','TasksActions'=>'creator','Events'=>'creator','EventsActions'=>'creator');
+    public $own=array('Docs'=>'creator','Catalogs'=>'owner','Tasks'=>'creator','TasksActions'=>'creator','Events'=>'creator','Eventsoper'=>'creator','EventsActions'=>'creator');
 
     public function beforeSave($event){
        if($this->owner->scenario=='insert'){

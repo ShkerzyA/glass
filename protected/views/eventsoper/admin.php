@@ -44,7 +44,7 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array( 'name'=>'idRoomid_room', 'value'=>'$data->idRoom->id_room' ),
+		array( 'name'=>'idRoomid_room', 'value'=>'$data->idRoom->idCabinet->cname' ),
 		'date',
 		'timestamp',
 		'timestamp_end',

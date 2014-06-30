@@ -85,9 +85,9 @@ class RoomsController extends Controller
 		));
 	}
 
+
 	public function actionShow($id=NULL){
 		$this->layout='//layouts/column1';
-		$rooms=Rooms::model()->findAll();
 
 
 		if($id!=NULL){
@@ -95,7 +95,6 @@ class RoomsController extends Controller
 		}else if(empty(Yii::app()->session['Rooms_id'])){
 			Yii::app()->session['Rooms_id']=0;
 		}
-
 
 		if(!empty($_GET['date'])){
 			Yii::app()->session['Rooms_date']=new DateTime($_GET['date']);
@@ -115,7 +114,6 @@ class RoomsController extends Controller
 			Yii::app()->session['Event_type']='f**koff';
 		}
 
-
 		if(!empty(Yii::app()->session['Rooms_id'])){
 			$model=Rooms::model()->findByPk(Yii::app()->session['Rooms_id']);
 		}else{
@@ -123,41 +121,15 @@ class RoomsController extends Controller
 		}
 	
 		$week=array();
-
-		/*
-		switch (Yii::app()->session['Show_type']) {
-			case 'day':
-					$week['begin']=clone Yii::app()->session['Rooms_date'];
-					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date=\''.Yii::app()->session['Rooms_date']->format('Y-m-d').'\') or t.repeat is not null)');
-					//$events=Events::model()->findAll();	
-				break;
-			case 'week':
-					$week['begin']=clone Yii::app()->session['Rooms_date'];
-					$dow=$week['begin']->format('N');
-					$week['begin']->modify('-'.($dow-1).' days');
-					$week['end']=clone Yii::app()->session['Rooms_date'];
-					$week['end']->modify('+'.(7-$dow).' days'); 
-
-
-					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC');
-					//$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC'));	
-				# code...
-				break;
-			
-			default:
-				# code...
-				break;
-
-		}	*/
 		switch (Yii::app()->session['Event_type']) {
 			case 'events':
 					$event=new Events;
+					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=0'));
 				break;
 			case 'eventsOpPl':
-					$event=new Eventsoper;
-				break;
 			case 'eventsOpMon':
 					$event=new Eventsoper;
+					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1'));
 				break;
 			
 			default:
