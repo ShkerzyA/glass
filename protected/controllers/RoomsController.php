@@ -11,7 +11,7 @@ class RoomsController extends Controller
 	public $events_menu=array(
 		array('name'=>'События','type'=>'events'),
 		array('name'=>'План операций','type'=>'eventsOpPl'),
-		array('name'=>'Мониторинг операция','type'=>'eventsOpMon')
+		array('name'=>'Мониторинг операций','type'=>'eventsOpMon')
 		);
 
 	/**
@@ -88,6 +88,7 @@ class RoomsController extends Controller
 	public function actionShow($id=NULL){
 		$this->layout='//layouts/column1';
 		$rooms=Rooms::model()->findAll();
+
 
 		if($id!=NULL){
 			Yii::app()->session['Rooms_id']=$id;
