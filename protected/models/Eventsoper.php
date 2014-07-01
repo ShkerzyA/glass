@@ -179,7 +179,7 @@ class Eventsoper extends Events
 	{
 		return array(
 			'id' => 'ID',
-			'id_room' => 'Id Room',
+			'id_room' => 'Операционная',
 			'date' => 'Дата',
 			'timestamp' => 'Время начала',
 			'timestamp_end' => 'Время окончания',

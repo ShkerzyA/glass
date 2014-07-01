@@ -84,6 +84,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'operationSV' => 
+  array (
+    'type' => 0,
+    'description' => 'Управление планом операций',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'ruleWorkplaces' => 
   array (
     'type' => 0,
@@ -117,11 +124,22 @@ return array (
   array (
     'type' => 1,
     'description' => 'Изменение своих событий',
-    'bizRule' => 'return $params["mod"]->isOwner()',
+    'bizRule' => 'return $params["mod"]->isOwner();',
     'data' => NULL,
     'children' => 
     array (
       0 => 'updateEv',
+    ),
+  ),
+  'userOperationSV' => 
+  array (
+    'type' => 1,
+    'description' => 'Управление операциями',
+    'bizRule' => 'return in_array("operationsv",$params["groups"]);',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'operationSV',
     ),
   ),
   'guest' => 
@@ -149,7 +167,8 @@ return array (
       2 => 'saveMessage',
       3 => 'OwnSaveStatus',
       4 => 'ManagerSaveStatusEv',
-      5 => 'OwnUpdateEv',
+      5 => 'userOperationSV',
+      6 => 'OwnUpdateEv',
     ),
   ),
   'moderator' => 
@@ -169,6 +188,7 @@ return array (
       6 => 'saveStatus',
       7 => 'saveStatusEv',
       8 => 'updateEv',
+      9 => 'operationSV',
     ),
   ),
   'administrator' => 

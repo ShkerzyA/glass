@@ -80,7 +80,7 @@ function init(){
 
 		<?php $tmp=Rooms::model()->findall();
 echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->idCabinet->cname);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->idCabinet->cname);}),array('empty' => '',)); ?>
 		<?php echo $form->error($model,'id_room'); ?>
 	</div>
 
@@ -139,18 +139,6 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'creator'); ?>
-		<?php echo Customfields::searchPersonnel($model,'creator'); ?>
-		<?php echo $form->error($model,'creator'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'operator'); ?>
-		<?php echo Customfields::searchPersonnel($model,'operator'); ?>
-		<?php echo $form->error($model,'operator'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'date_gosp'); ?>
 
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
@@ -169,12 +157,19 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'date_gosp'); ?>
 	</div>
 
+
+<!--
 	<div class="row">
-		<?php echo $form->labelEx($model,'brigade'); ?>
 
-		<?php echo Customfields::multiPersonnel($model,'brigade'); ?>
+		<?php echo $form->labelEx($model,'creator'); ?>
+		<?php echo Customfields::searchPersonnel($model,'creator'); ?>
+		<?php echo $form->error($model,'creator'); ?>
+	</div> -->
 
-		<?php echo $form->error($model,'brigade'); ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'operator'); ?>
+		<?php echo Customfields::searchPersonnel($model,'operator'); ?>
+		<?php echo $form->error($model,'operator'); ?>
 	</div>
 
 	<div class="row">
@@ -183,6 +178,17 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 		<?php echo Customfields::searchPersonnel($model,'anesthesiologist'); ?>
 		<?php echo $form->error($model,'anesthesiologist'); ?>
 	</div>
+
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'brigade'); ?>
+
+		<?php echo Customfields::multiPersonnel($model,'brigade'); ?>
+
+		<?php echo $form->error($model,'brigade'); ?>
+	</div>
+
+	
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'operation'); ?>

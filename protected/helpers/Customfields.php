@@ -16,7 +16,7 @@ Class Customfields{
 					</div>";
 					}
 				}	
-		$result.="<div id='add_group' class='add_unit'>Добавить</div></div>";
+		$result.="<div id='add_group' class='add_uni'>Добавить</div></div>";
 		return $result;
 	}
 

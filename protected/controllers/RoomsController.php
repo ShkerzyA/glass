@@ -8,10 +8,11 @@ class RoomsController extends Controller
 	 */
 	public $layout='//layouts/column2';
 
+	
 	public $events_menu=array(
-		array('name'=>'События','type'=>'events'),
-		array('name'=>'План операций','type'=>'eventsOpPl'),
-		array('name'=>'Мониторинг операций','type'=>'eventsOpMon')
+		array('name'=>'События','type'=>'events','rule'=>NULL),
+		array('name'=>'План операций','type'=>'eventsOpPl','rule'=>'userOperationSV'),
+		array('name'=>'Мониторинг операций','type'=>'eventsOpMon','rule'=>NULL)
 		);
 
 	/**
@@ -30,6 +31,7 @@ class RoomsController extends Controller
 	 * This method is used by the 'accessControl' filter.
 	 * @return array access control rules
 	 */
+
 	public function accessRules()
 	{
 		return array(
@@ -129,7 +131,12 @@ class RoomsController extends Controller
 			case 'eventsOpPl':
 			case 'eventsOpMon':
 					$event=new Eventsoper;
-					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1'));
+					if(Yii::app()->user->checkAccess('userOperationSV',array('groups'=>Yii::app()->user->groups))){
+						$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1'));	
+					}else{
+						$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1 and '.Yii::app()->user->id_pers.' in (managers)'));	
+					}
+					
 				break;
 			
 			default:

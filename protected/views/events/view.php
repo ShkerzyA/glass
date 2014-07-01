@@ -7,6 +7,8 @@ $this->breadcrumbs=array(
 	$model->id,
 );
 
+//print_r(Yii::app()->user->groups);
+
 
 Yii::app()->clientScript->registerPackage('actions');
 if(!(Yii::app()->user->isGuest)){

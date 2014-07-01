@@ -63,6 +63,7 @@ public function actionInstall(){
     $auth->createOperation('saveStatus', 'Изменить статус Задачи');
     $auth->createOperation('saveStatusEv', 'Изменить статус События');
     $auth->createOperation('updateEv', 'Редактировать событие');
+    $auth->createOperation('operationSV', 'Управление планом операций');
     $auth->createOperation('ruleWorkplaces', 'Управление рабочими местами');
 
 
@@ -80,9 +81,13 @@ public function actionInstall(){
     $task = $auth->createTask('ManagerSaveStatusEv', 'Изменение подконтрольных событий', $bizRule);
     $task->addChild('saveStatusEv', 'Изменить статус');
 
-    $bizRule='return $params["mod"]->isOwner()';
+    $bizRule='return $params["mod"]->isOwner();';
     $task = $auth->createTask('OwnUpdateEv', 'Изменение своих событий', $bizRule);
     $task->addChild('updateEv', 'Изменить статус');
+
+    $bizRule='return in_array("operationsv",$params["groups"]);';
+    $task = $auth->createTask('userOperationSV', 'Управление операциями', $bizRule);
+    $task->addChild('operationSV', 'Управление операциями');
 
     $guest = $auth->createRole('guest');
 	$guest->addChild('index');
@@ -94,6 +99,7 @@ public function actionInstall(){
   	$user->addChild('saveMessage');
   	$user->addChild('OwnSaveStatus');
   	$user->addChild('ManagerSaveStatusEv');
+  	$user->addChild('userOperationSV');
   	$user->addChild('OwnUpdateEv');
 
     $moderator = $auth->createRole('moderator');
@@ -106,6 +112,7 @@ public function actionInstall(){
     $moderator->addChild('saveStatus'); 
     $moderator->addChild('saveStatusEv'); 
     $moderator->addChild('updateEv'); 
+    $moderator->addChild('operationSV'); 
 
 
     $administrator = $auth->createRole('administrator');
@@ -117,7 +124,7 @@ public function actionInstall(){
 
     $auth->save();
  
-    $this->render('install');
+    //$this->render('install');
 }
 
 	/**

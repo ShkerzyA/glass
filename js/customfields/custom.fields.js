@@ -87,7 +87,7 @@ function getAjax_surnameSearch(){
 	//alert(search);
 	$.post('/glass/Personnel/surnameSearch',{search: search, field: field, modelN: modelN},function(data,status){
 		if(status=='success'){
-			show_groups(data);
+			show_users(data);
 		}
 	},'html');
 }
@@ -106,10 +106,18 @@ function getAjax_markSearch(id){
 	
 }
 
-function show_groups(data){
+function show_users(data){
 	var id=globid;
 	$('.back').remove();
 	coords=$('.add_unit#'+id+'').offset();
+	
+	$('html').append(data);
+	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
+}
+
+function show_groups(data){
+	$('.back').remove();
+	coords=$('#add_group').offset();
 	
 	$('html').append(data);
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
