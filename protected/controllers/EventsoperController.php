@@ -32,7 +32,7 @@ class EventsoperController extends Controller
 				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','monupdate','agree'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -94,6 +94,37 @@ class EventsoperController extends Controller
 		if(isset($_POST['Eventsoper']))
 		{
 			$model->attributes=$_POST['Eventsoper'];
+			if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+		}
+
+		$this->render('update',array(
+			'model'=>$model,
+		));
+	}
+
+	public function actionAgree($id){
+		$model=$this->loadModel($id);
+		$model->status=1;
+		if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+	}
+
+		public function actionMonUpdate($id)
+	{
+		$model=$this->loadModel($id);
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Eventsoper']))
+		{
+			$model=new Eventsoper;
+			$model->attributes=$_POST['Eventsoper'];
+			$model->id_eventsoper=$id;
+			$model->status=2;
+
+			//print_r($_POST);
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

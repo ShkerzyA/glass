@@ -14,8 +14,6 @@
  	</div>
 
 
-
-
 	<div class=day_event>
 	<?php
 		$w=array(1=>'Понедельник',2=>'Вторник',3=>'Среда',4=>'Четверг',5=>'Пятница',6=>'Суббота',7=>'Воскресенье');
@@ -34,12 +32,12 @@
 
 			$top=($x1-480);
 			$height=($x2-$x1);
-
+			$status=$v->gimmeStatus();
 			echo'<a href='.Yii::app()->request->baseUrl.'/eventsoper/'.$v->id.'>';
-			echo '<div class="event " style="top: '.$top.'px; height: '.$height.'px">';
-				echo '<p>'.$v->operation.'</p>';
+			echo '<div class="event '.$status['css_class'].'" style="top: '.$top.'px; height: '.$height.'px">';
+				echo '<p>'.$v->operation->name.'</p>';
 				//echo '<div class=corps>'.$v->description.'</div>';
-				//echo '<div class=status>'.$status['label'].'</div>';
+				echo '<div class=status>'.$status['label'].'</div>';
 				echo '<div class=time>'.$v->timestamp.' - '.$v->timestamp_end.'</div>';
 				echo '<div class=creator>'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</div>';
 			echo '</div></a>';

@@ -111,7 +111,7 @@ class RoomsController extends Controller
 		if(!empty($_GET['Event_type'])){
 			Yii::app()->session['Event_type']=$_GET['Event_type'];
 		}else if(empty(Yii::app()->session['Event_type'])){
-			Yii::app()->session['Event_type']='f**koff';
+			Yii::app()->session['Event_type']='events';
 		}
 
 		if(!empty(Yii::app()->session['Rooms_id'])){
@@ -134,6 +134,7 @@ class RoomsController extends Controller
 			
 			default:
 					$event=new Events;
+					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=0'));
 				break;
 
 		}

@@ -46,14 +46,33 @@ class Eventsoper extends Events
 	public $operator0operator;
 	public $anesthesiologist0anesthesiologist;
 	public $operation0operation;
+	public $eventsopersid_eventsoper;
 
 	public function getTypeOper(){
 		$status=array(  0 => 'полостная',
 						1 => 'ангиографическая',
-						2 => 'видеоэндохирургическая');
+						2 => 'видеоэндохирургическая',
+						3 => 'минимально инвазивная'
+					);
 	
 
 		return $status;
+	}
+
+	public function getStatus(){
+		$status=array(  0 => 'План',
+						1 => 'Подтверждено',
+						2 => 'Мониторинг',);
+	
+
+		return $status;
+	}
+
+	public function gimmeStatus(){
+		$status=array(  0 => array('label'=>'План','css_class'=>'open'),
+						1 => array('label'=>'Подтверждено','css_class'=>'done'),
+						2 => array('label'=>'Мониторинг','css_class'=>'done'));
+		return $status[$this->status];
 	}
 
 	public static function model($className=__CLASS__)
@@ -68,19 +87,7 @@ class Eventsoper extends Events
 		return 'eventsoper';
 	}
 
-		public function behaviors(){
-	return array(
-			'PreFill'=>array(
-				'class'=>'application.behaviors.PreFillBehavior',
-				),
-			'FixedOwner'=>array(
-				'class'=>'application.behaviors.FixedOwnerBehavior',
-				),
-			'Multichoise'=>array(
-				'class'=>'application.behaviors.MultichoiseBehavior',
-				),
-			);
-	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -90,13 +97,13 @@ class Eventsoper extends Events
 		// will receive user inputs.
 		return array(
 			array('id','freeOnly'),
-			array('id_room, creator, operator, anesthesiologist, operation, type_operation', 'numerical', 'integerOnly'=>true),
+			array('id_room, creator, operator, anesthesiologist, operation, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
 			array('date, timestamp, timestamp_end, date_gosp, brigade', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_room, date, timestamp, timestamp_end, fio_pac, creator, operator, date_gosp, brigade, anesthesiologist, operation, type_operation,creator0creator,operator0operator,anesthesiologist0anesthesiologist,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
+			array('id, id_room, date, timestamp, timestamp_end, fio_pac, creator, operator, date_gosp, brigade, id_eventsoper, anesthesiologist, operation, type_operation,creator0creator,operator0operator,anesthesiologist0anesthesiologist,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -113,6 +120,8 @@ class Eventsoper extends Events
 			'anesthesiologist0' => array(self::BELONGS_TO, 'Personnel', 'anesthesiologist'),
 			'operation0' => array(self::BELONGS_TO, 'ListOperations', 'operation'),
 			'idRoom' => array(self::BELONGS_TO, 'Rooms', 'id_room'),
+            'idEventsoper' => array(self::BELONGS_TO, 'Eventsoper', 'id_eventsoper'),
+            'eventsopers' => array(self::HAS_ONE, 'Eventsoper', 'id_eventsoper'),
 		);
 	}
 
@@ -171,22 +180,22 @@ class Eventsoper extends Events
 		return array(
 			'id' => 'ID',
 			'id_room' => 'Id Room',
-			'date' => 'Date',
-			'timestamp' => 'Timestamp',
-			'timestamp_end' => 'Timestamp End',
-			'fio_pac' => 'Fio Pac',
+			'date' => 'Дата',
+			'timestamp' => 'Время начала',
+			'timestamp_end' => 'Время окончания',
+			'fio_pac' => 'ФИО пациента',
 			'creator' => 'Creator',
-			'operator' => 'Operator',
-			'date_gosp' => 'Date Gosp',
-			'brigade' => 'Brigade',
-			'anesthesiologist' => 'Anesthesiologist',
-			'operation' => 'Operation',
-			'type_operation' => 'Type Operation',
+			'operator' => 'Оператор',
+			'date_gosp' => 'Дата госпитализации',
+			'brigade' => 'Бригада',
+			'anesthesiologist' => 'Анестезиолог',
+			'operation' => 'Операция',
+			'type_operation' => 'Тип операции',
 			'creator0creator' => 'creator',
-			'operator0operator' => 'operator',
-			'anesthesiologist0anesthesiologist' => 'anesthesiologist',
-			'operation0operation' => 'operation',
-			'idRoomid_room' => 'id_room',
+			'operator0operator' => 'Оператор',
+			'anesthesiologist0anesthesiologist' => 'Анестезиолог',
+			'operation0operation' => 'Операция',
+			'idRoomid_room' => 'Комната',
 		);
 	}
 
@@ -251,6 +260,8 @@ class Eventsoper extends Events
 		$criteria->compare('personnel_a.anesthesiologist',$this->anesthesiologist0anesthesiologist,true);
 		$criteria->compare('listoperations.operation',$this->operation0operation,true);
 		$criteria->compare('rooms.id_room',$this->idRoomid_room,true);
+        $criteria->compare('eventsoper.id_eventsoper',$this->idEventsoperid_eventsoper,true);
+        $criteria->compare('eventsoper.id_eventsoper',$this->eventsopersid_eventsoper,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

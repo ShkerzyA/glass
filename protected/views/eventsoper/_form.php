@@ -100,7 +100,6 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
    ),
 	));?>
 
-	<?php //print_r($model)?>
 
 		<?php echo $form->error($model,'date'); ?>
 	</div>
@@ -154,7 +153,18 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 	<div class="row">
 		<?php echo $form->labelEx($model,'date_gosp'); ?>
 
-		<?php echo $form->textField($model,'date_gosp'); ?>
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+   'name' => 'date_gosp',
+   'model' => $model,
+   'attribute' => 'date_gosp',
+   'language' => 'ru',
+   'options' => array(
+       'showAnim' => 'fold',
+   ),
+   'htmlOptions' => array(
+       'style' => 'height:20px;'
+   ),
+	));?>
 
 		<?php echo $form->error($model,'date_gosp'); ?>
 	</div>
