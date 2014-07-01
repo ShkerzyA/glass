@@ -313,6 +313,10 @@ select,option, input{
 	padding-left: 5px; 
 	border: 1px solid #cacaca;
 }
+.event{
+	background: #ebf4e6;
+}
+
 .open{
  	background: #fcfcfc;
 }

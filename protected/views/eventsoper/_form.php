@@ -100,6 +100,8 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
    ),
 	));?>
 
+	<?php //print_r($model)?>
+
 		<?php echo $form->error($model,'date'); ?>
 	</div>
 
@@ -139,19 +141,13 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'creator'); ?>
-
-		<?php $tmp=Personnel::model()->findall();
-echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->surname.''.$tmp->name);}),array('empty' => '')); ?>
+		<?php echo Customfields::searchPersonnel($model,'creator'); ?>
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'operator'); ?>
-
-		<?php $tmp=Personnel::model()->findall();
-echo $form->dropDownList($model,"operator",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->surname.''.$tmp->name);}),array('empty' => '')); ?>
+		<?php echo Customfields::searchPersonnel($model,'operator'); ?>
 		<?php echo $form->error($model,'operator'); ?>
 	</div>
 
@@ -166,7 +162,7 @@ echo $form->dropDownList($model,"operator",CHtml::listData($tmp,"id",function($t
 	<div class="row">
 		<?php echo $form->labelEx($model,'brigade'); ?>
 
-		<?php echo $form->textField($model,'brigade'); ?>
+		<?php echo Customfields::multiPersonnel($model,'brigade'); ?>
 
 		<?php echo $form->error($model,'brigade'); ?>
 	</div>
@@ -174,9 +170,7 @@ echo $form->dropDownList($model,"operator",CHtml::listData($tmp,"id",function($t
 	<div class="row">
 		<?php echo $form->labelEx($model,'anesthesiologist'); ?>
 
-		<?php $tmp=Personnel::model()->findall();
-echo $form->dropDownList($model,"anesthesiologist",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->surname.''.$tmp->name);}),array('empty' => '')); ?>
+		<?php echo Customfields::searchPersonnel($model,'anesthesiologist'); ?>
 		<?php echo $form->error($model,'anesthesiologist'); ?>
 	</div>
 

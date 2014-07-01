@@ -68,6 +68,19 @@ class Eventsoper extends Events
 		return 'eventsoper';
 	}
 
+		public function behaviors(){
+	return array(
+			'PreFill'=>array(
+				'class'=>'application.behaviors.PreFillBehavior',
+				),
+			'FixedOwner'=>array(
+				'class'=>'application.behaviors.FixedOwnerBehavior',
+				),
+			'Multichoise'=>array(
+				'class'=>'application.behaviors.MultichoiseBehavior',
+				),
+			);
+	}
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -111,6 +124,16 @@ class Eventsoper extends Events
 		return $pass;
 	}
 
+	 public function afterFind() {
+
+       if($this->scenario=='update'){
+            if(!empty($this->brigade)){
+                $tmp=substr($this->brigade,1,-1);
+                $this->brigade=$tmp;
+            }
+        }
+    }
+
 
 		public function findEvents($showtype,$date){
 		switch ($showtype){
@@ -134,8 +157,8 @@ class Eventsoper extends Events
 				# code...
 				break;	
 			}
-			//$events=Eventsoper::model()->findAll($criteria);
-			$events=Eventsoper::model()->findAll();
+			$events=Eventsoper::model()->findAll($criteria);
+			//$events=Eventsoper::model()->findAll();
 			//print_r($events);
 			return array('week'=>$week,'events'=>$events);
 	}

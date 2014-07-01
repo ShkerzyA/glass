@@ -35,7 +35,7 @@ Class Customfields{
 					</div>";
 					}
 				}	
-		$result.="<div id='add_post' class='add_unit'>Добавить</div></div>";
+		$result.="<div class='add_post'>Добавить</div></div>";
 		return $result;
 	}
 
@@ -43,41 +43,42 @@ Class Customfields{
 	public static function multiPersonnel($model,$field){
 		Yii::app()->clientScript->registerPackage('customfields');
 
-		$result="<div class='multichoise'>";
+		$result="<div class='multichoise' id='".$field."'>";
 				echo'<input type=hidden name=group_anchor>';
-				echo'<input type=hidden name=field id=field value='.$field.'>';
+				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
 					$tmp=explode(',',$model->$field); 
 					foreach ($tmp as $v){
 						if(!empty($v)){
 							$pers=Personnel::model()->findByPk($v);
-							$result.="<div class='choise_unit $v'>
+							$result.="<div class='choise_unit $field$v'>
 								<input type=hidden name='".$field."[$v]' value=$v>".(CHtml::encode($pers->surname.' '.$pers->name))."
-								<div id=$v class='close_this'></div>
+								<div id=$field$v class='close_this'></div>
 							</div>";
 						}
 					}	
 				
-		$result.="<div id='add_personnel' class='add_unit'>Изменить</div></div>";
+		$result.="<div id='".$field."' class='add_unit'>Изменить</div></div>";
 		return $result;
 	}
 
 	public static function searchPersonnel($model,$field)
 	{
 		Yii::app()->clientScript->registerPackage('customfields');
-			$result="<div class='multichoise'>";
-				echo'<input type=hidden name=field id=field value='.$field.'>';
-				echo'<input type=hidden name=modelN id=modelN value='.get_class($model).'>';
+			$mn=get_class($model);
+			$result="<div class='multichoise' id='".$field."'>";
+				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
+				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
 					$tmp=$model->$field; 
 						if(!empty($tmp)){
 							$pers=Personnel::model()->findByPk($tmp);
-							$result.="<div class='choise_unit $v'>
-								<input type=hidden name='".get_class($model)."[".$field."]' value=$tmp>".(CHtml::encode($pers->surname.' '.$pers->name.' '.$pers->patr))."
-								<div id=$tmp class='close_this'></div>
+							$result.="<div class='choise_unit $field$tmp'>
+								<input type=hidden name='".$mn."[".$field."]' value=$tmp>".(CHtml::encode($pers->surname.' '.$pers->name.' '.$pers->patr))."
+								<div id=$field$tmp class='close_this'></div>
 							</div>";
 						}
 				
 				
-		$result.="<div id='add_personnel' class='add_unit'>Изменить</div></div>";
+		$result.="<div id='".$field."' class='add_unit'>Изменить</div></div>";
 		return $result;
 		# code...
 	}

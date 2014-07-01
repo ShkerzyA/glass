@@ -151,6 +151,9 @@ class Events extends CActiveRecord
 			'FixedOwner'=>array(
 				'class'=>'application.behaviors.FixedOwnerBehavior',
 				),
+			'Multichoise'=>array(
+				'class'=>'application.behaviors.MultichoiseBehavior',
+				),
 			);
 	}
 

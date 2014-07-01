@@ -1,7 +1,7 @@
 <?php 
 class MultichoiseBehavior extends CActiveRecordBehavior{
 
-    public $own=array('DepartmentPosts'=>'groups','Tasks'=>'executors','Rooms'=>'managers','Catalogs'=>'groups');
+    public $own=array('DepartmentPosts'=>'groups','Tasks'=>'executors','Rooms'=>'managers','Catalogs'=>'groups','Eventsoper'=>'brigade');
 
     private function getField(){
         $model_name=trim(get_class($this->owner));
@@ -15,8 +15,6 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
 // автоматически пишем сообщения при получении логгером
 //Yii::getLogger()->autoDump = true;
 
-
-            
             $val=$this->getField();
             if(isset($_POST['group_anchor'])){
                 if(!empty($_POST[$val])){

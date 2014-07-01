@@ -1,4 +1,5 @@
 var globalTimeout = null; 
+var globid = null;
 function init(){
 	$('.close_this').live('click',function(){ 
 		$('.'+this.id).remove();
@@ -9,7 +10,7 @@ function init(){
 		getAjax_groups();
 	});
 
-	$('#add_post').live('click',function(){ 
+	$('.add_post').live('click',function(){ 
 		$('.modal2').remove();
 		getAjax_posts();
 	});
@@ -28,13 +29,15 @@ function init(){
         globalTimeout =setTimeout(function(){ getAjax_markSearch(id) },100);  
     });
 
-	$('#add_personnel').live('click',function(){ 
+	$('.add_unit').live('click',function(){ 
 		$('.modal2').remove();
+		globid=this.id;
 		getAjax_surnameSearch();
 	});
 
-	$('#search_surname').live('keyup',function(){
+	$('.search_surname').live('keyup',function(){
         if(globalTimeout != null) clearTimeout(globalTimeout);  
+        globid=this.id;
         globalTimeout =setTimeout(getAjax_surnameSearch,600);  
     });
 
@@ -50,13 +53,12 @@ function init(){
 
 	$('.join_personnel').live('click',function(){ 
 		$('.'+this.id).remove();
-		$('.multichoise').prepend('<div class="choise_unit '+this.id+'"><input type=hidden name="'+$(this).attr('field')+'['+this.id+']" value='+this.id+'>'+this.getAttribute('text')+'<div id='+this.id+' class="close_this"></div></div>');
+		$('.multichoise#'+($(this).attr('f'))+'').prepend('<div class="choise_unit '+($(this).attr('f'))+this.id+'"><input type=hidden name="'+$(this).attr('field')+'['+this.id+']" value='+this.id+'>'+this.getAttribute('text')+'<div id='+($(this).attr('f'))+this.id+' class="close_this"></div></div>');
 	});
 
 	$('.replace_personnel').live('click',function(){ 
-		$('.'+this.id).remove();
-		$('.choise_unit').remove();
-		$('.multichoise').prepend('<div class="choise_unit '+this.id+'"><input type=hidden name="'+$(this).attr('field')+'" value='+this.id+'>'+this.getAttribute('text')+'<div id='+this.id+' class="close_this"></div></div>');
+		$('.multichoise#'+($(this).attr('f'))+' .choise_unit').remove();
+		$('.multichoise#'+($(this).attr('f'))+'').prepend('<div class="choise_unit '+($(this).attr('f'))+this.id+'"><input type=hidden name="'+$(this).attr('field')+'" value='+this.id+'>'+this.getAttribute('text')+'<div id='+($(this).attr('f'))+this.id+' class="close_this"></div></div>');
 	});
 }
 
@@ -78,9 +80,10 @@ function getAjax_posts(){
 }
 
 function getAjax_surnameSearch(){
-	var field=$('#field').val();
-	var modelN=$('#modelN').val();
-	var search=$('#search_surname').val();
+	var id=globid;
+	var field=$('.field#'+id+'').val();
+	var modelN=$('.modelN#'+id+'').val();
+	var search=$('.search_surname#'+id+'').val();
 	//alert(search);
 	$.post('/glass/Personnel/surnameSearch',{search: search, field: field, modelN: modelN},function(data,status){
 		if(status=='success'){
@@ -104,9 +107,9 @@ function getAjax_markSearch(id){
 }
 
 function show_groups(data){
-
+	var id=globid;
 	$('.back').remove();
-	coords=$('.add_unit').offset();
+	coords=$('.add_unit#'+id+'').offset();
 	
 	$('html').append(data);
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
