@@ -58,7 +58,8 @@
 				echo '<div class=status>'.$status['label'].'</div>';
 				// echo '<div class=time>'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</div>';
 				echo '<div class=creator>'.$v->timestamp.' - '.$v->timestamp_end.'</div>';
-			echo '</div></a>';
+			echo '</div>';
+			echo'</a>';
 
 			
 		}

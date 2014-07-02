@@ -229,8 +229,10 @@ class Events extends CActiveRecord
 
     	//echo $this->id_post;
 
-    	$Ph=Events::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."' or repeat=1) and  
-    		((timestamp>'".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or (timestamp_end>'".$this->timestamp."' and timestamp_end<'".$this->timestamp_end."') or (timestamp<'".$this->timestamp."' and timestamp_end>'".$this->timestamp_end."'))
+    	$Ph=Events::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."' or repeat=1) and id<>".(int)$this->id." and
+    		((timestamp>='".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or 
+    		(timestamp_end>'".$this->timestamp."' and timestamp_end<='".$this->timestamp_end."') or 
+    		(timestamp<='".$this->timestamp."' and timestamp_end>='".$this->timestamp_end."'))
     		and status not in (2)"));
         foreach ($Ph as $v){
         	$this->addError('Events["id_post"]','Выбранное время занято. Событие "'.$v->name.'"('.$v->timestamp.'-'.$v->timestamp_end.')');

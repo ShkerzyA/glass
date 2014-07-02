@@ -12,12 +12,14 @@
 )); 
 ?>
 
+	<?php echo $form->errorSummary($model); ?>
+	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
 	</div>
 
 
-	<?php echo $form->errorSummary($model); ?>
+	
 
 	<input type=hidden name=id_dep id=id_dep value="<?php echo $model->id_department ?>">
 	<div class="row">

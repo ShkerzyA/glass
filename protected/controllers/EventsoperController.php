@@ -134,14 +134,16 @@ public function actionSuggest(){
 
 		if(isset($_POST['Eventsoper']))
 		{
-			$model=new Eventsoper;
-			$model->attributes=$_POST['Eventsoper'];
-			$model->id_eventsoper=$id;
-			$model->status=2;
-
+			$model_new=new Eventsoper;
+			$model_new->attributes=$_POST['Eventsoper'];
+			$model_new->id_eventsoper=$id;
+			$model_new->status=3;
 			//print_r($_POST);
-			if($model->save())
-				$this->redirect(array('/rooms/show'));
+			if($model_new->save()){
+				$model->status=2;
+				if($model->save())
+					$this->redirect(array('/rooms/show'));
+			}
 		}
 
 		$this->render('update',array(

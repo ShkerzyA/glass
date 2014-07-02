@@ -48,6 +48,7 @@ class Eventsoper extends Events
 	public $operation0operation;
 	public $eventsopersid_eventsoper;
 	public $idEventsoperid_eventsoper;
+	public $operation=-1;
 
 	public function getTypeOper(){
 		$status=array(  0 => 'полостная',
@@ -63,7 +64,8 @@ class Eventsoper extends Events
 	public function getStatus(){
 		$status=array(  0 => 'План',
 						1 => 'Подтверждено',
-						2 => 'Мониторинг',);
+						2 => 'Подтверждено(мон)',
+						3 => 'Мониторинг',);
 	
 
 		return $status;
@@ -71,8 +73,9 @@ class Eventsoper extends Events
 
 	public function gimmeStatus(){
 		$status=array(  0 => array('label'=>'План','css_class'=>'open'),
-						1 => array('label'=>'Подтверждено','css_class'=>'done'),
-						2 => array('label'=>'Мониторинг','css_class'=>'done'));
+						1 => array('label'=>'Подтверждено','css_class'=>'done '),
+						2 => array('label'=>'Подтверждено(мон)','css_class'=>'done '),
+						3 => array('label'=>'Мониторинг','css_class'=>'done turnws10'));
 		return $status[$this->status];
 	}
 
@@ -97,10 +100,11 @@ class Eventsoper extends Events
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id','freeOnly'),
+			array('id_room,date,operator,operation, timestamp, timestamp_end, fio_pac', 'required'),
 			array('id_room, creator, operator, anesthesiologist, operation, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
 			array('date, timestamp, timestamp_end, date_gosp, brigade', 'safe'),
+			array('id','freeOnly'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -207,11 +211,12 @@ class Eventsoper extends Events
     		$this->attributes=$_POST['Eventsoper'];
 
     	//echo $this->id_post;
-
-    	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and  
-    		((timestamp>'".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or (timestamp_end>'".$this->timestamp."' and timestamp_end<'".$this->timestamp_end."') or (timestamp<'".$this->timestamp."' and timestamp_end>'".$this->timestamp_end."'))"));
+    	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and status=".$this->status." and id<>".(int)$this->id." and  
+    		((timestamp>='".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or 
+    		(timestamp_end>'".$this->timestamp."' and timestamp_end<='".$this->timestamp_end."') or 
+    		(timestamp<='".$this->timestamp."' and timestamp_end>='".$this->timestamp_end."'))"));
         foreach ($Ph as $v){
-        	$this->addError('Eventsoper["id_post"]','Выбранное время занято. Событие "'.$v->operation.'"('.$v->timestamp.'-'.$v->timestamp_end.')');
+        	$this->addError('Eventsoper["id_post"]','Выбранное время занято. Событие "'.$v->operation0->name.'"('.$v->timestamp.'-'.$v->timestamp_end.')');
         }
         
     }

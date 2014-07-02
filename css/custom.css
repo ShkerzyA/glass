@@ -537,7 +537,14 @@ textarea{
 }
 
 .event:hover{
-	z-index: 5;
+	z-index: 20;
+}
+
+.day_event:hover .turnws10,
+.week_event:hover .turnws10{
+	margin-left:10px; 
+	margin-top:10px;
+	z-index: 3;
 }
 
 .event *{

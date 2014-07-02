@@ -202,7 +202,9 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
       return split(term).pop();
      }
    ")?>
- <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+ <?php 
+
+ 	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
    'name'=>'operation_name',
    'value'=>$model->operation0->name,
 //'value' => $model->id,
@@ -253,7 +255,7 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->labelEx($model,'type_operation'); ?>
 
 		<?php echo $form->dropDownList($model,'type_operation',$model->getTypeOper(),
-              array('empty' => '')); ?>
+              array('empty' =>'')); ?>
 
 		<?php echo $form->error($model,'type_operation'); ?>
 	</div>
