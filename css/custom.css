@@ -319,10 +319,15 @@ select,option, input{
 
 .open{
  	background: #fcfcfc;
+ 	z-index: 3;
+ 	position: relative;
 }
 
 .done{
 	background: #ebf4e6;
+	z-index: 1;
+
+ 	position: relative;
 }
 
 .neurtal{

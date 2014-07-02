@@ -33,7 +33,7 @@ class EventsoperController extends Controller
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'roles'=>array('moderator'),
+				'roles'=>array('userOperationSV'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -121,7 +121,7 @@ public function actionSuggest(){
 		$model=$this->loadModel($id);
 		$model->status=1;
 		if($model->save())
-			
+
 				$this->redirect(array('/rooms/show'));
 	}
 

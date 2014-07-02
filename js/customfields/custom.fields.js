@@ -29,7 +29,7 @@ function init(){
         globalTimeout =setTimeout(function(){ getAjax_markSearch(id) },100);  
     });
 
-	$('.add_unit').live('click',function(){ 
+	$('.add_person').live('click',function(){ 
 		$('.modal2').remove();
 		globid=this.id;
 		getAjax_surnameSearch();
@@ -117,7 +117,7 @@ function show_users(data){
 
 function show_groups(data){
 	$('.back').remove();
-	coords=$('#add_group').offset();
+	coords=$('.add_unit').offset();
 	
 	$('html').append(data);
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})

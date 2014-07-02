@@ -35,7 +35,7 @@ Class Customfields{
 					</div>";
 					}
 				}	
-		$result.="<div class='add_post'>Добавить</div></div>";
+		$result.="<div class='add_post add_unit'>Добавить</div></div>";
 		return $result;
 	}
 
@@ -57,7 +57,7 @@ Class Customfields{
 						}
 					}	
 				
-		$result.="<div id='".$field."' class='add_unit'>Изменить</div></div>";
+		$result.="<div id='".$field."' class='add_unit add_person'>Изменить</div></div>";
 		return $result;
 	}
 
@@ -78,7 +78,7 @@ Class Customfields{
 						}
 				
 				
-		$result.="<div id='".$field."' class='add_unit'>Изменить</div></div>";
+		$result.="<div id='".$field."' class='add_unit add_person'>Изменить</div></div>";
 		return $result;
 		# code...
 	}

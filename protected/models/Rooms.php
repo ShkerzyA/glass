@@ -61,14 +61,22 @@ class Rooms extends CActiveRecord
 			case 'eventsOpPl':
 			case 'eventsOpMon':
 					if(Yii::app()->user->checkAccess('userOperationSV')){
-						$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1'));	
+					$rooms=Rooms::model()->with(array(
+   						'idCabinet'=>array(
+        				'joinType'=>'LEFT JOIN',
+        				'alias'=>'f'
+    				)))->findAll(array('condition'=>'t.type=1','order'=>'f.cname ASC'));	
 					}else{
 						if(!Yii::app()->user->isGuest){
 							$id_pers=Yii::app()->user->id_pers;
 						}else{
 							$id_pers=-1;
 						}
-						$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1 and \''.$id_pers.'\'=ANY("managers")'));	
+						$rooms=Rooms::model()->with(array(
+   						'idCabinet'=>array(
+        				'joinType'=>'LEFT JOIN',
+        				'alias'=>'f'
+    				)))->findAll(array('condition'=>'t.type=1 and \''.$id_pers.'\'=ANY("managers")','order'=>'f.cname ASC'));	
 					}
 					
 				break;

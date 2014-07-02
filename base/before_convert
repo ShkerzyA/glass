@@ -21,7 +21,7 @@ cp onko2003/zTipDol.DBF zTipDol.DBF
 #soffice --convert-to csv *.xls
 
 #rm *.xls
-
+# нужно удалять кривой столбец из таблицы ACATALOG
 
 echo "end"
 

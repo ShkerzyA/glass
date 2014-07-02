@@ -47,6 +47,7 @@ class Eventsoper extends Events
 	public $anesthesiologist0anesthesiologist;
 	public $operation0operation;
 	public $eventsopersid_eventsoper;
+	public $idEventsoperid_eventsoper;
 
 	public function getTypeOper(){
 		$status=array(  0 => 'полостная',
