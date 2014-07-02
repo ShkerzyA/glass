@@ -22,9 +22,9 @@ if(!(Yii::app()->user->isGuest)){
 	$id_pers=array();
 }
 	$this->menu=array(
-		array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('updateEv',array('mod'=>$model)))),
-		array('label'=>'Подтвердить без изменений', 'url'=>array('agree', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('updateEv',array('mod'=>$model)))),
-		array('label'=>'Внести корректировки', 'url'=>array('monupdate', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('updateEv',array('mod'=>$model)))),
+		array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('userOperationSV'))),
+		array('label'=>'Подтвердить без изменений', 'url'=>array('agree', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('RoomOperationSV',array('mod'=>$model->idRoom)))),
+		array('label'=>'Внести корректировки', 'url'=>array('monupdate', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('RoomOperationSV',array('mod'=>$model->idRoom)))),
 		array('label'=>'Удалить', 'url'=>'#','visible'=>(Yii::app()->user->role=='administrator'), 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 		array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 	);

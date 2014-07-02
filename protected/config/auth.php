@@ -135,7 +135,24 @@ return array (
   array (
     'type' => 1,
     'description' => 'Управление операциями',
-    'bizRule' => 'return in_array("operationsv",$params["groups"]);',
+    'bizRule' => '
+    if(!Yii::app()->user->isGuest){
+    	return in_array("operationsv",Yii::app()->user->groups);
+    }else{
+    	return false;
+    }
+    ',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'operationSV',
+    ),
+  ),
+  'RoomOperationSV' => 
+  array (
+    'type' => 1,
+    'description' => 'Управление событиями в конкретной операционной',
+    'bizRule' => 'return $params["mod"]->isManagerUser();',
     'data' => NULL,
     'children' => 
     array (
@@ -168,7 +185,8 @@ return array (
       3 => 'OwnSaveStatus',
       4 => 'ManagerSaveStatusEv',
       5 => 'userOperationSV',
-      6 => 'OwnUpdateEv',
+      6 => 'RoomOperationSV',
+      7 => 'OwnUpdateEv',
     ),
   ),
   'moderator' => 

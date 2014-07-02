@@ -28,11 +28,11 @@ class EventsoperController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','monupdate','agree','suggest'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','monupdate','agree'),
+				'actions'=>array('create','update'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -44,6 +44,20 @@ class EventsoperController extends Controller
 			),
 		);
 	}
+
+public function actionSuggest(){
+		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
+  		$models = ListOperations::model()->suggestTag($_GET['term']);
+  		$result = array();
+  		foreach ($models as $m)
+   		$result[] = array(
+     		'label' => $m->name,
+     		'value' => $m->name,
+     		'id' => $m->id,
+   		);
+  		echo CJSON::encode($result);
+ 	}
+}
 
 	/**
 	 * Displays a particular model.
@@ -107,7 +121,8 @@ class EventsoperController extends Controller
 		$model=$this->loadModel($id);
 		$model->status=1;
 		if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			
+				$this->redirect(array('/rooms/show'));
 	}
 
 		public function actionMonUpdate($id)
@@ -126,7 +141,7 @@ class EventsoperController extends Controller
 
 			//print_r($_POST);
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('/rooms/show'));
 		}
 
 		$this->render('update',array(

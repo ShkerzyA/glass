@@ -123,25 +123,19 @@ class RoomsController extends Controller
 		}
 	
 		$week=array();
+		$rooms=$model->getRooms(Yii::app()->session['Event_type']);
+		
 		switch (Yii::app()->session['Event_type']) {
 			case 'events':
 					$event=new Events;
-					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=0'));
 				break;
 			case 'eventsOpPl':
 			case 'eventsOpMon':
 					$event=new Eventsoper;
-					if(Yii::app()->user->checkAccess('userOperationSV',array('groups'=>Yii::app()->user->groups))){
-						$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1'));	
-					}else{
-						$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1 and '.Yii::app()->user->id_pers.' in (managers)'));	
-					}
-					
 				break;
 			
 			default:
 					$event=new Events;
-					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=0'));
 				break;
 
 		}

@@ -3,9 +3,8 @@
 /* @var $model Eventsoper */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Изменить',
+	$model::$modelLabelP=>array('rooms/show'), 
+	$model->id,
 );
 
 $this->menu=array(

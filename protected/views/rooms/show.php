@@ -43,7 +43,7 @@ function init(){
 </script>
 
 <?php foreach ($this->events_menu as $x): ?>
-	<?php if(empty($x['rule']) or Yii::app()->user->checkAccess('userOperationSV',array('groups'=>Yii::app()->user->groups))): ?>
+	<?php if(empty($x['rule']) or Yii::app()->user->checkAccess('userOperationSV')): ?>
 	<a href=<?php echo(Yii::app()->request->baseUrl) ?>/rooms/show?Event_type=<?php echo $x['type'] ?>>
 		<div class="inset2 <?php echo $cl_act=($x['type']==Yii::app()->session['Event_type'])?'active':''; ?>"><?php echo $x['name'] ?>
 			<div class=downp></div>
@@ -81,10 +81,14 @@ if(!empty(Yii::app()->session['Rooms_date']) && !empty(Yii::app()->session['Room
 
 
 //if(!empty($roomsM))
-foreach ($roomsM as $r) {
-	$rooms[$r->id]=$r->idCabinet->cname.' '.$r->idCabinet->num;
-	# code...
+if(!empty($roomsM)){
+	foreach ($roomsM as $r) {
+		$rooms[$r->id]=$r->idCabinet->cname.' '.$r->idCabinet->num;
+	}
+}else{
+	$rooms=array();
 }
+
 
 
 

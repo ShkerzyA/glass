@@ -192,10 +192,60 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'operation'); ?>
+		<?php echo $form->hiddenField($model,'operation'); ?>
 
-		<?php $tmp=ListOperations::model()->findall();
-echo $form->dropDownList($model,"operation",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
+<?php echo CHtml::script("
+     function split(val) {
+      return val.split(/,\s*/);
+     }
+     function extractLast(term) {
+      return split(term).pop();
+     }
+   ")?>
+ <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+   'name'=>'operation_name',
+   'value'=>$model->operation0->name,
+//'value' => $model->id,
+   'source'=>"js:function(request, response) {
+      $.getJSON('".$this->createUrl('suggest')."', {
+        term: extractLast(request.term)
+      }, response);
+      }",
+   'options'=>array(
+     'delay'=>300,
+     'minLength'=>2,
+     'showAnim'=>'fold',
+ 	'multiple'=>false,
+     'select'=>"js:function(event, ui) {
+     	$('#Eventsoper_operation').val(ui.item.id);
+         var terms = split(this.value);
+         // remove the current input
+         terms.pop();
+         // add the selected item
+         terms.push( ui.item.value );
+         // add placeholder to get the comma-and-space at the end
+         terms.push('');
+         this.value = terms.join(' ');
+         return false;
+       }",
+   ),
+   'htmlOptions'=>array(
+     'size'=>'40',
+   ),
+  ));
+  // Для подсветки набираемого куска запроса в предлагаемом списке
+  Yii::app()->clientScript->registerScript('unique.script.identifier', "
+ $('#Eventsoper_operation').data('autocomplete')._renderItem = function( ul, item ) {
+   var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
+   var highlightedResult = item.label.replace( re, '<b>$1</b>' );
+   return $( '<li></li>' )
+     .data( 'item.autocomplete', item )
+     .append( '<a>' + highlightedResult + '</a>' )
+     .appendTo( ul );
+ };
+");  
+?>
+
 		<?php echo $form->error($model,'operation'); ?>
 	</div>
 

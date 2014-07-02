@@ -53,6 +53,16 @@ class ListOperations extends CActiveRecord
 		);
 	}
 
+	public function suggestTag($keyword){
+ 		$tags=$this->findAll(array(
+   			'condition'=>'name LIKE :keyword OR s_kod LIKE :keyword',
+   			'params'=>array(
+     		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+   		)
+ 		));
+ 		return $tags;
+}
+
 	/**
 	 * @return array relational rules.
 	 */

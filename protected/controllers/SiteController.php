@@ -85,8 +85,18 @@ public function actionInstall(){
     $task = $auth->createTask('OwnUpdateEv', 'Изменение своих событий', $bizRule);
     $task->addChild('updateEv', 'Изменить статус');
 
-    $bizRule='return in_array("operationsv",$params["groups"]);';
+    $bizRule='
+    if(!Yii::app()->user->isGuest){
+    	return in_array("operationsv",Yii::app()->user->groups);
+    }else{
+    	return false;
+    }
+    ';
     $task = $auth->createTask('userOperationSV', 'Управление операциями', $bizRule);
+    $task->addChild('operationSV', 'Управление операциями');
+
+    $bizRule='return $params["mod"]->isManagerUser();';
+    $task = $auth->createTask('RoomOperationSV', 'Управление событиями в конкретной операционной', $bizRule);
     $task->addChild('operationSV', 'Управление операциями');
 
     $guest = $auth->createRole('guest');
@@ -100,6 +110,7 @@ public function actionInstall(){
   	$user->addChild('OwnSaveStatus');
   	$user->addChild('ManagerSaveStatusEv');
   	$user->addChild('userOperationSV');
+  	$user->addChild('RoomOperationSV');
   	$user->addChild('OwnUpdateEv');
 
     $moderator = $auth->createRole('moderator');

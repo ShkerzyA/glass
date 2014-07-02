@@ -23,10 +23,14 @@ class UserIdentity extends CUserIdentity
             $this->_id = $user->id;
             $this->username=$user->username;
             $this->setState('username', $user->username);
-            $this->setState('surname', $user->personnels->surname);
-            $this->setState('name', $user->personnels->name);
-            $this->setState('patr', $user->personnels->patr);
-            $this->setState('id_pers', $user->personnels->id);
+            if(!empty($user->personnels)){
+                $this->setState('surname', $user->personnels->surname);
+                $this->setState('name', $user->personnels->name);
+                $this->setState('patr', $user->personnels->patr);
+                $this->setState('id_pers', $user->personnels->id);
+            }else{
+                $this->setState('id_pers', -1);      
+            }
             $this->setState('last_task','');
 
             $temp='';
@@ -46,7 +50,11 @@ class UserIdentity extends CUserIdentity
             $temp=explode(',',$temp);
             $groups=array_unique($temp);
 
-            $this->setState('groups', $groups);
+            if(!empty($groups)){
+                $this->setState('groups', $groups);
+            }else{
+                $this->setState('groups', -1);
+            }
             $this->setState('id_posts',$id_posts);
             $this->setState('id_departments',$id_departments);
             $this->setState('islead',$islead);

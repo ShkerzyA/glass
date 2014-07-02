@@ -53,6 +53,43 @@ class Rooms extends CActiveRecord
 			);
 	}
 
+	public function getRooms($EventType){
+		switch ($EventType) {
+			case 'events':
+					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=0'));
+				break;
+			case 'eventsOpPl':
+			case 'eventsOpMon':
+					if(Yii::app()->user->checkAccess('userOperationSV')){
+						$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1'));	
+					}else{
+						if(!Yii::app()->user->isGuest){
+							$id_pers=Yii::app()->user->id_pers;
+						}else{
+							$id_pers=-1;
+						}
+						$rooms=Rooms::model()->findAll(array('condition'=>'t.type=1 and \''.$id_pers.'\'=ANY("managers")'));	
+					}
+					
+				break;
+			
+			default:
+					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=0'));
+				break;
+
+		}
+		return $rooms;
+	}
+
+	public function isManagerUser(){
+		$tmp=explode(',',$this->managers);
+		if(!Yii::app()->user->isGuest){
+			return in_array(Yii::app()->user->id_pers, $tmp);
+		}else{
+			return false;
+		}
+	}
+
 
 	/**
 	 * @return array validation rules for model attributes.
