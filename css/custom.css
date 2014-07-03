@@ -18,7 +18,9 @@
 	vertical-align: middle;
 }
 
-
+.bordertable *{
+	border: 1px solid grey;
+}
 
 .avatar img{
 	max-width: 100%;
@@ -420,7 +422,7 @@ select,option, input{
 }
 
 .norm_text{
-	font-size: 14pt;
+	font-size: 12pt;
 
 	text-align: justify;
 }

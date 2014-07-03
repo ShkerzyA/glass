@@ -50,15 +50,23 @@ class Eventsoper extends Events
 	public $idEventsoperid_eventsoper;
 	public $operation=-1;
 
-	public function getTypeOper(){
+	public function getTypeOper($view='array'){
 		$status=array(  0 => 'полостная',
 						1 => 'ангиографическая',
 						2 => 'видеоэндохирургическая',
 						3 => 'минимально инвазивная'
 					);
-	
 
-		return $status;
+		switch ($view) {
+			case 'label':
+				return $status[$this->status];
+				break;
+
+			case 'array':
+			default:
+				return $status;
+				break;
+		}
 	}
 
 	public function getStatus(){

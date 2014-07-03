@@ -31,10 +31,8 @@ if(!(Yii::app()->user->isGuest)){
 ?>
 
 <?php
-echo'<h1>План</h1>';
-$this->renderPartial('_viewone',array('model'=>$model),false,false);
+$this->renderPartial('_viewone',array('model'=>$model,'typeEvent'=>'План'),false,false);
 if(!empty($model->eventsopers)){
-		echo'<h1>Мониторинг</h1>';
-		$this->renderPartial('_viewone',array('model'=>$model->eventsopers),false,false);
+		$this->renderPartial('_viewone',array('model'=>$model->eventsopers,'typeEvent'=>'Мониторинг'),false,false);
 	}
 ?>
