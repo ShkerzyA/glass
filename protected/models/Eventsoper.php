@@ -211,7 +211,7 @@ class Eventsoper extends Events
     		$this->attributes=$_POST['Eventsoper'];
 
     	//echo $this->id_post;
-    	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and status=".$this->status." and id<>".(int)$this->id." and  
+    	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and (status=".$this->status.") and (status<>1) and id<>".(int)$this->id." and  
     		((timestamp>='".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or 
     		(timestamp_end>'".$this->timestamp."' and timestamp_end<='".$this->timestamp_end."') or 
     		(timestamp<='".$this->timestamp."' and timestamp_end>='".$this->timestamp_end."'))"));
