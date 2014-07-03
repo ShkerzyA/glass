@@ -31,34 +31,10 @@ if(!(Yii::app()->user->isGuest)){
 ?>
 
 <?php
-
-echo '<div class="comment " id="taskbody">
-		<div style="position: relative; float: left;"><h2>'.$model->operation0->name.'</h2></div>
-		<div style="position: relative; float: right; text-align: right"><i>'.$model->date.' ('.$model->timestamp.'-'.$model->timestamp_end.')<br>
-		Создатель:  '.$model->creator0->surname.' '.$model->creator0->name.' '.$model->creator0->patr.'</i></div>'.
-		'<hr><p class="norm_text"><pre>'.$model->operation0->name.'</pre></p>';
-		?>
-
-		<dt><?php echo CHtml::encode($model->getAttributeLabel('operator')); ?> </dt> 
-		<dd><?php
-   		echo CHtml::encode($model->operator0->surname.' '.$model->operator0->name.' '.$model->operator0->patr); ?> </dd>
-
-   		<dt><?php echo CHtml::encode($model->getAttributeLabel('anesthesiologist')); ?> </dt> 
-		<dd><?php
-   		echo CHtml::encode($model->anesthesiologist0->surname.' '.$model->anesthesiologist0->name.' '.$model->anesthesiologist0->patr); ?> </dd>
-
-
-   		<dt><?php echo CHtml::encode($model->getAttributeLabel('brigade')); ?></dt> 
-   		<dd><?php
-   		$tmp=explode(',',$model->brigade); 
-		$exec=array();
-				foreach ($tmp as $v){
-					if(!empty($v)){
-						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->surname.' '.$pers->name);
-					}
-				}	
-				echo (implode(', ', $exec)); ?></dd>
-
-   	
-<?php echo'</div>'; ?>
+echo'<h1>План</h1>';
+$this->renderPartial('_viewone',array('model'=>$model),false,false);
+if(!empty($model->eventsopers)){
+		echo'<h1>Мониторинг</h1>';
+		$this->renderPartial('_viewone',array('model'=>$model->eventsopers),false,false);
+	}
+?>

@@ -64,7 +64,7 @@ class Eventsoper extends Events
 	public function getStatus(){
 		$status=array(  0 => 'План',
 						1 => 'Подтверждено',
-						2 => 'Подтверждено(мон)',
+						2 => 'Мониторинг',
 						3 => 'Мониторинг',);
 	
 
@@ -74,7 +74,7 @@ class Eventsoper extends Events
 	public function gimmeStatus(){
 		$status=array(  0 => array('label'=>'План','css_class'=>'open'),
 						1 => array('label'=>'Подтверждено','css_class'=>'done '),
-						2 => array('label'=>'Подтверждено(мон)','css_class'=>'done '),
+						2 => array('label'=>'Мониторинг','css_class'=>'done '),
 						3 => array('label'=>'Мониторинг','css_class'=>'done turnws10'));
 		return $status[$this->status];
 	}
@@ -153,7 +153,7 @@ class Eventsoper extends Events
 		switch ($showtype){
 			case 'day':
 					$week['begin']=clone $date;
-					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date=\''.$week['begin']->format('Y-m-d').'\'))');
+					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and t.id_eventsoper is null and ((t.date=\''.$week['begin']->format('Y-m-d').'\'))');
 					//$events=Events::model()->findAll();	
 				break;
 			case 'week':
@@ -162,7 +162,7 @@ class Eventsoper extends Events
 					$week['begin']->modify('-'.($dow-1).' days');
 					$week['end']=clone Yii::app()->session['Rooms_date'];
 					$week['end']->modify('+'.(7-$dow).' days'); 
-					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\'))','order'=>'t.date ASC');
+					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].'  and t.id_eventsoper is null and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\'))','order'=>'t.date ASC');
 					//$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC'));	
 				# code...
 				break;
@@ -209,9 +209,10 @@ class Eventsoper extends Events
 
     	if(!empty($_POST['Eventsoper']))
     		$this->attributes=$_POST['Eventsoper'];
-
+    	if($this->status==3)
+    		return false;
     	//echo $this->id_post;
-    	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and (status=".$this->status.") and (status<>1) and id<>".(int)$this->id." and  
+    	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and status in (0,1,2) and id<>".(int)$this->id." and  
     		((timestamp>='".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or 
     		(timestamp_end>'".$this->timestamp."' and timestamp_end<='".$this->timestamp_end."') or 
     		(timestamp<='".$this->timestamp."' and timestamp_end>='".$this->timestamp_end."'))"));

@@ -19,6 +19,8 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
             if(isset($_POST['group_anchor'])){
                 if(!empty($_POST[$val])){
                     $tmp=$_POST[$val];
+                    unset($_POST['group_anchor']);
+                    unset($_POST[$val]);
                     if(is_array($tmp)){
                         $tmp=array_unique($tmp);
                         $this->owner->$val=implode(',',$tmp);

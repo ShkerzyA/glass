@@ -134,15 +134,21 @@ public function actionSuggest(){
 
 		if(isset($_POST['Eventsoper']))
 		{
-			$model_new=new Eventsoper;
+			if(!($model_new=Eventsoper::model()->find(array('condition'=>'t.id_eventsoper='.$id)))){
+				$model_new=new Eventsoper;
+			}
 			$model_new->attributes=$_POST['Eventsoper'];
+			unset($_POST['Eventsoper']);
 			$model_new->id_eventsoper=$id;
 			$model_new->status=3;
 			//print_r($_POST);
 			if($model_new->save()){
 				$model->status=2;
-				if($model->save())
-					$this->redirect(array('/rooms/show'));
+
+				//print_r($model_new->attributes);
+				//print_r($model->attributes);
+				$model->save();
+				$this->redirect(array('/rooms/show'));
 			}
 		}
 
