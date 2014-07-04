@@ -54,12 +54,13 @@ class Eventsoper extends Events
 		$status=array(  0 => 'полостная',
 						1 => 'ангиографическая',
 						2 => 'видеоэндохирургическая',
-						3 => 'минимально инвазивная'
+						3 => 'минимально инвазивная',
+						4 => 'внеполостная',
 					);
 
 		switch ($view) {
 			case 'label':
-				return $status[$this->status];
+				return $status[$this->type_operation];
 				break;
 
 			case 'array':
@@ -116,7 +117,7 @@ class Eventsoper extends Events
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_room, date, timestamp, timestamp_end, fio_pac, creator, operator, date_gosp, brigade, id_eventsoper, anesthesiologist, operation, type_operation,creator0creator,operator0operator,anesthesiologist0anesthesiologist,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
+			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, brigade, id_eventsoper, anesthesiologist, operation, type_operation,creator0creator,operator0operator,anesthesiologist0anesthesiologist,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -140,7 +141,7 @@ class Eventsoper extends Events
 
 	public function isShow($date){
 		$pass=false;
-		if($date->format('Y-m-d')==$this->date){
+		if($date->format('d.m.Y')==$this->date){
 			$pass=true;
 		}
 		return $pass;
@@ -154,6 +155,15 @@ class Eventsoper extends Events
                 $this->brigade=$tmp;
             }
         }
+        if(!empty($this->timestamp)){
+        	$this->timestamp=substr($this->timestamp,0,5);
+        }
+
+        if(!empty($this->timestamp_end)){
+        	$this->timestamp_end=substr($this->timestamp_end,0,5);
+        }
+        $this->date=date('d.m.Y',strtotime($this->date));
+        $this->date_gosp=date('d.m.Y',strtotime($this->date_gosp));
     }
 
 
@@ -240,14 +250,15 @@ class Eventsoper extends Events
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+		$criteria->order='t.id_room ASC, t.date ASC, t.timestamp ASC';
 
 		$criteria->with=array('creator0' => array('alias' => 'personnel_c'),'operator0' => array('alias' => 'personnel_o'),'anesthesiologist0' => array('alias' => 'personnel_a'),'operation0' => array('alias' => 'listoperations'),'idRoom' => array('alias' => 'rooms'),);
-		$criteria->compare('id',$this->id);
+		$criteria->compare('t.id',$this->id);
 		if(!empty($_GET['id_room']))
-				$criteria->compare('id_room',$_GET['id_room']);
+				$criteria->compare('t.id_room',$_GET['id_room']);
 		else
-				$criteria->compare('id_room',$this->id_room);
-		$criteria->compare('date',$this->date,true);
+				$criteria->compare('t.id_room',$this->id_room);
+		$criteria->compare('t.date',$this->date);
 		$criteria->compare('timestamp',$this->timestamp,true);
 		$criteria->compare('timestamp_end',$this->timestamp_end,true);
 		$criteria->compare('fio_pac',$this->fio_pac,true);
@@ -270,6 +281,9 @@ class Eventsoper extends Events
 		else
 				$criteria->compare('operation',$this->operation);
 		$criteria->compare('type_operation',$this->type_operation);
+		if(!empty($this->status))
+			$criteria->addCondition(array('condition'=>'t.status in ('.$this->status.')'));
+
 		$criteria->compare('personnel_c.creator',$this->creator0creator,true);
 		$criteria->compare('personnel_o.operator',$this->operator0operator,true);
 		$criteria->compare('personnel_a.anesthesiologist',$this->anesthesiologist0anesthesiologist,true);

@@ -211,27 +211,6 @@ class Personnel extends CActiveRecord
             'personnelPostsHistories' => array('alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL",'together'=>True),
             'personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
             'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
-        //$criteria->condition=;
-        /*
-        $criteria->compare('id',$this->id);
-        $criteria->compare('surname',$this->surname,true);
-        $criteria->compare('t.name',$this->name,true);
-        $criteria->compare('patr',$this->patr,true);
-        $criteria->compare('birthday',$this->birthday,true);
-        $criteria->compare('date_begin',$this->date_begin,true);
-        $criteria->compare('date_end',$this->date_end,true);
-        $criteria->compare('photo',$this->photo,true);
-        $criteria->compare('orbase_rn',$this->orbase_rn,true);
-        $criteria->compare('sex',$this->sex);
-        if(!empty($_GET['id_user']))
-                $criteria->compare('id_user',$_GET['id_user']);
-        else
-                $criteria->compare('id_user',$this->id_user);
-        $criteria->compare('users.username',$this->idUserid_user,true);
-        $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
-        $criteria->compare('personnel_posts_history.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
-        $criteria->compare('departments.name',$this->departments_name,true);
-        $criteria->compare('t.surname or t.name or t.patr',$this->allfields,true); */
 
 
         $criteria->compare('id',$this->id);

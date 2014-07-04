@@ -11,7 +11,7 @@ class RoomsController extends Controller
 	
 	public $events_menu=array(
 		array('name'=>'События','type'=>'events','rule'=>NULL),
-		array('name'=>'План операций','type'=>'eventsOpPl','rule'=>'userOperationSV'),
+		array('name'=>'План операций','type'=>'eventsOpPl','rule'=>'operationSV'),
 		array('name'=>'Мониторинг операций','type'=>'eventsOpMon','rule'=>NULL)
 		);
 
@@ -24,6 +24,16 @@ class RoomsController extends Controller
 			'accessControl', // perform access control for CRUD operations
 			'postOnly + delete', // we only allow deletion via POST request
 		);
+	}
+
+
+	public function mayShow($rule){
+		if(empty($rule)){
+			return true;
+		}else{
+			return Yii::app()->user->checkAccess($rule,array()); 
+		}
+
 	}
 
 	/**
@@ -139,7 +149,7 @@ class RoomsController extends Controller
 				break;
 
 		}
-		
+
 		$res=$event->findEvents(Yii::app()->session['Show_type'],Yii::app()->session['Rooms_date']);
 
 		$events=$res['events'];

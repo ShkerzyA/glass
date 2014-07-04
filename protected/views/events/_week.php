@@ -1,5 +1,5 @@
 <div class=leaf>
-	<input name="print" class="hide_p" type="button" style="float: right;"value="Печать" onclick="window.print();"> 
+	<input name="print" class="hide_p" type="button" style="float: right; width: 100px"value="Печать" onclick="window.print();"> 
 	<div class=day>
  		<div>08:00</div>
  		<div>09:00</div>

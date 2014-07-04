@@ -28,12 +28,12 @@ class EventsoperController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','monupdate','agree','suggest'),
+				'actions'=>array('index','view','monupdate','agree','suggest','plan'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'roles'=>array('userOperationSV'),
+				'roles'=>array('operationSV'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -193,6 +193,21 @@ public function actionSuggest(){
 			$model->attributes=$_GET['Eventsoper'];
 
 		$this->render('admin',array(
+			'model'=>$model,
+		));
+	}
+
+		public function actionPlan()
+	{
+		$this->layout='//layouts/leaf';
+		$model=new Eventsoper('search');
+		$model->unsetAttributes();
+		$model->status='0,1,2';  // clear any default values
+		$model->date=date('d.m.Y');
+		if(isset($_GET['Eventsoper']))
+			$model->attributes=$_GET['Eventsoper'];
+
+		$this->render('plan',array(
 			'model'=>$model,
 		));
 	}

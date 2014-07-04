@@ -18,9 +18,40 @@
 }
 
 
+
+
+   * {
+        background: none !important;
+        color: black !important;
+        box-shadow: none !important;	
+        font-size: 8pt;
+ 
+        /* Images, vectors and such 
+
+        text-shadow: none !important;
+        filter: Gray();                          
+        filter: url('desaturate.svg#grayscale'); 
+        -webkit-filter: grayscale(100%);         
+        -moz-filter: grayscale(100%);            
+        -ms-filter: grayscale(100%);             
+        -o-filter: grayscale(100%);            
+        filter: grayscale(100%);                 
+        */
+    }
+
+table, table *{
+	border: 2px solid black !important;
+	border-collapse: collapse !important;
+}
+
 #header{
 	display: none;
 }
+
+.form{
+	display: none;
+}
+
 
 #omsk{
 	display: none;
@@ -28,13 +59,6 @@
 
 #mainmenu{
 	display: none;	
-}
-
-.leaf{
-	position: absolute;
-	top: -10pt;
-	left: 0pt;
-	width: 10cm;
 }
 
 body {line-height:1;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;color:#000;background:none ;font-size:8pt;}
@@ -55,13 +79,44 @@ blockquote {margin:1.5em;padding:1em;font-style:italic;font-size: .9em;}
 .leaf, .leaf_slim {
 	border: 0px;
 	box-shadow: none;
+	position: absolute;
+	top: -10pt;
+	left: 0pt;
+	width: 100%;
+	border: none;
 }
+
+th{
+	padding: 5pt;
+}
+
+td{
+	padding: 3pt;
+}
+
+.list-view{
+	display: none;
+}
+
+.content{
+	display: none;
+}
+
 .current{
 	background: none;
 }
 
 .event p{
  	font-size: 9pt;
+}
+
+div{
+	border: 0px;
+	box-shadow: 0px;
+}
+
+@page{
+	margin: 0cm;
 }
 /*a:link, a:visited {background:transparent;font-weight:700;text-decoration:underline;}
 a:link:after, a:visited:after {content:" (" attr(href) ")";font-size:90%;} */

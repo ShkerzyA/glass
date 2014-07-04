@@ -91,6 +91,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'monitoringOper' => 
+  array (
+    'type' => 0,
+    'description' => 'Право на мониторинг операций',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'ruleWorkplaces' => 
   array (
     'type' => 0,
@@ -120,6 +127,17 @@ return array (
       0 => 'saveStatusEv',
     ),
   ),
+  'monitoringOperUser' => 
+  array (
+    'type' => 1,
+    'description' => 'Право на мониторинг операции в конкретной операционной',
+    'bizRule' => 'return $params["mod"]->isManagerUser()',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'monitoringOper',
+    ),
+  ),
   'OwnUpdateEv' => 
   array (
     'type' => 1,
@@ -142,17 +160,6 @@ return array (
     	return false;
     }
     ',
-    'data' => NULL,
-    'children' => 
-    array (
-      0 => 'operationSV',
-    ),
-  ),
-  'RoomOperationSV' => 
-  array (
-    'type' => 1,
-    'description' => 'Управление событиями в конкретной операционной',
-    'bizRule' => 'return $params["mod"]->isManagerUser();',
     'data' => NULL,
     'children' => 
     array (
@@ -185,7 +192,7 @@ return array (
       3 => 'OwnSaveStatus',
       4 => 'ManagerSaveStatusEv',
       5 => 'userOperationSV',
-      6 => 'RoomOperationSV',
+      6 => 'monitoringOperUser',
       7 => 'OwnUpdateEv',
     ),
   ),
@@ -203,10 +210,11 @@ return array (
       3 => 'save',
       4 => 'changeObjects',
       5 => 'ruleWorkplaces',
-      6 => 'saveStatus',
-      7 => 'saveStatusEv',
-      8 => 'updateEv',
-      9 => 'operationSV',
+      6 => 'monitoringOper',
+      7 => 'saveStatus',
+      8 => 'saveStatusEv',
+      9 => 'updateEv',
+      10 => 'operationSV',
     ),
   ),
   'administrator' => 

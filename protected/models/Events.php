@@ -192,6 +192,7 @@ class Events extends CActiveRecord
         	if(!empty($this->timestamp_end)){
         		$this->timestamp_end=substr($this->timestamp_end,0,5);
         	}
+        	$this->date=date('d.m.Y',strtotime($this->date));
        
     	}
 

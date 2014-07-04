@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form">
+<div class="slim form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
@@ -12,72 +12,40 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
+
+		<?php $tmp=Rooms::model()->getRooms('eventsOpPl');
+echo $form->dropDownList($model,"status",array('0,1,2'=>'План','3'=>'Мониторинг')); ?>
+		<?php echo $form->error($model,'status'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'id_room'); ?>
-		<?php echo $form->textField($model,'id_room'); ?>
+
+		<?php $tmp=Rooms::model()->getRooms('eventsOpPl');
+echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tmp) {
+				return CHtml::encode($tmp->idCabinet->cname);}),array('empty' => 'Все операционные',)); ?>
+		<?php echo $form->error($model,'id_room'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'date'); ?>
-		<?php echo $form->textField($model,'date'); ?>
+
+		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+   'name' => 'date',
+   'model' => $model,
+   'attribute' => 'date',
+   'language' => 'ru',
+   'options' => array(
+       'showAnim' => 'fold',
+   ),
+   'htmlOptions' => array(
+       'style' => 'height:20px;'
+   ),
+	));?>
+
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'timestamp'); ?>
-		<?php echo $form->textField($model,'timestamp'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'timestamp_end'); ?>
-		<?php echo $form->textField($model,'timestamp_end'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'fio_pac'); ?>
-		<?php echo $form->textField($model,'fio_pac',array('size'=>60,'maxlength'=>250)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'creator'); ?>
-		<?php echo $form->textField($model,'creator'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'operator'); ?>
-		<?php echo $form->textField($model,'operator'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'date_gosp'); ?>
-		<?php echo $form->textField($model,'date_gosp'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'brigade'); ?>
-		<?php echo $form->textField($model,'brigade'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'anesthesiologist'); ?>
-		<?php echo $form->textField($model,'anesthesiologist'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'operation'); ?>
-		<?php echo $form->textField($model,'operation'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'type_operation'); ?>
-		<?php echo $form->textField($model,'type_operation'); ?>
-	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Искать'); ?>
+		<?php echo CHtml::submitButton('ОК'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

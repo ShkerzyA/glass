@@ -64,6 +64,7 @@ public function actionInstall(){
     $auth->createOperation('saveStatusEv', 'Изменить статус События');
     $auth->createOperation('updateEv', 'Редактировать событие');
     $auth->createOperation('operationSV', 'Управление планом операций');
+    $auth->createOperation('monitoringOper', 'Право на мониторинг операций');
     $auth->createOperation('ruleWorkplaces', 'Управление рабочими местами');
 
 
@@ -81,9 +82,14 @@ public function actionInstall(){
     $task = $auth->createTask('ManagerSaveStatusEv', 'Изменение подконтрольных событий', $bizRule);
     $task->addChild('saveStatusEv', 'Изменить статус');
 
+    $bizRule='return $params["mod"]->isManagerUser()';
+    $task = $auth->createTask('monitoringOperUser', 'Право на мониторинг операции в конкретной операционной', $bizRule);
+    $task->addChild('monitoringOper', 'Право на мониторинг операций');
+
     $bizRule='return $params["mod"]->isOwner();';
     $task = $auth->createTask('OwnUpdateEv', 'Изменение своих событий', $bizRule);
     $task->addChild('updateEv', 'Изменить статус');
+
 
     $bizRule='
     if(!Yii::app()->user->isGuest){
@@ -93,11 +99,11 @@ public function actionInstall(){
     }
     ';
     $task = $auth->createTask('userOperationSV', 'Управление операциями', $bizRule);
-    $task->addChild('operationSV', 'Управление операциями');
+    $task->addChild('operationSV', 'Управление операциями'); 
 
-    $bizRule='return $params["mod"]->isManagerUser();';
-    $task = $auth->createTask('RoomOperationSV', 'Управление событиями в конкретной операционной', $bizRule);
-    $task->addChild('operationSV', 'Управление операциями');
+    //$bizRule='return $params["mod"]->isManagerUser();';
+    //$task = $auth->createTask('RoomOperationSV', 'Управление событиями в конкретной операционной', $bizRule);
+    //$task->addChild('operationSV', 'Управление операциями');
 
     $guest = $auth->createRole('guest');
 	$guest->addChild('index');
@@ -110,7 +116,7 @@ public function actionInstall(){
   	$user->addChild('OwnSaveStatus');
   	$user->addChild('ManagerSaveStatusEv');
   	$user->addChild('userOperationSV');
-  	$user->addChild('RoomOperationSV');
+  	$user->addChild('monitoringOperUser');
   	$user->addChild('OwnUpdateEv');
 
     $moderator = $auth->createRole('moderator');
@@ -120,6 +126,7 @@ public function actionInstall(){
     $moderator->addChild('save');
     $moderator->addChild('changeObjects');
     $moderator->addChild('ruleWorkplaces');
+    $moderator->addChild('monitoringOper');
     $moderator->addChild('saveStatus'); 
     $moderator->addChild('saveStatusEv'); 
     $moderator->addChild('updateEv'); 
@@ -129,6 +136,8 @@ public function actionInstall(){
     $administrator = $auth->createRole('administrator');
     $administrator->addChild('moderator');
     $administrator->addChild('admin');
+
+    //$administrator->addChild('operationsv'); 
 
 
 	//Тут добавляется тот функционал, который не укладывается в общую пирамиду наследования  

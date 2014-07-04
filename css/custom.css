@@ -1,3 +1,40 @@
+.MyMenuSubmenu{
+	display: none;
+	position: fixed;
+	padding: 3px;
+	background: #f7f7f6;
+	box-shadow: 1px 3px 3px 0px grey;
+	min-width: 110px;
+
+	left: 50%;
+	margin-left: -475px;
+	width: 945px;
+
+}
+
+.MyMenuSubmenu .item{
+	float: left;
+	margin-left: 10px;
+	margin-right: 10px;
+	min-width: 110px;
+}
+
+.MyMenuSubmenu .limiter{
+	width: 5px;
+	float: left;
+	margin-top: 8px;
+	height: 30px;
+	border-radius: 5px;
+	/*border: 1px solid grey;*/
+	box-shadow: 1px 3px 3px 0px black inset;
+	vertical-align: middle;
+
+}
+
+li:hover .MyMenuSubmenu,
+.MyMenuSubmenu:hover {
+	display: block;
+}
 .view2{
 	position: relative;
 	float: left;
@@ -8,6 +45,15 @@
 	padding: 5px;
 	border-radius: 2px;
 	background-color: #efefef;
+}
+
+
+.slim .row{
+	position: relative;
+	float: left;
+	clear: none;
+	width: auto;
+	min-width: 200px;
 }
 
 .avatar{
@@ -268,6 +314,13 @@ select,option, input{
 .phonetable th{
 	background: #040404;
 	color: white;
+}
+
+.printtable, .printtable *{
+	border: 1px solid #d4d4d4;
+	border-collapse: none;
+	margin: 1%;
+	max-width: 98%;
 }
 
 .hierarchy div{
@@ -605,7 +658,6 @@ textarea{
 }
 
 .leaf{
-
 	margin: 4px;
  	background: #FfFfFe;
  	/*min-height: 100%;*/
@@ -617,8 +669,8 @@ textarea{
 	min-height: 500px;
 	left: 3%;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;
-
 }
+
 .current{
 	background-color: rgba(255,255,255,0.6);
 }
@@ -627,8 +679,6 @@ textarea{
 
 	margin: 0px auto;
  	background: #F0F0F0;
-
- 	/*min-height: 100%;*/
 	position: absolute;
 	overflow-y: visible;
 	z-index: 1;
@@ -664,6 +714,10 @@ textarea{
 
 .inset2.active{
 	box-shadow: -2px -2px 1px 1px rgba(0, 0, 0, .7);
+}
+
+#footer{
+	border: none;
 }
 
 

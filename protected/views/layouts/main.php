@@ -42,7 +42,7 @@
 				array('label'=>'Контакты', 'url'=>array('/site/page', 'view'=>'about')),-->
 		<?php $this->widget('application.widgets.MyMenu',array(
 			'items'=>array(
-				array('label'=>'Справочник', 'url'=>array('/personnel/phones')),
+				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>array(array('Телефоны','/personnel/phones'),array('Операции','/Eventsoper/plan'))),
 				array('label'=>'Кадры', 'url'=>array('/personnel/index')),
                 array('label'=>'Отделы', 'url'=>array('/department/tree')),
                 array('label'=>'КККОД', 'url'=>array('/myAdmin/index')),
