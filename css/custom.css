@@ -5,10 +5,15 @@
 	background: #f7f7f6;
 	box-shadow: 1px 3px 3px 0px grey;
 	min-width: 110px;
-
 	left: 50%;
 	margin-left: -475px;
 	width: 945px;
+	opacity: 0;
+	height: 1px;
+	overflow: hidden;
+
+	display: block;
+	transition: opacity .4s ease 0s, height .4s ease 0s;
 
 }
 
@@ -33,7 +38,9 @@
 
 li:hover .MyMenuSubmenu,
 .MyMenuSubmenu:hover {
-	display: block;
+	opacity: 1;
+	height: 40px;
+	z-index: 1;
 }
 .view2{
 	position: relative;
