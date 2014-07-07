@@ -1,20 +1,47 @@
 .MyMenuSubmenu{
 	display: none;
-	position: fixed;
+	position: absolute;
 	padding: 3px;
 	background: #f7f7f6;
 	box-shadow: 1px 3px 3px 0px grey;
 	min-width: 110px;
 	left: 50%;
-	margin-left: -475px;
-	width: 945px;
+	width: auto;
 	opacity: 0;
-	height: 1px;
+	height: 0px;
 	overflow: hidden;
 
 	display: block;
 	transition: opacity .4s ease 0s, height .4s ease 0s;
 
+}
+
+.taskmoreinfo{
+	position: relative; 
+	float: right; 
+	height: 20px; 
+	margin: 0px;
+	z-index: 99;
+}
+
+
+.hiddeninfotask{
+	z-index: 99;
+	position: absolute;
+	left: 20px;
+	color: black;
+	display: none;
+	padding: 2px;
+	background: white;
+	width: auto;
+	border: 2px solid grey;
+	border-radius: 4px;
+
+
+}
+
+.taskmoreinfo:hover .hiddeninfotask{
+	display: block;
 }
 
 .MyMenuSubmenu .item{
@@ -335,6 +362,7 @@ select,option, input{
 }
 
 .taskpanel{
+	color: #06c;
 	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
 	border-radius: 2px;
 	padding: 2px;
