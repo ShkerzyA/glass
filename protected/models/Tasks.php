@@ -85,6 +85,8 @@ class Tasks extends CActiveRecord
 		return $status[$this->status];
 	}
 
+
+
 	public function behaviors(){
 	return array(
 			'TimeStamp'=>array(
@@ -156,6 +158,66 @@ class Tasks extends CActiveRecord
 			'creator0creator' => 'Создатель',
 			'group' => 'Группа',
 		);
+	}
+
+	public static function isHorn($id_department=0,$group=NULL){
+		$res=false;
+		$condition="id_department=".$id_department;
+		if(!empty($group))
+			$condition.=" and '".$group."'=ANY(\"group\")";
+		$order="t.timestamp desc  LIMIT 2";
+		$model=Tasks::model()->findAll(array('condition'=>$condition,'order'=>$order));
+
+		if(in_array($id_department,Yii::app()->user->id_departments)){
+			if(Yii::app()->user->last_task!=$model[0]->id){
+				if(!empty(Yii::app()->user->last_task))
+					$res=true;
+				Yii::app()->user->last_task=$model[0]->id;
+			}
+		}
+		return $res;
+	}
+
+	public static function tasksForOtdAndGroup($id_department,$type=3,$group=NULL){
+
+		switch ($type) {
+			//все, кроме помеченных как просмотренные
+			case '0':
+				$condition="id_department=".$id_department." and status not in (4)";
+				$order="status asc,t.timestamp desc";
+				break;
+			//текущие
+			case '1':
+				$condition="id_department=".$id_department." and status in (0,1,5) ";
+				$order="status asc,t.timestamp desc";
+				break;
+			
+			//все
+			case '2':
+				$condition="id_department=".$id_department." ";
+				$order="status asc,t.timestamp desc";
+				break;
+
+			//за день
+			case '3':
+				$condition="id_department=".$id_department." and ((t.timestamp>'".date('d.m.Y')." 00:00:00' or t.timestamp_end>'".date('d.m.Y')." 00:00:00') or status in (0,1,5))";
+				$order="status asc,t.timestamp desc";
+				break;
+			default:
+				
+			break;
+		}
+
+		if(!empty($group))
+			$condition.=" and '".$group."'=ANY(\"group\")";
+
+		//	$model=Tasks::model()->with(array(
+ 		//		'TasksActions'=>array('alias'=>'TasksActions','condition'=>'"TasksActions".type=0','order'=>'"TasksActions".date DESC,"TasksActions".timestamp DESC')))->findAll(array('condition'=>$condition,'order'=>$order));
+		
+
+		$model=Tasks::model()->with(array('TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".type ASC, "TasksActions".timestamp DESC')))->findAll(array('condition'=>$condition,'order'=>$order));
+		return $model;
+
 	}
 
 	/**

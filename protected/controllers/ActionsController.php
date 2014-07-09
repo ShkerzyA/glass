@@ -28,7 +28,7 @@ class ActionsController extends Controller
 				$this->act->id_task=$_POST['id'];
 				break;
 			default:
-				$this->act=new MessageActions($_POST['id']);
+				$this->act=new MessageActions();
 				break;
 		}
 

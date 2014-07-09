@@ -1,16 +1,15 @@
 .MyMenuSubmenu{
-	display: none;
-	position: absolute;
-	padding: 3px;
+	/*display: none;*/
+	position: fixed;
+	padding: 0px;
 	background: #f7f7f6;
 	box-shadow: 1px 3px 3px 0px grey;
-	min-width: 110px;
-	left: 50%;
-	width: auto;
-	opacity: 0;
+	opacity: 1;
 	height: 0px;
+	left: 50%;
+	margin-left: -475px;
+	width: 945px;
 	overflow: hidden;
-
 	display: block;
 	transition: opacity .4s ease 0s, height .4s ease 0s;
 
@@ -33,7 +32,6 @@
 	display: none;
 	padding: 2px;
 	background: white;
-	width: auto;
 	border: 2px solid grey;
 	border-radius: 4px;
 
@@ -45,13 +43,16 @@
 }
 
 .MyMenuSubmenu .item{
+	position: relative;
 	float: left;
+	display: inline-block;
 	margin-left: 10px;
 	margin-right: 10px;
 	min-width: 110px;
 }
 
 .MyMenuSubmenu .limiter{
+	position: relative;
 	width: 5px;
 	float: left;
 	margin-top: 8px;
@@ -279,6 +280,7 @@ select,option, input{
 	float: left;	
 	position: relative;
 }
+
  .choise_unit {
  	width: 38%;
 	float: left;	

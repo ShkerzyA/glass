@@ -6,9 +6,6 @@ $this->breadcrumbs=array(
 );
 
 //$this->menu=array('title'=>'Фильтры','items'=>array( array('label'=>'По умолчанию', 'url'=>array('HelpDesk?id_department=1011&&type=0'))));
-
-
-
 $this->menu['all_menu']=array(
 	array('title'=>'Фильтры задач','items'=>array(
 		array('label'=>'По умолчанию', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=0'),'items'=>array(
@@ -20,8 +17,6 @@ $this->menu['all_menu']=array(
 		)),
 	))
 	);
-
-
 ?>
 <meta http-equiv="Refresh" content="60" />
 <?php foreach ($this->tasks_menu as $x): ?>

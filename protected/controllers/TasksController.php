@@ -157,63 +157,10 @@ class TasksController extends Controller
 		$this->id_department=$id_department;
 		$this->group=$group;
 
-		//$fu=new TasksActions;
-
 		if(!Yii::app()->user->isGuest){
-			$condition="id_department=".$id_department;
-			if(!empty($this->group))
-				$condition.=" and '".$this->group."'=ANY(\"group\")";
-			$order="t.timestamp desc  LIMIT 10";
-			$model=Tasks::model()->findAll(array('condition'=>$condition,'order'=>$order));
-
-			if(in_array($this->id_department,Yii::app()->user->id_departments)){
-				if(Yii::app()->user->last_task!=$model[0]->id){
-					if(!empty(Yii::app()->user->last_task))
-						$this->isHorn=true;
-					Yii::app()->user->last_task=$model[0]->id;
-				}
-			}
+			$this->isHorn=Tasks::isHorn($id_department,$group);
 		}
-
-
-		switch ($type) {
-			//все, кроме помеченных как просмотренные
-			case '0':
-				$condition="id_department=".$id_department." and status not in (4)";
-				$order="status asc,t.timestamp desc";
-				break;
-			//текущие
-			case '1':
-				$condition="id_department=".$id_department." and status in (0,1,5) ";
-				$order="status asc,t.timestamp desc";
-				break;
-			
-			//все
-			case '2':
-				$condition="id_department=".$id_department." ";
-				$order="status asc,t.timestamp desc";
-				break;
-
-			//за день
-			case '3':
-				$condition="id_department=".$id_department." and ((t.timestamp>'".date('d.m.Y')." 00:00:00' or t.timestamp_end>'".date('d.m.Y')." 00:00:00') or status in (0,1,5))";
-				$order="status asc,t.timestamp desc";
-				break;
-			default:
-				
-			break;
-		}
-
-		if(!empty($this->group))
-			$condition.=" and '".$this->group."'=ANY(\"group\")";
-
-		//	$model=Tasks::model()->with(array(
- 		//		'TasksActions'=>array('alias'=>'TasksActions','condition'=>'"TasksActions".type=0','order'=>'"TasksActions".date DESC,"TasksActions".timestamp DESC')))->findAll(array('condition'=>$condition,'order'=>$order));
-		
-
-		$model=Tasks::model()->with(array('TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".type ASC, "TasksActions".timestamp DESC')))->findAll(array('condition'=>$condition,'order'=>$order));
-
-		
+		$model=Tasks::tasksForOtdAndGroup($id_department,$type,$group);
 		$this->render('helpdesk',array(
 			'model'=>$model,
 		));
