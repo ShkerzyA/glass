@@ -269,12 +269,12 @@ li:hover .MyMenuSubmenu,
 }
 
 select,option, input{
-	width: 90%;
+	width: 95%;
 	margin: 0px;
 }
 
 .row{
-	width: 90%;
+	width: 95%;
 	clear: both;
 }
 
@@ -283,7 +283,7 @@ select,option, input{
 }
 
 .row input, .row select, .row label{
-	width: 75%;
+	width: 77%;
 	float: left;
 	clear: right;
 }

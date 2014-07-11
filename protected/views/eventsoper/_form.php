@@ -104,7 +104,7 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'date'); ?>
 	</div>
 
-	<table>
+	<table style="width: 97%;"> 
 		<tr>
 			<td>
 	<div class="row">
@@ -128,7 +128,7 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 		</tr>
 	</table>
 
-	<div id="slider"></div>
+	<div id="slider" style="width: 93%;"></div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'fio_pac'); ?>

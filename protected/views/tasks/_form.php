@@ -56,9 +56,7 @@ Yii::app()->getClientScript()->registerCssFile(Yii::app()
      }
    ")?>
 
-
-
-	<div class="row">
+   <div style="clear: both; width: 94%;">
 		<div style="width: 50%; float: left;"> 
  <?php 
  	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
@@ -107,8 +105,8 @@ Yii::app()->getClientScript()->registerCssFile(Yii::app()
 ?>
 		</div>
 		<div style="width: 50%; float: left;"> <?php echo CHtml::textField('phone',NULL,array('placeholder'=>'Номер телефона')); ?></div>
-
 	</div>
+
 	<?php endif ?>
 
 	

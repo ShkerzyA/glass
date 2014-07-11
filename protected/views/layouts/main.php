@@ -111,7 +111,7 @@ END;
 ?>
 
 
-			<?php $this->widget('application.widgets.Messenger'); ?>
+			<?php // $this->widget('application.widgets.Messenger'); ?>
 </body>
 </html>
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/custom.css" />

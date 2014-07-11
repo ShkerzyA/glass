@@ -83,7 +83,7 @@ function init(){
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
-	<table>
+	<table style="width: 97%;">
 		<tr>
 			<td>
 	<div class="row">
@@ -107,7 +107,7 @@ function init(){
 		</tr>
 	</table>
 
-	<div id="slider"></div>
+	<div id="slider" style="width: 93%"></div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
