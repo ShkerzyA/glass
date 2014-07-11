@@ -63,6 +63,7 @@ public function actionInstall(){
     $auth->createOperation('saveStatus', 'Изменить статус Задачи');
     $auth->createOperation('saveStatusEv', 'Изменить статус События');
     $auth->createOperation('updateEv', 'Редактировать событие');
+    $auth->createOperation('updateTs', 'Редактировать задачу');
     $auth->createOperation('operationSV', 'Управление планом операций');
     $auth->createOperation('monitoringOper', 'Право на мониторинг операций');
     $auth->createOperation('ruleWorkplaces', 'Управление рабочими местами');
@@ -89,6 +90,10 @@ public function actionInstall(){
     $bizRule='return $params["mod"]->isOwner();';
     $task = $auth->createTask('OwnUpdateEv', 'Изменение своих событий', $bizRule);
     $task->addChild('updateEv', 'Изменить статус');
+
+     $bizRule='return $params["mod"]->mayUserUpd();';
+    $task = $auth->createTask('OwnUpdateTs', 'Изменение своих событий', $bizRule);
+    $task->addChild('updateTs', 'Изменить статус');
 
 
     $bizRule='
@@ -118,6 +123,7 @@ public function actionInstall(){
   	$user->addChild('userOperationSV');
   	$user->addChild('monitoringOperUser');
   	$user->addChild('OwnUpdateEv');
+  	$user->addChild('OwnUpdateTs');
 
     $moderator = $auth->createRole('moderator');
     $moderator->addChild('user');
@@ -130,6 +136,7 @@ public function actionInstall(){
     $moderator->addChild('saveStatus'); 
     $moderator->addChild('saveStatusEv'); 
     $moderator->addChild('updateEv'); 
+    $moderator->addChild('updateTs'); 
     $moderator->addChild('operationSV'); 
 
 

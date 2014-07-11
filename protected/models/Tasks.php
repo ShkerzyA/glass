@@ -46,7 +46,7 @@ class Tasks extends CActiveRecord
 	public function isChangeStatus(){
 		if(Yii::app()->user->isGuest)
 			return False;
-		if(in_array($this->id_department,Yii::app()->user->id_departments) and (empty($this->group) or in_array($this->group,Yii::app()->user->group))){
+		if(in_array($this->id_department,Yii::app()->user->id_departments) and (empty($this->group) or in_array($this->group,Yii::app()->user->groups))){
 			return True; 
 		}else {
 			return False;
@@ -176,6 +176,19 @@ class Tasks extends CActiveRecord
 			}
 		}
 		return $res;
+	}
+
+
+	public function mayUserUpd(){
+		if(Yii::app()->user->isGuest)
+			return False;
+		if(Yii::app()->user->id_pers==$this->creator){
+			return True;
+		}else if(empty($this->creator)){
+			return $this->isChangeStatus();
+		}else{
+			return False;
+		}
 	}
 
 	public static function tasksForOtdAndGroup($id_department,$type=3,$group=NULL){

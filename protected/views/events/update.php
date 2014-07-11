@@ -7,7 +7,7 @@ $this->breadcrumbs=array(
 	$model->name=>array('view','id'=>$model->id),
 	'Изменить',
 );
-
+if(Yii::app()->user->role=='administrator'){
 $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
 	array('label'=>'Создать', 'url'=>array('create')),
@@ -16,7 +16,7 @@ $this->menu=array(
 );
 	$this->menu["details"]=array(array('label'=>'DepartmentPosts', 'url'=>array('DepartmentPosts/admin', 'creator'=>$model->id)),
 array('label'=>'Rooms', 'url'=>array('Rooms/admin', 'id_room'=>$model->id)),
-);
+);}
 ?>
 
 <h2>Изменить событие <?php  echo($model->date.' в помещении "'.$model->idRoom->idCabinet->cname.' '.$model->idRoom->idCabinet->num); ?>"</h2>

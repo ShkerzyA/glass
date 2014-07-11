@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 	'Изменить',
 );
 
+if(Yii::app()->user->role=='administrator'){
 $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
 	array('label'=>'Создать', 'url'=>array('create')),
@@ -16,7 +17,7 @@ $this->menu=array(
 );
 	$this->menu["details"]=array(array('label'=>'DepartmentPosts', 'url'=>array('DepartmentPosts/admin', 'creator'=>$model->id)),
 array('label'=>'DepartmentPosts', 'url'=>array('DepartmentPosts/admin', 'executor'=>$model->id)),
-);
+);}
 ?>
 
 <h1>Изменить <?php  echo $model::$modelLabelS; ?>  <?php echo $model->id; ?></h1>

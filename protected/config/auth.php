@@ -84,6 +84,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'updateTs' => 
+  array (
+    'type' => 0,
+    'description' => 'Редактировать задачу',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'operationSV' => 
   array (
     'type' => 0,
@@ -149,6 +156,17 @@ return array (
       0 => 'updateEv',
     ),
   ),
+  'OwnUpdateTs' => 
+  array (
+    'type' => 1,
+    'description' => 'Изменение своих событий',
+    'bizRule' => 'return $params["mod"]->mayUserUpd();',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'updateTs',
+    ),
+  ),
   'userOperationSV' => 
   array (
     'type' => 1,
@@ -194,6 +212,7 @@ return array (
       5 => 'userOperationSV',
       6 => 'monitoringOperUser',
       7 => 'OwnUpdateEv',
+      8 => 'OwnUpdateTs',
     ),
   ),
   'moderator' => 
@@ -214,7 +233,8 @@ return array (
       7 => 'saveStatus',
       8 => 'saveStatusEv',
       9 => 'updateEv',
-      10 => 'operationSV',
+      10 => 'updateTs',
+      11 => 'operationSV',
     ),
   ),
   'administrator' => 
