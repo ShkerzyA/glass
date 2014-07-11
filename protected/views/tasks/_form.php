@@ -3,6 +3,16 @@
 /* @var $model Tasks */
 /* @var $form CActiveForm */
 ?>
+<?php
+/* @var $this EventsoperController */
+/* @var $model Eventsoper */
+/* @var $form CActiveForm */
+Yii::app()->getClientScript()->registerCoreScript('jquery.ui');
+Yii::app()->getClientScript()->registerCssFile(Yii::app()
+    ->getClientScript()
+    ->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css' );
+
+?>
 
 <div class="form">
 
@@ -15,9 +25,91 @@
 	<?php echo $form->errorSummary($model); ?>
 	
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить',array('id'=>'Taskssubmit')); ?>
 	</div>
 
+	<?php if(Yii::app()->user->isGuest): ?>
+
+		<script>
+		function init(){
+			$('#Taskssubmit').attr('disabled','disabled');
+			$('#phone, #fio').live('change', function(){
+				var fio=$('#fio').val();
+				var phone=$('#phone').val();
+				if((fio.length>0) && (phone.length>0)){
+					$('#Taskssubmit').removeAttr('disabled');
+				}else{
+					$('#Taskssubmit').attr('disabled','disabled');
+				}
+			});
+		}
+
+		$(document).ready(init);
+
+		</script>
+<?php echo CHtml::script("
+     function split(val) {
+      return val.split(/,\s*/);
+     }
+     function extractLast(term) {
+      return split(term).pop();
+     }
+   ")?>
+
+
+
+	<div class="row">
+		<div style="width: 50%; float: left;"> 
+ <?php 
+ 	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+   'name'=>'fio',
+   'value'=>NULL,
+//'value' => $model->id,
+   'source'=>"js:function(request, response) {
+      $.getJSON('".$this->createUrl('/Personnel/suggest')."', {
+        term: extractLast(request.term)
+      }, response);
+      }",
+   'options'=>array(
+     'delay'=>300,
+     'minLength'=>2,
+     'showAnim'=>'fold',
+ 	'multiple'=>false,
+     'select'=>"js:function(event, ui) {
+     	$('#fio').val(ui.item.id);
+         var terms = split(this.value);
+         // remove the current input
+         terms.pop();
+         // add the selected item
+         terms.push( ui.item.value );
+         // add placeholder to get the comma-and-space at the end
+         terms.push('');
+         this.value = terms.join(' ');
+         return false;
+       }",
+   ),
+   'htmlOptions'=>array(
+     'size'=>'40',
+     'placeholder'=>'ФИО'
+   ),
+  ));
+  // Для подсветки набираемого куска запроса в предлагаемом списке
+  Yii::app()->clientScript->registerScript('unique.script.identifier', "
+ $('#fio').data('autocomplete')._renderItem = function( ul, item ) {
+   var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
+   var highlightedResult = item.label.replace( re, '<b>$1</b>' );
+   return $( '<li></li>' )
+     .data( 'item.autocomplete', item )
+     .append( '<a>' + highlightedResult + '</a>' )
+     .appendTo( ul );
+ };
+");  
+?>
+		</div>
+		<div style="width: 50%; float: left;"> <?php echo CHtml::textField('phone',NULL,array('placeholder'=>'Номер телефона')); ?></div>
+
+	</div>
+	<?php endif ?>
 
 	
 
@@ -25,7 +117,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'tname'); ?>
 
-		<?php echo $form->textField($model,'tname',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'tname',array('size'=>60,'maxlength'=>60)); ?>
 
 		<?php echo $form->error($model,'tname'); ?>
 	</div>

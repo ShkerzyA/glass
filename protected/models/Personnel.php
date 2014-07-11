@@ -70,6 +70,16 @@ class Personnel extends CActiveRecord
 		return 'personnel';
 	}
 
+    public function suggestTag($keyword){
+        $tags=$this->findAll(array(
+            'condition'=>'surname LIKE :keyword OR name LIKE :keyword',
+            'params'=>array(
+            ':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+        )
+        ));
+        return $tags;
+    }
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

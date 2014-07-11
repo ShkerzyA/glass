@@ -1,3 +1,5 @@
+
+
 .MyMenuSubmenu{
 	/*display: none;*/
 	position: fixed;
@@ -23,6 +25,52 @@
 	z-index: 99;
 }
 
+.messenger{
+	position: fixed;
+	z-index: 99999;
+	bottom: 0px;
+	right: 50px;
+	width: 300px;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;
+}
+
+.mess_head{
+	border-radius: 15px 15px 0px 0px;
+	margin: 0px;
+	height: 30px;
+	border: 2px solid grey;
+	background: black;
+	opacity: 0.5;
+	color: rgb(255,255,255);
+	padding: 3px;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
+.mess_body{
+	margin:  0 1px 0 1px;
+	display: none;
+	/*border: 2px solid grey;*/
+	padding: 3px;
+	background: #f7f7f6;
+
+}
+
+.mess_content{
+	overflow-y: auto; 
+	height: 350px;
+}
+
+.mess_form{
+	margin: 3px;
+	height: 100px;
+	background: #f7f7f7;
+}
+
+.mess_form textarea{
+	min-height: 2px;
+}
+
 
 .hiddeninfotask{
 	z-index: 99;
@@ -31,7 +79,7 @@
 	color: black;
 	display: none;
 	padding: 2px;
-	background: white;
+	background: #f7f7f6;
 	border: 2px solid grey;
 	border-radius: 4px;
 

@@ -78,7 +78,7 @@ function init(){
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_room'); ?>
 
-		<?php $tmp=Rooms::model()->findall();
+		<?php $tmp=Rooms::model()->getRooms('eventsOpPl');
 echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tmp) {
 				return CHtml::encode($tmp->idCabinet->cname);}),array('empty' => '',)); ?>
 		<?php echo $form->error($model,'id_room'); ?>

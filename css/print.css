@@ -14,7 +14,7 @@
 /* print.css */
 
 @page {
-	size:landscape;
+	size: landscape !important;
 }
 
 
@@ -38,6 +38,10 @@
         filter: grayscale(100%);                 
         */
     }
+
+.messenger{
+	display: none !important;
+}
 
 table, table *{
 	border: 2px solid black !important;

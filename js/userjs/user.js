@@ -1,3 +1,5 @@
+
+
 function init(){
 	$('#userEd').live('click',function(){ 
 		load_modalForm();
@@ -6,7 +8,14 @@ function init(){
 	$('.close_this').live('click',function(){ 
 		$('.'+this.id).remove();
 	});
+
+
+	$('.mess_head').live('click',function(){
+		$('.mess_body').toggle();
+	});
 }
+
+
 $(document).ready(init());
 
 function load_modalForm(){

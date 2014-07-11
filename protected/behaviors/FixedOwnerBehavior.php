@@ -1,7 +1,7 @@
 <?php 
 class FixedOwnerBehavior extends CActiveRecordBehavior{
     
-    public $own=array('Docs'=>'creator','Catalogs'=>'owner','Tasks'=>'creator','TasksActions'=>'creator','Events'=>'creator','Eventsoper'=>'creator','EventsActions'=>'creator');
+    public $own=array('Docs'=>'creator','Catalogs'=>'owner','Tasks'=>'creator','Messages'=>'creator','TasksActions'=>'creator','Events'=>'creator','Eventsoper'=>'creator','EventsActions'=>'creator');
 
     public function beforeSave($event){
        if($this->owner->scenario=='insert'){
@@ -9,7 +9,8 @@ class FixedOwnerBehavior extends CActiveRecordBehavior{
             $val=$this->own[$model_name];
             switch ($model_name) {
                 default:
-                        $this->owner->$val=Yii::app()->user->id_pers; 
+                        $id_pers=(!empty(Yii::app()->user->id_pers))?Yii::app()->user->id_pers:NULL;
+                        $this->owner->$val=$id_pers; 
                     break;
             }
 

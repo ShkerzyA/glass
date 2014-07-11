@@ -32,7 +32,7 @@ class PersonnelController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','phones','rootFillTree','AjaxFillTree','depposts','surnameSearch'),
+				'actions'=>array('index','view','phones','rootFillTree','AjaxFillTree','depposts','surnameSearch','suggest'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -70,6 +70,19 @@ class PersonnelController extends Controller
 	}
 
 	
+	public function actionSuggest(){
+		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
+  			$models = Personnel::model()->suggestTag($_GET['term']);
+  			$result = array();
+  			foreach ($models as $m)
+   			$result[] = array(
+     			'label' => $m->surname.' '.$m->name.' '.$m->patr,
+     			'value' => $m->surname.' '.$m->name.' '.$m->patr,
+     			'id' => $m->id,
+   			);
+  			echo CJSON::encode($result);
+ 		}
+	}
 	
 
 	public function actionSurnameSearch(){
