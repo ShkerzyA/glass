@@ -211,7 +211,7 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'executors'); ?>
-		<?php echo Customfields::getFieldPosts($model); ?>
+		<?php echo Customfields::multiPersonnel($model,'executors'); ?>
 		<?php echo $form->error($model,'executors'); ?>
 	</div>
 
