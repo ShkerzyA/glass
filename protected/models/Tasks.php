@@ -46,7 +46,7 @@ class Tasks extends CActiveRecord
 	public function isChangeStatus(){
 		if(Yii::app()->user->isGuest)
 			return False;
-		if(in_array($this->id_department,Yii::app()->user->id_departments) and (empty($this->group) or in_array($this->group,Yii::app()->user->groups))){
+		if((in_array($this->id_department,Yii::app()->user->id_departments)) or (in_array($this->group,Yii::app()->user->groups))){
 			return True; 
 		}else {
 			return False;
