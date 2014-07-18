@@ -69,7 +69,9 @@ echo '<div class="comment " id="taskbody">
 				case '2':
 					if($isRep){
 						$rep=explode('\/',$action->ttext);
-						$mess='<h3 style="text-align: right; margin: 2px;">Отчет по задаче</h3>'.$rep[0].' ('.$rep[2].') <br>'.$rep[1].' ';
+						$del=($action->creator==Yii::app()->user->id_pers)?'<div class="delete_this del_taskact" id='.$action->id.' style="float: right; z-index: 59; "></div>':'';
+
+						$mess=$del.'<h3 style="text-align: right; margin: 2px;">Отчет по задаче</h3>'.$rep[0].' ('.$rep[2].') <br>'.$rep[1].' ';
 					}else{
 						$mess=NULL;
 					}
@@ -83,8 +85,7 @@ echo '<div class="comment " id="taskbody">
 			if(empty($mess)){
 				continue;
 			}
-
-			echo'<div class="comment">';
+			echo'<div class="comment" id='.$action->id.'>';
 			echo'<div class="comment-topline"><i>'.$action->creator0->surname.' '.$action->creator0->name.' '.$action->creator0->patr.'</i> &nbsp;&nbsp;&nbsp; '.$action->timestamp.'</div>';
 			echo'<div class="sign"></div>';
 
@@ -95,7 +96,7 @@ echo '<div class="comment " id="taskbody">
 				echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
 			}
 			echo'"></div>';
-
+		
 			echo $mess;
 
 			echo'</div>';

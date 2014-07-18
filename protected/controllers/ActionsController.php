@@ -16,6 +16,7 @@ class ActionsController extends Controller
 
 
 	public function init(){ 
+		echo $_POST['factoryObj'];
 		switch ($_POST['factoryObj']) {
 			case 'events':
 				$this->parent=Events::model()->findByPk($_POST['id']);
@@ -51,7 +52,7 @@ class ActionsController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('index','SaveMessage','SaveStatus','SaveReport'),
+				'actions'=>array('index','SaveMessage','SaveStatus','SaveReport','delete'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -73,6 +74,13 @@ class ActionsController extends Controller
 			}
 		}
 
+	}
+
+	public function actionDelete(){
+		$this->act=$this->act->findByPk($_POST['id']);
+		$this->act->delete();
+		//echo $this->act->ttext;
+		//echo'почн';
 	}
 
 	public function actionSaveReport(){

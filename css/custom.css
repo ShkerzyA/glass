@@ -341,7 +341,7 @@ select,option, input{
 }
 
 
-.close_this{
+.close_this, .delete_this{
 	position: absolute;
 	right: 2px;
 	top: 2px;
@@ -350,6 +350,19 @@ select,option, input{
 	background: url('../images/delete.png') no-repeat;
 	cursor: pointer;
 }
+
+.delete_this{
+	position: relative;
+	right: 2px;
+	top: 2px;
+	margin: 3px;
+	width: 16px;
+	height: 16px;
+	background: url('../images/delete.png') no-repeat;
+	cursor: pointer;
+}
+
+
 .back{
 	
 }

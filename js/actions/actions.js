@@ -9,6 +9,13 @@ function init(){
 		$('.modal_window#'+this.id+'').show();
 	});
 
+    $('.del_taskact').live('click',function(){ 
+        if(confirm('А если подумать?')){
+            var id=this.id;
+            del_action('tasks',id);
+        }
+    });
+
     $('#put_message').live('click',function(){ 
         save_comment();
     });
@@ -50,6 +57,18 @@ function save_comment(){
         );
     }
 
+}
+
+function del_action(factoryObj,id){
+     $.post("/glass/actions/delete", {id: id, factoryObj: factoryObj},
+            function(data, status) {
+                if (status == "success") {
+                    $('.comment#'+id).remove();
+                }else{
+                    alert('Ошибка');
+                }
+            },"html"
+    );
 }
 
 
