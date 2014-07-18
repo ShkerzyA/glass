@@ -3,7 +3,7 @@
 /* @var $model Docs */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
+	$model->idCatalog->cat_name=>array('/Catalogs/'.$model->id_catalog),
 	$model->id,
 );
 
@@ -31,7 +31,6 @@ echo '<div style="border-radius: 3px; min-height: 46px; background: padding-left
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->date_begin.'<br>
 		'.$model->creator0->surname.' '.$model->creator0->name.' '.$model->creator0->patr.'</i></div> '.
 		'<br><span style="margin: 10px; color: #D0D0D0">вложения: </span>'.$file.'<hr>'.
-		'<br>'.$model->text_docs.
-		'</div>';
+		'<br><pre style="overflov: none;">'.$model->text_docs.'</pre></div>';
 
 		?>

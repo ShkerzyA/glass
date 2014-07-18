@@ -1,6 +1,6 @@
 index.php
 /nbproject/private/
-protected/extensions/PHPExcel/*
+protected/extensions/*
 protected/modules/yiiadmin/*
 base/*
 media/*

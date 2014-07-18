@@ -3,7 +3,8 @@
 /* @var $model Catalogs */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
+	$model::$modelLabelP=>array('/myDocs'),
+	$model->idParent->cat_name=>array('catalogs/'.$model->id_parent),
 	$model->cat_name,
 );
 
@@ -17,6 +18,7 @@ $this->menu=array(
 ?>
 <h2 style="margin: 2px;"><?php echo $model->cat_name; ?></h2> 
 <a href=/glass/docs/create?Docs[id_catalog]=<?php echo $model->id ?>><div class="add_unit">Добавить документ</div></a>
+<a href=/glass/catalogs/create?Catalogs[id_parent]=<?php echo $model->id ?>><div class="add_unit">Добавить каталог</div></a>
 
 <h6 style="text-align: right; margin: 2px"><span style='color: #D0D0D0'>владелец: </span> <?php 
 //echo ($model->owner0->post);
@@ -27,24 +29,17 @@ echo ('  <i>'.$person->surname.' '.mb_substr($person->name,0,1,'utf-8').'. '.mb_
 <hr>
 
 <?php 
-if (!empty($docs)){
-	foreach ($docs as $v){
+if (!empty($model->catalogs)){
+	foreach ($model->catalogs as $v){
+		echo '<div style="border-radius: 3px; min-height: 46px; margin: 3px; background: url(\'../images/folder_24.png\') no-repeat; padding-left: 40px;">
+		<a href=/glass/catalogs/'.$v->id.'><h4 style="margin: 3px;">'.$v->cat_name.'</h4></a>
+		</div><hr>';
+	}
+}
 
-		
-		if(!empty($v->link)){
-			$fl=explode('.', $v->link);
-			$file='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$v->link.'><img class=s16 src="'.Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png"></a>';
-		}else{
-			$file='нет вложений';
-		}
-
-
-		echo '<div style="border-radius: 3px; min-height: 46px; margin: 3px; background: url(\'../images/doc.png\') no-repeat; padding-left: 40px;">
-		<a href=/glass/docs/'.$v->id.'><h4 style="margin: 3px;">'.$v->doc_name.'</h4></a>
-		<div style="position: relative; float: right; text-align: right"><i>'.$v->date_begin.'<br>'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.mb_substr($v->creator0->personnelPostsHistories[0]->idPersonnel->name,0,1,'utf-8').'. '.mb_substr($v->creator0->personnelPostsHistories[0]->idPersonnel->patr,0,1,'utf-8').'.</i></div>'.
-		$file.
-		'<br>'.substr($v->text_docs,0,300).'...'.
-		'</div><hr>';
+if (!empty($model->docs)){
+	foreach ($model->docs as $doc) {
+		$this->renderPartial('/docs/_item',array('doc'=>$doc),false,false);
 	}
 }else{
 	echo '<h5 align=center>Нет документов</h5>';

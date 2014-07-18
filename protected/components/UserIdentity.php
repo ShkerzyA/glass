@@ -38,7 +38,9 @@ class UserIdentity extends CUserIdentity
             $id_departments=array();
 
             $islead=0;
-            if(!empty($user->personnels->personnelPostsHistories))
+
+            if(!empty($user->personnels->personnelPostsHistories)){
+            $this->setState('postname', $user->personnels->personnelPostsHistories[0]->idPost->post);
             foreach ($user->personnels->personnelPostsHistories as $v){
                 $temp.=$v->idPost->groups;
                 $id_posts[]=$v->idPost->id;
@@ -46,6 +48,7 @@ class UserIdentity extends CUserIdentity
                 if($v->idPost->islead==1){
                     $islead=1;
                 }
+            }
             }
             $temp=explode(',',$temp);
             $groups=array_unique($temp);

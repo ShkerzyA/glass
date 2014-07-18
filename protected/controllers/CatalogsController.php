@@ -45,7 +45,7 @@ class CatalogsController extends Controller
 		);
 	}
 
-	   public function actionRootFillTree()
+	   public function actionAjaxFillTree($cat_id=NULL)
     {
         // если пробуют получить прямой доступ к экшину (не через ajax)
         // тогда обрубаем "крылья")) т.е. возвращаем белую страницу
@@ -53,70 +53,17 @@ class CatalogsController extends Controller
             exit();
         }
 
-        // с какого узла начинаем вывод дерева? 0 - с первого
-        $parentId = '';
-        if (isset($_GET['root']) && $_GET['root'] !== 'source') {
-            $parentId = 'WHERE m1.id='.(int)$_GET['root'].' ';
-        }else{
-        	$parentId = 'WHERE m1.id_parent is null ';
-        }
-
-  		$onlyGroups=' false ';
-        if(!empty(Yii::app()->user->groups )){
-        	$onlyGroups=' AND (FALSE ';
-       		foreach (Yii::app()->user->groups as $v) {
-       			if(!empty($v))
-       	 		$onlyGroups.="OR m1.groups @> '{".$v."}'::character varying[] ";
-        	}
-        	$id_posts=implode(',',Yii::app()->user->id_posts);
-
-        	$onlyGroups.="OR m1.owner in (".$id_posts.")";
-
-        	$onlyGroups.=' ) ';
-        }
-        
-        $sql="SELECT m1.id, m1.cat_name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM catalogs AS m1 LEFT JOIN catalogs AS m2 ON m1.id=m2.id_parent  $parentId $onlyGroups GROUP BY m1.id  ORDER BY m1.cat_name ASC";
-        //echo $sql;
-        // сам запрос на получение данных детей (через обычный LEFT JOIN)
-        $req = Yii::app()->db->createCommand($sql);
-
-        $children = $req->queryAll();
-
-        /*
-        foreach ($children as &$v) {
-        	$v['contr']='Catalogs';
-        } */
-
-        foreach ($children as &$v) {
-        	$v=array_merge($v,ruleButton::get($v[id],'Catalogs','Catalogs'));
-        }
-       
-
-        //print_r($children);
-        // возвращаем данные
-        echo str_replace(
-            '"hasChildren":"0"',
-            '"hasChildren":false',
-            CTreeView::saveDataAsJson($children)
-        );
-        exit();
-    }
-
-
-	   public function actionAjaxFillTree()
-    {
-        // если пробуют получить прямой доступ к экшину (не через ajax)
-        // тогда обрубаем "крылья")) т.е. возвращаем белую страницу
-        if (!Yii::app()->request->isAjaxRequest) {
-            exit();
-        }
-
-        Yii::app()->user;
+        //echo $cat_id;
 
         // с какого узла начинаем вывод дерева? 0 - с первого
         $parentId = '';
-        if (isset($_GET['root']) && $_GET['root'] !== 'source') {
+        if(!empty($cat_id)){
+        	$parentId = 'WHERE m1.id_parent='.(int)$cat_id.' ';
+        }elseif (isset($_GET['root']) && $_GET['root'] !== 'source') {
             $parentId = 'WHERE m1.id_parent='.(int)$_GET['root'].' ';
+        }
+       	else{
+        	$parentId = 'WHERE m1.id_parent is null ';
         }
 
         $onlyGroups=' false ';
@@ -168,9 +115,9 @@ class CatalogsController extends Controller
 
 		$model=$this->loadModel($id);
 
-		$docs=Docs::model()->working()->findAll(array('condition'=>"id_catalog='$model->id'",'order'=>'doc_name ASC, t.date_begin ASC'));
+		//$docs=Docs::model()->working()->findAll(array('condition'=>"id_catalog='$model->id'",'order'=>'doc_name ASC, t.date_begin ASC'));
 		$this->render('view',array(
-			'model'=>$model,'docs'=>$docs,
+			'model'=>$model,
 		));
 	}
 
@@ -272,7 +219,7 @@ class CatalogsController extends Controller
 	{
 		$model=Catalogs::model()->with(array(
 			'owner0',
-			'owner0.personnelPostsHistories'=>array('order'=>'"personnelPostsHistories".date_begin DESC'),
+			'owner0.personnelPostsHistories'=>array('order'=>'"personnelPostsHistories".date_begin DESC'),'docs','catalogs'
 			))->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');

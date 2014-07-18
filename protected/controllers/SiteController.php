@@ -64,6 +64,8 @@ public function actionInstall(){
     $auth->createOperation('saveStatusEv', 'Изменить статус События');
     $auth->createOperation('updateEv', 'Редактировать событие');
     $auth->createOperation('updateTs', 'Редактировать задачу');
+    $auth->createOperation('inGroup', 'Принадлежность группе');
+    $auth->createOperation('taskReport', 'Формирование отчета из задач');
     $auth->createOperation('operationSV', 'Управление планом операций');
     $auth->createOperation('monitoringOper', 'Право на мониторинг операций');
     $auth->createOperation('ruleWorkplaces', 'Управление рабочими местами');
@@ -74,14 +76,21 @@ public function actionInstall(){
     //$task = $auth->createTask('OwnSaveMessage', 'изменение своих данных', $bizRule);
     //$task->addChild('saveMessage');
 
-
-   	$bizRule='return $params["mod"]->isChangeStatus();';
+    $bizRule='return $params["mod"]->isChangeStatus();';
     $task = $auth->createTask('OwnSaveStatus', 'Изменение статуса задач своего отдела', $bizRule);
     $task->addChild('saveStatus', 'Изменить статус');
+
+   	$bizRule='return in_array($params["group"],Yii::app()->user->groups);';
+    $task = $auth->createTask('inGroupUser', 'Изменение статуса задач своего отдела', $bizRule);
+    $task->addChild('inGroup', 'Принадлежность группе');
 
     $bizRule='return $params["mod"]->isChangeStatus();';
     $task = $auth->createTask('ManagerSaveStatusEv', 'Изменение подконтрольных событий', $bizRule);
     $task->addChild('saveStatusEv', 'Изменить статус');
+
+    $bizRule='return (in_array(1011,Yii::app()->user->id_departments));';
+    $task = $auth->createTask('taskReportUser', 'Право на мониторинг операции в конкретной операционной', $bizRule);
+    $task->addChild('taskReport', 'Право на мониторинг операций');
 
     $bizRule='return $params["mod"]->isManagerUser()';
     $task = $auth->createTask('monitoringOperUser', 'Право на мониторинг операции в конкретной операционной', $bizRule);
@@ -96,15 +105,14 @@ public function actionInstall(){
     $task->addChild('updateTs', 'Изменить статус');
 
 
-    $bizRule='
-    if(!Yii::app()->user->isGuest){
-    	return in_array("operationsv",Yii::app()->user->groups);
-    }else{
-    	return false;
-    }
-    ';
+    $bizRule='return in_array("operationsv",Yii::app()->user->groups);';
     $task = $auth->createTask('userOperationSV', 'Управление операциями', $bizRule);
     $task->addChild('operationSV', 'Управление операциями'); 
+
+    $bizRule='return in_array("changeobjects",Yii::app()->user->groups);';
+    $task = $auth->createTask('changeObjectsUser', 'Управление операциями', $bizRule);
+    $task->addChild('changeObjects', 'Управление объектами'); 
+
 
     //$bizRule='return $params["mod"]->isManagerUser();';
     //$task = $auth->createTask('RoomOperationSV', 'Управление событиями в конкретной операционной', $bizRule);
@@ -120,8 +128,11 @@ public function actionInstall(){
   	$user->addChild('saveMessage');
   	$user->addChild('OwnSaveStatus');
   	$user->addChild('ManagerSaveStatusEv');
+  	$user->addChild('inGroupUser');
+    $user->addChild('taskReportUser');
   	$user->addChild('userOperationSV');
   	$user->addChild('monitoringOperUser');
+    $user->addChild('changeObjectsUser');
   	$user->addChild('OwnUpdateEv');
   	$user->addChild('OwnUpdateTs');
 
@@ -142,6 +153,8 @@ public function actionInstall(){
 
     $administrator = $auth->createRole('administrator');
     $administrator->addChild('moderator');
+    $administrator->addChild('taskReport');
+    $administrator->addChild('inGroup');
     $administrator->addChild('admin');
 
     //$administrator->addChild('operationsv'); 

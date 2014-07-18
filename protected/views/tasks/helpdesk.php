@@ -5,7 +5,10 @@
 $this->breadcrumbs=array(
 );
 
-//$this->menu=array('title'=>'Фильтры','items'=>array( array('label'=>'По умолчанию', 'url'=>array('HelpDesk?id_department=1011&&type=0'))));
+$this->menu=array(
+			array('label'=>'Персональный отчет', 'url'=>array('report'), 'linkOptions'=>array('target'=>'_blank'),'visible'=>Yii::app()->user->checkAccess('taskReport',array('mod'=>$model)),),
+			);
+
 $this->menu['all_menu']=array(
 	array('title'=>'Фильтры задач','items'=>array(
 		array('label'=>'По умолчанию', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=0'),'items'=>array(

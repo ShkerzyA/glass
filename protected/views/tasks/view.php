@@ -24,11 +24,17 @@ $this->menu=array(
 ?>
 
 <?php 
+
+if(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model))){
+	$this->renderPartial('/actions/report_message', array('model'=>$model), false, false);
+}
 if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))){
 	$this->renderPartial('/actions/message', array(), false, false);
 }
-	$this->renderPartial('/actions/info', array('model'=>$model), false, false);
+	$this->renderPartial('/actions/info', array('model'=>$model), false, false); 
 ?>
+
+<div style="position: relative; clear: both;"></div>
 
 <?php
 
@@ -50,9 +56,35 @@ echo '<div class="comment " id="taskbody">
 		echo '</span></div> ';
 
 
+		$isRep=Yii::app()->user->checkAccess('taskReport',array('mod'=>$model));
+
 		foreach ($model->TasksActions as $action){
-			echo'<div class="comment">';
 			
+		
+
+			switch ($action->type) {
+				case '0':
+					$mess='<b>"'.$status_arr[$action->ttext].'"</b> Статус задачи изменен';
+					break;
+				case '2':
+					if($isRep){
+						$rep=explode('\/',$action->ttext);
+						$mess='<h3 style="text-align: right; margin: 2px;">Отчет по задаче</h3>'.$rep[0].' ('.$rep[2].') <br>'.$rep[1].' ';
+					}else{
+						$mess=NULL;
+					}
+					break;
+				case '1':
+				default:
+					$mess='<pre style="overflov: none;">'.$action->ttext.'</pre>';	
+					break;
+			}
+
+			if(empty($mess)){
+				continue;
+			}
+
+			echo'<div class="comment">';
 			echo'<div class="comment-topline"><i>'.$action->creator0->surname.' '.$action->creator0->name.' '.$action->creator0->patr.'</i> &nbsp;&nbsp;&nbsp; '.$action->timestamp.'</div>';
 			echo'<div class="sign"></div>';
 
@@ -64,11 +96,8 @@ echo '<div class="comment " id="taskbody">
 			}
 			echo'"></div>';
 
-			if($action->type==0){
-				echo '<b>"'.$status_arr[$action->ttext].'"</b> Статус задачи изменен';
-			}else{
-				echo '<pre style="overflov: none;">'.$action->ttext.'</pre>';	
-			}
+			echo $mess;
+
 			echo'</div>';
 		}
 

@@ -91,6 +91,20 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'inGroup' => 
+  array (
+    'type' => 0,
+    'description' => 'Принадлежность группе',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
+  'taskReport' => 
+  array (
+    'type' => 0,
+    'description' => 'Формирование отчета из задач',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'operationSV' => 
   array (
     'type' => 0,
@@ -123,6 +137,17 @@ return array (
       0 => 'saveStatus',
     ),
   ),
+  'inGroupUser' => 
+  array (
+    'type' => 1,
+    'description' => 'Изменение статуса задач своего отдела',
+    'bizRule' => 'return in_array($params["group"],Yii::app()->user->groups);',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'inGroup',
+    ),
+  ),
   'ManagerSaveStatusEv' => 
   array (
     'type' => 1,
@@ -132,6 +157,17 @@ return array (
     'children' => 
     array (
       0 => 'saveStatusEv',
+    ),
+  ),
+  'taskReportUser' => 
+  array (
+    'type' => 1,
+    'description' => 'Право на мониторинг операции в конкретной операционной',
+    'bizRule' => 'return (in_array(1011,Yii::app()->user->id_departments));',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'taskReport',
     ),
   ),
   'monitoringOperUser' => 
@@ -171,17 +207,22 @@ return array (
   array (
     'type' => 1,
     'description' => 'Управление операциями',
-    'bizRule' => '
-    if(!Yii::app()->user->isGuest){
-    	return in_array("operationsv",Yii::app()->user->groups);
-    }else{
-    	return false;
-    }
-    ',
+    'bizRule' => 'return in_array("operationsv",Yii::app()->user->groups);',
     'data' => NULL,
     'children' => 
     array (
       0 => 'operationSV',
+    ),
+  ),
+  'changeObjectsUser' => 
+  array (
+    'type' => 1,
+    'description' => 'Управление операциями',
+    'bizRule' => 'return in_array("changeobjects",Yii::app()->user->groups);',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'changeObjects',
     ),
   ),
   'guest' => 
@@ -209,10 +250,13 @@ return array (
       2 => 'saveMessage',
       3 => 'OwnSaveStatus',
       4 => 'ManagerSaveStatusEv',
-      5 => 'userOperationSV',
-      6 => 'monitoringOperUser',
-      7 => 'OwnUpdateEv',
-      8 => 'OwnUpdateTs',
+      5 => 'inGroupUser',
+      6 => 'taskReportUser',
+      7 => 'userOperationSV',
+      8 => 'monitoringOperUser',
+      9 => 'changeObjectsUser',
+      10 => 'OwnUpdateEv',
+      11 => 'OwnUpdateTs',
     ),
   ),
   'moderator' => 
@@ -246,7 +290,9 @@ return array (
     'children' => 
     array (
       0 => 'moderator',
-      1 => 'admin',
+      1 => 'taskReport',
+      2 => 'inGroup',
+      3 => 'admin',
     ),
   ),
 );

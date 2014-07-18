@@ -51,7 +51,7 @@ class ActionsController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('index','SaveMessage','SaveStatus'),
+				'actions'=>array('index','SaveMessage','SaveStatus','SaveReport'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -70,6 +70,16 @@ class ActionsController extends Controller
 		if(Yii::app()->request->isAjaxRequest){
 			if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$this->parent))){
 				$this->act->saveMessage();
+			}
+		}
+
+	}
+
+	public function actionSaveReport(){
+
+		if(Yii::app()->request->isAjaxRequest){
+			if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$this->parent))){
+				$this->act->saveReport();
 			}
 		}
 

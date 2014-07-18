@@ -23,7 +23,7 @@
 
 		<?php $tmp=Catalogs::model()->findall();
 echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->cat_name);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->cat_name);}),array('empty' => '','disabled'=>'disabled')); ?>
 		<?php echo $form->error($model,'id_parent'); ?>
 	</div>
 

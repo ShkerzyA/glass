@@ -2,9 +2,9 @@
 
 class MyDocsController extends Controller
 {
-	public function actionIndex()
+	public function actionIndex($id=NULL)
 	{
 		$this->layout='//layouts/column1';
-        $this->render('tree');
+        $this->render('tree',array('id_cat'=>$id));
 	}
 }

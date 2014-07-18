@@ -7,7 +7,8 @@ class MyMenu extends CMenu{
 	protected function renderSubmenu($submenu){
 		$result=array();
 		foreach ($submenu as $v) {
-			$result[]='<div class="item">'.CHtml::link($v[0],array($v[1])).'</div>';
+			if(!isset($v[2]) or $v[2]==true)
+				$result[]='<div class="item">'.CHtml::link($v[0],array($v[1])).'</div>';
 		}
 		return '<div class="MyMenuSubmenu">'.implode('<div class="limiter"></div>',$result).'</div>';
 		

@@ -28,6 +28,7 @@ class AdminController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
+				//'users'=>array('*'),
 				'roles'=>array('administrator'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions

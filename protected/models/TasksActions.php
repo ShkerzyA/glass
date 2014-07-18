@@ -25,6 +25,8 @@ class TasksActions extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return TasksActions the static model class
 	 */
+
+	public $limiter='\/';
 	public static $modelLabelS='TasksActions';
 	public static $modelLabelP='TasksActions';
 	
@@ -66,11 +68,24 @@ class TasksActions extends CActiveRecord
 		$this->save();
 	}
 
+	public function saveReport(){
+
+		$this->ttext=$_POST['taskname'].$this->limiter.$_POST['mess'].$this->limiter.$_POST['taskstat'].$this->limiter.$_POST['note'];
+		$this->type=2;
+		$this->save();
+	}
+
 
 	public function saveStatus(){
 		$this->ttext=$_POST['stat'];
 		$this->type=0;
 		$this->save();
+	}
+
+
+	public static function UserReportToday(){
+		$models=self::model()->findAll(array('condition'=>"t.creator=".Yii::app()->user->id_pers." and t.type=2 and t.timestamp::date=current_date"));
+		return $models;
 	}
 
 	/**

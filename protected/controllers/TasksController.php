@@ -44,7 +44,7 @@ class TasksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create','helpDesk'),
+				'actions'=>array('index','view','create','helpDesk','report'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -76,6 +76,41 @@ class TasksController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
+
+	public function actionReport(){
+
+		$model=TasksActions::UserReportToday();
+
+		$odfPath  = Yii::getPathOfAlias('ext.odtphp');
+		require_once($odfPath . DIRECTORY_SEPARATOR . 'library/odf.php');
+		$filename =Yii::getPathOfAlias('webroot').'/media/report.odt';
+		$odf = new odf($filename);
+
+		
+		$user=Yii::app()->user;
+
+		$odf->setVars('fio', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
+		$odf->setVars('date', date('d.m.Y'));
+
+		$article = $odf->setSegment('articles');
+		$i=1;
+		foreach ($model as $v){
+			$rep=explode('\/', $v->ttext);
+ 			$article->setVars('n',$i, true, 'utf-8');
+ 			$article->setVars('task',$rep[0], true, 'utf-8');
+ 			$article->setVars('description',$rep[1], true, 'utf-8');
+ 			$article->setVars('status',$rep[2], true, 'utf-8');
+ 			$article->setVars('note',$rep[3], true, 'utf-8');
+		 	$article->merge();
+		 	$i++;
+		}
+		$odf->mergeSegment($article);
+
+		$odf->setVars('post', $user->postname,true, 'utf-8');
+		$odf->exportAsAttachedFile(); 
+		
+	}	
+
 	public function actionCreate()
 	{
 		$model=new Tasks;
@@ -155,7 +190,7 @@ class TasksController extends Controller
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+			$this->redirect(Yii::app()->getUrlManager()->createUrl('tasks/helpDesk?id_department=1011'));
 	}
 
 	public function actionHelpDesk($id_department,$type=3,$group=NULL){
