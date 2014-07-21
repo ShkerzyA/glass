@@ -63,19 +63,31 @@ if($this->isHorn)
 							echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
 						}
 						echo "\">";
-
-						echo '<div class=hiddeninfotask>';
+						$rep='';
+						echo '<div class=hiddeninfotask style="float: rigth;">';
 						foreach ($v->TasksActions as $action) {
 							if($action->type==1)
-								break;
+								continue;
+							if($action->type==2){
+								$rep='<img style="max-height: 20px" src='.Yii::app()->request->baseUrl.'/images/doc.png>';
+								$id_pers=(!empty(Yii::app()->user->id_pers))?Yii::app()->user->id_pers:NULL;
+								if($action->creator==$id_pers){
+									$rep='<img style="max-height: 20px" src='.Yii::app()->request->baseUrl.'/images/doc_gold.png>';
+									break;
+								}
+							}
 							echo'<span><nobr>'.$status_arr[$action->ttext].' ';
 							echo' '.$action->creator0->surname.' '.mb_substr($action->creator0->name,0,1,'UTF-8').'. '.mb_substr($action->creator0->patr,0,1,'UTF-8').'. ('.$action->timestamp.')</nobr></span><br>';
 
 						}
-						echo'</div>';
-
 
 						echo'</div>';
+						
+
+						echo'</div>';
+						echo '<div style="float: left">'.$rep.'</div>';
+						
+						
 
 
 						echo' </span>'; 
