@@ -7,6 +7,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 			array('label'=>'Персональный отчет', 'url'=>array('report'), 'linkOptions'=>array('target'=>'_blank'),'visible'=>Yii::app()->user->checkAccess('taskReport',array('mod'=>$model)),),
+			array('label'=>'Отчет по отделу', 'url'=>array('reportOtd'), 'linkOptions'=>array('target'=>'_blank'),'visible'=>(Yii::app()->user->checkAccess('otdReport',array('mod'=>$model)))),
 			);
 
 $this->menu['all_menu']=array(

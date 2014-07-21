@@ -35,6 +35,7 @@ class Personnel extends CActiveRecord
 	public $personnelPostsHistoriesid_personnel;
     public $departments_name;
     public $allfields;
+    public $actions=array();
 
 	 public function defaultScope()
     {

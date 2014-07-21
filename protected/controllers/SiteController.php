@@ -66,6 +66,7 @@ public function actionInstall(){
     $auth->createOperation('updateTs', 'Редактировать задачу');
     $auth->createOperation('inGroup', 'Принадлежность группе');
     $auth->createOperation('taskReport', 'Формирование отчета из задач');
+    $auth->createOperation('otdReport', 'Формирование отчета из задач');
     $auth->createOperation('operationSV', 'Управление планом операций');
     $auth->createOperation('monitoringOper', 'Право на мониторинг операций');
     $auth->createOperation('ruleWorkplaces', 'Управление рабочими местами');
@@ -91,6 +92,10 @@ public function actionInstall(){
     $bizRule='return (in_array(1011,Yii::app()->user->id_departments));';
     $task = $auth->createTask('taskReportUser', 'Право на мониторинг операции в конкретной операционной', $bizRule);
     $task->addChild('taskReport', 'Право на мониторинг операций');
+
+    $bizRule='return ((in_array(1011,Yii::app()->user->id_departments)) and Yii::app()->user->islead);';
+    $task = $auth->createTask('otdReportUser', 'Право на мониторинг операции в конкретной операционной', $bizRule);
+    $task->addChild('otdReport', 'Право на мониторинг операций');
 
     $bizRule='return $params["mod"]->isManagerUser()';
     $task = $auth->createTask('monitoringOperUser', 'Право на мониторинг операции в конкретной операционной', $bizRule);
@@ -130,6 +135,7 @@ public function actionInstall(){
   	$user->addChild('ManagerSaveStatusEv');
   	$user->addChild('inGroupUser');
     $user->addChild('taskReportUser');
+    $user->addChild('otdReportUser');
   	$user->addChild('userOperationSV');
   	$user->addChild('monitoringOperUser');
     $user->addChild('changeObjectsUser');
@@ -154,6 +160,7 @@ public function actionInstall(){
     $administrator = $auth->createRole('administrator');
     $administrator->addChild('moderator');
     $administrator->addChild('taskReport');
+    $administrator->addChild('otdReport');
     $administrator->addChild('inGroup');
     $administrator->addChild('admin');
 

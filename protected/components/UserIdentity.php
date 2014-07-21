@@ -45,6 +45,7 @@ class UserIdentity extends CUserIdentity
                 $temp.=$v->idPost->groups;
                 $id_posts[]=$v->idPost->id;
                 $id_departments[]=$v->idPost->postSubdivRn->id;
+                $departments_rn[]=$v->idPost->postSubdivRn->subdiv_rn;
                 if($v->idPost->islead==1){
                     $islead=1;
                 }
@@ -60,6 +61,7 @@ class UserIdentity extends CUserIdentity
             }
             $this->setState('id_posts',$id_posts);
             $this->setState('id_departments',$id_departments);
+            $this->setState('departments_rn',$departments_rn);
             $this->setState('islead',$islead);
             $this->errorCode=self::ERROR_NONE;
         }

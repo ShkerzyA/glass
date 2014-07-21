@@ -8,7 +8,7 @@
 		<option value="в процессе">в процессе</option>
 		<option value="не выполнено">не выполнено</option>
 	</select>
-	<textarea style="width: 98%;" name="message_rep" id="message_rep" placeholder="Описание"></textarea><br>
+	<textarea style="width: 98%;" name="message_rep" id="message_rep" placeholder="Описание"><?php echo $model->ttext ?></textarea><br>
 	<textarea style="width: 98%;" name="message_note" id="message_note" placeholder="Примечания"></textarea><br>
 	<input type=button name="put_report" id="put_report" value="сохранить отчет">
 </div>

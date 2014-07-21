@@ -134,6 +134,18 @@ class DepartmentPosts extends CActiveRecord
 		);
 	}
 
+    public static function depPosts($subdiv_rn=''){
+        $DepPosts=self::model()->working()-> with(array(
+            'personnelPostsHistories'=>array(
+                'joinType'=>'LEFT JOIN',
+                'alias'=>'personnelPostsHistories',
+                'order'=>'"personnelPostsHistories".date_end DESC'
+            ),
+            'personnelPostsHistories.idPersonnel',
+        ))->findAll(array('condition'=>"post_subdiv_rn='$subdiv_rn'",'order'=>'islead DESC, t.date_begin ASC'));
+        return $DepPosts;
+    }
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

@@ -105,6 +105,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'otdReport' => 
+  array (
+    'type' => 0,
+    'description' => 'Формирование отчета из задач',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'operationSV' => 
   array (
     'type' => 0,
@@ -168,6 +175,17 @@ return array (
     'children' => 
     array (
       0 => 'taskReport',
+    ),
+  ),
+  'otdReportUser' => 
+  array (
+    'type' => 1,
+    'description' => 'Право на мониторинг операции в конкретной операционной',
+    'bizRule' => 'return ((in_array(1011,Yii::app()->user->id_departments)) and Yii::app()->user->islead);',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'otdReport',
     ),
   ),
   'monitoringOperUser' => 
@@ -252,11 +270,12 @@ return array (
       4 => 'ManagerSaveStatusEv',
       5 => 'inGroupUser',
       6 => 'taskReportUser',
-      7 => 'userOperationSV',
-      8 => 'monitoringOperUser',
-      9 => 'changeObjectsUser',
-      10 => 'OwnUpdateEv',
-      11 => 'OwnUpdateTs',
+      7 => 'otdReportUser',
+      8 => 'userOperationSV',
+      9 => 'monitoringOperUser',
+      10 => 'changeObjectsUser',
+      11 => 'OwnUpdateEv',
+      12 => 'OwnUpdateTs',
     ),
   ),
   'moderator' => 
@@ -291,8 +310,9 @@ return array (
     array (
       0 => 'moderator',
       1 => 'taskReport',
-      2 => 'inGroup',
-      3 => 'admin',
+      2 => 'otdReport',
+      3 => 'inGroup',
+      4 => 'admin',
     ),
   ),
 );

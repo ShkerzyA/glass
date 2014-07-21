@@ -44,7 +44,7 @@ class TasksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create','helpDesk','report'),
+				'actions'=>array('index','view','create','helpDesk','report', 'reportOtd'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -81,12 +81,9 @@ class TasksController extends Controller
 
 		$model=TasksActions::UserReportToday();
 
-		$odfPath  = Yii::getPathOfAlias('ext.odtphp');
-		require_once($odfPath . DIRECTORY_SEPARATOR . 'library/odf.php');
-		$filename =Yii::getPathOfAlias('webroot').'/media/report.odt';
-		$odf = new odf($filename);
-
 		
+		$filename ='report.odt';
+		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/media/'.$filename);
 		$user=Yii::app()->user;
 
 		$odf->setVars('fio', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
@@ -111,6 +108,111 @@ class TasksController extends Controller
 		
 	}	
 
+	public function actionReportOtd(){
+
+		$model=TasksActions::OtdelReportToday();
+
+		
+		$filename ='reportOtd.odt';
+
+		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/media/'.$filename);
+		$user=Yii::app()->user;
+
+		$odf->setVars('fio', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
+		$odf->setVars('date', date('d.m.Y'));
+
+		
+		/*
+		$person =$odf->setSegment('arcitles');
+		foreach ($model as $pers){
+
+			$person->setVars('description',$pers->idPersonnel->surname, true, 'utf-8');
+		 	$person->merge();
+			$i=1;
+			foreach ($pers as $v) {
+				$rep=explode('\/', $v->ttext);
+ 				$person->setVars('n',$i, true, 'utf-8');
+ 				$person->setVars('task',$rep[0], true, 'utf-8');
+ 				$person->setVars('description',$rep[1], true, 'utf-8');
+ 				$person->setVars('status',$rep[2], true, 'utf-8');
+ 				$person->setVars('note',$rep[3], true, 'utf-8');
+		 		$person->merge();
+		 		$i++;
+		 	}
+		}
+		$odf->mergeSegment($person);*/
+
+		$article = $odf->setSegment('articles');
+
+		$i=1;
+		foreach ($model as $pers){
+			if(empty($pers->actions))
+				continue;
+		//	$article->setVars('n','', true, 'utf-8');
+ 		//	$article->setVars('task','', true, 'utf-8');
+ 		//	$article->setVars('description','', true, 'utf-8');
+ 		//	$article->setVars('status','', true, 'utf-8');
+ 		//	$article->setVars('note','', true, 'utf-8');
+ 		//	$article->setVars('sname',$pers->surname, true, 'utf-8');
+ 		//	$article->setVars('name',$pers->name, true, 'utf-8');
+ 		//	$article->setVars('patr',$pers->patr, true, 'utf-8');
+ 		//	$article->setVars('note','', true, 'utf-8');
+		// 	$article->merge();
+		 	$article->setVars('sname','', true, 'utf-8');
+ 			$article->setVars('name','', true, 'utf-8');
+ 			$article->setVars('patr','', true, 'utf-8');
+			foreach ($pers->actions as $v) {
+				$rep=explode('\/', $v->ttext);
+ 				$article->setVars('n',$i, true, 'utf-8');
+ 				$article->setVars('task',$rep[0], true, 'utf-8');
+ 				$article->setVars('description',$rep[1], true, 'utf-8');
+ 				$article->setVars('status',$rep[2], true, 'utf-8');
+ 				$article->setVars('note',$rep[3], true, 'utf-8');
+		 		$article->merge();
+		 		$i++;
+		 	}
+		}
+		$odf->mergeSegment($article);
+
+
+		$odf->setVars('post', $user->postname,true, 'utf-8');
+		$odf->exportAsAttachedFile(); 
+		
+	}	
+
+	/*
+
+	public function actionReportOtd(){
+
+		$model=TasksActions::OtdelReportToday();
+
+		
+		$filename ='hz.odt';
+
+		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/media/'.$filename);
+		$user=Yii::app()->user;
+
+		$person =$odf->setSegment('categories');
+		$person->setVars('TitreCategorie', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
+		foreach ($model as $pers){
+			$i=1;
+
+			$row=$odf->setSegment('articles');
+			foreach ($pers as $v) {
+				$rep=explode('\/', $v->ttext);
+ 				$row->setVars('titreArticle',$i, true, 'utf-8');
+		 		$row->merge();
+		 		$i++;
+		 	}
+		 	$odf->mergeSegment($row);
+		 	$person->merge();
+		}
+		$odf->mergeSegment($person);
+		$odf->exportAsAttachedFile(); 
+		
+	}	
+
+	*/
 	public function actionCreate()
 	{
 		$model=new Tasks;

@@ -88,6 +88,25 @@ class TasksActions extends CActiveRecord
 		return $models;
 	}
 
+	public static function OtdelReportToday(){
+		$models=array();
+		$posts=DepartmentPosts::depPosts(Yii::app()->user->departments_rn[0]);
+		foreach ($posts as $dp) {
+			if(!empty($dp->personnelPostsHistories)){
+				foreach ($dp->personnelPostsHistories as $ph) {
+					if (!$ph->inactive()){
+						$pers=$ph->idPersonnel;
+						$pers['actions']=self::model()->findAll(array('condition'=>"t.creator=".$ph->id_personnel." and t.type=2 and t.timestamp::date=current_date"));
+
+						$models[]=$pers;
+					}
+				}
+
+			}
+		}
+		return $models;
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
