@@ -27,6 +27,21 @@
 	z-index: 99;
 }
 
+
+.rep, .myrep{
+	position: relative;
+	float: left;
+	width: 20px;
+	height: 20px;
+	background: url('../images/doc.png') 99% 99%;
+	background-size: cover; /* Масштабируем фон */
+}
+
+.myrep{
+	background: url('../images/doc_gold.png') 99% 99%;
+	background-size: cover; /* Масштабируем фон */
+}
+
 .messenger{
 	position: fixed;
 	z-index: 99999;

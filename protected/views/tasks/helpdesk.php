@@ -47,6 +47,7 @@ if($this->isHorn)
 ?>
 
 <?php foreach ($model as $v): ?>
+
 		<?php $status=$v->gimmeStatus(); 
 		?>
 		<div class="taskpanel <?php echo $status['css_class']; ?>">
@@ -85,7 +86,13 @@ if($this->isHorn)
 						
 
 						echo'</div>';
-						echo '<div style="float: left">'.$rep.'</div>';
+
+						if(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model))){
+							$repcl=$v->reportInc();
+							if($repcl){
+								echo '<div class='.$repcl.'></div>';
+							}
+						}
 						
 						
 

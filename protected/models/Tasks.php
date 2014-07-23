@@ -248,6 +248,28 @@ class Tasks extends CActiveRecord
 		return parent::afterFind();
     } 
 
+
+    public function reportInc(){
+    	$rep=0;
+    	$myrep=0;
+    	$id_pers=(!empty(Yii::app()->user->id_pers))?Yii::app()->user->id_pers:NULL;
+    	foreach ($this->TasksActions as $v) {
+    		if($v->type==2){
+    			$rep=1;
+    			if($id_pers==$v->creator)
+    				$myrep=1;
+    		}
+    	}
+    	if($myrep==1){
+    		return 'myrep';
+    	}elseif($rep==1){
+    		return 'rep';
+    	}else{
+    		return false;
+    	}
+
+    }
+
 	public function search(){
 
 		$criteria=new CDbCriteria;
