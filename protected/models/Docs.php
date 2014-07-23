@@ -81,6 +81,12 @@ public $creator0creator;
 		);
 	}
 
+	public function getIco(){
+		$fl=explode('.', $this->link);
+		$d=(is_file(Yii::getPathOfAlias('webroot').'/images/ico/'.mb_strtolower($fl[1]).'.png')?Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png':Yii::app()->request->baseUrl.'/images/ico/hz.png');
+		return $d;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */

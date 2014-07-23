@@ -2,8 +2,8 @@
 
 		
 		if(!empty($doc->link)){
-			$fl=explode('.', $doc->link);
-			$file='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$doc->link.'><img class=s16 src="'.Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png"></a>';
+			
+			$file='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$doc->link.'><img class=s16 src="'.$doc->getIco().'"></a>';
 		}else{
 			$file='нет вложений';
 		}
