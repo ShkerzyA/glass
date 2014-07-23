@@ -90,7 +90,7 @@ class Equipment extends CActiveRecord
 				14=>'Zyxel',
 				)),
 			'css_class'=>(array(
-				0=>array('class'=>'c0 c1 c3 с5 с6 c9'),
+				0=>array('class'=>'c0 c1 c2 c3 с5 с6 c9'),
 				1=>array('class'=>'c1 c2 c3 c4 c5'),
 				2=>array('class'=>'c2 c3 c4 c5'),
 				3=>array('class'=>'c0 c1'),
