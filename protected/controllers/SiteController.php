@@ -152,6 +152,7 @@ public function actionInstall(){
     $moderator->addChild('monitoringOper');
     $moderator->addChild('saveStatus'); 
     $moderator->addChild('saveStatusEv'); 
+    $moderator->addChild('otdReport');
     $moderator->addChild('updateEv'); 
     $moderator->addChild('updateTs'); 
     $moderator->addChild('operationSV'); 

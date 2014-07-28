@@ -295,9 +295,10 @@ return array (
       6 => 'monitoringOper',
       7 => 'saveStatus',
       8 => 'saveStatusEv',
-      9 => 'updateEv',
-      10 => 'updateTs',
-      11 => 'operationSV',
+      9 => 'otdReport',
+      10 => 'updateEv',
+      11 => 'updateTs',
+      12 => 'operationSV',
     ),
   ),
   'administrator' => 
