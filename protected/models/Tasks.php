@@ -213,7 +213,7 @@ class Tasks extends CActiveRecord
 
 			//за день
 			case '3':
-				$condition="id_department=".$id_department." and ((t.timestamp>'".date('d.m.Y')." 00:00:00' or t.timestamp_end>'".date('d.m.Y')." 00:00:00') or status in (0,1,5))";
+				$condition="id_department=".$id_department." and ((t.timestamp::date=current_date or t.timestamp_end::date=current_date) or status in (0,1,5))";
 				$order="status asc,t.timestamp desc";
 				break;
 			default:

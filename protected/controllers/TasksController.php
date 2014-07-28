@@ -108,7 +108,7 @@ class TasksController extends Controller
 		
 	}	
 
-	public function actionReportOtd(){
+	public function actionReportOtd($personInfo=false){
 
 		$model=TasksActions::OtdelReportToday();
 
@@ -120,44 +120,26 @@ class TasksController extends Controller
 
 		$odf->setVars('fio', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
 		$odf->setVars('date', date('d.m.Y'));
-
-		
-		/*
-		$person =$odf->setSegment('arcitles');
-		foreach ($model as $pers){
-
-			$person->setVars('description',$pers->idPersonnel->surname, true, 'utf-8');
-		 	$person->merge();
-			$i=1;
-			foreach ($pers as $v) {
-				$rep=explode('\/', $v->ttext);
- 				$person->setVars('n',$i, true, 'utf-8');
- 				$person->setVars('task',$rep[0], true, 'utf-8');
- 				$person->setVars('description',$rep[1], true, 'utf-8');
- 				$person->setVars('status',$rep[2], true, 'utf-8');
- 				$person->setVars('note',$rep[3], true, 'utf-8');
-		 		$person->merge();
-		 		$i++;
-		 	}
-		}
-		$odf->mergeSegment($person);*/
-
 		$article = $odf->setSegment('articles');
 
 		$i=1;
 		foreach ($model as $pers){
 			if(empty($pers->actions))
 				continue;
-		//	$article->setVars('n','', true, 'utf-8');
- 		//	$article->setVars('task','', true, 'utf-8');
- 		//	$article->setVars('description','', true, 'utf-8');
- 		//	$article->setVars('status','', true, 'utf-8');
- 		//	$article->setVars('note','', true, 'utf-8');
- 		//	$article->setVars('sname',$pers->surname, true, 'utf-8');
- 		//	$article->setVars('name',$pers->name, true, 'utf-8');
- 		//	$article->setVars('patr',$pers->patr, true, 'utf-8');
- 		//	$article->setVars('note','', true, 'utf-8');
-		// 	$article->merge();
+			if($personInfo){
+				$i=1;
+				$article->setVars('n','', true, 'utf-8');
+ 				$article->setVars('task','', true, 'utf-8');
+ 				$article->setVars('description','', true, 'utf-8');
+ 				$article->setVars('status','', true, 'utf-8');
+ 				$article->setVars('note','', true, 'utf-8');
+ 				$article->setVars('sname',$pers->surname, true, 'utf-8');
+ 				$article->setVars('name',$pers->name, true, 'utf-8');
+ 				$article->setVars('patr',$pers->patr, true, 'utf-8');
+ 				$article->setVars('note','', true, 'utf-8');
+				$article->merge();	
+			}
+
 		 	$article->setVars('sname','', true, 'utf-8');
  			$article->setVars('name','', true, 'utf-8');
  			$article->setVars('patr','', true, 'utf-8');
@@ -179,6 +161,8 @@ class TasksController extends Controller
 		$odf->exportAsAttachedFile(); 
 		
 	}	
+
+
 
 	/*
 
