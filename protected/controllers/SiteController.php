@@ -105,7 +105,7 @@ public function actionInstall(){
     $task = $auth->createTask('OwnUpdateEv', 'Изменение своих событий', $bizRule);
     $task->addChild('updateEv', 'Изменить статус');
 
-     $bizRule='return $params["mod"]->mayUserUpd();';
+    $bizRule='return $params["mod"]->mayUserUpd();';
     $task = $auth->createTask('OwnUpdateTs', 'Изменение своих событий', $bizRule);
     $task->addChild('updateTs', 'Изменить статус');
 
@@ -136,7 +136,7 @@ public function actionInstall(){
   	$user->addChild('inGroupUser');
     $user->addChild('taskReportUser');
     $user->addChild('otdReportUser');
-  	$user->addChild('userOperationSV');
+//  	$user->addChild('userOperationSV');
   	$user->addChild('monitoringOperUser');
     $user->addChild('changeObjectsUser');
   	$user->addChild('OwnUpdateEv');

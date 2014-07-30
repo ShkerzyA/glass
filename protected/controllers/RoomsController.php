@@ -27,11 +27,11 @@ class RoomsController extends Controller
 	}
 
 
-	public function mayShow($rule){
+	public function mayShow($rule=NULL){
 		if(empty($rule)){
 			return true;
 		}else{
-			return Yii::app()->user->checkAccess($rule,array()); 
+			return Yii::app()->user->checkAccess($rule); 
 		}
 
 	}
