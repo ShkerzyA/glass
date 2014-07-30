@@ -83,12 +83,12 @@ class TasksActions extends CActiveRecord
 	}
 
 
-	public static function UserReportToday(){
-		$models=self::model()->findAll(array('condition'=>"t.creator=".Yii::app()->user->id_pers." and t.type=2 and t.timestamp::date=current_date"));
+	public static function UserReportToday($date='current_date'){
+		$models=self::model()->findAll(array('condition'=>"t.creator=".Yii::app()->user->id_pers." and t.type=2 and t.timestamp::date=$date"));
 		return $models;
 	}
 
-	public static function OtdelReportToday(){
+	public static function OtdelReportToday($date='current_date'){
 		$models=array();
 		$posts=DepartmentPosts::depPosts(Yii::app()->user->departments_rn[0]);
 		foreach ($posts as $dp) {
@@ -96,7 +96,7 @@ class TasksActions extends CActiveRecord
 				foreach ($dp->personnelPostsHistories as $ph) {
 					if (!$ph->inactive()){
 						$pers=$ph->idPersonnel;
-						$pers['actions']=self::model()->findAll(array('condition'=>"t.creator=".$ph->id_personnel." and t.type=2 and t.timestamp::date=current_date"));
+						$pers['actions']=self::model()->findAll(array('condition'=>"t.creator=".$ph->id_personnel." and t.type=2 and t.timestamp::date=$date"));
 
 						$models[]=$pers;
 					}

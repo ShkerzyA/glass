@@ -21,12 +21,21 @@ class TasksController extends Controller
 		);
 
 	public function init(){
-		$this->horn=Yii::app()->request->baseUrl.'/media/tripod.ogg';
-		$this->isHorn=false;
+		$this->formHorn();
 	}
 	/**
 	 * @return array action filters
 	 */
+
+	private function formHorn(){
+		$dir=scandir(Yii::getPathOfAlias('webroot').'/media/horn/');
+		unset($dir[0]);
+		unset($dir[1]);
+		$horn=array_rand($dir);
+		$this->horn=Yii::app()->request->baseUrl.'/media/horn/'.$dir[$horn];
+		$this->isHorn=false;
+	}
+
 	public function filters()
 	{
 		return array(
@@ -77,9 +86,11 @@ class TasksController extends Controller
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
 
-	public function actionReport(){
+	public function actionReport($date='current_date'){
 
-		$model=TasksActions::UserReportToday();
+		$model=TasksActions::UserReportToday($date);
+
+		$dt=($date=='current_date')?date('d.m.Y'):$date;
 
 		
 		$filename ='report.odt';
@@ -87,7 +98,7 @@ class TasksController extends Controller
 		$user=Yii::app()->user;
 
 		$odf->setVars('fio', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
-		$odf->setVars('date', date('d.m.Y'));
+		$odf->setVars('date', $dt);
 
 		$article = $odf->setSegment('articles');
 		$i=1;
@@ -108,9 +119,8 @@ class TasksController extends Controller
 		
 	}	
 
-	public function actionReportOtd($personInfo=false){
-
-		$model=TasksActions::OtdelReportToday();
+	public function actionReportOtd($personInfo=false,$date='current_date'){
+		$model=TasksActions::OtdelReportToday($date);
 
 		
 		$filename ='reportOtd.odt';
@@ -118,8 +128,10 @@ class TasksController extends Controller
 		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/media/'.$filename);
 		$user=Yii::app()->user;
 
+		$dt=($date=='current_date')?date('d.m.Y'):$date;
+
 		$odf->setVars('fio', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
-		$odf->setVars('date', date('d.m.Y'));
+		$odf->setVars('date', $dt);
 		$article = $odf->setSegment('articles');
 
 		$i=1;
