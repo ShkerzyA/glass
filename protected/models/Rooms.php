@@ -60,7 +60,7 @@ class Rooms extends CActiveRecord
 				break;
 			case 'eventsOpPl':
 			case 'eventsOpMon':
-					if(Yii::app()->user->checkAccess('operationSV',array())){
+					if(Yii::app()->user->checkAccess('operationSV',array('mod'=>Yii::app()->user))){
 					$rooms=Rooms::model()->with(array(
    						'idCabinet'=>array(
         				'joinType'=>'LEFT JOIN',

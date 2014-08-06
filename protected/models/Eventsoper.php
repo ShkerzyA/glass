@@ -48,7 +48,6 @@ class Eventsoper extends Events
 	public $operation0operation;
 	public $eventsopersid_eventsoper;
 	public $idEventsoperid_eventsoper;
-	public $operation=-1;
 
 	public function getTypeOper($view='array'){
 		$status=array(  0 => 'полостная',
@@ -165,7 +164,6 @@ class Eventsoper extends Events
         $this->date=date('d.m.Y',strtotime($this->date));
         $this->date_gosp=date('d.m.Y',strtotime($this->date_gosp));
     }
-
 
 		public function findEvents($showtype,$date){
 		switch ($showtype){

@@ -204,9 +204,13 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
    ")?>
  <?php 
 
+
+ 	$nam_op=(!empty($model->operation))?$model->operation0->name:'';
+
+
  	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
    'name'=>'operation_name',
-   'value'=>$model->operation0->name,
+   'value'=>$nam_op,
 //'value' => $model->id,
    'source'=>"js:function(request, response) {
       $.getJSON('".$this->createUrl('suggest')."', {
@@ -232,7 +236,8 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
        }",
    ),
    'htmlOptions'=>array(
-     'size'=>'40',
+   		'placeholder'=>'Поиск по названию',
+     	'size'=>'40',
    ),
   ));
   // Для подсветки набираемого куска запроса в предлагаемом списке
