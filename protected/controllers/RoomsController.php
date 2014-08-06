@@ -31,7 +31,7 @@ class RoomsController extends Controller
 		if(empty($rule)){
 			return true;
 		}else{
-			return Yii::app()->user->checkAccess($rule); 
+			return Yii::app()->user->checkAccess($rule,array('mod'=>Yii::app()->user)); 
 		}
 
 	}

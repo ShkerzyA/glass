@@ -225,7 +225,7 @@ return array (
   array (
     'type' => 1,
     'description' => 'Управление операциями',
-    'bizRule' => 'return in_array("operationsv",Yii::app()->user->groups);',
+    'bizRule' => 'return in_array("operationsv",$params["mod"]->groups);',
     'data' => NULL,
     'children' => 
     array (
@@ -271,10 +271,11 @@ return array (
       5 => 'inGroupUser',
       6 => 'taskReportUser',
       7 => 'otdReportUser',
-      8 => 'monitoringOperUser',
-      9 => 'changeObjectsUser',
-      10 => 'OwnUpdateEv',
-      11 => 'OwnUpdateTs',
+      8 => 'userOperationSV',
+      9 => 'monitoringOperUser',
+      10 => 'changeObjectsUser',
+      11 => 'OwnUpdateEv',
+      12 => 'OwnUpdateTs',
     ),
   ),
   'moderator' => 

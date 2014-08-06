@@ -229,6 +229,11 @@ class Eventsoper extends Events
     		$this->attributes=$_POST['Eventsoper'];
     	if($this->status==3)
     		return false;
+
+    	if(empty($this->timestamp) or empty($this->timestamp_end)){
+    		$this->addError('Eventsoper["timestamp"]','Выберите время');
+    		return true;
+    	}
     	//echo $this->id_post;
     	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and status in (0,1,2) and id<>".(int)$this->id." and  
     		((timestamp>='".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or 
