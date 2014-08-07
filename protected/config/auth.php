@@ -225,7 +225,7 @@ return array (
   array (
     'type' => 1,
     'description' => 'Управление операциями',
-    'bizRule' => 'return in_array("operationsv",$params["mod"]->groups);',
+    'bizRule' => 'return in_array("operationsv",Yii::app()->user->groups);',
     'data' => NULL,
     'children' => 
     array (

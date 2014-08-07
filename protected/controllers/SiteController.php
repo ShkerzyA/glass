@@ -110,7 +110,7 @@ public function actionInstall(){
     $task->addChild('updateTs', 'Изменить статус');
 
 
-    $bizRule='return in_array("operationsv",$params["mod"]->groups);';
+    $bizRule='return in_array("operationsv",Yii::app()->user->groups);';
     $task = $auth->createTask('userOperationSV', 'Управление операциями', $bizRule);
     $task->addChild('operationSV', 'Управление операциями'); 
 
