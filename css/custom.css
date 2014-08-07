@@ -17,6 +17,28 @@
 
 }
 
+
+.indicator_slider{
+	padding: 0px;
+	width: 93%; 
+	height: 10px; 
+	position: relative; 
+	background: #AAFFAA; 
+	border: 1px solid grey;
+
+	border-radius: 3px;
+}
+
+.indicator_slider div{
+	margin: 0px;
+	border-radius: 3px;
+	height: 100%; 
+	position: absolute; 
+	background: #FFAAAA;
+}
+
+
+
 .taskmoreinfo{
 	position: relative; 
 	text-align: right;

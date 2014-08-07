@@ -41,6 +41,9 @@ class Eventsoper extends Events
 	 * @param string $className active record class name.
 	 * @return Eventsoper the static model class
 	 */
+	public static $beginDay='08'; //часы
+	public static $endDay='17'; //часы
+	public static $step='15'; //минуты
 	public static $modelLabelS='Операция';
 	public static $modelLabelP='Операции';
 	public $operator0operator;
@@ -242,6 +245,20 @@ class Eventsoper extends Events
         }
         
     }
+
+    public function freeDay(){
+    		$bd=$this::$beginDay*60;
+
+    		$result=array();
+    	    $Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and status in (0,1,2) and id<>".(int)$this->id.""));
+        foreach ($Ph as $v){
+        	$b=explode(':',$v->timestamp);
+        	$e=explode(':',$v->timestamp_end);
+        	$result[]=array('b'=>($b[0]*60+$b[1])-$bd,'e'=>($e[0]*60+$e[1])-$bd);
+        }
+        return $result;
+    }
+
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

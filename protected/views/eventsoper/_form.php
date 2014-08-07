@@ -31,13 +31,14 @@ function init(){
 	}else{
 		var end=800;
 	}
-	
+
+
 
 	$("#slider").slider({values:[begin,end],
-   min:480,
-   max:1020,
+   min:<?php echo ($model::$beginDay*60);?>,
+   max:<?php echo ($model::$endDay*60);?>,
    range:true,
-   step:15,
+   step:<?php echo ($model::$step);?>,
    slide:function(event,ui){
    		var z0 = ui.values[0]/60;
 		var x0 = parseInt(z0); //Целая часть
@@ -64,6 +65,7 @@ function init(){
 
 </script>
 <div class="form">
+
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'eventsoper-form',
@@ -101,6 +103,7 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 	));?>
 
 
+
 		<?php echo $form->error($model,'date'); ?>
 	</div>
 
@@ -128,6 +131,16 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 		</tr>
 	</table>
 
+	<div class="indicator_slider">
+		<?php 
+			$evItervals=$model->freeDay(); 
+			$allDay=($model::$endDay-$model::$beginDay)*60;
+			foreach ($evItervals as $interv) {
+				echo '<div style=" left: '.(round((($interv['b']/$allDay)*100),2)).'%; width: '.(round(((($interv['e']-$interv['b'])/$allDay)*100),2)).'%;"></div>';
+			}
+
+		?>		
+	</div>
 	<div id="slider" style="width: 93%;"></div>
 
 	<div class="row">
