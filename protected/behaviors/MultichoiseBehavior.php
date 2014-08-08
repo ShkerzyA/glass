@@ -9,7 +9,7 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
         return $val;
     }
 
-    public function beforeSave($event){
+    public function beforeValidate($event){
             // автоматически передаём каждое сообщение роутеру лога
 //Yii::getLogger()->autoFlush = 1;
 // автоматически пишем сообщения при получении логгером
@@ -29,12 +29,14 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
                         $this->owner->$val='';
                 }
             }      //array_unique чтоб одинаковых групп кучу не вписывали  
-            $this->owner->$val='{'.$this->owner->$val.'}';
+            
 
-            //echo $this->owner->$val;
-           
+            //echo $this->owner->$val;  
+    }
 
-                    
+    public function beforeSave($event){
+        $val=$this->getField();
+        $this->owner->$val='{'.$this->owner->$val.'}';
     }
 
     public function afterFind($event) {

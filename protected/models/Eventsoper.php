@@ -149,6 +149,12 @@ class Eventsoper extends Events
 		return $pass;
 	}
 
+	
+	public function beforeSave(){
+		$this->date_gosp=NULL;
+	}
+
+
 	 public function afterFind() {
 
        if($this->scenario=='update'){

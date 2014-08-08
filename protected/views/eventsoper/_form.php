@@ -205,7 +205,6 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 	</div>
 
 	
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'operation'); ?>
 		<?php echo $form->hiddenField($model,'operation'); ?>

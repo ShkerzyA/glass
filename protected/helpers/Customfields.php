@@ -42,7 +42,6 @@ Class Customfields{
 
 	public static function multiPersonnel($model,$field){
 		Yii::app()->clientScript->registerPackage('customfields');
-
 		$result="<div class='multichoise' id='".$field."'>";
 				echo'<input type=hidden name=group_anchor>';
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
