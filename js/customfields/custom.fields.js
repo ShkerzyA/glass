@@ -110,8 +110,9 @@ function show_users(data){
 	var id=globid;
 	$('.back').remove();
 	coords=$('.add_unit#'+id+'').offset();
-	
 	$('html').append(data);
+	var v = $('.search_surname').val();
+    $('.search_surname').focus().val("").val(v);
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
 }
 

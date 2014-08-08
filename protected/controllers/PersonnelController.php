@@ -90,11 +90,16 @@ class PersonnelController extends Controller
 			if(!empty($_POST['search'])){
 				$surname=$_POST['search'];
 			}else{
-				$surname='no';
+				$surname='';
 			}
 
-			$model=Personnel::model()->working()->with('personnelPostsHistories')->with('personnelPostsHistories.idPost')->with("personnelPostsHistories.idPost.postSubdivRn")->findall(array('condition'=>'LOWER("t".surname) LIKE (\''.mb_strtolower($surname,'UTF-8').'%\')'));
-			$this->renderPartial('surnameSearch', array('model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$_POST['modelN']), false, true);
+			if(!empty($surname)){
+				$model=Personnel::model()->working()->with('personnelPostsHistories')->with('personnelPostsHistories.idPost')->with("personnelPostsHistories.idPost.postSubdivRn")->findall(array('condition'=>'LOWER("t".surname) LIKE (\''.mb_strtolower($surname,'UTF-8').'%\')'));				
+			}else{
+				$model=NULL;
+			}
+			
+			$this->renderPartial('surnameSearch', array('surname'=>$surname,'model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$_POST['modelN']), false, true);
 		}else{
 			exit();
 		}

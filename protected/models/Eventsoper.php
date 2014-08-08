@@ -149,11 +149,9 @@ class Eventsoper extends Events
 		return $pass;
 	}
 
-	
-	public function beforeSave(){
-		$this->date_gosp=NULL;
+	public function afterValidate(){
+		$this->date_gosp=(empty($this->date_gosp))?NULL:$this->date_gosp;
 	}
-
 
 	 public function afterFind() {
 
@@ -170,8 +168,10 @@ class Eventsoper extends Events
         if(!empty($this->timestamp_end)){
         	$this->timestamp_end=substr($this->timestamp_end,0,5);
         }
-        $this->date=date('d.m.Y',strtotime($this->date));
-        $this->date_gosp=date('d.m.Y',strtotime($this->date_gosp));
+        if(!empty($this->date))
+        	$this->date=date('d.m.Y',strtotime($this->date));
+       	if(!empty($this->date_gosp))
+        	$this->date_gosp=date('d.m.Y',strtotime($this->date_gosp));
     }
 
 		public function findEvents($showtype,$date){
