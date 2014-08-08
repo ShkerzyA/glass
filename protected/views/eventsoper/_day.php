@@ -18,8 +18,6 @@
 	<?php
 	$last_room=NULL;
 		foreach ($events as $v){
-
-				
 			if($v->id_room!=$last_room){
 				if($v->id_room==$model->id){
 					$css=' current ';
@@ -29,7 +27,6 @@
 				echo'</div>';
 				echo'<div class="week_event '.$css.'">';
 				echo'<div class="event " style="top: -20px; "><nobr>'.$v->idRoom->idCabinet->cname.'</nobr></div>';
-
 			}
 
 			$time1=explode(':', $v->timestamp);
@@ -42,22 +39,12 @@
 			$height=($x2-$x1);
 
 			$status=$v->gimmeStatus();
-			echo'<a href='.Yii::app()->request->baseUrl.'/eventsoper/'.$v->id.' title="'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'('.$status['label'].')">';
-			echo '<div class="event '.$status['css_class'].'" style="top: '.$top.'px; height: '.$height.'px">';
-				echo '<p>'.$v->operation0->name.'</p>';
-				//echo '<div class=corps>'.$v->description.'</div>';
-				echo '<div class=status>'.$status['label'].'</div>';
-				// echo '<div class=time>'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</div>';
-				echo '<div class=creator>'.$v->timestamp.' - '.$v->timestamp_end.'</div>';
-			echo '</div>';
-			echo'</a>';
+			$this->renderPartial('/eventsoper/_event',array('v'=>$v,'status'=>$status),false,false);
 
 			if($v->id_room!=$last_room){
 				$last_room=$v->id_room;
 			}
 		}
-
-
 	?>
 	</div>
 

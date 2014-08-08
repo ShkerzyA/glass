@@ -41,25 +41,9 @@
 			}
 
 
-			$time1=explode(':', $v->timestamp);
-			$time2=explode(':', $v->timestamp_end);
-
-			$x1=($time1[0]*60+$time1[1]);
-			$x2=($time2[0]*60+$time2[1]);
-
-			$top=($x1-480);
-			$height=($x2-$x1);
 
 			$status=$v->gimmeStatus();
-			echo'<a href='.Yii::app()->request->baseUrl.'/eventsoper/'.$v->id.' title="'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'('.$status['label'].')">';
-			echo '<div class="event '.$status['css_class'].'" style="top: '.$top.'px; height: '.$height.'px">';
-				echo '<p>'.$v->operation0->name.'</p>';
-				//echo '<div class=corps>'.$v->description.'</div>';
-				echo '<div class=status>'.$status['label'].'</div>';
-				// echo '<div class=time>'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</div>';
-				echo '<div class=creator>'.$v->timestamp.' - '.$v->timestamp_end.'</div>';
-			echo '</div>';
-			echo'</a>';
+			$this->renderPartial('/eventsoper/_event',array('v'=>$v,'status'=>$status),false,false);
 
 			
 		}

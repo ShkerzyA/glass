@@ -25,7 +25,6 @@
 	position: relative; 
 	background: #AAFFAA; 
 	border: 1px solid grey;
-
 	border-radius: 3px;
 }
 
@@ -741,10 +740,15 @@ textarea{
 
 .event *{
 	margin: 1px;
-
-	white-space: pre;
+	overflow: hidden;
 	margin-top:  0px;
 	margin-bottom: 0px;
+}
+
+.event .information{
+	height: 75%;
+	overflow: hidden;
+	margin-bottom: 20px;
 }
 
 .leaf .event p{
