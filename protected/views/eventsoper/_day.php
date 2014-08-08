@@ -1,5 +1,5 @@
-<div class=leaf_slim>
-
+<div class=leaf>
+	<input name="print" class="hide_p" type="button" style="float: right; width: 200px"value="Печать" onclick="window.print();"> 
 	<div class=day>
  		<div>08:00</div>
  		<div>09:00</div>
@@ -13,15 +13,23 @@
  		<div>17:00</div>
  	</div>
 
-
 	<div class=day_event>
+		<div style="display: none">  
 	<?php
-		$w=array(1=>'Понедельник',2=>'Вторник',3=>'Среда',4=>'Четверг',5=>'Пятница',6=>'Суббота',7=>'Воскресенье');
-		echo'<div class="event" style="top: -35px;  font-size: 18pt; text-align: center;">'.$week['begin']->format('d.m.Y').'('.$w[$week['begin']->format('N')].')</div>';
+	$last_room=NULL;
 		foreach ($events as $v){
 
-			if(!($v->isShow($week['begin']))){
-				continue;
+				
+			if($v->id_room!=$last_room){
+				if($v->id_room==$model->id){
+					$css=' current ';
+				}else{
+					$css='';
+				}	
+				echo'</div>';
+				echo'<div class="week_event '.$css.'">';
+				echo'<div class="event " style="top: -20px; "><nobr>'.$v->idRoom->idCabinet->cname.'</nobr></div>';
+
 			}
 
 			$time1=explode(':', $v->timestamp);
@@ -32,16 +40,24 @@
 
 			$top=($x1-480);
 			$height=($x2-$x1);
+
 			$status=$v->gimmeStatus();
-			echo'<a href='.Yii::app()->request->baseUrl.'/eventsoper/'.$v->id.'>';
+			echo'<a href='.Yii::app()->request->baseUrl.'/eventsoper/'.$v->id.' title="'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'('.$status['label'].')">';
 			echo '<div class="event '.$status['css_class'].'" style="top: '.$top.'px; height: '.$height.'px">';
-				echo '<p>'.$v->operation->name.'</p>';
+				echo '<p>'.$v->operation0->name.'</p>';
 				//echo '<div class=corps>'.$v->description.'</div>';
 				echo '<div class=status>'.$status['label'].'</div>';
-				echo '<div class=time>'.$v->timestamp.' - '.$v->timestamp_end.'</div>';
-				echo '<div class=creator>'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</div>';
-			echo '</div></a>';
+				// echo '<div class=time>'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'</div>';
+				echo '<div class=creator>'.$v->timestamp.' - '.$v->timestamp_end.'</div>';
+			echo '</div>';
+			echo'</a>';
+
+			if($v->id_room!=$last_room){
+				$last_room=$v->id_room;
+			}
 		}
+
+
 	?>
 	</div>
 

@@ -45,14 +45,17 @@ function init(){
 		if(x0<10)
 			x0='0'+x0;
 		var y0 = (z0 - x0)*60;
+		y0=Math.round(y0);
 		if(y0<10)
 			y0='0'+y0;
+
 		var z1 = ui.values[1]/60;
 		var x1 = parseInt(z1); //Целая часть
 		if(x1<10){
 			x1='0'+x1;
 		}
 		var y1 = (z1 - x1)*60;
+		y1=Math.round(y1);
 		if(y1<10){
 			y1='0'+y1;
 		}

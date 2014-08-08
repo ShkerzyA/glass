@@ -43,7 +43,7 @@ class Eventsoper extends Events
 	 */
 	public static $beginDay='08'; //часы
 	public static $endDay='17'; //часы
-	public static $step='15'; //минуты
+	public static $step='5'; //минуты
 	public static $modelLabelS='Операция';
 	public static $modelLabelP='Операции';
 	public $operator0operator;
@@ -111,7 +111,7 @@ class Eventsoper extends Events
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_room,date,operator,operation, timestamp, timestamp_end, fio_pac', 'required'),
+			array('id_room,date,operator, timestamp, timestamp_end, fio_pac', 'required'),
 			array('id_room, creator, operator, anesthesiologist, operation, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
 			array('date, timestamp, timestamp_end, date_gosp, brigade', 'safe'),
@@ -172,7 +172,7 @@ class Eventsoper extends Events
 		switch ($showtype){
 			case 'day':
 					$week['begin']=clone $date;
-					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and t.id_eventsoper is null and ((t.date=\''.$week['begin']->format('Y-m-d').'\'))');
+					$criteria=array('condition'=>'t.id_eventsoper is null and ((t.date=\''.$week['begin']->format('Y-m-d').'\'))','order'=>'t.id_room');
 					//$events=Events::model()->findAll();	
 				break;
 			case 'week':
