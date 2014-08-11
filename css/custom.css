@@ -669,18 +669,30 @@ textarea{
 .day_event{
 	position: absolute;
  	left: 70px;
- 	width: 92%;
+ 	width: 93%;
+ 	overflow-x: auto;
+ 	overflow-y: hidden;
  	z-index: 10;
+	margin-top: -20px;
 }
+
+
 
 .week_event{
 
 	border-left: 2px solid gray;
 	position: relative;
- 	width: 13%;
+	width: 200px;
+ 	max-width: 13%;
  	height: 600px;
  	float: left;
  	z-index: 10;
+}
+
+td .week_event{
+	min-width: 200px;
+	width: 99%;
+	max-width: 99%
 }
 
 .corps{
@@ -813,7 +825,7 @@ textarea{
 }
 
 .current{
-	background-color: rgba(255,255,255,0.6);
+	background-color: rgba(200,255,150,0.1);
 }
 
 .leaf_slim{

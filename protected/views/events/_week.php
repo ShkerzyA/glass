@@ -1,5 +1,5 @@
 <div class=leaf>
-	<input name="print" class="hide_p" type="button" style="float: right; width: 100px"value="Печать" onclick="window.print();"> 
+	<input name="print" class="hide_p" type="button" style="float: right; width: 200px"value="Печать" onclick="window.print();"> 
 	<div class=day>
  		<div>08:00</div>
  		<div>09:00</div>
@@ -33,7 +33,7 @@
 		echo'<div class="week_event '.$css.'">';
 			
 
-			echo'<div class="event " style="top: -20px; ">'.$week['begin']->format('d.m.Y').'('.$w[$week['begin']->format('N')].')</div>';
+			echo'<div class="event " style="">'.$week['begin']->format('d.m.Y').'('.$w[$week['begin']->format('N')].')</div>';
 		foreach ($events as $v){
 
 			
@@ -47,8 +47,8 @@
 			$time1=explode(':', $v->timestamp);
 			$time2=explode(':', $v->timestamp_end);
 
-			$x1=($time1[0]*60+$time1[1]);
-			$x2=($time2[0]*60+$time2[1]);
+			$x1=($time1[0]*60+$time1[1]+20);
+			$x2=($time2[0]*60+$time2[1]+20);
 
 			$top=($x1-480);
 			$height=($x2-$x1);

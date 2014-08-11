@@ -232,8 +232,10 @@ class Eventsoper extends Events
 	public function freeOnly()
     {   
 
+
     	if(!empty($_POST['Eventsoper']))
     		$this->attributes=$_POST['Eventsoper'];
+
     	if($this->status==3)
     		return false;
 
@@ -320,6 +322,7 @@ class Eventsoper extends Events
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+            'pagination'=>false
 		));
 	}
 }

@@ -4,8 +4,8 @@
 			$time1=explode(':', $v->timestamp);
 			$time2=explode(':', $v->timestamp_end);
 
-			$x1=($time1[0]*60+$time1[1]);
-			$x2=($time2[0]*60+$time2[1]);
+			$x1=($time1[0]*60+$time1[1]+20);
+			$x2=($time2[0]*60+$time2[1]+20);
 
 			$top=($x1-480);
 			$height=($x2-$x1);

@@ -56,7 +56,7 @@ class Events extends CActiveRecord
 		switch ($showtype){
 			case 'day':
 					$week['begin']=clone $date;
-					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date=\''.$week['begin']->format('Y-m-d').'\') or t.repeat is not null)');
+					$criteria=array('condition'=>'((t.date=\''.$week['begin']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.id_room');
 					//$events=Events::model()->findAll();	
 				break;
 			case 'week':
@@ -104,7 +104,7 @@ class Events extends CActiveRecord
 				}
 
 			}
-			else if($date->format('Y-m-d')==$this->date){
+			else if($date->format('d.m.Y')==$this->date){
 				$pass=true;
 			}
 			return $pass;
@@ -151,9 +151,6 @@ class Events extends CActiveRecord
 			'FixedOwner'=>array(
 				'class'=>'application.behaviors.FixedOwnerBehavior',
 				),
-			'Multichoise'=>array(
-				'class'=>'application.behaviors.MultichoiseBehavior',
-				),
 			);
 	}
 
@@ -172,6 +169,7 @@ class Events extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('id_room','required'),
 			array('id','freeOnly'),
 			array('creator, id_room, repeat, status', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>45),
@@ -227,7 +225,6 @@ class Events extends CActiveRecord
 
     	if(!empty($_POST['Events']))
     		$this->attributes=$_POST['Events'];
-
     	//echo $this->id_post;
 
     	$Ph=Events::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."' or repeat=1) and id<>".(int)$this->id." and

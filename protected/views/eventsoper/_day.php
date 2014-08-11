@@ -14,6 +14,8 @@
  	</div>
 
 	<div class=day_event>
+		<table>
+			<tr><td>
 		<div style="display: none">  
 	<?php
 	$last_room=NULL;
@@ -24,19 +26,10 @@
 				}else{
 					$css='';
 				}	
-				echo'</div>';
+				echo'</div></td><td>';
 				echo'<div class="week_event '.$css.'">';
-				echo'<div class="event " style="top: -20px; "><nobr>'.$v->idRoom->idCabinet->cname.'</nobr></div>';
+				echo'<div class="event " style=" "><nobr>'.$v->idRoom->idCabinet->cname.'</nobr></div>';
 			}
-
-			$time1=explode(':', $v->timestamp);
-			$time2=explode(':', $v->timestamp_end);
-
-			$x1=($time1[0]*60+$time1[1]);
-			$x2=($time2[0]*60+$time2[1]);
-
-			$top=($x1-480);
-			$height=($x2-$x1);
 
 			$status=$v->gimmeStatus();
 			$this->renderPartial('/eventsoper/_event',array('v'=>$v,'status'=>$status),false,false);
@@ -46,6 +39,9 @@
 			}
 		}
 	?>
+	</tr>
+	</table>
 	</div>
+
 
 </div>
