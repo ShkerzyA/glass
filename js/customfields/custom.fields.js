@@ -52,7 +52,7 @@ function init(){
 	});
 
 	$('.join_personnel').live('click',function(){ 
-		$('.'+this.id).remove();
+		$('.'+($(this).attr('f'))+this.id).remove();
 		$('.multichoise#'+($(this).attr('f'))+'').append('<div class="choise_unit '+($(this).attr('f'))+this.id+'"><input type=hidden name="'+$(this).attr('field')+'['+this.id+']" value='+this.id+'>'+this.getAttribute('text')+'<div id='+($(this).attr('f'))+this.id+' class="close_this"></div></div>');
 	});
 
