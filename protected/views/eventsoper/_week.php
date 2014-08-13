@@ -32,16 +32,9 @@
 
 			echo'<div class="event " style="">'.$week['begin']->format('d.m.Y').'('.$w[$week['begin']->format('N')].')</div>';
 		foreach ($events as $v){
-
-			
-
-
 			if(!($v->isShow($week['begin']))){
 				continue;
 			}
-
-
-
 			$status=$v->gimmeStatus();
 			$this->renderPartial('/eventsoper/_event',array('v'=>$v,'status'=>$status),false,false);
 

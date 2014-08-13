@@ -94,7 +94,7 @@ class PersonnelController extends Controller
 			}
 
 			if(!empty($surname)){
-				$model=Personnel::model()->working()->with('personnelPostsHistories')->with('personnelPostsHistories.idPost')->with("personnelPostsHistories.idPost.postSubdivRn")->findall(array('condition'=>'LOWER("t".surname) LIKE (\''.mb_strtolower($surname,'UTF-8').'%\')'));				
+				$model=Personnel::model()->with(array('personnelPostsHistories'=>array('alias'=>'personnelPostsHistories',)))->with('personnelPostsHistories.idPost')->with("personnelPostsHistories.idPost.postSubdivRn")->findall(array('condition'=>'LOWER("t".surname) LIKE (\'%'.mb_strtolower($surname,'UTF-8').'%\')'));				
 			}else{
 				$model=NULL;
 			}

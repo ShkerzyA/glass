@@ -118,6 +118,7 @@ class Personnel extends CActiveRecord
             'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel','alias'=>'personnelPostsHistories','order'=>'"personnelPostsHistories".date_end DESC, "personnelPostsHistories".date_begin DESC'),
             'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'creator'),
             'Eventsoper' => array(self::HAS_MANY, 'Eventsoper', 'creator'),
+            'MedicalEquipment' => array(self::HAS_MANY, 'MedicalEquipment', 'creator'),
 		);
 	}
 

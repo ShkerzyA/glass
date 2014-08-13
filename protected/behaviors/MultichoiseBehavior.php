@@ -29,9 +29,6 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
                         $this->owner->$val='';
                 }
             }      //array_unique чтоб одинаковых групп кучу не вписывали  
-            
-
-            //echo $this->owner->$val;  
     }
 
     public function beforeSave($event){

@@ -120,7 +120,7 @@ return array(
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
-		),/*
+		), /*  //аццкий мордор. При включении лога перестают выгружаться отчеты в odt
 		'log'=>array(
             'class'=>'CLogRouter',
             'routes'=>array(
@@ -131,7 +131,7 @@ return array(
             		'showInFireBug' => true
                 ),
             ),
-        ),*/
+        ), */
 	),
 
 

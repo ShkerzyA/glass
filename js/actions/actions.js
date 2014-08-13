@@ -30,6 +30,12 @@ function init(){
         }
     });
 
+    $("#message_rep, #message_note").live('keydown',function(e){
+        if(e.ctrlKey && e.keyCode==13){
+            save_report();
+        }
+    });
+
     $('#status').live('change',function(){
         change_status();
     });

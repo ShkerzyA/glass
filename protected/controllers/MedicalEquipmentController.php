@@ -1,6 +1,6 @@
 <?php
 
-class EventsoperController extends Controller
+class MedicalEquipmentController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,12 +28,12 @@ class EventsoperController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','monupdate','agree','suggest','plan'),
-				'roles'=>array('user'),
+				'actions'=>array('index','view','plan','create','export'),
+				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'roles'=>array('operationSV'),
+				'actions'=>array('update'),
+				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -44,20 +44,6 @@ class EventsoperController extends Controller
 			),
 		);
 	}
-
-public function actionSuggest(){
-		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
-  		$models = ListOperations::model()->suggestTag($_GET['term']);
-  		$result = array();
-  		foreach ($models as $m)
-   		$result[] = array(
-     		'label' => $m->name,
-     		'value' => $m->name,
-     		'id' => $m->id,
-   		);
-  		echo CJSON::encode($result);
- 	}
-}
 
 	/**
 	 * Displays a particular model.
@@ -76,16 +62,16 @@ public function actionSuggest(){
 	 */
 	public function actionCreate()
 	{
-		$model=new Eventsoper;
+		$model=new MedicalEquipment;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Eventsoper']))
+		if(isset($_POST['MedicalEquipment']))
 		{
-			$model->attributes=$_POST['Eventsoper'];
+			$model->attributes=$_POST['MedicalEquipment'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('plan'));
 		}
 
 		$this->render('create',array(
@@ -105,52 +91,11 @@ public function actionSuggest(){
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Eventsoper']))
+		if(isset($_POST['MedicalEquipment']))
 		{
-			$model->attributes=$_POST['Eventsoper'];
+			$model->attributes=$_POST['MedicalEquipment'];
 			if($model->save())
-				echo '1';
 				$this->redirect(array('view','id'=>$model->id));
-		}
-
-		$this->render('update',array(
-			'model'=>$model,
-		));
-	}
-
-	public function actionAgree($id){
-		$model=$this->loadModel($id);
-		$model->status=1;
-		if($model->save())
-
-				$this->redirect(array('/rooms/show'));
-	}
-
-		public function actionMonUpdate($id)
-	{
-		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['Eventsoper']))
-		{
-			if(!($model_new=Eventsoper::model()->find(array('condition'=>'t.id_eventsoper='.$id)))){
-				$model_new=new Eventsoper;
-			}
-			$model_new->attributes=$_POST['Eventsoper'];
-			unset($_POST['Eventsoper']);
-			$model_new->id_eventsoper=$id;
-			$model_new->status=3;
-			//print_r($_POST);
-			if($model_new->save()){
-				$model->status=2;
-
-				//print_r($model_new->attributes);
-				//print_r($model->attributes);
-				$model->save();
-				$this->redirect(array('/rooms/show'));
-			}
 		}
 
 		$this->render('update',array(
@@ -172,14 +117,47 @@ public function actionSuggest(){
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
+		public function actionPlan()
+	{
+		$this->layout='//layouts/leaf';
+		$model=new MedicalEquipment('search');
+		$model->unsetAttributes();
+		$model->creator=Yii::app()->user->id_pers;  // clear any default values
+		$model->date=date('d.m.Y');
+		if(isset($_GET['MedicalEquipment']))
+			$model->attributes=$_GET['MedicalEquipment'];
+
+
+
+
+		$this->render('plan',array(
+			'model'=>$model,
+		));
+	}
+
+
+		public function actionExport()
+	{
+		$this->layout='//layouts/leaf';
+		$model=new MedicalEquipment('search');
+		$model->unsetAttributes();
+		$model->creator=Yii::app()->user->id_pers;  // clear any default values
+		$model->date=date('d.m.Y');
+		if(isset($_GET['MedicalEquipment']))
+			$model->attributes=$_GET['MedicalEquipment'];
+
+		$Xls=new Xls;
+		$data=$model->search_for_export();
+		$Xls->export($data);
+	}
 	/**
 	 * Lists all models.
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Eventsoper');
+		$dataProvider=new CActiveDataProvider('MedicalEquipment');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider, 'modelLabelP'=>Eventsoper::$modelLabelP,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>MedicalEquipment::$modelLabelP,
 		));
 	}
 
@@ -188,27 +166,12 @@ public function actionSuggest(){
 	 */
 	public function actionAdmin()
 	{
-		$model=new Eventsoper('search');
+		$model=new MedicalEquipment('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Eventsoper']))
-			$model->attributes=$_GET['Eventsoper'];
+		if(isset($_GET['MedicalEquipment']))
+			$model->attributes=$_GET['MedicalEquipment'];
 
 		$this->render('admin',array(
-			'model'=>$model,
-		));
-	}
-
-		public function actionPlan()
-	{
-		$this->layout='//layouts/leaf';
-		$model=new Eventsoper('search');
-		$model->unsetAttributes();
-		$model->status='0,1,2';  // clear any default values
-		$model->date=date('d.m.Y');
-		if(isset($_GET['Eventsoper']))
-			$model->attributes=$_GET['Eventsoper'];
-
-		$this->render('plan',array(
 			'model'=>$model,
 		));
 	}
@@ -217,12 +180,12 @@ public function actionSuggest(){
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return Eventsoper the loaded model
+	 * @return MedicalEquipment the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=Eventsoper::model()->findByPk($id);
+		$model=MedicalEquipment::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -230,11 +193,11 @@ public function actionSuggest(){
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param Eventsoper $model the model to be validated
+	 * @param MedicalEquipment $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='eventsoper-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='medical-equipment-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

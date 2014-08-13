@@ -42,7 +42,7 @@ Class Customfields{
 
 	public static function multiPersonnel($model,$field){
 		Yii::app()->clientScript->registerPackage('customfields');
-		$result="<div class='multichoise' id='".$field."'>";
+		$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_person'>Изменить</div>";
 				echo'<input type=hidden name=group_anchor>';
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
 					$tmp=explode(',',$model->$field); 
@@ -56,7 +56,7 @@ Class Customfields{
 						}
 					}	
 				
-		$result.="<div id='".$field."' class='add_unit add_person'>Изменить</div></div>";
+		$result.="</div>";
 		return $result;
 	}
 
@@ -64,7 +64,7 @@ Class Customfields{
 	{
 		Yii::app()->clientScript->registerPackage('customfields');
 			$mn=get_class($model);
-			$result="<div class='multichoise' id='".$field."'>";
+			$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_person'>Изменить</div>";
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
 				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
 					$tmp=$model->$field; 
@@ -77,7 +77,7 @@ Class Customfields{
 						}
 				
 				
-		$result.="<div id='".$field."' class='add_unit add_person'>Изменить</div></div>";
+		$result.="</div>";
 		return $result;
 		# code...
 	}

@@ -9,12 +9,77 @@
  */
 class Xls extends CFormModel{
 	public $xls;
- 
+
+
     public function rules(){
         return array(
             array('xls', 'file'),
         );
     } 
+
+
+    public function export($data){
+
+		$media=Yii::getPathOfAlias('webroot.media');
+    	$phpExcelPath = Yii::getPathOfAlias('ext.PHPExcel.Classes');
+		spl_autoload_unregister(array('YiiBase','autoload'));
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'chunkReadFilter.php');
+
+			$PHPExcel = PHPExcel_IOFactory::load($media.'/med_eq_tpl.xls');
+			$PHPExcel->getProperties()
+	    	->setCreator("ebdp")
+	    	->setLastModifiedBy("ebdp")
+	    	->setTitle('Office 2003 XLS Document')
+	    	->setSubject('Office 2003 XLS Document')
+	    	->setDescription('Document for Office 2003 XLS, generated using PHP classes.')
+	    	->setKeywords('office 2003 openxml php')
+	    	->setCategory('Nodes export result file');
+
+			$i=3; //Начинаем с 1 строки
+			foreach ($data as $row) {
+		
+	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row->date);
+	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row->cnum);
+	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row->name);
+	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row->date_exp);
+	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row->number_research);
+	$PHPExcel->getActiveSheet()->setCellValue("F$i",$row->name_research);
+	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row->fio_pac);
+	$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->diag);
+	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->birthday);
+	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row->fio_sender);
+	$PHPExcel->getActiveSheet()->setCellValue("K$i",$row->conclusion);
+	$PHPExcel->getActiveSheet()->setCellValue("L$i",$row->eed);
+	$PHPExcel->getActiveSheet()->setCellValue("M$i",$row->number_downtime);
+	$PHPExcel->getActiveSheet()->setCellValue("N$i",$row->reason_downtime);
+	$PHPExcel->getActiveSheet()->setCellValue("O$i",$row->measures_taken);
+
+				/*$PHPExcel->getActiveSheet()->setCellValue("B$i",$row['CREATE_DATE']);
+				$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['SENT_DOC']);
+				$PHPExcel->getActiveSheet()->setCellValue("D$i",$row['SURNAME'].' '.$row['NAME'].' '.$row['PATR']);
+				$PHPExcel->getActiveSheet()->setCellValue("E$i",$row['AREA'].' '.$row['RAION'].' '.$row['CITY'].' ул.'.$row['STREET'].' д.'.$row['HOME'].' кв.'.$row['APART']);
+
+				$PHPExcel->getActiveSheet()->setCellValue("F$i",$row['BIRTHDAY']);
+				$PHPExcel->getActiveSheet()->setCellValue("G$i",$sex[$row['SEX']]);
+				$PHPExcel->getActiveSheet()->setCellValue("I$i",$row['mkb10'].' '.$row['DIAG']);
+				$PHPExcel->getActiveSheet()->setCellValue("O$i",$row['DRUG'].' '.$row['BENEFIT']); */
+
+				$i++;
+			}
+		//	$PHPExcel->getActiveSheet()->getStyle('A4:'.'O'.$i)->applyFromArray($this->style['bordercells']);
+			$name='v';
+   			 
+   			$PHPExcel->getActiveSheet()->setTitle($name);
+   			$PHPExcel->setActiveSheetIndex(0);
+   			$filename = 'export.xls';
+   			 //$path = file_create_filename($filename, 'public://nodes_export');
+  			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel5');
+  			$objWriter->save($media.'/'.$filename);
+  			header("Location: ".Yii::app()->baseUrl."/media/$filename"); 
+
+    }
 
     public function load($table){
 
