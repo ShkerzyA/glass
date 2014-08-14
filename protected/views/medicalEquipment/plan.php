@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ?>
 
 <input name="print" class="hide_p" type="button" style="float: right; width: 200px; height: 30px"value="Печать" onclick="window.print();"> 
-<a target="_blank" href="/glass/medicalEquipment/export?MedicalEquipment[creator]=<?php echo $_GET[MedicalEquipment][creator]?>&&MedicalEquipment[date]=<?php echo $_GET[MedicalEquipment][date]?>&&MedicalEquipment[date_end]=<?php echo $_GET[MedicalEquipment][date_end]?>">
+<a target="_blank" href="/glass/medicalEquipment/export?MedicalEquipment[creator]=<?php echo $model->creator ?>&&MedicalEquipment[date]=<?php echo $model->date?>&&MedicalEquipment[date_end]=<?php echo $model->date_end?>">
 		<div id="add_task" class="add_unit fl_right" style="float: right; width: 200px">Экспорт в xls</div>
 	</a>
 <a href="/glass/medicalEquipment/create">

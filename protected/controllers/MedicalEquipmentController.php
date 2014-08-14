@@ -19,6 +19,11 @@ class MedicalEquipmentController extends Controller
 		);
 	}
 
+	public function access(){
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))))
+            throw new CHttpException(403, 'У вас недостаточно прав');
+	}
+
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -62,6 +67,7 @@ class MedicalEquipmentController extends Controller
 	 */
 	public function actionCreate()
 	{
+		$this->access();
 		$model=new MedicalEquipment;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -86,11 +92,8 @@ class MedicalEquipmentController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
+		$this->access();
 		$model=$this->loadModel($id);
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
 		if(isset($_POST['MedicalEquipment']))
 		{
 			$model->attributes=$_POST['MedicalEquipment'];
@@ -117,8 +120,9 @@ class MedicalEquipmentController extends Controller
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}
 
-		public function actionPlan()
+	public function actionPlan()
 	{
+		$this->access();
 		$this->layout='//layouts/leaf';
 		$model=new MedicalEquipment('search');
 		$model->unsetAttributes();
@@ -138,6 +142,9 @@ class MedicalEquipmentController extends Controller
 
 		public function actionExport()
 	{
+	
+		$this->access();
+
 		$this->layout='//layouts/leaf';
 		$model=new MedicalEquipment('search');
 		$model->unsetAttributes();
@@ -155,6 +162,7 @@ class MedicalEquipmentController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$this->access();
 		$dataProvider=new CActiveDataProvider('MedicalEquipment');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider, 'modelLabelP'=>MedicalEquipment::$modelLabelP,
