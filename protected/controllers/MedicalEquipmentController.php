@@ -98,7 +98,7 @@ class MedicalEquipmentController extends Controller
 		{
 			$model->attributes=$_POST['MedicalEquipment'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(array('plan'));
 		}
 
 		$this->render('update',array(

@@ -1,11 +1,11 @@
 <?php 
 class MultichoiseBehavior extends CActiveRecordBehavior{
 
-    public $own=array('DepartmentPosts'=>'groups','Tasks'=>'executors','Rooms'=>'managers','Catalogs'=>'groups','Eventsoper'=>'brigade');
-
     private function getField(){
         $model_name=trim(get_class($this->owner));
-        $val=$this->own[$model_name];
+        //echo $model_name;
+        //$val=$this->own[$model_name];
+        $val=$model_name::$multifield;
         return $val;
     }
 
@@ -15,8 +15,9 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
 // автоматически пишем сообщения при получении логгером
 //Yii::getLogger()->autoDump = true;
 
-            $val=$this->getField();
-            if(isset($_POST['group_anchor'])){
+        $fields=$this->getField();
+        if(isset($_POST['group_anchor'])){
+            foreach ($fields as $val) {
                 if(!empty($_POST[$val])){
                     $tmp=$_POST[$val];
                     unset($_POST['group_anchor']);
@@ -26,23 +27,29 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
                         $this->owner->$val=implode(',',$tmp);
                     }
                 } else {
-                        $this->owner->$val='';
+                    $this->owner->$val='';
                 }
             }      //array_unique чтоб одинаковых групп кучу не вписывали  
+        }
     }
 
     public function beforeSave($event){
-        $val=$this->getField();
-        $this->owner->$val='{'.$this->owner->$val.'}';
+        $fields=$this->getField();
+        foreach ($fields as $val) {
+            $this->owner->$val='{'.$this->owner->$val.'}';
+        }
     }
 
     public function afterFind($event) {
-        $val=$this->getField();
-        if($this->owner->scenario=='update'){
-            if(!empty($this->owner->$val)){
-                $tmp=substr($this->owner->$val,1,-1);
-                $this->owner->$val=$tmp;
-            }
+        $fields=$this->getField();
+        foreach ($fields as $val) {
+           // if($this->owner->scenario=='update'){
+                if(!empty($this->owner->$val)){
+                    $tmp=substr($this->owner->$val,1,-1);
+                    $this->owner->$val=$tmp;
+                    //echo $val;
+                }
+          //  }
         }
     }
 } 

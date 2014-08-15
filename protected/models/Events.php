@@ -31,7 +31,8 @@ class Events extends CActiveRecord
 	 */
 	public static $modelLabelS='Событие';
 	public static $modelLabelP='События';
-	
+	public static $multifield=array();
+
 	public $creator0creator;
 	public $idRoomid_room;
 
@@ -50,6 +51,8 @@ class Events extends CActiveRecord
 
 		return $status;
 	}
+
+
 
 
 	public function findEvents($showtype,$date){
@@ -131,6 +134,35 @@ class Events extends CActiveRecord
 		return $repeat;
 	}
 
+	protected function beforeSave(){
+		return parent::beforeSave();
+	}
+
+
+
+	protected function afterFind() {
+
+        	if(!empty($this->timestamp)){
+        		$this->timestamp=substr($this->timestamp,0,5);
+        	}
+
+        	if(!empty($this->timestamp_end)){
+        		$this->timestamp_end=substr($this->timestamp_end,0,5);
+        	}
+
+        	if(!empty($this->date)){
+        		$this->date=date('d.m.Y',strtotime($this->date));
+        	}
+
+		return parent::afterFind();
+       
+    }
+
+
+	protected function beforeValidate(){
+		return parent::beforeValidate();
+	}
+
 
 	public function gimmeStatus(){
 		$status=array(  0 => array('label'=>'Заявка','css_class'=>'open'),
@@ -185,18 +217,7 @@ class Events extends CActiveRecord
 		);
 	}
 
-	public function afterFind() {
 
-        	if(!empty($this->timestamp)){
-        		$this->timestamp=substr($this->timestamp,0,5);
-        	}
-
-        	if(!empty($this->timestamp_end)){
-        		$this->timestamp_end=substr($this->timestamp_end,0,5);
-        	}
-        	$this->date=date('d.m.Y',strtotime($this->date));
-       
-    	}
 
 	public function isChangeStatus(){
 		if(in_array('secretaries', Yii::app()->user->groups))

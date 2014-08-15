@@ -65,6 +65,7 @@ public function actionInstall(){
     $auth->createOperation('updateEv', 'Редактировать событие');
     $auth->createOperation('updateTs', 'Редактировать задачу');
     $auth->createOperation('inGroup', 'Принадлежность группе');
+    $auth->createOperation('medicalEquipment', 'Мониторинг мед. оборудования');
     $auth->createOperation('taskReport', 'Формирование отчета из задач');
     $auth->createOperation('otdReport', 'Формирование отчета из задач');
     $auth->createOperation('operationSV', 'Управление планом операций');
@@ -82,7 +83,7 @@ public function actionInstall(){
     $task->addChild('saveStatus', 'Изменить статус');
 
    	$bizRule='return in_array($params["group"],Yii::app()->user->groups);';
-    $task = $auth->createTask('inGroupUser', 'Изменение статуса задач своего отдела', $bizRule);
+    $task = $auth->createTask('inGroupUser', 'Принадлежность группе', $bizRule);
     $task->addChild('inGroup', 'Принадлежность группе');
 
     $bizRule='return $params["mod"]->isChangeStatus();';
@@ -109,7 +110,6 @@ public function actionInstall(){
     $task = $auth->createTask('OwnUpdateTs', 'Изменение своих событий', $bizRule);
     $task->addChild('updateTs', 'Изменить статус');
 
-
     $bizRule='return in_array("operationsv",Yii::app()->user->groups);';
     $task = $auth->createTask('userOperationSV', 'Управление операциями', $bizRule);
     $task->addChild('operationSV', 'Управление операциями'); 
@@ -118,10 +118,9 @@ public function actionInstall(){
     $task = $auth->createTask('changeObjectsUser', 'Управление операциями', $bizRule);
     $task->addChild('changeObjects', 'Управление объектами'); 
 
-
-    //$bizRule='return $params["mod"]->isManagerUser();';
-    //$task = $auth->createTask('RoomOperationSV', 'Управление событиями в конкретной операционной', $bizRule);
-    //$task->addChild('operationSV', 'Управление операциями');
+    $bizRule='return $params["mod"]->isOwner();';
+    $task = $auth->createTask('ownMedicalEquipment', 'Мониторинг мед. оборудования, свои записи', $bizRule);
+    $task->addChild('medicalEquipment', 'Управление объектами'); 
 
     $guest = $auth->createRole('guest');
 	$guest->addChild('index');
@@ -141,9 +140,14 @@ public function actionInstall(){
     $user->addChild('changeObjectsUser');
   	$user->addChild('OwnUpdateEv');
   	$user->addChild('OwnUpdateTs');
+    $user->addChild('ownMedicalEquipment');
+
+    $observer = $auth->createRole('observer');
+    $observer->addChild('user');
 
     $moderator = $auth->createRole('moderator');
-    $moderator->addChild('user');
+    $moderator->addChild('observer');
+    $moderator->addChild('medicalEquipment');
     $moderator->addChild('update');
     $moderator->addChild('delete');
     $moderator->addChild('save');

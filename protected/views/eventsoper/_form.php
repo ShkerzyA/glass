@@ -189,10 +189,25 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'anesthesiologist'); ?>
+		<?php echo $form->labelEx($model,'anesthesiologists'); ?>
 
-		<?php echo Customfields::searchPersonnel($model,'anesthesiologist'); ?>
-		<?php echo $form->error($model,'anesthesiologist'); ?>
+		<?php echo Customfields::multiPersonnel($model,'anesthesiologists'); ?>
+
+		<?php echo $form->error($model,'anesthesiologists'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'anesthesiologist_w'); ?>
+
+		<?php echo Customfields::searchPersonnel($model,'anesthesiologist_w'); ?>
+		<?php echo $form->error($model,'anesthesiologist_w'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'scrub_nurse'); ?>
+
+		<?php echo Customfields::searchPersonnel($model,'scrub_nurse'); ?>
+		<?php echo $form->error($model,'scrub_nurse'); ?>
 	</div>
 
 
@@ -203,6 +218,8 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 
 		<?php echo $form->error($model,'brigade'); ?>
 	</div>
+
+
 
 	
 	<div class="row">

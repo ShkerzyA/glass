@@ -21,6 +21,7 @@ class Rooms extends CActiveRecord
 	 */
 	public static $modelLabelS='Помещение';
 	public static $modelLabelP='Помещения';
+	public static $multifield=array('managers');
 	
 	public $idCabinetid_cabinet;
 

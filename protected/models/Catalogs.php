@@ -32,6 +32,7 @@ class Catalogs extends CActiveRecord
 	 */
 	public static $modelLabelS='Каталог';
 	public static $modelLabelP='Каталоги';
+	public static $multifield=array('groups');
 	
 	public $docsid_catalog;
 public $idParentid_parent;

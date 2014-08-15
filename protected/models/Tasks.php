@@ -25,6 +25,7 @@ class Tasks extends CActiveRecord
 	 */
 	public static $modelLabelS='Задача';
 	public static $modelLabelP='Задачи';
+	public static $multifield=array('executors','group');
 	
 	public $creator0creator;
 	public $executor0executor;
@@ -52,6 +53,22 @@ class Tasks extends CActiveRecord
 			return False;
 		}
 	}
+
+	protected function beforeSave(){
+		return parent::beforeSave();
+	}
+
+
+	protected function afterFind(){
+		return parent::afterFind();
+	}
+
+
+	protected function beforeValidate(){
+		return parent::beforeValidate();
+	}
+
+
 
 	public function getStatus(){
 
@@ -135,7 +152,7 @@ class Tasks extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
-			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp ASC'),
+			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),
 		);
 	}
 
@@ -237,16 +254,6 @@ class Tasks extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-
-	public function beforeSave(){
-		$this->group='{'.$this->group.'}';
-		return parent::beforeSave();
-	}
-
-    public function afterFind(){
-    	$this->group=substr($this->group,1,-1);
-		return parent::afterFind();
-    } 
 
 
     public function reportInc(){

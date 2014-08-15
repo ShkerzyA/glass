@@ -98,6 +98,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'medicalEquipment' => 
+  array (
+    'type' => 0,
+    'description' => 'Мониторинг мед. оборудования',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'taskReport' => 
   array (
     'type' => 0,
@@ -147,7 +154,7 @@ return array (
   'inGroupUser' => 
   array (
     'type' => 1,
-    'description' => 'Изменение статуса задач своего отдела',
+    'description' => 'Принадлежность группе',
     'bizRule' => 'return in_array($params["group"],Yii::app()->user->groups);',
     'data' => NULL,
     'children' => 
@@ -243,6 +250,17 @@ return array (
       0 => 'changeObjects',
     ),
   ),
+  'ownMedicalEquipment' => 
+  array (
+    'type' => 1,
+    'description' => 'Мониторинг мед. оборудования, свои записи',
+    'bizRule' => 'return $params["mod"]->isOwner();',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'medicalEquipment',
+    ),
+  ),
   'guest' => 
   array (
     'type' => 2,
@@ -276,6 +294,18 @@ return array (
       10 => 'changeObjectsUser',
       11 => 'OwnUpdateEv',
       12 => 'OwnUpdateTs',
+      13 => 'ownMedicalEquipment',
+    ),
+  ),
+  'observer' => 
+  array (
+    'type' => 2,
+    'description' => '',
+    'bizRule' => NULL,
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'user',
     ),
   ),
   'moderator' => 
@@ -286,19 +316,20 @@ return array (
     'data' => NULL,
     'children' => 
     array (
-      0 => 'user',
-      1 => 'update',
-      2 => 'delete',
-      3 => 'save',
-      4 => 'changeObjects',
-      5 => 'ruleWorkplaces',
-      6 => 'monitoringOper',
-      7 => 'saveStatus',
-      8 => 'saveStatusEv',
-      9 => 'otdReport',
-      10 => 'updateEv',
-      11 => 'updateTs',
-      12 => 'operationSV',
+      0 => 'observer',
+      1 => 'medicalEquipment',
+      2 => 'update',
+      3 => 'delete',
+      4 => 'save',
+      5 => 'changeObjects',
+      6 => 'ruleWorkplaces',
+      7 => 'monitoringOper',
+      8 => 'saveStatus',
+      9 => 'saveStatusEv',
+      10 => 'otdReport',
+      11 => 'updateEv',
+      12 => 'updateTs',
+      13 => 'operationSV',
     ),
   ),
   'administrator' => 

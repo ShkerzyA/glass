@@ -11,11 +11,17 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row" style="width: 260px;">
+	
 
-		<?php $tmp=$model->listCreators();
-echo $form->dropDownList($model,"creator",$tmp,array('empty'=>'Все')); ?>
-	</div>
+		<?php 
+    if(Yii::app()->user->checkAccess('observer')){
+      echo '<div class="row" style="width: 260px;">';
+        $tmp=$model->listCreators();
+        echo $form->dropDownList($model,"creator",$tmp,array('empty'=>'Все'));
+      echo'</div>';
+    }
+    ?>
+	
 
 
 

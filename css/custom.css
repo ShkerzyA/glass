@@ -458,6 +458,10 @@ select,option, input{
 	max-width: 98%;
 }
 
+.printtable img, .printtable a{
+	border: none;
+}
+
 .hierarchy div{
 	margin-left: 10%;
 }

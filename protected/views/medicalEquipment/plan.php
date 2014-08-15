@@ -43,6 +43,11 @@ $('.search-form form').submit(function(){
 <!-- search-form -->
 <h2 style="text-align: center; margin: 0px;">Мониторинг работы медицинского оборудования</h2>
 
+<?php $mayEdit=Yii::app()->user->checkAccess('medicalEquipment',array('mod'=>$model)); 
+		$chang='sfsdfsdfsdfsd';
+?>
+
+
 <table class='printtable'>
 	<tr>
 <th>Дата обследования</th>

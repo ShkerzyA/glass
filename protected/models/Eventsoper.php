@@ -46,6 +46,7 @@ class Eventsoper extends Events
 	public static $step='5'; //минуты
 	public static $modelLabelS='Операция';
 	public static $modelLabelP='Операции';
+	public static $multifield=array('brigade','anesthesiologists');
 	public $operator0operator;
 	public $anesthesiologist0anesthesiologist;
 	public $operation0operation;
@@ -112,14 +113,14 @@ class Eventsoper extends Events
 		// will receive user inputs.
 		return array(
 			array('id_room,date,operator, timestamp, timestamp_end, fio_pac', 'required'),
-			array('id_room, creator, operator, anesthesiologist, operation, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
+			array('id_room, creator, operator, anesthesiologist, anesthesiologist_w, scrub_nurse, operation, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
-			array('date, timestamp, timestamp_end, date_gosp, brigade', 'safe'),
+			array('date, timestamp, timestamp_end, date_gosp, brigade, anesthesiologists', 'safe'),
 			array('id','freeOnly'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, brigade, id_eventsoper, anesthesiologist, operation, type_operation,creator0creator,operator0operator,anesthesiologist0anesthesiologist,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
+			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, anesthesiologists, anesthesiologist_w, scrub_nurse, brigade, id_eventsoper, anesthesiologist, operation, type_operation,creator0creator,operator0operator,anesthesiologist0anesthesiologist,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -135,6 +136,8 @@ class Eventsoper extends Events
 			'operator0' => array(self::BELONGS_TO, 'Personnel', 'operator'),
 			'anesthesiologist0' => array(self::BELONGS_TO, 'Personnel', 'anesthesiologist'),
 			'operation0' => array(self::BELONGS_TO, 'ListOperations', 'operation'),
+			'anesthesiologist_w0'=> array(self::BELONGS_TO, 'Personnel', 'anesthesiologist_w'), 
+			'scrub_nurse0'=> array(self::BELONGS_TO, 'Personnel', 'scrub_nurse'),
 			'idRoom' => array(self::BELONGS_TO, 'Rooms', 'id_room'),
             'idEventsoper' => array(self::BELONGS_TO, 'Eventsoper', 'id_eventsoper'),
             'eventsopers' => array(self::HAS_ONE, 'Eventsoper', 'id_eventsoper'),
@@ -149,32 +152,24 @@ class Eventsoper extends Events
 		return $pass;
 	}
 
-	public function afterValidate(){
-		$this->date_gosp=(empty($this->date_gosp))?NULL:$this->date_gosp;
+	protected function beforeSave(){
+		return parent::beforeSave();
 	}
 
-	 public function afterFind() {
+	protected function afterValidate(){
+		$this->date_gosp=(empty($this->date_gosp))?NULL:$this->date_gosp;
+		return parent::afterValidate();
+	}
 
-       if($this->scenario=='update'){
-            if(!empty($this->brigade)){
-                $tmp=substr($this->brigade,1,-1);
-                $this->brigade=$tmp;
-            }
-        }
-        if(!empty($this->timestamp)){
-        	$this->timestamp=substr($this->timestamp,0,5);
-        }
-
-        if(!empty($this->timestamp_end)){
-        	$this->timestamp_end=substr($this->timestamp_end,0,5);
-        }
-        if(!empty($this->date))
-        	$this->date=date('d.m.Y',strtotime($this->date));
-       	if(!empty($this->date_gosp))
+	protected function afterFind() {
+       	if(!empty($this->date_gosp)){
         	$this->date_gosp=date('d.m.Y',strtotime($this->date_gosp));
+        }
+
+        return parent::afterFind();
     }
 
-		public function findEvents($showtype,$date){
+	public function findEvents($showtype,$date){
 		switch ($showtype){
 			case 'day':
 					$week['begin']=clone $date;
@@ -218,7 +213,9 @@ class Eventsoper extends Events
 			'operator' => 'Оператор',
 			'date_gosp' => 'Дата госпитализации',
 			'brigade' => 'Бригада',
-			'anesthesiologist' => 'Анестезиолог',
+			'anesthesiologists' => 'Анестезиологи',
+			'anesthesiologist_w' => 'Анестезиологистка',
+			'scrub_nurse' => 'Операционная сестра',
 			'operation' => 'Операция',
 			'type_operation' => 'Тип операции',
 			'creator0creator' => 'creator',

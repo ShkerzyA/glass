@@ -139,6 +139,17 @@ class MedicalEquipment extends CActiveRecord
 
 	}
 
+	public function isOwner(){
+		if(Yii::app()->user->isGuest)
+			return False;
+		if($this->creator==Yii::app()->user->id_pers)
+			return True;
+		else
+			return False;
+
+		
+	}
+
 	public function search_for_export(){
 		$criteria=new CDbCriteria;
 

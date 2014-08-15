@@ -26,6 +26,8 @@ class DepartmentPosts extends CActiveRecord
 	 */
 	public static $modelLabelS='Штатная структура';
 	public static $modelLabelP='Штатная структура';
+
+    public static $multifield=array('groups');
 	
     public $personnelPostsHistoriesid_post;
     public $postSubdivRnpost_subdiv_rn;
