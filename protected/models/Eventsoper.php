@@ -120,7 +120,7 @@ class Eventsoper extends Events
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, anesthesiologists, anesthesiologist_w, scrub_nurse, brigade, id_eventsoper, anesthesiologist, operation, type_operation,creator0creator,operator0operator,anesthesiologist0anesthesiologist,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
+			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, anesthesiologists, anesthesiologist_w, scrub_nurse, brigade, id_eventsoper, anesthesiologist, operation, type_operation,creator0creator,operator0operator,,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -134,7 +134,6 @@ class Eventsoper extends Events
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
 			'operator0' => array(self::BELONGS_TO, 'Personnel', 'operator'),
-			'anesthesiologist0' => array(self::BELONGS_TO, 'Personnel', 'anesthesiologist'),
 			'operation0' => array(self::BELONGS_TO, 'ListOperations', 'operation'),
 			'anesthesiologist_w0'=> array(self::BELONGS_TO, 'Personnel', 'anesthesiologist_w'), 
 			'scrub_nurse0'=> array(self::BELONGS_TO, 'Personnel', 'scrub_nurse'),
@@ -277,7 +276,7 @@ class Eventsoper extends Events
 		$criteria=new CDbCriteria;
 		$criteria->order='t.id_room ASC, t.date ASC, t.timestamp ASC';
 
-		$criteria->with=array('creator0' => array('alias' => 'personnel_c'),'operator0' => array('alias' => 'personnel_o'),'anesthesiologist0' => array('alias' => 'personnel_a'),'operation0' => array('alias' => 'listoperations'),'idRoom' => array('alias' => 'rooms'),);
+		$criteria->with=array('creator0' => array('alias' => 'personnel_c'),'operator0' => array('alias' => 'personnel_o'),'operation0' => array('alias' => 'listoperations'),'idRoom' => array('alias' => 'rooms'),);
 		$criteria->compare('t.id',$this->id);
 		if(!empty($_GET['id_room']))
 				$criteria->compare('t.id_room',$_GET['id_room']);
@@ -297,10 +296,6 @@ class Eventsoper extends Events
 				$criteria->compare('operator',$this->operator);
 		$criteria->compare('date_gosp',$this->date_gosp,true);
 		$criteria->compare('brigade',$this->brigade,true);
-		if(!empty($_GET['anesthesiologist']))
-				$criteria->compare('anesthesiologist',$_GET['anesthesiologist']);
-		else
-				$criteria->compare('anesthesiologist',$this->anesthesiologist);
 		if(!empty($_GET['operation']))
 				$criteria->compare('operation',$_GET['operation']);
 		else
