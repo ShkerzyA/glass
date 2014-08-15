@@ -133,4 +133,5 @@ function show_under(id,data){
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
 }
 
+
 $(document).ready(init);

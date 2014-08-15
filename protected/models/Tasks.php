@@ -25,7 +25,7 @@ class Tasks extends CActiveRecord
 	 */
 	public static $modelLabelS='Задача';
 	public static $modelLabelP='Задачи';
-	public static $multifield=array('executors','group');
+	public static $multifield=array('executors');
 	
 	public $creator0creator;
 	public $executor0executor;
@@ -55,11 +55,13 @@ class Tasks extends CActiveRecord
 	}
 
 	protected function beforeSave(){
+		$this->group='{'.$this->group.'}';
 		return parent::beforeSave();
 	}
 
 
 	protected function afterFind(){
+		$this->group=substr($this->group,1,-1);
 		return parent::afterFind();
 	}
 

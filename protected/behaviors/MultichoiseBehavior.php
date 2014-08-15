@@ -29,7 +29,7 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
                 } else {
                     $this->owner->$val='';
                 }
-            }      //array_unique чтоб одинаковых групп кучу не вписывали  
+            }    
         }
     }
 

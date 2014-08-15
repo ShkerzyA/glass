@@ -187,7 +187,6 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 <?php endif; ?>
-
 <?php if($model->scenario!='insert'):?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'group'); ?>
@@ -197,6 +196,8 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 				return CHtml::encode($tmp->group_name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'group'); ?>
 	</div>
+<?php else: ?>
+	<?php echo $form->hiddenField($model,'group'); ?>
 <?php endif; ?>
  <!--
 	<div class="row">
