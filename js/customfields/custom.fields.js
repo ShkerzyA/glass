@@ -60,7 +60,28 @@ function init(){
 		$('.multichoise#'+($(this).attr('f'))+' .choise_unit').remove();
 		$('.multichoise#'+($(this).attr('f'))+'').append('<div class="choise_unit '+($(this).attr('f'))+this.id+'"><input type=hidden name="'+$(this).attr('field')+'" value='+this.id+'>'+this.getAttribute('text')+'<div id='+($(this).attr('f'))+this.id+' class="close_this"></div></div>');
 	});
+
+
+	$('#Eventsoper_id_room,#date').live('change',function(){ 
+		getAjax_freeday();
+	});
 }
+
+function getAjax_freeday(){
+	var id_room=$('#Eventsoper_id_room').val();
+	var date=$('#date').val();
+
+	if(!id_room || !date){
+		return false;
+	}
+
+	$.post('/glass/Eventsoper/freeDay',{'Eventsoper[id_room]': id_room, 'Eventsoper[date]': date,},function(data,status){
+		if(status=='success'){
+			$('.indicator_slider').replaceWith(data);
+		}
+	},'html');
+}
+
 
 function getAjax_groups(){
 	$.post('/glass/PostsGroups/allgroups',{},function(data,status){
@@ -69,6 +90,8 @@ function getAjax_groups(){
 		}
 	},'html');
 }
+
+
 
 function getAjax_posts(){
 	var dep=$('#id_dep').val();
@@ -103,8 +126,9 @@ function getAjax_markSearch(id){
 			}
 		},'html');	
 	}
-	
 }
+
+
 
 function show_users(data){
 	var id=globid;

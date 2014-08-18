@@ -28,7 +28,7 @@ class EventsoperController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','monupdate','agree','suggest','plan'),
+				'actions'=>array('index','view','monupdate','agree','suggest','plan','freeDay'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -116,6 +116,17 @@ public function actionSuggest(){
 		$this->render('update',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionFreeDay(){
+		$model=new Eventsoper;
+		if(isset($_POST['Eventsoper']))
+		{
+			$model->attributes=$_POST['Eventsoper'];
+		}
+		$evItervals=$model->freeDay(); 
+		$this->renderPartial('_indicator_slider',array('evItervals'=>$evItervals),false,false);
+
 	}
 
 	public function actionAgree($id){
