@@ -134,16 +134,7 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 		</tr>
 	</table>
 
-	<div class="indicator_slider">
-		<?php 
-			$evItervals=$model->freeDay(); 
-			$allDay=($model::$endDay-$model::$beginDay)*60;
-			foreach ($evItervals as $interv) {
-				echo '<div style=" left: '.(round((($interv['b']/$allDay)*100),2)).'%; width: '.(round(((($interv['e']-$interv['b'])/$allDay)*100),2)).'%;"></div>';
-			}
-
-		?>		
-	</div>
+	<?php $this->renderPartial('_indicator_slider',array('model'=>$model),false,false); ?>
 	<div id="slider" style="width: 93%;"></div>
 
 	<div class="row">
@@ -255,6 +246,7 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
      'showAnim'=>'fold',
  	'multiple'=>false,
      'select'=>"js:function(event, ui) {
+     	$('#operation_name').add
      	$('#Eventsoper_operation').val(ui.item.id);
          var terms = split(this.value);
          // remove the current input

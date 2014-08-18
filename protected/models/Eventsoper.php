@@ -113,14 +113,14 @@ class Eventsoper extends Events
 		// will receive user inputs.
 		return array(
 			array('id_room,date,operator, timestamp, timestamp_end, fio_pac', 'required'),
-			array('id_room, creator, operator, anesthesiologist, anesthesiologist_w, scrub_nurse, operation, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
+			array('id_room, creator, operator, anesthesiologist_w, scrub_nurse, operation, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
 			array('date, timestamp, timestamp_end, date_gosp, brigade, anesthesiologists', 'safe'),
 			array('id','freeOnly'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, anesthesiologists, anesthesiologist_w, scrub_nurse, brigade, id_eventsoper, anesthesiologist, operation, type_operation,creator0creator,operator0operator,,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
+			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, anesthesiologists, anesthesiologist_w, scrub_nurse, brigade, id_eventsoper, operation, type_operation,creator0creator,operator0operator,,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -213,7 +213,7 @@ class Eventsoper extends Events
 			'date_gosp' => 'Дата госпитализации',
 			'brigade' => 'Бригада',
 			'anesthesiologists' => 'Анестезиологи',
-			'anesthesiologist_w' => 'Анестезиологистка',
+			'anesthesiologist_w' => 'Анестезист',
 			'scrub_nurse' => 'Операционная сестра',
 			'operation' => 'Операция',
 			'type_operation' => 'Тип операции',
@@ -306,7 +306,6 @@ class Eventsoper extends Events
 
 		$criteria->compare('personnel_c.creator',$this->creator0creator,true);
 		$criteria->compare('personnel_o.operator',$this->operator0operator,true);
-		$criteria->compare('personnel_a.anesthesiologist',$this->anesthesiologist0anesthesiologist,true);
 		$criteria->compare('listoperations.operation',$this->operation0operation,true);
 		$criteria->compare('rooms.id_room',$this->idRoomid_room,true);
         $criteria->compare('eventsoper.id_eventsoper',$this->idEventsoperid_eventsoper,true);
