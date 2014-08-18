@@ -20,7 +20,7 @@
 						$exec[]=CHtml::encode($pers->surname.' '.$pers->name);
 					}
 				}	
-				echo (implode(', ', $exec)).CHtml::encode($data->anesthesiologist_w0->surname.' '.$data->anesthesiologist_w0->name); ?></td>
+				echo (implode(', ', $exec)).' '.CHtml::encode($data->anesthesiologist_w0->surname.' '.$data->anesthesiologist_w0->name); ?></td>
 	<td><?php
    		$tmp=explode(',',$data->brigade); 
 		$exec=array();
