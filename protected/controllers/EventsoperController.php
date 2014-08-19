@@ -28,7 +28,7 @@ class EventsoperController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','monupdate','agree','suggest','plan','freeDay'),
+				'actions'=>array('index','view','monupdate','agree','suggest','plan', 'plan2','freeDay'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -221,6 +221,33 @@ public function actionSuggest(){
 
 		$this->render('plan',array(
 			'model'=>$model,
+		));
+	}
+
+		public function actionPlan2()
+	{
+		$this->layout='//layouts/leaf';
+		
+		$model=new Eventsoper('search');
+		$model->unsetAttributes();
+		  // clear any default values
+		
+		if(isset($_GET['Eventsoper']))
+				$model->attributes=$_GET['Eventsoper'];	
+		if(empty($model->date)){
+			$model->date=date('d.m.Y');
+		}
+		if(empty($model->status)){
+			$model->status='0,1,2';
+		}
+
+		$room_where=(!empty($model->id_room))?" and t.id=$model->id_room ":"";
+		
+		$rooms=Rooms::model()->with(array('eventsoper'=>array(
+			'alias'=>'eventsoper', 'joinType'=>'LEFT JOIN','on'=>"eventsoper.date='$model->date' and eventsoper.status in ($model->status)"),'idCabinet'=>array('alias'=>'cabinet')))->findAll(array('condition'=>"t.type=1 $room_where",'order'=>'cabinet.cname'));
+
+		$this->render('plan2',array(
+			'rooms'=>$rooms,'model'=>$model
 		));
 	}
 

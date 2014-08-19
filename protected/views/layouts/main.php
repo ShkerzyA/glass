@@ -42,7 +42,7 @@
 				array('label'=>'Контакты', 'url'=>array('/site/page', 'view'=>'about')),-->
 		<?php $this->widget('application.widgets.MyMenu',array(
 			'items'=>array(
-				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>array(array('Телефоны','/personnel/phones'),array('Операции','/Eventsoper/plan'),array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))))),
+				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>array(array('Телефоны','/personnel/phones'),array('Операции','/Eventsoper/plan2'),array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))))),
 				array('label'=>'Кадры', 'url'=>array('/personnel/index')),
                 array('label'=>'Отделы', 'url'=>array('/department/tree')),
                 array('label'=>'КККОД', 'url'=>array('/myAdmin/index'),'submenu'=>array(array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))))),

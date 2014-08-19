@@ -233,6 +233,8 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 
  	$nam_op=(!empty($model->operation))?$model->operation0->name:'';
 
+ 	$this->widget('MyCJuiAutoComplete',array('model'=>$model,'attribute'=>'operation'));
+
 
  	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
    'name'=>'operation_name',

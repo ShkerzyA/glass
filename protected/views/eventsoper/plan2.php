@@ -61,11 +61,17 @@ $tpl=array(	'0,1,2'=>array('app'=>'Приложение 1','title'=>'План р
 		<th>Тип операции</th>
 	</tr>
 <?php 
-//$dataProvider->itemCount=$dataProvider->getItemCount();
 
-$this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$model->search(),
-	'itemView'=>'_planview',
-)); ?>
+foreach ($rooms as $room) {
+	echo ('<tr class="nullmargin"><td rowspan='.(count($room->eventsoper)+1).'>'.$room->idCabinet->cname.'</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>');
+
+	if(!empty($room->eventsoper)){
+		foreach ($room->eventsoper as $ev) {
+			$this->renderPartial('_planview',array('data'=>$ev,'hideRoom'=>1));
+		}
+	}
+}
+
+?>
 </table>
 </div>

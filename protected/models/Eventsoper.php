@@ -59,6 +59,7 @@ class Eventsoper extends Events
 						2 => 'видеоэндохирургическая',
 						3 => 'минимально инвазивная',
 						4 => 'внеполостная',
+						5 => 'сочетанная',
 					);
 
 		switch ($view) {
@@ -275,7 +276,6 @@ class Eventsoper extends Events
 
 		$criteria=new CDbCriteria;
 		$criteria->order='t.id_room ASC, t.date ASC, t.timestamp ASC';
-
 		$criteria->with=array('creator0' => array('alias' => 'personnel_c'),'operator0' => array('alias' => 'personnel_o'),'operation0' => array('alias' => 'listoperations'),'idRoom' => array('alias' => 'rooms'),);
 		$criteria->compare('t.id',$this->id);
 		if(!empty($_GET['id_room']))

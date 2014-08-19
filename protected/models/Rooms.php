@@ -54,7 +54,7 @@ class Rooms extends CActiveRecord
 			);
 	}
 
-	public function getRooms($EventType){
+	public static function getRooms($EventType){
 		switch ($EventType) {
 			case 'events':
 					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=0'));
@@ -88,6 +88,27 @@ class Rooms extends CActiveRecord
 
 		}
 		return $rooms;
+	}
+
+
+	public function getOperRoomsWithOperation(){
+		$criteria=new CDbCriteria;
+		$Eventsoper=new Eventsoper;
+		if(!empty($_GET['Eventsoper']))
+			$Eventsoper->attributes=$_GET['Eventsoper'];
+
+
+
+		$criteria->with=array('eventsoper' => array('alias' => 'eventsoper'),'idCabinet' => array('alias' => 'cabinet'),);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('eventsoper.id_room',$Eventsoper->id_room,true);
+		$criteria->compare('eventsoper.date',$Eventsoper->id_room,true);
+		if(!empty($Eventsoper->status))
+			$criteria->addCondition(array('condition'=>'eventsoper.status in ('.$Eventsoper->status.')'));
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
 	}
 
 	public function isManagerUser(){
@@ -126,6 +147,7 @@ class Rooms extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'events' => array(self::HAS_MANY, 'Events', 'id_room'),
+			'eventsoper' => array(self::HAS_MANY, 'Eventsoper', 'id_room'),
 			'idCabinet' => array(self::BELONGS_TO, 'Cabinet', 'id_cabinet'),
 		);
 	}

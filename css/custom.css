@@ -21,6 +21,12 @@
 	vertical-align: middle;
 }
 
+.nullmargin, .nullmargin *{
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	border-collapse: collapse;
+}
 
 .indicator_slider{
 	padding: 0px;
