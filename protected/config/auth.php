@@ -98,6 +98,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'inGroupAndOwner' => 
+  array (
+    'type' => 0,
+    'description' => 'Принадлежность группе и владелец объекта манипуляции',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'medicalEquipment' => 
   array (
     'type' => 0,
@@ -149,6 +156,17 @@ return array (
     'children' => 
     array (
       0 => 'saveStatus',
+    ),
+  ),
+  'inGroupAndOwnerUser' => 
+  array (
+    'type' => 1,
+    'description' => 'Принадлежность группе',
+    'bizRule' => 'return (in_array($params["group"],Yii::app()->user->groups) and $params["mod"]->isOwner());',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'inGroupAndOwner',
     ),
   ),
   'inGroupUser' => 
@@ -228,17 +246,6 @@ return array (
       0 => 'updateTs',
     ),
   ),
-  'userOperationSV' => 
-  array (
-    'type' => 1,
-    'description' => 'Управление операциями',
-    'bizRule' => 'return in_array("operationsv",Yii::app()->user->groups);',
-    'data' => NULL,
-    'children' => 
-    array (
-      0 => 'operationSV',
-    ),
-  ),
   'changeObjectsUser' => 
   array (
     'type' => 1,
@@ -287,9 +294,9 @@ return array (
       3 => 'OwnSaveStatus',
       4 => 'ManagerSaveStatusEv',
       5 => 'inGroupUser',
-      6 => 'taskReportUser',
-      7 => 'otdReportUser',
-      8 => 'userOperationSV',
+      6 => 'inGroupAndOwnerUser',
+      7 => 'taskReportUser',
+      8 => 'otdReportUser',
       9 => 'monitoringOperUser',
       10 => 'changeObjectsUser',
       11 => 'OwnUpdateEv',
@@ -329,7 +336,6 @@ return array (
       10 => 'otdReport',
       11 => 'updateEv',
       12 => 'updateTs',
-      13 => 'operationSV',
     ),
   ),
   'administrator' => 
@@ -344,7 +350,8 @@ return array (
       1 => 'taskReport',
       2 => 'otdReport',
       3 => 'inGroup',
-      4 => 'admin',
+      4 => 'inGroupAndOwner',
+      5 => 'admin',
     ),
   ),
 );

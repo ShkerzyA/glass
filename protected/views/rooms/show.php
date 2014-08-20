@@ -74,9 +74,11 @@ switch (Yii::app()->session['Event_type']) {
 
 if(!empty(Yii::app()->session['Rooms_date']) && !empty(Yii::app()->session['Rooms_id']) && Yii::app()->session['Event_type']!='eventsOpMon'){
 	
-	echo '<a href="/glass/'.$m.'/create?'.$m.'[date]='.Yii::app()->session['Rooms_date']->format('d.m.Y').' && '.$m.'[id_room]='.Yii::app()->session['Rooms_id'].'">
-		<div id="add_task" class="add_unit fl_right">запланировать событие</div>
-	</a>';
+	if($m::mayCreateEvent()){
+		echo '<a href="/glass/'.$m.'/create?'.$m.'[date]='.Yii::app()->session['Rooms_date']->format('d.m.Y').' && '.$m.'[id_room]='.Yii::app()->session['Rooms_id'].'">
+			<div id="add_task" class="add_unit fl_right">запланировать событие</div>
+		</a>';
+	}
 }
 
 
@@ -84,7 +86,7 @@ if(!empty(Yii::app()->session['Rooms_date']) && !empty(Yii::app()->session['Room
 //if(!empty($roomsM))
 if(!empty($roomsM)){
 	foreach ($roomsM as $r) {
-		$rooms[$r->id]=$r->idCabinet->cname.' '.$r->idCabinet->num;
+		$rooms[$r->id]=$r->idCabinet->cname.'  №'.$r->idCabinet->num;
 	}
 }else{
 	$rooms=array();

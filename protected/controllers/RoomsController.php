@@ -11,9 +11,9 @@ class RoomsController extends Controller
 	
 	public $events_menu=array(
 		array('name'=>'События','type'=>'events','rule'=>NULL),
-		array('name'=>'План операций','type'=>'eventsOpPl','rule'=>'operationSV'),
-		array('name'=>'Мониторинг операций','type'=>'eventsOpMon','rule'=>NULL)
-		);
+		array('name'=>'План операций','type'=>'eventsOpPl','rule'=>array('operationsv','operations','anestesiologist')),
+		array('name'=>'Мониторинг операций','type'=>'eventsOpMon','rule'=>array('operations'))
+	);
 
 	/**
 	 * @return array action filters
@@ -31,9 +31,12 @@ class RoomsController extends Controller
 		if(empty($rule)){
 			return true;
 		}else{
-			return Yii::app()->user->checkAccess($rule,array('mod'=>Yii::app()->user)); 
+			foreach ($rule as $v) {
+				if(Yii::app()->user->checkAccess('inGroup',array('group'=>$v)))
+					return true; 
+			}
 		}
-
+		return false;
 	}
 
 	/**
@@ -151,7 +154,7 @@ class RoomsController extends Controller
 
 		}
 
-		$res=$event->findEvents(Yii::app()->session['Show_type'],Yii::app()->session['Rooms_date']);
+		$res=$event->findEvents(Yii::app()->session['Show_type'],Yii::app()->session['Rooms_date'],Yii::app()->session['Event_type']);
 
 		$events=$res['events'];
 		$week=$res['week'];

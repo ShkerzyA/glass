@@ -28,12 +28,12 @@ class EventsoperController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','monupdate','agree','suggest','plan', 'plan2','freeDay'),
+				'actions'=>array('index','view','monupdate','agree','confirm','suggest','plan', 'plan2','freeDay'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'roles'=>array('operationSV'),
+				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -76,6 +76,8 @@ public function actionSuggest(){
 	 */
 	public function actionCreate()
 	{
+		if (!((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations')))  ))
+            throw new CHttpException(403, 'У вас недостаточно прав');
 		$model=new Eventsoper;
 
 		// Uncomment the following line if AJAX validation is needed
@@ -100,7 +102,10 @@ public function actionSuggest(){
 	 */
 	public function actionUpdate($id)
 	{
+		if (!((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'anestesiologist'))) ))
+            throw new CHttpException(403, 'У вас недостаточно прав');
 		$model=$this->loadModel($id);
+
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -109,7 +114,6 @@ public function actionSuggest(){
 		{
 			$model->attributes=$_POST['Eventsoper'];
 			if($model->save())
-				echo '1';
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
@@ -133,12 +137,20 @@ public function actionSuggest(){
 		$model=$this->loadModel($id);
 		$model->status=1;
 		if($model->save())
+				$this->redirect(array('/rooms/show'));
+	}
 
+	public function actionConfirm($id){
+		$model=$this->loadModel($id);
+		$model->status=4;
+		if($model->save())
 				$this->redirect(array('/rooms/show'));
 	}
 
 		public function actionMonUpdate($id)
 	{
+		if (!((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) ))
+            throw new CHttpException(403, 'У вас недостаточно прав');
 		$model=$this->loadModel($id);
 
 		// Uncomment the following line if AJAX validation is needed

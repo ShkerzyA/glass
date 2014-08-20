@@ -76,19 +76,27 @@ class Eventsoper extends Events
 
 	public function getStatus(){
 		$status=array(  0 => 'План',
-						1 => 'Подтверждено',
-						2 => 'Мониторинг',
-						3 => 'Мониторинг',);
+						1 => 'План (мон. б/и)',
+						2 => 'План (мон. с/и)',
+						3 => 'Мониторинг',
+						4 => 'Подтверждено',);
 	
 
 		return $status;
 	}
 
+	public function readyForMon(){
+		if(in_array($this->status, array(4,3)))
+			return true;
+		return false;
+	}
+
 	public function gimmeStatus(){
 		$status=array(  0 => array('label'=>'План','css_class'=>'open'),
-						1 => array('label'=>'Подтверждено','css_class'=>'done '),
-						2 => array('label'=>'Мониторинг','css_class'=>'done '),
-						3 => array('label'=>'Мониторинг','css_class'=>'done turnws10'));
+						1 => array('label'=>'План (мон. б/и)','css_class'=>'done '),
+						2 => array('label'=>'План (мон. с/и)','css_class'=>'done '),
+						3 => array('label'=>'Мониторинг','css_class'=>'done'),
+						4 => array('label'=>'Подтверждено','css_class'=>'done'));
 		return $status[$this->status];
 	}
 
@@ -169,11 +177,37 @@ class Eventsoper extends Events
         return parent::afterFind();
     }
 
-	public function findEvents($showtype,$date){
+    public static function mayCreateEvent(){
+    	if((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) )
+    		return true;
+    	return false;
+	}
+
+	public function isOwner(){
+		if(Yii::app()->user->isGuest)
+			return False;
+		if($this->creator==Yii::app()->user->id_pers)
+			return True;
+		else
+			return False;
+	}
+
+	public function findEvents($showtype,$date,$eventstype=NULL){
+		$criteria=new CDbCriteria;
+
+		//$criteria->addCondition(array('condition'=>'t.status in ('.$this->status.')'));
+		//$criteria->compare('personnel_c.creator',$this->creator0creator,true);
+		//$criteria->order='t.id_room ASC, t.date ASC, t.timestamp ASC';
+
+
+
+		$criteria->compare('t.id_eventsoper',NULL);
 		switch ($showtype){
 			case 'day':
 					$week['begin']=clone $date;
-					$criteria=array('condition'=>'t.id_eventsoper is null and ((t.date=\''.$week['begin']->format('Y-m-d').'\'))','order'=>'t.id_room');
+					$criteria->compare('t.date',$week['begin']->format('Y-m-d'));
+					$criteria->order='t.id_room ASC';
+
 					//$events=Events::model()->findAll();	
 				break;
 			case 'week':
@@ -182,15 +216,31 @@ class Eventsoper extends Events
 					$week['begin']->modify('-'.($dow-1).' days');
 					$week['end']=clone Yii::app()->session['Rooms_date'];
 					$week['end']->modify('+'.(7-$dow).' days'); 
-					$criteria=array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].'  and t.id_eventsoper is null and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\'))','order'=>'t.date ASC');
+
+
+					$criteria->compare('t.id_room',Yii::app()->session['Rooms_id']);
+					$criteria->addCondition(array('condition'=>'t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\''));
+					$criteria->order='t.date ASC';
 					//$events=Events::model()->findAll(array('condition'=>'t.id_room='.Yii::app()->session['Rooms_id'].' and ((t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\') or t.repeat is not null)','order'=>'t.date ASC'));	
 				# code...
 				break;
 			
 			default:
-				# code...
+
 				break;	
-			}
+			} 
+
+		switch ($eventstype) {
+			case 'eventsOpPl':
+				$criteria->addCondition(array('condition'=>'t.status in (0,1,2,4)'));
+				break;
+			case 'eventsOpMon':
+				$criteria->addCondition(array('condition'=>'t.status in (4,3)'));
+				break;
+
+			default:
+				break;
+		}
 			$events=Eventsoper::model()->findAll($criteria);
 			//$events=Eventsoper::model()->findAll();
 			//print_r($events);

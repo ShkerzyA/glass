@@ -55,7 +55,7 @@ class Events extends CActiveRecord
 
 
 
-	public function findEvents($showtype,$date){
+	public function findEvents($showtype,$date,$eventstype=NULL){
 		switch ($showtype){
 			case 'day':
 					$week['begin']=clone $date;
@@ -122,6 +122,10 @@ class Events extends CActiveRecord
 			return False;
 
 		
+	}
+
+	public static function mayCreateEvent(){
+		return true;
 	}
 
 	public function getRepeat(){

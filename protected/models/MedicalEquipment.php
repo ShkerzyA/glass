@@ -145,9 +145,7 @@ class MedicalEquipment extends CActiveRecord
 		if($this->creator==Yii::app()->user->id_pers)
 			return True;
 		else
-			return False;
-
-		
+			return False;	
 	}
 
 	public function search_for_export(){

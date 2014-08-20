@@ -65,6 +65,7 @@ public function actionInstall(){
     $auth->createOperation('updateEv', 'Редактировать событие');
     $auth->createOperation('updateTs', 'Редактировать задачу');
     $auth->createOperation('inGroup', 'Принадлежность группе');
+    $auth->createOperation('inGroupAndOwner', 'Принадлежность группе и владелец объекта манипуляции');
     $auth->createOperation('medicalEquipment', 'Мониторинг мед. оборудования');
     $auth->createOperation('taskReport', 'Формирование отчета из задач');
     $auth->createOperation('otdReport', 'Формирование отчета из задач');
@@ -82,7 +83,11 @@ public function actionInstall(){
     $task = $auth->createTask('OwnSaveStatus', 'Изменение статуса задач своего отдела', $bizRule);
     $task->addChild('saveStatus', 'Изменить статус');
 
-   	$bizRule='return in_array($params["group"],Yii::app()->user->groups);';
+   	$bizRule='return (in_array($params["group"],Yii::app()->user->groups) and $params["mod"]->isOwner());';
+    $task = $auth->createTask('inGroupAndOwnerUser', 'Принадлежность группе', $bizRule);
+    $task->addChild('inGroupAndOwner', 'Принадлежность группе');
+
+    $bizRule='return in_array($params["group"],Yii::app()->user->groups);';
     $task = $auth->createTask('inGroupUser', 'Принадлежность группе', $bizRule);
     $task->addChild('inGroup', 'Принадлежность группе');
 
@@ -110,9 +115,9 @@ public function actionInstall(){
     $task = $auth->createTask('OwnUpdateTs', 'Изменение своих событий', $bizRule);
     $task->addChild('updateTs', 'Изменить статус');
 
-    $bizRule='return in_array("operationsv",Yii::app()->user->groups);';
-    $task = $auth->createTask('userOperationSV', 'Управление операциями', $bizRule);
-    $task->addChild('operationSV', 'Управление операциями'); 
+   // $bizRule='return in_array("operationsv",Yii::app()->user->groups);';
+   // $task = $auth->createTask('userOperationSV', 'Управление операциями', $bizRule);
+   // $task->addChild('operationSV', 'Управление операциями'); 
 
     $bizRule='return in_array("changeobjects",Yii::app()->user->groups);';
     $task = $auth->createTask('changeObjectsUser', 'Управление операциями', $bizRule);
@@ -133,9 +138,10 @@ public function actionInstall(){
   	$user->addChild('OwnSaveStatus');
   	$user->addChild('ManagerSaveStatusEv');
   	$user->addChild('inGroupUser');
+    $user->addChild('inGroupAndOwnerUser');
     $user->addChild('taskReportUser');
     $user->addChild('otdReportUser');
-  	$user->addChild('userOperationSV');
+  	//$user->addChild('userOperationSV');
   	$user->addChild('monitoringOperUser');
     $user->addChild('changeObjectsUser');
   	$user->addChild('OwnUpdateEv');
@@ -159,7 +165,7 @@ public function actionInstall(){
     $moderator->addChild('otdReport');
     $moderator->addChild('updateEv'); 
     $moderator->addChild('updateTs'); 
-    $moderator->addChild('operationSV'); 
+    //$moderator->addChild('operationSV'); 
 
 
     $administrator = $auth->createRole('administrator');
@@ -167,6 +173,7 @@ public function actionInstall(){
     $administrator->addChild('taskReport');
     $administrator->addChild('otdReport');
     $administrator->addChild('inGroup');
+    $administrator->addChild('inGroupAndOwner');
     $administrator->addChild('admin');
 
     //$administrator->addChild('operationsv'); 
