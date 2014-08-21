@@ -12,7 +12,7 @@ class RoomsController extends Controller
 	public $events_menu=array(
 		array('name'=>'События','type'=>'events','rule'=>NULL),
 		array('name'=>'План операций','type'=>'eventsOpPl','rule'=>array('operationsv','operations','anestesiologist')),
-		array('name'=>'Мониторинг операций','type'=>'eventsOpMon','rule'=>array('operations'))
+		array('name'=>'Мониторинг операций','type'=>'eventsOpMon','rule'=>array('operations','operationsv'))
 	);
 
 	/**

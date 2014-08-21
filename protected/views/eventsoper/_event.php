@@ -14,6 +14,16 @@
 				echo '<div class=information><p>'.$v->operation0->name.'</p>';
 				echo 'Оператор: '.CHtml::encode($v->operator0->surname.' '.mb_substr($v->operator0->name,0,1,'utf-8').'. '.mb_substr($v->operator0->patr,0,1,'utf-8')).'.<br>'; 
    				//echo 'Анестезиолог: '.CHtml::encode($v->anesthesiologist0->surname.' '.mb_substr($v->anesthesiologist0->name,0,1,'utf-8').'. '.mb_substr($v->anesthesiologist0->patr,0,1,'utf-8')).'.<br>';
+				$tmp=explode(',',$v->anesthesiologists); 
+				$exec=array();
+				foreach ($tmp as $x){
+					if(!empty($x)){
+						$pers=Personnel::model()->findByPk($x);
+						$exec[]=CHtml::encode($pers->surname.' '.mb_substr($pers->name,0,1,'utf-8').'. '.mb_substr($pers->patr,0,1,'utf-8').'. ');
+					}
+				}	
+				echo 'Анестезиологи: '.(implode(', ', $exec)); 
+
 				echo '</div>';
 				//echo '<div class=corps>'.$v->description.'</div>';
 				echo '<div class=status>'.$status['label'].'</div>';

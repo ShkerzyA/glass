@@ -79,24 +79,36 @@ class Eventsoper extends Events
 						1 => 'План (мон. б/и)',
 						2 => 'План (мон. с/и)',
 						3 => 'Мониторинг',
-						4 => 'Подтверждено',);
+						4 => 'Утверждено',);
 	
 
 		return $status;
 	}
 
 	public function readyForMon(){
-		if(in_array($this->status, array(4,3)))
+		if(Yii::app()->session['Event_type']=='eventsOpMon'){
+			if(in_array($this->status, array(4,3)))
+				return true;
+		}
+		return false;
+	}
+
+	public function readyForEdit(){
+		if(in_array($this->status, array(0)))
 			return true;
 		return false;
 	}
 
 	public function gimmeStatus(){
-		$status=array(  0 => array('label'=>'План','css_class'=>'open'),
-						1 => array('label'=>'План (мон. б/и)','css_class'=>'done '),
-						2 => array('label'=>'План (мон. с/и)','css_class'=>'done '),
-						3 => array('label'=>'Мониторинг','css_class'=>'done'),
-						4 => array('label'=>'Подтверждено','css_class'=>'done'));
+		$st=$this->getStatus();
+
+		$css_st=array('open','done','done','done','done');
+
+		$status=array();
+		foreach ($st as $k=>$v) {
+			$status[$k]['label']=$v;
+			$status[$k]['css_class']=$css_st[$k];
+		}
 		return $status[$this->status];
 	}
 
@@ -235,7 +247,7 @@ class Eventsoper extends Events
 				$criteria->addCondition(array('condition'=>'t.status in (0,1,2,4)'));
 				break;
 			case 'eventsOpMon':
-				$criteria->addCondition(array('condition'=>'t.status in (4,3)'));
+				$criteria->addCondition(array('condition'=>'t.status in (1,2,4)'));
 				break;
 
 			default:

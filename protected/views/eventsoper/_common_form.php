@@ -78,8 +78,7 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
        'showAnim' => 'fold',
    ),
    'htmlOptions' => array(
-       'style' => 'height:20px;',
-       'disabled' => true
+       'style' => 'height:20px;'
    ),
 	));?>
 

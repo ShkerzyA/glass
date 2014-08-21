@@ -22,8 +22,8 @@ if(!(Yii::app()->user->isGuest)){
 	$id_pers=array();
 }
 	$this->menu=array(
-		array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv')) or Yii::app()->user->checkAccess('inGroupAndOwner',array('group'=>'operations','mod'=>$model)) )),
-		array('label'=>'Редак. анестезиологию', 'url'=>array('update', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('inGroup',array('group'=>'anestesiologist')) )),
+		array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv')) or (Yii::app()->user->checkAccess('inGroupAndOwner',array('group'=>'operations','mod'=>$model)) and $model->readyForEdit()) )),
+		array('label'=>'Редак. анестезиологию', 'url'=>array('update', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('inGroup',array('group'=>'anestesiologist')) and $model->readyForEdit())),
 		array('label'=>'Утвердить план', 'url'=>array('confirm', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv')) )),
 		array('label'=>'Подтвердить без изменений', 'url'=>array('agree', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('inGroup',array('group'=>'operations')) and $model->readyForMon())),
 		array('label'=>'Внести корректировки', 'url'=>array('monupdate', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('inGroup',array('group'=>'operations')) and $model->readyForMon())),
