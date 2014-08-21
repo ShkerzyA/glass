@@ -218,7 +218,7 @@ class Eventsoper extends Events
 			case 'day':
 					$week['begin']=clone $date;
 					$criteria->compare('t.date',$week['begin']->format('Y-m-d'));
-					$criteria->order='t.id_room ASC';
+					$criteria->order='t.id_room ASC ';
 
 					//$events=Events::model()->findAll();	
 				break;
@@ -228,7 +228,6 @@ class Eventsoper extends Events
 					$week['begin']->modify('-'.($dow-1).' days');
 					$week['end']=clone Yii::app()->session['Rooms_date'];
 					$week['end']->modify('+'.(7-$dow).' days'); 
-
 
 					$criteria->compare('t.id_room',Yii::app()->session['Rooms_id']);
 					$criteria->addCondition(array('condition'=>'t.date>=\''.$week['begin']->format('Y-m-d').'\' and t.date<=\''.$week['end']->format('Y-m-d').'\''));

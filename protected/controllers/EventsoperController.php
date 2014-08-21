@@ -256,7 +256,7 @@ public function actionSuggest(){
 		$room_where=(!empty($model->id_room))?" and t.id=$model->id_room ":"";
 		
 		$rooms=Rooms::model()->with(array('eventsoper'=>array(
-			'alias'=>'eventsoper', 'joinType'=>'LEFT JOIN','on'=>"eventsoper.date='$model->date' and eventsoper.status in ($model->status)"),'idCabinet'=>array('alias'=>'cabinet')))->findAll(array('condition'=>"t.type=1 $room_where",'order'=>'cabinet.cname'));
+			'alias'=>'eventsoper', 'joinType'=>'LEFT JOIN','order'=>'eventsoper.timestamp','on'=>"eventsoper.date='$model->date' and eventsoper.status in ($model->status)"),'idCabinet'=>array('alias'=>'cabinet')))->findAll(array('condition'=>"t.type=1 $room_where",'order'=>'cabinet.cname'));
 
 		$this->render('plan2',array(
 			'rooms'=>$rooms,'model'=>$model

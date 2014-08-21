@@ -63,6 +63,15 @@ class Personnel extends CActiveRecord
 	}
 
 
+
+    public function fio(){
+        return $this->surname.' '.mb_substr($this->name,0,1,'utf-8').'. '.mb_substr($this->patr,0,1,'utf-8').'.';
+    }
+
+    public function fio_full(){
+        return $this->surname.' '.$this->name.' '.$this->patr;
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */
