@@ -46,6 +46,12 @@
 			}
 		}
 
+		if(!empty($this->rightWidget)){
+			foreach ($this->rightWidget as $r) {
+				echo $r;
+			}
+		}
+
 	?>
 	</div><!-- sidebar -->
 </div>

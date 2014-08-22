@@ -102,7 +102,7 @@ class Eventsoper extends Events
 	public function gimmeStatus(){
 		$st=$this->getStatus();
 
-		$css_st=array('open','done','done','done','done');
+		$css_st=array('open','done','done','done','open');
 
 		$status=array();
 		foreach ($st as $k=>$v) {

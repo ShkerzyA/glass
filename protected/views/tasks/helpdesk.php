@@ -12,13 +12,9 @@ $this->menu=array(
 			);
 
 $this->menu['all_menu']=array(
-	array('title'=>'Фильтры задач','items'=>array(
-		array('label'=>'По умолчанию', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=0'),'items'=>array(
-		)),
-		array('label'=>'В работе', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=1'),'items'=>array(
-
+		array('title'=>'Фильтры задач','items'=>array(
+			array('label'=>'Актуальные', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=1'),'items'=>array(
 			array('label'=>'За сегодня', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=3')),
-			array('label'=>'Все', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=2')),
 		)),
 	))
 	);

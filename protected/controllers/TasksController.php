@@ -11,6 +11,7 @@ class TasksController extends Controller
 	public $group;
 	public $horn;
 	public $isHorn;
+	public $target_date;
 
 	public $tasks_menu=array(
 		array('name'=>'IT crowd','id_department'=>'1011','group'=>''),
@@ -19,6 +20,7 @@ class TasksController extends Controller
 		array('name'=>'Электрики','id_department'=>'1074','group'=>'electricians'),
 		array('name'=>'Вентиляция','id_department'=>'1074','group'=>'ventilation'),
 		);
+	public $rightWidget;
 
 	public function init(){
 		$this->formHorn();
@@ -174,41 +176,6 @@ class TasksController extends Controller
 		
 	}	
 
-
-
-	/*
-
-	public function actionReportOtd(){
-
-		$model=TasksActions::OtdelReportToday();
-
-		
-		$filename ='hz.odt';
-
-		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/media/'.$filename);
-		$user=Yii::app()->user;
-
-		$person =$odf->setSegment('categories');
-		$person->setVars('TitreCategorie', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
-		foreach ($model as $pers){
-			$i=1;
-
-			$row=$odf->setSegment('articles');
-			foreach ($pers as $v) {
-				$rep=explode('\/', $v->ttext);
- 				$row->setVars('titreArticle',$i, true, 'utf-8');
-		 		$row->merge();
-		 		$i++;
-		 	}
-		 	$odf->mergeSegment($row);
-		 	$person->merge();
-		}
-		$odf->mergeSegment($person);
-		$odf->exportAsAttachedFile(); 
-		
-	}	
-
-	*/
 	public function actionCreate()
 	{
 		$model=new Tasks;
@@ -293,13 +260,20 @@ class TasksController extends Controller
 
 	public function actionHelpDesk($id_department,$type=3,$group=NULL){
 		$this->layout='//layouts/column2';
+
+		
+		$this->rightWidget=array(
+			'df'=>$this->renderPartial('_date_filter',array('model'=>$model),true)
+		);
+		$this->target_date=(!empty($_GET['date']))?"'".$_GET['date']."'":"'".date('d.m.Y')."'";
+		
 		$this->id_department=$id_department;
 		$this->group=$group;
 
 		if(!Yii::app()->user->isGuest){
 			$this->isHorn=Tasks::isHorn($id_department,$group);
 		}
-		$model=Tasks::tasksForOtdAndGroup($id_department,$type,$group);
+		$model=Tasks::tasksForOtdAndGroup($id_department,$type,$group,$this->target_date);
 		$this->render('helpdesk',array(
 			'model'=>$model,
 		));

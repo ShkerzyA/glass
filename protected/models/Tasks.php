@@ -210,29 +210,24 @@ class Tasks extends CActiveRecord
 		}
 	}
 
-	public static function tasksForOtdAndGroup($id_department,$type=3,$group=NULL){
+	public static function tasksForOtdAndGroup($id_department,$type=3,$group=NULL,$date='current_date'){
 
 		switch ($type) {
 			//все, кроме помеченных как просмотренные
-			case '0':
-				$condition="id_department=".$id_department." and status not in (4)";
-				$order="status asc,t.timestamp desc";
-				break;
 			//текущие
 			case '1':
 				$condition="id_department=".$id_department." and status in (0,1,5) ";
 				$order="status asc,t.timestamp desc";
 				break;
-			
-			//все
+
 			case '2':
-				$condition="id_department=".$id_department." ";
+				$condition="id_department=".$id_department." and ((t.timestamp::date=$date or t.timestamp_end::date=$date))";
 				$order="status asc,t.timestamp desc";
 				break;
-
+			default:
 			//за день
 			case '3':
-				$condition="id_department=".$id_department." and ((t.timestamp::date=current_date or t.timestamp_end::date=current_date) or status in (0,1,5))";
+				$condition="id_department=".$id_department." and ((t.timestamp::date=$date or t.timestamp_end::date=$date) or status in (0,1,5))";
 				$order="status asc,t.timestamp desc";
 				break;
 			default:
