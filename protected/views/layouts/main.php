@@ -15,6 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/main.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/form.css" />
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/print.css" media="print" />
+	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/custom.css" />
 
 	<?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
 
@@ -42,13 +43,17 @@
 				array('label'=>'Контакты', 'url'=>array('/site/page', 'view'=>'about')),-->
 		<?php $this->widget('application.widgets.MyMenu',array(
 			'items'=>array(
-				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>array(array('Телефоны','/personnel/phones'),array('Операции','/Eventsoper/plan2'),array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))))),
-				array('label'=>'Кадры', 'url'=>array('/personnel/index')),
-                array('label'=>'Отделы', 'url'=>array('/department/tree')),
-                array('label'=>'КККОД', 'url'=>array('/myAdmin/index'),'submenu'=>array(array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))))),
+				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>
+						array(array('Телефоны','/personnel/phones'),
+							array('Операции','/Eventsoper/plan2'),
+							array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
+							array('Кадры', '/personnel/index'),
+							array('Отделы', '/department/tree'),
+							array('КККОД', '/myAdmin/index'),
+							)),
                 array('label'=>'Документы', 'url'=>array('/myDocs/index')),
                 array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk','id_department'=>1011)),
-                array('label'=>'События', 'url'=>array('/rooms/show')),
+                array('label'=>'События', 'url'=>array('/rooms/show'),'submenu'=>array(array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))))),
 				array('label'=>'Админ', 'url'=>array('/admin/index'), 'visible'=>(Yii::app()->user->role=='administrator'))
 			),
 		)); ?>
@@ -114,4 +119,4 @@ END;
 			<?php // $this->widget('application.widgets.Messenger'); ?>
 </body>
 </html>
-	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/custom.css" />
+	
