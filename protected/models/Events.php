@@ -55,7 +55,7 @@ class Events extends CActiveRecord
 
 
 
-	public function findEvents($showtype,$date,$eventstype=NULL){
+	public static function findEvents($showtype,$date,$eventstype=NULL){
 		switch ($showtype){
 			case 'day':
 					$week['begin']=clone $date;
@@ -77,7 +77,7 @@ class Events extends CActiveRecord
 				# code...
 				break;	
 			}
-			$events=Events::model()->findAll($criteria);
+			$events=self::model()->findAll($criteria);
 			return array('week'=>$week,'events'=>$events);
 	}
 

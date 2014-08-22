@@ -53,7 +53,10 @@
 							)),
                 array('label'=>'Документы', 'url'=>array('/myDocs/index')),
                 array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk','id_department'=>1011)),
-                array('label'=>'События', 'url'=>array('/rooms/show'),'submenu'=>array(array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))))),
+                array('label'=>'События', 'url'=>array(),'submenu'=>array(
+                			array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))),
+                			array('Общественные','/rooms/show?Event_type=events'),
+                			array('Операционные','/rooms/show?Event_type=eventsOpPl'))),
 				array('label'=>'Админ', 'url'=>array('/admin/index'), 'visible'=>(Yii::app()->user->role=='administrator'))
 			),
 		)); ?>

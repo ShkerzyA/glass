@@ -204,7 +204,7 @@ class Eventsoper extends Events
 			return False;
 	}
 
-	public function findEvents($showtype,$date,$eventstype=NULL){
+	public static function findEvents($showtype,$date,$eventstype=NULL){
 		$criteria=new CDbCriteria;
 
 		//$criteria->addCondition(array('condition'=>'t.status in ('.$this->status.')'));
@@ -252,7 +252,7 @@ class Eventsoper extends Events
 			default:
 				break;
 		}
-			$events=Eventsoper::model()->findAll($criteria);
+			$events=self::model()->findAll($criteria);
 			//$events=Eventsoper::model()->findAll();
 			//print_r($events);
 			return array('week'=>$week,'events'=>$events);

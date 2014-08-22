@@ -42,7 +42,7 @@ function init(){
 
 </script>
 
-<?php foreach ($this->events_menu as $x): ?>
+<?php foreach ($this->events_menu[$this->Event_type] as $x): ?>
 	
 	<?php if($this->mayShow($x['rule'])): ?>
 	<a href=<?php echo(Yii::app()->request->baseUrl) ?>/rooms/show?Event_type=<?php echo $x['type'] ?>>
@@ -52,9 +52,7 @@ function init(){
 	</a>
 	<?php endif; ?>
 <?php endforeach; ?>
-<br><br>
-<br>
-<div style="clear: both"></div>
+<div style="position: relative; clear: both; margin: 10px;" ></div>
 
 <?php
 
@@ -81,20 +79,6 @@ if(!empty(Yii::app()->session['Rooms_date']) && !empty(Yii::app()->session['Room
 	}
 }
 
-
-
-//if(!empty($roomsM))
-if(!empty($roomsM)){
-	foreach ($roomsM as $r) {
-		$rooms[$r->id]=$r->idCabinet->cname.'  №'.$r->idCabinet->num;
-	}
-}else{
-	$rooms=array();
-}
-
-
-
-
 echo'<div class="trinity_left">';
 echo(CHtml::dropDownList('Room_id',$model->id,$rooms,array('empty'=>'Выберите помещение'))); 
 echo'</div>';
@@ -104,7 +88,7 @@ $this->widget('zii.widgets.jui.CJuiDatePicker', array(
    'name' => 'date',
    'attribute' => 'date_begin',
    'language' => 'ru',
-   'value' => $val=(!empty(Yii::app()->session['Rooms_date'])?Yii::app()->session['Rooms_date']->format('d.m.Y'):''),
+   'value' => $this->Rooms_date->format('d.m.Y'),
    'options' => array(
        'showAnim' => 'fold',
        'zIndex' => 50,
@@ -121,10 +105,8 @@ $type=array(
 	'week'=>'Неделя'
 	);
 
-
-
 echo'<div class="trinity_left">';
-echo(CHtml::dropDownList('Show_type',$val=(!empty(Yii::app()->session['Show_type'])?Yii::app()->session['Show_type']:''),$type,array('empty'=>''))); 
+echo(CHtml::dropDownList('Show_type',$this->Show_type,$type,array('empty'=>''))); 
 echo'</div>';
 
 
@@ -139,7 +121,7 @@ echo'</div>';
 <div class="cornice">&nbsp;</div>
 
 <?php
-switch (Yii::app()->session['Show_type']) {
+switch ($this->show_type) {
 	case 'day':
 		echo $this->renderPartial('/'.strtolower($m).'/_day', array('model'=>$model,'events'=>$events,'week'=>$week)); 
 		break;

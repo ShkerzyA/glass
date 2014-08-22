@@ -8,11 +8,21 @@ class RoomsController extends Controller
 	 */
 	public $layout='//layouts/column2';
 
+	public function init(){
+		$this->saveState();
+	}
+
 	
-	public $events_menu=array(
-		array('name'=>'События','type'=>'events','rule'=>NULL),
-		array('name'=>'План операций','type'=>'eventsOpPl','rule'=>array('operationsv','operations','anestesiologist')),
-		array('name'=>'Мониторинг операций','type'=>'eventsOpMon','rule'=>array('operations','operationsv'))
+	public $events_menu=array('events'=>array(
+		),
+		'eventsOpPl'=>array(
+			array('name'=>'План операций','type'=>'eventsOpPl','rule'=>array('operationsv','operations','anestesiologist')),
+			array('name'=>'Мониторинг операций','type'=>'eventsOpMon','rule'=>array('operations','operationsv'))
+		),
+		'eventsOpMon'=>array(
+			array('name'=>'План операций','type'=>'eventsOpPl','rule'=>array('operationsv','operations','anestesiologist')),
+			array('name'=>'Мониторинг операций','type'=>'eventsOpMon','rule'=>array('operations','operationsv'))
+		)
 	);
 
 	/**
@@ -26,6 +36,56 @@ class RoomsController extends Controller
 		);
 	}
 
+	public function getShow_type(){
+		if(!empty(Yii::app()->session['Show_type']))
+			return Yii::app()->session['Show_type'];
+		else
+			return '';
+	}
+
+	public function getRooms_id(){
+		return Yii::app()->session['Rooms_id'];
+	}
+
+	public function getRooms_date(){
+		if(!empty(Yii::app()->session['Rooms_date']))
+			return Yii::app()->session['Rooms_date'];
+		else
+			return new DateTime(date('Y-m-d'));
+	}
+
+	public function getEvent_type(){
+		return Yii::app()->session['Event_type'];
+	}
+
+
+
+	private function saveState(){
+		echo $id;
+		if(!empty($_GET['id'])){
+			Yii::app()->session['Rooms_id']=$_GET['id'];
+		}else if(empty(Yii::app()->session['Rooms_id'])){
+			Yii::app()->session['Rooms_id']=0;
+		}
+
+		if(!empty($_GET['date'])){
+			Yii::app()->session['Rooms_date']=new DateTime($_GET['date']);
+		}else if(empty(Yii::app()->session['Rooms_date'])){
+			Yii::app()->session['Rooms_date']=new DateTime(date('Y-m-d'));
+		}
+
+		if(!empty($_GET['Show_type'])){
+			Yii::app()->session['Show_type']=$_GET['Show_type'];
+		}else if(empty(Yii::app()->session['Show_type'])){
+			Yii::app()->session['Show_type']='week';
+		}
+
+		if(!empty($_GET['Event_type'])){
+			Yii::app()->session['Event_type']=$_GET['Event_type'];
+		}else if(empty(Yii::app()->session['Event_type'])){
+			Yii::app()->session['Event_type']='events';
+		}
+	}
 
 	public function mayShow($rule=NULL){
 		if(empty($rule)){
@@ -49,7 +109,7 @@ class RoomsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','show'),
+				'actions'=>array('index','view','show','showPublicRooms','ShowOperationRooms'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -100,46 +160,55 @@ class RoomsController extends Controller
 		));
 	}
 
+	public function actionShowPublicRooms(){
 
-	public function actionShow($id=NULL){
 		$this->layout='//layouts/column1';
 
-
-		if($id!=NULL){
-			Yii::app()->session['Rooms_id']=$id;
-		}else if(empty(Yii::app()->session['Rooms_id'])){
+		$rooms=Rooms::getRooms('Events');
+		if(!(array_key_exists($this->Rooms_id,$rooms)))
 			Yii::app()->session['Rooms_id']=0;
-		}
 
-		if(!empty($_GET['date'])){
-			Yii::app()->session['Rooms_date']=new DateTime($_GET['date']);
-		}else if(empty(Yii::app()->session['Rooms_date'])){
-			Yii::app()->session['Rooms_date']=new DateTime(date('Y-m-d'));
-		}
 
-		if(!empty($_GET['Show_type'])){
-			Yii::app()->session['Show_type']=$_GET['Show_type'];
-		}else if(empty(Yii::app()->session['Show_type'])){
-			Yii::app()->session['Show_type']='week';
-		}
+		$res=Events::findEvents($this->Show_type,$this->Rooms_date,$this->Event_type);
+		$events=$res['events'];
+		$week=$res['week'];
+		
+		$this->render('show',array(
+			'model'=>$model,'rooms'=>$rooms,'events'=>$events,'week'=>$week
+		));
+	}
 
-		if(!empty($_GET['Event_type'])){
-			Yii::app()->session['Event_type']=$_GET['Event_type'];
+	public function actionShowOperationRooms(){
+
+		$this->layout='//layouts/column1';
+	}
+
+	private function giveRooms(){
+
+	}
+
+
+	public function actionShow(){
+		$this->layout='//layouts/column1';
+
+		$rooms=Rooms::getRooms($this->Event_type);
+		if(!(array_key_exists($this->Rooms_id,$rooms)))
 			Yii::app()->session['Rooms_id']=0;
-		}else if(empty(Yii::app()->session['Event_type'])){
-			Yii::app()->session['Event_type']='events';
-		}
 
-		if(!empty(Yii::app()->session['Rooms_id'])){
+
+		if(!empty($this->Rooms_id)){
 			$model=Rooms::model()->findByPk(Yii::app()->session['Rooms_id']);
 		}else{
 			$model=new Rooms();
 		}
 	
 		$week=array();
-		$rooms=$model->getRooms(Yii::app()->session['Event_type']);
+
 		
-		switch (Yii::app()->session['Event_type']) {
+		
+
+		
+		switch ($this->Event_type) {
 			case 'events':
 					$event=new Events;
 				break;
@@ -160,7 +229,7 @@ class RoomsController extends Controller
 		$week=$res['week'];
 		
 		$this->render('show',array(
-			'model'=>$model,'roomsM'=>$rooms,'events'=>$events,'week'=>$week
+			'model'=>$model,'rooms'=>$rooms,'events'=>$events,'week'=>$week,'events_menu'=>array()
 		));
 	}
 
