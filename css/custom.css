@@ -46,16 +46,48 @@
 	background: #FFAAAA;
 }
 
+.rightinfo{
+	height: 20px;
+	word-spacing: nowrap; 
+	position: absolute;
+	top: 1px;
+	right: 1px;
+}
+
+.rightinfo div, .rightinfo span{
+	float: right;
+}
 
 
 .taskmoreinfo{
+	display: inline-block;
 	position: relative; 
 	text-align: right;
+	clear: none;
 	float: right; 
 	height: 20px; 
 	width: 20px;
 	margin: 0px;
+}
+
+.hiddeninfotask{
+	white-space: nowrap;
 	z-index: 99;
+	position: absolute;
+	text-align: center;
+	left: 20px;
+	color: black;
+	display: none;
+	padding: 2px;
+	background: #f7f7f6;
+	border: 2px solid grey;
+	border-radius: 4px;
+
+
+}
+
+.taskmoreinfo:hover .hiddeninfotask{
+	display: block;
 }
 
 
@@ -120,23 +152,7 @@
 }
 
 
-.hiddeninfotask{
-	z-index: 99;
-	position: absolute;
-	left: 20px;
-	color: black;
-	display: none;
-	padding: 2px;
-	background: #f7f7f6;
-	border: 2px solid grey;
-	border-radius: 4px;
 
-
-}
-
-.taskmoreinfo:hover .hiddeninfotask{
-	display: block;
-}
 
 .MyMenuSubmenu .item{
 	position: relative;
@@ -485,6 +501,7 @@ select,option, input{
 	margin: 5px;
 	margin-top: 10px;
 	width: auto;
+	position: relative;
 }
 
 .hipanel{
@@ -886,6 +903,7 @@ td .week_event{
 #footer{
 	border: none;
 }
+
 
 
 /*

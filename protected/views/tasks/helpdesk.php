@@ -51,10 +51,10 @@ if($this->isHorn)
 			<a href=/glass/tasks/<?php echo $v->id; ?>>
 			<?php echo $v['tname']; ?>
 			</a>
-			<div style="position: relative; float: right;">
-				<?php 	echo ('<span class='.$status['css_status'].'>'.$status['label']);
-
+			<div  class="rightinfo">
+				<?php 	
 						echo'<div class="taskmoreinfo"> <img height=100% src="';
+						//print_r($v->TasksActions[0]->creator0);
 						if (!empty($v->TasksActions[0]->creator0->photo)){
 							echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($v->TasksActions[0]->creator0->photo)); 
 						}else{
@@ -62,7 +62,7 @@ if($this->isHorn)
 						}
 						echo "\">";
 						$rep='';
-						echo '<div class=hiddeninfotask style="float: rigth;">';
+						echo '<div class=hiddeninfotask>';
 						foreach ($v->TasksActions as $action) {
 							if($action->type==1)
 								continue;
@@ -74,8 +74,8 @@ if($this->isHorn)
 									break;
 								}
 							}
-							echo'<span><nobr>'.$status_arr[$action->ttext].' ';
-							echo' '.$action->creator0->surname.' '.mb_substr($action->creator0->name,0,1,'UTF-8').'. '.mb_substr($action->creator0->patr,0,1,'UTF-8').'. ('.$action->timestamp.')</nobr></span><br>';
+							echo'<span>'.$status_arr[$action->ttext].' ';
+							echo' '.$action->creator0->fio().' ('.$action->timestamp.')</span>';
 
 						}
 
@@ -84,17 +84,8 @@ if($this->isHorn)
 
 						echo'</div>';
 
-						if(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model))){
-							$repcl=$v->reportInc();
-							if($repcl){
-								echo '<div class='.$repcl.'></div>';
-							}
-						}
-						
-						
+						echo'<div>';
 
-
-						echo' </span>'; 
 						if(!empty($v->executor0)){
 							echo('('.$v->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->name,0,1,"utf8").'. '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->patr,0,1,"utf8").'.)');	
 						}
@@ -102,6 +93,16 @@ if($this->isHorn)
 							echo '('.$v->timestamp_end.')';
 						}else{
 							echo '('.$v->timestamp.')';
+						}
+						echo'</div>';
+
+						echo ('<div class='.$status['css_status'].'>'.$status['label'].'</div>');
+
+						if(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model))){
+							$repcl=$v->reportInc();
+							if($repcl){
+								echo '<div class='.$repcl.'></div>';
+							}
 						}
 						
 				?>

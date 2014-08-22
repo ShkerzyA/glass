@@ -12,7 +12,7 @@ function init(){
 	<div><?php 
 	$this->widget('zii.widgets.jui.CJuiDatePicker', array(
    'name' => 'date',
-   'value' => $this->target_date,
+   'value' => $_GET['date'],
    'attribute' => 'date',
    'language' => 'ru',
    'options' => array(
