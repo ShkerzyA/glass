@@ -140,9 +140,12 @@ public function actionSuggest(){
 				$this->redirect(array('/rooms/show'));
 	}
 
-	public function actionConfirm($id){
+	public function actionConfirm($id,$cansel=false){
 		$model=$this->loadModel($id);
-		$model->status=4;
+		if($cansel)
+			$model->status=0;
+		else
+			$model->status=4;
 		if($model->save())
 				$this->redirect(array('/rooms/show'));
 	}

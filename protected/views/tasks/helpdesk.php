@@ -22,11 +22,13 @@ $this->menu['all_menu']=array(
 <meta http-equiv="Refresh" content="60" />
 <?php foreach ($this->tasks_menu as $x): ?>
 
+	<?php if($this->mayShow($x['rule'])): ?>
 	<a href=<?php echo(Yii::app()->request->baseUrl) ?>/tasks/helpDesk?id_department=<?php echo $x['id_department'] ?>&&group=<?php echo $x['group'] ?>>
 		<div class="inset2 <?php echo $cl_act=($x['id_department']==$this->id_department&&$x['group']==$this->group)?'active':''; ?>"><?php echo $x['name'] ?>
 			<div class=downp></div>
 		</div>
 	</a>
+	<?php endif; ?>
 <?php endforeach; ?>
 
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=<?php echo $this->id_department ?>&&Tasks[group]=<?php echo $this->group ?>">

@@ -93,6 +93,11 @@ class Eventsoper extends Events
 		return false;
 	}
 
+	public function anestAlert(){
+		if(empty($this->anesthesiologists) or empty($this->anesthesiologist_w))
+			return ' br_red ';
+	}
+
 	public function readyForEdit(){
 		if(in_array($this->status, array(0)))
 			return true;
@@ -102,7 +107,7 @@ class Eventsoper extends Events
 	public function gimmeStatus(){
 		$st=$this->getStatus();
 
-		$css_st=array('open','done','done','done','open');
+		$css_st=array('open br_grey','done','done','done','open br_green');
 
 		$status=array();
 		foreach ($st as $k=>$v) {

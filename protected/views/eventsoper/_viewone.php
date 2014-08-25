@@ -26,7 +26,7 @@ echo '<div class="comment " id="taskbody">
 
 		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('operator')); ?> </td> 
 		<td><?php
-   		echo CHtml::encode($model->operator0->surname.' '.$model->operator0->name.' '.$model->operator0->patr); ?> </td></tr>
+   		echo CHtml::encode($model->operator0->fio()); ?> </td></tr>
 
    		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('anesthesiologists')); ?></td> 
    		<td><?php
@@ -35,18 +35,20 @@ echo '<div class="comment " id="taskbody">
 				foreach ($tmp as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->surname.' '.$pers->name);
+						$exec[]=CHtml::encode($pers->fio());
 					}
 				}	
 				echo (implode(', ', $exec)); ?></td></tr>
 
    		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('anesthesiologist_w')); ?> </td> 
 		<td><?php
-   		echo CHtml::encode($model->anesthesiologist_w0->surname.' '.$model->anesthesiologist_w0->name.' '.$model->anesthesiologist_w0->patr); ?> </td></tr>
+		if(!empty($model->anesthesiologist_w))
+   		echo CHtml::encode($model->anesthesiologist_w0->fio()); ?> </td></tr>
 
    		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('scrub_nurse')); ?> </td> 
 		<td><?php
-   		echo CHtml::encode($model->scrub_nurse0->surname.' '.$model->scrub_nurse0->name.' '.$model->scrub_nurse0->patr); ?> </td></tr>
+		if(!empty($model->scrub_nurse))
+   		echo CHtml::encode($model->scrub_nurse0->fio()); ?> </td></tr>
 
 
    		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('brigade')); ?></td> 
@@ -56,7 +58,7 @@ echo '<div class="comment " id="taskbody">
 				foreach ($tmp as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->surname.' '.$pers->name);
+						$exec[]=CHtml::encode($pers->fio());
 					}
 				}	
 				echo (implode(', ', $exec)); ?></td></tr>

@@ -28,6 +28,7 @@
 	border-collapse: collapse;
 }
 
+
 .indicator_slider{
 	padding: 0px;
 	width: 93%; 
@@ -335,6 +336,10 @@ li:hover .MyMenuSubmenu,
 select,option, input{
 	width: 95%;
 	margin: 0px;
+}
+
+select{
+	height: 28px;
 }
 
 .row{
@@ -908,6 +913,22 @@ td .week_event{
 #mainmenu ul li{
 	width: 160px;
 }
+
+
+.br_gray{
+	border: 3px solid gray;
+}
+
+
+.br_red{
+	border: 3px solid red;
+}
+
+.br_green{
+	border: 3px solid green;
+}
+
+
 
 /*
 

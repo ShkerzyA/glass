@@ -55,7 +55,7 @@ class Rooms extends CActiveRecord
 	}
 
 	public static function getRooms($EventType){
-		$roomsM=array();
+		$rooms=NULL;
 		switch ($EventType) {
 			case 'events':
 					$rooms=Rooms::model()->findAll(array('condition'=>'t.type=0'));
@@ -88,11 +88,18 @@ class Rooms extends CActiveRecord
 				break;
 
 		}
+		return $rooms;
+	}
+
+	public static function getArrayRooms($EventType){
+		$roomsM=array();
+		$rooms=self::getRooms($EventType);
 		if(!empty($rooms))
 			foreach ($rooms as $r) {
 				$roomsM[$r->id]=$r->idCabinet->cname.'  №'.$r->idCabinet->num;
 			}
 		return $roomsM;
+
 	}
 
 

@@ -51,7 +51,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_user'); ?>
-		<?php echo $form->dropDownList($model,'id_user',CHtml::listData(Users::model()->findall(),'id','username'),array('empty' => '(Привязать пользователя)')); ?>
+
+				<?php $tmp=Users::model()->findall();
+echo $form->dropDownList($model,"id_user",CHtml::listData($tmp,"id",function($tmp) {
+				return CHtml::encode($tmp->username.'/'.$tmp->personnels->surname.' '.$tmp->personnels->name.' '.$tmp->personnels->patr);}),array('empty' => '')); ?>
+
+
+		<?php // echo $form->dropDownList($model,'id_user',CHtml::listData(Users::model()->findall(),'id','username'),array('empty' => '(Привязать пользователя)')); ?>
 		<?php echo $form->error($model,'id_user'); ?>
 	</div>
 

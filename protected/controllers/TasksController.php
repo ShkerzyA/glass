@@ -14,7 +14,7 @@ class TasksController extends Controller
 	public $target_date;
 
 	public $tasks_menu=array(
-		array('name'=>'IT crowd','id_department'=>'1011','group'=>''),
+		array('name'=>'IT crowd','id_department'=>'1011','group'=>'','rule'=>array('it')),
 		array('name'=>'Плотники','id_department'=>'1074','group'=>'carpenters'),
 		array('name'=>'Сантехники','id_department'=>'1074','group'=>'plumbers'),
 		array('name'=>'Электрики','id_department'=>'1074','group'=>'electricians'),
@@ -36,6 +36,18 @@ class TasksController extends Controller
 		$horn=array_rand($dir);
 		$this->horn=Yii::app()->request->baseUrl.'/media/horn/'.$dir[$horn];
 		$this->isHorn=false;
+	}
+
+	public function mayShow($rule=NULL){
+		if(empty($rule)){
+			return true;
+		}else{
+			foreach ($rule as $v) {
+				if(Yii::app()->user->checkAccess('inGroup',array('group'=>$v)))
+					return true; 
+			}
+		}
+		return false;
 	}
 
 	public function filters()

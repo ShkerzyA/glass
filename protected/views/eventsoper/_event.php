@@ -10,7 +10,7 @@
 			$top=($x1-480);
 			$height=($x2-$x1);
 			echo'<a href='.Yii::app()->request->baseUrl.'/eventsoper/'.$v->id.' title="'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'('.$status['label'].')">';
-			echo '<div class="event '.$status['css_class'].'" style="top: '.$top.'px; height: '.$height.'px">';
+			echo '<div class="event '.$status['css_class'].' '.$v->anestAlert().'" style="top: '.$top.'px; height: '.$height.'px">';
 				echo '<div class=information><p>'.$v->operation0->name.'</p>';
 				echo 'Оператор: '.CHtml::encode($v->operator0->surname.' '.mb_substr($v->operator0->name,0,1,'utf-8').'. '.mb_substr($v->operator0->patr,0,1,'utf-8')).'.<br>'; 
    				//echo 'Анестезиолог: '.CHtml::encode($v->anesthesiologist0->surname.' '.mb_substr($v->anesthesiologist0->name,0,1,'utf-8').'. '.mb_substr($v->anesthesiologist0->patr,0,1,'utf-8')).'.<br>';

@@ -13,7 +13,8 @@ class RoomsController extends Controller
 	}
 
 	
-	public $events_menu=array('events'=>array(
+	public $events_menu=array(
+		'events'=>array(
 		),
 		'eventsOpPl'=>array(
 			array('name'=>'План операций','type'=>'eventsOpPl','rule'=>array('operationsv','operations','anestesiologist')),
@@ -160,38 +161,10 @@ class RoomsController extends Controller
 		));
 	}
 
-	public function actionShowPublicRooms(){
-
-		$this->layout='//layouts/column1';
-
-		$rooms=Rooms::getRooms('Events');
-		if(!(array_key_exists($this->Rooms_id,$rooms)))
-			Yii::app()->session['Rooms_id']=0;
-
-
-		$res=Events::findEvents($this->Show_type,$this->Rooms_date,$this->Event_type);
-		$events=$res['events'];
-		$week=$res['week'];
-		
-		$this->render('show',array(
-			'model'=>$model,'rooms'=>$rooms,'events'=>$events,'week'=>$week
-		));
-	}
-
-	public function actionShowOperationRooms(){
-
-		$this->layout='//layouts/column1';
-	}
-
-	private function giveRooms(){
-
-	}
-
-
 	public function actionShow(){
 		$this->layout='//layouts/column1';
 
-		$rooms=Rooms::getRooms($this->Event_type);
+		$rooms=Rooms::getArrayRooms($this->Event_type);
 		if(!(array_key_exists($this->Rooms_id,$rooms)))
 			Yii::app()->session['Rooms_id']=0;
 
@@ -203,9 +176,6 @@ class RoomsController extends Controller
 		}
 	
 		$week=array();
-
-		
-		
 
 		
 		switch ($this->Event_type) {
