@@ -33,6 +33,14 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'startpage'); ?>
+
+		<?php echo $form->textField($model,'startpage',array('size'=>250,'maxlength'=>250)); ?>
+
+		<?php echo $form->error($model,'startpage'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'id_post'); ?>
 
 		<?php $tmp=UsersPosts::model()->findall();

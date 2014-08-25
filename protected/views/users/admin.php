@@ -46,6 +46,7 @@ $('.search-form form').submit(function(){
 		'id',
 		'username',
 		'password',
+		'startpage',
 		array( 'name'=>'idPostid_post', 'value'=>'$data->idPost->post' ),
 		array(
 			'class'=>'CButtonColumn',

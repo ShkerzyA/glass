@@ -17,7 +17,8 @@ class GlassAuth extends CWidget{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()){
-				
+				if(!empty(Yii::app()->user->startpage))
+					$this->owner->redirect(array(Yii::app()->user->startpage));	
 			}
 		}
 		// display the login form

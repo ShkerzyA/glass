@@ -70,10 +70,11 @@ public $personnelsid_user;
 		return array(
 			array('id_post', 'numerical', 'integerOnly'=>true),
 			array('username, password', 'length', 'max'=>50),
+			array('startpage', 'length', 'max'=>250),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, id_post,usersRulesid_user,idPostid_post,personnelsid_user', 'safe', 'on'=>'search'),
+			array('id, username, password, startpage, id_post,usersRulesid_user,idPostid_post,personnelsid_user', 'safe', 'on'=>'search'),
 		);
 	}
 
