@@ -23,7 +23,7 @@
 				}	
 				if(!empty($data->anesthesiologist_w))
 					$exec[]='<br>анестезист: '.CHtml::encode($data->anesthesiologist_w0->fio());
-				echo (implode(', ', $exec)); ?></td>
+				echo (implode(', ', $exec));?></td>
 	<td><?php
    		$tmp=explode(',',$data->brigade); 
 		$exec=array();

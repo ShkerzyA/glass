@@ -50,7 +50,7 @@ function init(){
     $('.search_oper').live('keyup',function(){
         if(globalTimeout != null) clearTimeout(globalTimeout);  
         globid=this.id;
-        globalTimeout =setTimeout(getAjax_operSearch,600);  
+        globalTimeout =setTimeout(getAjax_operSearch,1200);  
     });
 
 	$('.join_group').live('click',function(){ 
@@ -122,7 +122,7 @@ function getAjax_surnameSearch(){
 	//alert(search);
 	$.post('/glass/Personnel/surnameSearch',{search: search, field: field, modelN: modelN},function(data,status){
 		if(status=='success'){
-			show_users(data);
+			show_res(data,'search_surname');
 		}
 	},'html');
 }
@@ -135,7 +135,7 @@ function getAjax_operSearch(){
 	//alert(search);
 	$.post('/glass/Eventsoper/operSearch',{search: search, field: field, modelN: modelN},function(data,status){
 		if(status=='success'){
-			show_users(data);
+			show_res(data,'search_oper');
 		}
 	},'html');
 }
@@ -155,13 +155,13 @@ function getAjax_markSearch(id){
 
 
 
-function show_users(data){
+function show_res(data,search){
 	var id=globid;
 	$('.back').remove();
 	coords=$('.add_unit#'+id+'').offset();
 	$('html').append(data);
-	var v = $('.search_surname').val();
-    $('.search_surname').focus().val("").val(v);
+	var v = $('.'+search).val();
+    $('.'+search).focus().val("").val(v);
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})
 }
 

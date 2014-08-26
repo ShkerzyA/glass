@@ -10,7 +10,7 @@
 <div id="back" class='close_this'></div>
 
 <input type=text class="search_surname" id='<?php echo $field ?>' value='<?php echo $surname; ?>' name="post_name" placeholder="Поиск по Фамилии" autofocus>
-<br>
+<div class='body_res'>
 <?php 
 
 	if(!empty($modelN)){
@@ -26,5 +26,6 @@
 	}
 	
 ?>
+</div>
 
 </div></div><!-- form -->

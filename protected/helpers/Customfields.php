@@ -85,6 +85,7 @@ Class Customfields{
 		Yii::app()->clientScript->registerPackage('customfields');
 			$mn=get_class($model);
 			$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_person'>Изменить</div>";
+				echo"<input type=hidden name='".$mn."[".$field."]' value=''>"; //Это чтоб было пустое значение
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
 				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
 					$tmp=$model->$field; 

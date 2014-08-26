@@ -10,7 +10,7 @@
 <div id="back" class='close_this'></div>
 
 <input type=text class="search_oper" id='<?php echo $field ?>' value='<?php echo $name; ?>' name="post_name" placeholder="Поиск операции" autofocus>
-<br>
+<div class='body_res'>
 <?php 
 
 	if(!empty($modelN)){
@@ -26,5 +26,6 @@
 	}
 	
 ?>
+<div>
 
 </div></div><!-- form -->

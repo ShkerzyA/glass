@@ -76,7 +76,7 @@ class Tasks extends CActiveRecord
 
 		$status=array(  0 => 'Назначено',
 						1 => 'Принято',
-						5 => 'Отложено',
+						5 => 'В работе',
 						2 => 'Выполнено',
 						3 => 'Не выполнено');
 		if(!empty(Yii::app()->user->islead)){
@@ -97,7 +97,7 @@ class Tasks extends CActiveRecord
 	public function gimmeStatus(){
 		$status=array(  0 => array('label'=>'Назначено','css_class'=>'open','css_status'=>'red'),
 						1 => array('label'=>'Принято','css_class'=>'open','css_status'=>'green'),
-						5 => array('label'=>'Отложено','css_class'=>'neurtal','css_status'=>'gray'),
+						5 => array('label'=>'В работе','css_class'=>'neurtal','css_status'=>'gray'),
 						2 => array('label'=>'Выполнено','css_class'=>'done','css_status'=>'green'),
 						3 => array('label'=>'Не выполнено','css_class'=>'closed','css_status'=>'red'),
 						4 => array('label'=>'Подтверждено выполнение','css_class'=>'done','css_status'=>'green'));

@@ -67,8 +67,15 @@ public function actionSuggest(){
 				$name='';
 			}
 
+
 			if(!empty($name)){
-				$model=ListOperations::model()->findall(array('condition'=>'LOWER("t".name) LIKE (\'%'.mb_strtolower($name,'UTF-8').'%\')'));				
+
+				$words=explode(' ', $name);
+				$criteria=new CDbCriteria;
+				foreach ($words as $w) {
+					$criteria->addCondition(array('condition'=>'LOWER("t".name) LIKE (\'%'.mb_strtolower($w,'UTF-8').'%\')'));
+				}
+				$model=ListOperations::model()->findall($criteria);				
 			}else{
 				$model=NULL;
 			}
