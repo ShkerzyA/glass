@@ -2,13 +2,16 @@
 /* @var $this TasksController */
 /* @var $model Tasks */
 
+$date=(!empty($_GET['date']))?"&&date='".$_GET['date']."'":'';
+
+
 $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-			array('label'=>'Персональный отчет', 'url'=>array('report'), 'linkOptions'=>array('target'=>'_blank'),'visible'=>Yii::app()->user->checkAccess('taskReport',array('mod'=>$model)),),
-			array('label'=>'Отчет по отделу', 'url'=>array('reportOtd'), 'linkOptions'=>array('target'=>'_blank'),'visible'=>(Yii::app()->user->checkAccess('otdReport',array('mod'=>$model)))),
-			array('label'=>'Отчет по сотрудникам отдела', 'url'=>array('reportOtd?personInfo=true'), 'linkOptions'=>array('target'=>'_blank'),'visible'=>(Yii::app()->user->checkAccess('otdReport',array('mod'=>$model)))),
+			array('label'=>'Персональный отчет', 'url'=>array('report?'.$date), 'linkOptions'=>array('target'=>'_blank'),'visible'=>Yii::app()->user->checkAccess('taskReport',array('mod'=>$model)),),
+			array('label'=>'Отчет по отделу', 'url'=>array('reportOtd?'.$date), 'linkOptions'=>array('target'=>'_blank'),'visible'=>(Yii::app()->user->checkAccess('otdReport',array('mod'=>$model)))),
+			array('label'=>'Отчет по сотрудникам отдела', 'url'=>array('reportOtd?personInfo=true'.$date), 'linkOptions'=>array('target'=>'_blank'),'visible'=>(Yii::app()->user->checkAccess('otdReport',array('mod'=>$model)))),
 			);
 
 $this->menu['all_menu']=array(
