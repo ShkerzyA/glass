@@ -253,7 +253,7 @@ public function actionSuggest(){
 			$model->date=date('d.m.Y');
 		}
 		if(empty($model->status)){
-			$model->status='0,1,2';
+			$model->status='0,1,2,4';
 		}
 
 		$room_where=(!empty($model->id_room))?" and t.id=$model->id_room ":"";

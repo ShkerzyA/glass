@@ -14,7 +14,7 @@
 	<div class="row">
 
 		<?php $tmp=Rooms::model()->getRooms('eventsOpPl');
-echo $form->dropDownList($model,"status",array('0,1,2'=>'План','3'=>'Мониторинг')); ?>
+echo $form->dropDownList($model,"status",array('0,1,2,4'=>'План','3'=>'Мониторинг')); ?>
 		<?php echo $form->error($model,'status'); ?>
 	</div>
 
