@@ -4,6 +4,10 @@
 
 $date=(!empty($_GET['date']))?"&&date='".$_GET['date']."'":'';
 
+if(Yii::app()->user->id_pers=='20058'){
+	$this->rightWidget[]='<br>На 3 задачи меньше чем нужно';
+}
+
 
 $this->breadcrumbs=array(
 );
