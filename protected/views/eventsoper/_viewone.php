@@ -7,9 +7,22 @@ echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: left;"><h1>'.$typeEvent.'</h1></div>
 		<div style="position: relative; float: right; text-align: right"><i>('.$status['label'].') '.$model->date.' ('.$model->timestamp.'-'.$model->timestamp_end.')<br>
 		Создатель:  '.$model->creator0->surname.' '.$model->creator0->name.' '.$model->creator0->patr.'</i></div>'.
-		'<hr><p class="norm_text">'.$model->operation0->name.' ('.$model->getTypeOper('label').')</p>';
+		'<hr><p class="norm_text"></p>';
 		?>
 		<table class='bordertable'>
+
+		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('operations')); ?></td> 
+   		<td><?php
+   		$tmp=explode(',',$model->operations); 
+		$exec=array();
+				foreach ($tmp as $v){
+					if(!empty($v)){
+						$oper=ListOperations::model()->findByPk($v);
+						$exec[]=CHtml::encode($oper->name);
+					}
+				}	
+				echo (implode(', ', $exec)); ?></td></tr>
+
 		<tr>
 		<td><?php echo CHtml::encode($model->getAttributeLabel('id_room')); ?> </td> 
 		<td><?php
@@ -63,17 +76,7 @@ echo '<div class="comment " id="taskbody">
 				}	
 				echo (implode(', ', $exec)); ?></td></tr>
 
-		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('operations')); ?></td> 
-   		<td><?php
-   		$tmp=explode(',',$model->operations); 
-		$exec=array();
-				foreach ($tmp as $v){
-					if(!empty($v)){
-						$oper=ListOperations::model()->findByPk($v);
-						$exec[]=CHtml::encode($oper->name);
-					}
-				}	
-				echo (implode(', ', $exec)); ?></td></tr>
+	
 
 		
 

@@ -139,14 +139,14 @@ class Eventsoper extends Events
 		// will receive user inputs.
 		return array(
 			array('id_room,date,operator, timestamp, timestamp_end, fio_pac', 'required'),
-			array('id_room, creator, operator, anesthesiologist_w, scrub_nurse, operation, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
+			array('id_room, creator, operator, anesthesiologist_w, scrub_nurse, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
 			array('date, timestamp, timestamp_end, date_gosp, brigade, anesthesiologists, operations', 'safe'),
 			array('id','freeOnly'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, anesthesiologists, anesthesiologist_w, scrub_nurse, brigade, id_eventsoper, operation, operations, type_operation,creator0creator,operator0operator,,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
+			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, anesthesiologists, anesthesiologist_w, scrub_nurse, brigade, id_eventsoper, operations, type_operation,creator0creator,operator0operator,,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -160,7 +160,6 @@ class Eventsoper extends Events
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
 			'operator0' => array(self::BELONGS_TO, 'Personnel', 'operator'),
-			'operation0' => array(self::BELONGS_TO, 'ListOperations', 'operation'),
 			'anesthesiologist_w0'=> array(self::BELONGS_TO, 'Personnel', 'anesthesiologist_w'), 
 			'scrub_nurse0'=> array(self::BELONGS_TO, 'Personnel', 'scrub_nurse'),
 			'idRoom' => array(self::BELONGS_TO, 'Rooms', 'id_room'),
@@ -282,7 +281,6 @@ class Eventsoper extends Events
 			'anesthesiologists' => 'Анестезиологи',
 			'anesthesiologist_w' => 'Анестезист',
 			'scrub_nurse' => 'Операционная сестра',
-			'operation' => 'Операция',
 			'operations' => 'Операция',
 			'type_operation' => 'Тип операции',
 			'creator0creator' => 'creator',
@@ -343,7 +341,7 @@ class Eventsoper extends Events
 
 		$criteria=new CDbCriteria;
 		$criteria->order='t.id_room ASC, t.date ASC, t.timestamp ASC';
-		$criteria->with=array('creator0' => array('alias' => 'personnel_c'),'operator0' => array('alias' => 'personnel_o'),'operation0' => array('alias' => 'listoperations'),'idRoom' => array('alias' => 'rooms'),);
+		$criteria->with=array('creator0' => array('alias' => 'personnel_c'),'operator0' => array('alias' => 'personnel_o'),'idRoom' => array('alias' => 'rooms'),);
 		$criteria->compare('t.id',$this->id);
 		if(!empty($_GET['id_room']))
 				$criteria->compare('t.id_room',$_GET['id_room']);
@@ -363,17 +361,12 @@ class Eventsoper extends Events
 				$criteria->compare('operator',$this->operator);
 		$criteria->compare('date_gosp',$this->date_gosp,true);
 		$criteria->compare('brigade',$this->brigade,true);
-		if(!empty($_GET['operation']))
-				$criteria->compare('operation',$_GET['operation']);
-		else
-				$criteria->compare('operation',$this->operation);
 		$criteria->compare('type_operation',$this->type_operation);
 		if(!empty($this->status))
 			$criteria->addCondition(array('condition'=>'t.status in ('.$this->status.')'));
 
 		$criteria->compare('personnel_c.creator',$this->creator0creator,true);
 		$criteria->compare('personnel_o.operator',$this->operator0operator,true);
-		$criteria->compare('listoperations.operation',$this->operation0operation,true);
 		$criteria->compare('rooms.id_room',$this->idRoomid_room,true);
         $criteria->compare('eventsoper.id_eventsoper',$this->idEventsoperid_eventsoper,true);
         $criteria->compare('eventsoper.id_eventsoper',$this->eventsopersid_eventsoper,true);
