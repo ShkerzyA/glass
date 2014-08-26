@@ -2,19 +2,48 @@
 
 .MyMenuSubmenu{
 	/*display: none;*/
-	position: fixed;
+	position: absolute;
 	padding: 0px;
 	background: #f7f7f6;
 	box-shadow: 1px 3px 3px 0px grey;
 	opacity: 1;
 	height: 0px;
 	left: 50%;
+
 	margin-left: -475px;
 	width: 945px;
 	overflow: hidden;
 	display: block;
 	transition: opacity .4s ease 0s, height .4s ease 0s;
 
+}
+#mainmenu .MyMenuSubmenu .item
+{
+	display: inline-block;
+	background-color: #f7f7f6;
+ font-size: 15px;
+ line-height: 40px;
+ height: 48px;
+ /*padding: 0 15px;*/
+ color: #385c5b;
+ letter-spacing: 1px;
+ text-transform: uppercase;
+ font-weight: bold;
+ text-align: center;
+ text-shadow: 1px 1px 1px rgba(255,255,255,0.3);
+ border-radius: 2px 2px 0 0;
+ position: relative;
+ z-index: 1;
+}
+
+#mainmenu .MyMenuSubmenu a
+{
+	color: #040404;
+	background-color:transparent;
+	font-size:12px;
+	font-weight:bold;
+	text-decoration:none;
+	padding:5px 0px;
 }
 
 #userEd{
@@ -177,12 +206,13 @@
 
 }
 
-li:hover .MyMenuSubmenu,
+li:hover + .MyMenuSubmenu,
 .MyMenuSubmenu:hover {
 	opacity: 1;
 	height: 40px;
 	z-index: 1;
 }
+
 .view2{
 	position: relative;
 	float: left;
