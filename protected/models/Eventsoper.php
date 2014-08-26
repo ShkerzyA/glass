@@ -46,7 +46,7 @@ class Eventsoper extends Events
 	public static $step='5'; //минуты
 	public static $modelLabelS='Операция';
 	public static $modelLabelP='Операции';
-	public static $multifield=array('brigade','anesthesiologists');
+	public static $multifield=array('brigade','anesthesiologists','operations');
 	public $operator0operator;
 	public $anesthesiologist0anesthesiologist;
 	public $operation0operation;
@@ -141,12 +141,12 @@ class Eventsoper extends Events
 			array('id_room,date,operator, timestamp, timestamp_end, fio_pac', 'required'),
 			array('id_room, creator, operator, anesthesiologist_w, scrub_nurse, operation, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
-			array('date, timestamp, timestamp_end, date_gosp, brigade, anesthesiologists', 'safe'),
+			array('date, timestamp, timestamp_end, date_gosp, brigade, anesthesiologists, operations', 'safe'),
 			array('id','freeOnly'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, anesthesiologists, anesthesiologist_w, scrub_nurse, brigade, id_eventsoper, operation, type_operation,creator0creator,operator0operator,,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
+			array('id, id_room, date, timestamp, timestamp_end, status, fio_pac, creator, operator, date_gosp, anesthesiologists, anesthesiologist_w, scrub_nurse, brigade, id_eventsoper, operation, operations, type_operation,creator0creator,operator0operator,,operation0operation,idRoomid_room', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -283,6 +283,7 @@ class Eventsoper extends Events
 			'anesthesiologist_w' => 'Анестезист',
 			'scrub_nurse' => 'Операционная сестра',
 			'operation' => 'Операция',
+			'operations' => 'Операция',
 			'type_operation' => 'Тип операции',
 			'creator0creator' => 'creator',
 			'operator0operator' => 'Оператор',

@@ -119,75 +119,12 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 	</div>
 
 
-
-	
 	<div class="row">
-		<?php echo $form->labelEx($model,'operation'); ?>
-		<?php echo $form->hiddenField($model,'operation'); ?>
+		<?php echo $form->labelEx($model,'operations'); ?>
 
-<?php echo CHtml::script("
-     function split(val) {
-      return val.split(/,\s*/);
-     }
-     function extractLast(term) {
-      return split(term).pop();
-     }
-   ")?>
- <?php 
+		<?php echo Customfields::multiOperations($model,'operations'); ?>
 
-
- 	$nam_op=(!empty($model->operation))?$model->operation0->name:'';
-
- 	//$this->widget('MyCJuiAutoComplete',array('model'=>$model,'attribute'=>'operation'));
-
-
- 	$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-   'name'=>'operation_name',
-   'value'=>$nam_op,
-//'value' => $model->id,
-   'source'=>"js:function(request, response) {
-      $.getJSON('".$this->createUrl('suggest')."', {
-        term: extractLast(request.term)
-      }, response);
-      }",
-   'options'=>array(
-     'delay'=>300,
-     'minLength'=>2,
-     'showAnim'=>'fold',
- 	'multiple'=>false,
-     'select'=>"js:function(event, ui) {
-     	$('#operation_name').add
-     	$('#Eventsoper_operation').val(ui.item.id);
-         var terms = split(this.value);
-         // remove the current input
-         terms.pop();
-         // add the selected item
-         terms.push( ui.item.value );
-         // add placeholder to get the comma-and-space at the end
-         terms.push('');
-         this.value = terms.join(' ');
-         return false;
-       }",
-   ),
-   'htmlOptions'=>array(
-   		'placeholder'=>'Поиск по названию',
-     	'size'=>'40',
-   ),
-  ));
-  // Для подсветки набираемого куска запроса в предлагаемом списке
-  Yii::app()->clientScript->registerScript('unique.script.identifier', "
- $('#Eventsoper_operation').data('autocomplete')._renderItem = function( ul, item ) {
-   var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
-   var highlightedResult = item.label.replace( re, '<b>$1</b>' );
-   return $( '<li></li>' )
-     .data( 'item.autocomplete', item )
-     .append( '<a>' + highlightedResult + '</a>' )
-     .appendTo( ul );
- };
-");  
-?>
-
-		<?php echo $form->error($model,'operation'); ?>
+		<?php echo $form->error($model,'operations'); ?>
 	</div>
 
 	<div class="row">

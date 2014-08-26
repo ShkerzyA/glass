@@ -63,6 +63,18 @@ echo '<div class="comment " id="taskbody">
 				}	
 				echo (implode(', ', $exec)); ?></td></tr>
 
+		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('operations')); ?></td> 
+   		<td><?php
+   		$tmp=explode(',',$model->operations); 
+		$exec=array();
+				foreach ($tmp as $v){
+					if(!empty($v)){
+						$oper=ListOperations::model()->findByPk($v);
+						$exec[]=CHtml::encode($oper->name);
+					}
+				}	
+				echo (implode(', ', $exec)); ?></td></tr>
+
 		
 
 			</table>

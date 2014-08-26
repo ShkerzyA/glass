@@ -39,6 +39,26 @@ Class Customfields{
 		return $result;
 	}
 
+	public static function multiOperations($model,$field){
+		Yii::app()->clientScript->registerPackage('customfields');
+		$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_oper'>Изменить</div>";
+				echo'<input type=hidden name=group_anchor>';
+				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
+					$tmp=explode(',',$model->$field); 
+					foreach ($tmp as $v){
+						if(!empty($v)){
+							$oper=ListOperations::model()->findByPk($v);
+							$result.="<div class='choise_unit $field$v'>
+								<input type=hidden name='".$field."[$v]' value=$v>".(CHtml::encode($oper->name))."
+								<div id=$field$v class='close_this'></div>
+							</div>";
+						}
+					}	
+				
+		$result.="</div>";
+		return $result;
+	}
+
 
 	public static function multiPersonnel($model,$field){
 		Yii::app()->clientScript->registerPackage('customfields');

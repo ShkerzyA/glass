@@ -35,10 +35,22 @@ function init(){
 		getAjax_surnameSearch();
 	});
 
+	$('.add_oper').live('click',function(){ 
+		$('.modal2').remove();
+		globid=this.id;
+		getAjax_operSearch();
+	});
+
 	$('.search_surname').live('keyup',function(){
         if(globalTimeout != null) clearTimeout(globalTimeout);  
         globid=this.id;
         globalTimeout =setTimeout(getAjax_surnameSearch,600);  
+    });
+
+    $('.search_oper').live('keyup',function(){
+        if(globalTimeout != null) clearTimeout(globalTimeout);  
+        globid=this.id;
+        globalTimeout =setTimeout(getAjax_operSearch,600);  
     });
 
 	$('.join_group').live('click',function(){ 
@@ -109,6 +121,19 @@ function getAjax_surnameSearch(){
 	var search=$('.search_surname#'+id+'').val();
 	//alert(search);
 	$.post('/glass/Personnel/surnameSearch',{search: search, field: field, modelN: modelN},function(data,status){
+		if(status=='success'){
+			show_users(data);
+		}
+	},'html');
+}
+
+function getAjax_operSearch(){
+	var id=globid;
+	var field=$('.field#'+id+'').val();
+	var modelN=$('.modelN#'+id+'').val();
+	var search=$('.search_oper#'+id+'').val();
+	//alert(search);
+	$.post('/glass/Eventsoper/operSearch',{search: search, field: field, modelN: modelN},function(data,status){
 		if(status=='success'){
 			show_users(data);
 		}

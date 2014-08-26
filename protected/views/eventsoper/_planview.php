@@ -37,7 +37,6 @@
 					$exec[]='<br>опер. сестра: '.CHtml::encode($data->scrub_nurse0->fio());
 				}	
 				echo (implode(', ', $exec)); ?></td>
-	<td><?php echo  CHtml::encode($data->operation0->name); ?></td>
 	<td><?php echo CHtml::encode($data->getTypeOper('label')); ?></td>
 </tr>
 

@@ -28,7 +28,7 @@ class EventsoperController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','monupdate','agree','confirm','suggest','plan', 'plan2','freeDay'),
+				'actions'=>array('index','view','monupdate','agree','confirm','suggest','plan', 'plan2','freeDay','operSearch'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -58,6 +58,28 @@ public function actionSuggest(){
   		echo CJSON::encode($result);
  	}
 }
+
+	public function actionOperSearch(){
+		if(Yii::app()->request->isAjaxRequest){
+			if(!empty($_POST['search'])){
+				$name=$_POST['search'];
+			}else{
+				$name='';
+			}
+
+			if(!empty($name)){
+				$model=ListOperations::model()->findall(array('condition'=>'LOWER("t".name) LIKE (\'%'.mb_strtolower($name,'UTF-8').'%\')'));				
+			}else{
+				$model=NULL;
+			}
+			
+			$this->renderPartial('operSearch', array('name'=>$name,'model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$_POST['modelN']), false, true);
+		}else{
+			exit();
+		}
+	}
+
+
 
 	/**
 	 * Displays a particular model.
