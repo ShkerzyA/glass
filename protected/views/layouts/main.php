@@ -52,7 +52,7 @@
 							array('КККОД', '/myAdmin/index'),
 							)),
                 array('label'=>'Документы', 'url'=>array('/myDocs/index')),
-                array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk','id_department'=>1011)),
+                array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk')),
                 array('label'=>'События', 'url'=>array(),'submenu'=>array(
                 			array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))),
                 			array('Общественные','/rooms/show?Event_type=events'),

@@ -270,8 +270,16 @@ class TasksController extends Controller
 			$this->redirect(Yii::app()->getUrlManager()->createUrl('tasks/helpDesk?id_department=1011'));
 	}
 
-	public function actionHelpDesk($id_department,$type=3,$group=NULL){
+	public function actionHelpDesk($id_department=NULL,$type=3,$group=NULL){
 		$this->layout='//layouts/column2';
+
+		if(empty($id_department)){
+			if(!(Yii::app()->user->isGuest))
+				$id_department=Yii::app()->user->id_departments[0];
+			else
+				$id_department=-1;
+		
+		}
 
 		
 		$this->rightWidget=array(
