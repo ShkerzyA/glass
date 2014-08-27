@@ -311,7 +311,7 @@ class Eventsoper extends Events
     		(timestamp_end>'".$this->timestamp."' and timestamp_end<='".$this->timestamp_end."') or 
     		(timestamp<='".$this->timestamp."' and timestamp_end>='".$this->timestamp_end."'))"));
         foreach ($Ph as $v){
-        	$this->addError('Eventsoper["id_post"]','Выбранное время занято. Событие "'.$v->operation0->name.'"('.$v->timestamp.'-'.$v->timestamp_end.')');
+        	$this->addError('Eventsoper["id_post"]','Выбранное время занято. Событие ('.$v->timestamp.'-'.$v->timestamp_end.')');
         }
         
     }
