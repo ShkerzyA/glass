@@ -15,6 +15,7 @@
 
 @page {
 	size: landscape !important;
+	margin: 1cm 0cm 1cm 0cm; /* Отступы для всех левых страниц */ 
 }
 
 
@@ -46,6 +47,10 @@
 table, table *{
 	border: 2px solid black !important;
 	border-collapse: collapse !important;
+}
+
+.printtable{
+	margin: 1px;
 }
 
 #header{
@@ -119,8 +124,5 @@ div{
 	box-shadow: 0px;
 }
 
-@page{
-	margin: 0cm;
-}
 /*a:link, a:visited {background:transparent;font-weight:700;text-decoration:underline;}
 a:link:after, a:visited:after {content:" (" attr(href) ")";font-size:90%;} */
