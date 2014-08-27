@@ -306,7 +306,7 @@ class Eventsoper extends Events
     		return true;
     	}
     	//echo $this->id_post;
-    	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and status in (0,1,2) and id<>".(int)$this->id." and  
+    	$Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and status in (0,1,2,4) and id<>".(int)$this->id." and  
     		((timestamp>='".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or 
     		(timestamp_end>'".$this->timestamp."' and timestamp_end<='".$this->timestamp_end."') or 
     		(timestamp<='".$this->timestamp."' and timestamp_end>='".$this->timestamp_end."'))"));
@@ -320,7 +320,7 @@ class Eventsoper extends Events
     		$bd=$this::$beginDay*60;
 
     		$result=array();
-    	    $Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and status in (0,1,2) and id<>".(int)$this->id.""));
+    	    $Ph=Eventsoper::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."') and status in (0,1,2,4) and id<>".(int)$this->id.""));
         foreach ($Ph as $v){
         	$b=explode(':',$v->timestamp);
         	$e=explode(':',$v->timestamp_end);
