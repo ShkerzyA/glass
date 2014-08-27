@@ -72,7 +72,7 @@ function init(){
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'eventsoper-form',
-	'enableAjaxValidation'=>true,
+	'enableAjaxValidation'=>false,
 )); ?>
 
 	<p class="note">Поля с <span class="required">*</span> обязательны.</p>

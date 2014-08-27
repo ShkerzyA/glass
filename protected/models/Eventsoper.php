@@ -141,7 +141,7 @@ class Eventsoper extends Events
 			array('id_room,date,operator, timestamp, timestamp_end, fio_pac', 'required'),
 			array('id_room, creator, operator, anesthesiologist_w, scrub_nurse, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
-			array('date, timestamp, timestamp_end, date_gosp, brigade, anesthesiologists, operations', 'safe'),
+			array('date, timestamp, timestamp_end, date_gosp, brigade, anesthesiologists, type_operation, operations', 'safe'),
 			array('id','freeOnly'),
 		
 			// The following rule is used by search().
