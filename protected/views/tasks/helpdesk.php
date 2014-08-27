@@ -4,6 +4,7 @@
 
 $date=(!empty($_GET['date']))?"&&date='".$_GET['date']."'":'';
 
+if(!Yii::app()->user->isGuest)
 if(Yii::app()->user->id_pers=='20058'){
 	$num_task=count(TasksActions::model()->findAll(array('condition'=>"t.creator=".Yii::app()->user->id_pers." and t.type=2 and t.timestamp::date='".date('d.m.Y')."'")));
 	$this->rightWidget[]='<br><div class=taskpanel>Выполнено задач: '.$num_task.'</div>';
