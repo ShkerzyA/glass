@@ -69,6 +69,7 @@ class Equipment extends CActiveRecord
 			9=>'Ноутбук',
 			10=>'Телефон',
 			11=>'Телевизор',
+			12=>'Кодек ВКС',
 		);
 	}
 
@@ -91,6 +92,7 @@ class Equipment extends CActiveRecord
 				13=>'D-link',
 				14=>'Zyxel',
 				15=>'Panasonic',
+				16=>'LifeSize',
 				)),
 			'css_class'=>(array(
 				0=>array('class'=>'c0 c1 c2 c3 с5 с6 c9'),
@@ -108,7 +110,9 @@ class Equipment extends CActiveRecord
 				12=>array('class'=>'c7'),
 				13=>array('class'=>'c8'),
 				14=>array('class'=>'c8'),
-				15=>array('class'=>'c10'))
+				15=>array('class'=>'c10'),
+				16=>array('class'=>'c12'),
+				)
 			),
 		);
 	}
