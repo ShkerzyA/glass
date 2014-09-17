@@ -77,11 +77,9 @@ class EquipmentController extends Controller
 
 	public function actionExport()
 	{
-	
 		$this->access();
 		$this->layout='//layouts/leaf';
 		$model=new Equipment;
-		$model->unsetAttributes();
 		$Xls=new Xls;
 		$data=$model->search_for_export();
 		$Xls->exportEq($data);

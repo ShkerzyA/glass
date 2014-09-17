@@ -26,7 +26,7 @@ class Xls extends CFormModel{
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'chunkReadFilter.php');
 
-			$PHPExcel = PHPExcel_IOFactory::load($media.'/med_eq_tpl.xls');
+			$PHPExcel = PHPExcel_IOFactory::load($media.'/eq_tpl.xls');
 			$PHPExcel->getProperties()
 	    	->setCreator("ebdp")
 	    	->setLastModifiedBy("ebdp")
@@ -38,8 +38,16 @@ class Xls extends CFormModel{
 
 			$i=3; //Начинаем с 3 строки
 			foreach ($data as $row) {
+
+					'' => 'Серийный номер',
+			'type' => 'Тип',
+			'producer' => 'Производитель',
+			'mark' => 'Модель',
+			'inv' => 'Инвентарный номер',
+			'status' => 'Состояние',
+			'notes' => 'Примечания',
 		
-	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row->date);
+	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row->serial); /*
 	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row->cnum);
 	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row->name);
 	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row->date_exp);
@@ -53,7 +61,7 @@ class Xls extends CFormModel{
 	$PHPExcel->getActiveSheet()->setCellValue("L$i",$row->eed);
 	$PHPExcel->getActiveSheet()->setCellValue("M$i",$row->number_downtime);
 	$PHPExcel->getActiveSheet()->setCellValue("N$i",$row->reason_downtime);
-	$PHPExcel->getActiveSheet()->setCellValue("O$i",$row->measures_taken);
+	$PHPExcel->getActiveSheet()->setCellValue("O$i",$row->measures_taken); */
 
 				/*$PHPExcel->getActiveSheet()->setCellValue("B$i",$row['CREATE_DATE']);
 				$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['SENT_DOC']);

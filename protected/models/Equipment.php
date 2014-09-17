@@ -68,6 +68,7 @@ class Equipment extends CActiveRecord
 			8=>'Коммутатор',
 			9=>'Ноутбук',
 			10=>'Телефон',
+			11=>'Телевизор',
 		);
 	}
 
@@ -93,7 +94,7 @@ class Equipment extends CActiveRecord
 				)),
 			'css_class'=>(array(
 				0=>array('class'=>'c0 c1 c2 c3 с5 с6 c9'),
-				1=>array('class'=>'c1 c2 c3 c4 c5'),
+				1=>array('class'=>'c1 c2 c3 c4 c5 c11'),
 				2=>array('class'=>'c2 c3 c4 c5'),
 				3=>array('class'=>'c0 c1'),
 				4=>array('class'=>'c2 c3'),
