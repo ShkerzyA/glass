@@ -42,6 +42,14 @@ echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function(
 
 		<?php echo $form->error($model,'wname'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'phone'); ?>
+
+		<?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>100)); ?>
+
+		<?php echo $form->error($model,'phone'); ?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>

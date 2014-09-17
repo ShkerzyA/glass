@@ -69,10 +69,11 @@ class Workplace extends CActiveRecord
 		return array(
 			array('id_cabinet, id_personnel', 'numerical', 'integerOnly'=>true),
 			array('wname', 'length', 'max'=>50),
+			array('phone', 'length', 'max'=>100),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_cabinet, id_personnel, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace', 'safe', 'on'=>'search'),
+			array('id, id_cabinet, id_personnel, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace,phone', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -103,6 +104,7 @@ class Workplace extends CActiveRecord
 			'idPersonnelid_personnel' => 'Персонал',
 			'idCabinetid_cabinet' => 'Кабинет',
             'equipmentsid_workplace' => 'Оборудование',
+            'phone'=>'Телефон',
 		);
 	}
 
@@ -128,6 +130,7 @@ class Workplace extends CActiveRecord
 		else
 				$criteria->compare('id_personnel',$this->id_personnel);
 		$criteria->compare('wname',$this->wname,true);
+		$criteria->compare('phone',$this->phone,true);
 		$criteria->compare('personnel.id_personnel',$this->idPersonnelid_personnel,true);
 		$criteria->compare('cabinet.cname',$this->idCabinetid_cabinet,true);
         $criteria->compare('equipment.ename',$this->equipmentsid_workplace,true);

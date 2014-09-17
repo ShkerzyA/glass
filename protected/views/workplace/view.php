@@ -19,7 +19,7 @@ $this->menu=array(
 }
 ?>
 
-<h1><?php  echo $model->wname?></h1> 
+<h1><?php  echo $model->wname.' (тел. '.$model->phone.')';?></h1> 
 
 <?php $ruleWP=Yii::app()->user->checkAccess('ruleWorkplaces'); ?>
 <?php if($ruleWP):?>
