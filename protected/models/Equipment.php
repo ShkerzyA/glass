@@ -55,7 +55,7 @@ class Equipment extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public function getType(){
+	public static function getType(){
 		return array(
 			0=>'Системный блок',
 			1=>'Монитор',
@@ -73,7 +73,7 @@ class Equipment extends CActiveRecord
 		);
 	}
 
-	public function getProducer(){
+	public static function getProducer(){
 		return array(
 			'values'=>(array(
 				0=>'HP',
@@ -96,6 +96,7 @@ class Equipment extends CActiveRecord
 				17=>'Neon',
 				18=>'Philips',
 				19=>'Riello',
+				20=>'MB',
 
 				)),
 			'css_class'=>(array(
@@ -119,12 +120,13 @@ class Equipment extends CActiveRecord
 				17=>array('class'=>'c0'),
 				18=>array('class'=>'c1'),
 				19=>array('class'=>'c7'),
+				20=>array('class'=>'c3'),
 				)
 			),
 		);
 	}
 
-	public function getStatus(){
+	public static function getStatus(){
 		return array(
 			0=>'В эксплуатации',
 			1=>'Не в эксплуатации',
@@ -189,6 +191,7 @@ class Equipment extends CActiveRecord
 
 	public function search_for_export(){
 		$criteria=new CDbCriteria;
+		$criteria->with=array('idWorkplace','idWorkplace.idPersonnel','idWorkplace.idCabinet');
 		//$criteria->compare('personnel.creator',$this->creator0creator,true);
 		return self::model()->findAll($criteria);
 	}

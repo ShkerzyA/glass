@@ -10,37 +10,6 @@
 class Xls extends CFormModel{
 	public $xls;
 
-			public $style=array(
-			'bordercells'=>array(
-						'borders' => array(
-      							'allborders' => array(
-        							'style' => PHPExcel_Style_Border::BORDER_THIN,
-      							),
-    					),
-    					'alignment' => array(
-      							'wrap'=>true,
-      							'horizontal' 	=> PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
-								'vertical'   	=> PHPExcel_Style_Alignment::VERTICAL_TOP,
-      					),
-      					'font' => array(
-								'name'      	=> 'Times New Roman',
-      					),
-			),
-			'nobtext'=>array(
-						'borders' => array(
-      							'allborders' => array(
-        							'style' => PHPExcel_Style_Border::BORDER_NONE,
-      							),
-    					),
-    					'alignment' => array(
-      							'wrap'=>true,
-      							'horizontal' 	=> PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
-								'vertical'   	=> PHPExcel_Style_Alignment::VERTICAL_TOP,
-      					),
-    		),
-			);
-
-
     public function rules(){
         return array(
             array('xls', 'file'),
@@ -55,6 +24,10 @@ class Xls extends CFormModel{
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'chunkReadFilter.php');
+
+			$type=Equipment::getType();
+			$producer=Equipment::getProducer();
+			$status=Equipment::getStatus();
 
 			$PHPExcel = PHPExcel_IOFactory::load($media.'/eq_tpl.xls');
 			$PHPExcel->getProperties()
@@ -71,12 +44,16 @@ class Xls extends CFormModel{
 
 		
 	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row->serial); 
-	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row->type);
-	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row->producer);
+	$PHPExcel->getActiveSheet()->setCellValue("B$i",$type[$row->type]);
+	$PHPExcel->getActiveSheet()->setCellValue("C$i",$producer['values'][$row->producer]);
 	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row->mark);
 	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row->inv);
-	$PHPExcel->getActiveSheet()->setCellValue("F$i",$row->status);
-	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row->notes);/*
+	$PHPExcel->getActiveSheet()->setCellValue("F$i",$status[$row->status]);
+	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row->notes);
+	$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->idWorkplace->idPersonnel->surname.' '.$row->idWorkplace->idPersonnel->name.' '.$row->idWorkplace->idPersonnel->patr);
+
+		//	'idCabinet'
+	/*
 	//$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->name_research);
 	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->birthday);
 	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row->fio_sender);
@@ -97,8 +74,26 @@ class Xls extends CFormModel{
 				$PHPExcel->getActiveSheet()->setCellValue("O$i",$row['DRUG'].' '.$row['BENEFIT']); */
 
 				$i++;
+			
 			}
-			//$PHPExcel->getActiveSheet()->getStyle('A4:'.'O'.$i)->applyFromArray($this->style['bordercells']);
+
+			$bordercells=array(
+						'borders' => array(
+      							'allborders' => array(
+        							'style' => PHPExcel_Style_Border::BORDER_THIN,
+      							),
+    					),
+    					'alignment' => array(
+      							'wrap'=>true,
+      							'horizontal' 	=> PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+								'vertical'   	=> PHPExcel_Style_Alignment::VERTICAL_TOP,
+      					),
+      					'font' => array(
+								'name'      	=> 'Times New Roman',
+      					));
+
+
+			$PHPExcel->getActiveSheet()->getStyle('A3:'.'O'.$i)->applyFromArray($bordercells);
 			$name='v';
    			 
    			$PHPExcel->getActiveSheet()->setTitle($name);
