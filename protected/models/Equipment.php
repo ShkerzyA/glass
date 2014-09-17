@@ -81,7 +81,7 @@ class Equipment extends CActiveRecord
 				5=>'Asus',
 				6=>'Aquarius',
 				7=>'LG',
-				8=>'LOC',
+				8=>'AOC',
 				9=>'Acer',
 				10=>'Avaya',
 				11=>'Powercom',

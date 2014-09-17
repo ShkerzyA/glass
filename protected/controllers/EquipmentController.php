@@ -8,6 +8,21 @@ class EquipmentController extends Controller
 	 */
 	public $layout='//layouts/column2';
 
+	private $preset=array(
+		'default'=>array(
+			array('type'=>'0'),
+			array('type'=>'1'),
+			array('type'=>'6'),
+			array('type'=>'7'),
+			),
+		'HP'=>array(
+			array('type'=>'0','producer'=>0,'mark'=>'HP PRO 3500 SERIES MT'),
+			array('type'=>'1','producer'=>0,'mark'=>'PAVILION 23 XI'),
+			array('type'=>'6','producer'=>10),
+			array('type'=>'7'),
+			),
+		);
+
 	/**
 	 * @return array action filters
 	 */
@@ -80,7 +95,7 @@ class EquipmentController extends Controller
 	}
 
 
-	public function actionCreatePack()
+	public function actionCreatePack($preset='default')
 	{
 		$this->layout='//layouts/column1';
 		$items[]=new Equipment;
@@ -88,10 +103,12 @@ class EquipmentController extends Controller
 		$items[]=new Equipment;
 		$items[]=new Equipment;
 
-		$items[0]->attributes=array('type'=>'0');
-		$items[1]->attributes=array('type'=>'1');
-		$items[2]->attributes=array('type'=>'6');
-		$items[3]->attributes=array('type'=>'7');
+		$attr=$this->preset[$preset];
+
+		$items[0]->attributes=$attr[0];
+		$items[1]->attributes=$attr[1];
+		$items[2]->attributes=$attr[2];
+		$items[3]->attributes=$attr[3];
 
 		//$items[4]->type=3;
 
@@ -122,6 +139,7 @@ class EquipmentController extends Controller
     	// отображаем представление с формой для ввода табличных данных
     	$this->render('createPack',array('items'=>$items));
 	}
+
 
 	/**
 	 * Updates a particular model.

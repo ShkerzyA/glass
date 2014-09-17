@@ -30,6 +30,10 @@ $this->menu=array(
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/createPack?Equipment[id_workplace]=<?php echo $model->id ?>">
 	<div id="add_task" class="add_unit fl_right">добавить набор</div>
 </a>
+
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/createPack?Equipment[id_workplace]=<?php echo $model->id ?>&&preset=HP">
+  <div id="add_task" class="add_unit fl_right">добавить HP набор</div>
+</a>
 <?php endif; ?>
 
 <?php /* $this->widget('zii.widgets.CDetailView', array(
