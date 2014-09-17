@@ -10,6 +10,36 @@
 class Xls extends CFormModel{
 	public $xls;
 
+			public $style=array(
+			'bordercells'=>array(
+						'borders' => array(
+      							'allborders' => array(
+        							'style' => PHPExcel_Style_Border::BORDER_THIN,
+      							),
+    					),
+    					'alignment' => array(
+      							'wrap'=>true,
+      							'horizontal' 	=> PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+								'vertical'   	=> PHPExcel_Style_Alignment::VERTICAL_TOP,
+      					),
+      					'font' => array(
+								'name'      	=> 'Times New Roman',
+      					),
+			),
+			'nobtext'=>array(
+						'borders' => array(
+      							'allborders' => array(
+        							'style' => PHPExcel_Style_Border::BORDER_NONE,
+      							),
+    					),
+    					'alignment' => array(
+      							'wrap'=>true,
+      							'horizontal' 	=> PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+								'vertical'   	=> PHPExcel_Style_Alignment::VERTICAL_TOP,
+      					),
+    		),
+			);
+
 
     public function rules(){
         return array(
@@ -45,9 +75,9 @@ class Xls extends CFormModel{
 	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row->producer);
 	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row->mark);
 	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row->inv);
-	$PHPExcel->getActiveSheet()->setCellValue("F$i",$row->name_research);
-	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row->status);
-	$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->notes);/*
+	$PHPExcel->getActiveSheet()->setCellValue("F$i",$row->status);
+	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row->notes);/*
+	//$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->name_research);
 	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->birthday);
 	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row->fio_sender);
 	$PHPExcel->getActiveSheet()->setCellValue("K$i",$row->conclusion);
@@ -68,7 +98,7 @@ class Xls extends CFormModel{
 
 				$i++;
 			}
-		//	$PHPExcel->getActiveSheet()->getStyle('A4:'.'O'.$i)->applyFromArray($this->style['bordercells']);
+			//$PHPExcel->getActiveSheet()->getStyle('A4:'.'O'.$i)->applyFromArray($this->style['bordercells']);
 			$name='v';
    			 
    			$PHPExcel->getActiveSheet()->setTitle($name);
