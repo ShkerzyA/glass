@@ -97,6 +97,7 @@ class Equipment extends CActiveRecord
 				18=>'Philips',
 				19=>'Riello',
 				20=>'MB',
+				21=>'Depo',
 
 				)),
 			'css_class'=>(array(
@@ -121,6 +122,7 @@ class Equipment extends CActiveRecord
 				18=>array('class'=>'c1'),
 				19=>array('class'=>'c7'),
 				20=>array('class'=>'c3'),
+				21=>array('class'=>'c0'),
 				)
 			),
 		);

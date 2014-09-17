@@ -485,6 +485,7 @@ select{
 	border-radius: 2px;
 	position: absolute;
 	text-align: left;
+	min-width: 14px;
 
 	z-index: 99;
 	
