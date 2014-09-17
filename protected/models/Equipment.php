@@ -67,6 +67,7 @@ class Equipment extends CActiveRecord
 			7=>'ИБП',
 			8=>'Коммутатор',
 			9=>'Ноутбук',
+			10=>'Телефон',
 		);
 	}
 
@@ -88,6 +89,7 @@ class Equipment extends CActiveRecord
 				12=>'Ippon',
 				13=>'D-link',
 				14=>'Zyxel',
+				15=>'Panasonic',
 				)),
 			'css_class'=>(array(
 				0=>array('class'=>'c0 c1 c2 c3 с5 с6 c9'),
@@ -104,7 +106,8 @@ class Equipment extends CActiveRecord
 				11=>array('class'=>'c7'),
 				12=>array('class'=>'c7'),
 				13=>array('class'=>'c8'),
-				14=>array('class'=>'c8'),)
+				14=>array('class'=>'c8'),
+				15=>array('class'=>'c10'))
 			),
 		);
 	}
@@ -171,6 +174,13 @@ class Equipment extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+
+	public function search_for_export(){
+		$criteria=new CDbCriteria;
+		//$criteria->compare('personnel.creator',$this->creator0creator,true);
+		return self::model()->findAll($criteria);
+	}
+
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that

@@ -34,6 +34,10 @@ class EquipmentController extends Controller
 		);
 	}
 
+	public function access(){
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>'changeobjects'))))
+            throw new CHttpException(403, 'У вас недостаточно прав');
+	}
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -47,7 +51,7 @@ class EquipmentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','createPack','update','markSearch','delete'),
+				'actions'=>array('create','createPack','update','markSearch','export','delete'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -69,6 +73,18 @@ class EquipmentController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
+	}
+
+	public function actionExport()
+	{
+	
+		$this->access();
+		$this->layout='//layouts/leaf';
+		$model=new Equipment;
+		$model->unsetAttributes();
+		$Xls=new Xls;
+		$data=$model->search_for_export();
+		$Xls->exportEq($data);
 	}
 
 	/**

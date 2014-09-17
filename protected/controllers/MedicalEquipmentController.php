@@ -144,7 +144,6 @@ class MedicalEquipmentController extends Controller
 	{
 	
 		$this->access();
-
 		$this->layout='//layouts/leaf';
 		$model=new MedicalEquipment('search');
 		$model->unsetAttributes();
@@ -155,7 +154,7 @@ class MedicalEquipmentController extends Controller
 
 		$Xls=new Xls;
 		$data=$model->search_for_export();
-		$Xls->export($data);
+		$Xls->exportMedEq($data);
 	}
 	/**
 	 * Lists all models.
