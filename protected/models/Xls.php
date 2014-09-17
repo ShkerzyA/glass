@@ -39,22 +39,15 @@ class Xls extends CFormModel{
 			$i=3; //Начинаем с 3 строки
 			foreach ($data as $row) {
 
-					'' => 'Серийный номер',
-			'type' => 'Тип',
-			'producer' => 'Производитель',
-			'mark' => 'Модель',
-			'inv' => 'Инвентарный номер',
-			'status' => 'Состояние',
-			'notes' => 'Примечания',
 		
-	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row->serial); /*
-	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row->cnum);
-	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row->name);
-	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row->date_exp);
-	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row->number_research);
+	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row->serial); 
+	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row->type);
+	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row->producer);
+	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row->mark);
+	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row->inv);
 	$PHPExcel->getActiveSheet()->setCellValue("F$i",$row->name_research);
-	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row->fio_pac);
-	$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->diag);
+	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row->status);
+	$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->notes);/*
 	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->birthday);
 	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row->fio_sender);
 	$PHPExcel->getActiveSheet()->setCellValue("K$i",$row->conclusion);

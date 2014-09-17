@@ -93,6 +93,9 @@ class Equipment extends CActiveRecord
 				14=>'Zyxel',
 				15=>'Panasonic',
 				16=>'LifeSize',
+				17=>'Neon',
+				18=>'Philips',
+
 				)),
 			'css_class'=>(array(
 				0=>array('class'=>'c0 c1 c2 c3 с5 с6 c9'),
@@ -112,6 +115,8 @@ class Equipment extends CActiveRecord
 				14=>array('class'=>'c8'),
 				15=>array('class'=>'c10'),
 				16=>array('class'=>'c12'),
+				17=>array('class'=>'c0'),
+				18=>array('class'=>'c1'),
 				)
 			),
 		);
