@@ -60,8 +60,17 @@ class FloorController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model=Floor::model()->with(array(
+    	'cabinets'=>array(
+       // 'select'=>True,
+        'joinType'=>'LEFT JOIN',
+        'alias'=>'c',
+        'order'=>'c.num ASC'
+    	),
+		))->findByPk($id);
+
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
 

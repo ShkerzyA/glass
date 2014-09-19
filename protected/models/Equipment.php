@@ -109,7 +109,7 @@ class Equipment extends CActiveRecord
 				4=>array('class'=>'c2 c3'),
 				5=>array('class'=>'c1 c9'),
 				6=>array('class'=>'c0 c1'),
-				7=>array('class'=>'c1 c2 c3 c4 c5'),
+				7=>array('class'=>'c1 c2 c3 c4 c5 c11'),
 				8=>array('class'=>'c1'),
 				9=>array('class'=>'c1 c9'),
 				10=>array('class'=>'c6'),
