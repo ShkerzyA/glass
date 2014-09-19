@@ -64,12 +64,14 @@ class BuildingController extends Controller
     	'floors'=>array(
        // 'select'=>True,
         'joinType'=>'LEFT JOIN',
-        'alias'=>'f'
+        'alias'=>'f',
+        'order'=>'f.fnum ASC'
     	),
     	'floors.cabinets'=>array(
        // 'select'=>True,
         'joinType'=>'LEFT JOIN',
-        'alias'=>'c'
+        'alias'=>'c',
+        'order'=>'c.num ASC'
     	),
 	))->findByPk($id);
 
