@@ -26,7 +26,7 @@ $this->menu=array(
 </a>
 <?php endif; ?>
 
-<h1><?php echo $model->fname.' '.$model->fnum; ?></h1> </a>
+<h1><?php echo $model->fnum.' '.$model->fname; ?></h1> </a>
 
 	<?php 
 
