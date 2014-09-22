@@ -43,13 +43,14 @@
 				array('label'=>'Контакты', 'url'=>array('/site/page', 'view'=>'about')),-->
 		<?php $this->widget('application.widgets.MyMenu',array(
 			'items'=>array(
+
+				array('label'=>'КККОД', 'url'=>array('/myAdmin/index')),
 				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>
 						array(array('Телефоны','/personnel/phones'),
 							array('Операции','/Eventsoper/plan2'),
 							array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
 							array('Кадры', '/personnel/index'),
 							array('Отделы', '/department/tree'),
-							array('КККОД', '/myAdmin/index'),
 							)),
                 array('label'=>'Документы', 'url'=>array('/myDocs/index')),
                 array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk')),
