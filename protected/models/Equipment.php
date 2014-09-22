@@ -70,6 +70,7 @@ class Equipment extends CActiveRecord
 			10=>'Телефон',
 			11=>'Телевизор',
 			12=>'Кодек ВКС',
+			13=>'Преобразователь',
 		);
 	}
 
@@ -101,6 +102,8 @@ class Equipment extends CActiveRecord
 				22=>'Starcom',
 				23=>'Sharp',
 				24=>'Epson',
+				25=>'MOXA',
+				26=>'TP-link',
 
 				)),
 			'css_class'=>(array(
@@ -129,6 +132,8 @@ class Equipment extends CActiveRecord
 				22=>array('class'=>'c0'),
 				23=>array('class'=>'c3'),
 				24=>array('class'=>'c5 c2'),
+				25=>array('class'=>'c13'),
+				26=>array('class'=>'c8'),
 				)
 			),
 		);

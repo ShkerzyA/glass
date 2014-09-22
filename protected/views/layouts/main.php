@@ -44,12 +44,12 @@
 		<?php $this->widget('application.widgets.MyMenu',array(
 			'items'=>array(
 
-				array('label'=>'КККОД', 'url'=>array('/myAdmin/index')),
+				array('label'=>'КККОД', 'url'=>array('/myAdmin/index'), 'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
 				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>
 						array(array('Телефоны','/personnel/phones'),
 							array('Операции','/Eventsoper/plan2'),
 							array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
-							array('Кадры', '/personnel/index'),
+							array('Кадры', '/personnel/index',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
 							array('Отделы', '/department/tree'),
 							)),
                 array('label'=>'Документы', 'url'=>array('/myDocs/index')),
