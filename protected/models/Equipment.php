@@ -104,6 +104,8 @@ class Equipment extends CActiveRecord
 				24=>'Epson',
 				25=>'MOXA',
 				26=>'TP-link',
+				27=>'SonicWall',
+				28=>'Averion',
 
 				)),
 			'css_class'=>(array(
@@ -134,6 +136,8 @@ class Equipment extends CActiveRecord
 				24=>array('class'=>'c5 c2'),
 				25=>array('class'=>'c13'),
 				26=>array('class'=>'c8'),
+				27=>array('class'=>'c8'),
+				28=>array('class'=>'c0'),
 				)
 			),
 		);
