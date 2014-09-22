@@ -38,9 +38,9 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_workplace'); ?>
 
-		<?php $tmp=Workplace::model()->findall();
+		<?php $tmp=Workplace::model()->with('idCabinet.idFloor.idBuilding','idPersonnel')->findall(array('order'=>'bname ASC, "idFloor".fnum ASC, "idCabinet".num ASC'));
 				echo $form->dropDownList($model,"id_workplace",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->idCabinet->cname.' '.$tmp->idCabinet->num.'/'.$tmp->wname);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->idCabinet->idFloor->idBuilding->bname.'/'.$tmp->idCabinet->idFloor->fname.'/'.$tmp->idCabinet->num.' '.$tmp->idCabinet->cname.'/'.($wn=(!empty($tmp->idPersonnel))?$tmp->idPersonnel->fio():$tmp->wname));}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_workplace'); ?>
 	</div>
 <?php endif; ?>
