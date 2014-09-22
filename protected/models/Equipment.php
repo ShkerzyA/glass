@@ -112,6 +112,7 @@ class Equipment extends CActiveRecord
 				30=>'I.H.U',
 				31=>'Zebra',
 				32=>'Datalogic',
+				33=>'NEC',
 
 				)),
 			'css_class'=>(array(
@@ -148,6 +149,7 @@ class Equipment extends CActiveRecord
 				30=>array('class'=>'c0'),
 				31=>array('class'=>'c14'),
 				32=>array('class'=>'c15'),
+				33=>array('class'=>'c1'),
 				)
 			),
 		);
