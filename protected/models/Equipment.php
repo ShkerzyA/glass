@@ -71,6 +71,8 @@ class Equipment extends CActiveRecord
 			11=>'Телевизор',
 			12=>'Кодек ВКС',
 			13=>'Преобразователь',
+			14=>'Термопринтер',
+			15=>'Сканер штрих-кодов',
 		);
 	}
 
@@ -107,6 +109,9 @@ class Equipment extends CActiveRecord
 				27=>'SonicWall',
 				28=>'Averion',
 				29=>'APC',
+				30=>'I.H.U',
+				31=>'Zebra',
+				32=>'Datalogic',
 
 				)),
 			'css_class'=>(array(
@@ -140,6 +145,9 @@ class Equipment extends CActiveRecord
 				27=>array('class'=>'c8'),
 				28=>array('class'=>'c0'),
 				29=>array('class'=>'c7'),
+				30=>array('class'=>'c0'),
+				31=>array('class'=>'c14'),
+				32=>array('class'=>'c15'),
 				)
 			),
 		);
