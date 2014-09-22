@@ -106,6 +106,7 @@ class Equipment extends CActiveRecord
 				26=>'TP-link',
 				27=>'SonicWall',
 				28=>'Averion',
+				29=>'APC',
 
 				)),
 			'css_class'=>(array(
@@ -138,6 +139,7 @@ class Equipment extends CActiveRecord
 				26=>array('class'=>'c8'),
 				27=>array('class'=>'c8'),
 				28=>array('class'=>'c0'),
+				29=>array('class'=>'c7'),
 				)
 			),
 		);
