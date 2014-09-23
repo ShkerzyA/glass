@@ -131,7 +131,7 @@ class Personnel extends CActiveRecord
 
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
             'workplaces' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
-            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel','alias'=>'personnelPostsHistories','order'=>'"personnelPostsHistories".date_end DESC, "personnelPostsHistories".date_begin DESC'),
+            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel','alias'=>'personnelPostsHistories'),
             'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'creator'),
             'Eventsoper' => array(self::HAS_MANY, 'Eventsoper', 'creator'),
             'MedicalEquipment' => array(self::HAS_MANY, 'MedicalEquipment', 'creator'),
@@ -222,7 +222,6 @@ class Personnel extends CActiveRecord
 
         $criteria=new CDbCriteria;
 
-        $criteria->order='photo ASC, surname ASC';
         $pag=20;
         foreach ($this->attributes as $x) {
         	if(!empty($x)){
@@ -242,7 +241,7 @@ class Personnel extends CActiveRecord
 
 
         $criteria->compare('id',$this->id);
-
+        $criteria->addCondition(array('condition'=>'cabinet.phone is not NULL'));
         $words=explode(" ",$this->allfields);
 
         foreach ($words as $v) {
@@ -256,8 +255,9 @@ class Personnel extends CActiveRecord
             $criteria2->compare('LOWER(cabinet.num)',mb_strtolower($v,'UTF-8'),true, 'OR' );
         $criteria->mergeWith($criteria2);
         }
+
+        $criteria->order='"cabinet".phone ASC';
       
-        $criteria->order='departments.name ASC';
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
