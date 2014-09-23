@@ -4,6 +4,7 @@
 
 $this->breadcrumbs=array(
 	($model->idCabinet->idFloor->idBuilding->bname)=>array("/building/".$model->idCabinet->idFloor->idBuilding->id),
+  ($model->idCabinet->idFloor->fname)=>array("/building/".$model->idCabinet->idFloor->id),
 	($model->idCabinet->cname.' '.$model->idCabinet->num)=>array("/cabinet/".$model->idCabinet->id),
 	$model->wname,
 );
