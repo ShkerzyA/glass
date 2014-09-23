@@ -115,6 +115,7 @@ class Equipment extends CActiveRecord
 				32=>'Datalogic',
 				33=>'NEC',
 				34=>'Allied Telesis',
+				35=>'DNS',
 				99=>'Другое',
 
 				)),
@@ -154,6 +155,7 @@ class Equipment extends CActiveRecord
 				32=>array('class'=>'c15'),
 				33=>array('class'=>'c1'),
 				34=>array('class'=>'c8'),
+				35=>array('class'=>'c0 c1'),
 				99=>array('class'=>'c1 c2 c3 c4 c5 c6 c7 c8 c9 c10 c11 c12 c13 c14 c15 c99'),
 				)
 			),
