@@ -49,6 +49,7 @@ $('.search-form form').submit(function(){
 		'type',
 		'producer',
 		'mark',
+		'status',
 		/*
 		'inv',
 		'status',

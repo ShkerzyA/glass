@@ -244,9 +244,9 @@ class Equipment extends CActiveRecord
 		$criteria->with=array('idWorkplace' => array('alias' => 'workplace'),);
 		$criteria->compare('id',$this->id);
 		if(!empty($_GET['id_workplace']))
-				$criteria->compare('id_workplace',$_GET['id_workplace']);
+				$criteria->compare('workplace.wname',$_GET['id_workplace'],true);
 		else
-				$criteria->compare('id_workplace',$this->id_workplace);
+				$criteria->compare('workplace.wname',$this->id_workplace);
 		$criteria->compare('serial',$this->serial,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('producer',$this->producer);
@@ -254,7 +254,7 @@ class Equipment extends CActiveRecord
 		$criteria->compare('inv',$this->inv,true);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('notes',$this->notes,true);
-		$criteria->compare('workplace.id_workplace',$this->idWorkplaceid_workplace,true);
+		$criteria->compare('workplace.wname',$this->idWorkplaceid_workplace,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_workplace')); ?>:</b>
-	<?php echo CHtml::encode($data->idWorkplace->id_workplace); ?>
+	<?php echo CHtml::encode($data->idWorkplace->wname); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('serial')); ?>:</b>
