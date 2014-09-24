@@ -253,6 +253,8 @@ class Personnel extends CActiveRecord
             $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(cabinet.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(cabinet.num)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(cabinet.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(workplace.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
         $criteria->mergeWith($criteria2);
         }
 
