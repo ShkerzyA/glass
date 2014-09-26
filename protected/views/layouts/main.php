@@ -58,17 +58,17 @@
 				array('label'=>'КККОД', 'url'=>array('/myAdmin/index'), 'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
 				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>
 						array(array('Телефоны','/personnel/phones'),
-							array('Операции','/Eventsoper/plan2'),
+							array('Операции','/Eventsoper/plan2',((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) )),
 							array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
 							array('Кадры', '/personnel/index',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
-							array('Отделы', '/department/tree'),
+							array('Отделы', '/department/tree',!Yii::app()->user->isGuest),
 							)),
                 array('label'=>'Документы', 'url'=>array('/myDocs/index')),
                 array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk')),
                 array('label'=>'События', 'url'=>array(),'submenu'=>array(
                 			array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))),
                 			array('Общественные','/rooms/show?Event_type=events'),
-                			array('Операционные','/rooms/show?Event_type=eventsOpPl'))),
+                			array('Операционные','/rooms/show?Event_type=eventsOpPl',((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) )))),
 				array('label'=>'Админ', 'url'=>array('/admin/index'), 'visible'=>(Yii::app()->user->role=='administrator'))
 			),
 		)); ?>
