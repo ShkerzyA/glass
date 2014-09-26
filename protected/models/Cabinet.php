@@ -29,7 +29,7 @@ class Cabinet extends CActiveRecord
 
 	public static $tree=array(
 		'parent_id'=>'id_floor',
-		'query'=>"SELECT m1.id, m1.cname||'.  каб. №'||m1.num AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM cabinet AS m1 LEFT JOIN workplace AS m2 ON m1.id=m2.id_cabinet",
+		'query'=>"SELECT m1.id, m1.num||' '||m1.cname AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM cabinet AS m1 LEFT JOIN workplace AS m2 ON m1.id=m2.id_cabinet",
 		'group'=>'GROUP BY m1.id  ORDER BY m1.num ASC',
 		'child'=>'Workplace',
 	);
