@@ -3,7 +3,7 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Кадры',
+	'Телефонный справочник',
 );
 if (Yii::app()->user->name=='admin'){
 $this->menu=array(
@@ -29,7 +29,7 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 
 ?>
 
-<p><span style="font-size: 20pt;">Кадры</span>
+<p><span style="font-size: 20pt;">Телефонный справочник</span>
 
 <?php echo CHtml::link($searcimg,'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:block">

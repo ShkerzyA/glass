@@ -19,12 +19,19 @@
 
 	<?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
 
-
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
 <body>
 <?php if(!(Yii::app()->user->isGuest)): ?>
+	<?php if(!empty(Yii::app()->user->bg)): ?>
+	<style>
+		body{
+			background: url("../images/<?php echo Yii::app()->user->bg; ?>") repeat-y fixed;
+			background-size: 100%;
+		}
+	</style>
+	<?php endif; ?>
 	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
 		<?php if((Yii::app()->user->id_pers==19705) or (Yii::app()->user->id_pers==20024)):?>
 			<div id='omsk'><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/nyan_bz.gif"></div>
@@ -38,7 +45,7 @@
 		<div id="auth">
 			<?php $this->widget('application.widgets.GlassAuth'); ?>
 		</div>
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+		<a href="http://10.126.83.87/"><div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div></a>
 </div><!-- header -->
 <div class="container" id="page">
 	<div id="mainmenu">

@@ -24,6 +24,7 @@ class UserIdentity extends CUserIdentity
             $this->username=$user->username;
             $this->setState('username', $user->username);
             $this->setState('startpage', $user->startpage);
+            $this->setState('bg', $user->bg);
             if(!empty($user->personnels)){
                 $this->setState('surname', $user->personnels->surname);
                 $this->setState('name', $user->personnels->name);

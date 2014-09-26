@@ -264,9 +264,12 @@ li:hover + .MyMenuSubmenu,
 	font-family: sans-serif;
 	font-size: 10pt;
 }
+a{
+	text-decoration: none;
+}
+
 .auth a{
 	color: black;	
-	text-decoration: none;
 }
 
 .logout{

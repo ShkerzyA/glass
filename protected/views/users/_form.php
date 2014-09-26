@@ -41,6 +41,14 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'bg'); ?>
+
+		<?php echo $form->textField($model,'bg',array('size'=>250,'maxlength'=>250)); ?>
+
+		<?php echo $form->error($model,'bg'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'id_post'); ?>
 
 		<?php $tmp=UsersPosts::model()->findall();
