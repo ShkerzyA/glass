@@ -27,7 +27,7 @@
 	<?php if(!empty(Yii::app()->user->bg)): ?>
 	<style>
 		body{
-			background: url("../images/<?php echo Yii::app()->user->bg; ?>") repeat-y fixed;
+			background: url("/glass/images/<?php echo Yii::app()->user->bg; ?>") repeat-y fixed;
 			background-size: 100%;
 		}
 	</style>
