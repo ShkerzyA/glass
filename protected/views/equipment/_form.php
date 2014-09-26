@@ -47,22 +47,26 @@ Yii::app()->clientScript->registerPackage('customfields');
 
 
 
+	
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>
 
-		<?php echo $form->dropDownList($model,'type',$model->getType(),array('empty' => '')); ?>
-
+		<?php $tmp=EquipmentType::model()->findall();
+				echo $form->dropDownList($model,"type",CHtml::listData($tmp,"id",function($tmp) {
+				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'type'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'producer'); ?>
 
-		<?php $prod=$model->getProducer();?>
-		<?php echo $form->dropDownList($model,'producer',$prod['values'],array('empty' => '','options'=>$prod['css_class'])); ?>
-
-		<?php echo $form->error($model,'producer'); ?>
+		<?php $tmp=EquipmentProducer::getAll();
+			echo $form->dropDownList($model,'producer',$tmp['values'],array('empty' => '','options'=>$tmp['css_class']));
+		 	echo $form->error($model,'producer'); ?>
 	</div>
+
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'mark'); ?>

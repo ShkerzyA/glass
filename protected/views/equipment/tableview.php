@@ -1,8 +1,8 @@
 <?php
 /* @var $this EquipmentController */
 /* @var $data Equipment */
-$type=$equipments[0]->getType();
-$producer=$equipments[0]->getProducer()['values'];
+//$type=$equipments[0]->getType();
+//$producer=$equipments[0]->getProducer()['values'];
 $status=$equipments[0]->getStatus();
 
 
@@ -29,7 +29,7 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
          }else{
             $edit='';
          }
-   		echo'<tr><td>'.$eq->serial.'</td><td>'.$type[$eq->type].'</td><td>'.$producer[$eq->producer].'</td><td>'.$eq->mark.'</td><td>'.$eq->inv.'</td><td>'.$status[$eq->status].'</td><td>'.$eq->notes.'</td>'.$edit.'</tr>';
+   		echo'<tr><td>'.$eq->serial.'</td><td>'.$eq->type0->name.'</td><td>'.$eq->producer0->name.'</td><td>'.$eq->mark.'</td><td>'.$eq->inv.'</td><td>'.$status[$eq->status].'</td><td>'.$eq->notes.'</td>'.$edit.'</tr>';
    
       }
 ?>

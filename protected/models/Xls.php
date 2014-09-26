@@ -25,8 +25,8 @@ class Xls extends CFormModel{
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'chunkReadFilter.php');
 
-			$type=Equipment::getType();
-			$producer=Equipment::getProducer();
+			//$type=Equipment::getType();
+			//$producer=Equipment::getProducer();
 			$status=Equipment::getStatus();
 
 			$PHPExcel = PHPExcel_IOFactory::load($media.'/eq_tpl.xls');
@@ -44,8 +44,8 @@ class Xls extends CFormModel{
 
 		
 	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row->serial); 
-	$PHPExcel->getActiveSheet()->setCellValue("B$i",$type[$row->type]);
-	$PHPExcel->getActiveSheet()->setCellValue("C$i",$producer['values'][$row->producer]);
+	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row->type0->name);
+	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row->producer0->name);
 	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row->mark);
 	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row->inv);
 	$PHPExcel->getActiveSheet()->setCellValue("F$i",$status[$row->status]);

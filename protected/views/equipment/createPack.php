@@ -79,9 +79,15 @@ Yii::app()->clientScript->registerPackage('customfields');
 <tr>
 <td><?php echo CHtml::activeHiddenField($item,"[$i]id_workplace",array(),$item->id_workplace); ?>
 
-<?php echo CHtml::activedropDownList($item,"[$i]type", $item->getType()); ?></td>
-<?php $prod=$item->getProducer();?>
-<td><?php echo CHtml::activedropDownList($item,"[$i]producer", $prod['values'],array('empty' => '','options'=>$prod['css_class'])); ?></td>
+<?php 
+$tmp=EquipmentType::model()->findall();
+echo CHtml::activedropDownList($item,"[$i]type", CHtml::listData($tmp,"id",function($tmp) {
+				return CHtml::encode($tmp->name);}),array('empty' => '')
+); ?></td>
+
+<td><?php 
+	$tmp=EquipmentProducer::getAll();
+	echo CHtml::activedropDownList($item,"[$i]producer", $tmp['values'],array('empty' => '','options'=>$tmp['css_class'])); ?></td>
 
 <td><?php echo CHtml::activeTextField($item,"[$i]mark",array('maxlength'=>200,'class'=>'marksearch','autocomplete'=>"off")); ?></td>
 <td><?php echo CHtml::activeTextField($item,"[$i]serial"); ?></td>

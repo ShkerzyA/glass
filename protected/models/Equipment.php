@@ -55,113 +55,7 @@ class Equipment extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
-	public static function getType(){
-		return array(
-			0=>'Системный блок',
-			1=>'Монитор',
-			2=>'Принтер',
-			3=>'МФУ',
-			4=>'Копир',
-			5=>'Сканер',
-			6=>'Телефон(IP)',
-			7=>'ИБП',
-			8=>'Коммутатор',
-			9=>'Ноутбук',
-			10=>'Телефон',
-			11=>'Телевизор',
-			12=>'Кодек ВКС',
-			13=>'Преобразователь',
-			14=>'Термопринтер',
-			15=>'Сканер штрих-кодов',
-		);
-	}
 
-	public static function getProducer(){
-		return array(
-			'values'=>(array(
-				0=>'HP',
-				1=>'Samsung',
-				2=>'Xerox',
-				3=>'Kraftway',
-				4=>'Canon',
-				5=>'Asus',
-				6=>'Aquarius',
-				7=>'LG',
-				8=>'AOC',
-				9=>'Acer',
-				10=>'Avaya',
-				11=>'Powercom',
-				12=>'Ippon',
-				13=>'D-link',
-				14=>'Zyxel',
-				15=>'Panasonic',
-				16=>'LifeSize',
-				17=>'Neon',
-				18=>'Philips',
-				19=>'Riello',
-				20=>'MB',
-				21=>'Depo',
-				22=>'Starcom',
-				23=>'Sharp',
-				24=>'Epson',
-				25=>'MOXA',
-				26=>'TP-link',
-				27=>'SonicWall',
-				28=>'Averion',
-				29=>'APC',
-				30=>'I.H.U',
-				31=>'Zebra',
-				32=>'Datalogic',
-				33=>'NEC',
-				34=>'Allied Telesis',
-				35=>'DNS',
-				36=>'Unitech',
-				37=>'Wide',
-
-				)),
-			'css_class'=>(array(
-				0=>array('class'=>'c0 c1 c2 c3 с5 с6 c9'),
-				1=>array('class'=>'c1 c2 c3 c4 c5 c11'),
-				2=>array('class'=>'c2 c3 c4 c5'),
-				3=>array('class'=>'c0 c1'),
-				4=>array('class'=>'c2 c3'),
-				5=>array('class'=>'c1 c9'),
-				6=>array('class'=>'c0 c1'),
-				7=>array('class'=>'c1 c2 c3 c4 c5 c11'),
-				8=>array('class'=>'c1'),
-				9=>array('class'=>'c1 c9'),
-				10=>array('class'=>'c6'),
-				11=>array('class'=>'c7'),
-				12=>array('class'=>'c7'),
-				13=>array('class'=>'c8'),
-				14=>array('class'=>'c8'),
-				15=>array('class'=>'c10'),
-				16=>array('class'=>'c12'),
-				17=>array('class'=>'c0'),
-				18=>array('class'=>'c1'),
-				19=>array('class'=>'c7'),
-				20=>array('class'=>'c3'),
-				21=>array('class'=>'c0'),
-				22=>array('class'=>'c0'),
-				23=>array('class'=>'c3'),
-				24=>array('class'=>'c5 c2'),
-				25=>array('class'=>'c13'),
-				26=>array('class'=>'c8'),
-				27=>array('class'=>'c8'),
-				28=>array('class'=>'c0'),
-				29=>array('class'=>'c7'),
-				30=>array('class'=>'c0'),
-				31=>array('class'=>'c14'),
-				32=>array('class'=>'c15'),
-				33=>array('class'=>'c1'),
-				34=>array('class'=>'c8'),
-				35=>array('class'=>'c0 c1'),
-				36=>array('class'=>'c15'),
-				37=>array('class'=>'c1'),
-				)
-			),
-		);
-	}
 
 	public static function getStatus(){
 		return array(
@@ -199,6 +93,8 @@ class Equipment extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'idWorkplace' => array(self::BELONGS_TO, 'Workplace', 'id_workplace'),
+			'type0' => array(self::BELONGS_TO, 'EquipmentType', 'type'),
+			'producer0' => array(self::BELONGS_TO, 'EquipmentProducer', 'producer'),
 		);
 	}
 
@@ -228,7 +124,7 @@ class Equipment extends CActiveRecord
 
 	public function search_for_export(){
 		$criteria=new CDbCriteria;
-		$criteria->with=array('idWorkplace','idWorkplace.idPersonnel','idWorkplace.idCabinet.idFloor.idBuilding'); // 
+		$criteria->with=array('type0','producer0','idWorkplace.idPersonnel','idWorkplace.idCabinet.idFloor.idBuilding'); // 
 		//$criteria->compare('personnel.creator',$this->creator0creator,true);
 		return self::model()->findAll($criteria);
 	}
@@ -239,7 +135,6 @@ class Equipment extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-
 		$criteria->with=array('idWorkplace' => array('alias' => 'workplace'),);
 		$criteria->compare('id',$this->id);
 		if(!empty($_GET['id_workplace']))

@@ -48,7 +48,9 @@ $this->menu['all_menu']=array(
 
 	array('title'=>'Оборудование','items'=>array(
 		array('label'=>'Оборудование', 'url'=>array('/equipment/admin')), 
-		array('label'=>'Оборудование (экспорт всего)', 'url'=>array('/equipment/export'),'htmlOptions'=>array('target'=>'_blank')),
+		array('label'=>'Об./Тип', 'url'=>array('/equipmentType/admin')), 
+		array('label'=>'Об./Производитель', 'url'=>array('/equipmentProducer/admin')), 
+		array('label'=>'Об./Экспорт', 'url'=>array('/equipment/export'),'htmlOptions'=>array('target'=>'_blank')),
 		array('label'=>'Мед. Оборудование', 'url'=>array('/medicalEquipment/admin')),
 
 	)),
