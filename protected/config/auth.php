@@ -333,9 +333,8 @@ return array (
       7 => 'monitoringOper',
       8 => 'saveStatus',
       9 => 'saveStatusEv',
-      10 => 'otdReport',
-      11 => 'updateEv',
-      12 => 'updateTs',
+      10 => 'updateEv',
+      11 => 'updateTs',
     ),
   ),
   'administrator' => 
