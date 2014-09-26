@@ -634,12 +634,11 @@ select{
 }
 
 .portlet-decoration{
-	background: #0F0F4D;
-	border-left: 5px solid white;
+	background: gray;
+	border-left: 0px solid black;
 	box-shadow: 1px 1px 3px black;
 
-	background: url(../images/portlet_bg.png) no-repeat;
-	background-size: 100% 100%;
+	background: url(../images/portlet_bg.png) repeat;
 }
 
 .portlet-decoration, .portlet-content{
