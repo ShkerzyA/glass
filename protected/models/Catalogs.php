@@ -35,9 +35,9 @@ class Catalogs extends CActiveRecord
 	public static $multifield=array('groups');
 	
 	public $docsid_catalog;
-public $idParentid_parent;
-public $catalogsid_parent;
-public $owner0owner;
+	public $idParentid_parent;
+	public $catalogsid_parent;
+	public $owner0owner;
 
 
 	public static function model($className=__CLASS__)
@@ -61,6 +61,14 @@ public $owner0owner;
 	/**
 	 * @return string the associated database table name
 	 */
+	public function getType(){
+		$status=array(  0 => '1 тип',
+						1 => '2 тип',
+						2 => '3 тип',
+						3 => '4 тип');
+		return $status;
+	}
+
 	public function tableName()
 	{
 		return 'catalogs';
@@ -74,13 +82,13 @@ public $owner0owner;
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_parent, owner', 'numerical', 'integerOnly'=>true),
+			array('id_parent, owner, type', 'numerical', 'integerOnly'=>true),
 			array('cat_name', 'length', 'max'=>100),
 			array('groups', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_parent, cat_name, owner, groups,docsid_catalog,idParentid_parent,catalogsid_parent,owner0owner', 'safe', 'on'=>'search'),
+			array('id, id_parent, cat_name, owner, type, groups,docsid_catalog,idParentid_parent,catalogsid_parent,owner0owner', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -110,6 +118,7 @@ public $owner0owner;
 			'cat_name' => 'Название каталога',
 			'owner' => 'Владелец',
 			'groups' => 'Группы',
+			'type' => 'Тип',
 			'docsid_catalog' => 'id_catalog',
 			'idParentid_parent' => 'Родительский каталог',
 			'catalogsid_parent' => 'Дочерние каталоги',
@@ -127,18 +136,17 @@ public $owner0owner;
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-
 		$criteria->with=array('docs' => array('alias' => 'docs'),'idParent' => array('alias' => 'catalogsP'),'catalogs' => array('alias' => 'catalogs'),'owner0' => array('alias' => 'personnel'),);
 		$criteria->compare('id',$this->id);
 		if(!empty($_GET['id_parent']))
-				$criteria->compare('t.id_parent',$_GET['id_parent']);
+			$criteria->compare('t.id_parent',$_GET['id_parent']);
 		else
-				$criteria->compare('t.id_parent',$this->id_parent);
+			$criteria->compare('t.id_parent',$this->id_parent);
 		$criteria->compare('cat_name',$this->cat_name,true);
 		if(!empty($_GET['owner']))
-				$criteria->compare('owner',$_GET['owner']);
+			$criteria->compare('owner',$_GET['owner']);
 		else
-				$criteria->compare('owner',$this->owner);
+			$criteria->compare('owner',$this->owner);
 		$criteria->compare('groups',$this->groups,true);
 		$criteria->compare('docs.id_catalog',$this->docsid_catalog,true);
 		$criteria->compare('catalogsP.id',$this->idParentid_parent,true);

@@ -27,6 +27,19 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 		<?php echo $form->error($model,'id_parent'); ?>
 	</div>
 
+<?php if(Yii::app()->user->role=='administrator'):?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'type'); ?>
+
+		<?php echo $form->dropDownList($model,'type',$model->getType(),
+              array('empty' => '')); ?>
+
+		<?php echo $form->error($model,'type'); ?>
+	</div>
+<?php endif; ?>
+
+
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'cat_name'); ?>
 

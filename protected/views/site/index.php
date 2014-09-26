@@ -6,10 +6,6 @@ $this->pageTitle=Yii::app()->name;
 
 ?>
 
-<video controls>
-	<source src="rtsp://localhost:8554/glass" type='video/webm; codecs="vp8, vorbis"' />
-Your browser does not support the VIDEO tag and/or RTSP streams.
-</video>
 
 <!-- <video controls>
   <source src="movie.webm" type='video/webm; codecs="vp8, vorbis"' />
