@@ -62,10 +62,10 @@ class Catalogs extends CActiveRecord
 	 * @return string the associated database table name
 	 */
 	public function getType(){
-		$status=array(  0 => '1 тип',
-						1 => '2 тип',
-						2 => '3 тип',
-						3 => '4 тип');
+		$status=array(  0 => 'приказы',
+						1 => 'внутренние',
+						2 => 'входящие',
+						3 => 'исходящие');
 		return $status;
 	}
 
