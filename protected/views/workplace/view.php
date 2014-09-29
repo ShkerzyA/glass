@@ -14,10 +14,14 @@ $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
 	array('label'=>'Создать', 'url'=>array('create')),
 	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Управление', 'url'=>array('admin')),
+	
 );
 }
+if(Yii::app()->user->checkAccess('administrator')){
+    $this->menu[]=array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?'));
+    $this->menu[]=array('label'=>'Управление', 'url'=>array('admin'));
+}
+
 ?>
 
 <h1><?php  echo $model->wname.' (тел. '.$model->phone.')';?></h1> 
