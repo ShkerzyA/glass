@@ -19,9 +19,9 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_cabinet'); ?>
 
-		<?php $tmp=Cabinet::model()->findall();
+		<?php $tmp=Cabinet::model()->with('idFloor.idBuilding')->findall(array('order'=>'"idBuilding".bname ASC, "idFloor".fname ASC, t.num ASC'));
 echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->cname.' '.$tmp->num);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->idFloor->idBuilding->bname.'/'.$tmp->idFloor->fname.'/'.$tmp->num.' '.$tmp->cname);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_cabinet'); ?>
 	</div>
 
