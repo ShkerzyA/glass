@@ -68,7 +68,7 @@ class Cabinet extends CActiveRecord
 		return array(
 			array('id_floor', 'required'),
 			array('id_floor', 'numerical', 'integerOnly'=>true),
-			array('cname', 'length', 'max'=>50),
+			array('cname', 'length', 'max'=>200),
 			array('num', 'length', 'max'=>10),
 			array('phone', 'length', 'max'=>100),
 		
