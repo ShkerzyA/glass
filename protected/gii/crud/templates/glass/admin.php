@@ -11,6 +11,7 @@
 <?php
 $label='$model::$modelLabelP';
 echo "\$this->breadcrumbs=array(
+	'Администрирование'=>array('/admin/index'),
 	$label=>array('index'),
 	'Управление',
 );\n";

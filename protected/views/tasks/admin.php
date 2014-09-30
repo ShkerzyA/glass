@@ -3,6 +3,7 @@
 /* @var $model Tasks */
 
 $this->breadcrumbs=array(
+	'Администрирование'=>array('/admin/index'),
 	$model::$modelLabelP=>array('index'),
 	'Управление',
 );
