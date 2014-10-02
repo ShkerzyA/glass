@@ -51,7 +51,7 @@ class EquipmentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','createPack','update','markSearch','export','delete'),
+				'actions'=>array('create','createPack','update','markSearch','export','delete','garant'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -163,6 +163,7 @@ class EquipmentController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$alt_model=clone $model;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -170,8 +171,17 @@ class EquipmentController extends Controller
 		if(isset($_POST['Equipment']))
 		{
 			$model->attributes=$_POST['Equipment'];
-			if($model->save())
+			if($model->save()){
+				if($alt_model->id_workplace!=$model->id_workplace){
+					$log=new EquipmentLog;
+					$log->type=0;
+					$log->object=$model->id;
+					$log->details=$model->id_workplace;
+					$log->save();
+				}
 				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
+			}
+		
 		}
 
 		$this->render('update',array(
@@ -220,9 +230,20 @@ class EquipmentController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Equipment');
+	
+		/*	$dataProvider=new CActiveDataProvider('Equipment');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider, 'modelLabelP'=>Equipment::$modelLabelP,
+		)); */
+
+
+		$model=new Equipment('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Equipment']))
+			$model->attributes=$_GET['Equipment'];
+
+		$this->render('index',array(
+			'model'=>$model,
 		));
 	}
 
@@ -254,6 +275,27 @@ class EquipmentController extends Controller
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
+	}
+
+
+	public function actionGarant(){
+		$criteria=new CDbCriteria;
+		$criteria->addCondition(array('condition'=>'t.mark LIKE(\'%1536%\') and t.notes not LIKE (\'%гарантия до%\')'));
+		$model=Equipment::model()->find($criteria);
+
+		if(empty($model))
+			$this->redirect(array('/'));
+
+		echo $model->id.'\\'.$model->mark;
+		$html = file_get_contents('http://h10025.www1.hp.com/ewfrf/wc/weResults?tmp_weCountry=ru&tmp_weSerial='.$model->serial.'&tmp_weProduct=CE538A&cc=ru&dlc=ru&lc=ru&product=');
+		$result = preg_match('/>.*(ГГГГ-ММ-ДД)/', $html,$found); 
+		$result2 = preg_match('/\d{4}-\d{2}-\d{2}/', $found[0], $res); 
+		echo '<br>'.$res[0];
+
+		$model->notes=$model->notes."\n гарантия до: ".$res[0];
+		$model->save();
+		echo '<meta http-equiv="Refresh" content="1" />';
+
 	}
 
 	/**

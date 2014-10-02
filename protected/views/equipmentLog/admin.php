@@ -1,8 +1,9 @@
 <?php
-/* @var $this EquipmentController */
-/* @var $model Equipment */
+/* @var $this EquipmentLogController */
+/* @var $model EquipmentLog */
 
 $this->breadcrumbs=array(
+	'Администрирование'=>array('/admin/index'),
 	$model::$modelLabelP=>array('index'),
 	'Управление',
 );
@@ -20,7 +21,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#equipment-grid').yiiGridView('update', {
+	$('#equipment-log-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -39,23 +40,16 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'equipment-grid',
+	'id'=>'equipment-log-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array( 'name'=>'idWorkplaceid_workplace', 'value'=>'$data->idWorkplace->idCabinet->idFloor->idBuilding->bname.\'\ \'.$data->idWorkplace->idCabinet->idFloor->fname.\'\ \'.$data->idWorkplace->idCabinet->num.\' \'.$data->idWorkplace->idCabinet->cname' ),
-		'serial',
+		'timestamp',
+		array( 'name'=>'subject0subject', 'value'=>'$data->subject0->surname' ),
+		array( 'name'=>'object0object', 'value'=>'$data->object0->mark' ),
 		'type',
-		'producer',
-		'mark',
-		'status',
-		'notes',
-		/*
-		'inv',
-		'status',
-		
-		*/
+		'details',
 		array(
 			'class'=>'CButtonColumn',
 		),

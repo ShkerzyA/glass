@@ -182,15 +182,6 @@ if (!empty($rel)){
 
 foreach($columns as $name=>$column)
 {
-	
-
-
-	if(!empty($fk))
-	if (in_array($name,$fk)){
-		echo "\t\tif(!empty(\$_GET['$name']))
-		\t\t\$criteria->compare('$name',\$_GET['$name']);
-		else\n\t\t";
-	}
 
 	if($column->type==='string')
 	{

@@ -17,28 +17,33 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'id_workplace'); ?>
-		<?php echo $form->textField($model,'id_workplace'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'serial'); ?>
 		<?php echo $form->textField($model,'serial',array('size'=>60,'maxlength'=>100)); ?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->textField($model,'type'); ?>
+<div class="row">
+		<?php echo $form->labelEx($model,'type'); ?>
+
+		<?php $tmp=EquipmentType::model()->findall();
+				echo $form->dropDownList($model,"type",CHtml::listData($tmp,"id",function($tmp) {
+				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
+		<?php echo $form->error($model,'type'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'producer'); ?>
-		<?php echo $form->textField($model,'producer'); ?>
+		<?php echo $form->labelEx($model,'producer'); ?>
+
+		<?php $tmp=EquipmentProducer::getAll();
+			echo $form->dropDownList($model,'producer',$tmp['values'],array('empty' => '','options'=>$tmp['css_class']));
+		 	echo $form->error($model,'producer'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'mark'); ?>
-		<?php echo $form->textField($model,'mark',array('size'=>60,'maxlength'=>200)); ?>
+		<?php echo $form->labelEx($model,'mark'); ?>
+
+		<?php echo $form->textField($model,'mark',array('size'=>60,'maxlength'=>200,'class'=>'marksearch','autocomplete'=>"off")); ?>
+
+		<?php echo $form->error($model,'mark'); ?>
 	</div>
 
 	<div class="row">
@@ -47,14 +52,17 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
-	</div>
+		<?php echo $form->labelEx($model,'status'); ?>
 
+		<?php echo $form->dropDownList($model,'status',$model->getStatus()); ?>
+
+		<?php echo $form->error($model,'status'); ?>
+	</div>
+	
 	<div class="row">
 		<?php echo $form->label($model,'notes'); ?>
-		<?php echo $form->textArea($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
+		<?php echo $form->textField($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
+	</div> 
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Искать'); ?>

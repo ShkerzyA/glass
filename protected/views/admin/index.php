@@ -51,6 +51,7 @@ $this->menu['all_menu']=array(
 		array('label'=>'Об./Тип', 'url'=>array('/equipmentType/admin')), 
 		array('label'=>'Об./Производитель', 'url'=>array('/equipmentProducer/admin')), 
 		array('label'=>'Об./Экспорт', 'url'=>array('/equipment/export'),'htmlOptions'=>array('target'=>'_blank')),
+		array('label'=>'Об./ Лог', 'url'=>array('/equipmentLog/admin')),
 		array('label'=>'Мед. Оборудование', 'url'=>array('/medicalEquipment/admin')),
 
 	)),

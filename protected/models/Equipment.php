@@ -136,7 +136,7 @@ class Equipment extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 		$criteria->with=array('idWorkplace' => array('alias' => 'workplace'),);
-		$criteria->compare('id',$this->id);
+		$criteria->compare('t.id',$this->id);
 		if(!empty($_GET['id_workplace']))
 				$criteria->compare('workplace.wname',$_GET['id_workplace'],true);
 		else

@@ -26,6 +26,7 @@ class Tasks extends CActiveRecord
 	public static $modelLabelS='Задача';
 	public static $modelLabelP='Задачи';
 	public static $multifield=array('executors');
+	public static $db_array=array('group');
 	
 	public $creator0creator;
 	public $executor0executor;
