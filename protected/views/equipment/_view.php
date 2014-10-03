@@ -9,39 +9,40 @@
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id_workplace')); ?>:</b>
-	<?php echo CHtml::link($data->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$data->idWorkplace->idCabinet->idFloor->fname.'/'.$data->idWorkplace->idCabinet->num.' '.$data->idWorkplace->idCabinet->cname.'/'.$data->idWorkplace->wname, array('/Workplace/view/', 'id'=>$data->id_workplace)); ?>
-	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('serial')); ?>:</b>
-	<?php echo CHtml::encode($data->serial); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
-	<?php echo CHtml::encode($data->type0->name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('producer')); ?>:</b>
-	<?php echo CHtml::encode($data->producer0->name); ?>
-	<br />
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('mark')); ?>:</b>
-	<?php echo CHtml::encode($data->mark); ?>
-	<br />
+	<?php echo CHtml::link($data->serial, array('view', 'id'=>$data->id)); ?> 
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('inv')); ?>:</b>
 	<?php echo CHtml::encode($data->inv); ?>
+	<br />
+
+	<?php 
+		$wname=(!empty($data->idWorkplace->idPersonnel))?$data->idWorkplace->idPersonnel->fio():$data->idWorkplace->wname;
+	?>
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id_workplace')); ?>:</b>
+	<?php echo CHtml::link($data->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$data->idWorkplace->idCabinet->idFloor->fname.'/'.$data->idWorkplace->idCabinet->num.' '.$data->idWorkplace->idCabinet->cname.'/'.$wname, array('/Workplace/view/', 'id'=>$data->id_workplace)); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('type')); ?>:</b>
+	<?php echo CHtml::encode($data->type0->name); ?>/
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('producer')); ?>:</b>
+	<?php echo CHtml::encode($data->producer0->name); ?>/
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('mark')); ?>:</b>
+	<?php echo CHtml::encode($data->mark); ?> <br>
+
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
+	<?php echo CHtml::encode($status[$data->status]); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('notes')); ?>:</b>
 	<?php echo CHtml::encode($data->notes); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($status[$data->status]); ?>
-	<br />
 
 
 	<?php if($data->type==3 and $data->producer==0):?>

@@ -7,12 +7,6 @@ $this->breadcrumbs=array(
 	''.$modelLabelP,
 );
 
-$this->menu=array(
-	array('label'=>'Создать', 'url'=>array('create')),
-	array('label'=>'Управление', 'url'=>array('admin')),
-);
-
-
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

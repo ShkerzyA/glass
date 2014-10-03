@@ -38,7 +38,12 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+
+
+<?php 
+$status=Equipment::getStatus();
+
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'equipment-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
@@ -46,16 +51,13 @@ $('.search-form form').submit(function(){
 		'id',
 		array( 'name'=>'idWorkplaceid_workplace', 'value'=>'$data->idWorkplace->idCabinet->idFloor->idBuilding->bname.\'\ \'.$data->idWorkplace->idCabinet->idFloor->fname.\'\ \'.$data->idWorkplace->idCabinet->num.\' \'.$data->idWorkplace->idCabinet->cname' ),
 		'serial',
-		'type',
-		'producer',
+		array('name'=>'type', 'value'=>'$data->type0->name'),
+		array('name'=>'producer', 'value'=>'$data->producer0->name'),
 		'mark',
-		'status',
+		array('name'=>'status', 'value'=>function($data) use ($status) {
+            return $status[$data->status];}),
 		'notes',
-		/*
-		'inv',
-		'status',
 		
-		*/
 		array(
 			'class'=>'CButtonColumn',
 		),
