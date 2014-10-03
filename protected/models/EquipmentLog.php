@@ -54,7 +54,7 @@ class EquipmentLog extends CActiveRecord
 			'DbArray'=>array(
 				'class'=>'application.behaviors.DbArrayBehavior',
 				),
-			);
+		);
 	}
 
 

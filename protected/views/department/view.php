@@ -7,14 +7,11 @@ $this->breadcrumbs=array(
 	$model->name,
 );
 
-/*
+
 $this->menu=array(
-	array('label'=>'List Department', 'url'=>array('index')),
-	array('label'=>'Create Department', 'url'=>array('create')),
-	array('label'=>'Update Department', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Department', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Department', 'url'=>array('admin')),
-);*/
+	array('label'=>'Актуально', 'url'=>array('','id'=>$model->id,'showH'=>0)),
+	array('label'=>'История', 'url'=>array('','id'=>$model->id,'showH'=>1)),
+);
 ?>
 
 <h1><?php echo $model->name; ?></h1> <a href=<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=<?php echo $model->id ?>><div class="add_unit fl_right" id="add_task">добавить заявку</div></a>
@@ -26,12 +23,16 @@ $this->menu=array(
 		<td>Сотрудники:</td>
 <?php
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
-	if(!empty($DepPosts)){
-		foreach($DepPosts as $dp){
+	if(!empty($model->departmentPosts)){
+		foreach($model->departmentPosts as $dp){
 			echo "<tr><td class='persList'>";
 			if (!empty($dp->islead))
 				echo '<b>';
-			echo $dp->post." (".$dp->rate.")</b></td><td class='persList'>";
+			if ($dp->inactive())
+					echo '<span style="text-decoration: line-through">';
+				else
+					echo '<span>';
+			echo $dp->post." (".$dp->rate.")</span></b></td><td class='persList'>";
 			if(!empty($dp->personnelPostsHistories)){
 			foreach($dp->personnelPostsHistories as $personnelPh){
 

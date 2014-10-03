@@ -58,17 +58,28 @@ class DepartmentController extends Controller
 	}
 
 
-	public function actionView($id)
+	public function actionView($id,$showH=0)
 	{
-		$this->layout='//layouts/column1';
-		$model=$this->loadModel($id);
-		$criteria=new CDbCriteria(array(
+        $this->layout='//layouts/column2';
+		$scopes=($showH==1)?array():array('working');
+
+		$model=Department::model()->with(array(
+			'departmentPosts'=>array(
+        		'scopes'=>$scopes,
+				'order'=>'"departmentPosts".islead DESC',
+				),
+			'departmentPosts.personnelPostsHistories'=>array(
+        		'scopes'=>$scopes,
+        		'order'=>'"personnelPostsHistories".date_end DESC'),
+			))->findByPk($id);
+
+		/*$criteria=new CDbCriteria(array(
         'with'=>'commentCount',
-    	));
+    	)); */
 
 		//$DepPosts=DepartmentPosts::model()->with('idDepartment','personnelPostsHistories')->working()->findAll(array('condition'=>"id_department=$id",'order'=>'islead DESC'));
 		
-
+		/*
 		$DepPosts=DepartmentPosts::model()->working()->	with(array(
     'personnelPostsHistories'=>array(
        // 'select'=>True,
@@ -76,13 +87,10 @@ class DepartmentController extends Controller
         'alias'=>'personnelPostsHistories',
         'order'=>'"personnelPostsHistories".date_end DESC'
     ),
-))->findAll(array('condition'=>"post_subdiv_rn='$model->subdiv_rn'",'order'=>'islead DESC, t.date_begin ASC'));
-
-
+))->findAll(array('condition'=>"post_subdiv_rn='$model->subdiv_rn'",'order'=>'islead DESC, t.date_begin ASC')); */
 
 
 		$this->render('view',array(
-			'DepPosts'=>$DepPosts,
 			'model'=>$model,
 		));
 	}
