@@ -59,9 +59,10 @@ if($this->isHorn)
 		<?php $status=$v->gimmeStatus(); 
 		?>
 		<div class="taskpanel <?php echo $status['css_class']; ?>">
-			<a href=/glass/tasks/<?php echo $v->id; ?>>
+			<span><a href=/glass/tasks/<?php echo $v->id; ?>>
 			<?php echo $v['tname']; ?>
 			</a>
+			<div class="texttask rotated"><pre><?php echo $v['ttext']; ?></pre></div></span>
 			<div  class="rightinfo">
 				<?php 	
 						echo'<div class="taskmoreinfo"> <img height=100% src="';

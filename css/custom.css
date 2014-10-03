@@ -112,12 +112,95 @@
 	background: #f7f7f6;
 	border: 2px solid grey;
 	border-radius: 4px;
-
-
 }
 
 .taskmoreinfo:hover .hiddeninfotask{
 	display: block;
+}
+
+.texttask{
+	position: absolute;
+	z-index: 5;
+	background: #fcfcfc;
+	display: none;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;
+	transition: opacity .4s ease 0s, height .4s ease 0s;
+}
+.taskpanel:hover{
+	z-index: 4;
+}
+
+.taskpanel span:hover .texttask{
+	display: block;
+}
+
+
+.rotated {
+    padding:1em;
+    margin:2em 10px 4em;
+    background:#fff;
+    border-radius:4px;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+    -moz-border-radius:4px;
+    -webkit-box-shadow:none;
+       -moz-box-shadow:none;
+            box-shadow:none;
+    -webkit-transform:rotate(-3deg);
+       -moz-transform:rotate(-3deg);
+        -ms-transform:rotate(-3deg);
+         -o-transform:rotate(-3deg);
+            transform:rotate(-3deg);
+}
+ 
+.rotated > :first-child:before {
+    content:"";
+    position:absolute;
+    z-index:-1;
+    top:0px;
+    bottom:0;
+    left:0;
+    right:0px;
+    background:#fff;
+    -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+       -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+            box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}      
+ 
+.rotated:before,
+.rotated:after {
+        content:"";
+        position:absolute;
+        z-index:-2;
+        bottom:15px;
+        left:10px;
+        width:50%;
+        height:20%;
+        max-width:300px;
+    -webkit-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+       -moz-box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+            box-shadow:0 15px 10px rgba(0, 0, 0, 0.7);
+    -webkit-transform:rotate(-3deg);
+       -moz-transform:rotate(-3deg);
+        -ms-transform:rotate(-3deg);
+         -o-transform:rotate(-3deg);
+            transform:rotate(-3deg);
+}
+ 
+.rotated:after {
+    right:10px;
+    left:auto;
+    -webkit-transform:rotate(3deg);
+       -moz-transform:rotate(3deg);
+        -ms-transform:rotate(3deg);
+         -o-transform:rotate(3deg);
+            transform:rotate(3deg);
+}
+ 
+.rotated p {
+        font-size:16px;
+        font-weight:bold;
 }
 
 
@@ -601,7 +684,6 @@ select{
 .done{
 	background: #ebf4e6;
 	z-index: 1;
-
  	position: relative;
 }
 
