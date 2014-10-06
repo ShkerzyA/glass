@@ -172,7 +172,7 @@ class Personnel extends CActiveRecord
 	 */
 
 
-        public function search()
+    public function search_ffff()
     {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
@@ -244,7 +244,6 @@ class Personnel extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-        echo 'fuu';
         $criteria=new CDbCriteria;
         $criteria->with=array(
             'idUser' => array('alias' => 'users'),
