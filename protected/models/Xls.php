@@ -18,6 +18,7 @@ class Xls extends CFormModel{
 
     public function exportEq($data){
 
+		$tpl=Yii::getPathOfAlias('webroot').'/tpl';
 		$media=Yii::getPathOfAlias('webroot.media');
     	$phpExcelPath = Yii::getPathOfAlias('ext.PHPExcel.Classes');
 		spl_autoload_unregister(array('YiiBase','autoload'));
@@ -29,7 +30,7 @@ class Xls extends CFormModel{
 			//$producer=Equipment::getProducer();
 			$status=Equipment::getStatus();
 
-			$PHPExcel = PHPExcel_IOFactory::load($media.'/eq_tpl.xls');
+			$PHPExcel = PHPExcel_IOFactory::load($tpl.'/eq_tpl.xls');
 			$PHPExcel->getProperties()
 	    	->setCreator("ebdp")
 	    	->setLastModifiedBy("ebdp")
@@ -110,6 +111,7 @@ class Xls extends CFormModel{
 
     public function exportMedEq($data){
 
+		$tpl=Yii::getPathOfAlias('webroot').'/tpl';
 		$media=Yii::getPathOfAlias('webroot.media');
     	$phpExcelPath = Yii::getPathOfAlias('ext.PHPExcel.Classes');
 		spl_autoload_unregister(array('YiiBase','autoload'));
@@ -117,7 +119,7 @@ class Xls extends CFormModel{
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'chunkReadFilter.php');
 
-			$PHPExcel = PHPExcel_IOFactory::load($media.'/med_eq_tpl.xls');
+			$PHPExcel = PHPExcel_IOFactory::load($tpl.'/med_eq_tpl.xls');
 			$PHPExcel->getProperties()
 	    	->setCreator("ebdp")
 	    	->setLastModifiedBy("ebdp")
