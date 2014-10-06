@@ -628,16 +628,19 @@ select{
 	margin-left: 10%;
 }
 
-.taskpanel{
+.taskpanel, .perspanel{
 	color: #06c;
 	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
 	border-radius: 2px;
 	padding: 2px;
+	padding-left: 5px;
 	background: #fcfcfc;
 	margin: 5px;
 	margin-top: 10px;
+	height: 18px;
 	width: auto;
 	position: relative;
+	overflow: hidden;
 }
 
 .hipanel{
@@ -1044,6 +1047,8 @@ td .week_event{
 }
 
 
+
+
 .br_gray{
 	border: 3px solid gray;
 }
@@ -1058,6 +1063,10 @@ td .week_event{
 }
 
 
+div.search-form{
+	margin: 0px;
+	padding: 0px;
+}
 
 /*
 

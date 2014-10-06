@@ -32,7 +32,7 @@ class PersonnelController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','phones','rootFillTree','AjaxFillTree','depposts','surnameSearch','suggest'),
+				'actions'=>array('index','tiles','view','phones','rootFillTree','AjaxFillTree','depposts','surnameSearch','suggest'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -205,13 +205,22 @@ class PersonnelController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Personnel']))
 		$model->attributes=$_GET['Personnel'];
-
-
 		$this->render('index',array(
 			'model'=>$model,
 		));
+	}
 
+		public function actionTiles()
+	{
 
+		$this->layout='//layouts/column1';
+		$model=new Personnel('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Personnel']))
+		$model->attributes=$_GET['Personnel'];
+		$this->render('tiles',array(
+			'model'=>$model,
+		));
 	}
 
 		public function actionPhones()

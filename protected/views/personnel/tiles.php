@@ -32,7 +32,7 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 <p><span style="font-size: 20pt;">Кадры</span>
 
 <?php echo CHtml::link($searcimg,'#',array('class'=>'search-button')); ?>
-<div class="search-form" style="display:block">
+<div class="search-form" style="display:none">
 <?php $this->renderPartial('_uni_search',array(
 	'model'=>$model,
 )); ?>
@@ -44,5 +44,5 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 
 $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$model->search(),
-	'itemView'=>'_indexview',
+	'itemView'=>'_tileview',
 )); ?>

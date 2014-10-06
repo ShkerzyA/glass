@@ -170,45 +170,42 @@ class Personnel extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 
+    private function criteria()
+    {
+
+       
+    }
+
+
     public function search()
     {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
-
         $criteria=new CDbCriteria;
+        $criteria->with=array(
+            'idUser' => array('alias' => 'users'),
+            'workplaces' => array('alias' => 'workplace'),
+            'workplaces.idCabinet' => array('alias' => 'cabinet'),
+            'personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL"),);
 
-        $criteria->order='t.photo ASC, t.surname ASC';
+        $criteria->compare('id',$this->id);
+        $words=explode(" ",$this->allfields);
 
-        $criteria->with=array('idUser' => array('alias' => 'users'),'workplaces' => array('alias' => 'workplace'),'personnelPostsHistories' => array('alias' => 'personnelPostsHistories'));
-        $criteria->compare('LOWER(t.surname)',mb_strtolower($this->surname,'UTF-8'),true);
-        $criteria->compare('LOWER(t.name)',mb_strtolower($this->name,'UTF-8'),true);
-        $criteria->compare('LOWER(t.patr)',mb_strtolower($this->patr,'UTF-8'),true);
-        $criteria->compare('birthday',$this->birthday,true);
-        $criteria->compare('date_begin',$this->date_begin,true);
-        $criteria->compare('date_end',$this->date_end,true);
-        $criteria->compare('photo',$this->photo,true);
-        $criteria->compare('orbase_rn',$this->orbase_rn,true);
-        $criteria->compare('sex',$this->sex);
-        if(!empty($_GET['id_user']))
-                $criteria->compare('id_user',$_GET['id_user']);
-        else
-                $criteria->compare('id_user',$this->id_user);
-
-        if(!empty($_GET['id_personnel']))
-                $criteria->compare('t.id',$_GET['id_personnel']);
-        else
-                $criteria->compare('t.id',$this->id); 
-        $criteria->compare('users.username',$this->idUserid_user,true);
-        $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
-        $criteria->compare('personnelPostsHistories.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
-        
-
+        foreach ($words as $v) {
+        $criteria2=new CDbCriteria;
+            $criteria2->compare('LOWER(surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(t.name)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(cabinet.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(cabinet.num)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(cabinet.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(workplace.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+        $criteria->mergeWith($criteria2);
+        }
+        $criteria->order='"t".surname ASC';
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
             'pagination'=>array(
-            	'pageSize'=>9
+                'pageSize'=>20,
             ),
         ));
     }
@@ -219,36 +216,23 @@ class Personnel extends CActiveRecord
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
-
         $criteria=new CDbCriteria;
-
-        $pag=20;
-        foreach ($this->attributes as $x) {
-        	if(!empty($x)){
-        		$pag=100;
-        		break;
-        	}
-        }
-        
-
         $criteria->with=array(
             'idUser' => array('alias' => 'users'),
             'workplaces' => array('alias' => 'workplace'),
             'workplaces.idCabinet' => array('alias' => 'cabinet'),
-            'personnelPostsHistories' => array('alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL",'together'=>True),
+            'personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL",'together'=>True),
             'personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
             'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
 
-
         $criteria->compare('id',$this->id);
-        $criteria->addCondition(array('condition'=>'cabinet.phone is not NULL'));
         $words=explode(" ",$this->allfields);
 
         foreach ($words as $v) {
         $criteria2=new CDbCriteria;
-            $criteria2->compare('LOWER(surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(t.surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(t.name)',mb_strtolower($v,'UTF-8'),true, 'OR');
-            $criteria2->compare('LOWER(patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(t.patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(department_posts.post)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(cabinet.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
@@ -258,7 +242,16 @@ class Personnel extends CActiveRecord
         $criteria->mergeWith($criteria2);
         }
 
+        $criteria->addCondition(array('condition'=>'cabinet.phone is not NULL or workplace.phone is not NULL'));
         $criteria->order='"cabinet".phone ASC';
+
+        $pag=20;
+        foreach ($this->attributes as $x) {
+            if(!empty($x)){
+                $pag=100;
+                break;
+            }
+        }
       
 
         return new CActiveDataProvider($this, array(

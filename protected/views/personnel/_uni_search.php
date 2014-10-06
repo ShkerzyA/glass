@@ -13,8 +13,7 @@
 
 
 		<div class="inline">
-		<?php echo $form->label($model,'allfields'); ?>
-		<?php echo $form->textField($model,'allfields',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'allfields',array('size'=>50,'maxlength'=>50,'placeholder'=>'ПОИСК')); ?>
 	</div>
 	
 	<div class="row buttons inline">
