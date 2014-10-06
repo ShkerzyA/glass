@@ -133,6 +133,7 @@ class Personnel extends CActiveRecord
             'workplaces' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
             'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel','alias'=>'personnelPostsHistories'),
             'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'creator'),
+            'EventsActions' => array(self::HAS_MANY, 'EventsActions', 'creator'),
             'Eventsoper' => array(self::HAS_MANY, 'Eventsoper', 'creator'),
             'MedicalEquipment' => array(self::HAS_MANY, 'MedicalEquipment', 'creator'),
 		);
@@ -170,14 +171,41 @@ class Personnel extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 
-    private function criteria()
+
+        public function search()
     {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-       
+        $criteria=new CDbCriteria;
+
+        $criteria->with=array('EventsActions' => array('alias' => 'EventsActions'),'personnelPostsHistories' => array('alias' => 'personnelpostshistory'),'workplaces' => array('alias' => 'workplace'),'idUser' => array('alias' => 'users'));
+        $criteria->compare('id',$this->id);
+        $criteria->compare('surname',$this->surname,true);
+        $criteria->compare('name',$this->name,true);
+        $criteria->compare('patr',$this->patr,true);
+        $criteria->compare('photo',$this->photo,true);
+        $criteria->compare('id_user',$this->id_user);
+        $criteria->compare('birthday',$this->birthday,true);
+        $criteria->compare('date_begin',$this->date_begin,true);
+        $criteria->compare('date_end',$this->date_end,true);
+        $criteria->compare('orbase_rn',$this->orbase_rn,true);
+        $criteria->compare('allfields',$this->allfields,true);
+        $criteria->compare('sex',$this->sex);
+        $criteria->compare('personnelpostshistory.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
+        $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
+        $criteria->compare('users.id_user',$this->idUserid_user,true);
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+        ));
     }
+       
 
 
-    public function search()
+
+
+    public function search_pers()
     {
         $criteria=new CDbCriteria;
         $criteria->with=array(
@@ -211,11 +239,12 @@ class Personnel extends CActiveRecord
     }
 
 
-        public function search_phones()
+    public function search_phones()
     {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
 
+        echo 'fuu';
         $criteria=new CDbCriteria;
         $criteria->with=array(
             'idUser' => array('alias' => 'users'),

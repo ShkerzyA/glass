@@ -108,7 +108,7 @@ class TasksController extends Controller
 
 		
 		$filename ='report.odt';
-		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/media/'.$filename);
+		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/tpl/'.$filename);
 		$user=Yii::app()->user;
 
 		$odf->setVars('fio', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
@@ -139,7 +139,7 @@ class TasksController extends Controller
 		
 		$filename ='reportOtd.odt';
 
-		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/media/'.$filename);
+		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/tpl/'.$filename);
 		$user=Yii::app()->user;
 
 		$dt=($date=='current_date')?date('d.m.Y'):$date;

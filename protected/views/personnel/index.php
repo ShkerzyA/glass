@@ -43,6 +43,6 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 //$dataProvider->itemCount=$dataProvider->getItemCount();
 
 $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->search_pers(),
 	'itemView'=>'_indexview',
 )); ?>

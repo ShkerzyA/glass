@@ -201,7 +201,7 @@ class PersonnelController extends Controller
 	{
 
 		$this->layout='//layouts/column1';
-		$model=new Personnel('search');
+		$model=new Personnel('search_pers');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Personnel']))
 		$model->attributes=$_GET['Personnel'];
@@ -214,7 +214,7 @@ class PersonnelController extends Controller
 	{
 
 		$this->layout='//layouts/column1';
-		$model=new Personnel('search');
+		$model=new Personnel('search_pers');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Personnel']))
 		$model->attributes=$_GET['Personnel'];
@@ -227,7 +227,7 @@ class PersonnelController extends Controller
 	{
 
 		$this->layout='//layouts/column1';
-		$model=new Personnel('search');
+		$model=new Personnel('search_phones');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Personnel']))
 			$model->attributes=$_GET['Personnel'];
