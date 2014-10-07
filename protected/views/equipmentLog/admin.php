@@ -47,7 +47,7 @@ $('.search-form form').submit(function(){
 		'id',
 		'timestamp',
 		array( 'name'=>'subject0subject', 'value'=>'$data->subject0->surname' ),
-		array( 'name'=>'object0object', 'value'=>'$data->object0->mark' ),
+		array( 'name'=>'object0object', 'value'=>'$data->objectEq->mark' ),
 		'type',
 		'details',
 		array(

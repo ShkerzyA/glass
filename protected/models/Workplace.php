@@ -120,7 +120,7 @@ class Workplace extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->with=array('idPersonnel' => array('alias' => 'personnel'),'idCabinet' => array('alias' => 'cabinet'),);
-		$criteria->compare('id',$this->id);
+		$criteria->compare('t.id',$this->id);
 		if(!empty($_GET['id_cabinet']))
 				$criteria->compare('id_cabinet',$_GET['id_cabinet']);
 		else

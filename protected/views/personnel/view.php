@@ -42,7 +42,7 @@ $this->menu=array(
 	echo'<div><b>'.CHtml::encode($model->surname).' '.CHtml::encode($model->name).' '.CHtml::encode($model->patr).'</b> (тел.'.($ph=(!empty($model->workplaces))?CHtml::encode($model->workplaces->idCabinet->phone):'').')</div>';
 	echo'<div><b>Дата рождения: '.CHtml::encode($birthday).' (Пол: '.CHtml::encode($sex).')</div>';
 	if (!empty($model->workplaces->idCabinet)){
-		echo'<div>Кабинет: "'.CHtml::encode($model->workplaces->idCabinet->cname).' каб. №'.CHtml::encode($model->workplaces->idCabinet->num).'" '.CHtml::encode($model->workplaces->idCabinet->idFloor->fname).' '.CHtml::encode($model->workplaces->idCabinet->idFloor->idBuilding->bname).'</div>';
+		echo'<div>Кабинет: <a href="/glass/Cabinet/'.$model->workplaces->idCabinet->id.'"">"'.CHtml::encode($model->workplaces->idCabinet->cname).' каб. №'.CHtml::encode($model->workplaces->idCabinet->num).'" '.CHtml::encode($model->workplaces->idCabinet->idFloor->fname).' '.CHtml::encode($model->workplaces->idCabinet->idFloor->idBuilding->bname).'</a></div>';
 	}
 	echo"<br><div><h3>Занимаемые должности:</h3>";
 	foreach($model->personnelPostsHistories as $posts){
@@ -56,17 +56,13 @@ $this->menu=array(
 	echo "</span>";
 	}
 	echo '</div>';
-
-	echo"<br><div><h3>Рабочее место:</h3>";
-	if(!empty($model->workplaces->equipments)){
-		foreach($model->workplaces->equipments as $equipments){
-			echo'<div>'.CHtml::encode($equipments->mark).' (С/Н: '.CHtml::encode($equipments->serial).')</nobr></div>';
-		}	
-	}
-	echo '</div>';
 	?>
 </div>
-
+	<div style="clear: both;"></div>
+	<?php
+		if(!empty($model->workplaces->equipments)) 
+			$this->renderPartial('/equipment/tableview',array('equipments'=>$model->workplaces->equipments)); 
+	?>
 
 
 

@@ -102,7 +102,8 @@ class EquipmentLog extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'subject0' => array(self::BELONGS_TO, 'Personnel', 'subject'),
-			'object0' => array(self::BELONGS_TO, 'Equipment', 'object'),
+			'objectEq' => array(self::BELONGS_TO, 'Equipment', 'object'),
+			'objectWp' => array(self::BELONGS_TO, 'Workplace', 'object'),
 		);
 	}
 
@@ -134,7 +135,7 @@ class EquipmentLog extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('subject0' => array('alias' => 'personnel'),'object0' => array('alias' => 'equipment'),);
+		$criteria->with=array('subject0' => array('alias' => 'personnel'),'objectEq' => array('alias' => 'equipment'),);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('timestamp',$this->timestamp,true);
 		$criteria->compare('subject',$this->subject);
