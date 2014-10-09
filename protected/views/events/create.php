@@ -3,7 +3,7 @@
 /* @var $model Events */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
+	$model::$modelLabelP=>array('/Rooms/show'),
 	'Создать',
 );
 

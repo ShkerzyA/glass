@@ -209,12 +209,12 @@ class Events extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_room','required'),
-			array('id','freeOnly'),
+			array('id_room,timestamp,timestamp_end','required'),
 			array('creator, id_room, repeat, status', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>45),
 			array('description, timestamp, timestamp_end, date', 'safe'),
-		
+			
+			array('id','freeOnly'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, name, description, creator, id_room, timestamp, timestamp_end, repeat, status, date,creator0creator,idRoomid_room', 'safe', 'on'=>'search'),
@@ -256,18 +256,23 @@ class Events extends CActiveRecord
     		$this->attributes=$_POST['Events'];
     	//echo $this->id_post;
 
-    	$Ph=Events::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."' or repeat=1) and id<>".(int)$this->id." and
+    	if(empty($this->timestamp) or empty($this->timestamp_end)){
+    		$this->addError('Eventsoper["timestamp"]','Выберите время');
+    		return true;
+    	}
+
+    	$Ph=Events::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (date='".$this->date."' or repeat=1) and
     		((timestamp>='".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or 
     		(timestamp_end>'".$this->timestamp."' and timestamp_end<='".$this->timestamp_end."') or 
     		(timestamp<='".$this->timestamp."' and timestamp_end>='".$this->timestamp_end."'))
-    		and status not in (2)"));
+    		and status not in (2) and id<>".(int)$this->id.""));
         foreach ($Ph as $v){
         	$this->addError('Events["id_post"]','Выбранное время занято. Событие "'.$v->name.'"('.$v->timestamp.'-'.$v->timestamp_end.')');
         }
 
         $Ph=Events::model()->findAll(array('condition'=>"id_room=".$this->id_room." and (repeat in (2,3)) and  
     		((timestamp>'".$this->timestamp."' and timestamp<'".$this->timestamp_end."') or (timestamp_end>'".$this->timestamp."' and timestamp_end<'".$this->timestamp_end."') or (timestamp<'".$this->timestamp."' and timestamp_end>'".$this->timestamp_end."'))
-    		and status not in (2)"));
+    		and status not in (2) and id<>".(int)$this->id.""));
 
         foreach ($Ph as $v){
         	$dat=new DateTime($this->date);
