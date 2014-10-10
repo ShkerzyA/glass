@@ -8,6 +8,9 @@
 	<a href="<?php echo $this->createUrl('/personnel/'.$data->id) ?>">
 	<?php 
 		$act=!empty($data->personnelPostsHistories[0]);
+
+		//print_r($data->personnelPostsHistories);
+
 		if(!$act)
 			echo '<div style="text-decoration: line-through; color: gray; width: 350px; display: inline-block;">';
 		else

@@ -172,7 +172,7 @@ class Personnel extends CActiveRecord
 	 */
 
 
-    public function search_ffff()
+    public function search()
     {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
@@ -212,7 +212,7 @@ class Personnel extends CActiveRecord
             'idUser' => array('alias' => 'users'),
             'workplaces' => array('alias' => 'workplace'),
             'workplaces.idCabinet' => array('alias' => 'cabinet'),
-            'personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL"),);
+            'personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL or \"personnelPostsHistories\".date_end>current_date"),);
 
         $criteria->compare('id',$this->id);
         $words=explode(" ",$this->allfields);
