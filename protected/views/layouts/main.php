@@ -45,7 +45,7 @@
 		<div id="auth">
 			<?php $this->widget('application.widgets.GlassAuth'); ?>
 		</div>
-		<a href="http://10.126.83.87/"><div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div></a>
+		<a href="http://10.126.84.31/"><div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div></a>
 </div><!-- header -->
 <div class="container" id="page">
 	<div id="mainmenu">
