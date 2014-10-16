@@ -130,7 +130,7 @@ class Personnel extends CActiveRecord
 			//'idWorkplace' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
 
 			'idUser' => array(self::BELONGS_TO, 'Users', 'id_user'),
-            'workplaces' => array(self::HAS_ONE, 'Workplace', 'id_personnel'),
+            'workplaces' => array(self::HAS_MANY, 'Workplace', 'id_personnel'),
             'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_personnel','alias'=>'personnelPostsHistories'),
             'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'creator'),
             'EventsActions' => array(self::HAS_MANY, 'EventsActions', 'creator'),
@@ -210,8 +210,8 @@ class Personnel extends CActiveRecord
         $criteria=new CDbCriteria;
         $criteria->with=array(
             'idUser' => array('alias' => 'users'),
-            'workplaces' => array('alias' => 'workplace'),
-            'workplaces.idCabinet' => array('alias' => 'cabinet'),
+            'workplaces' => array('alias' => 'workplace','together'=>True),
+            'workplaces.idCabinet' => array('alias' => 'cabinet','together'=>True),
             'personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL or \"personnelPostsHistories\".date_end>current_date"),);
 
         $criteria->compare('id',$this->id);
@@ -247,8 +247,8 @@ class Personnel extends CActiveRecord
         $criteria=new CDbCriteria;
         $criteria->with=array(
             'idUser' => array('alias' => 'users'),
-            'workplaces' => array('alias' => 'workplace'),
-            'workplaces.idCabinet' => array('alias' => 'cabinet'),
+            'workplaces' => array('alias' => 'workplace','together'=>True),
+            'workplaces.idCabinet' => array('alias' => 'cabinet','together'=>True),
             'personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL",'together'=>True),
             'personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
             'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);

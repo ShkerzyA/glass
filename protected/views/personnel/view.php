@@ -41,9 +41,7 @@ $this->menu=array(
 
 	echo'<div><b>'.CHtml::encode($model->surname).' '.CHtml::encode($model->name).' '.CHtml::encode($model->patr).'</b> (тел.'.($ph=(!empty($model->workplaces))?CHtml::encode($model->workplaces->idCabinet->phone):'').')</div>';
 	echo'<div><b>Дата рождения: '.CHtml::encode($birthday).' (Пол: '.CHtml::encode($sex).')</div>';
-	if (!empty($model->workplaces->idCabinet)){
-		echo'<div>Кабинет: <a href="/glass/Cabinet/'.$model->workplaces->idCabinet->id.'"">"'.CHtml::encode($model->workplaces->idCabinet->cname).' каб. №'.CHtml::encode($model->workplaces->idCabinet->num).'" '.CHtml::encode($model->workplaces->idCabinet->idFloor->fname).' '.CHtml::encode($model->workplaces->idCabinet->idFloor->idBuilding->bname).'</a></div>';
-	}
+	
 	echo"<br><div><h3>Занимаемые должности:</h3>";
 	foreach($model->personnelPostsHistories as $posts){
 		$date_end=CHtml::encode($posts->date_end);
@@ -60,8 +58,13 @@ $this->menu=array(
 </div>
 	<div style="clear: both;"></div>
 	<?php
-		if(!empty($model->workplaces->equipments)) 
-			$this->renderPartial('/equipment/tableview',array('equipments'=>$model->workplaces->equipments)); 
+		foreach ($model->workplaces as $wp) {
+			if (!empty($wp->idCabinet)){
+				echo'<div>Кабинет: <a href="/glass/Cabinet/'.$wp->idCabinet->id.'"">"'.CHtml::encode($wp->idCabinet->cname).' каб. №'.CHtml::encode($wp->idCabinet->num).'" '.CHtml::encode($wp->idCabinet->idFloor->fname).' '.CHtml::encode($wp->idCabinet->idFloor->idBuilding->bname).'</a></div>';
+			}
+			if(!empty($wp->equipments)) 
+				$this->renderPartial('/equipment/tableview',array('equipments'=>$wp->equipments)); 
+		}
 	?>
 
 
