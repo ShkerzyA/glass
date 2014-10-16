@@ -12,8 +12,11 @@ class MyDbase extends CFormModel{
 	public static $modelLabelS='Операции с Dbase';
 	public static $modelLabelP='Операции с Dbase';
 	public $dbase;
- 	private $pathToDb='/home/al/localhost/www/glass/base/';
- 	//private $pathToDb='smb://sun/onko2003/data/';
+ 	private $pathToDb;
+
+ 	public function __construct(){
+ 		$this->pathToDb=$_SERVER['DOCUMENT_ROOT'].'/glass/base/';
+ 	}
 
  	public function read_table($tablename,$keycolumn=NULL){
  		$result=array();
