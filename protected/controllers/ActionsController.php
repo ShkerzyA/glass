@@ -99,7 +99,9 @@ class ActionsController extends Controller
 			if(Yii::app()->user->checkAccess('saveStatus',array('mod'=>$this->parent))){
 
 				$this->parent->status=$_POST['stat'];
-				if($_POST['stat']==1 or $_POST['stat']==2){
+
+				$parent=get_class($this->parent);
+				if(in_array($_POST['stat'], $parent::$statFixEnd)){
 					$this->parent->timestamp_end=date('d.m.Y H:i:s');
 				}
 				$this->parent->save();

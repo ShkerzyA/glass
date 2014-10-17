@@ -32,6 +32,7 @@ class Events extends CActiveRecord
 	public static $modelLabelS='Событие';
 	public static $modelLabelP='События';
 	public static $multifield=array();
+	public static $statFixEnd=array();
 
 	public $creator0creator;
 	public $idRoomid_room;
