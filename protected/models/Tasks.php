@@ -26,7 +26,7 @@ class Tasks extends CActiveRecord
 	public static $modelLabelS='Задача';
 	public static $modelLabelP='Задачи';
 	public static $multifield=array('executors');
-	public static $db_array=array('group');
+	public static $db_array=array('group','details');
 	public static $statFixEnd=array(2,3);
 	
 	public $creator0creator;
@@ -57,13 +57,13 @@ class Tasks extends CActiveRecord
 	}
 
 	protected function beforeSave(){
-		$this->group='{'.$this->group.'}';
+		//$this->group='{'.$this->group.'}';
 		return parent::beforeSave();
 	}
 
 
 	protected function afterFind(){
-		$this->group=substr($this->group,1,-1);
+		//$this->group=substr($this->group,1,-1);
 		return parent::afterFind();
 	}
 
@@ -110,6 +110,9 @@ class Tasks extends CActiveRecord
 
 	public function behaviors(){
 	return array(
+			'DbArray'=>array(
+				'class'=>'application.behaviors.DbArrayBehavior',
+				),
 			'TimeStamp'=>array(
 				'class'=>'application.behaviors.TimeStampBehavior',
 				),
@@ -133,17 +136,17 @@ class Tasks extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('tname','required'),
 			array('type, creator, id_department, status', 'numerical', 'integerOnly'=>true),
 			array('tname', 'length', 'max'=>100),
 			array('group', 'length', 'max'=>255),
+			array('details', 'length', 'max'=>255),
 			array('ttext, timestamp, timestamp_end', 'safe'),
 
 			array('executors', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tname, ttext, timestamp, timestamp_end, type, id_department, status, creator, executors,creator0creator,executor0executor,group', 'safe', 'on'=>'search'),
+			array('id, tname, ttext, timestamp, timestamp_end, type, id_department, status, creator, executors,creator0creator,executor0executor,group,details', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -169,8 +172,8 @@ class Tasks extends CActiveRecord
 			'id' => 'ID',
 			'tname' => 'Заголовок',
 			'ttext' => 'Описание заявки',
-			'timestamp' => 'Date Begin',
-			'timestamp_end' => 'Date End',
+			'timestamp' => 'Дата начала',
+			'timestamp_end' => 'Дата окончания',
 			'type' => 'Тип',
 			'creator' => 'Создатель',
 			'executors' => 'Сопричастные',
@@ -178,6 +181,7 @@ class Tasks extends CActiveRecord
 			'status' => 'Статус',
 			'creator0creator' => 'Создатель',
 			'group' => 'Группа',
+			'details' => 'Ключевые данные',
 		);
 	}
 
@@ -254,6 +258,38 @@ class Tasks extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 
+	public function ico(){
+		$result='';
+		switch ($this->type) {
+			case '1':
+					$result='<img src="../images/cartridg_ico.png">';
+				break;
+			
+			default:
+				break;
+		}
+		return $result;
+	}
+	
+	public function detailsShow($short=false){
+		$result='';
+		switch ($this->type) {
+			case '1':
+				$m=Equipment::model()->findByPk($this->details);
+				if($short){
+					$result=$m->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$m->idWorkplace->idCabinet->idFloor->fnum.' эт./'.$m->idWorkplace->idCabinet->num;	
+				}else{
+					$result="Кабинет: ".$m->idWorkplace->idCabinet->idFloor->idBuilding->bname."/".$m->idWorkplace->idCabinet->idFloor->fname."/".$m->idWorkplace->idCabinet->num." ".$m->idWorkplace->idCabinet->cname." \n Принтер: $m->mark. \n";	
+				}			
+				break;
+			
+			default:
+				break;
+		}
+		return $result;
+	}
+
+
 
     public function reportInc(){
     	$rep=0;
@@ -289,6 +325,7 @@ class Tasks extends CActiveRecord
 		$criteria->compare('id_department',$this->id_department,true);
 		$criteria->compare('status',$this->status,true);
 		$criteria->compare('group',$this->group,true);
+		$criteria->compare('details',$this->details,true);
 		$criteria->compare('type',$this->type);
 		if(!empty($_GET['creator']))
 				$criteria->compare('creator',$_GET['creator']);

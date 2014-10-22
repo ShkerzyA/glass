@@ -40,9 +40,15 @@ $this->menu['all_menu']=array(
 	<?php endif; ?>
 <?php endforeach; ?>
 
+
+<div id="add_task" class="add_unit fl_right">добавить
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=<?php echo $this->id_department ?>&&Tasks[group]=<?php echo $this->group ?>">
-<div id="add_task" class="add_unit fl_right">добавить задачу</div>
+	<img src='../images/add_task_40.png'>
 </a>
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=<?php echo $this->id_department ?>&&Tasks[group]=<?php echo $this->group ?>&&Tasks[type]=1">
+	<img src='../images/printer_40.png'>
+</a>
+</div>
 <br><br><br>
 
 
@@ -60,9 +66,10 @@ if($this->isHorn)
 		?>
 		<div class="taskpanel <?php echo $status['css_class']; ?>">
 			<span><a href=/glass/tasks/<?php echo $v->id; ?>>
-			<?php echo $v['tname']; ?>
+			<?php echo $v->ico(); ?>
+			<?php echo $v['tname'].$v->detailsShow(true);; ?>
 			</a>
-			<div class="texttask rotated"><pre><?php echo $v['ttext']; ?></pre></div></span>
+			<div class="texttask rotated"><pre><?php echo $v['ttext'].$v->detailsShow(); ?></pre></div></span>
 			<div  class="rightinfo">
 				<?php 	
 						echo'<div class="taskmoreinfo"> <img height=100% src="';

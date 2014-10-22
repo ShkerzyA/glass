@@ -516,6 +516,26 @@ select{
 	position: relative;
 }
 
+#add_task{
+	height: 20px;
+	width: auto
+	background: none;
+	/*
+	vertical-align: bottom;
+	border-radius: 3px;
+	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
+	padding: 4px; */
+}
+
+#add_task * {
+	vertical-align: top;
+	padding-right: 2px;
+}
+
+#add_task img{
+	float: right;
+}
+
  .choise_unit {
  	width: 38%;
 	float: left;	

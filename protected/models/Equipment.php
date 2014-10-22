@@ -129,6 +129,16 @@ class Equipment extends CActiveRecord
 		return self::model()->findAll($criteria);
 	}
 
+	public function suggestTag($keyword){
+ 		$tags=$this->with('type0','producer0','idWorkplace.idPersonnel','idWorkplace.idCabinet.idFloor.idBuilding')->findAll(array(
+   			'condition'=>'("idCabinet".num LIKE :keyword OR "idCabinet".cname LIKE :keyword) and (t.type in (3,2,4,17))',
+   			'params'=>array(
+     		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+   		)
+ 		));
+ 		return $tags;
+	}
+
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that

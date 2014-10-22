@@ -133,6 +133,71 @@ document.ready(init());
 		<?php echo $form->error($model,'tname'); ?>
 	</div>
 
+<?php switch($model->type): ?>
+<?php case '1': ?>
+	<div class="row">
+		<?php echo CHtml::label('Принтер',''); ?>
+		<?php echo $form->hiddenField($model,'details'); ?>
+
+<?php echo CHtml::script("
+     function split(val) {
+      return val.split(/,\s*/);
+     }
+     function extractLast(term) {
+      return split(term).pop();
+     }
+   ")?>
+ <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+   'name'=>'Printer_details',
+   'value'=>'',
+//'value' => $model->id,
+   'source'=>"js:function(request, response) {
+      $.getJSON('".$this->createUrl('suggest')."', {
+        term: extractLast(request.term)
+      }, response);
+      }",
+   'options'=>array(
+     'delay'=>300,
+     'minLength'=>2,
+     'showAnim'=>'fold',
+ 	'multiple'=>false,
+     'select'=>"js:function(event, ui) {
+     	$('#Tasks_details').val(ui.item.id);
+         var terms = split(this.value);
+         // remove the current input
+         terms.pop();
+         // add the selected item
+         terms.push( ui.item.value );
+         // add placeholder to get the comma-and-space at the end
+         terms.push('');
+         this.value = terms.join(' ');
+         return false;
+       }",
+   ),
+   'htmlOptions'=>array(
+     'size'=>'40',
+   ),
+  ));
+  // Для подсветки набираемого куска запроса в предлагаемом списке
+  Yii::app()->clientScript->registerScript('unique.script.identifier', "
+ $('#Printer_details').data('autocomplete')._renderItem = function( ul, item ) {
+   var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
+   var highlightedResult = item.label.replace( re, '<b>$1</b>' );
+   return $( '<li></li>' )
+     .data( 'item.autocomplete', item )
+     .append( '<a>' + highlightedResult + '</a>' )
+     .appendTo( ul );
+ };
+");  
+?>
+
+		<?php echo $form->error($model,'details'); ?>
+	</div>
+<?php break;?>
+<?php endswitch;?>
+
+
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'ttext'); ?>
 
@@ -140,6 +205,8 @@ document.ready(init());
 
 		<?php echo $form->error($model,'ttext'); ?>
 	</div>
+
+
 <?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'timestamp'); ?>
@@ -156,14 +223,10 @@ document.ready(init());
 
 		<?php echo $form->error($model,'timestamp_end'); ?>
 	</div>
-<!--
-	<div class="row">
-		<?php echo $form->labelEx($model,'type'); ?>
 
-		<?php echo $form->textField($model,'type'); ?>
 
-		<?php echo $form->error($model,'type'); ?>
-	</div> -->
+
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
@@ -212,6 +275,7 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 <?php else: ?>
 	<?php echo $form->hiddenField($model,'group'); ?>
 <?php endif; ?>
+
  <!--
 	<div class="row">
 		<?php //echo $form->labelEx($model,'executor'); ?>
