@@ -13,6 +13,19 @@ Yii::app()->getClientScript()->registerCssFile(Yii::app()
     ->getCoreScriptUrl() . '/jui/css/base/jquery-ui.css' );
 
 ?>
+<script type="text/javascript">
+
+function init(){
+  $("#tasks-form > *").live('keydown',function(e){
+        if(e.ctrlKey && e.keyCode==13){
+            $("#tasks-form").submit();
+
+        }
+    });
+}
+document.ready(init());
+
+</script>
 
 <div class="form">
 

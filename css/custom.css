@@ -814,6 +814,12 @@ pre {
 	left: 3px;
 	top: 3px;
 	z-index: 100;
+	width: 10%;
+}
+
+#omsk img{
+	width: 100%;
+	height: 100%;
 }
 
 textarea{
