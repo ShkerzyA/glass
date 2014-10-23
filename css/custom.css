@@ -493,7 +493,8 @@ select{
 
 
 .add_unit, .choise_unit, .join_group,.join_post,.join_personnel,.replace_personnel, .add_mark{
-	margin: 3px;
+	margin: 3px; 
+	color:  #06c;
 	padding: 2px;
 	height: 20px;
 
@@ -517,7 +518,9 @@ select{
 }
 
 #add_task{
-	height: 20px;
+	margin: 0px;
+	cursor: auto;
+	height: 24px;
 	width: auto
 	background: none;
 	/*
@@ -528,11 +531,12 @@ select{
 }
 
 #add_task * {
-	vertical-align: top;
 	padding-right: 2px;
 }
 
 #add_task img{
+	height: 100%;
+	margin-left: 10px;
 	float: right;
 }
 

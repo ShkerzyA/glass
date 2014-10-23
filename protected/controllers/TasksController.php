@@ -276,7 +276,7 @@ class TasksController extends Controller
   		$result = array();
   		foreach ($models as $m)
    		$result[] = array(
-     		'label' => $m->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$m->idWorkplace->idCabinet->idFloor->fname.'/'.$m->idWorkplace->idCabinet->num.' '.$m->idWorkplace->idCabinet->cname.'/'.$m->mark,
+     		'label' => $m->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$m->idWorkplace->idCabinet->idFloor->fname.'/'.$m->idWorkplace->idCabinet->num.' '.$m->idWorkplace->idCabinet->cname.'/'.$m->idWorkplace->wpName().'/'.$m->mark,
      		'value' => $m->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$m->idWorkplace->idCabinet->idFloor->fname.'/'.$m->idWorkplace->idCabinet->num.' '.$m->idWorkplace->idCabinet->cname.'/'.$m->mark,
      		'id' => $m->id,
    		);

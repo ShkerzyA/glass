@@ -158,7 +158,7 @@ document.ready(init());
       }",
    'options'=>array(
      'delay'=>300,
-     'minLength'=>2,
+     'minLength'=>1,
      'showAnim'=>'fold',
  	'multiple'=>false,
      'select'=>"js:function(event, ui) {

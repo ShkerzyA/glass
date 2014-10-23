@@ -43,10 +43,10 @@ $this->menu['all_menu']=array(
 
 <div id="add_task" class="add_unit fl_right">добавить
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=<?php echo $this->id_department ?>&&Tasks[group]=<?php echo $this->group ?>">
-	<img src='../images/add_task_40.png'>
+	<img src='../images/add_task_40.png' title='Обычная задача'>
 </a>
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=<?php echo $this->id_department ?>&&Tasks[group]=<?php echo $this->group ?>&&Tasks[type]=1">
-	<img src='../images/printer_40.png'>
+	<img src='../images/printer_40.png' title='Замена картриджа'>
 </a>
 </div>
 <br><br><br>

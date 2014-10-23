@@ -279,7 +279,7 @@ class Tasks extends CActiveRecord
 				if($short){
 					$result=$m->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$m->idWorkplace->idCabinet->idFloor->fnum.' эт./'.$m->idWorkplace->idCabinet->num;	
 				}else{
-					$result="Кабинет: ".$m->idWorkplace->idCabinet->idFloor->idBuilding->bname."/".$m->idWorkplace->idCabinet->idFloor->fname."/".$m->idWorkplace->idCabinet->num." ".$m->idWorkplace->idCabinet->cname." \n Принтер: $m->mark. \n";	
+					$result="Кабинет: ".$m->idWorkplace->idCabinet->idFloor->idBuilding->bname."/".$m->idWorkplace->idCabinet->idFloor->fname."/".$m->idWorkplace->idCabinet->num." ".$m->idWorkplace->idCabinet->cname." \nПринтер: $m->mark. \n";	
 				}			
 				break;
 			

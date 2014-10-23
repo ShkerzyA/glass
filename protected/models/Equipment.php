@@ -130,11 +130,14 @@ class Equipment extends CActiveRecord
 	}
 
 	public function suggestTag($keyword){
+		$keyword=mb_strtolower($keyword,'UTF-8');
  		$tags=$this->with('type0','producer0','idWorkplace.idPersonnel','idWorkplace.idCabinet.idFloor.idBuilding')->findAll(array(
-   			'condition'=>'("idCabinet".num LIKE :keyword OR "idCabinet".cname LIKE :keyword) and (t.type in (3,2,4,17))',
+   			'condition'=>'(LOWER("idBuilding".bname) LIKE :keyword OR LOWER("idCabinet".num) LIKE :keyword OR LOWER("idCabinet".cname) LIKE :keyword) and (t.type in (3,2,4,17))',
    			'params'=>array(
      		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+
    		)
+   		,'order'=>'"idBuilding".bname asc, "idFloor".fnum asc, "idCabinet".num asc'
  		));
  		return $tags;
 	}

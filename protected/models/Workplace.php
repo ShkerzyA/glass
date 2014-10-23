@@ -59,6 +59,13 @@ class Workplace extends CActiveRecord
 		return 'workplace';
 	}
 
+	public function wpName(){
+		if(!empty($this->id_personnel))
+			return $this->idPersonnel->fio();
+		else
+			return $this->wname;
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
