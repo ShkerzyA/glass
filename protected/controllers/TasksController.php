@@ -203,10 +203,19 @@ class TasksController extends Controller
 				$model->ttext=$_POST['fio']." тел. ".$_POST['phone']."\n \n".$model->ttext;
 			}
 
-
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
+
+		switch ($model->type) {
+				case 1:
+					$model->tname='Зам. карт.';
+					break;
+				
+				default:
+					# code...
+					break;
+			}
 
 		$this->render('create',array(
 			'model'=>$model,
