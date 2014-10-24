@@ -28,7 +28,7 @@ class EquipmentLogController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','exportCart'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -54,6 +54,11 @@ class EquipmentLogController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
+	}
+
+	public function access(){
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))))
+            throw new CHttpException(403, 'У вас недостаточно прав');
 	}
 
 	/**
@@ -101,6 +106,20 @@ class EquipmentLogController extends Controller
 		$this->render('update',array(
 			'model'=>$model,
 		));
+	}
+
+		public function actionExportCart()
+	{
+		$this->access();
+		$this->layout='//layouts/leaf';
+		$model=new EquipmentLog;
+		$Xls=new Xls;
+		$data=$model->search_for_export_cart();
+		/*
+		echo'<pre>';
+		print_r($data);
+		echo '</pre>';*/ 
+		$Xls->exportLogCart($data);
 	}
 
 	/**

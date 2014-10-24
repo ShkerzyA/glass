@@ -29,6 +29,11 @@ class EquipmentLog extends CActiveRecord
 	public static $modelLabelP='EquipmentLog';
 
 	public static $db_array=array('details');
+	public static $typeM=array(
+				0=>array('name'=>'Перемещение','fields'=>array('workplace')),
+				1=>array('name'=>'Замена картриджа','fields'=>array('workplace','id_printer')),
+				2=>array('name'=>'Проверка счетчика принтера','fields'=>array('num_str')),
+			);
 	
 	public $subject0subject;
 	public $object0object;
@@ -68,11 +73,29 @@ class EquipmentLog extends CActiveRecord
 
 
 	public function getType(){
-		return array(
-				0=>array('name'=>'Перемещение','fields'=>array('workplace')),
-				1=>array('name'=>'Замена картриджа','fields'=>array('workplace','id_printer','serial_printer')),
-				2=>array('name'=>'Проверка счетчика принтера','fields'=>array('num_str')),
-			);
+		if(!empty($this->type))
+			return self::$typeM[$this->type];
+		else
+			return self::$typeM;
+	}
+
+	public function details(){
+		$det=explode(',', $this->details);
+		switch ($this->type) {
+			case '0':
+				return 'Рабочее место '.$det[0];
+				break;
+			case '1':
+				return 'Рабочее место '.$det[0].' Принтер: '.$det[1];
+				break;
+			case '2':
+				return 'Число отпечатков '.$det[0];
+				break;
+			
+			default:
+				return implode(',', $det);
+				break;
+		}
 	}
 
 	/**
@@ -103,7 +126,6 @@ class EquipmentLog extends CActiveRecord
 		return array(
 			'subject0' => array(self::BELONGS_TO, 'Personnel', 'subject'),
 			'objectEq' => array(self::BELONGS_TO, 'Equipment', 'object'),
-			'objectWp' => array(self::BELONGS_TO, 'Workplace', 'object'),
 		);
 	}
 
@@ -128,6 +150,42 @@ class EquipmentLog extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+
+	public function search_for_export_cart(){
+		$data=array();
+		$criteria=new CDbCriteria;
+		$criteria->with=array('subject0','objectEq.idWorkplace.idPersonnel','objectEq.idWorkplace.idCabinet.idFloor.idBuilding'); // 
+		$criteria->order='t.timestamp DESC';
+		$criteria->condition='t.type in (1,2)';
+		//$criteria->compare('personnel.creator',$this->creator0creator,true);
+		$model=self::model()->findAll($criteria);
+
+		foreach ($model as $v) {
+			$v->details=explode(',', $v->details);
+			if($v->type==2){
+				$data[$v->timestamp]['timestamp']=$v->timestamp;
+				$data[$v->timestamp]['fio']=$v->subject0->fio();
+				$data[$v->timestamp]['place']=$v->objectEq->idWorkplace->wpNameFull();
+				$data[$v->timestamp]['printer']=$v->objectEq->full_name();
+				$data[$v->timestamp]['printerSN']=$v->objectEq->serial;
+				$data[$v->timestamp]['num_st']=$v->details[0];
+			}else if($v->type==1){
+				if($v->details[0]==Equipment::$cartStorage){
+					$data[$v->timestamp]['out_cart_inv']=$v->objectEq->inv;
+					$data[$v->timestamp]['out_cart_mark']=$v->objectEq->mark;
+				}else{
+					$data[$v->timestamp]['in_cart_inv']=$v->objectEq->inv;
+					$data[$v->timestamp]['in_cart_mark']=$v->objectEq->mark;
+				}
+			}
+			
+		}
+
+		return $data;
+
+	}
+
+
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that
@@ -145,6 +203,7 @@ class EquipmentLog extends CActiveRecord
 		$criteria->compare('personnel.subject',$this->subject0subject,true);
 		$criteria->compare('equipment.object',$this->object0object,true);
 
+		$criteria->order='t.timestamp DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

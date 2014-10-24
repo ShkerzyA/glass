@@ -9,7 +9,7 @@
 <div>
 <?php
    	foreach ($equipments as $eq){
-   		echo '<div>'.$eq->type0->name.' '.$eq->producer0->name.' '.$eq->mark.'</div>';
+   		echo '<div>'.$eq->full_name().'</div>';
    	}
 ?>
 </div>

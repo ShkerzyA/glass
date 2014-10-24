@@ -277,11 +277,9 @@ class Tasks extends CActiveRecord
 		switch ($this->type) {
 			case '1':
 				$m=Equipment::model()->findByPk($this->details);
-				if($short){
-					$result=$m->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$m->idWorkplace->idCabinet->idFloor->fnum.' эт./'.$m->idWorkplace->idCabinet->num;	
-				}else{
-					$result="Кабинет: ".$m->idWorkplace->idCabinet->idFloor->idBuilding->bname."/".$m->idWorkplace->idCabinet->idFloor->fname."/".$m->idWorkplace->idCabinet->num." ".$m->idWorkplace->idCabinet->cname." \nПринтер: $m->mark. \n";	
-				}			
+				$result=$m->idWorkplace->wpNameFull($short);	
+				if(!$short)
+					$result=$result."\nПринтер: $m->mark. \n";			
 				break;
 			
 			default:

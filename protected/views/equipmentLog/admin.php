@@ -46,10 +46,10 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'timestamp',
-		array( 'name'=>'subject0subject', 'value'=>'$data->subject0->surname' ),
-		array( 'name'=>'object0object', 'value'=>'$data->objectEq->mark' ),
-		'type',
-		'details',
+		array( 'name'=>'subject0subject', 'value'=>'$data->subject0->surname." ".$data->subject0->name." ".$data->subject0->patr' ),
+		array( 'name'=>'object0object', 'value'=>'$data->objectEq->inv." ".$data->objectEq->mark' ),
+		array( 'name'=>'type', 'value'=>'$data->getType()["name"]' ),
+		array( 'name'=>'details', 'value'=>'$data->details()' ),
 		array(
 			'class'=>'CButtonColumn',
 		),

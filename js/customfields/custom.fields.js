@@ -144,7 +144,7 @@ function getAjax_markSearch(id){
 	id_s=id.replace("mark", ""); 
 	type=$('#'+id_s+'type').val();
 	producer=$('#'+id_s+'producer').val();
-	if(type.length && producer.length){
+	if(type.length){
 		$.post('/glass/Equipment/markSearch',{type: type, producer: producer},function(data,status){
 			if(status=='success'){
 				show_under(id,data);

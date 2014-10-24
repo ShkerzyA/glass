@@ -16,7 +16,7 @@ class ActionsController extends Controller
 
 
 	public function init(){ 
-		echo $_POST['factoryObj'];
+		//echo $_POST['factoryObj'];
 		switch ($_POST['factoryObj']) {
 			case 'events':
 				$this->parent=Events::model()->findByPk($_POST['id']);
@@ -87,9 +87,55 @@ class ActionsController extends Controller
 
 		if(Yii::app()->request->isAjaxRequest){
 			if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$this->parent))){
+				switch ($this->parent->type) {
+					case '1':
+
+					if(!empty($_POST['inv_cart'] and $_POST['num_str']))
+					{
+						$print = Equipment::model()->findByPk($this->parent->details);
+						$cart_old=Equipment::model()->with('EquipmentLog')->find(array('condition'=>"t.type=18 and t.id_workplace=$print->id_workplace and \"EquipmentLog\".details[2]='$print->id'",'order'=>'"EquipmentLog".timestamp DESC'));
+						$cart = Equipment::model()->find(array('condition'=>"t.type=18 and t.id_workplace=".Equipment::$cartStorage." and t.inv='$_POST[inv_cart]'"));
+						if(!$cart){
+							echo 'cart_undefinded';
+							exit();
+						}
+
+						if($cart_old){
+							$cart_old->id_workplace=Equipment::$cartStorage;
+							$cart_old->save();
+
+							$log=new EquipmentLog;
+							$log->type=1;
+							$log->object=$cart_old->id;
+							$log->details=$cart_old->id_workplace;
+							$log->save();
+						}
+
+						$cart->id_workplace=$print->id_workplace;
+						$cart->save();
+						
+						$log=new EquipmentLog;
+						$log->type=1;
+						$log->object=$cart->id;
+						$log->details=$print->id_workplace.','.$print->id;
+						$log->save();
+
+						$log=new EquipmentLog;
+						$log->type=2;
+						$log->object=$print->id;
+						$log->details=$_POST['num_str'];
+						$log->save();
+					}
+
+						break;
+					
+					default:
+						break;
+				}
 				$this->act->saveReport();
 			}
 		}
+
 
 	}
 

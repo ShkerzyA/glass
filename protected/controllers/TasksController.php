@@ -213,7 +213,6 @@ class TasksController extends Controller
 					break;
 				
 				default:
-					# code...
 					break;
 			}
 

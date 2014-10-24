@@ -83,16 +83,22 @@ function save_report(){
     note=$('#message_note').val();
     taskname=$('#taskname').val();
     taskstat=$('#taskstat').val();
+    inv_cart=$('#inv_cart').val();
+    num_str=$('#num_str').val();
     id=$('#idmodel').val();
     factoryObj=$('#factoryObj').val();
     if (mess) {
-        $.post("/glass/actions/saveReport", {id: id, factoryObj: factoryObj, mess: mess, note: note, taskstat: taskstat, taskname: taskname},
+        $.post("/glass/actions/saveReport", {id: id, factoryObj: factoryObj, mess: mess, note: note, taskstat: taskstat, taskname: taskname, inv_cart: inv_cart, num_str: num_str},
             function(data, status) {
                 if (status == "success") {
                     $('#message_rep').empty();
                     $('.modal_window_back').hide();
                     $('.modal_window').hide();
-                    window.location.reload();
+                    if(data=='cart_undefinded'){
+                        alert('Катрдидж с таким номером отсутствует на складе');
+                    }else{
+                        window.location.reload(); 
+                    }
                 }else{
                     alert('Ошибка');
                 }

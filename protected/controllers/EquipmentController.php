@@ -201,8 +201,12 @@ class EquipmentController extends Controller
 
 			$criteria = new CDbCriteria;
 			$criteria->select = "mark";
-			$criteria->condition = "type=:type and producer=:producer";
-			$criteria->params = array(':type'=>$_POST['type'],':producer'=>$_POST['producer']);
+
+
+            $criteria->compare('type',$_POST['type']);
+            $criteria->compare('producer',$_POST['producer']);
+			//$criteria->condition = "type=:type and producer=:producer";
+			//$criteria->params = array(':type'=>$_POST['type'],':producer'=>$_POST['producer']);
 			$criteria->distinct = True;
 
 			$model=Equipment::model()->findall($criteria);

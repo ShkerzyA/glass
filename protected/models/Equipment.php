@@ -27,6 +27,7 @@ class Equipment extends CActiveRecord
 	 */
 	public static $modelLabelS='Оборудование';
 	public static $modelLabelP='Оборудование';
+	public static $cartStorage='574';
 	
 	public $idWorkplaceid_workplace;
 
@@ -84,6 +85,15 @@ class Equipment extends CActiveRecord
 		);
 	}
 
+	public function inv(){
+		if($this->type==18)
+			return ' инв.'.$this->inv;
+	}
+
+	public function full_name(){
+		return $this->type0->name.' '.$this->producer0->name.' '.$this->mark.' '.$this->inv();
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -95,6 +105,7 @@ class Equipment extends CActiveRecord
 			'idWorkplace' => array(self::BELONGS_TO, 'Workplace', 'id_workplace'),
 			'type0' => array(self::BELONGS_TO, 'EquipmentType', 'type'),
 			'producer0' => array(self::BELONGS_TO, 'EquipmentProducer', 'producer'),
+			'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', 'object'),
 		);
 	}
 

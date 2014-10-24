@@ -518,11 +518,9 @@ select{
 }
 
 #add_task{
-	margin: 0px;
-	cursor: auto;
+	margin: 0px 2px 0px 2px ;
 	height: 24px;
-	width: auto
-	background: none;
+
 	/*
 	vertical-align: bottom;
 	border-radius: 3px;
