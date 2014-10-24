@@ -90,7 +90,7 @@ class ActionsController extends Controller
 				switch ($this->parent->type) {
 					case '1':
 
-					if(!empty($_POST['inv_cart'] and $_POST['num_str']))
+					if(!empty($_POST['inv_cart']))
 					{
 						$print = Equipment::model()->findByPk($this->parent->details);
 						$cart_old=Equipment::model()->with('EquipmentLog')->find(array('condition'=>"t.type=18 and t.id_workplace=$print->id_workplace and \"EquipmentLog\".details[2]='$print->id'",'order'=>'"EquipmentLog".timestamp DESC'));
@@ -123,7 +123,7 @@ class ActionsController extends Controller
 						$log=new EquipmentLog;
 						$log->type=2;
 						$log->object=$print->id;
-						$log->details=$_POST['num_str'];
+						$log->details=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a';
 						$log->save();
 					}
 
