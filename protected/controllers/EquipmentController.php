@@ -21,6 +21,12 @@ class EquipmentController extends Controller
 			array('type'=>'6','producer'=>10),
 			array('type'=>'7'),
 			),
+		'cart'=>array(
+			array('type'=>'18'),
+			array('type'=>'18'),
+			array('type'=>'18'),
+			array('type'=>'18'),
+			),
 		);
 
 	/**
