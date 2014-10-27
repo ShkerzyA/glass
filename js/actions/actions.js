@@ -84,18 +84,21 @@ function save_report(){
     taskname=$('#taskname').val();
     taskstat=$('#taskstat').val();
     inv_cart=$('#inv_cart').val();
+    inv_cart_old=$('#inv_cart_old').val();
     num_str=$('#num_str').val();
     id=$('#idmodel').val();
     factoryObj=$('#factoryObj').val();
     if (mess) {
-        $.post("/glass/actions/saveReport", {id: id, factoryObj: factoryObj, mess: mess, note: note, taskstat: taskstat, taskname: taskname, inv_cart: inv_cart, num_str: num_str},
+        $.post("/glass/actions/saveReport", {id: id, factoryObj: factoryObj, mess: mess, note: note, taskstat: taskstat, taskname: taskname, inv_cart: inv_cart, inv_cart_old: inv_cart_old, num_str: num_str},
             function(data, status) {
                 if (status == "success") {
-                    $('#message_rep').empty();
+                    //$('#message_rep').empty();
                     $('.modal_window_back').hide();
                     $('.modal_window').hide();
                     if(data=='cart_undefinded'){
-                        alert('Катрдидж с таким номером отсутствует на складе');
+                        alert('Устанавливаемый катрдидж с таким номером отсутствует на складе');
+                    }else if(data=='old_cart_undefinded'){
+                        alert('Возвращаемый катрдидж с таким номером отсутствует');
                     }else{
                         window.location.reload(); 
                     }

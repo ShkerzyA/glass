@@ -109,6 +109,21 @@ class ActionsController extends Controller
 							$log->object=$cart_old->id;
 							$log->details=$cart_old->id_workplace;
 							$log->save();
+						}else if(!empty($_POST['inv_cart_old'])){
+							$cart_old = Equipment::model()->find(array('condition'=>"t.type=18 and t.inv='$_POST[inv_cart_old]'"));
+							if($cart_old){
+								$cart_old->id_workplace=Equipment::$cartStorage;
+								$cart_old->save();
+
+								$log=new EquipmentLog;
+								$log->type=1;
+								$log->object=$cart_old->id;
+								$log->details=$cart_old->id_workplace;
+								$log->save();
+							}else{
+								echo 'old_cart_undefinded';
+								exit();
+							}
 						}
 
 						$cart->id_workplace=$print->id_workplace;
