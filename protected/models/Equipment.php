@@ -94,12 +94,12 @@ class Equipment extends CActiveRecord
     	//echo $this->id_post;
 
     	if(!empty($this->serial)){
-    		$Ph=self::findAll(array('condition'=>'t.serial=\''.$this->serial.'\' and t.id<>'.$this->id.''));
+    		$Ph=self::findAll(array('condition'=>'t.serial=\''.$this->serial.'\' and t.id not in('.$this->id.')'));
     		foreach ($Ph as $v){
         		$this->addError('Equipment["serial"]','Оборудование с данным серийным номером зарегистрировано ID:'.$v->id.')');
         	}
     	}else if(!empty($this->inv)){
-    		$Ph=self::findAll(array('condition'=>'t.inv=\''.$this->inv.'\' and t.id<>'.$this->id.''));
+    		$Ph=self::findAll(array('condition'=>'t.inv=\''.$this->inv.'\' and t.id not in('.$this->id.')'));
     		foreach ($Ph as $v){
         		$this->addError('Equipment["inv"]','Оборудование с данным инвентарным номером зарегистрировано ID:'.$v->id.')');
         	}
