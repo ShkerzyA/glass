@@ -97,7 +97,7 @@ class Equipment extends CActiveRecord
     		$idCheck=' and t.id<>'.$this->id.'';
 
     	if(!empty($this->serial)){
-    		$Ph=self::findAll(array('condition'=>'t.serial=\''.$this->serial.'\ '.$idCheck));
+    		$Ph=self::findAll(array('condition'=>'t.serial=\''.$this->serial.'\' '.$idCheck));
     		foreach ($Ph as $v){
         		$this->addError('Equipment["serial"]','Оборудование с данным серийным номером зарегистрировано ID:'.$v->id.')');
         	}
