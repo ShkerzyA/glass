@@ -28,6 +28,7 @@ class Equipment extends CActiveRecord
 	public static $modelLabelS='Оборудование';
 	public static $modelLabelP='Оборудование';
 	public static $cartStorage='574';
+	public $place;
 	
 	public $idWorkplaceid_workplace;
 
@@ -81,7 +82,7 @@ class Equipment extends CActiveRecord
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_workplace, serial, type, producer, mark, inv, status, notes,idWorkplaceid_workplace', 'safe', 'on'=>'search'),
+			array('id, id_workplace, serial, type, producer, mark, inv, status, notes,idWorkplaceid_workplace,place', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -159,12 +160,28 @@ class Equipment extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('idWorkplace' => array('alias' => 'workplace'),);
+		$criteria->with=array('idWorkplace' => array('alias' => 'workplace'),'idWorkplace.idCabinet.idFloor.idBuilding');
 		$criteria->compare('t.id',$this->id);
 		if(!empty($_GET['id_workplace']))
 				$criteria->compare('workplace.wname',$_GET['id_workplace'],true);
 		else
 				$criteria->compare('workplace.wname',$this->id_workplace);
+
+		if(!empty($this->place)){
+			$place=explode('_',$this->place);
+			switch ($place[0]) {
+				case 'b':
+					$criteria->compare('"idBuilding".id',$place[1]);
+					break;
+				case 'f':
+					$criteria->compare('"idFloor".id',$place[1]);
+					break;
+				default:
+					# code...
+					break;
+			}
+		}
+
 		$criteria->compare('serial',$this->serial,true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('producer',$this->producer);

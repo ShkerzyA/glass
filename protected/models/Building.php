@@ -74,6 +74,19 @@ class Building extends CActiveRecord
 		);
 	}
 
+	public static function withFloorsInOneList(){
+		$result=array();
+		$model=self::model()->with('floors')->findAll();
+		foreach ($model as $b) {
+			$result=array_merge($result,array('b_'.$b->id=>$b->bname));
+			foreach ($b->floors as $f) {
+				$result=array_merge($result,array('f_'.$f->id=>'___________'.$b->bname.'/'.$f->fname));
+			}
+		}
+		//$result=array('sdf'=>3423,'sdfsdf'=>'sdfsdf');
+		return $result;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
