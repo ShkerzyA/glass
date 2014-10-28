@@ -79,12 +79,35 @@ class Equipment extends CActiveRecord
 			array('serial, inv', 'length', 'max'=>100),
 			array('mark', 'length', 'max'=>200),
 			array('notes', 'safe'),
-		
+			array('id','uniqueInvSerial'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, id_workplace, serial, type, producer, mark, inv, status, notes,idWorkplaceid_workplace,place', 'safe', 'on'=>'search'),
 		);
 	}
+
+		public function uniqueInvSerial()
+    {   
+
+    	if(!empty($_POST['Equipment']))
+    		$this->attributes=$_POST['Equipment'];
+    	//echo $this->id_post;
+
+    	if(!empty($this->serial)){
+    		$Ph=self::findAll(array('condition'=>'t.serial=\''.$this->serial.'\''));
+    		foreach ($Ph as $v){
+        		$this->addError('Equipment["serial"]','Оборудование с данным серийным номером зарегистрировано ID:'.$v->id.')');
+        	}
+    	}
+
+    	if(!empty($this->inv)){
+    		$Ph=self::findAll(array('condition'=>'t.inv=\''.$this->inv.'\''));
+    		foreach ($Ph as $v){
+        		$this->addError('Equipment["inv"]','Оборудование с данным инвентарным номером зарегистрировано ID:'.$v->id.')');
+        	}
+    	}
+   
+    }
 
 	public function inv(){
 		if($this->type==18)
