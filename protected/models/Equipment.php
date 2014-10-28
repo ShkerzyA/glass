@@ -92,14 +92,17 @@ class Equipment extends CActiveRecord
     	if(!empty($_POST['Equipment']))
     		$this->attributes=$_POST['Equipment'];
     	//echo $this->id_post;
+    	$idCheck='';
+    	if(!empty($this->id))
+    		$idCheck=' and t.id<>'.$this->id.'';
 
     	if(!empty($this->serial)){
-    		$Ph=self::findAll(array('condition'=>'t.serial=\''.$this->serial.'\' and t.id not in('.$this->id.')'));
+    		$Ph=self::findAll(array('condition'=>'t.serial=\''.$this->serial.'\ '.$idCheck));
     		foreach ($Ph as $v){
         		$this->addError('Equipment["serial"]','Оборудование с данным серийным номером зарегистрировано ID:'.$v->id.')');
         	}
     	}else if(!empty($this->inv)){
-    		$Ph=self::findAll(array('condition'=>'t.inv=\''.$this->inv.'\' and t.id not in('.$this->id.')'));
+    		$Ph=self::findAll(array('condition'=>'t.inv=\''.$this->inv.'\' '.$idCheck));
     		foreach ($Ph as $v){
         		$this->addError('Equipment["inv"]','Оборудование с данным инвентарным номером зарегистрировано ID:'.$v->id.')');
         	}
