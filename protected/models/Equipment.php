@@ -76,6 +76,7 @@ class Equipment extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_workplace, type, producer, status', 'numerical', 'integerOnly'=>true),
+			array('type','required'),
 			array('serial, inv', 'length', 'max'=>100),
 			array('mark', 'length', 'max'=>200),
 			array('notes', 'safe'),
@@ -89,9 +90,6 @@ class Equipment extends CActiveRecord
 		public function uniqueInvSerial()
     {   
 
-    	if(!empty($_POST['Equipment']))
-    		$this->attributes=$_POST['Equipment'];
-    	//echo $this->id_post;
     	$idCheck='';
     	if(!empty($this->id))
     		$idCheck=' and t.id<>'.$this->id.'';
@@ -99,12 +97,12 @@ class Equipment extends CActiveRecord
     	if(!empty($this->serial)){
     		$Ph=self::findAll(array('condition'=>'t.serial=\''.$this->serial.'\' '.$idCheck));
     		foreach ($Ph as $v){
-        		$this->addError('Equipment["serial"]','Оборудование с данным серийным номером зарегистрировано ID:'.$v->id.')');
+        		$this->addError('serial','Оборудование с данным серийным номером зарегистрировано ID:'.$v->id.')');
         	}
     	}else if(!empty($this->inv)){
     		$Ph=self::findAll(array('condition'=>'t.inv=\''.$this->inv.'\' '.$idCheck));
     		foreach ($Ph as $v){
-        		$this->addError('Equipment["inv"]','Оборудование с данным инвентарным номером зарегистрировано ID:'.$v->id.')');
+        		$this->addError('inv','Оборудование с данным инвентарным номером зарегистрировано ID:'.$v->id.')');
         	}
     	}
    

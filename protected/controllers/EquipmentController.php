@@ -142,7 +142,6 @@ class EquipmentController extends Controller
        		$valid=true;
         	foreach($items as $i=>&$item)
         	{
-        		echo $i;
             	if(isset($_POST['Equipment'][$i]))
                 	$item->attributes=$_POST['Equipment'][$i];
             	$valid=$item->validate() && $valid;
