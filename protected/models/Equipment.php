@@ -125,6 +125,7 @@ class Equipment extends CActiveRecord
 			'inv' => 'Инвентарный номер',
 			'status' => 'Состояние',
 			'notes' => 'Примечания',
+			'place' => 'Местоположение',
 			'idWorkplaceid_workplace' => 'Рабочее место',
 		);
 	}
@@ -137,6 +138,7 @@ class Equipment extends CActiveRecord
 	public function search_for_export(){
 		$criteria=new CDbCriteria;
 		$criteria->with=array('type0','producer0','idWorkplace.idPersonnel','idWorkplace.idCabinet.idFloor.idBuilding'); // 
+		$criteria->order=('"idBuilding".bname ASC, "idFloor".fnum ASC, "idCabinet".num ASC');
 		//$criteria->compare('personnel.creator',$this->creator0creator,true);
 		return self::model()->findAll($criteria);
 	}
@@ -144,7 +146,7 @@ class Equipment extends CActiveRecord
 	public function suggestTag($keyword){
 		$keyword=mb_strtolower($keyword,'UTF-8');
  		$tags=$this->with('type0','producer0','idWorkplace.idPersonnel','idWorkplace.idCabinet.idFloor.idBuilding')->findAll(array(
-   			'condition'=>'(LOWER("idBuilding".bname) LIKE :keyword OR LOWER("idCabinet".num) LIKE :keyword OR LOWER("idCabinet".cname) LIKE :keyword) and (t.type in (3,2,4,17))',
+   			'condition'=>'(LOWER("idPersonnel".surname) LIKE :keyword OR LOWER("idBuilding".bname) LIKE :keyword OR LOWER("idCabinet".num) LIKE :keyword OR LOWER("idCabinet".cname) LIKE :keyword) and (t.type in (3,2,4,17))',
    			'params'=>array(
      		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
 

@@ -22,7 +22,8 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-
+<div class="add_unit fl_right"><?php echo CHtml::link('Экспорт оборудования','/glass/equipment/export/') ?></div>
+<div style="clear: both"></div>
 
 <?php echo CHtml::link('Расширенный поиск','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
