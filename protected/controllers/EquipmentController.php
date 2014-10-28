@@ -181,7 +181,7 @@ class EquipmentController extends Controller
 					$log=new EquipmentLog;
 					$log->type=0;
 					$log->object=$model->id;
-					$log->details=$model->id_workplace;
+					$log->details=$alt_model->id_workplace.','.$model->id_workplace;
 					$log->save();
 				}
 				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
