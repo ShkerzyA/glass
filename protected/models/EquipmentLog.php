@@ -25,12 +25,12 @@ class EquipmentLog extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return EquipmentLog the static model class
 	 */
-	public static $modelLabelS='EquipmentLog';
-	public static $modelLabelP='EquipmentLog';
+	public static $modelLabelS='Лог оборудования';
+	public static $modelLabelP='Логи оборудования';
 
 	public static $db_array=array('details');
 	public static $typeM=array(
-				0=>array('name'=>'Перемещение','fields'=>array('workplace')),
+				0=>array('name'=>'Перемещение оборудования','fields'=>array('old_workplace','workplace')),
 				1=>array('name'=>'Замена картриджа','fields'=>array('workplace','id_printer')),
 				2=>array('name'=>'Проверка счетчика принтера','fields'=>array('num_str')),
 			);
@@ -73,7 +73,7 @@ class EquipmentLog extends CActiveRecord
 
 
 	public function getType(){
-		if(!empty($this->type))
+		if(isset($this->type))
 			return self::$typeM[$this->type];
 		else
 			return self::$typeM;
@@ -83,13 +83,33 @@ class EquipmentLog extends CActiveRecord
 		$det=explode(',', $this->details);
 		switch ($this->type) {
 			case '0':
-				return 'Рабочее место '.$det[0];
+				return 'Откуда: '.$det[0].' Куда: '.$det[1];
 				break;
 			case '1':
-				return 'Рабочее место '.$det[0].' Принтер: '.$det[1];
+				return 'Рабочее место: '.$det[0].' Принтер: '.$det[1];
 				break;
 			case '2':
-				return 'Число отпечатков '.$det[0];
+				return 'Число отпечатков: '.$det[0];
+				break;
+			
+			default:
+				return implode(',', $det);
+				break;
+		}
+	}
+
+		public function details_full(){
+		$det=explode(',', $this->details);
+		switch ($this->type) {
+			case '0':
+				return 'Откуда: '.Workplace::model()->findByPk($det[0])->wpNameFull()."\n\n Куда: ".Workplace::model()->findByPk($det[1])->wpNameFull();
+				break;
+			case '1':
+				$printer=(isset($det[1]))?Equipment::model()->findByPk($det[1])->full_name():'';
+				return 'Рабочее место: '.Workplace::model()->findByPk($det[0])->wpNameFull()."\n Принтер: $printer";
+				break;
+			case '2':
+				return 'Число отпечатков: '.$det[0];
 				break;
 			
 			default:
@@ -136,13 +156,13 @@ class EquipmentLog extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'timestamp' => 'Timestamp',
-			'subject' => 'Subject',
-			'object' => 'Object',
-			'type' => 'Type',
-			'details' => 'Details',
-			'subject0subject' => 'subject',
-			'object0object' => 'object',
+			'timestamp' => 'Дата/время действия',
+			'subject' => 'Субъект',
+			'object' => 'Объект',
+			'type' => 'Тип действия',
+			'details' => 'Детали',
+			'subject0subject' => 'Субъект',
+			'object0object' => 'Объект',
 		);
 	}
 
@@ -194,14 +214,15 @@ class EquipmentLog extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->with=array('subject0' => array('alias' => 'personnel'),'objectEq' => array('alias' => 'equipment'),);
-		$criteria->compare('id',$this->id);
-		$criteria->compare('timestamp',$this->timestamp,true);
+		$criteria->compare('t.id',$this->id);
+		$criteria->compare('t."timestamp"::text',$this->timestamp,true);
 		$criteria->compare('subject',$this->subject);
 		$criteria->compare('object',$this->object);
-		$criteria->compare('type',$this->type);
-		$criteria->compare('details',$this->details,true);
-		$criteria->compare('personnel.subject',$this->subject0subject,true);
-		$criteria->compare('equipment.object',$this->object0object,true);
+		$criteria->compare('t.type',$this->type);
+		$criteria->compare('t.details',$this->details,true);
+		$criteria->compare('personnel.surname',$this->subject0subject,true);
+		$criteria->compare('equipment.inv',$this->object0object,true, 'OR');
+		$criteria->compare('equipment.serial',$this->object0object,true,'OR');
 
 		$criteria->order='t.timestamp DESC';
 		return new CActiveDataProvider($this, array(

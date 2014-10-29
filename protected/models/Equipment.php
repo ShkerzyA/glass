@@ -114,7 +114,7 @@ class Equipment extends CActiveRecord
 	}
 
 	public function full_name(){
-		return $this->type0->name.' '.$this->producer0->name.' '.$this->mark.' '.$this->inv();
+		return $this->serial.' '.$this->type0->name.' '.$this->producer0->name.' '.$this->mark.' '.$this->inv();
 	}
 
 	/**

@@ -3,7 +3,7 @@
 /* @var $model EquipmentLog */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
+	$model::$modelLabelP=>array('admin'),
 	$model->id,
 );
 
@@ -21,6 +21,11 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'details',
+		'id',
+		'timestamp',
+		array( 'name'=>'type', 'value'=>$model->getType()["name"] ),
+		array( 'name'=>'subject0subject', 'value'=>$model->subject0->fio_full()),
+		array( 'name'=>'object0object', 'value'=>$model->objectEq->idWorkplace->wpNameFull().' '.$model->objectEq->full_name()),
+		array( 'name'=>'details', 'value'=>$model->details_full()),
 	),
 )); ?>

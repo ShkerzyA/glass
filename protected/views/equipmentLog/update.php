@@ -3,7 +3,7 @@
 /* @var $model EquipmentLog */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('index'),
+	$model::$modelLabelP=>array('admin'),
 	$model->id=>array('view','id'=>$model->id),
 	'Изменить',
 );

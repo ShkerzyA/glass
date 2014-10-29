@@ -138,6 +138,7 @@ class Tasks extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('type, creator, id_department, status', 'numerical', 'integerOnly'=>true),
+			array('details','checkDetails'),
 			array('tname', 'length', 'max'=>100),
 			array('group', 'length', 'max'=>255),
 			array('details', 'length', 'max'=>255),
@@ -149,6 +150,19 @@ class Tasks extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('id, tname, ttext, timestamp, timestamp_end, type, id_department, status, creator, executors,creator0creator,executor0executor,group,details', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function checkDetails(){
+		switch($this->type){
+			case '1':
+				if(empty($this->details))
+					$this->addError('details','Поле принтер обязательно для заполнения');
+				break;
+			
+			default:
+				# code...
+				break;
+		}
 	}
 
 	/**
