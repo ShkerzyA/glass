@@ -206,7 +206,7 @@ class Equipment extends CActiveRecord
 			}
 		}
 
-		$criteria->compare('serial',$this->serial,true);
+		$criteria->compare('LOWER(t.serial)',mb_strtolower($this->serial,'UTF-8'),true);
 		$criteria->compare('type',$this->type);
 		$criteria->compare('producer',$this->producer);
 		$criteria->compare('mark',$this->mark,true);
