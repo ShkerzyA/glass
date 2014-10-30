@@ -20,8 +20,9 @@
 		<?php echo CHtml::encode($data->surname.' '.$data->name.' '.$data->patr); ?> 
 		</div>
 		<?php 
-			if($act)
+			if($act){
 				echo $data->personnelPostsHistories[0]->idPost->post.'/'.$data->personnelPostsHistories[0]->idPost->postSubdivRn->name ;
+			}
 		?>
 	</a>
 </div>

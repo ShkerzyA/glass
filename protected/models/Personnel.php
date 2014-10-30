@@ -212,16 +212,20 @@ class Personnel extends CActiveRecord
             'idUser' => array('alias' => 'users'),
             'workplaces' => array('alias' => 'workplace','together'=>True),
             'workplaces.idCabinet' => array('alias' => 'cabinet','together'=>True),
-            'personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL or \"personnelPostsHistories\".date_end>current_date"),);
+            'personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL",'together'=>True),
+            'personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
+            'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
 
         $criteria->compare('id',$this->id);
         $words=explode(" ",$this->allfields);
 
         foreach ($words as $v) {
         $criteria2=new CDbCriteria;
-            $criteria2->compare('LOWER(surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(t.surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(t.name)',mb_strtolower($v,'UTF-8'),true, 'OR');
-            $criteria2->compare('LOWER(patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(t.patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(department_posts.post)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(cabinet.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(cabinet.num)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(cabinet.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
