@@ -147,9 +147,13 @@ document.ready(init());
       return split(term).pop();
      }
    ")?>
- <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+ <?php 
+
+    $val=(!empty($model->details))?$model->detailsShow():'';
+
+    $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
    'name'=>'Printer_details',
-   'value'=>$model->detailsShow(),
+   'value'=>$val,
 //'value' => $model->id,
    'source'=>"js:function(request, response) {
       $.getJSON('".$this->createUrl('suggest')."', {
