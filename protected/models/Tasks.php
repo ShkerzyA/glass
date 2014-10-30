@@ -293,7 +293,7 @@ class Tasks extends CActiveRecord
 				$m=Equipment::model()->findByPk($this->details);
 				$result=$m->idWorkplace->wpNameFull($short);	
 				if(!$short)
-					$result=$result."\nПринтер: $m->mark. \n";			
+					$result=$result."\nПринтер: $m->mark";			
 				break;
 			
 			default:
