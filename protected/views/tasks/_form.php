@@ -149,7 +149,7 @@ document.ready(init());
    ")?>
  <?php $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
    'name'=>'Printer_details',
-   'value'=>'',
+   'value'=>$model->detailsShow(),
 //'value' => $model->id,
    'source'=>"js:function(request, response) {
       $.getJSON('".$this->createUrl('suggest')."', {

@@ -46,7 +46,7 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'tname',
-		'ttext',
+		array('name'=>'ttext','value'=>'$data->ttext." ".$data->detailsShow()'),
 		'timestamp',
 		'timestamp_end',
 		'type',
