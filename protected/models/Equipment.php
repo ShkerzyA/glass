@@ -27,7 +27,11 @@ class Equipment extends CActiveRecord
 	 */
 	public static $modelLabelS='Оборудование';
 	public static $modelLabelP='Оборудование';
+
+	//id рабочих мест, для оборота картриджей
 	public static $cartStorage='574';
+	public static $cartFull='597';
+	public static $cartRefill='596';
 	public $place;
 	
 	public $idWorkplaceid_workplace;
@@ -69,6 +73,46 @@ class Equipment extends CActiveRecord
 			);
 	}
 
+	public static function cartMassMovie($type,$inv){
+
+		$carts=array();
+		$errors=array();
+
+		switch ($type) {
+			case 3:
+				$from=self::$cartStorage;
+				$to=self::$cartRefill;
+				break;
+			case 4:
+				$from=self::$cartRefill;
+				$to=self::$cartFull;
+				break;
+			
+			default:
+				return array('Неопределенное действие');
+				break;
+		}
+
+
+		$inv=explode(',', $inv);
+		foreach ($inv as $v) {
+			$mod=self::model()->find(array('condition'=>'t.id_workplace='.$from.' and t.inv=\''.$v.'\''));
+			if($mod)
+				$carts[]=$mod;
+			else
+				$errors[]='картридж с таким инв. отсутствует: '.$v;
+		}
+		if(!empty($errors)){
+			return $errors;
+		}else{
+			foreach ($carts as $v) {
+				$v->id_workplace=$to;
+				$v->save();
+			}
+		}
+
+	}
+
 
 	public function rules()
 	{
@@ -81,8 +125,6 @@ class Equipment extends CActiveRecord
 			array('mark', 'length', 'max'=>200),
 			array('notes', 'safe'),
 			array('id','uniqueInvSerial'),
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
 			array('id, id_workplace, serial, type, producer, mark, inv, status, notes,idWorkplaceid_workplace,place', 'safe', 'on'=>'search'),
 		);
 	}

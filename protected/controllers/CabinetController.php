@@ -74,7 +74,7 @@ class CabinetController extends Controller
     	'workplaces.equipments'=>array(
        // 'select'=>True,
         'joinType'=>'LEFT JOIN',
-        'alias'=>'e'
+        'alias'=>'equipments'
     	),
 	))->findByPk($id);
 

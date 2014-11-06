@@ -33,6 +33,8 @@ class EquipmentLog extends CActiveRecord
 				0=>array('name'=>'Перемещение оборудования','fields'=>array('old_workplace','workplace')),
 				1=>array('name'=>'Замена картриджа','fields'=>array('workplace','id_printer')),
 				2=>array('name'=>'Проверка счетчика принтера','fields'=>array('num_str')),
+				3=>array('name'=>'Отправка на заправку','fields'=>array('idcart')),
+				4=>array('name'=>'Возврат с заправки','fields'=>array('idcart')),
 			);
 	
 	public $subject0subject;
@@ -91,6 +93,11 @@ class EquipmentLog extends CActiveRecord
 			case '2':
 				return 'Число отпечатков: '.$det[0];
 				break;
+
+			case '3':
+			case '4':
+				return 'номера картриджей: '.$det[0];
+				break;
 			
 			default:
 				return implode(',', $det);
@@ -110,6 +117,10 @@ class EquipmentLog extends CActiveRecord
 				break;
 			case '2':
 				return 'Число отпечатков: '.$det[0];
+				break;
+			case '3':
+			case '4':
+				return 'номера картриджей: '.implode(',',$det);
 				break;
 			
 			default:

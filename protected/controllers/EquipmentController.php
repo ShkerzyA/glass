@@ -53,7 +53,7 @@ class EquipmentController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','export'),
+				'actions'=>array('index','view','export','cartSearch'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -69,6 +69,20 @@ class EquipmentController extends Controller
 			),
 		);
 	}
+
+public function actionCartSearch(){
+		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
+  		$models = Equipment::model()->findAll(array('condition'=>'t.inv=\''.$_GET['term'].'\''));
+  		$result = array();
+  		foreach ($models as $m)
+   		$result[] = array(
+     		'label' => $m->inv,
+     		'value' => $m->inv,
+     		'id' => $m->inv,
+   		);
+  		echo CJSON::encode($result);
+ 	}
+}
 
 	/**
 	 * Displays a particular model.

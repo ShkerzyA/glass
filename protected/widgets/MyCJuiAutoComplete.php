@@ -1,5 +1,5 @@
 <?php
-Yii::import('zii.widgets.jui.CJuiAutoComplete');
+
 class MyCJuiAutoComplete extends CJuiAutoComplete{
    public $source= "js:function(request, response) { $.getJSON('Eventsoper/suggest', { term: extractLast(request.term)  }, response);  }";
 

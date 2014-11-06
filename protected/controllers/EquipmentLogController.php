@@ -28,7 +28,7 @@ class EquipmentLogController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','exportCart'),
+				'actions'=>array('index','view','exportCart','crefill'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -84,6 +84,46 @@ class EquipmentLogController extends Controller
 		));
 	}
 
+		public function actionCrefill($type='')
+	{
+
+		$model=new EquipmentLog;
+		switch ($type) {
+			case 'outgo':
+				$model->type=3;
+				break;
+			case 'ingo':
+				$model->type=4;
+				break;
+			default:
+				$this->redirect(array('/admin/index'));
+				break;
+		}
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['EquipmentLog']))
+		{
+			$model->attributes=$_POST['EquipmentLog'];
+
+			$errors=Equipment::cartMassMovie($model->type,$model->details);
+			if(!empty($errors)){
+				foreach ($errors as $v) {
+					$model->addError('details',$v);
+				}
+			}else{
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));
+			}
+		}
+
+		$this->render('_formCRefill',array(
+			'model'=>$model,
+		));
+	}
+
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -121,6 +161,9 @@ class EquipmentLogController extends Controller
 		echo '</pre>';*/ 
 		$Xls->exportLogCart($data);
 	}
+
+
+
 
 	/**
 	 * Deletes a particular model.

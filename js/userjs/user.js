@@ -9,6 +9,13 @@ function init(){
 		$('.'+this.id).remove();
 	});
 
+	$("#EquipmentLog_details").live('keydown',function(e){
+        if(e.keyCode==13){
+        	tmp=$("#EquipmentLog_details").val();
+        	$("#EquipmentLog_details").val(tmp+',');
+        }
+    });
+
 
 	$('.mess_head').live('click',function(){
 		$('.mess_body').toggle();
