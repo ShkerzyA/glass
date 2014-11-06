@@ -108,7 +108,7 @@ class Workplace extends CActiveRecord
 		return array(
 			'idPersonnel' => array(self::BELONGS_TO, 'Personnel', 'id_personnel'),
 			'idCabinet' => array(self::BELONGS_TO, 'Cabinet', 'id_cabinet'),
-            'equipments' => array(self::HAS_MANY, 'Equipment', 'id_workplace','order'=>'"equipments".inv ASC'),
+            'equipments' => array(self::HAS_MANY, 'Equipment', 'id_workplace','order'=>'"equipments".mark ASC, "equipments".inv ASC'),
 		);
 	}
 
