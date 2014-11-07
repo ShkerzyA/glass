@@ -197,7 +197,7 @@ class EquipmentLog extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->with=array('subject0','objectEq.idWorkplace.idPersonnel','objectEq.idWorkplace.idCabinet.idFloor.idBuilding'); // 
 		$criteria->order='t.timestamp DESC';
-		$criteria->condition='t.type in (1,2)';
+		$criteria->condition='t.type in (1,2,5)';
 		//$criteria->compare('personnel.creator',$this->creator0creator,true);
 		$model=self::model()->findAll($criteria);
 
