@@ -26,7 +26,7 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
          if($rul){
             $edit='<td><a href="'.$this->createUrl('/equipment/update/',array('id'=>$eq->id)).'"><img src="'.$this->createUrl('/images/update.png').'"></a>';
             $edit.=CHtml::link('<img src="'.$this->createUrl('/images/delete.png').'">','#',array('submit'=>array('/equipment/delete','id'=>$eq->id),'confirm' => 'Вы уверены?')).' ';
-            $edit.='<img class="showlog" id="'.$eq->id.'" src="'.$this->createUrl('/images/view.png').'"></td>';
+            $edit.='<img class="showlog" style="cursor: pointer;" id="'.$eq->id.'" src="'.$this->createUrl('/images/view.png').'"></td>';
          }else{
             $edit='';
          }

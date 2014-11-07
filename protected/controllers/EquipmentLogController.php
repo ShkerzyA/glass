@@ -76,7 +76,7 @@ class EquipmentLogController extends Controller
 		$logs=EquipmentLog::model()->findAll(array('condition'=>'t.object='.$id.' or (type=1 and \''.$id.'\'=details[2]) or (type in (3,4) and \''.$eq->inv.'\'=ANY("details"))','order'=>'t.timestamp DESC'));
 		echo '<table class=bordertable><tr><th>Дата/Время</th><th>Тип действия</th><th>Субьект</th><th>Объект</th><th>Детали</th></tr>';
 		foreach ($logs as $v) {
-			echo '<tr><td>'.$v->timestamp.'</td><td>'.$v->getType()['name'].'</td><td>'.$v->subject0->fio().'</td><td>'.$v->objectEq->full_name().'</td><td>'.$v->details_full().'</td></tr>';
+			echo '<tr><td>'.$v->timestamp.'</td><td>'.$v->getType()['name'].'</td><td>'.$v->subject0->fio().'</td><td>'.($ob_name=($v->objectEq)?$v->objectEq->full_name():'').'</td><td>'.$v->details_full().'</td></tr>';
 		}
 		echo '</table>';
 	}

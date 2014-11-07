@@ -1,4 +1,11 @@
 
+table{
+	max-width: 99%;
+}
+
+td{
+	white-space: pre-wrap;
+}
 
 .MyMenuSubmenu{
 	/*display: none;*/
@@ -17,6 +24,9 @@
 	transition: opacity .4s ease 0s, height .4s ease 0s;
 
 }
+
+
+
 #mainmenu .MyMenuSubmenu .item
 {
 	display: inline-block;
@@ -586,13 +596,14 @@ select{
 	z-index: 90;
 }
 .window_awesom{
-	background: #f4f4f4;
-	margin: 0 auto;
+	background-color: #fffffe;
+    border-radius: 2px 2px 0 0;
+    box-shadow: 2px -2px 2px rgba(0, 0, 0, 0.1), -2px -2px 2px rgba(0, 0, 0, 0.1), 0 -90px 20px -100px #000000 inset;
+
+	margin: auto;
 	overflow: hidden;
 	padding: 3px;
 
-	border: 2px groove #ffffff;
-	border-radius: 2px;
 	position: absolute;
 	text-align: left;
 	min-width: 14px;
