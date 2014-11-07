@@ -31,10 +31,11 @@ class EquipmentLog extends CActiveRecord
 	public static $db_array=array('details');
 	public static $typeM=array(
 				0=>array('name'=>'Перемещение оборудования','fields'=>array('old_workplace','workplace')),
-				1=>array('name'=>'Замена картриджа','fields'=>array('workplace','id_printer')),
+				1=>array('name'=>'Установка картриджа','fields'=>array('workplace','id_printer')),
 				2=>array('name'=>'Проверка счетчика принтера','fields'=>array('num_str')),
 				3=>array('name'=>'Отправка на заправку','fields'=>array('idcart')),
 				4=>array('name'=>'Возврат с заправки','fields'=>array('idcart')),
+				5=>array('name'=>'Возврат картриджа','fields'=>array('workplace')),
 			);
 	
 	public $subject0subject;
@@ -98,6 +99,11 @@ class EquipmentLog extends CActiveRecord
 			case '4':
 				return 'номера картриджей: '.$det[0];
 				break;
+
+			case '5':
+				return 'Рабочее место: '.$det[0];
+				break;
+
 			
 			default:
 				return implode(',', $det);
@@ -121,6 +127,10 @@ class EquipmentLog extends CActiveRecord
 			case '3':
 			case '4':
 				return 'номера картриджей: '.implode(', ',$det);
+				break;
+
+			case '5':
+				return 'Рабочее место: '.Workplace::model()->findByPk($det[0])->wpNameFull();
 				break;
 			
 			default:
@@ -201,13 +211,11 @@ class EquipmentLog extends CActiveRecord
 				$data[$v->timestamp]['printerSN']=$v->objectEq->serial;
 				$data[$v->timestamp]['num_st']=$v->details[0];
 			}else if($v->type==1){
-				if($v->details[0]==Equipment::$cartStorage){
-					$data[$v->timestamp]['out_cart_inv']=$v->objectEq->inv;
-					$data[$v->timestamp]['out_cart_mark']=$v->objectEq->mark;
-				}else{
-					$data[$v->timestamp]['in_cart_inv']=$v->objectEq->inv;
-					$data[$v->timestamp]['in_cart_mark']=$v->objectEq->mark;
-				}
+				$data[$v->timestamp]['in_cart_inv']=$v->objectEq->inv;
+				$data[$v->timestamp]['in_cart_mark']=$v->objectEq->mark;
+			}else if($v->type==5){
+				$data[$v->timestamp]['out_cart_inv']=$v->objectEq->inv;
+				$data[$v->timestamp]['out_cart_mark']=$v->objectEq->mark;
 			}
 			
 		}

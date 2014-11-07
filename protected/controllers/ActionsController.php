@@ -105,7 +105,7 @@ class ActionsController extends Controller
 							$cart_old->save();
 
 							$log=new EquipmentLog;
-							$log->type=1;
+							$log->type=5;
 							$log->object=$cart_old->id;
 							$log->details=$cart_old->id_workplace;
 							$log->save();
@@ -116,7 +116,7 @@ class ActionsController extends Controller
 								$cart_old->save();
 
 								$log=new EquipmentLog;
-								$log->type=1;
+								$log->type=5;
 								$log->object=$cart_old->id;
 								$log->details=$cart_old->id_workplace;
 								$log->save();
