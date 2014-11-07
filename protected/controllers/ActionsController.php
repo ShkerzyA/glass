@@ -105,10 +105,7 @@ class ActionsController extends Controller
 							$cart_old->save();
 
 							$log=new EquipmentLog;
-							$log->type=5;
-							$log->object=$cart_old->id;
-							$log->details=$cart_old->id_workplace;
-							$log->save();
+							$log->saveLog('cartOut',$cart_old->id_workplace,$cart_old->id);
 						}else if(!empty($_POST['inv_cart_old'])){
 							$cart_old = Equipment::model()->find(array('condition'=>"t.type=18 and t.inv='$_POST[inv_cart_old]'"));
 							if($cart_old){
@@ -116,10 +113,7 @@ class ActionsController extends Controller
 								$cart_old->save();
 
 								$log=new EquipmentLog;
-								$log->type=5;
-								$log->object=$cart_old->id;
-								$log->details=$cart_old->id_workplace;
-								$log->save();
+								$log->saveLog('cartOut',$cart_old->id_workplace,$cart_old->id);
 							}else{
 								echo 'old_cart_undefinded';
 								exit();
@@ -130,16 +124,10 @@ class ActionsController extends Controller
 						$cart->save();
 						
 						$log=new EquipmentLog;
-						$log->type=1;
-						$log->object=$cart->id;
-						$log->details=$print->id_workplace.','.$print->id;
-						$log->save();
+						$log->saveLog('cartIn',$print->id_workplace.','.$print->id,$cart->id);
 
 						$log=new EquipmentLog;
-						$log->type=2;
-						$log->object=$print->id;
-						$log->details=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a';
-						$log->save();
+						$log->saveLog('printerCounter',($det=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a'),$print->id);
 					}
 
 						break;

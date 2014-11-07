@@ -117,8 +117,6 @@ class EquipmentLogController extends Controller
 				break;
 		}
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
 
 		if(isset($_POST['EquipmentLog']))
 		{

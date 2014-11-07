@@ -103,17 +103,16 @@ class WorkplaceController extends Controller
 		if(isset($_POST['Workplace']))
 		{
 			$model->attributes=$_POST['Workplace'];
-			if($model->save())
+			if($model->save()){
 				if($alt_model->id_cabinet!=$model->id_cabinet){
 					foreach($model->equipments as $v){
+						//echo $v->id;
 						$log=new EquipmentLog;
-						$log->type=6;
-						$log->object=$v->id;
-						$log->details=$alt_model->id_cabinet.','.$model->id_cabinet;
-						$log->save();	
+						$log->saveLog('moveWp',$alt_model->id_cabinet.','.$model->id_cabinet,$v->id);
 					}
 				}
 				$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('update',array(

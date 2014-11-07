@@ -30,13 +30,13 @@ class EquipmentLog extends CActiveRecord
 
 	public static $db_array=array('details');
 	public static $typeM=array(
-				0=>array('name'=>'Перемещение оборудования','fields'=>array('old_workplace','workplace')),
-				1=>array('name'=>'Установка картриджа','fields'=>array('workplace','id_printer')),
-				2=>array('name'=>'Проверка счетчика принтера','fields'=>array('num_str')),
-				3=>array('name'=>'Отправка на заправку','fields'=>array('idcart')),
-				4=>array('name'=>'Возврат с заправки','fields'=>array('idcart')),
-				5=>array('name'=>'Возврат картриджа','fields'=>array('workplace')),
-				6=>array('name'=>'Перемещение в составе рабочего места','fields'=>array('old_cabinet','cabinet')),
+				0=>array('action'=>'moveEq','name'=>'Перемещение оборудования','fields'=>array('old_workplace','workplace')),
+				1=>array('action'=>'cartIn','name'=>'Установка картриджа','fields'=>array('workplace','id_printer')),
+				2=>array('action'=>'printerCounter','name'=>'Проверка счетчика принтера','fields'=>array('num_str')),
+				3=>array('action'=>'cartRefillOut','name'=>'Отправка на заправку','fields'=>array('idcart')),
+				4=>array('action'=>'cartRefillIn','name'=>'Возврат с заправки','fields'=>array('idcart')),
+				5=>array('action'=>'cartOut','name'=>'Возврат картриджа','fields'=>array('workplace')),
+				6=>array('action'=>'moveWp','name'=>'Перемещение в составе рабочего места','fields'=>array('old_cabinet','cabinet')),
 			);
 	
 	public $subject0subject;
@@ -73,6 +73,27 @@ class EquipmentLog extends CActiveRecord
 	public function tableName()
 	{
 		return 'equipment_log';
+	}
+
+	public function saveLog($action,$details,$object=NULL){
+			foreach(self::$typeM as $k=>$v){
+				if($v['action']==$action){
+					$this->type=$k;
+				}
+			}
+			if(!isset($this->type))
+				return false;
+
+			if(!empty($object))
+				$this->object=$object;
+
+			$this->details=$details;
+			if($this->save()){
+				return true;
+			}else{
+				return false;
+			}
+
 	}
 
 
