@@ -120,11 +120,11 @@ class EquipmentLog extends CActiveRecord
 				break;
 			case '3':
 			case '4':
-				return 'номера картриджей: '.implode(',',$det);
+				return 'номера картриджей: '.implode(', ',$det);
 				break;
 			
 			default:
-				return implode(',', $det);
+				return implode(', ', $det);
 				break;
 		}
 	}
