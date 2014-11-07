@@ -198,7 +198,7 @@ public function actionCartSearch(){
 					$log->details=$alt_model->id_workplace.','.$model->id_workplace;
 					$log->save();
 				}
-				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
+				$this->redirect(array('/Workplace/view','id'=>$alt_model->id_workplace));
 			}
 		
 		}

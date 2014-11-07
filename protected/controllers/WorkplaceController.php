@@ -95,6 +95,7 @@ class WorkplaceController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		$alt_model=clone $model;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -103,6 +104,15 @@ class WorkplaceController extends Controller
 		{
 			$model->attributes=$_POST['Workplace'];
 			if($model->save())
+				if($alt_model->id_cabinet!=$model->id_cabinet){
+					foreach($model->equipments as $v){
+						$log=new EquipmentLog;
+						$log->type=6;
+						$log->object=$v->id;
+						$log->details=$alt_model->id_cabinet.','.$model->id_cabinet;
+						$log->save();	
+					}
+				}
 				$this->redirect(array('view','id'=>$model->id));
 		}
 

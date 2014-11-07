@@ -36,6 +36,7 @@ class EquipmentLog extends CActiveRecord
 				3=>array('name'=>'Отправка на заправку','fields'=>array('idcart')),
 				4=>array('name'=>'Возврат с заправки','fields'=>array('idcart')),
 				5=>array('name'=>'Возврат картриджа','fields'=>array('workplace')),
+				6=>array('name'=>'Перемещение в составе рабочего места','fields'=>array('old_cabinet','cabinet')),
 			);
 	
 	public $subject0subject;
@@ -104,6 +105,10 @@ class EquipmentLog extends CActiveRecord
 				return 'Рабочее место: '.$det[0];
 				break;
 
+			case '6':
+				return 'Откуда: '.$det[0].' Куда: '.$det[1];
+				break;
+
 			
 			default:
 				return implode(',', $det);
@@ -131,6 +136,10 @@ class EquipmentLog extends CActiveRecord
 
 			case '5':
 				return 'Рабочее место: '.Workplace::model()->findByPk($det[0])->wpNameFull();
+				break;
+
+			case '6':
+				return 'Откуда: '.Cabinet::model()->findByPk($det[0])->cabNameFull()."\n\n Куда: ".Cabinet::model()->findByPk($det[1])->cabNameFull();
 				break;
 			
 			default:

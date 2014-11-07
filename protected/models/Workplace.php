@@ -67,15 +67,10 @@ class Workplace extends CActiveRecord
 	}
 
 	public function wpNameFull($short=false){
-		if(!empty($this->id_personnel))
-			$wname=$this->idPersonnel->fio();
-		else
-			$wname=$this->wname;
-
 		if($short){
-			$result=$this->idCabinet->idFloor->idBuilding->bname.'/'.$this->idCabinet->idFloor->fnum.' эт./'.$this->idCabinet->num;	
+			$result=$this->idCabinet->cabNameFull($short);	
 		}else{
-			$result="Кабинет: ".$this->idCabinet->idFloor->idBuilding->bname."/".$this->idCabinet->idFloor->fname."/".$this->idCabinet->num." ".$this->idCabinet->cname."/".$wname;	
+			$result=$this->idCabinet->cabNameFull($short)."/".$this->wpName();;	
 		}	
 		return $result;
 	}

@@ -107,6 +107,15 @@ class Cabinet extends CActiveRecord
 		);
 	}
 
+	public function cabNameFull($short=false){
+		if($short){
+			$result=$this->idFloor->idBuilding->bname.'/'.$this->idFloor->fnum.' эт./'.$this->num;	
+		}else{
+			$result="Кабинет: ".$this->idFloor->idBuilding->bname."/".$this->idFloor->fname."/".$this->num." ".$this->cname;	
+		}	
+		return $result;
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
