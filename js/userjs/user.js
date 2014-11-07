@@ -34,7 +34,7 @@ function showLog(id){
         $.post("/glass/EquipmentLog/showLog", {id: id},
             function(data, status) {
                 if (status == "success") {
-                    $('html').append('<div class="back"><div class="window_awesom" style="min-width: 900px; max-width: 90%; min-height: 50px; top: 30%; margin: auto; font-size: 9pt"><div id="back" class="close_this"></div>'+ data + '</div></div>');
+                    $('html').append('<div class="back"><div class="window_awesom" style="width: 80%; left: 10%; position: fixed; max-width: 90%; min-height: 50px; top: 30%; margin: auto; font-size: 9pt"><div id="back" class="close_this"></div>'+ data + '</div></div>');
                 }else{
                     alert('Ошибка');
                 }
