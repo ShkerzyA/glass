@@ -193,7 +193,7 @@ public function actionCartSearch(){
 			if($model->save()){
 				if($alt_model->id_workplace!=$model->id_workplace){
 					$log=new EquipmentLog;
-					$log->saveLog('moveEq',$alt_model->id_workplace.','.$model->id_workplace,$model->id);
+					$log->saveLog('moveEq',array('details'=>$alt_model->id_workplace.','.$model->id_workplace,'object'=>$model->id));
 				}
 				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
 			}

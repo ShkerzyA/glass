@@ -75,7 +75,8 @@ class EquipmentLog extends CActiveRecord
 		return 'equipment_log';
 	}
 
-	public function saveLog($action,$details,$object=NULL){
+	public function saveLog($action,$data){
+
 			foreach(self::$typeM as $k=>$v){
 				if($v['action']==$action){
 					$this->type=$k;
@@ -84,10 +85,13 @@ class EquipmentLog extends CActiveRecord
 			if(!isset($this->type))
 				return false;
 
-			if(!empty($object))
-				$this->object=$object;
+			if(!empty($data['timestamp']))
+				$this->object=$data['timestamp'];
 
-			$this->details=$details;
+			if(!empty($data['object']))
+				$this->object=$data['object'];
+
+			$this->details=$data['details'];
 			if($this->save()){
 				return true;
 			}else{

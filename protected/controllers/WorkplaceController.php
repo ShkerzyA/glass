@@ -108,7 +108,7 @@ class WorkplaceController extends Controller
 					foreach($model->equipments as $v){
 						//echo $v->id;
 						$log=new EquipmentLog;
-						$log->saveLog('moveWp',$alt_model->id_cabinet.','.$model->id_cabinet,$v->id);
+						$log->saveLog('moveWp',array('details'=>$alt_model->id_cabinet.','.$model->id_cabinet,'object'=>$v->id));
 					}
 				}
 				$this->redirect(array('view','id'=>$model->id));

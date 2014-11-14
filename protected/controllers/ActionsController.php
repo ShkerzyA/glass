@@ -117,15 +117,17 @@ class ActionsController extends Controller
 						$cart->id_workplace=$print->id_workplace;
 						$cart->save();
 
+						$timestamp=date('Y-m-d H:i:s');
+
 
 						$log=new EquipmentLog;
-						$log->saveLog('cartOut',$cart_old->id_workplace,$cart_old->id);
+						$log->saveLog('cartOut',array('details'=>$cart_old->id_workplace,'object'=>$cart_old->id,'timestamp'=>$timestamp));
 						
 						$log=new EquipmentLog;
-						$log->saveLog('cartIn',$print->id_workplace.','.$print->id,$cart->id);
+						$log->saveLog('cartIn',array('details'=>$print->id_workplace.','.$print->id,'object'=>$cart->id,'timestamp'=>$timestamp));
 
 						$log=new EquipmentLog;
-						$log->saveLog('printerCounter',($det=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a'),$print->id);
+						$log->saveLog('printerCounter',array('details'=>($det=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a'),'object'=>$print->id,'timestamp'=>$timestamp));
 					}
 
 						break;
