@@ -74,6 +74,15 @@ class Messages extends CActiveRecord
 		);
 	}
 
+
+	public function beforeSave(){
+		$pattern='~http://([^\s]+(?=\.(jpg|gif|png))\.\2)~';
+		$replacement='<img class=chatImg src=$0>';
+		$this->ttext=preg_replace($pattern,$replacement, $this->ttext);
+		echo $this->ttext;
+		return parent::beforeSave();
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -85,6 +94,7 @@ class Messages extends CActiveRecord
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
 		);
 	}
+
 
 	/**
 	 * @return array customized attribute labels (name=>label)

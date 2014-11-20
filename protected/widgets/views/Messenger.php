@@ -21,8 +21,10 @@ function updateChat(){
 	$.post('/glass/messages/showNew',{time: timem},function(response){
     		var res=$.parseJSON(response);
     		timem=res.timem;
-      		$(".mess_content").prepend(res.data);
-      	
+    		if(res.data.length>0){
+      			$(".mess_content").prepend(res.data);
+    			$('.mess_body').show();
+    		}
     	});
 }
  $(document).ready(init());
