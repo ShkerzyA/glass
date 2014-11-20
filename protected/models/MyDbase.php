@@ -49,9 +49,7 @@ class MyDbase extends CFormModel{
 		//$acatalog=array_filter($acatalog, function($var){return ($var['UNIT_RN']=="001g");});
 
  		//print_r ($zSubDiv);
-		echo'<pre>'; 		
 		//print_r ($acatalog);
-		echo'</pre>';
 		//print_r ($zSubDiv);
 
 		
@@ -212,7 +210,7 @@ class MyDbase extends CFormModel{
 			}*/
 
 			//echo '|'.$v['POST_RN'].'|<br>';
-			echo ($v['FCAC_RN'].'<br>');
+			//echo ($v['FCAC_RN'].'<br>');
 
 			if(!empty(trim($v['POST_RN']))){
 				$post=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));	

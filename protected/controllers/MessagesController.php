@@ -28,7 +28,7 @@ class MessagesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','showNew'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -43,6 +43,19 @@ class MessagesController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+
+	public function actionShowNew()
+	{
+		$time=$_POST['time'];
+		$result=array();
+		$result['timem']=date('Y-m-d H:i:s');
+		$models=Messages::model()->findAll(array('condition'=>'timestamp>\''.$time.'\'','order'=>'timestamp DESC'));
+		foreach ($models as $v) {
+			$result['data']=$result['data'].$this->renderPartial('/messages/compactview',array('model'=>$v),true,false);
+		}
+		echo json_encode($result);
 	}
 
 	/**

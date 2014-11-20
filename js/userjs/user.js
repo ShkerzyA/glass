@@ -24,6 +24,7 @@ function init(){
 	$('.showlog').live('click',function(){
 		showLog(this.id);
 	});
+
 }
 
 

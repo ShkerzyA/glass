@@ -74,14 +74,13 @@ if($this->isHorn)
 			<div class="texttask rotated"><pre><?php echo $v['ttext'].$v->detailsShow(); ?></pre></div></span>
 			<div  class="rightinfo">
 				<?php 	
-						echo'<div class="taskmoreinfo"> <img height=100% src="';
+						echo'<div class="taskmoreinfo">';
+						if(!empty($v->TasksActions[0]->creator0)){
+							echo '<img height=100% src="';
+							echo $v->TasksActions[0]->creator0->ava();
+							echo'">';}
 						//print_r($v->TasksActions[0]->creator0);
-						if (!empty($v->TasksActions[0]->creator0->photo)){
-							echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($v->TasksActions[0]->creator0->photo)); 
-						}else{
-							echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
-						}
-						echo "\">";
+					
 						$rep='';
 						echo '<div class=hiddeninfotask>';
 						foreach ($v->TasksActions as $action) {

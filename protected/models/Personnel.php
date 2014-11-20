@@ -79,6 +79,15 @@ class Personnel extends CActiveRecord
         return $this->surname.' '.$this->name.' '.$this->patr;
     }
 
+    public function ava(){
+        if (!empty($this->photo)){
+            echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($this->photo)); 
+        }else{
+            echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
+        }
+
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */

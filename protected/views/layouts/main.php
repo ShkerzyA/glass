@@ -24,15 +24,18 @@
 
 <body>
 <?php if(!(Yii::app()->user->isGuest)): ?>
-	<?php if(!empty(Yii::app()->user->bg)): ?>
+
+	<?php if(!empty(Yii::app()->user->bg) and is_file(Yii::getPathOfAlias('webroot').'/images/'.Yii::app()->user->bg)): ?>
 	<style>
 		body{
-			background: url("/glass/images/<?php echo Yii::app()->user->bg; ?>") repeat-y fixed;
+			background: url("/glass/images/<?php echo Yii::app()->user->bg; ?>") 100% fixed;
 			background-size: 100%;
 		}
 	</style>
 	<?php endif; ?>
 	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
+
+		<?php $this->widget('application.widgets.Messenger');  ?>
 		<?php if((Yii::app()->user->id_pers==19705) or (Yii::app()->user->id_pers==20024) or (Yii::app()->user->id_pers==2)):?>
 			<div id='omsk'><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/nyan_bz.gif"></div>
 		<?php else: ?>
@@ -132,8 +135,6 @@ END;
 
 ?>
 
-
-			<?php // $this->widget('application.widgets.Messenger'); ?>
 </body>
 </html>
 	

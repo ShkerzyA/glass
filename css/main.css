@@ -4,9 +4,10 @@ body
 	padding: 0;
 	color: #040404;
 	font: normal 10pt Arial,Helvetica,sans-serif;
-	background: #dadee0;
-	background: url(../images/bg.jpg) repeat-y fixed;
-	background-size: 100%;
+	background: #e9ede1;
+	/*background: url(../images/bg.jpg) repeat fixed;*/
+	
+   background-image: radial-gradient(230px 50px, ellipse farthest-side, white, blue);
 
 }
 

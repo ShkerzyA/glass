@@ -248,6 +248,8 @@ td{
 	opacity: 0.5;
 	color: rgb(255,255,255);
 	padding: 3px;
+	text-align: center;
+	vertical-align: middle;
 	font-size: 10pt;
 	font-weight: bold;
 }
@@ -266,9 +268,21 @@ td{
 	height: 350px;
 }
 
+.mess_unit{
+	position: relative; 
+	min-height: 30px;
+
+}
+
+.mtext{
+	margin-top: 20px;
+	text-align: justify;
+	padding: 2px;
+	clear: both;
+}
+
 .mess_form{
 	margin: 3px;
-	height: 100px;
 	background: #f7f7f7;
 }
 
@@ -641,6 +655,7 @@ select{
 .phonetable, .phonetable *{
 	border: 1px solid #d4d4d4;
 	border-collapse: none;
+	white-space: pre-wrap;
 }
 
 .phonetable th{
@@ -663,7 +678,7 @@ select{
 	margin-left: 10%;
 }
 
-.taskpanel, .perspanel{
+.taskpanel, .perspanel, .mess_unit{
 	color: #06c;
 	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
 	border-radius: 2px;
@@ -675,6 +690,10 @@ select{
 	height: 18px; 
 	width: auto;
 	position: relative;
+}
+
+.mess_unit{
+	height: auto;
 }
 
 .perspanel{

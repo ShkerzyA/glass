@@ -29,7 +29,7 @@ class ActionsController extends Controller
 				$this->act->id_task=$_POST['id'];
 				break;
 			default:
-				$this->act=new MessageActions();
+				$this->act=new Messages();
 				break;
 		}
 
@@ -69,11 +69,9 @@ class ActionsController extends Controller
 	public function actionSaveMessage(){
 
 		if(Yii::app()->request->isAjaxRequest){
-			if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$this->parent))){
-				$this->act->saveMessage();
-			}
+			$this->act->attributes=$_POST['Messages'];
+			$this->act->save();
 		}
-
 	}
 
 	public function actionDelete(){
