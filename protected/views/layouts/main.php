@@ -34,8 +34,6 @@
 	</style>
 	<?php endif; ?>
 	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
-
-		<?php $this->widget('application.widgets.Messenger');  ?>
 		<?php if((Yii::app()->user->id_pers==19705) or (Yii::app()->user->id_pers==20024) or (Yii::app()->user->id_pers==2)):?>
 			<div id='omsk'><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/nyan_bz.gif"></div>
 		<?php else: ?>
@@ -134,6 +132,12 @@ function sttopmode(elem,over) {
 END;
 
 ?>
+
+<?php if(!(Yii::app()->user->isGuest)): ?>
+	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
+		<?php $this->widget('application.widgets.Messenger');  ?>
+	<?php endif; ?>
+<?php endif; ?>
 
 </body>
 </html>

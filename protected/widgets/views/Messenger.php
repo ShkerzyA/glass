@@ -8,6 +8,9 @@
 var timem="<?php echo date('Y-m-d H:i:s');?>";
 var viewChat=<?php echo Yii::app()->user->viewChat;?>;
 function init(){
+	$('.messenger').live('mouseenter',function(){
+    	$(".mess_head").css("background","black");
+	});
 	$('#Messages_ttext').live('keydown',function(e){
           if(e.ctrlKey && e.keyCode==13){
             $('#Messages_submit').click();
@@ -15,7 +18,7 @@ function init(){
     });
 	setInterval(function(){
     	updateChat();
-  	},10000);
+  	},5000);
 }
 
 function updateChat(){
@@ -23,6 +26,7 @@ function updateChat(){
     		var res=$.parseJSON(response);
     		timem=res.timem;
     		if(res.data.length>0){
+    			$(".mess_head").css("background","red");
       			$(".mess_content").prepend(res.data);
     			$('.mess_body').show();
     		}
