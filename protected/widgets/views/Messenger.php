@@ -6,6 +6,7 @@
 <?php Yii::app()->clientScript->registerPackage('userjs'); ?>
 <script type="text/javascript">
 var timem="<?php echo date('Y-m-d H:i:s');?>";
+var viewChat=<?php echo Yii::app()->user->viewChat;?>;
 function init(){
 	$('#Messages_ttext').live('keydown',function(e){
           if(e.ctrlKey && e.keyCode==13){
@@ -45,7 +46,7 @@ function updateChat(){
 			<?php echo CHtml::form();
  
 echo CHtml::textArea('Messages[ttext]', $input,array('placeholder'=>'текст сообщения (ctrl+enter)'));
-echo CHtml::ajaxSubmitButton('Отправить', '/glass/actions/saveMessage', array(
+echo CHtml::ajaxSubmitButton('Отправить', '/glass/actions/chatSaveMessage', array(
     'type' => 'POST',
     'success' => 'function(response) {
     	updateChat();
@@ -60,6 +61,13 @@ array(
 ));
  
 echo CHtml::endForm();?>
+<script type="text/javascript">
+	if(viewChat==0){
+ 		$('.mess_body').hide();
+ 	}else if(viewChat==1){
+ 		$('.mess_body').show();
+ 	}
+</script>
 			</div>
 		</div>
 	</div>

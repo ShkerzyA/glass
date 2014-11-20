@@ -61,6 +61,7 @@ class UserIdentity extends CUserIdentity
             }else{
                 $this->setState('groups', -1);
             }
+            $this->setState('viewChat',0);
             $this->setState('id_posts',$id_posts);
             $this->setState('id_departments',$id_departments);
             $this->setState('departments_rn',$departments_rn);

@@ -19,6 +19,14 @@ function init(){
 
 	$('.mess_head').live('click',function(){
 		$('.mess_body').toggle();
+		$.post("/glass/Users/viewChat", {},
+            function(data, status) {
+                if (status == "success") {
+                    }else{
+                    alert('Ошибка');
+                }
+            },"html"
+        );
 	});
 
 	$('.showlog').live('click',function(){

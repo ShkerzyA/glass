@@ -28,7 +28,7 @@ class UsersController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','rootFillTree','AjaxFillTree','ModalForm'),
+				'actions'=>array('index','view','rootFillTree','AjaxFillTree','ModalForm','viewChat'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -43,6 +43,20 @@ class UsersController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionViewChat(){
+		switch(Yii::app()->user->viewChat){
+			case '0':
+				Yii::app()->user->viewChat=1;
+			break;
+			case '1':
+				Yii::app()->user->viewChat=0;
+			break;
+			default:
+			break;
+		}
+		echo (Yii::app()->user->viewChat);
 	}
 
 	/**

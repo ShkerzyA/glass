@@ -52,7 +52,7 @@ class ActionsController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('index','SaveMessage','SaveStatus','SaveReport','delete'),
+				'actions'=>array('index','ChatSaveMessage','SaveMessage','SaveStatus','SaveReport','delete'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -65,8 +65,7 @@ class ActionsController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-
-	public function actionSaveMessage(){
+	public function actionChatSaveMessage(){
 
 		if(Yii::app()->request->isAjaxRequest){
 			$this->act->attributes=$_POST['Messages'];
@@ -74,11 +73,17 @@ class ActionsController extends Controller
 		}
 	}
 
+	public function actionSaveMessage(){
+
+		if(Yii::app()->request->isAjaxRequest){
+			$this->act->ttext=$_POST['mess'];
+			$this->act->save();
+		}
+	}
+
 	public function actionDelete(){
 		$this->act=$this->act->findByPk($_POST['id']);
 		$this->act->delete();
-		//echo $this->act->ttext;
-		//echo'почн';
 	}
 
 	public function actionSaveReport(){

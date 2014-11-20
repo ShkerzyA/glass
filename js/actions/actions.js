@@ -55,7 +55,7 @@ function save_comment(){
                     $('#message').empty();
                     $('.modal_window_back').hide();
                     $('.modal_window').hide();
-                    window.location.reload();
+                    //window.location.reload();
                 }else{
                 	alert('Ошибка');
                 }
