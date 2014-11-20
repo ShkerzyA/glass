@@ -274,6 +274,10 @@ td{
 
 }
 
+.mess_unit img{
+	max-width: 99%;
+}
+
 .mtext{
 	margin-top: 20px;
 	text-align: justify;
