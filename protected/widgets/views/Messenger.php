@@ -52,8 +52,8 @@ echo CHtml::textArea('Messages[ttext]', $input,array('placeholder'=>'текст 
 echo CHtml::ajaxSubmitButton('Отправить', '/glass/actions/chatSaveMessage', array(
     'type' => 'POST',
     'success' => 'function(response) {
-    	updateChat();
     	$("#Messages_ttext").val("");
+    	updateChat();
   	}',
 
 ),

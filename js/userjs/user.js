@@ -33,10 +33,29 @@ function init(){
 		showLog(this.id);
 	});
 
+    setInterval(function(){
+        updTasks();
+    },20000);
+
 }
 
 
 $(document).ready(init());
+
+
+
+function updTasks(){
+    $.get(location.href, {},
+            function(data, status) {
+                if (status == "success") {
+                        $('#taskbody').empty();
+                        $('#taskbody').append(data);
+                    }else{
+                    alert('Ошибка');
+                }
+            },"html"
+    );
+}
 
 function showLog(id){
     if (id) {

@@ -316,9 +316,15 @@ class TasksController extends Controller
 			$this->isHorn=Tasks::isHorn($id_department,$group);
 		}
 		$model=Tasks::tasksForOtdAndGroup($id_department,$type,$group,$this->target_date);
-		$this->render('helpdesk',array(
-			'model'=>$model,
-		));
+		if(Yii::app()->request->isAjaxRequest){
+			$this->renderPartial('_helpdesk',array(
+				'model'=>$model,
+			),false,false);
+		}else{
+			$this->render('helpdesk',array(
+				'model'=>$model,
+			));
+		}
 	}
 
 	/**
