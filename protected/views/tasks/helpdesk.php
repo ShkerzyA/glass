@@ -1,7 +1,32 @@
+<script type="text/javascript">
+
+
+function init(){
+    setInterval(function(){
+        updTasks();
+    },20000);
+
+}
+
+
+$(document).ready(init());
+function updTasks(){
+    $.get(location.href, {},
+            function(data, status) {
+                if (status == "success") {
+                        $('#taskbody').empty();
+                        $('#taskbody').append(data);
+                    }else{
+                    alert('Ошибка');
+                }
+            },"html"
+    );
+}
+
+</script>
 <?php
 /* @var $this TasksController */
 /* @var $model Tasks */
-
 $date=(!empty($_GET['date']))?"&&date='".$_GET['date']."'":'';
 
 if(!Yii::app()->user->isGuest)
