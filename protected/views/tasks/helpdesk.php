@@ -4,7 +4,7 @@
 function init(){
     setInterval(function(){
         updTasks();
-    },60000);
+    }0000);
 
 }
 
