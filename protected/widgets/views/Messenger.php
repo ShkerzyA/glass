@@ -28,7 +28,6 @@ function updateChat(){
     		if(res.data.length>0){
     			$(".mess_head").css("background","red");
       			$(".mess_content").prepend(res.data);
-    			$('.mess_body').show();
     		}
     	});
 }
