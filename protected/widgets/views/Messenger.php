@@ -12,7 +12,7 @@ function init(){
     	$(".mess_head").css("background","black");
 	});
 	$('#Messages_ttext').live('keydown',function(e){
-          if(e.ctrlKey && e.keyCode==13){
+          if(e.keyCode==13){
             $('#Messages_submit').click();
         }
     });
