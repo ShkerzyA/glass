@@ -79,7 +79,12 @@ class Messages extends CActiveRecord
 		$pattern='~http://([^\s]+(?=\.(jpg|jpeg|JPG|JPEG|GIF|PNG|gif|png))\.\2)~';
 		$replacement='<img class=chatImg src=$0>';
 		$this->ttext=preg_replace($pattern,$replacement, $this->ttext);
-		echo $this->ttext;
+
+		$pattern='~(?<!(src=))http://([^\s]+)~';
+		$replacement='<a href="$0" target=_blank>$0</a>';
+		$this->ttext=preg_replace($pattern,$replacement, $this->ttext);
+
+		//echo $this->ttext;
 		return parent::beforeSave();
 	}
 
