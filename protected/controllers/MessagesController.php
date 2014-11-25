@@ -50,9 +50,10 @@ class MessagesController extends Controller
 	{
 		$time=$_POST['time'];
 		$result=array();
-		$result['timem']=date('Y-m-d H:i:s');
+		//$result['timem']=date('Y-m-d H:i:s');
 		$result['data']='';
 		$models=Messages::model()->findAll(array('condition'=>'timestamp>\''.$time.'\'','order'=>'timestamp DESC'));
+		$result['timem']=(isset($models[0]->timestamp))?$models[0]->timestamp:$time;
 		foreach ($models as $v) {
 			$result['data']=$result['data'].$this->renderPartial('/messages/compactview',array('model'=>$v),true,false);
 		}
