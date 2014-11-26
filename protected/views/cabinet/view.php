@@ -47,10 +47,16 @@ $this->menu=array(
 				echo '<h4>'.$wp->wname.'  '.$phone.'</h4>';
 			}
 
-			
-			
 			if(!empty($wp->equipments)){
-				$this->renderPartial('/equipment/compactview',array('equipments'=>$wp->equipments),false,false); 
+				switch ($wp->type) {
+					case '1':
+						$this->renderPartial('/equipment/storagetableview',array('equipments'=>$wp->eqCount()),false,false); 
+						break;
+					
+					default:
+						$this->renderPartial('/equipment/compactview',array('equipments'=>$wp->equipments),false,false); 
+						break;
+				}
 			}
 
 		echo "</div></a>";

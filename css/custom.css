@@ -654,17 +654,23 @@ select{
 	width: 20px;
 }
 .phonetable{
+	min-width: 900px;
+	width: 99%;
+	table-layout: fixed;
 	margin: 10px;
 }
 .phonetable, .phonetable *{
+	font-size: 9pt;
 	border: 1px solid #d4d4d4;
 	border-collapse: none;
 	white-space: pre-wrap;
+	overflow: hidden;
 }
 
 .phonetable th{
 	background: #040404;
 	color: white;
+	overflow: hidden;
 }
 
 .printtable, .printtable *{

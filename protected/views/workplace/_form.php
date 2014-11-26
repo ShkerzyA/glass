@@ -50,6 +50,13 @@ echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function(
 
 		<?php echo $form->error($model,'phone'); ?>
 	</div>
+	<div class="row">
+	<?php if($model->scenario!='insert'):?>
+		<?php echo $form->labelEx($model,'type'); ?>
+		<?php echo $form->textField($model,'type',array('size'=>60,'maxlength'=>100,'placeholder'=>'1 - склад.')); ?>
+		<?php echo $form->error($model,'type'); ?>
+	<?php endif;?>
+	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>

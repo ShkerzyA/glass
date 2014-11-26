@@ -59,8 +59,19 @@ class WorkplaceController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model=$this->loadModel($id);
+		switch ($model->type) {
+			case '1':
+        		$result=$model->eqCount();
+        		$info=$this->renderPartial('/equipment/storagetableview',array('equipments'=>$result),true,false); 
+				break;
+			default:
+				$info='';
+				break;
+		}
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
+			'info'=>$info,
 		));
 	}
 

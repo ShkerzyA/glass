@@ -77,10 +77,11 @@ array(
    	?>
     </dd>
 </dl>
-	
-	<?php
-	  if(!empty($model->equipments)) 
-		$this->renderPartial('/equipment/tableview',array('equipments'=>$model->equipments),false,false); 
+<?php
+	  if(!empty($model->equipments)){
+      echo $info;
+      $this->renderPartial('/equipment/tableview',array('equipments'=>$model->equipments),false,false);   
+    } 
 	?>
     
 

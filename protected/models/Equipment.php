@@ -58,6 +58,9 @@ class Equipment extends CActiveRecord
 		return 'equipment';
 	}
 
+
+	
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

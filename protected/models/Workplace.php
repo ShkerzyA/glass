@@ -59,6 +59,16 @@ class Workplace extends CActiveRecord
 		return 'workplace';
 	}
 
+	public function eqCount(){
+		$query = Yii::app()->db->createCommand('select  count(eq.mark) num, eq.mark, eq_p.name producer, eq_t.name "type"  from workplace wp 
+														left join equipment eq on (eq.id_workplace=wp.id) 
+														left join equipment_producer eq_p on (eq.producer=eq_p.id) 
+														left join equipment_type eq_t on (eq.type=eq_t.id) 
+														where wp.id = '.$this->id.' group by eq.mark,eq_p.name, eq_t.name');
+
+        return $query->queryAll();
+	}
+
 	public function wpName(){
 		if(!empty($this->id_personnel))
 			return $this->idPersonnel->fio();
@@ -83,13 +93,13 @@ class Workplace extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_cabinet, id_personnel', 'numerical', 'integerOnly'=>true),
+			array('id_cabinet, id_personnel, type', 'numerical', 'integerOnly'=>true),
 			array('wname', 'length', 'max'=>50),
 			array('phone', 'length', 'max'=>100),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_cabinet, id_personnel, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace,phone', 'safe', 'on'=>'search'),
+			array('id, id_cabinet,type, id_personnel, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace,phone', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -121,6 +131,7 @@ class Workplace extends CActiveRecord
 			'idCabinetid_cabinet' => 'Кабинет',
             'equipmentsid_workplace' => 'Оборудование',
             'phone'=>'Телефон',
+            'type'=>'Тип рабочего места',
 		);
 	}
 
