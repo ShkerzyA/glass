@@ -50,16 +50,8 @@ $this->menu['all_menu']=array(
 		array('label'=>'Оборудование', 'url'=>array('/equipment/admin')), 
 		array('label'=>'Об./Тип', 'url'=>array('/equipmentType/admin')), 
 		array('label'=>'Об./Производитель', 'url'=>array('/equipmentProducer/admin')), 
-		array('label'=>'Об./Экспорт', 'url'=>array('/equipment/export'),'htmlOptions'=>array('target'=>'_blank')),
 		array('label'=>'Об./ Лог', 'url'=>array('/equipmentLog/admin')),
 		array('label'=>'Мед. Оборудование', 'url'=>array('/medicalEquipment/admin')),
-
-	)),
-
-	array('title'=>'Движение картриджей','items'=>array(
-		array('label'=>'Учет картриджей', 'url'=>array('/equipmentLog/exportCart')),
-		array('label'=>'Заправка картриджей', 'url'=>array('/equipmentLog/Crefill?type=outgo')),
-		array('label'=>'Возврат картриджей', 'url'=>array('/equipmentLog/Crefill?type=ingo')),
 
 	)),
 
