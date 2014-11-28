@@ -96,6 +96,21 @@ class Personnel extends CActiveRecord
 		return 'personnel';
 	}
 
+
+    public function allPhones(){
+        $phone['cab']=array();
+        $phone['pers']=array();
+        if(!empty($this->workplaces)){
+            foreach ($this->workplaces as $wp) {
+                $phone['cab'][]=CHtml::encode($wp->idCabinet->phone);
+                $phone['pers'][]=CHtml::encode($wp->phone);
+            }
+        }
+        $phone['cab']=array_unique($phone['cab']);
+        $phone['pers']=array_unique($phone['pers']);
+        return $phone;
+    }
+
     public function suggestTag($keyword){
         $tags=$this->findAll(array(
             'condition'=>'surname LIKE :keyword OR name LIKE :keyword',

@@ -39,8 +39,12 @@ $this->menu=array(
 
 	$birthday=(!empty($model->birthday))?date('d.m.Y',strtotime($model->birthday)):'-//-';
 
-	echo'<div><b>'.CHtml::encode($model->surname).' '.CHtml::encode($model->name).' '.CHtml::encode($model->patr).'</b> (тел.'.($ph=(!empty($model->workplaces))?CHtml::encode($model->workplaces->idCabinet->phone):'').')</div>';
-	echo'<div><b>Дата рождения: '.CHtml::encode($birthday).' (Пол: '.CHtml::encode($sex).')</div>';
+	echo'<div><b>'.CHtml::encode($model->fio_full()).'</b> ';
+	$phone=$model->allPhones();
+	if(!empty($phone['cab'] or $phone['pers']))
+	echo '<br> Тел: (каб. '.implode(',',$phone['cab']).' личн. '.implode(',',$phone['pers']).')';
+	echo'</div>';
+	echo'<div><b>Дата рождения: '.CHtml::encode($birthday).' (Пол: '.CHtml::encode($sex).')</b></div>';
 	
 	echo"<br><div><h3>Занимаемые должности:</h3>";
 	foreach($model->personnelPostsHistories as $posts){
@@ -50,7 +54,7 @@ $this->menu=array(
 					echo '<span style="text-decoration: line-through">';
 				else
 					echo '<span>';
-		echo'<div>'.CHtml::encode($posts->idPost->postSubdivRn->name).'/'.($ps=(!empty($posts->idPost))?CHtml::encode($posts->idPost->post):'').' <nobr>(c '.CHtml::encode($posts->date_begin).$date_end.')</nobr></div>';
+		echo'<div>'.($ps=(!empty($posts->idPost))?CHtml::encode($posts->idPost->postSubdivRn->name.'/'.$posts->idPost->post):'').' <nobr>(c '.CHtml::encode($posts->date_begin).$date_end.')</nobr></div>';
 	echo "</span>";
 	}
 	echo '</div>';

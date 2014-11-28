@@ -103,6 +103,7 @@ class Workplace extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_cabinet, id_personnel, type', 'numerical', 'integerOnly'=>true),
+			array('id_cabinet','required'),
 			array('wname', 'length', 'max'=>50),
 			array('phone', 'length', 'max'=>100),
 		
