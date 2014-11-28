@@ -66,6 +66,7 @@ class Messages extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('type, creator', 'numerical', 'integerOnly'=>true),
+			array('ttext','required'),
 			array('ttext, timestamp, users, groups, departments', 'safe'),
 		
 			// The following rule is used by search().
