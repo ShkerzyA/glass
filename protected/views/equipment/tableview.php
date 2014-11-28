@@ -30,7 +30,8 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
          }else{
             $edit='';
          }
-   		echo'<tr><td>'.$eq->serial.'</td><td>'.$eq->type0->name.'</td><td>'.$eq->producer0->name.'</td><td>'.$eq->mark.'</td><td>'.$eq->inv.'</td><td>'.$status[$eq->status].'</td><td>'.$eq->notes.'</td>'.$edit.'</tr>';
+         $producer=(!empty($eq->producer))?$eq->producer0->name:'';
+   		echo'<tr><td>'.$eq->serial.'</td><td>'.$eq->type0->name.'</td><td>'.$producer.'</td><td>'.$eq->mark.'</td><td>'.$eq->inv.'</td><td>'.$status[$eq->status].'</td><td>'.$eq->notes.'</td>'.$edit.'</tr>';
    
       }
 ?>

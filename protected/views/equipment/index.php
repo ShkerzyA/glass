@@ -4,7 +4,7 @@
 Yii::app()->clientScript->registerPackage('customfields');
 
 $this->breadcrumbs=array(
-	''.$modelLabelP,
+	''.Equipment::$modelLabelP,
 );
 
 $this->menu=array(
@@ -15,7 +15,7 @@ $this->menu=array(
 			array('label'=>'Возврат картриджей', 'url'=>array('/equipmentLog/Crefill?type=ingo')),
 			);
 
-$storage=Workplace::model()->with('idCabinet')->findAll(array('condition'=>'t.type=1'));
+$storage=Workplace::storageCabs();
 
 
 
@@ -26,7 +26,7 @@ $this->menu['all_menu']=array(
 );
 
 foreach ($storage as $v) {
-	$this->menu['all_menu'][0]['items'][]=array('label'=>$v->wpNameFull(1).'/'.$v->wpName(), 'url'=>array('/Workplace/'.$v->id));
+	$this->menu['all_menu'][0]['items'][]=array('label'=>$v['label'], 'url'=>array('/Cabinet/'.$v['url']));
 }
 
 
@@ -53,7 +53,7 @@ $('.search-form form').submit(function(){
 )); ?>
 </div><!-- search-form -->
 
-<h1><?php  echo $modelLabelP; ?></h1>
+<h1><?php  echo Equipment::$modelLabelP; ?></h1>
 
 <?php 
 ?>

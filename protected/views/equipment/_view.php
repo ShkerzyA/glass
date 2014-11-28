@@ -29,7 +29,7 @@
 	<?php echo CHtml::encode($data->type0->name); ?>/
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('producer')); ?>:</b>
-	<?php echo CHtml::encode($data->producer0->name); ?>/
+	<?php if(!empty($data->producer)) echo CHtml::encode($data->producer0->name); ?>/
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mark')); ?>:</b>
 	<?php echo CHtml::encode($data->mark); ?> <br>

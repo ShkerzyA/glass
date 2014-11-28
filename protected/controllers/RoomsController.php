@@ -62,7 +62,6 @@ class RoomsController extends Controller
 
 
 	private function saveState(){
-		echo $id;
 		if(!empty($_GET['id'])){
 			Yii::app()->session['Rooms_id']=$_GET['id'];
 		}else if(empty(Yii::app()->session['Rooms_id'])){

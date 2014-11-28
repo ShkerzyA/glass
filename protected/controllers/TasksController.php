@@ -15,10 +15,10 @@ class TasksController extends Controller
 
 	public $tasks_menu=array(
 		array('name'=>'IT crowd','id_department'=>'1011','group'=>'','rule'=>array('it')),
-		array('name'=>'Плотники','id_department'=>'1074','group'=>'carpenters'),
-		array('name'=>'Сантехники','id_department'=>'1074','group'=>'plumbers'),
-		array('name'=>'Электрики','id_department'=>'1074','group'=>'electricians'),
-		array('name'=>'Вентиляция','id_department'=>'1074','group'=>'ventilation'),
+		array('name'=>'Плотники','id_department'=>'1074','group'=>'carpenters','rule'=>array()),
+		array('name'=>'Сантехники','id_department'=>'1074','group'=>'plumbers','rule'=>array()),
+		array('name'=>'Электрики','id_department'=>'1074','group'=>'electricians','rule'=>array()),
+		array('name'=>'Вентиляция','id_department'=>'1074','group'=>'ventilation','rule'=>array()),
 		);
 	public $rightWidget;
 
@@ -305,7 +305,7 @@ class TasksController extends Controller
 
 		
 		$this->rightWidget=array(
-			'df'=>$this->renderPartial('_date_filter',array('model'=>$model),true)
+			'df'=>$this->renderPartial('_date_filter',array(),true)
 		);
 		$this->target_date=(!empty($_GET['date']))?"'".$_GET['date']."'":"'".date('d.m.Y')."'";
 		

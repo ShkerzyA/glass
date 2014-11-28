@@ -56,7 +56,7 @@
 		<?php $this->widget('application.widgets.MyMenu',array(
 			'items'=>array(
 
-				array('label'=>'События', 'url'=>array(),'submenu'=>array(
+				array('label'=>'События', 'url'=>array('/rooms/show?Event_type=events'),'submenu'=>array(
                 			array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))),
                 			array('Общественные','/rooms/show?Event_type=events'),
                 			array('Операционные','/rooms/show?Event_type=eventsOpPl',((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) )))),

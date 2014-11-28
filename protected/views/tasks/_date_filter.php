@@ -10,9 +10,10 @@ function init(){
 	</script>
 	<?php echo CHtml::beginForm('','get',array('id'=>'fdatefilter')); ?>
 	<div><?php 
+  $date=(!empty($_GET['date']))?$_GET['date']:'';
 	$this->widget('zii.widgets.jui.CJuiDatePicker', array(
    'name' => 'date',
-   'value' => $_GET['date'],
+   'value' => $date,
    'attribute' => 'date',
    'language' => 'ru',
    'options' => array(

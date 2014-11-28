@@ -51,8 +51,8 @@ class Xls extends CFormModel{
 	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row['printer']); 
 	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row['printerSN']);
 	$PHPExcel->getActiveSheet()->setCellValue("F$i",$row['num_st']);
-	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row['out_cart_inv']);
-	$PHPExcel->getActiveSheet()->setCellValue("H$i",$row['out_cart_mark']);
+	$PHPExcel->getActiveSheet()->setCellValue("G$i",$out_cart=(!empty($row['out_cart_inv'])?$row['out_cart_inv']:''));
+	$PHPExcel->getActiveSheet()->setCellValue("H$i",$out_cart=(!empty($row['out_cart_mark'])?$row['out_cart_mark']:''));
 	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row['in_cart_inv']);
 	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row['in_cart_mark']);
 	/*$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->idWorkplace->idCabinet->idFloor->idBuilding->bname);
@@ -141,7 +141,7 @@ class Xls extends CFormModel{
 		
 	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row->serial); 
 	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row->type0->name);
-	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row->producer0->name);
+	$PHPExcel->getActiveSheet()->setCellValue("C$i",$producer=(!empty($row->producer))?$row->producer0->name:'');
 	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row->mark);
 	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row->inv);
 	$PHPExcel->getActiveSheet()->setCellValue("F$i",$status[$row->status]);

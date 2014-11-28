@@ -59,6 +59,15 @@ class Workplace extends CActiveRecord
 		return 'workplace';
 	}
 
+	public static function storageCabs(){
+		$res=array();
+		$models=Workplace::model()->with('idCabinet')->findAll(array('condition'=>'t.type=1'));
+		foreach ($models as $v) {
+			$res[$v->idCabinet->id]=array('label'=>$v->idCabinet->cabNameFull(),'url'=>$v->idCabinet->id);
+		}
+		return $res;
+	}
+
 	public function eqCount(){
 		$query = Yii::app()->db->createCommand('select  count(eq.mark) num, eq.mark, eq_p.name producer, eq_t.name "type"  from workplace wp 
 														left join equipment eq on (eq.id_workplace=wp.id) 

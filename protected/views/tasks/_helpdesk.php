@@ -36,8 +36,7 @@ if($this->isHorn)
 									break;
 								}
 							}
-							echo'<span>'.$status_arr[$action->ttext].' ';
-							echo' '.$action->creator0->fio().' ('.$action->timestamp.')</span>';
+							echo'<span>'.$action->creator0->fio().' ('.$action->timestamp.')</span>';
 
 						}
 

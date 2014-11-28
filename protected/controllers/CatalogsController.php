@@ -92,7 +92,7 @@ class CatalogsController extends Controller
         $children = $req->queryAll();
 
         foreach ($children as &$v) {
-        	$v=array_merge($v,ruleButton::get($v[id],'Catalogs','Catalogs'));
+        	$v=array_merge($v,ruleButton::get($v['id'],'Catalogs','Catalogs'));
         }
        
 

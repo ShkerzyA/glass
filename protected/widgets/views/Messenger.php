@@ -48,7 +48,7 @@ function updateChat(){
 			<div class="mess_form">
 			<?php echo CHtml::form();
  
-echo CHtml::textArea('Messages[ttext]', $input,array('placeholder'=>'текст сообщения (enter)'));
+echo CHtml::textArea('Messages[ttext]','',array('placeholder'=>'текст сообщения (enter)'));
 echo CHtml::ajaxSubmitButton('Отправить', '/glass/actions/chatSaveMessage', array(
     'type' => 'POST',
     'success' => 'function(response) {

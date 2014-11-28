@@ -18,6 +18,8 @@ class MyMenu extends CMenu{
 	{
 		if(isset($item['submenu'])){
 			$submenu=$this->renderSubmenu($item['submenu']);
+		}else{
+			$submenu='';
 		}
 		if(isset($item['url']))
 		{
