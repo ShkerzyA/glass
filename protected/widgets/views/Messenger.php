@@ -30,6 +30,7 @@ function updateChat(){
       			$(".mess_content").prepend(res.data);
     		}
     	});
+	$("#MessLock").hide();
 }
  $(document).ready(init());
 
@@ -45,6 +46,7 @@ function updateChat(){
 			?>
 
 			</div>
+			<div id=MessLock style=""><img height=100% src='/glass/images/load.gif'> </div>
 			<div class="mess_form">
 			<?php echo CHtml::form();
  
@@ -53,7 +55,7 @@ echo CHtml::ajaxSubmitButton('Отправить', '/glass/actions/chatSaveMessa
     'type' => 'POST',
     'success' => 'function(response) {
     	$("#Messages_ttext").val("");
-    	updateChat();
+    	$("#MessLock").show();
   	}',
 
 ),

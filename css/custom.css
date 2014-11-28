@@ -241,6 +241,7 @@ td{
 
 .mess_head{
 	border-radius: 15px 15px 0px 0px;
+	cursor: pointer;
 	margin: 0px;
 	height: 30px;
 	border: 2px solid grey;
@@ -252,6 +253,21 @@ td{
 	vertical-align: middle;
 	font-size: 10pt;
 	font-weight: bold;
+}
+
+#MessLock{
+position: absolute; 
+margin: 0px; 
+z-index: 20; 
+bottom: 10px; 
+width: 97%; 
+height: 45px; 
+text-align: center;
+display: none;
+}
+
+#MessLock img{
+	height: 100%;
 }
 
 .mess_body{

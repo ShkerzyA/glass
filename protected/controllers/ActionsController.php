@@ -16,8 +16,8 @@ class ActionsController extends Controller
 
 
 	public function init(){ 
-		//echo $_POST['factoryObj'];
-		switch ($_POST['factoryObj']) {
+		$fObj=(!empty($_POST['factoryObj']))?$_POST['factoryObj']:'';
+		switch ($fObj) {
 			case 'events':
 				$this->parent=Events::model()->findByPk($_POST['id']);
 				$this->act=new EventsActions();
