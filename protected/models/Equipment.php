@@ -76,6 +76,16 @@ class Equipment extends CActiveRecord
 			);
 	}
 
+	public function getProducer(){
+		if(!empty($this->producer))
+			return $this->producer0->name;
+	}
+
+	public function getWorkplace(){
+		if(!empty($this->id_workplace))
+			return $this->idWorkplace->wpNameFull();
+	}
+
 	public static function cartMassMovie($type,$inv){
 
 		$carts=array();
