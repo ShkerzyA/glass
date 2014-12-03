@@ -122,9 +122,10 @@ class ActionsController extends Controller
 
 						$timestamp=date('Y-m-d H:i:s');
 
-
-						$log=new EquipmentLog;
-						$log->saveLog('cartOut',array('details'=>$cart_old->id_workplace,'object'=>$cart_old->id,'timestamp'=>$timestamp));
+						if(!empty($cart_old)){
+							$log=new EquipmentLog;
+							$log->saveLog('cartOut',array('details'=>$cart_old->id_workplace,'object'=>$cart_old->id,'timestamp'=>$timestamp));
+						}
 						
 						$log=new EquipmentLog;
 						$log->saveLog('cartIn',array('details'=>$print->id_workplace.','.$print->id,'object'=>$cart->id,'timestamp'=>$timestamp));
