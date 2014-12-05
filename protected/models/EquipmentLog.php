@@ -32,7 +32,7 @@ class EquipmentLog extends CActiveRecord
 	public static $typeM=array(
 				0=>array('action'=>'moveEq','name'=>'Перемещение оборудования','fields'=>array('old_workplace','workplace')),
 				1=>array('action'=>'cartIn','name'=>'Установка картриджа','fields'=>array('workplace','id_printer')),
-				2=>array('action'=>'printerCounter','name'=>'Проверка счетчика принтера','fields'=>array('num_str')),
+				2=>array('action'=>'printerCounter','name'=>'Получение количества оттисков','fields'=>array('num_str')),
 				3=>array('action'=>'cartRefillOut','name'=>'Отправка на заправку','fields'=>array('idcart')),
 				4=>array('action'=>'cartRefillIn','name'=>'Возврат с заправки','fields'=>array('idcart')),
 				5=>array('action'=>'cartOut','name'=>'Возврат картриджа','fields'=>array('workplace')),

@@ -134,7 +134,7 @@ END;
 ?>
 
 <?php if(!(Yii::app()->user->isGuest)): ?>
-	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
+	<?php if (in_array(1011,Yii::app()->user->id_departments) and (Yii::app()->user->id_pers!=20024)): ?>
 		<?php $this->widget('application.widgets.Messenger');  ?>
 	<?php endif; ?>
 <?php endif; ?>
