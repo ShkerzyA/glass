@@ -501,7 +501,7 @@ select,option, input{
 }
 
 select{
-	height: 28px;
+	height: 24px;
 }
 
 .row{
@@ -514,14 +514,20 @@ select{
 }
 
 .row input, .row select, .row label{
+	margin: 0px;
 	width: 77%;
 	float: left;
 	clear: right;
 }
 
+.row select{
+	width: 78%;
+}
+
 .row label{
 	width: 20%;
 	float: left;
+	clear: right;
 }
 
 .multichoise > .row textarea{
@@ -670,7 +676,6 @@ select{
 	width: 20px;
 }
 .phonetable{
-	min-width: 900px;
 	width: 99%;
 	table-layout: fixed;
 	margin: 10px;

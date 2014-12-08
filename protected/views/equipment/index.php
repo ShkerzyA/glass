@@ -47,18 +47,51 @@ $('.search-form form').submit(function(){
 <div style="clear: both"></div>
 
 <?php echo CHtml::link('Расширенный поиск','#',array('class'=>'search-button')); ?>
+<br><br>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 
-<h1><?php  echo Equipment::$modelLabelP; ?></h1>
+<h1 style="clear: both"><?php  echo Equipment::$modelLabelP; ?></h1>
 
 <?php 
 ?>
 
+<?php
+/* @var $this EquipmentController */
+/* @var $data Equipment */
+//$type=$equipments[0]->getType();
+//$producer=$equipments[0]->getProducer()['values'];
+$status=Equipment::getStatus();
+
+
+$rul=Yii::app()->user->checkAccess("ruleWorkplaces");
+?>
+
+<div style="position: relative; clear: both;">
+   	<table class=phonetable>
+   		<tr>
+   			<th>Серийный номер</th>
+   			<th>Тип</th>
+   			<th>Производитель</th>
+   			<th>Модель</th>
+   			<th>Инвентарный номер</th>
+   			<th>Состояние</th>
+   			<th>Примечания</th>
+
+            <?php if($rul) echo '<th>Редактировать</th>'; ?>
+   		</tr>
+
+
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$model->search(),
 	'itemView'=>'_view',
+	'viewData' => array(
+   		'rul' => $rul,  
+   		'status' => $status,       
+ 	),
 )); ?>
+
+</table></div>
