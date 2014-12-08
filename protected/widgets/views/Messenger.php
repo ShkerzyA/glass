@@ -26,7 +26,10 @@ function updateChat(){
     		var res=$.parseJSON(response);
     		timem=res.timem;
     		if(res.data.length>0){
-    			$(".mess_head").css("background","red");
+    			if(viewChat!=0){
+    				alert(viewChat);
+    				$(".mess_head").css("background","red");
+    			}
       			$(".mess_content").prepend(res.data);
     		}
     	});
@@ -36,7 +39,7 @@ function updateChat(){
 
 </script>
 	<div class="messenger">
-		<div class="mess_head">чат "Кровь и бетон"</div>
+		<div class="mess_head"></div>
 		<div class="mess_body">
 			<div class="mess_content">
 			<?php
