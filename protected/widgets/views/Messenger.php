@@ -27,9 +27,9 @@ function updateChat(){
     		timem=res.timem;
     		if(res.data.length>0){
     			if(viewChat!=0){
-    				alert(viewChat);
     				$(".mess_head").css("background","red");
     			}
+    			$("#Messages_ttext").removeAttr("disabled");
       			$(".mess_content").prepend(res.data);
     		}
     	});
@@ -58,6 +58,7 @@ echo CHtml::ajaxSubmitButton('Отправить', '/glass/actions/chatSaveMessa
     'type' => 'POST',
     'success' => 'function(response) {
     	$("#Messages_ttext").val("");
+    	$("#Messages_ttext").attr("disabled","disabled");
     	$("#MessLock").show();
   	}',
 
