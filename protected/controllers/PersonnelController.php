@@ -2,8 +2,6 @@
 //Yii::import('application.vendors.*');
 //require_once('phpExcelReader/reader.php');
 
-
-
 class PersonnelController extends Controller
 {
 	/**
@@ -32,7 +30,7 @@ class PersonnelController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','tiles','view','phones','rootFillTree','AjaxFillTree','depposts','surnameSearch','suggest'),
+				'actions'=>array('index','tiles','view','rootFillTree','AjaxFillTree','depposts','surnameSearch','suggest'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -98,8 +96,10 @@ class PersonnelController extends Controller
 			}else{
 				$model=NULL;
 			}
+
+			$modelN=(!empty($_POST['modelN']))?$_POST['modelN']:'';
 			
-			$this->renderPartial('surnameSearch', array('surname'=>$surname,'model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$_POST['modelN']), false, true);
+			$this->renderPartial('surnameSearch', array('surname'=>$surname,'model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$modelN), false, true);
 		}else{
 			exit();
 		}
@@ -223,21 +223,7 @@ class PersonnelController extends Controller
 		));
 	}
 
-		public function actionPhones()
-	{
-
-		$this->layout='//layouts/column1';
-		$model=new Personnel('search');
-		//$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['Personnel']))
-			$model->attributes=$_GET['Personnel'];
-
-		$this->render('phones',array(
-			'model'=>$model,
-		));
-
-
-	}
+	
 
 	/**
 	 * Manages all models.

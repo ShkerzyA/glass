@@ -680,7 +680,7 @@ select{
 	table-layout: fixed;
 	margin: 10px;
 }
-.phonetable, .phonetable *{
+.phonetable, .phonetable td, .phonetable th {
 	font-size: 9pt;
 	border: 1px solid #d4d4d4;
 	border-collapse: none;

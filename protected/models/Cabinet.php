@@ -26,6 +26,7 @@ class Cabinet extends CActiveRecord
 	 */
 	public static $modelLabelS='Кабинет';
 	public static $modelLabelP='Кабинеты';
+	
 
 	public static $tree=array(
 		'parent_id'=>'id_floor',
@@ -34,7 +35,9 @@ class Cabinet extends CActiveRecord
 		'child'=>'Workplace',
 	);
 	
-	public $idFloorid_floor;public $workplacesid_cabinet;
+	public $idFloorid_floor;
+	public $workplacesid_cabinet;
+	public $allfields;
 
 	public function behaviors(){
 		return array(
@@ -71,10 +74,8 @@ class Cabinet extends CActiveRecord
 			array('cname', 'length', 'max'=>200),
 			array('num', 'length', 'max'=>10),
 			array('phone', 'length', 'max'=>100),
-		
-			// The following rule is used by search().
-			// Please remove those attributes that should not be searched.
-			array('id, id_floor, cname, num, phone,idFloorid_floor,workplacesid_cabinet', 'safe', 'on'=>'search'),
+			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,workplacesid_cabinet', 'safe', 'on'=>'search_phones'),
+			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,workplacesid_cabinet', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -146,4 +147,56 @@ class Cabinet extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	   public function search_phones()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
+
+        $criteria=new CDbCriteria;
+        $criteria->with=array(
+            
+            'workplaces' => array('alias' => 'workplace','together'=>True),
+            'workplaces.idPersonnel' => array('alias' => 'personnel'),
+            'workplaces.idPersonnel.personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL",'together'=>True),
+            'workplaces.idPersonnel.personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
+            'workplaces.idPersonnel.personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
+
+        $criteria->compare('id',$this->id);
+        $words=explode(" ",$this->allfields);
+
+
+        foreach ($words as $v) {
+        $criteria2=new CDbCriteria;
+            $criteria2->compare('LOWER(personnel.surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(personnel.name)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(personnel.patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(department_posts.post)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(t.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(t.num)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(t.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(workplace.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+        $criteria->mergeWith($criteria2);
+        }
+
+        $criteria->addCondition(array('condition'=>'t.phone is not NULL or workplace.phone is not NULL'));
+        $criteria->order='"t".num ASC';
+
+        $pag=49;
+        foreach ($this->attributes as $x) {
+            if(!empty($x)){
+                $pag=100;
+                break;
+            }
+        }
+      
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination'=>array(
+            	'pageSize'=>$pag
+            ),
+        ));
+    }
 }

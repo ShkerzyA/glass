@@ -1,0 +1,25 @@
+<?php
+/* @var $this PersonnelController */
+/* @var $data Personnel */
+//echo '<pre>'; print_r($data); echo '</pre>';
+$num=1;
+$res='';
+if(!empty($data->workplaces)){
+	foreach ($data->workplaces as $v) {
+		if(!empty($v->idPersonnel)){
+			$num++;
+			$res.='<tr><td>'.$v->idPersonnel->fio_full().'</td><td>'.$v->phone.'</td></tr>';
+		}
+	}
+}
+
+
+?>
+
+
+<tr>
+	<td rowspan=<?php echo $num; ?>><?php echo $data->cabNameFull() ?></td>
+	<td><b>Общий</b></td>
+	<td><b><?php echo $data->phone ?><b></td>
+</tr>
+<?php echo $res; ?>

@@ -208,7 +208,7 @@ class Tasks extends CActiveRecord
 		$order="t.timestamp desc  LIMIT 2";
 		$model=Tasks::model()->findAll(array('condition'=>$condition,'order'=>$order));
 
-		if(in_array($id_department,Yii::app()->user->id_departments)){
+		if(in_array($id_department,Yii::app()->user->id_departments) and !empty($model)){
 			if(Yii::app()->user->last_task!=$model[0]->id){
 				if(!empty(Yii::app()->user->last_task))
 					$res=true;

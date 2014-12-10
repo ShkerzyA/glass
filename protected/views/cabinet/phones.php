@@ -8,7 +8,7 @@ $this->breadcrumbs=array(
 if (Yii::app()->user->name=='admin'){
 $this->menu=array(
 	array('label'=>'Добавить', 'url'=>array('create')),
-	array('label'=>'Управление кадрами', 'url'=>array('admin')),
+	array('label'=>'Управление', 'url'=>array('admin')),
 );
 }
 
@@ -42,7 +42,7 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 
 <table class='phonetable'>
 	<tr>
-		<th>Ф.И.О.</th><th>должность</th><th>отдел</th><th>кабинет</th><th>телефон</th>
+		<th>Кабинет</th><th>Персонал</th><th>Телефон</th>
 	</tr>
 <?php 
 //$dataProvider->itemCount=$dataProvider->getItemCount();
