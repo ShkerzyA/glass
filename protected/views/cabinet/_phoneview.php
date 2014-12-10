@@ -8,7 +8,7 @@ if(!empty($data->workplaces)){
 	foreach ($data->workplaces as $v) {
 		if(!empty($v->idPersonnel)){
 			$num++;
-			$res.='<tr><td>'.$v->idPersonnel->fio_full().'</td><td>'.$v->phone.'</td></tr>';
+			$res.='<tr><td>'.implode(' ', $v->idPersonnel->posts()).'/<b>'.$v->idPersonnel->fio_full().'</b></td><td>'.$v->phone.'</td></tr>';
 		}
 	}
 }

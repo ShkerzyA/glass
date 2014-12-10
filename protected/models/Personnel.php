@@ -141,6 +141,17 @@ class Personnel extends CActiveRecord
 		);
 	}
 
+    public function posts(){
+        $res='';
+        if(!empty($this->personnelPostsHistories)){
+            foreach ($this->personnelPostsHistories as $v) {
+                if($v->working())
+                    $res[]=$v->idPost->postSubdivRn->name.'/'.$v->idPost->post;
+            }
+        }
+        return $res;
+    }
+
 	/**
 	 * @return array relational rules.
 	 */

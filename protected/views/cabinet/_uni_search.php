@@ -13,7 +13,7 @@
 
 
 		<div class="inline">
-		<?php echo $form->textField($model,'allfields',array('size'=>50,'maxlength'=>50,'placeholder'=>'ПОИСК')); ?>
+		<?php echo $form->textField($model,'allfields',array('size'=>50,'maxlength'=>50,'placeholder'=>'ПОИСК (по ФИО, должности, кабинету, номеру телефона)')); ?>
 	</div>
 	
 	<div class="row buttons inline">
