@@ -60,7 +60,7 @@
                 			array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))),
                 			array('Общественные','/rooms/show?Event_type=events'),
                 			array('Операционные','/rooms/show?Event_type=eventsOpPl',((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) )))),
-				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>
+				array('label'=>'Справочник', 'url'=>array('/cabinet/phones'),'submenu'=>
 						array(array('Телефоны','/cabinet/phones'),
 							array('Операции','/Eventsoper/plan2',((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) )),
 							array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),

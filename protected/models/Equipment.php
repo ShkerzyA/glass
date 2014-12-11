@@ -86,6 +86,24 @@ class Equipment extends CActiveRecord
 			return $this->idWorkplace->wpNameFull();
 	}
 
+	public function filterType(){
+		$res=array();
+		$models=EquipmentType::model()->findall();
+		foreach ($models as $v) {
+			$res[$v->id]=$v->name;
+		}
+		return $res;
+	}
+
+	public function filterProducer(){
+		$res=array();
+		$models=EquipmentProducer::model()->findall();
+		foreach ($models as $v) {
+			$res[$v->id]=$v->name;
+		}
+		return $res;
+	}
+
 	public static function cartMassMovie($type,$inv){
 
 		$carts=array();
@@ -170,7 +188,7 @@ class Equipment extends CActiveRecord
 
 	public function full_name(){
 		$prod=(!empty($this->producer))?$this->producer0->name:'';
-		return $this->serial.' '.$this->type0->name.' '.$prod.' '.$this->mark.' '.$this->inv();
+		return $this->type0->name.' '.$prod.' '.$this->mark.' <b>'.$this->serial.'</b> '.$this->inv();
 	}
 
 	/**
@@ -270,6 +288,9 @@ class Equipment extends CActiveRecord
 		$criteria->compare('status',$this->status);
 		$criteria->compare('notes',$this->notes,true);
 		$criteria->compare('workplace.wname',$this->idWorkplaceid_workplace,true);
+
+		if($this->type==18)
+			$criteria->order='t.inv::INT DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

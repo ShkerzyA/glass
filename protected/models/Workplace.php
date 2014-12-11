@@ -89,7 +89,7 @@ class Workplace extends CActiveRecord
 		if($short){
 			$result=$this->idCabinet->cabNameFull($short);	
 		}else{
-			$result=$this->idCabinet->cabNameFull($short)."/".$this->wpName();;	
+			$result=$this->idCabinet->cabNameFull($short)."/ ".$this->wpName();;	
 		}	
 		return $result;
 	}

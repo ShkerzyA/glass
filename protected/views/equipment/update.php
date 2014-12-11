@@ -13,7 +13,7 @@ $this->menu=array(
 	array('label'=>'Отобразить', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Управление ', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
-	$this->menu["details"]=array(array('label'=>'Workplace', 'url'=>array('Workplace/admin', 'id_workplace'=>$model->id)),
+	$this->menu["details"]=array(array('label'=>'Workplace', 'url'=>array('Workplace/', 'view'=>$model->id_workplace)),
 );
 ?>
 

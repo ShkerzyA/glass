@@ -46,8 +46,8 @@ $('.search-form form').submit(function(){
 		'id',
 		'timestamp',
 		array( 'name'=>'subject0subject', 'value'=>'$data->subject0->fio()' ),
-		array( 'name'=>'object0object', 'value'=>'$data->objectEq->inv." ".$data->objectEq->mark." (".$data->objectEq->serial.")"' ),
-		array( 'name'=>'type', 'value'=>'$data->getType()["name"]' ),
+		array( 'name'=>'object0object', 'value'=>'$obj=(!empty($data->objectEq))?$data->objectEq->inv." ".$data->objectEq->mark." (".$data->objectEq->serial.")":""'),
+		array( 'name'=>'type', 'value'=>'$data->getType()["name"]','filter'=>$model->filterType() ),
 		array( 'name'=>'details', 'value'=>'$data->details()' ),
 		array(
 			'class'=>'CButtonColumn',

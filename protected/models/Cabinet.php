@@ -110,9 +110,9 @@ class Cabinet extends CActiveRecord
 
 	public function cabNameFull($short=false){
 		if($short){
-			$result=$this->idFloor->idBuilding->bname.'/'.$this->idFloor->fnum.' эт./'.$this->num;	
+			$result=$this->idFloor->idBuilding->bname.'/ '.$this->idFloor->fnum.' эт./ '.$this->num;	
 		}else{
-			$result="Кабинет: ".$this->idFloor->idBuilding->bname."/".$this->idFloor->fname."/".$this->num." ".$this->cname;	
+			$result="Кабинет: ".$this->idFloor->idBuilding->bname."/ ".$this->idFloor->fname."/ ".$this->num." ".$this->cname;	
 		}	
 		return $result;
 	}
@@ -181,7 +181,7 @@ class Cabinet extends CActiveRecord
         }
 
         $criteria->addCondition(array('condition'=>'t.phone is not NULL or workplace.phone is not NULL'));
-        $criteria->order='"t".num ASC';
+        $criteria->order='"t".num ASC, t.phone ASC';
 
         $pag=49;
         foreach ($this->attributes as $x) {

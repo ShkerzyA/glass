@@ -52,11 +52,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		array( 'name'=>'idWorkplaceid_workplace', 'value'=>'$data->getWorkplace()' ),
 		'serial',
 		'inv',
-		array('name'=>'type', 'value'=>'$data->type0->name'),
-		array('name'=>'producer', 'value'=>'$data->getProducer()'),
+		array('name'=>'type', 'value'=>'$data->type0->name','filter'=>$model->filterType()),
+		array('name'=>'producer', 'value'=>'$data->getProducer()','filter'=>$model->filterProducer()),
 		'mark',
 		array('name'=>'status', 'value'=>function($data) use ($status) {
-            return $status[$data->status];}),
+            return $status[$data->status];},'filter'=>$model->getStatus()),
 		'notes',
 		
 		array(

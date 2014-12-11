@@ -45,6 +45,7 @@ class Xls extends CFormModel{
 			foreach ($data as $row) {
 
 		
+	
 	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row['timestamp']); 
 	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row['fio']);
 	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['place']); 

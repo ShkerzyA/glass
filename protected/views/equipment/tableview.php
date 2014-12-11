@@ -10,8 +10,6 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
    	<table class=phonetable>
    		<tr>
    			<th>Серийный номер</th>
-   			<th>Тип</th>
-   			<th>Производитель</th>
    			<th>Модель</th>
    			<th>Инвентарный номер</th>
    			<th>Состояние</th>

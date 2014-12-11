@@ -86,7 +86,7 @@ class EquipmentLog extends CActiveRecord
 				return false;
 
 			if(!empty($data['timestamp']))
-				$this->object=$data['timestamp'];
+				$this->timestamp=$data['timestamp'];
 
 			if(!empty($data['object']))
 				$this->object=$data['object'];
@@ -98,6 +98,14 @@ class EquipmentLog extends CActiveRecord
 				return false;
 			}
 
+	}
+
+	public function filterType(){
+		$res=array();
+		foreach (self::$typeM as $key => $value) {
+			$res[$key]=$value['name'];
+		}
+		return $res;
 	}
 
 
@@ -156,7 +164,28 @@ class EquipmentLog extends CActiveRecord
 				break;
 			case '3':
 			case '4':
-				return 'номера картриджей: '.implode(', ',$det);
+				$res='';
+				//$res.=implode(', ',$det)."\n";
+				$mod=Equipment::model()->findAll(array('condition'=>'t.type=18 and t.inv in(\''.implode('\',\'',$det).'\')','order'=>'t.mark ASC, t.inv::integer ASC'));
+				
+				$mark='x';
+				$all=0;
+				$n=1;
+				foreach ($mod as $v) {
+					if($v->mark!=$mark){
+						$n=1;
+						$mark=$v->mark;
+						$res.="\n";
+					}
+						
+					//$mod=Equipment::model()->find(array('condition'=>'t.type=18 and t.inv=\''.$v.'\''));
+					$res.="\n".$n.' |'.$v->mark.' '.$v->inv;
+					$n++;
+					$all++;
+				}
+				$res.="\n\n  ".' | Итого:  '.$all;
+				return $res;
+				//return 'номера картриджей: '.implode(', ',$det);
 				break;
 
 			case '5':

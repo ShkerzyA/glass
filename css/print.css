@@ -66,6 +66,10 @@ table, table *{
 	display: none;
 }
 
+#sidebar *{
+	display: none;
+}
+
 #mainmenu{
 	display: none;	
 }

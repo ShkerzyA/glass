@@ -73,11 +73,10 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
 <div style="position: relative; clear: both;">
    	<table class=phonetable>
    		<tr>
-   			<th>Серийный номер</th>
-   			<th>Тип</th>
-   			<th>Производитель</th>
+   			<th>Номера</th>
    			<th>Модель</th>
-   			<th>Инвентарный номер</th>
+   			<th>Расположение</th>
+   			<!--<th>Инвентарный номер</th>-->
    			<th>Состояние</th>
    			<th>Примечания</th>
 
@@ -87,7 +86,7 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$model->search(),
-	'itemView'=>'_view',
+	'itemView'=>'_viewindex',
 	'viewData' => array(
    		'rul' => $rul,  
    		'status' => $status,       
