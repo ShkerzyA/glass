@@ -291,7 +291,7 @@ class Tasks extends CActiveRecord
 		switch ($this->type) {
 			case '1':
 				$m=Equipment::model()->findByPk($this->details);
-				$result='<a href="'.Yii::app()->baseUrl.'/Workplace/'.$m->idWorkplace->id.'">'.$m->idWorkplace->wpNameFull($short).'</a>';	
+				$result=$m->idWorkplace->wpNameFull($short);	
 				if(!$short)
 					$result=$result."\nПринтер: $m->mark";			
 				break;
