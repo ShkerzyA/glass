@@ -96,7 +96,7 @@ class ActionsController extends Controller
 					if(!empty($_POST['inv_cart']))
 					{
 						$print = Equipment::model()->findByPk($this->parent->details);
-						$cart_old=Equipment::model()->with('EquipmentLog')->find(array('condition'=>"t.type=18 and t.id_workplace=$print->id_workplace and \"EquipmentLog\".details[2]='$print->id'",'order'=>'"EquipmentLog".timestamp DESC'));
+						$cart_old=$print->findMyCart();
 						$cart = Equipment::model()->find(array('condition'=>"t.type=18 and t.id_workplace=".Equipment::$cartFull." and t.inv='$_POST[inv_cart]'"));
 						if(!$cart){
 							echo 'cart_undefinded';

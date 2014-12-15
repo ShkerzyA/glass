@@ -371,7 +371,7 @@ li:hover + .MyMenuSubmenu,
 	vertical-align: middle;
 }
 
-.bordertable *{
+.bordertable td,.bordertable th{
 	border: 1px solid grey;
 }
 
@@ -641,7 +641,8 @@ select{
     box-shadow: 2px -2px 2px rgba(0, 0, 0, 0.1), -2px -2px 2px rgba(0, 0, 0, 0.1), 0 -90px 20px -100px #000000 inset;
 
 	margin: auto;
-	overflow: hidden;
+	overflow-y: auto;
+	max-height: 400px;
 	padding: 3px;
 
 	position: absolute;
@@ -664,6 +665,11 @@ select{
 	max-height: 400px;
 	overflow-x: hidden;
 	overflow-y: auto;
+	vertical-align: top;
+}
+
+.window_awesom * {
+	vertical-align: top;
 }
 
 .lock{

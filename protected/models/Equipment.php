@@ -144,6 +144,11 @@ class Equipment extends CActiveRecord
 
 	}
 
+	public function findMyCart(){
+		$cart_old=Equipment::model()->with('EquipmentLog')->find(array('condition'=>"t.type=18 and t.id_workplace=$this->id_workplace and \"EquipmentLog\".details[2]='$this->id'",'order'=>'"EquipmentLog".timestamp DESC'));
+		return $cart_old;
+	}
+
 
 	public function rules()
 	{
@@ -230,6 +235,10 @@ class Equipment extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+	public static function printersWithLog(){
+		$models=self::model()->with(array('EquipmentLog'=>array('on'=>'("EquipmentLog".type=1 and \'t.id\'="EquipmentLog".details[2]) or ("EquipmentLog".type=2 and t.id="EquipmentLog".object)')))->findAll(array('condition'=>'t.type in (2,3,4,17)'));	
+		return $models;
+	}
 
 	public function search_for_export(){
 		$criteria=new CDbCriteria;

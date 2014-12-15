@@ -173,17 +173,19 @@ class EquipmentLog extends CActiveRecord
 				$n=1;
 				foreach ($mod as $v) {
 					if($v->mark!=$mark){
+
 						$n=1;
 						$mark=$v->mark;
-						$res.="\n";
+						$res.="<div style='height: 3px; position: relative; clear: both;'></div><hr>";
+						$res.='<div><b>'.$v->mark.'</b></div><br>';
 					}
 						
 					//$mod=Equipment::model()->find(array('condition'=>'t.type=18 and t.inv=\''.$v.'\''));
-					$res.="\n".$n.' |'.$v->mark.' '.$v->inv;
+					$res.='<div style="width: 45%; position: relative; float: left;">'.$n.' |'.$v->mark.' '.$v->inv."</div>";
 					$n++;
 					$all++;
 				}
-				$res.="\n\n  ".' | Итого:  '.$all;
+				$res.="<div style='height: 3px; position: relative; clear: both;'></div><hr>".'Итого:  '.$all;
 				return $res;
 				//return 'номера картриджей: '.implode(', ',$det);
 				break;

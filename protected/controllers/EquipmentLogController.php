@@ -28,7 +28,7 @@ class EquipmentLogController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','exportCart','showLog'),
+				'actions'=>array('index','view','exportCart','showLog','printersLog'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -67,13 +67,24 @@ class EquipmentLogController extends Controller
 
 
 	 */
+	public function actionPrintersLog(){
+		$models=Equipment::printersWithLog();
+		foreach ($models as $pr) {
+			echo $pr->mark;
+			foreach ($pr->EquipmentLog as $v) {
+				echo '/'.$v->type;
+			}
+			echo '</br>';
+		}
+	}
+
 	public function actionShowLog()
 	{
 		if(!empty($_POST['id']))
 			$id=$_POST['id'];
 		$eq=Equipment::model()->findByPk($id);
 		echo $eq->full_name().'<br>';
-		$logs=EquipmentLog::model()->findAll(array('condition'=>'t.object='.$id.' or (type=1 and \''.$id.'\'=details[2]) or (type in (3,4) and \''.$eq->inv.'\'=ANY("details"))','order'=>'t.timestamp DESC, t.type DESC'));
+		$logs=EquipmentLog::model()->findAll(array('condition'=>'t.object='.$id.' or (type=1 and \''.$id.'\'=details[2]) or (type in (3,4) and \''.$eq->inv.'\'=ANY("details"))','order'=>'t.timestamp DESC, t.type ASC'));
 		echo '<table class=bordertable><tr><th>Дата/Время</th><th>Тип действия</th><th>Субьект</th><th>Объект</th><th>Детали</th></tr>';
 		foreach ($logs as $v) {
 			echo '<tr><td>'.$v->timestamp.'</td><td>'.$v->getType()['name'].'</td><td>'.$v->subject0->fio().'</td><td>'.($ob_name=($v->objectEq)?$v->objectEq->full_name():'').'</td><td>'.$v->details_full().'</td></tr>';

@@ -5,7 +5,7 @@
 	<input type=text name=taskname id=taskname value="<?php echo $model->tname.' '.$model->detailsShow(true) ?>" placeholder='Имя задачи'>
 	<?php 
 		if($model->type==1) 
-			$this->renderPartial('/actions/report_cart');
+			$this->renderPartial('/actions/report_cart',array('model'=>$model));
 	?>
 	<select name=taskstat id=taskstat>
 		<option value="выполнено">выполнено</option>
