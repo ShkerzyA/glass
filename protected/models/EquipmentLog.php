@@ -170,22 +170,23 @@ class EquipmentLog extends CActiveRecord
 				
 				$mark='x';
 				$all=0;
-				$n=1;
 				foreach ($mod as $v) {
 					if($v->mark!=$mark){
-
-						$n=1;
+						if(!empty($n))
+							$res.="<div style='margin-top: 2px;  position: relative; clear: both;'><b>Итого ".$mark.' : '.$n.'</b></div>';
+						$n=0;
 						$mark=$v->mark;
-						$res.="<div style='height: 3px; position: relative; clear: both;'></div><hr>";
-						$res.='<div><b>'.$v->mark.'</b></div><br>';
+						$res.="<div style='height: 3px; position: relative; clear: both; border-bottom: 1px solid grey;'></div>";
+						$res.='<div style="margin: 2px;"><u>'.$v->mark.'</u></div>';
 					}
 						
 					//$mod=Equipment::model()->find(array('condition'=>'t.type=18 and t.inv=\''.$v.'\''));
-					$res.='<div style="width: 45%; position: relative; float: left;">'.$n.' |'.$v->mark.' '.$v->inv."</div>";
+					$res.='<div style="width: 20%; position: relative; float: left;">'.$v->inv."</div>";
 					$n++;
 					$all++;
 				}
-				$res.="<div style='height: 3px; position: relative; clear: both;'></div><hr>".'Итого:  '.$all;
+				$res.="<div style='margin-top: 2px;  position: relative; clear: both;'><b>Итого ".$mark.' : '.$n.'</b></div>';
+				$res.="<div style='height: 3px; position: relative; clear: both;'></div><hr>".'<b>Итого:  '.$all.'</b>';
 				return $res;
 				//return 'номера картриджей: '.implode(', ',$det);
 				break;

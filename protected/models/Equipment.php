@@ -33,7 +33,7 @@ class Equipment extends CActiveRecord
 	public static $cartFull='597';
 	public static $cartRefill='596';
 	public $place;
-	
+	public $DopLog;
 	public $idWorkplaceid_workplace;
 
 
@@ -236,7 +236,12 @@ class Equipment extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 	public static function printersWithLog(){
-		$models=self::model()->with(array('EquipmentLog'=>array('on'=>'("EquipmentLog".type=1 and \'t.id\'="EquipmentLog".details[2]) or ("EquipmentLog".type=2 and t.id="EquipmentLog".object)')))->findAll(array('condition'=>'t.type in (2,3,4,17)'));	
+		$models=self::model()->with('EquipmentLog')->findAll(array('condition'=>'t.type in (2,3,4,17)'));	
+		foreach ($models as &$v) {
+			$tmp=EquipmentLog::model()->findAll(array('condition'=>'t.type=1 and \''.$v->id.'\'=t.details[2]'));
+			//print_r($tmp);
+			//$v->EquipmentLog=array_merge($v->EquipmentLog,$tmp);
+		}
 		return $models;
 	}
 

@@ -21,7 +21,6 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
 		'timestamp',
 		array( 'name'=>'type', 'value'=>$model->getType()["name"] ),
 		array( 'name'=>'subject0subject', 'value'=>$model->subject0->fio_full()),

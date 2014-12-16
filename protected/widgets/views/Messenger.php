@@ -4,6 +4,7 @@
 <?php if(!Yii::app()->user->isGuest):?>
 
 <?php Yii::app()->clientScript->registerPackage('userjs'); ?>
+ <audio id='incmess' src="<?php echo Yii::app()->baseUrl?>/media/mess/kib.ogg"></audio>
 <script type="text/javascript">
 var timem="<?php echo date('Y-m-d H:i:s');?>";
 var viewChat=<?php echo Yii::app()->user->viewChat;?>;
@@ -19,6 +20,7 @@ function init(){
 	setInterval(function(){
     	updateChat();
   	},5000);
+
 }
 
 function updateChat(){
@@ -31,13 +33,18 @@ function updateChat(){
     			}
     			$("#Messages_ttext").removeAttr("disabled");
       			$(".mess_content").prepend(res.data);
+                document.getElementById('incmess').play();
     		}
     	});
 	$("#MessLock").hide();
 }
  $(document).ready(init());
 
+
+
 </script>
+
+  
 	<div class="messenger">
 		<div class="mess_head"></div>
 		<div class="mess_body">
@@ -49,7 +56,7 @@ function updateChat(){
 			?>
 
 			</div>
-			<div id=MessLock style=""><img height=100% src='/glass/images/load.gif'> </div>
+			<div id=MessLock style=""><img height=100% src='<?php echo Yii::app()->baseUrl ?>/images/load.gif'> </div>
 			<div class="mess_form">
 			<?php echo CHtml::form();
  

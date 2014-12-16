@@ -69,13 +69,9 @@ class EquipmentLogController extends Controller
 	 */
 	public function actionPrintersLog(){
 		$models=Equipment::printersWithLog();
-		foreach ($models as $pr) {
-			echo $pr->mark;
-			foreach ($pr->EquipmentLog as $v) {
-				echo '/'.$v->type;
-			}
-			echo '</br>';
-		}
+		$this->render('printersLog',array(
+			'model'=>$models,
+		));
 	}
 
 	public function actionShowLog()

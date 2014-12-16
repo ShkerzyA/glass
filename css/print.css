@@ -44,7 +44,7 @@
 	display: none !important;
 }
 
-table, table *{
+table, table td,  table th{
 	border: 2px solid black !important;
 	border-collapse: collapse !important;
 }
@@ -52,6 +52,8 @@ table, table *{
 .printtable{
 	margin: 1px;
 }
+
+
 
 #header{
 	display: none;
@@ -127,6 +129,7 @@ div{
 	border: 0px;
 	box-shadow: 0px;
 }
+
 
 /*a:link, a:visited {background:transparent;font-weight:700;text-decoration:underline;}
 a:link:after, a:visited:after {content:" (" attr(href) ")";font-size:90%;} */
