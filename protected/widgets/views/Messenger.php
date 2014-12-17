@@ -33,6 +33,9 @@ function updateChat(){
     		timem=res.timem;
         $("#Messages_ttext").removeAttr("disabled");
         $(".mess_content").prepend(res.data);
+        if(res.taskUpd==true){
+          notifyUser('Задачи','Добавлена новая задача');
+        }
     		if(res.data.length>0){
     			if(viewChat!=0){
     				$(".mess_head").css("background","red");

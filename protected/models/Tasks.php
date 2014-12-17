@@ -200,7 +200,7 @@ class Tasks extends CActiveRecord
 		);
 	}
 
-	public static function isHorn($id_department=0,$group=NULL){
+	public static function isHorn($id_department=0,$group=''){
 		$res=false;
 		$condition="id_department=".$id_department;
 		if(!empty($group))
