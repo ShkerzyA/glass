@@ -4,8 +4,10 @@
 <?php if(!Yii::app()->user->isGuest):?>
 
 <?php Yii::app()->clientScript->registerPackage('userjs'); ?>
- <audio id='incmess' src="<?php echo Yii::app()->baseUrl?>/media/mess/kib.ogg"></audio>
+ <audio id='incmess' src="<?php echo Yii::app()->baseUrl?>/media/mess/kib2.ogg"></audio>
 <script type="text/javascript">
+
+
 var timem="<?php echo date('Y-m-d H:i:s');?>";
 var viewChat=<?php echo Yii::app()->user->viewChat;?>;
 function init(){
@@ -23,17 +25,19 @@ function init(){
 
 }
 
+
+
 function updateChat(){
 	$.post('/glass/messages/showNew',{time: timem},function(response){
     		var res=$.parseJSON(response);
     		timem=res.timem;
+        $("#Messages_ttext").removeAttr("disabled");
+        $(".mess_content").prepend(res.data);
     		if(res.data.length>0){
     			if(viewChat!=0){
     				$(".mess_head").css("background","red");
-    			}
-    			$("#Messages_ttext").removeAttr("disabled");
-      			$(".mess_content").prepend(res.data);
-                document.getElementById('incmess').play();
+    			}    			
+            document.getElementById('incmess').play();
     		}
     	});
 	$("#MessLock").hide();
@@ -89,5 +93,8 @@ echo CHtml::endForm();?>
 	</div>
 <?php endif?>
 
+
+ 
+   
 
 
