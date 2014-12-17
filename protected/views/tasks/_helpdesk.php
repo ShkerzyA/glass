@@ -1,7 +1,9 @@
 
 <?php
-if($this->isHorn)
+if($this->isHorn){
 	echo '<audio src="'.$this->horn.'" autoplay="true"></audio>';	
+	echo '<script>notifyUser("Задачи","Новая задача");</script>';
+}
 ?>
 	
 

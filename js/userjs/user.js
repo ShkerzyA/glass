@@ -64,3 +64,23 @@ function load_modalForm(){
 		}
 	},'html');
 }
+
+
+function notifyUser(mtitle,mbody) {
+          if (!('Notification' in window)) {
+            return false;
+          }
+          var title;
+          var options;
+            title = mtitle;
+            options = {
+              body: mbody,
+              tag: 'preset',
+              icon: 'http://demo.pixelcom.crimea.ua/favicon.ico'
+            };
+  
+          Notification.requestPermission(function() {
+            var notification = new Notification(title, options);
+          });
+    }
+  

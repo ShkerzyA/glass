@@ -37,7 +37,8 @@ function updateChat(){
     			if(viewChat!=0){
     				$(".mess_head").css("background","red");
     			}    			
-            document.getElementById('incmess').play();
+          //document.getElementById('incmess').play();
+          notifyUser('Чат','Новое сообщение');
     		}
     	});
 	$("#MessLock").hide();
@@ -93,8 +94,5 @@ echo CHtml::endForm();?>
 	</div>
 <?php endif?>
 
-
- 
-   
 
 
