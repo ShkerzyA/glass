@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 /**
  * This is the model class for table "personnel".
@@ -71,8 +71,8 @@ class Personnel extends CActiveRecord
                         }
     }
 
-    public function fio(){
-        return $this->surname.' '.mb_substr($this->name,0,1,'utf-8').'. '.mb_substr($this->patr,0,1,'utf-8').'.';
+    public function fio($limiter='. '){
+        return $this->surname.($x=(!empty($limiter))?' ':'').mb_substr($this->name,0,1,'utf-8').$limiter.mb_substr($this->patr,0,1,'utf-8').$limiter;
     }
 
     public function fio_full(){
@@ -86,6 +86,34 @@ class Personnel extends CActiveRecord
             echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
         }
 
+    }
+
+    public function fioRu2Lat(){
+        $string=$this->fio('');
+        $rus = array('ё','ж','ц','ч','ш','щ','ю','я','Ё','Ж','Ц','Ч','Ш','Щ','Ю','Я');
+        $lat = array('yo','zh','tc','ch','sh','sh','yu','ya','YO','ZH','TC','CH','SH','SH','YU','YA');
+        $string = str_replace($rus,$lat,$string);
+
+        $rus1=array("А","Б","В","Г","Д","Е","З","И","Й","К","Л","М","Н","О","П","Р","С","Т","У","Ф","Х","Ъ","Ы","Ь","Э","а","б","в","г","д","е","з","и","й","к","л","м","н","о","п","р","с","т","у","ф","х","ъ","ы","ь","э");
+        $lat1=array("A","B","V","G","D","E","Z","I","J","K","L","M","N","O","P","R","S","T","U","F","H","","I","","E","a","b","v","g","d","e","z","i","j","k","l","m","n","o","p","r","s","t","u","f","h","","i","","e");
+        $string = str_replace($rus1,$lat1,$string);
+
+        return($string);
+    }
+
+    public function passGen(){
+        $res='';
+        $symbols=array('а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я');
+        $replace = array(0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z');
+
+        $surname=mb_strtolower(mb_substr($this->surname,0,3,'UTF-8'),'UTF-8');
+        $name=mb_strtolower(mb_substr($this->name,1,3,'UTF-8'),'UTF-8');
+        $patr=mb_strtolower(mb_substr($this->patr,2,3,'UTF-8'),'UTF-8');
+        $res.=str_replace($symbols, $replace, $surname.$name.$patr);
+
+
+
+        return $res;
     }
 
 	/**

@@ -18,7 +18,15 @@ if(!empty($data->workplaces)){
 
 
 <tr>
-	<td rowspan=<?php echo $num; ?>><?php echo $data->cabNameFull() ?></td>
+	<td rowspan=<?php echo $num; ?>><?php 
+		$isit=(Yii::app()->user->checkAccess('inGroup',array('group'=>'it')));
+		if($isit)
+			echo '<a href="'.Yii::app()->baseUrl.'/Cabinet/'.$data->id.'">';
+		echo $data->cabNameFull(); 
+		if($isit)
+			echo '</a>';
+		?>
+	</td>
 	<td><b>Общий</b></td>
 	<td><b><?php echo $data->phone ?><b></td>
 </tr>

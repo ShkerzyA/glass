@@ -34,7 +34,7 @@ class PersonnelController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','inOpenFire'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -82,6 +82,26 @@ class PersonnelController extends Controller
  		}
 	}
 	
+
+	public function actionInOpenFire($id){
+		$model=$this->loadModel($id);
+		$curl=new MyCurl;
+
+		$post=array('username=admin','password=ghbfv,ekf','submit=','url=index.jsp','login=true');
+		$curl->goUrl('http://glass:9090/login.jsp',$post);
+
+
+		$login=mb_strtolower($model->fioRu2Lat());
+		$pass=$model->passGen();
+		$post=array('username='.$login.'','name='.$model->fio().'','email=','password='.$pass.'','passwordConfirm='.$pass.'','create=1');
+		$curl->goUrl('http://glass:9090/user-create.jsp',$post);
+
+		$post=array('username='.$login.'',"group=Поликлиника","add=Add","addbutton=Добавить");
+		$curl->goUrl('http://glass:9090/group-edit.jsp',$post);
+		
+		echo 'login: '.$login.' pass: '.$pass; 
+
+	}
 
 	public function actionSurnameSearch(){
 		if(Yii::app()->request->isAjaxRequest){
