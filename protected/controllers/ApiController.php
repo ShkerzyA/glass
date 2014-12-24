@@ -8,7 +8,14 @@ class ApiController extends Controller
 	}
 
 	public function actionMessChat(){
-		echo 'fuuuuuu';
+	}
+
+	public function actionSaveMon(){
+		$model=MonitoringEnvironment::model()->findByPk(1);
+		if(!empty($_POST)){
+			$model->attributes=$_POST;
+			$model->save();
+		}
 	}
 
 	// Uncomment the following methods and override them if needed

@@ -28,7 +28,7 @@ class MessagesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','showNew'),
+				'actions'=>array('index','view','showNew','updMon'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -43,6 +43,19 @@ class MessagesController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionUpdMon()
+	{
+		$result=array();
+		$model=MonitoringEnvironment::model()->findByPk(1);
+		$cols=$model->attributes;
+		unset($cols['id']);
+		foreach ($cols as $key => $value) {
+			$result[]=array('label'=>$model->attributeLabels()[$key],'value'=>$value);	
+		}
+		
+		echo json_encode($result);
 	}
 
 

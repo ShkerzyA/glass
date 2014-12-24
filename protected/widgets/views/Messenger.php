@@ -23,8 +23,23 @@ function init(){
     	updateChat();
   	},5000);
 
+    setInterval(function(){
+        updateMon();
+    },20000);
+
 }
 
+function updateMon(){
+    $.post('/glass/messages/updMon',{time: timem},function(response){
+            var res=$.parseJSON(response);
+            $("#serb").empty();
+            $.each(res, function(i, x) {
+                $("#serb").append('<img title="'+x.label+'" src="/glass/images/led'+x.value+'.png">');
+            });
+
+            
+        });
+    }
 
 
 function updateChat(){
@@ -46,7 +61,8 @@ function updateChat(){
     	});
 	$("#MessLock").hide();
 }
- $(document).ready(init());
+updateMon();
+$(document).ready(init());
 
 
 
@@ -54,7 +70,7 @@ function updateChat(){
 
   
 	<div class="messenger">
-		<div class="mess_head"></div>
+		<div class="mess_head"><div style="float: left;">S.E.R.B.</div><div style="float: left;" id="serb"></div></div>
 		<div class="mess_body">
 			<div class="mess_content">
 			<?php

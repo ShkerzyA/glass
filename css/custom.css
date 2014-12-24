@@ -1169,6 +1169,17 @@ div.search-form{
 	padding: 0px;
 }
 
+
+#serb{
+	position: relative;
+	color: white;
+}
+
+#serb img{
+	margin: 0 3px 0 3px;
+	height: 20px;
+}
+
 /*
 
 
