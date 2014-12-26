@@ -11,6 +11,10 @@
 var timem="<?php echo date('Y-m-d H:i:s');?>";
 var viewChat=<?php echo Yii::app()->user->viewChat;?>;
 function init(){
+
+    $('.mess_head').live('click',function(){
+        notifyUser('Чат','Помним, скорбим');
+    });
 	$('.messenger').live('mouseenter',function(){
     	$(".mess_head").css("background","black");
 	});
@@ -19,9 +23,11 @@ function init(){
             $('#Messages_submit').click();
         }
     });
+
+    /*
 	setInterval(function(){
     	updateChat();
-  	},5000);
+  	},5000); */
 
     setInterval(function(){
         updateMon();
@@ -71,7 +77,7 @@ $(document).ready(init());
   
 	<div class="messenger">
 		<div class="mess_head"><div style="float: left;">S.E.R.B.</div><div style="float: left;" id="serb"></div></div>
-		<div class="mess_body">
+	<!--	<div class="mess_body">
 			<div class="mess_content">
 			<?php
 				foreach ($model as $v) {
@@ -109,7 +115,7 @@ echo CHtml::endForm();?>
  	}
 </script>
 			</div>
-		</div>
+		</div> -->
 	</div>
 <?php endif?>
 
