@@ -55,7 +55,9 @@ class MyDbase extends CFormModel{
 		
 		foreach ($zSubDiv as &$v){
 			$v['cataloginfo']=$acatalog[$v['CATALOG_RN']];
-			$v['PARENTPARENT']=$zSubDiv[trim($v['cataloginfo']['N2'])]['SUBDIV_RN'];
+			//002c это корневой каталог. Его нет в отделениях
+			if(array_key_exists(trim($v['cataloginfo']['N2']),$zSubDiv))
+				$v['PARENTPARENT']=$zSubDiv[trim($v['cataloginfo']['N2'])]['SUBDIV_RN'];
 		}
 
 		foreach ($zSubDiv as $v) {
@@ -75,7 +77,8 @@ class MyDbase extends CFormModel{
 
 		foreach ($zSubDiv as $v) {
 			$dep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['SUBDIV_RN'])));
-			$dep->parent_subdiv_rn=$v['PARENTPARENT'];
+			if(!empty($v['PARENTPARENT']))
+				$dep->parent_subdiv_rn=$v['PARENTPARENT'];
 			$dep->save();
 		}
 
@@ -153,8 +156,9 @@ class MyDbase extends CFormModel{
 		}
 
 		foreach ($posts as $v) {
-
+			echo $v['POST_RN'].'<br>';
 			foreach ($v['zpostch'] as $z) {
+
 						if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn and upd_flag is NULL','params'=>array(":post_rn"=>$v['POST_RN'])))){
 							$depPost=$findPost;
 						}else{
@@ -192,6 +196,7 @@ class MyDbase extends CFormModel{
  		$zfcac=$this->read_table('ZFCAC.DBF');
  		$zank=$this->read_table('zank.dbf','ANK_RN');
 
+ 		//к лицевым счетам прикрепляем анкетные данные
 		foreach ($zfcac as &$v) {
 			$x=$v['ANK_RN'];
 			//echo($v['ANK_RN']).'<br>';
@@ -214,10 +219,10 @@ class MyDbase extends CFormModel{
 
 			if(!empty(trim($v['POST_RN']))){
 				$post=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));	
-			}else{
+			}else if (array_key_exists($v['TIPDOL_RN'],$posts_tabl)){
 				$post=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$posts_tabl[$v['TIPDOL_RN']]['POST_RN'])));
 			}
-			
+
 			$date_begin=date('d.m.Y',strtotime(substr($v['STARTDATE'] , 6,2).'.'.substr($v['STARTDATE'] , 4,2).'.'.substr($v['STARTDATE'] ,0,4)));
 			if(strripos($v['ENDDATE'],'8888')){
 				$date_end=NULL;
@@ -232,11 +237,13 @@ class MyDbase extends CFormModel{
 				$pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>trim($z['ORGBASE_RN']))));
 				//echo $pers->surname.' | '.$z['ORGBASE_RN'].'<br>';
 				$postH=new PersonnelPostsHistory();
-				$postH->id_personnel=$pers->id;
+				if(!empty($pers))
+					$postH->id_personnel=$pers->id;
 				$postH->is_main=$v['ISMAINISP'];
 				$postH->date_begin=$date_begin;
 				$postH->date_end=$date_end;
-				$postH->id_post=$post->id;
+				if(!empty($post))
+					$postH->id_post=$post->id;
 				$postH->save();
 				
 			}

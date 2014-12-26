@@ -1172,12 +1172,15 @@ div.search-form{
 
 #serb{
 	position: relative;
+
+	vertical-align: middle;
 	color: white;
 }
 
 #serb img{
-	margin: 0 3px 0 3px;
-	height: 20px;
+	margin: 0 5px 0 5px;
+	vertical-align: middle;
+	height: 14px;
 }
 
 /*

@@ -48,7 +48,7 @@ $('.search-form form').submit(function(){
 		'date_begin',
 		'date_end',
 		'subdiv_rn',
-		array( 'name'=>'parentSubdivRnparent_subdiv_rn', 'value'=>'$data->parentSubdivRn->name' ),
+		array( 'name'=>'parentSubdivRnparent_subdiv_rn', 'value'=>'$v=(!empty($data->parentSubdivRn))?$data->parentSubdivRn->name:""' ),
 		array(
 			'class'=>'CButtonColumn',
 		),
