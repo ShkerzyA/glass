@@ -106,10 +106,8 @@ class Personnel extends CActiveRecord
         $symbols=array('а','б','в','г','д','е','ё','ж','з','и','й','к','л','м','н','о','п','р','с','т','у','ф','х','ц','ч','ш','щ','ъ','ы','ь','э','ю','я');
         $replace = array(0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z');
 
-        $surname=mb_strtolower(mb_substr($this->surname,0,3,'UTF-8'),'UTF-8');
-        $name=mb_strtolower(mb_substr($this->name,1,3,'UTF-8'),'UTF-8');
-        $patr=mb_strtolower(mb_substr($this->patr,2,3,'UTF-8'),'UTF-8');
-        $res.=str_replace($symbols, $replace, $surname.$name.$patr);
+        $str=mb_strtolower($this->surname.$this->name.$this->patr.$this->birthday.'scotland');
+        $res=substr(md5($str),0,3);
 
 
 
@@ -178,6 +176,29 @@ class Personnel extends CActiveRecord
             }
         }
         return $res;
+    }
+
+    public function inOpenFire($inpolic=true){
+        $curl=new MyCurl;
+
+        $post=array('username=admin','password=ghbfv,ekf','submit=','url=index.jsp','login=true');
+        $curl->goUrl('http://glass:9090/login.jsp',$post);
+
+
+        $login=mb_strtolower($this->fioRu2Lat());
+        $pass=$this->passGen();
+        $post=array('username='.$login.'','name='.$this->fio().'','email=','password='.$pass.'','passwordConfirm='.$pass.'','create=1');
+        $curl->goUrl('http://glass:9090/user-create.jsp',$post);
+
+        $post=array('username='.$login.'','password='.$pass.'','passwordConfirm='.$pass.'','update=1');
+        $curl->goUrl('http://glass:9090/user-password.jsp',$post);
+
+        if($inpolic){
+            $post=array('username='.$login.'',"group=Поликлиника","add=Add","addbutton=Добавить");
+            $curl->goUrl('http://glass:9090/group-edit.jsp',$post);
+        }
+
+        return 'login: '.$login.' pass: '.$pass; 
     }
 
 	/**
