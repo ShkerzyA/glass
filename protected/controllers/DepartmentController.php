@@ -32,7 +32,7 @@ class DepartmentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete'),
+				'actions'=>array('create','update','delete','openfire'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -93,6 +93,26 @@ class DepartmentController extends Controller
 		$this->render('view',array(
 			'model'=>$model,
 		));
+	}
+
+
+	public function actionOpenfire($id){
+		$this->layout='//layouts/column1';
+
+		$model=Department::model()->with(array(
+			'departmentPosts'=>array(
+				'scopes'=>array('working'),
+				'order'=>'"departmentPosts".islead DESC',
+				),
+			'departmentPosts.personnelPostsHistories'=>array(
+				'scopes'=>array('working'),
+        		'order'=>'"personnelPostsHistories".date_end DESC'),
+			))->findByPk($id);
+
+			$this->render('openfire',array(
+			'model'=>$model,
+		));
+
 	}
 	/**
 	 * Creates a new model.

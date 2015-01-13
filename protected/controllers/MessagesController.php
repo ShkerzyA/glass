@@ -51,6 +51,7 @@ class MessagesController extends Controller
 		$model=MonitoringEnvironment::model()->findByPk(1);
 		$cols=$model->attributes;
 		unset($cols['id']);
+		unset($cols['mos_gate']);
 		foreach ($cols as $key => $value) {
 			$result[]=array('label'=>$model->attributeLabels()[$key],'value'=>$value);	
 		}

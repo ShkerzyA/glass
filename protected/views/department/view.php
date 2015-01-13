@@ -11,6 +11,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Актуально', 'url'=>array('','id'=>$model->id,'showH'=>0)),
 	array('label'=>'История', 'url'=>array('','id'=>$model->id,'showH'=>1)),
+	array('label'=>'Openfire', 'url'=>array('openfire','id'=>$model->id)),
 );
 ?>
 
