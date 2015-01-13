@@ -76,7 +76,7 @@ $(document).ready(init());
 
   
 	<div class="messenger">
-		<div class="mess_head"><div style="float: left;">S.E.R.B.</div><div style="float: left;" id="serb"></div></div>
+		<div class="mess_head"><div style="float: left;"></div><div style="float: left;" id="serb"></div></div>
 	<!--	<div class="mess_body">
 			<div class="mess_content">
 			<?php
