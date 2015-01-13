@@ -45,7 +45,7 @@ $this->menu=array(
 	echo '<br> Тел: (каб. '.implode(',',$phone['cab']).' личн. '.implode(',',$phone['pers']).')';
 	echo'</div>';
 	echo'<div><b>Дата рождения: '.CHtml::encode($birthday).' (Пол: '.CHtml::encode($sex).')</b></div>';
-	if (in_array(1011,Yii::app()->user->id_departments))
+	if (Yii::app()->user->role=='administrator')
 		echo '<div>Пароль для jabber: <b>'.$model->passGen().'</b> <a href='.Yii::app()->baseUrl.'/Personnel/inOpenFire?id='.$model->id.' target=_blank>регистрация в Openfire</a></div>';
 	echo"<br><div><h3>Занимаемые должности:</h3>";
 	foreach($model->personnelPostsHistories as $posts){

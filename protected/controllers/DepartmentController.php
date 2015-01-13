@@ -32,11 +32,11 @@ class DepartmentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete','openfire'),
+				'actions'=>array('create','update','delete'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
+				'actions'=>array('admin','openfire'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users

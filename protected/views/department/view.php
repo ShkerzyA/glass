@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Актуально', 'url'=>array('','id'=>$model->id,'showH'=>0)),
 	array('label'=>'История', 'url'=>array('','id'=>$model->id,'showH'=>1)),
-	array('label'=>'Openfire', 'url'=>array('openfire','id'=>$model->id)),
+	array('label'=>'Openfire', 'url'=>array('openfire','id'=>$model->id),'visible'=>(Yii::app()->user->role=='administrator')),
 );
 ?>
 
@@ -26,7 +26,7 @@ $this->menu=array(
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
 	if(!empty($model->departmentPosts)){
 		foreach($model->departmentPosts as $dp){
-			echo "<tr><td class='persList'>";
+			echo "<tr><td class='postList'>";
 			if (!empty($dp->islead))
 				echo '<b>';
 			if ($dp->inactive())
@@ -41,7 +41,8 @@ $this->menu=array(
 					echo '<span style="text-decoration: line-through">';
 				else
 					echo '<span>';
-				echo "<a href='".Yii::app()->request->baseUrl."/personnel/".$personnelPh->idPersonnel->id."'>".$personnelPh->idPersonnel->surname.' '.$personnelPh->idPersonnel->name.' '.$personnelPh->idPersonnel->patr."</a> <br>логин: ".mb_strtolower($personnelPh->idPersonnel->fioRu2Lat())."<br>пароль: ".$personnelPh->idPersonnel->passGen()."<br> <a href=".Yii::app()->baseUrl."/Personnel/inOpenFire?id=".$personnelPh->idPersonnel->id." target=_blank>регистрация в Openfire</a><br>";
+				echo "<a href='".Yii::app()->request->baseUrl."/personnel/".$personnelPh->idPersonnel->id."'>".$personnelPh->idPersonnel->surname.' '.$personnelPh->idPersonnel->name.' '.$personnelPh->idPersonnel->patr."</a> <br>";
+				//echo "<br>логин: ".mb_strtolower($personnelPh->idPersonnel->fioRu2Lat())."<br>пароль: ".$personnelPh->idPersonnel->passGen()."<br> <a href=".Yii::app()->baseUrl."/Personnel/inOpenFire?id=".$personnelPh->idPersonnel->id." target=_blank>регистрация в Openfire</a><br>";
 				echo "(c ".$personnelPh->date_begin.($de=(!empty($personnelPh->date_end))?(" по ".$personnelPh->date_end):'').")";
 				if($personnelPh->is_main==1){
 					echo ' основная';
