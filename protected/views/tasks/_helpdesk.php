@@ -70,7 +70,7 @@ if($this->isHorn){
 
 						}
 
-						echo'  </div>';
+						echo'<span></span></div>';
 						
 
 						echo'</div>';
