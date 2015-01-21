@@ -119,6 +119,8 @@ td{
 }
 
 .hiddeninfotask{
+	min-width: 20px;
+	min-height: 20px;
 	white-space: nowrap;
 	z-index: 99;
 	position: absolute;
@@ -759,8 +761,11 @@ select{
 }
 
 .perspanel{
+
+	margin: 0px;
 	overflow: hidden;
 }
+
 
 .hipanel{
 	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;

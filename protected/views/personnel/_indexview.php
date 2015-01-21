@@ -14,14 +14,14 @@
 		if(!$act)
 			echo '<div style="text-decoration: line-through; color: gray; width: 350px; display: inline-block;">';
 		else
-			echo '<div style=" width: 350px; display: inline-block;">';
+			echo '<div style=" width: 350px; display: inline-block; float: left;">';
 
 	?>
 		<?php echo CHtml::encode($data->surname.' '.$data->name.' '.$data->patr); ?> 
 		</div>
 		<?php 
 			if($act){
-				echo $data->personnelPostsHistories[0]->idPost->post.'/'.$data->personnelPostsHistories[0]->idPost->postSubdivRn->name ;
+				echo '<div style="width: 500px; display: inline-block; float: left">'.$data->personnelPostsHistories[0]->idPost->post.'/'.$data->personnelPostsHistories[0]->idPost->postSubdivRn->name.'</div>';
 			}
 		?>
 	</a>
