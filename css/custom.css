@@ -25,6 +25,10 @@ td{
 
 }
 
+.button_link{
+	border: 1px solid red;
+}
+
 
 
 #mainmenu .MyMenuSubmenu .item
