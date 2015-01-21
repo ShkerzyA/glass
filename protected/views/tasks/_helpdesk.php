@@ -12,22 +12,49 @@ if($this->isHorn){
 		<?php $status=$v->gimmeStatus(); 
 		?>
 		<div class="taskpanel <?php echo $status['css_class']; ?>">
-			<span><a href=/glass/tasks/<?php echo $v->id; ?>>
-			<?php echo $v->ico(); ?>
-			<?php echo $v['tname'].$v->detailsShow(true);; ?>
-			</a>
-			<div class="texttask rotated"><pre><?php echo $v['ttext'].$v->detailsShow(); ?></pre></div></span>
+			
 			<div  class="rightinfo">
 				<?php 	
+						
+						echo'<div style="font-size: 9pt; text-align: left;">';
+					
+						if(!empty($v->timestamp_end)){
+							echo $v->timestamp_end;
+						}else{
+							echo $v->timestamp;
+						}
+						echo'<br>';
+
+						if(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model))){
+							$repcl=$v->reportInc();
+							if($repcl){
+								echo '<div class='.$repcl.' style="top: -3px"></div>';
+							}
+						}
+
+						echo ('<div class='.$status['css_status'].' style="text-align: left">'.$status['label'].'</div>');
+
+						echo'</div>';
+
+						
+
+
 						echo'<div class="taskmoreinfo">';
-						if(!empty($v->TasksActions[0]->creator0)){
+
+						$exec=$v->findExecutors();
+
+						foreach ($exec as $z) {
 							echo '<img height=100% src="';
-							echo $v->TasksActions[0]->creator0->ava();
-							echo'">';}
+							echo $z->ava();
+							echo'">';
+						}
+						
+
+					
 						//print_r($v->TasksActions[0]->creator0);
 					
 						$rep='';
-						echo '<div class=hiddeninfotask>';
+						echo '<div class="hiddeninfotask rotated texttask">';
 						foreach ($v->TasksActions as $action) {
 							if($action->type==1)
 								continue;
@@ -47,31 +74,16 @@ if($this->isHorn){
 						
 
 						echo'</div>';
-
-						echo'<div>';
-
-						if(!empty($v->executor0)){
-							echo('('.$v->executor0->personnelPostsHistories[0]->idPersonnel->surname.' '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->name,0,1,"utf8").'. '.mb_substr($v->executor0->personnelPostsHistories[0]->idPersonnel->patr,0,1,"utf8").'.)');	
-						}
-						if(!empty($v->timestamp_end)){
-							echo '('.$v->timestamp_end.')';
-						}else{
-							echo '('.$v->timestamp.')';
-						}
-						echo'</div>';
-
-						echo ('<div class='.$status['css_status'].'>'.$status['label'].'</div>');
-
-						if(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model))){
-							$repcl=$v->reportInc();
-							if($repcl){
-								echo '<div class='.$repcl.'></div>';
-							}
-						}
 						
 				?>
 				
+				
 			</div>
+			<span><a href=/glass/tasks/<?php echo $v->id; ?>>
+
+			<?php echo '<div style="float: left; width: auto; overflow: hidden">'.$v->ico().$v['tname'].$v->detailsShow(true).'</div>'; ?>
+			</a>
+			<div class="texttask rotated"><pre><?php echo $v['ttext'].$v->detailsShow(); ?></pre></div></span>
 		</div>
 <?php endforeach; ?>
 

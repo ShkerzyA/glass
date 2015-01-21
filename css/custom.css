@@ -110,8 +110,12 @@ td{
 	clear: none;
 	float: right; 
 	height: 20px; 
-	width: 20px;
-	margin: 0px;
+	width: auto;
+	margin-right: 2px;
+}
+
+.taskmoreinfo img{
+	margin: 1px;
 }
 
 .hiddeninfotask{
@@ -120,12 +124,13 @@ td{
 	position: absolute;
 	text-align: center;
 	left: 20px;
-	color: black;
-	display: none;
+	
+	
 	padding: 2px;
-	background: #f7f7f6;
-	border: 2px solid grey;
-	border-radius: 4px;
+
+	background: #fcfcfc;
+	box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;
+	display: none;
 }
 
 .taskmoreinfo:hover .hiddeninfotask{
@@ -223,8 +228,8 @@ td{
 .rep, .myrep{
 	position: relative;
 	float: left;
-	width: 20px;
-	height: 20px;
+	width: 16px;
+	height: 16px;
 	background: url('../images/doc.png') 99% 99%;
 	background-size: cover; /* Масштабируем фон */
 }
@@ -743,7 +748,7 @@ select{
 	background: #fcfcfc;
 	margin: 5px;
 	margin-top: 10px;
-	height: 18px; 
+	height: 24px; 
 	width: auto;
 	position: relative;
 }

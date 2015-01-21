@@ -173,6 +173,15 @@ class Tasks extends CActiveRecord
 		}
 	}
 
+	public function findExecutors(){
+		$result=array();
+		$tmp=array_diff(explode(',', $this->executors),array(''));
+		foreach ($tmp as $v) {
+			$result[]=Personnel::model()->findByPk($v);
+		}
+		return $result;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
