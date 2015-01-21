@@ -67,7 +67,7 @@ class TasksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','create','helpDesk','report', 'reportOtd','suggest'),
+				'actions'=>array('index','view','join','create','helpDesk','report', 'reportOtd','suggest'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -245,6 +245,14 @@ class TasksController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
+
+	public function actionJoin($id){
+		$model=$this->loadModel($id);
+		$model->join();
+		if($model->save())
+				$this->redirect(array('view','id'=>$model->id));
+	}
+
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);

@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 
 Yii::app()->clientScript->registerPackage('actions');
 $this->menu=array(
+	array('label'=>'Присоединиться', 'url'=>array('join', 'id'=>$model->id),'cssOptions'=>array('class'=>'add_unit'),'visible'=>True),
 	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>Yii::app()->user->checkAccess('updateTs',array('mod'=>$model))),
 	array('label'=>'Удалить', 'url'=>'#','visible'=>Yii::app()->user->role=='administrator', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>Yii::app()->user->role=='administrator'),
@@ -43,7 +44,7 @@ echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
 		Создатель:  '.$model->creator0->surname.' '.$model->creator0->name.' '.$model->creator0->patr.'</i></div>'.
 		'<hr><p class="norm_text"><pre>'.$model->detailsShow().'<br>'.$model->ttext.'</pre></p>
-		<span style="float: right">Сопричастные: ';
+		<span style="float: right">Участники: ';
 		$tmp=explode(',',$model->executors); 
 		$exec=array();
 				foreach ($tmp as $v){

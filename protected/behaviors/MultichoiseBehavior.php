@@ -16,12 +16,12 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
 //Yii::getLogger()->autoDump = true;
 
         $fields=$this->getField();
-        if(isset($_POST['group_anchor'])){
+        if(isset($_REQUEST['group_anchor'])){
             foreach ($fields as $val) {
-                if(!empty($_POST[$val])){
-                    $tmp=$_POST[$val];
-                    unset($_POST['group_anchor']);
-                    unset($_POST[$val]);
+                if(!empty($_REQUEST[$val])){
+                    $tmp=$_REQUEST[$val];
+                    unset($_REQUEST['group_anchor']);
+                    unset($_REQUEST[$val]);
                     if(is_array($tmp)){
                         $tmp=array_unique($tmp);
                         $this->owner->$val=implode(',',$tmp);

@@ -27,6 +27,7 @@ class Tasks extends CActiveRecord
 	public static $modelLabelP='Задачи';
 	public static $multifield=array('executors');
 	public static $db_array=array('group','details');
+	public static $statJoin=array(1,5);
 	public static $statFixEnd=array(2,3);
 	
 	public $creator0creator;
@@ -55,6 +56,13 @@ class Tasks extends CActiveRecord
 		}else {
 			return False;
 		}
+	}
+
+	public function join($id_pers=NULL){
+		$tmp=explode(',', $this->executors);
+		$tmp[]=(!empty($id_pers))?$id_pers:Yii::app()->user->id_pers;
+		$tmp=array_unique(array_diff($tmp,array('')));
+		$this->executors=implode(',',$tmp);
 	}
 
 	protected function beforeSave(){

@@ -157,6 +157,11 @@ class ActionsController extends Controller
 				if(in_array($_POST['stat'], $parent::$statFixEnd)){
 					$this->parent->timestamp_end=date('d.m.Y H:i:s');
 				}
+
+				if(in_array($_POST['stat'], $parent::$statJoin)){
+					$this->parent->join();
+				}
+
 				$this->parent->save();
 				$this->act->saveStatus();
 			}
