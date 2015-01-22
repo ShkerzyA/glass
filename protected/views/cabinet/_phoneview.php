@@ -28,6 +28,6 @@ if(!empty($data->workplaces)){
 		?>
 	</td>
 	<td><b>Общий</b></td>
-	<td><b><?php echo $data->phone ?><b></td>
+	<td><b><?php echo $data->phone ?></b></td>
 </tr>
 <?php echo $res; ?>

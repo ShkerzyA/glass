@@ -4,7 +4,7 @@ table{
 }
 
 td{
-	white-space: pre-wrap;
+	/*white-space: pre-wrap;*/
 }
 
 .MyMenuSubmenu{
@@ -716,7 +716,7 @@ select{
 	font-size: 9pt;
 	border: 1px solid #d4d4d4;
 	border-collapse: none;
-	white-space: pre-wrap;
+	/* white-space: pre-wrap; */
 	overflow: hidden;
 }
 
