@@ -1,5 +1,5 @@
-<!--				array('label'=>'Вход', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Выход ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest) -->
+<!--                array('label'=>'Вход', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+                array('label'=>'Выход ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest) -->
 
 <?php if(!Yii::app()->user->isGuest):?>
 
@@ -11,23 +11,17 @@
 var timem="<?php echo date('Y-m-d H:i:s');?>";
 var viewChat=<?php echo Yii::app()->user->viewChat;?>;
 function init(){
-
-    $('.mess_head').live('click',function(){
-        notifyUser('Чат','Помним, скорбим');
+    $('.messenger').live('mouseenter',function(){
+        $(".mess_head").css("background","black");
     });
-	$('.messenger').live('mouseenter',function(){
-    	$(".mess_head").css("background","black");
-	});
-	$('#Messages_ttext').live('keydown',function(e){
+    $('#Messages_ttext').live('keydown',function(e){
           if(e.keyCode==13){
             $('#Messages_submit').click();
         }
     });
-
-    /*
-	setInterval(function(){
-    	updateChat();
-  	},5000); */
+    setInterval(function(){
+        updateChat();
+    },5000);
 
     setInterval(function(){
         updateMon();
@@ -49,23 +43,23 @@ function updateMon(){
 
 
 function updateChat(){
-	$.post('/glass/messages/showNew',{time: timem},function(response){
-    		var res=$.parseJSON(response);
-    		timem=res.timem;
+    $.post('/glass/messages/showNew',{time: timem},function(response){
+            var res=$.parseJSON(response);
+            timem=res.timem;
         $("#Messages_ttext").removeAttr("disabled");
         $(".mess_content").prepend(res.data);
         if(res.taskUpd==true){
           notifyUser('Задачи','Добавлена новая задача');
         }
-    		if(res.data.length>0){
-    			if(viewChat!=0){
-    				$(".mess_head").css("background","red");
-    			}    			
+            if(res.data.length>0){
+                if(viewChat!=0){
+                    $(".mess_head").css("background","red");
+                }               
           //document.getElementById('incmess').play();
-          notifyUser('Чат','Новое сообщение');
-    		}
-    	});
-	$("#MessLock").hide();
+          //notifyUser('Чат','Новое сообщение');
+            }
+        });
+    $("#MessLock").hide();
 }
 updateMon();
 $(document).ready(init());
@@ -74,30 +68,31 @@ $(document).ready(init());
 
 </script>
 
+    <div class="serb"><div style="float: left;"></div><div style="float: left;" id="serb"></div></div>
   
-	<div class="messenger">
-		<div class="mess_head"><div style="float: left;"></div><div style="float: left;" id="serb"></div></div>
-	<!--	<div class="mess_body">
-			<div class="mess_content">
-			<?php
-				foreach ($model as $v) {
-					$this->controller->renderPartial('/messages/compactview',array('model'=>$v),false,false);
-				}
-			?>
+    <div class="messenger">
+        <div class="mess_head"></div>
+        <div class="mess_body">
+            <div class="mess_content">
+            <?php
+                foreach ($model as $v) {
+                    $this->controller->renderPartial('/messages/compactview',array('model'=>$v),false,false);
+                }
+            ?>
 
-			</div>
-			<div id=MessLock style=""><img height=100% src='<?php echo Yii::app()->baseUrl ?>/images/load.gif'> </div>
-			<div class="mess_form">
-			<?php echo CHtml::form();
+            </div>
+            <div id=MessLock style=""><img height=100% src='<?php echo Yii::app()->baseUrl ?>/images/load.gif'> </div>
+            <div class="mess_form">
+            <?php echo CHtml::form();
  
 echo CHtml::textArea('Messages[ttext]','',array('placeholder'=>'текст сообщения (enter)'));
 echo CHtml::ajaxSubmitButton('Отправить', '/glass/actions/chatSaveMessage', array(
     'type' => 'POST',
     'success' => 'function(response) {
-    	$("#Messages_ttext").val("");
-    	$("#Messages_ttext").attr("disabled","disabled");
-    	$("#MessLock").show();
-  	}',
+        $("#Messages_ttext").val("");
+        $("#Messages_ttext").attr("disabled","disabled");
+        $("#MessLock").show();
+    }',
 
 ),
 array(
@@ -108,16 +103,13 @@ array(
  
 echo CHtml::endForm();?>
 <script type="text/javascript">
-	if(viewChat==0){
- 		$('.mess_body').hide();
- 	}else if(viewChat==1){
- 		$('.mess_body').show();
- 	}
+    if(viewChat==0){
+        $('.mess_body').hide();
+    }else if(viewChat==1){
+        $('.mess_body').show();
+    }
 </script>
-			</div>
-		</div> -->
-	</div>
+            </div>
+        </div>
+    </div>
 <?php endif?>
-
-
-

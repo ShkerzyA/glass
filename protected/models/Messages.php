@@ -77,9 +77,9 @@ class Messages extends CActiveRecord
 
 
 	public function beforeSave(){
-		/*$pattern='~https?://([^\s]+(?=\.(jpg|jpeg|JPG|JPEG|GIF|PNG|gif|png))\.\2)~';
+		$pattern='~https?://([^\s]+(?=\.(jpg|jpeg|JPG|JPEG|GIF|PNG|gif|png))\.\2)~';
 		$replacement='<img class=chatImg src=$0>';
-		$this->ttext=preg_replace($pattern,$replacement, $this->ttext); */
+		$this->ttext=preg_replace($pattern,$replacement, $this->ttext);
 
 		$pattern='~(?<!(src=))https?://([^\s]+)~';
 		$replacement='<a href="$0" target=_blank>$0</a>';
