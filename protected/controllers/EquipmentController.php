@@ -144,6 +144,11 @@ public function actionCartSearch(){
 		$items[2]->attributes=$attr[2];
 		$items[3]->attributes=$attr[3];
 
+		foreach ($items as &$z) {
+			$z->setMaxCartInv();
+			# code...
+		}
+
 		//$items[4]->type=3;
 
 		foreach ($items as &$it) {

@@ -29,12 +29,26 @@ class Equipment extends CActiveRecord
 	public static $modelLabelP='Оборудование';
 
 	//id рабочих мест, для оборота картриджей
+	public static $maxCartInv;
 	public static $cartStorage='574';
 	public static $cartFull='597';
 	public static $cartRefill='596';
 	public $place;
 	public $DopLog;
 	public $idWorkplaceid_workplace;
+
+
+
+
+	public function setMaxCartInv(){
+		if($this->type==18){
+			if(empty(self::$maxCartInv)){
+				self::$maxCartInv=self::model()->find(array('condition'=>'t.type=18','order'=>'substring(t.inv from \'^\\d+\')::int  DESC'))->inv;
+			}
+			self::$maxCartInv++;
+			$this->inv=self::$maxCartInv;
+		}	
+	}
 
 
 	public static function model($className=__CLASS__)
