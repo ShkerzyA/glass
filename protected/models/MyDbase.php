@@ -18,15 +18,22 @@ class MyDbase extends CFormModel{
  		$this->pathToDb=$_SERVER['DOCUMENT_ROOT'].'/glass/base/';
  	}
 
- 	public function read_table($tablename,$keycolumn=NULL){
+ 	public function read_table($tablename,$keycolumn=NULL,$charset=array('cp1251','UTF8')){
  		$result=array();
  		$this->dbase=dbase_open($this->pathToDb.$tablename,0);
  		for($i=1;$i<=dbase_numrecords($this->dbase);$i++){
  			$row=dbase_get_record_with_names($this->dbase,$i);
 
- 			foreach ($row as &$v){
- 				$v=trim(iconv('cp1251','UTF8', $v));
+ 			if(!empty($charset)){
+ 				foreach ($row as &$v){
+ 					$v=iconv($charset[0],$charset[1], $v);	
+ 				}
  			}
+
+ 			foreach ($row as &$v){
+ 				$v=trim($v);
+ 			}
+
  			if(!empty($keycolumn)){
  				$result[trim($row[$keycolumn])]=$row;
  			}else{
@@ -39,6 +46,12 @@ class MyDbase extends CFormModel{
  	}
 
 
+ 	public function readMuDbf(){
+ 		$mu=$this->read_table('MU.dbf','IDMU',array('cp866','UTF8'));
+ 		$x='60';
+ 		$mu=array_filter($mu, function($var) use ($x){return ($var['IDOFFICE']==$x);});
+ 		return $mu;
+ 	}
 
 
  	public function otdelImport(){

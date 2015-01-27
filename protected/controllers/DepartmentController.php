@@ -28,7 +28,7 @@ class DepartmentController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','rootFillTree','AjaxFillTree','tree'),
+				'actions'=>array('index','view','rootFillTree','AjaxFillTree','tree','mudbf'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -187,6 +187,17 @@ class DepartmentController extends Controller
 		));
 	}
 
+	public function actionMudbf(){
+		$model=new MyDbase;
+		
+		$result=$model->readMuDbf();
+
+		$this->render('mufdb',array(
+			'model'=>$model,
+			'result'=>$result,
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */
@@ -205,7 +216,7 @@ class DepartmentController extends Controller
 	public function actionTree()
     {
         // рендерим файлик отображения tree.php
-        $this->layout='//layouts/column1';
+        $this->layout='//layouts/column2';
         $this->render('tree');
     }
 
