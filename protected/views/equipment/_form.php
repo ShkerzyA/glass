@@ -34,7 +34,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 
 	<?php echo $form->errorSummary($model); ?>
 
-<?php if($model->scenario!='insert'): ?>
+<?php if($model->scenario!='insert' or empty($model->id_workplace)): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_workplace'); ?>
 
