@@ -47,10 +47,13 @@ class MyDbase extends CFormModel{
 
 
  	public function readMuDbf(){
+ 		//$x='60';
  		$mu=$this->read_table('MU.dbf','IDMU',array('cp866','UTF8'));
- 		$x='60';
- 		$mu=array_filter($mu, function($var) use ($x){return ($var['IDOFFICE']==$x);});
- 		return $mu;
+ 		//$mu=array_filter($mu, function($var) use ($x){return ($var['IDOFFICE']==$x);});
+
+
+ 		$mu0=$this->read_table('_MU0.dbf','IDMU',array('cp866','UTF8'));
+ 		return array('mu'=>$mu,'mu0'=>$mu0);
  	}
 
 
