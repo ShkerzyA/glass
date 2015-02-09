@@ -862,6 +862,8 @@ select{
 	z-index: 40;
 }
 
+
+
 .portlet-decoration{
 	background: gray;
 	border-left: 0px solid black;
@@ -1232,6 +1234,68 @@ div.search-form{
 	text-align: center;
 	height: 14px;
 }
+
+
+/*
+ul {
+    list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+}
+* {
+    margin:0;
+    padding:0;
+}*/
+
+#project-list *{
+ 	list-style-image:none;
+    list-style-position:outside;
+    list-style-type:none;
+    margin:0;
+    padding:0;
+}
+ 
+#project-list {
+    background:transparent url('../images/graypixel.png') repeat-y 15px 0;
+    width:auto;
+}
+ 
+#project-list li {
+    font-size:16px;
+    /*margin:15px 0 20px;*/
+    /*padding:0 0 0 10px;*/
+}
+ 
+#project-list li a {
+    background:white;
+    color:#1F6DD9;
+    display:block;
+    padding:3px;
+}
+ 
+#project-list li a:hover {
+    color:#84B8FF;
+}
+ 
+#project-list li ul li {
+    background:transparent url('../images/graypixel.png') repeat-x 0 8px;
+    font-size:13px;
+    margin:4px 0 4px 5px;
+    padding:0 0 0 20px;
+}
+ 
+#project-list li ul li a {
+    padding:0 0 0 3px;
+}
+ 
+#project-list li ul li ul {
+    background:transparent url('../images/graypixel.png') repeat-y 15px 0;
+    margin-bottom:10px;
+}
+ 
+#project-list li ul li ul li {
+    margin-left:16px;
+    padding-left:10px; 
 
 /*
 

@@ -12,7 +12,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Структура из MU.fdb</h1>
+<h1>Структура из MU.dbf</h1>
 
 <?php 
 
@@ -29,20 +29,25 @@ $x=1;
 $root=array('ID_MU0'=>'1712','IDMU'=>'60','IDPARENT'=>'');
 
 $lvl='';
+echo'<ul id="project-list">';
  function getTree($item,$result){
- 		echo '<div style="border-left: 2px solid black; border-bottom: 2px solid black; margin: 10px; margin-left: 30px;">'.$result['mu'][$item['IDMU']]['MU'].'('.$item['IDMU'].')';
+ 		echo '<li><a href=#>'.$result['mu'][$item['IDMU']]['MU'].'('.$item['IDMU'].')</a>';
  		$child=array_filter($result['mu0'], function($var) use ($item){return ($var['IDPARENT']==$item['ID_MU0']);});
  		//print_r($child);
  		if(!empty($child)){
+ 			echo'<ul>';
  			foreach ($child as $v) {
  				getTree($v,$result);
  			}
+ 			echo'</ul>';
  		}
- 		echo'</div>';
+ 		echo'</li>';
  }
 
- getTree($root,$result);
 
+
+ getTree($root,$result);
+echo'</ul>';
 
 
 ?>

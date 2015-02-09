@@ -137,7 +137,7 @@ document.ready(init());
 <?php case '1': ?>
 	<div class="row">
 		<?php echo CHtml::label('Принтер',''); ?>
-		<?php echo $form->hiddenField($model,'details'); ?>
+		<?php echo $form->hiddenField($model,'details[0]'); ?>
 
 <?php echo CHtml::script("
      function split(val) {
@@ -149,7 +149,7 @@ document.ready(init());
    ")?>
  <?php 
 
-    $val=(!empty($model->details))?$model->detailsShow():'';
+    $val=(!empty($model->details[0]))?$model->detailsShow():'';
 
     $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
    'name'=>'Printer_details',

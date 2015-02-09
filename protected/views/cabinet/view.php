@@ -3,6 +3,7 @@
 /* @var $model Cabinet */
 
 $this->breadcrumbs=array(
+	'КККОД'=>array('/myAdmin/index'),
 	$model->idFloor->idBuilding->bname=>array('/building/view/'.$model->idFloor->idBuilding->id),
 	$model->idFloor->fname=>array('/floor/view/'.$model->idFloor->id),
 	$model->cname,

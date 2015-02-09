@@ -3,6 +3,7 @@
 /* @var $model Workplace */
 
 $this->breadcrumbs=array(
+  'КККОД'=>array('/myAdmin/index'),
 	($model->idCabinet->idFloor->idBuilding->bname)=>array("/building/".$model->idCabinet->idFloor->idBuilding->id),
   ($model->idCabinet->idFloor->fname)=>array("/floor/".$model->idCabinet->idFloor->id),
 	($model->idCabinet->cname.' '.$model->idCabinet->num)=>array("/cabinet/".$model->idCabinet->id),

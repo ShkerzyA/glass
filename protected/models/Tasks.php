@@ -66,13 +66,11 @@ class Tasks extends CActiveRecord
 	}
 
 	protected function beforeSave(){
-		//$this->group='{'.$this->group.'}';
 		return parent::beforeSave();
 	}
 
 
 	protected function afterFind(){
-		//$this->group=substr($this->group,1,-1);
 		return parent::afterFind();
 	}
 
@@ -149,7 +147,7 @@ class Tasks extends CActiveRecord
 			array('details','checkDetails'),
 			array('tname', 'length', 'max'=>100),
 			array('group', 'length', 'max'=>255),
-			array('details', 'length', 'max'=>255),
+			//array('details', 'length', 'max'=>255),
 			array('ttext, timestamp, timestamp_end', 'safe'),
 
 			array('executors', 'safe'),
@@ -294,6 +292,7 @@ class Tasks extends CActiveRecord
 		$result='';
 		switch ($this->type) {
 			case '1':
+					$m=Equipment::model()->findByPk($this->details[0]);
 					$result='<img src="../images/cartridg_ico.png">';
 				break;
 			
@@ -307,10 +306,13 @@ class Tasks extends CActiveRecord
 		$result='';
 		switch ($this->type) {
 			case '1':
-				$m=Equipment::model()->findByPk($this->details);
-				$result=$m->idWorkplace->wpNameFull($short);	
-				if(!$short)
-					$result=$result."\nПринтер: $m->mark";			
+				$m=Equipment::model()->findByPk($this->details[0]);
+				if(!empty($m)){
+					$result=$m->idWorkplace->wpNameFull($short);
+					$result.=' <a href=/glass/Workplace/'.$m->idWorkplace->id.'><img src="../images/door.png"></a>';
+					if(!$short)
+						$result=$result."\nПринтер: $m->mark";
+				}			
 				break;
 			
 			default:

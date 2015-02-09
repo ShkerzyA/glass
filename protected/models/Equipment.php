@@ -33,9 +33,13 @@ class Equipment extends CActiveRecord
 	public static $cartStorage='574';
 	public static $cartFull='597';
 	public static $cartRefill='596';
+	public static $db_array=array();
 	public $place;
 	public $DopLog;
 	public $idWorkplaceid_workplace;
+	public $related_eq;
+	public $parentparent_id;
+	public $equipmentsparent_id;
 
 
 
@@ -61,6 +65,9 @@ class Equipment extends CActiveRecord
 			'PreFill'=>array(
 				'class'=>'application.behaviors.PreFillBehavior',
 				),
+			'DbArray'=>array(
+				'class'=>'application.behaviors.DbArrayBehavior',
+				),
 			);
 	}
 	
@@ -71,6 +78,7 @@ class Equipment extends CActiveRecord
 	{
 		return 'equipment';
 	}
+
 
 
 	
@@ -159,7 +167,12 @@ class Equipment extends CActiveRecord
 	}
 
 	public function findMyCart(){
-		$cart_old=Equipment::model()->with('EquipmentLog')->find(array('condition'=>"t.type=18 and t.id_workplace=$this->id_workplace and \"EquipmentLog\".details[2]='$this->id'",'order'=>'"EquipmentLog".timestamp DESC'));
+		if(!empty($this->equipments))
+			$cart_old=$this->equipments[0];
+
+		if(empty($cart_old))
+			$cart_old=Equipment::model()->with('EquipmentLog')->find(array('condition'=>"t.type=18 and t.id_workplace=$this->id_workplace and \"EquipmentLog\".details[2]='$this->id'",'order'=>'"EquipmentLog".timestamp DESC'));
+		
 		return $cart_old;
 	}
 
@@ -169,13 +182,13 @@ class Equipment extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_workplace, type, producer, status', 'numerical', 'integerOnly'=>true),
+			array('id_workplace, type, producer, status, parent_id', 'numerical', 'integerOnly'=>true),
 			array('id_workplace,type','required'),
 			array('serial, inv', 'length', 'max'=>100),
 			array('mark', 'length', 'max'=>200),
 			array('notes', 'safe'),
 			array('id','uniqueInvSerial'),
-			array('id, id_workplace, serial, type, producer, mark, inv, status, notes,idWorkplaceid_workplace,place', 'safe', 'on'=>'search'),
+			array('id, id_workplace, serial, type, producer, mark, inv, status, parent_id, notes,idWorkplaceid_workplace,place,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -207,7 +220,9 @@ class Equipment extends CActiveRecord
 
 	public function full_name(){
 		$prod=(!empty($this->producer))?$this->producer0->name:'';
-		return $this->type0->name.' '.$prod.' '.$this->mark.' <b>'.$this->serial.'</b> '.$this->inv();
+		$notes=($this->type==0)?$this->notes:'';
+
+		return $this->type0->name.' '.$prod.' '.$this->mark.' <b>'.$this->serial.'</b> '.$notes.' '.$this->inv();
 	}
 
 	/**
@@ -222,6 +237,8 @@ class Equipment extends CActiveRecord
 			'type0' => array(self::BELONGS_TO, 'EquipmentType', 'type'),
 			'producer0' => array(self::BELONGS_TO, 'EquipmentProducer', 'producer'),
 			'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', 'object'),
+			'parentEq' => array(self::BELONGS_TO, 'Equipment', 'parent_id'),
+            'equipments' => array(self::HAS_MANY, 'Equipment', 'parent_id'),
 		);
 	}
 
@@ -242,6 +259,8 @@ class Equipment extends CActiveRecord
 			'notes' => 'Примечания',
 			'place' => 'Местоположение',
 			'idWorkplaceid_workplace' => 'Рабочее место',
+            'parentparent_id' => 'Принадлежность',
+            'equipmentsparent_id' => 'Зависимое оборудование',
 		);
 	}
 
@@ -257,6 +276,18 @@ class Equipment extends CActiveRecord
 			//$v->EquipmentLog=array_merge($v->EquipmentLog,$tmp);
 		}
 		return $models;
+	}
+
+
+	public function removeChildRel($idchild){
+		if(!empty($this->equipments)){
+			foreach ($this->equipments as $v) {
+				if($v->id==$idchild){
+					$v->parent_id=NULL;
+					$v->save();
+				}
+			}
+		}
 	}
 
 	public function search_for_export(){
@@ -316,6 +347,8 @@ class Equipment extends CActiveRecord
 		$criteria->compare('status',$this->status);
 		$criteria->compare('notes',$this->notes,true);
 		$criteria->compare('workplace.wname',$this->idWorkplaceid_workplace,true);
+        $criteria->compare('equipment.parent_id',$this->parentparent_id,true);
+        $criteria->compare('equipment.parent_id',$this->equipmentsparent_id,true);
 
 		if($this->type==18)
 			$criteria->order='t.inv::INT DESC';

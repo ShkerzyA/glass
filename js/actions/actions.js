@@ -86,10 +86,12 @@ function save_report(){
     inv_cart=$('#inv_cart').val();
     inv_cart_old=$('#inv_cart_old').val();
     num_str=$('#num_str').val();
+    return_place=$('input[name=return_place]:checked').val();
+    //alert(return_place);
     id=$('#idmodel').val();
     factoryObj=$('#factoryObj').val();
     if (mess) {
-        $.post("/glass/actions/saveReport", {id: id, factoryObj: factoryObj, mess: mess, note: note, taskstat: taskstat, taskname: taskname, inv_cart: inv_cart, inv_cart_old: inv_cart_old, num_str: num_str},
+        $.post("/glass/actions/saveReport", {id: id, factoryObj: factoryObj, mess: mess, note: note, taskstat: taskstat, taskname: taskname, inv_cart: inv_cart, inv_cart_old: inv_cart_old, num_str: num_str,return_place: return_place},
             function(data, status) {
                 if (status == "success") {
                     //$('#message_rep').empty();

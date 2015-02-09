@@ -56,7 +56,7 @@ function updateChat(){
                     $(".mess_head").css("background","red");
                 }               
           //document.getElementById('incmess').play();
-          //notifyUser('Чат','Новое сообщение');
+            notifyUser('Чат','Новое сообщение');
             }
         });
     $("#MessLock").hide();

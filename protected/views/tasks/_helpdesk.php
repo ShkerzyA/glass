@@ -79,10 +79,10 @@ if($this->isHorn){
 				
 				
 			</div>
-			<span><a href=/glass/tasks/<?php echo $v->id; ?>>
+			<span>
 
-			<?php echo '<div style="float: left; width: auto; overflow: hidden">'.$v->ico().$v['tname'].$v->detailsShow(true).'</div>'; ?>
-			</a>
+			<?php echo '<div style="float: left; width: auto; overflow: hidden">'.$v->ico().'<a href=/glass/tasks/'.$v->id.'>'.$v['tname'].$v->detailsShow(true).'</a></div>'; ?>
+			
 			<div class="texttask rotated"><pre><?php echo $v['ttext'].$v->detailsShow(); ?></pre></div></span>
 		</div>
 <?php endforeach; ?>

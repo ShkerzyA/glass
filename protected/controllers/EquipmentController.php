@@ -187,7 +187,7 @@ public function actionCartSearch(){
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-		$alt_model=clone $model;
+		$oldModWp=$model->id_workplace;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -196,11 +196,21 @@ public function actionCartSearch(){
 		{
 			$model->attributes=$_POST['Equipment'];
 			if($model->save()){
-				if($alt_model->id_workplace!=$model->id_workplace){
+				if($oldModWp!=$model->id_workplace){
 					$log=new EquipmentLog;
-					$log->saveLog('moveEq',array('details'=>$alt_model->id_workplace.','.$model->id_workplace,'object'=>$model->id));
+					$log->saveLog('moveEq',array('details'=>array($oldModWp,$model->id_workplace),'object'=>$model->id));
+					
+					if(!empty($model->equipments))
+					foreach ($model->equipments as $eqId) {
+						if($eqId->id_workplace==$oldModWp){
+							$eqId->id_workplace=$model->id_workplace;
+							$eqId->save();
+							$log=new EquipmentLog;
+							$log->saveLog('moveEq',array('details'=>array($oldModWp,$eqId->id_workplace),'object'=>$eqId->id));	
+						}
+					}
 				}
-				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
+				$this->redirect(array('/Workplace/view','id'=>$oldModWp));
 			}
 		
 		}

@@ -11,8 +11,10 @@ class DbArrayBehavior extends CActiveRecordBehavior{
     public function beforeSave($event){
         $fields=$this->getField();
         foreach ($fields as $val) {
-            if(!empty($this->owner->$val))
+            if(!empty($this->owner->$val)){
+                $this->owner->$val=implode(',',$this->owner->$val);
                 $this->owner->$val='{'.$this->owner->$val.'}';
+            }
             else
                 $this->owner->$val=NULL;
         }
@@ -24,7 +26,7 @@ class DbArrayBehavior extends CActiveRecordBehavior{
            // if($this->owner->scenario=='update'){
                 if(!empty($this->owner->$val)){
                     $tmp=substr($this->owner->$val,1,-1);
-                    $this->owner->$val=$tmp;
+                    $this->owner->$val=explode(',',$tmp);
                     //echo $val;
                 }
           //  }

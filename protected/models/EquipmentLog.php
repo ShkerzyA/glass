@@ -117,56 +117,54 @@ class EquipmentLog extends CActiveRecord
 	}
 
 	public function details(){
-		$det=explode(',', $this->details);
 		switch ($this->type) {
 			case '0':
-				return 'Откуда: '.$det[0].' Куда: '.$det[1];
+				return 'Откуда: '.$this->details[0].' Куда: '.$this->details[1];
 				break;
 			case '1':
-				return 'Рабочее место: '.$det[0].' Принтер: '.$det[1];
+				return 'Рабочее место: '.$this->details[0].' Принтер: '.$this->details[1];
 				break;
 			case '2':
-				return 'Число отпечатков: '.$det[0];
+				return 'Число отпечатков: '.$this->details[0];
 				break;
 
 			case '3':
 			case '4':
-				return 'номера картриджей: '.$det[0];
+				return 'номера картриджей: '.$this->details[0];
 				break;
 
 			case '5':
-				return 'Рабочее место: '.$det[0];
+				return 'Рабочее место: '.$this->details[0];
 				break;
 
 			case '6':
-				return 'Откуда: '.$det[0].' Куда: '.$det[1];
+				return 'Откуда: '.$this->details[0].' Куда: '.$this->details[1];
 				break;
 
 			
 			default:
-				return implode(',', $det);
+				return implode(',', $details);
 				break;
 		}
 	}
 
 		public function details_full(){
-		$det=explode(',', $this->details);
 		switch ($this->type) {
 			case '0':
-				return 'Откуда: '.Workplace::model()->findByPk($det[0])->wpNameFull()."\n\n Куда: ".Workplace::model()->findByPk($det[1])->wpNameFull();
+				return 'Откуда: '.Workplace::model()->findByPk($this->details[0])->wpNameFull()."\n\n Куда: ".Workplace::model()->findByPk($this->details[1])->wpNameFull();
 				break;
 			case '1':
-				$printer=(isset($det[1]))?Equipment::model()->findByPk($det[1])->full_name():'';
-				return 'Рабочее место: '.Workplace::model()->findByPk($det[0])->wpNameFull()."\n Принтер: $printer";
+				$printer=(isset($this->details[1]))?Equipment::model()->findByPk($this->details[1])->full_name():'';
+				return 'Рабочее место: '.Workplace::model()->findByPk($this->details[0])->wpNameFull()."\n Принтер: $printer";
 				break;
 			case '2':
-				return 'Число отпечатков: '.$det[0];
+				return 'Число отпечатков: '.$this->details[0];
 				break;
 			case '3':
 			case '4':
 				$res='';
 				//$res.=implode(', ',$det)."\n";
-				$mod=Equipment::model()->findAll(array('condition'=>'t.type=18 and t.inv in(\''.implode('\',\'',$det).'\')','order'=>'t.mark ASC, t.inv::integer ASC'));
+				$mod=Equipment::model()->findAll(array('condition'=>'t.type=18 and t.inv in(\''.implode('\',\'',$this->details).'\')','order'=>'t.mark ASC, t.inv::integer ASC'));
 				
 				$mark='x';
 				$all=0;
@@ -192,15 +190,15 @@ class EquipmentLog extends CActiveRecord
 				break;
 
 			case '5':
-				return 'Рабочее место: '.Workplace::model()->findByPk($det[0])->wpNameFull();
+				return 'Рабочее место: '.Workplace::model()->findByPk($this->details[0])->wpNameFull();
 				break;
 
 			case '6':
-				return 'Откуда: '.Cabinet::model()->findByPk($det[0])->cabNameFull()."\n\n Куда: ".Cabinet::model()->findByPk($det[1])->cabNameFull();
+				return 'Откуда: '.Cabinet::model()->findByPk($this->details[0])->cabNameFull()."\n\n Куда: ".Cabinet::model()->findByPk($this->details[1])->cabNameFull();
 				break;
 			
 			default:
-				return implode(', ', $det);
+				return implode(', ', $this->details);
 				break;
 		}
 	}
@@ -268,7 +266,7 @@ class EquipmentLog extends CActiveRecord
 		$model=self::model()->findAll($criteria);
 
 		foreach ($model as $v) {
-			$v->details=explode(',', $v->details);
+			//$v->details=explode(',', $v->details);
 			if($v->type==2){
 				$data[$v->timestamp]['timestamp']=$v->timestamp;
 				$data[$v->timestamp]['fio']=$v->subject0->fio();

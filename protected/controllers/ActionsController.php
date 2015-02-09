@@ -92,48 +92,58 @@ class ActionsController extends Controller
 			if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$this->parent))){
 				switch ($this->parent->type) {
 					case '1':
-
-					if(!empty($_POST['inv_cart']))
-					{
-						$print = Equipment::model()->findByPk($this->parent->details);
-						$cart_old=$print->findMyCart();
-						$cart = Equipment::model()->find(array('condition'=>"t.type=18 and t.id_workplace=".Equipment::$cartFull." and t.inv='$_POST[inv_cart]'"));
-						if(!$cart){
+						
+						if(!empty($_POST['inv_cart'])){
+							$cart = Equipment::model()->find(array('condition'=>"t.type=18 and t.id_workplace=".Equipment::$cartFull." and t.inv='$_POST[inv_cart]'"));
+						}
+						if(empty($cart)){
 							echo 'cart_undefinded';
 							exit();
 						}
 
-						if($cart_old){
-							$cart_old->id_workplace=Equipment::$cartStorage;
-							$cart_old->save();
-						}else if(!empty($_POST['inv_cart_old'])){
+						$print = Equipment::model()->findByPk($this->parent->details);
+
+						if(!empty($_POST['inv_cart_old'])){
 							$cart_old = Equipment::model()->find(array('condition'=>"t.type=18 and t.inv='$_POST[inv_cart_old]'"));
-							if($cart_old){
-								$cart_old->id_workplace=Equipment::$cartStorage;
-								$cart_old->save();
-							}else{
+							if(empty($cart_old)){
 								echo 'old_cart_undefinded';
 								exit();
+							}else{
+								switch ($_POST['return_place']) {
+									case '1':
+										$cart_old->id_workplace=Equipment::$cartFull;
+										break;
+									case '0':
+									default:
+										$cart_old->id_workplace=Equipment::$cartStorage;
+										break;
+								}
+								$cart_old->save();
 							}
 						}
 
+						if(!empty($cart_old))
+							$print->removeChildRel($cart_old->id);
+						//Убираем из связанного оборудования изымаемый картридж
+
+
 						$cart->id_workplace=$print->id_workplace;
+						$cart->parent_id=$print->id;
 						$cart->save();
 
+				
 						$timestamp=date('Y-m-d H:i:s');
 
 						if(!empty($cart_old)){
 							$log=new EquipmentLog;
-							$log->saveLog('cartOut',array('details'=>$cart_old->id_workplace,'object'=>$cart_old->id,'timestamp'=>$timestamp));
+							$log->saveLog('cartOut',array('details'=>array($cart_old->id_workplace),'object'=>$cart_old->id,'timestamp'=>$timestamp));
 						}
 						
 						$log=new EquipmentLog;
-						$log->saveLog('cartIn',array('details'=>$print->id_workplace.','.$print->id,'object'=>$cart->id,'timestamp'=>$timestamp));
+						$log->saveLog('cartIn',array('details'=>array($print->id_workplace,$print->id),'object'=>$cart->id,'timestamp'=>$timestamp));
 
 						$log=new EquipmentLog;
-						$log->saveLog('printerCounter',array('details'=>($det=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a'),'object'=>$print->id,'timestamp'=>$timestamp));
-					}
-
+						$log->saveLog('printerCounter',array('details'=>array(($det=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a')),'object'=>$print->id,'timestamp'=>$timestamp));
 						break;
 					
 					default:
