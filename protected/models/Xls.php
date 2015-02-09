@@ -54,8 +54,8 @@ class Xls extends CFormModel{
 	$PHPExcel->getActiveSheet()->setCellValue("F$i",$row['num_st']);
 	$PHPExcel->getActiveSheet()->setCellValue("G$i",$out_cart=(!empty($row['out_cart_inv'])?$row['out_cart_inv']:''));
 	$PHPExcel->getActiveSheet()->setCellValue("H$i",$out_cart=(!empty($row['out_cart_mark'])?$row['out_cart_mark']:''));
-	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row['in_cart_inv']);
-	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row['in_cart_mark']);
+	$PHPExcel->getActiveSheet()->setCellValue("I$i",$out_cart=(!empty($row['in_cart_inv'])?$row['in_cart_inv']:''));
+	$PHPExcel->getActiveSheet()->setCellValue("J$i",$out_cart=(!empty($row['in_cart_mark'])?$row['in_cart_mark']:''));
 	/*$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->idWorkplace->idCabinet->idFloor->idBuilding->bname);
 	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row->idWorkplace->idCabinet->idFloor->fname);
 	$PHPExcel->getActiveSheet()->setCellValue("K$i",$row->idWorkplace->idCabinet->num.' '.$row->idWorkplace->idCabinet->cname); */
