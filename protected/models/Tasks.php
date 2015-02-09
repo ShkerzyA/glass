@@ -302,31 +302,19 @@ class Tasks extends CActiveRecord
 		return $result;
 	}
 	
-	public function detailsShow($short=false){
+	public function detailsShow($short=True,$place=True){
 		$result='';
 		switch ($this->type) {
 			case '1':
 				$m=Equipment::model()->findByPk($this->details[0]);
 				if(!empty($m)){
 					$result=$m->idWorkplace->wpNameFull($short);
+					if($place=='True'){
+						$result.=' <a href=/glass/Workplace/'.$m->idWorkplace->id.'><img src="../images/door.png"></a>';
+					}
+						
 					if(!$short)
 						$result=$result."\nПринтер: $m->mark";
-				}			
-				break;
-			
-			default:
-				break;
-		}
-		return $result;
-	}
-
-	public function imgCab(){
-		$result='';
-		switch ($this->type) {
-			case '1':
-				$m=Equipment::model()->findByPk($this->details[0]);
-				if(!empty($m)){
-					$result.=' <a href=/glass/Workplace/'.$m->idWorkplace->id.'><img src="../images/door.png"></a>';
 				}			
 				break;
 			
