@@ -12,7 +12,7 @@
 		<option value="в процессе">в процессе</option>
 		<option value="не выполнено">не выполнено</option>
 	</select>
-	<textarea style="width: 98%;" name="message_rep" id="message_rep" placeholder="Описание"><?php echo $model->ttext.' '.$model->detailsShow(true,false) ?></textarea><br>
+	<textarea style="width: 98%;" name="message_rep" id="message_rep" placeholder="Описание"><?php echo $model->ttext.' '.$model->detailsShow(false,false) ?></textarea><br>
 	<textarea style="width: 98%;" name="message_note" id="message_note" placeholder="Примечания"></textarea><br>
 
 	

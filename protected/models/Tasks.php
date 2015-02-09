@@ -302,7 +302,7 @@ class Tasks extends CActiveRecord
 		return $result;
 	}
 	
-	public function detailsShow($short=True,$place=True){
+	public function detailsShow($short=False,$place=True){
 		$result='';
 		switch ($this->type) {
 			case '1':
