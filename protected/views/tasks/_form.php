@@ -166,7 +166,7 @@ document.ready(init());
      'showAnim'=>'fold',
  	'multiple'=>false,
      'select'=>"js:function(event, ui) {
-     	$('#Tasks_details').val(ui.item.id);
+     	$('#Tasks_details_0').val(ui.item.id);
          var terms = split(this.value);
          // remove the current input
          terms.pop();
@@ -291,13 +291,13 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 				//return CHtml::encode($tmp->personnelPostsHistories[0]->idPersonnel->surname.' '.$tmp->personnelPostsHistories[0]->idPersonnel->name);}),array('empty' => '')); ?>
 		<?php //echo $form->error($model,'executor'); ?>
 	</div> -->
-
+<?php if($model->scenario!='insert'):?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'executors'); ?>
 		<?php echo Customfields::multiPersonnel($model,'executors'); ?>
 		<?php echo $form->error($model,'executors'); ?>
 	</div>
-
+<?php endif; ?>
 	
 
 <?php $this->endWidget(); ?>
