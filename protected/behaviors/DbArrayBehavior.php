@@ -12,7 +12,8 @@ class DbArrayBehavior extends CActiveRecordBehavior{
         $fields=$this->getField();
         foreach ($fields as $val) {
             if(!empty($this->owner->$val)){
-                $this->owner->$val=implode(',',$this->owner->$val);
+                if(is_array($this->owner->$val))
+                    $this->owner->$val=implode(',',$this->owner->$val);
                 $this->owner->$val='{'.$this->owner->$val.'}';
             }
             else

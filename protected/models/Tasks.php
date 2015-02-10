@@ -308,13 +308,12 @@ class Tasks extends CActiveRecord
 			case '1':
 				$m=Equipment::model()->findByPk($this->details[0]);
 				if(!empty($m)){
-					$result=$m->idWorkplace->wpNameFull($short);
-					if($place=='True'){
-						$result.=' <a href=/glass/Workplace/'.$m->idWorkplace->id.'><img src="../images/door.png"></a>';
+					$result.=$m->idWorkplace->wpNameFull($short);
+					if($place==True){
+						$result.=' <a href=/glass/Workplace/'.$m->idWorkplace->id.'><img src="../images/door.png" style="height: 24px;"></a>';
 					}
-						
 					if(!$short)
-						$result=$result."\nПринтер: $m->mark";
+						$result.="\nПринтер: $m->mark";
 				}			
 				break;
 			
