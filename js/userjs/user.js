@@ -16,6 +16,11 @@ function init(){
         }
     });
 
+  $(".filter_eq").live('click',function sss(){
+      //alert($(this).text());
+      $(".str_eq").hide();
+      $(".str_eq:contains('"+$(this).text()+"')").show();
+  });
 
 	$('.mess_head').live('click',function(){
 		$('.mess_body').toggle();

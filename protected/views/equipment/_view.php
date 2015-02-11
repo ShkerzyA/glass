@@ -7,6 +7,6 @@
             $edit='';
          }
          $producer=(isset($data->producer))?$data->producer0->name:'';
-   		echo'<tr><td>'.$data->serial.'</td><td>'.$data->type0->name.'/ '.$producer.'/ '.$data->mark.'</td><td>'.$data->inv.'</td><td>'.$status[$data->status].'</td><td>'.$data->notes.'</td>'.$edit.'</tr>';
+   		echo'<tr class="str_eq"><td>'.$data->serial.'</td><td>'.$data->type0->name.'/ '.$producer.'/ '.$data->mark.'</td><td>'.$data->inv.'</td><td>'.$status[$data->status].'</td><td>'.$data->notes.'</td>'.$edit.'</tr>';
    
 ?>
