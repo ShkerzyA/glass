@@ -84,11 +84,23 @@ class MonitoringEnvironment extends CActiveRecord
 
 	public function monArray(){
 		$cols=$this->attributes;
+		$result=array();
 		unset($cols['id']);
 		unset($cols['mos_gate']);
 		foreach ($cols as $key => $value) {
-			$result[]=array('label'=>$this->attributeLabels()[$key],'value'=>$value);	
-		}*/
+			switch ($key) {
+				case 'fog_space':
+					$val=($value>500)?1:0;
+					$result[]=array('label'=>'Свободно на ОБМЕННИКЕ '.$value.'мб','value'=>$val);
+					break;
+				default:
+					$result[]=array('label'=>$this->attributeLabels()[$key],'value'=>$value);
+					break;
+			}
+
+				
+		}
+		return $result;
 	}
 
 	/**
