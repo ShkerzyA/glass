@@ -49,12 +49,13 @@ class MessagesController extends Controller
 	{
 		$result=array();
 		$model=MonitoringEnvironment::model()->findByPk(1);
-		$cols=$model->attributes;
+		$result=$model->monArray();
+		/*$cols=$model->attributes;
 		unset($cols['id']);
 		unset($cols['mos_gate']);
 		foreach ($cols as $key => $value) {
 			$result[]=array('label'=>$model->attributeLabels()[$key],'value'=>$value);	
-		}
+		}*/
 		
 		echo json_encode($result);
 	}

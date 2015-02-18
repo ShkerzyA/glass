@@ -46,10 +46,11 @@ class MonitoringEnvironment extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('qms1, qms2, intet, dns, mos_gate, mos_intro', 'numerical', 'integerOnly'=>true),
+			array('fog_space', 'length', 'max'=>200),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('qms1, qms2, intet, dns, mos_gate, mos_intro', 'safe', 'on'=>'search'),
+			array('qms1, qms2, intet, dns, mos_gate, mos_intro, fog_space', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -77,7 +78,17 @@ class MonitoringEnvironment extends CActiveRecord
 			'dns' => 'DNS сервер',
 			'mos_gate' => 'Шлюз Московской',
 			'mos_intro' => 'Внутренняя сеть московской',
+			'fog_space' => 'Свободное место на fog',
 		);
+	}
+
+	public function monArray(){
+		$cols=$this->attributes;
+		unset($cols['id']);
+		unset($cols['mos_gate']);
+		foreach ($cols as $key => $value) {
+			$result[]=array('label'=>$this->attributeLabels()[$key],'value'=>$value);	
+		}*/
 	}
 
 	/**

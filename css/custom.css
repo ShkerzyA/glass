@@ -30,6 +30,15 @@ td{
 }
 
 
+#it_tools{
+	float: left;
+}
+
+
+#it_tools img{
+	height: 40px;
+}
+
 
 #mainmenu .MyMenuSubmenu .item
 {

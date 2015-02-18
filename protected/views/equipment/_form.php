@@ -107,6 +107,15 @@ Yii::app()->clientScript->registerPackage('customfields');
 
 		<?php echo $form->error($model,'notes'); ?>
 	</div>
+<?php if($model->scenario!='insert'): ?>
+	<div class="row">
+		<?php echo $form->labelEx($model,'parent_id'); ?>
+
+		<?php echo $form->textField($model,'parent_id',array('size'=>60,'maxlength'=>100,'autocomplete'=>"off")); ?>
+
+		<?php echo $form->error($model,'parent_id'); ?>
+	</div>
+<?php endif; ?>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
