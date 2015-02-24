@@ -145,9 +145,9 @@ function sttopmode(elem,over) {
 }
 
 </script>
-<div id='scrollToTop' style='display:none; z-index:999; background:rgba(255,255,255,0); position:fixed; top:0px; right:0px;
-           width:50px; color:#939393; line-height:16px; height:100%; padding-top:10px; text-align:center; cursor:pointer;'
-           onClick='scroll(0,0); return false' onMouseOver='sttopmode(this,true)' onMouseOut='sttopmode(this,false)'>&#9650<div>Наверх</div></div> 
+<div id='scrollToTop' style='display:none; z-index:999; background:rgba(255,255,255,0); position:fixed; bottom:0px; left:0;
+           width:100%; color:#939393;  height:14px; padding-top:1px; text-align:center; cursor:pointer;'
+           onClick='scroll(0,0); return false' onMouseOver='sttopmode(this,true)' onMouseOut='sttopmode(this,false)'>&#9650 Наверх</div> 
 END;
 
 ?>
