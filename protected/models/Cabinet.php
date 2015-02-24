@@ -177,6 +177,7 @@ class Cabinet extends CActiveRecord
             $criteria2->compare('LOWER(t.num)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(t.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(workplace.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(workplace.wname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
         $criteria->mergeWith($criteria2);
         }
 
