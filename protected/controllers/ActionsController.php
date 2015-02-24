@@ -95,12 +95,12 @@ class ActionsController extends Controller
 						
 						if(!empty($_POST['inv_cart'])){
 							$cart = Equipment::model()->find(array('condition'=>"t.type=18 and t.id_workplace=".Equipment::$cartFull." and t.inv='$_POST[inv_cart]'"));
+							if(empty($cart)){
+								echo 'cart_undefinded';
+								exit();
+							}
 						}
-						if(empty($cart)){
-							echo 'cart_undefinded';
-							exit();
-						}
-
+						
 						$print = Equipment::model()->findByPk($this->parent->details);
 
 						if(!empty($_POST['inv_cart_old'])){
@@ -122,26 +122,25 @@ class ActionsController extends Controller
 							}
 						}
 
-						if(!empty($cart_old))
-							$print->removeChildRel($cart_old->id);
-						//Убираем из связанного оборудования изымаемый картридж
-
-
-						$cart->id_workplace=$print->id_workplace;
-						$cart->parent_id=$print->id;
-						$cart->save();
-
 				
 						$timestamp=date('Y-m-d H:i:s');
 
 						if(!empty($cart_old)){
+							//Убираем из связанного оборудования изымаемый картридж
+							$print->removeChildRel($cart_old->id);
 							$log=new EquipmentLog;
 							$log->saveLog('cartOut',array('details'=>array($cart_old->id_workplace),'object'=>$cart_old->id,'timestamp'=>$timestamp));
 						}
-						
-						$log=new EquipmentLog;
-						$log->saveLog('cartIn',array('details'=>array($print->id_workplace,$print->id),'object'=>$cart->id,'timestamp'=>$timestamp));
 
+						if(!empty($cart)){
+							$cart->id_workplace=$print->id_workplace;
+							$cart->parent_id=$print->id;
+							$cart->save();
+							$log=new EquipmentLog;
+							$log->saveLog('cartIn',array('details'=>array($print->id_workplace,$print->id),'object'=>$cart->id,'timestamp'=>$timestamp));
+						}
+						
+						
 						$log=new EquipmentLog;
 						$log->saveLog('printerCounter',array('details'=>array(($det=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a')),'object'=>$print->id,'timestamp'=>$timestamp));
 						break;
