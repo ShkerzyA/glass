@@ -53,7 +53,7 @@ echo $form->dropDownList($model,"object",CHtml::listData($tmp,"id",function($tmp
 	<div class="row">
 		<?php echo $form->labelEx($model,'details'); ?>
 
-		<?php echo $form->textField($model,'details'); ?>
+		<?php echo $form->textField($model,'details',array('value'=>implode(',', $model->details))); ?>
 
 		<?php echo $form->error($model,'details'); ?>
 	</div>
