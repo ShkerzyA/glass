@@ -16,19 +16,8 @@ $this->menu=array(
 			array('label'=>'Принтеры/ Статистика', 'url'=>array('/equipmentLog/printersLog'),'htmlOptions'=>array('target'=>'_blank')),
 			);
 
-$storage=Workplace::storageCabs();
 
-
-
-$this->menu['all_menu']=array(
-		array('title'=>'Склады оборудования','items'=>array(
-			)
-		)
-);
-
-foreach ($storage as $v) {
-	$this->menu['all_menu'][0]['items'][]=array('label'=>$v['label'], 'url'=>array('/Cabinet/'.$v['url']));
-}
+$this->renderPartial('/workplace/storages');
 
 
 Yii::app()->clientScript->registerScript('search', "

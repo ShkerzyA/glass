@@ -50,7 +50,7 @@ echo '<div class="comment " id="taskbody">
 				foreach ($tmp as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->surname.' '.$pers->name);
+						$exec[]=CHtml::encode($pers->fio());
 					}
 				}	
 				echo (implode(', ', $exec));

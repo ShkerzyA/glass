@@ -23,6 +23,9 @@ if(Yii::app()->user->checkAccess('administrator')){
     $this->menu[]=array('label'=>'Управление', 'url'=>array('admin'));
 }
 
+
+$this->renderPartial('/workplace/storages');
+
 ?>
 
 <h1><?php  echo $model->wname.' (тел. '.$model->phone.')';?></h1> 

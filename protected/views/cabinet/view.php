@@ -18,6 +18,10 @@ $this->menu=array(
 	array('label'=>'Управление', 'url'=>array('admin')),
 );
 }
+
+$this->renderPartial('/workplace/storages');
+
+
 ?>
 <?php $ruleWP=Yii::app()->user->checkAccess('ruleWorkplaces'); ?>
 
