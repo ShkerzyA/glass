@@ -48,7 +48,7 @@
 			<?php $this->widget('application.widgets.GlassAuth'); ?>
 		</div>
 		<a href="http://10.126.84.31/"><div id="logo" style="float: left"><?php echo CHtml::encode(Yii::app()->name); ?></div></a>
-		<div id=it_tools> 
+	<!--	<div id=it_tools> 
 			<img src="/glass/images/it_ico/coil.png"> 
 			<img src="/glass/images/it_ico/cable.png"> 
 			<img src="/glass/images/it_ico/connector.png"> 
@@ -63,7 +63,7 @@
 			<img src="/glass/images/it_ico/screwdriver.png"> 
 			<img src="/glass/images/it_ico/tester.png"> 
 			<img src="/glass/images/it_ico/ties.png"> 
-		</div>
+		</div> -->
 		
 
 </div><!-- header -->
