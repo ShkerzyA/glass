@@ -107,7 +107,9 @@ return array(
 				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
 		),
-		
+		'cache'=>array('class'=>'system.caching.CFileCache'),
+       
+
 		'db'=>array(
 			'connectionString' => 'pgsql:host=glass;dbname=glassNG',
 			'username' => 'postgres',
@@ -115,6 +117,7 @@ return array(
 			'charset' => 'utf8',
 			'enableProfiling'=>true,
         	'enableParamLogging' => true,
+        	'schemaCachingDuration'=>3600,
 		),
 
 		'errorHandler'=>array(

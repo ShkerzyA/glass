@@ -90,7 +90,7 @@ class MonitoringEnvironment extends CActiveRecord
 		foreach ($cols as $key => $value) {
 			switch ($key) {
 				case 'fog_space':
-					$val=($value>500)?1:0;
+					$val=($value>100)?1:0;
 					$result[]=array('label'=>'Свободно на ОБМЕННИКЕ '.$value.'мб','value'=>$val);
 					break;
 				default:
