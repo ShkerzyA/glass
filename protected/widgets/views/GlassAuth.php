@@ -30,8 +30,8 @@
 	<div class="inline rememberMe">
 
 		<?php echo $form->error($model,'rememberMe'); ?>
-		<?php echo $form->label($model,'Запомнить меня'); ?>
-		<?php echo $form->checkBox($model,'rememberMe'); ?>
+		<?php echo $form->labelEx($model,'Запомнить меня'); ?><br>
+		<?php echo $form->checkBox($model,'rememberMe') ?>
 	</div>
 
 	<div class="inline buttons">

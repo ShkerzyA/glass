@@ -461,6 +461,16 @@ a{
 	padding: 3px;
 	border-radius: 2px;
 }
+
+#logo{
+	position: absolute;
+	left: 1px;
+	top: 1px;
+}
+
+#login-form input{
+	width: 110px;
+}
 .customtree,
 .customtree ul{
 	font-size: 12pt;
