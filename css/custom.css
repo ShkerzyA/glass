@@ -333,6 +333,7 @@ display: none;
 
 .mess_content{
 	overflow-y: auto; 
+	overflow-x: hidden;
 	height: 350px;
 }
 
