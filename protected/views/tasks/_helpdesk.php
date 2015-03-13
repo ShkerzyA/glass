@@ -1,12 +1,4 @@
 
-<?php
-if($this->isHorn){
-	echo '<audio src="'.$this->horn.'" autoplay="true"></audio>';	
-	echo '<script>notifyUser("Задачи","Новая задача");</script>';
-}
-?>
-	
-
 <?php foreach ($model as $v): ?>
 
 		<?php $status=$v->gimmeStatus(); 

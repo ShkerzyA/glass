@@ -5,6 +5,7 @@
 
 <?php Yii::app()->clientScript->registerPackage('userjs'); ?>
  <audio id='incmess' src="<?php echo Yii::app()->baseUrl?>/media/mess/kib2.ogg"></audio>
+ <audio id='horn' src="<?php echo Yii::app()->baseUrl?>/media/horn/horn.ogg"></audio>
 <script type="text/javascript">
 
 
@@ -58,6 +59,7 @@ function updateChat(){
         $(".mess_content").prepend(res.data);
         if(res.taskUpd==true){
           notifyUser('Задачи','Добавлена новая задача');
+          document.getElementById('horn').play();
         }
             if(res.data.length>0){
                 if(viewChat!=0){
@@ -75,7 +77,7 @@ $(document).ready(init());
 
 
 </script>
-
+    
     <div class="serb"><div style="float: left;"></div><div style="float: left;" id="serb"></div></div>
   
     <div class="messenger">
