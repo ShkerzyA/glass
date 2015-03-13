@@ -13,7 +13,7 @@ class Tornado extends CApplicationComponent
      }
 
     private function message($message='fooo'){
-     	$tmp=file_get_contents("http://localhost:8888/?message=".$message."");
+     	$tmp=file_get_contents("http://".Yii::app()->params['tornado']."/?message=".$message."");
     }
 
 

@@ -156,6 +156,8 @@ return array(
 	// application-level parameters that can be accessed
 	// using Yii::app()->params['paramName']
 	'params'=>array(
+
+		'tornado'=>'10.126.84.31:8888',
 		// this is used in contact page
 		'adminEmail'=>'al_i_88@mail.ru',
 	),
