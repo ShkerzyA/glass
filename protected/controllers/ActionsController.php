@@ -68,6 +68,7 @@ class ActionsController extends Controller
 	public function actionChatSaveMessage(){
 
 		if(Yii::app()->request->isAjaxRequest){
+			Yii::app()->Tornado->updateChat();
 			$this->act->attributes=$_POST['Messages'];
 			$this->act->save();
 		}

@@ -1,3 +1,4 @@
+<?php Yii::app()->getClientScript()->registerCoreScript('tornado'); ?>
 <?php
 class Messenger extends CWidget{
 	public function run(){

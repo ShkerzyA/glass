@@ -40,7 +40,7 @@ function init(){
         change_status();
     });
 }
-document.ready(init());
+$(document).ready(init());
 
 
 

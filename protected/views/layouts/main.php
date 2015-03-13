@@ -161,5 +161,7 @@ END;
 
 </body>
 </html>
-<?php //$this->endCache(); } ?>
+<?php 
+	//$this->endCache(); } 
+?>
 	

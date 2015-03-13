@@ -2,15 +2,14 @@
 
 
 function init(){
-    setInterval(function(){
+    /*setInterval(function(){
         updTasks();
-    },20000);
-
+    },20000);*/
 }
 
 
 $(document).ready(init());
-function updTasks(){
+function updateTasks(){
     $.get(location.href, {},
             function(data, status) {
                 if (status == "success") {

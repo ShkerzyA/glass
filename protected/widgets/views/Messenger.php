@@ -19,14 +19,23 @@ function init(){
             $('#Messages_submit').click();
         }
     });
+
+    $('#Messages_ttext').live('focus',function(){
+        Socket.ws.send('onWrite');
+    });
+
+    /*
     setInterval(function(){
         updateChat();
     },5000);
 
     setInterval(function(){
         updateMon();
-    },20000);
+    },20000); */
 
+}
+function onWrite(){
+    //$('#Messages_ttext').attr('placeholder','Набирает сообщение');
 }
 
 function updateMon(){
@@ -81,7 +90,7 @@ $(document).ready(init());
             ?>
 
             </div>
-            <div id=MessLock style=""><img height=100% src='<?php echo Yii::app()->baseUrl ?>/images/load.gif'> </div>
+           <!-- <div id=MessLock style=""><img height=100% src='<?php echo Yii::app()->baseUrl ?>/images/load.gif'> </div> -->
             <div class="mess_form">
             <?php echo CHtml::form();
  

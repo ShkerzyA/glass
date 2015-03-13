@@ -206,6 +206,7 @@ class TasksController extends Controller
 			}
 
 			if($model->save()){
+				Yii::app()->Tornado->updateTasks();
 				$this->redirect(array('view','id'=>$model->id));
 			}
 		}

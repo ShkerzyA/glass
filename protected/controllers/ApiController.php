@@ -15,6 +15,7 @@ class ApiController extends Controller
 		if(!empty($_POST)){
 			$model->attributes=$_POST;
 			$model->save();
+			Yii::app()->Tornado->updateMon();
 		}
 	}
 
