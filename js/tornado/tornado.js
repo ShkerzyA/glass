@@ -8,7 +8,8 @@ function init(){
     Socket = {
         ws: null,
         init: function () {
-            ws = new WebSocket('ws://' + document.location.host + ':8888/websocket');
+            //ws = new WebSocket('ws://' + document.location.host + ':8888/websocket'); должно быть так. прописано жестко, потому что еще develop server работает
+            ws = new WebSocket('ws://10.126.84.31:8888/websocket');
             ws.onopen = function () {
                 console.log('Socket opened');
             };
