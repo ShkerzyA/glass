@@ -36,12 +36,14 @@ class WebSocket(tornado.websocket.WebSocketHandler):
         self.application.webSocketsPool.append(self)
 
     def on_message(self, message):
-        #db = self.application.db
+        #obj = json.loads(unicode(message, "UTF-8"))
         print(message)
+        obj = json.dumps(message)
+        #db = self.application.db
         #db.chat.insert(message_dict)
         for key, value in enumerate(self.application.webSocketsPool):
             #if value != self:
-            value.ws_connection.write_message(message)
+            value.ws_connection.write_message(obj)
 
     def on_close(self, message=None):
         print('close')

@@ -20,6 +20,8 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo Yii::app()->request->baseUrl; ?>/css/custom.css" />
 
 	<?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
+	<?php Yii::app()->getClientScript()->registerCoreScript('jquery.cookie'); ?>
+	<?php Yii::app()->request->cookies['tornado'] = new CHttpCookie('tornado', Yii::app()->params['tornado']); ?>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
@@ -162,6 +164,7 @@ END;
 </body>
 </html>
 <?php 
+
 	//$this->endCache(); } 
 ?>
 	

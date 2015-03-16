@@ -25,6 +25,10 @@ function init(){
         Socket.ws.send('onWrite');
     });
 
+    $('#Messages_ttext').live('focusout',function(){
+        Socket.ws.send('onWriteOut');
+    });
+
     /*
     setInterval(function(){
         updateChat();
@@ -36,7 +40,11 @@ function init(){
 
 }
 function onWrite(){
-    //$('#Messages_ttext').attr('placeholder','Набирает сообщение');
+    $('#Messages_ttext').attr('placeholder','Нечто набирает сообщение');
+}
+
+function onWriteOut(){
+    $('#Messages_ttext').attr('placeholder','текст сообщения (enter)');
 }
 
 function updateMon(){

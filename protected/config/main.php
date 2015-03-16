@@ -73,6 +73,18 @@ return array(
 	            // Зависимость от другого пакета
 	            'depends'=>array('jquery'),
 	    		),
+	    	'jquery.cookie' =>array(
+	    		'baseUrl' => '/glass/js/jquery.cookie/',
+	            // Если включен дебаг-режим, то подключает /js/highcharts/highcharts.src.js
+	            // Иначе /js/highcharts/highcharts.js
+	            //'js'=>array('backbone.js','backbone.localStorage.js','main.js','underscore.js'),
+	            'js'=>array('jquery.cookie.js'),
+	            //'js'=>array(YII_DEBUG ? 'highcharts.src.js' : 'highcharts.js'),
+	            // Подключает файл /js/highcharts/highcharts.css
+	          	 // 'css' => array('highcharts.css'),
+	            // Зависимость от другого пакета
+	            'depends'=>array('jquery'),
+	    		),
 	       	'customfields' => array(
 	            // Где искать подключаемые файлы JS и CSS
 	            'baseUrl' => '/glass/js/customfields/',
