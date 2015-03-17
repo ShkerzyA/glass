@@ -162,7 +162,7 @@ class Tasks extends CActiveRecord
 	public function checkDetails(){
 		switch($this->type){
 			case '1':
-				if(empty($this->details))
+				if(empty($this->details[0]))
 					$this->addError('details','Поле принтер обязательно для заполнения');
 				break;
 			
