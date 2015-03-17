@@ -168,8 +168,10 @@ class ActionsController extends Controller
 					$this->parent->timestamp_end=date('d.m.Y H:i:s');
 				}
 
-				if(in_array($_POST['stat'], $parent::$statJoin)){
-					$this->parent->join();
+				if(get_class($this->parent)=="Tasks"){
+					if(in_array($_POST['stat'], $parent::$statJoin)){
+						$this->parent->join();
+					}
 				}
 
 				$this->parent->save();
