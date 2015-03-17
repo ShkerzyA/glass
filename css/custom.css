@@ -7,6 +7,12 @@ td{
 	/*white-space: pre-wrap;*/
 }
 
+h4.subscribe{
+	margin: 0px;
+	margin-top : 20px; 
+	font-weight: bold;
+}
+
 .MyMenuSubmenu{
 	/*display: none;*/
 	position: absolute;
