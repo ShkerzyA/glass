@@ -267,8 +267,11 @@ class TasksController extends Controller
 		if(isset($_POST['Tasks']))
 		{
 			$model->attributes=$_POST['Tasks'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id)); 
+			if($model->save()){
+				Yii::app()->Tornado->updateTasks();
+				$this->redirect(array('view','id'=>$model->id));
+			}
+				 
 		}
 
 		$this->render('update',array(
@@ -284,6 +287,7 @@ class TasksController extends Controller
 	public function actionDelete($id)
 	{
 		$this->loadModel($id)->delete();
+		Yii::app()->Tornado->updateTasks();
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))

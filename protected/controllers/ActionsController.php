@@ -176,6 +176,7 @@ class ActionsController extends Controller
 
 				$this->parent->save();
 				$this->act->saveStatus();
+				Yii::app()->Tornado->updateTasks();
 			}
 		}
 
