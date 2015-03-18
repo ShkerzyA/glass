@@ -306,12 +306,14 @@ class EquipmentLog extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->with=array('subject0' => array('alias' => 'personnel'),'objectEq' => array('alias' => 'equipment'),);
+
+		if(!empty($this->details))
+			$criteria->addCondition(array('condition'=>"'".$this->details."'=ANY(t.details)"));
 		$criteria->compare('t.id',$this->id);
 		$criteria->compare('t."timestamp"::text',$this->timestamp,true);
 		$criteria->compare('subject',$this->subject);
 		$criteria->compare('object',$this->object);
 		$criteria->compare('t.type',$this->type);
-		$criteria->compare('t.details',$this->details,true);
 		$criteria->compare('personnel.surname',$this->subject0subject,true);
 		$criteria->compare('equipment.inv',$this->object0object,true, 'OR');
 		$criteria->compare('equipment.serial',$this->object0object,true,'OR');
