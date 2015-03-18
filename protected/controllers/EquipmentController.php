@@ -121,7 +121,7 @@ public function actionCartSearch(){
 			$model->attributes=$_POST['Equipment'];
 			if($model->save()){
 				$log=new EquipmentLog;
-				$log->saveLog('addEq',array('details'=>array($model->id_workplace)));	
+				$log->saveLog('addEq',array('details'=>array($model->id_workplace),'object'=>$model->id));	
 				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
 			}
 				
@@ -175,7 +175,7 @@ public function actionCartSearch(){
         			if(!empty($item->mark))
         				if ($item->save()){
         					$log=new EquipmentLog;
-							$log->saveLog('addEq',array('details'=>array($item->id_workplace)));
+							$log->saveLog('addEq',array('details'=>array($item->id_workplace),'object'=>$item->id));
         				}
         		}
         		$this->redirect(array('/Workplace/view','id'=>$items[0]->id_workplace));
