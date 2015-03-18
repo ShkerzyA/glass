@@ -119,8 +119,12 @@ public function actionCartSearch(){
 		if(isset($_POST['Equipment']))
 		{
 			$model->attributes=$_POST['Equipment'];
-			if($model->save())
+			if($model->save()){
+				$log=new EquipmentLog;
+				$log->saveLog('addEq',array('details'=>array($model->id_workplace)));	
 				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
+			}
+				
 		}
 
 		$this->render('create',array(
@@ -169,7 +173,10 @@ public function actionCartSearch(){
         	if($valid){
         		foreach ($items as $item) {
         			if(!empty($item->mark))
-        				$item->save();
+        				if ($item->save()){
+        					$log=new EquipmentLog;
+							$log->saveLog('addEq',array('details'=>array($item->id_workplace)));
+        				}
         		}
         		$this->redirect(array('/Workplace/view','id'=>$items[0]->id_workplace));
         	}
