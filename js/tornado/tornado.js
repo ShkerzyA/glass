@@ -11,9 +11,9 @@ function init(){
             //ws = new WebSocket('ws://' + document.location.host + ':8888/websocket'); должно быть так. прописано жестко, потому что еще develop server работает
             ws = new WebSocket('ws://'+$.cookie("tornado")+'/websocket');
             ws.onopen = function () {
-                /*var mess = {
-                    "type" :"user",
-                    "id" :$.cookie("id_pers")
+                var mess = {
+                    'type' :'user',
+                    'id' :$.cookie('id_pers')
                 };
                 ws.send(JSON.stringify(mess));
                 //alert(document.cookie);*/
@@ -26,19 +26,22 @@ function init(){
 
 
             ws.onmessage = function (e) {
+                var res=$.parseJSON(e.data);
                 console.log(e.data);
                 //alert(e.data);
-                if(e.data=='updateChat')
-                    updateChat();
-                if(e.data=='updateMon')
-                    updateMon();
-                if(e.data=='onWrite')
-                    onWrite();
-                if(e.data=='onWriteOut')
-                    onWriteOut();
-                if(e.data=='updateTasks'){
-                    updateChat();
-                    updateTasks();
+                if(res.type='action'){
+                     if(res.id=='updateChat')
+                        updateChat();
+                    if(res.id=='updateMon')
+                        updateMon();
+                    if(res.id=='onWrite')
+                        onWrite();
+                    if(res.id=='onWriteOut')
+                        onWriteOut();
+                    if(res.id=='updateTasks'){
+                        updateChat();
+                        updateTasks();
+                    }
                 }
             };
             this.ws = ws;

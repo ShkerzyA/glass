@@ -37,13 +37,18 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 
     def on_message(self, message):
         #obj = json.loads(unicode(message, "UTF-8"))
-        print(message)
-        obj = json.dumps(message)
+        #print(message)
+
+        #message=message.decode('utf-8')
+        obj = json.loads(message)
+
+        #string='';
+        #string.join(["%s=%s" % (k, v) for k, v in obj.items()])
         #db = self.application.db
         #db.chat.insert(message_dict)
         for key, value in enumerate(self.application.webSocketsPool):
             #if value != self:
-            value.ws_connection.write_message(obj)
+            value.ws_connection.write_message(message)
 
     def on_close(self, message=None):
         print('close')

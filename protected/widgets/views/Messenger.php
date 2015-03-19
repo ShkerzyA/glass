@@ -22,11 +22,11 @@ function init(){
     });
 
     $('#Messages_ttext').live('focus',function(){
-        Socket.ws.send('onWrite');
+        Socket.ws.send('{"type":"action","id":"onWrite"}');
     });
 
     $('#Messages_ttext').live('focusout',function(){
-        Socket.ws.send('onWriteOut');
+        Socket.ws.send('{"type":"action","id":"onWriteOut"}');
     });
 
     /*

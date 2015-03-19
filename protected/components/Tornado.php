@@ -18,14 +18,14 @@ class Tornado extends CApplicationComponent
 
 
 	public function updateChat(){
-		$this->message("updateChat");
+		$this->message('{"type":"action","id":"updateChat"}');
 	}
 
 	public function updateMon(){
-		$this->message("updateMon");
+		$this->message('{"type":"action","id":"updateMon"}');
 	}
 
 	public function updateTasks(){
-		$this->message("updateTasks");
+		$this->message('{"type":"action","id":"updateTasks"}');
 	}
 }

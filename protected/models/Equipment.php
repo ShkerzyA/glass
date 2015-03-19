@@ -34,6 +34,7 @@ class Equipment extends CActiveRecord
 	public static $cartFull='597';
 	public static $cartRefill='596';
 	public static $db_array=array();
+	public static $netEqType=array(0,2,3,4,5,6,8,9,11,12,13,16,17);
 	public $place;
 	public $DopLog;
 	public $idWorkplaceid_workplace;
@@ -79,7 +80,11 @@ class Equipment extends CActiveRecord
 		return 'equipment';
 	}
 
-
+	public function netinfo(){
+		if(in_array($this->type, self::$netEqType)){
+			return "\n IP ".$this->ip."\n MAC ".$this->mac;
+		}
+	}
 
 	
 
@@ -184,11 +189,11 @@ class Equipment extends CActiveRecord
 		return array(
 			array('id_workplace, type, producer, status, parent_id', 'numerical', 'integerOnly'=>true),
 			array('id_workplace,type','required'),
-			array('serial, inv', 'length', 'max'=>100),
+			array('serial,inv,ip,mac', 'length', 'max'=>100),
 			array('mark', 'length', 'max'=>200),
 			array('notes', 'safe'),
 			array('id','uniqueInvSerial'),
-			array('id, id_workplace, serial, type, producer, mark, inv, status, parent_id, notes,idWorkplaceid_workplace,place,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
+			array('id, id_workplace, serial, type, producer, mark, inv, ip, mac, status, parent_id, notes,idWorkplaceid_workplace,place,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -258,6 +263,8 @@ class Equipment extends CActiveRecord
 			'status' => 'Состояние',
 			'notes' => 'Примечания',
 			'place' => 'Местоположение',
+			'ip' => 'IP',
+			'mac' => 'MAC',
 			'idWorkplaceid_workplace' => 'Рабочее место',
             'parentparent_id' => 'Принадлежность',
             'equipmentsparent_id' => 'Зависимое оборудование',
@@ -345,6 +352,8 @@ class Equipment extends CActiveRecord
 		$criteria->compare('mark',$this->mark,true);
 		$criteria->compare('inv',$this->inv,true);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('ip',$this->ip,true);
+		$criteria->compare('mac',$this->mac,true);
 		$criteria->compare('notes',$this->notes,true);
 		$criteria->compare('workplace.wname',$this->idWorkplaceid_workplace,true);
         $criteria->compare('equipment.parent_id',$this->parentparent_id,true);

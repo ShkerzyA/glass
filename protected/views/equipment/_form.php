@@ -92,6 +92,25 @@ Yii::app()->clientScript->registerPackage('customfields');
 		<?php echo $form->error($model,'inv'); ?>
 	</div>
 
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'ip'); ?>
+
+		<?php echo $form->textField($model,'ip',array('size'=>60,'maxlength'=>100,'autocomplete'=>"off")); ?>
+
+		<?php echo $form->error($model,'ip'); ?>
+	</div>
+
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'mac'); ?>
+
+		<?php echo $form->textField($model,'mac',array('size'=>60,'maxlength'=>100,'autocomplete'=>"off")); ?>
+
+		<?php echo $form->error($model,'mac'); ?>
+	</div>
+
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 
