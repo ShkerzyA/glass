@@ -57,7 +57,7 @@ class EquipmentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','createPack','update','markSearch','delete','garant'),
+				'actions'=>array('create','createPack','update','markSearch','delete','garant','ipmac'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -337,6 +337,35 @@ public function actionCartSearch(){
 		$model->notes=$model->notes."\n гарантия до: ".$res[0];
 		$model->save();
 		echo '<meta http-equiv="Refresh" content="1" />';
+
+	}
+
+	public function actionIpMac(){
+		$criteria=new CDbCriteria;
+		$criteria->addCondition(array('condition'=>'t.type in('.implode(',',Equipment::$netEqType).') and t.id=164'));
+		$model=Equipment::model()->find($criteria);
+		//if(empty($model))
+		//	$this->redirect(array('/'));
+		echo $model->id.'\\'.$model->mark.'\\'.$model->notes;
+
+		preg_match('/[a-zA-Z0-9-_]+/',$model->notes,$name);
+		preg_match('/((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)/',$model->notes,$ip);
+		preg_match('/([0-9a-fA-F]{2}([:-]|$)){6}$|([0-9a-fA-F]{4}([.]|$)){3}/',$model->notes,$mac);
+		
+		//$ip= 
+		//$mac=
+
+		echo '<br>name: '; print_r($name);
+		echo '<br>ip: '; print_r($ip);
+		echo '<br>mac: '; print_r($mac);
+		//$html = file_get_contents('http://h10025.www1.hp.com/ewfrf/wc/weResults?tmp_weCountry=ru&tmp_weSerial='.$model->serial.'&tmp_weProduct=CE538A&cc=ru&dlc=ru&lc=ru&product=');
+		//$result = preg_match('/>.*(ГГГГ-ММ-ДД)/', $html,$found); 
+		//$result2 = preg_match('/\d{4}-\d{2}-\d{2}/', $found[0], $res); 
+		//echo '<br>'.$res[0];
+
+		//$model->notes=$model->notes."\n гарантия до: ".$res[0];
+		//$model->save();
+		//echo '<meta http-equiv="Refresh" content="1" />';
 
 	}
 

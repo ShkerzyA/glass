@@ -189,12 +189,20 @@ class Equipment extends CActiveRecord
 		return array(
 			array('id_workplace, type, producer, status, parent_id', 'numerical', 'integerOnly'=>true),
 			array('id_workplace,type','required'),
-			array('serial,inv,ip,mac', 'length', 'max'=>100),
+			array('serial,inv', 'length', 'max'=>100),
 			array('mark', 'length', 'max'=>200),
-			array('notes', 'safe'),
+			array('notes,ip,mac', 'safe'),
 			array('id','uniqueInvSerial'),
 			array('id, id_workplace, serial, type, producer, mark, inv, ip, mac, status, parent_id, notes,idWorkplaceid_workplace,place,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
 		);
+	}
+
+	protected function beforeSave(){
+		if (empty($this->ip))
+			$this->ip=NULL;
+		if (empty($this->mac))
+			$this->mac=NULL;
+		return parent::beforeSave();
 	}
 
 		public function uniqueInvSerial()
