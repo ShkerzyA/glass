@@ -43,8 +43,9 @@ class UserIdentity extends CUserIdentity
 
             if(!empty($user->personnels->personnelPostsHistories)){
             $this->setState('postname', $user->personnels->personnelPostsHistories[0]->idPost->post);
+            $temp=array();
             foreach ($user->personnels->personnelPostsHistories as $v){
-                $temp.=$v->idPost->groups;
+                $temp=array_merge($temp,$v->idPost->groups);
                 $id_posts[]=$v->idPost->id;
                 $id_departments[]=$v->idPost->postSubdivRn->id;
                 $departments_rn[]=$v->idPost->postSubdivRn->subdiv_rn;
@@ -53,7 +54,6 @@ class UserIdentity extends CUserIdentity
                 }
             }
             }
-            $temp=explode(',',$temp);
             $groups=array_unique($temp);
 
             if(!empty($groups)){

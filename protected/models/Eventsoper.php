@@ -194,7 +194,7 @@ class Eventsoper extends Events
     }
 
     public static function mayCreateEvent(){
-    	if((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) )
+    	if((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) )
     		return true;
     	return false;
 	}

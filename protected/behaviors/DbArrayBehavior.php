@@ -24,11 +24,12 @@ class DbArrayBehavior extends CActiveRecordBehavior{
     public function afterFind($event) {
         $fields=$this->getField();
         foreach ($fields as $val) {
-           // if($this->owner->scenario=='update'){
                 if(!empty($this->owner->$val)){
                     $tmp=substr($this->owner->$val,1,-1);
                     $this->owner->$val=explode(',',$tmp);
                     //echo $val;
+                }else{
+                    $this->owner->$val=array();
                 }
           //  }
         }

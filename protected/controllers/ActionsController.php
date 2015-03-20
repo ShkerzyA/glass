@@ -78,6 +78,7 @@ class ActionsController extends Controller
 
 		if(Yii::app()->request->isAjaxRequest){
 			$this->act->ttext=$_POST['mess'];
+			$this->act->type=1;
 			$this->act->save();
 		}
 	}

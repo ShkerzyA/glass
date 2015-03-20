@@ -26,7 +26,7 @@ class Tasks extends CActiveRecord
 	public static $modelLabelS='Задача';
 	public static $modelLabelP='Задачи';
 	public static $multifield=array('executors');
-	public static $db_array=array('group','details');
+	public static $db_array=array('group','details','executors');
 	public static $statJoin=array(1,2,5);
 	public static $statFixEnd=array(2,3);
 	
@@ -117,6 +117,9 @@ class Tasks extends CActiveRecord
 
 	public function behaviors(){
 	return array(
+			'Multichoise'=>array(
+				'class'=>'application.behaviors.MultichoiseBehavior',
+				),
 			'DbArray'=>array(
 				'class'=>'application.behaviors.DbArrayBehavior',
 				),
@@ -128,9 +131,6 @@ class Tasks extends CActiveRecord
 				),
 			'FixedOwner'=>array(
 				'class'=>'application.behaviors.FixedOwnerBehavior',
-				),
-			'Multichoise'=>array(
-				'class'=>'application.behaviors.MultichoiseBehavior',
 				),
 			);
 	}
@@ -174,7 +174,8 @@ class Tasks extends CActiveRecord
 
 	public function findExecutors(){
 		$result=array();
-		$tmp=array_diff(explode(',', $this->executors),array(''));
+		$exec=(is_array($this->executors))?$this->executors:array();
+		$tmp=array_diff($exec,array(''));
 		foreach ($tmp as $v) {
 			$result[]=Personnel::model()->findByPk($v);
 		}

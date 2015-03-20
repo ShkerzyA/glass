@@ -44,10 +44,8 @@ class TasksController extends Controller
 		if(empty($rule)){
 			return true;
 		}else{
-			foreach ($rule as $v) {
-				if(Yii::app()->user->checkAccess('inGroup',array('group'=>$v)))
-					return true; 
-			}
+			if(Yii::app()->user->checkAccess('inGroup',array('group'=>$rule)))
+				return true; 
 		}
 		return false;
 	}

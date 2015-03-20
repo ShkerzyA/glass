@@ -1,0 +1,6 @@
+#!/usr/bin/bash
+#a=$(sudo nmap -sP $1 | tr '\n' ' ' | sed  's/Nmap/\nNmap/g')
+a=$(nmblookup -A $1)
+#ping $1
+b=$(arp -A $1)
+echo $a$b

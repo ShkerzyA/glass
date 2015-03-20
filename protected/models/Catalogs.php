@@ -33,6 +33,7 @@ class Catalogs extends CActiveRecord
 	public static $modelLabelS='Каталог';
 	public static $modelLabelP='Каталоги';
 	public static $multifield=array('groups');
+	public static $db_array=array('groups');
 	
 	public $docsid_catalog;
 	public $idParentid_parent;
@@ -47,9 +48,13 @@ class Catalogs extends CActiveRecord
 	
 	public function behaviors(){
 		return array(
+			'DbArray'=>array(
+				'class'=>'application.behaviors.DbArrayBehavior',
+				),
 			'Multichoise'=>array(
 				'class'=>'application.behaviors.MultichoiseBehavior',
 				),
+			
 			'PreFill'=>array(
 				'class'=>'application.behaviors.PreFillBehavior',
 				),

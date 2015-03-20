@@ -3,7 +3,7 @@
 /* @var $model Tasks */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('helpDesk?id_department='.$model->id_department.'&&group='.$model->group),
+	$model::$modelLabelP=>array('helpDesk?id_department='.$model->id_department.'&&group='.(implode(',',$model->group))),
 	$model->id,
 );
 
@@ -45,9 +45,8 @@ echo '<div class="comment " id="taskbody">
 		Создатель:  '.$model->creator0->surname.' '.$model->creator0->name.' '.$model->creator0->patr.'</i></div>'.
 		'<hr><p class="norm_text"><pre>'.$model->detailsShow().'<br>'.$model->ttext.'</pre></p>
 		<span style="float: right">Участники: ';
-		$tmp=explode(',',$model->executors); 
 		$exec=array();
-				foreach ($tmp as $v){
+				foreach ($model->executors as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
 						$exec[]=CHtml::encode($pers->fio());

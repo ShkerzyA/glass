@@ -87,7 +87,7 @@ public function actionInstall(){
     $task = $auth->createTask('inGroupAndOwnerUser', 'Принадлежность группе', $bizRule);
     $task->addChild('inGroupAndOwner', 'Принадлежность группе');
 
-    $bizRule='return in_array($params["group"],Yii::app()->user->groups);';
+    $bizRule='return array_intersect($params["group"],Yii::app()->user->groups);';
     $task = $auth->createTask('inGroupUser', 'Принадлежность группе', $bizRule);
     $task->addChild('inGroup', 'Принадлежность группе');
 

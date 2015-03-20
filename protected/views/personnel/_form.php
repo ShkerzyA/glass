@@ -54,7 +54,7 @@
 
 				<?php $tmp=Users::model()->findall();
 echo $form->dropDownList($model,"id_user",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->username.'/'.$tmp->personnels->surname.' '.$tmp->personnels->name.' '.$tmp->personnels->patr);}),array('empty' => '')); ?>
+				return CHtml::encode($tmp->username.'/'.($pers=(!empty($tmp->personnels))?$tmp->personnels->fio_full():''));}),array('empty' => '')); ?>
 
 
 		<?php // echo $form->dropDownList($model,'id_user',CHtml::listData(Users::model()->findall(),'id','username'),array('empty' => '(Привязать пользователя)')); ?>

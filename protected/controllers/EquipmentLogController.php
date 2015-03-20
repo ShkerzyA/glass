@@ -57,7 +57,7 @@ class EquipmentLogController extends Controller
 	}
 
 	public function access(){
-		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))))
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))))
             throw new CHttpException(403, 'У вас недостаточно прав');
 	}
 

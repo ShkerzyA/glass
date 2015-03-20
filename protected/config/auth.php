@@ -173,7 +173,7 @@ return array (
   array (
     'type' => 1,
     'description' => 'Принадлежность группе',
-    'bizRule' => 'return in_array($params["group"],Yii::app()->user->groups);',
+    'bizRule' => 'return array_intersect($params["group"],Yii::app()->user->groups);',
     'data' => NULL,
     'children' => 
     array (

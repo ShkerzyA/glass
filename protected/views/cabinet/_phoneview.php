@@ -19,7 +19,7 @@ if(!empty($data->workplaces)){
 
 <tr>
 	<td rowspan=<?php echo $num; ?>><?php 
-		$isit=(Yii::app()->user->checkAccess('inGroup',array('group'=>'it')));
+		$isit=(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))));
 		if($isit)
 			echo '<a href="'.Yii::app()->baseUrl.'/Cabinet/'.$data->id.'">';
 		echo $data->cabNameFull(); 

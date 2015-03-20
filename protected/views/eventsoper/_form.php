@@ -81,7 +81,7 @@ function init(){
 
 
 	<?php
-		if (Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv')) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) ) 
+		if (Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv')) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) ) 
 			$this->renderPartial('_common_form',array('form'=>$form,'model'=>$model)); 
 		else
 			$this->renderPartial('view',array('model'=>$model)); 
@@ -89,7 +89,7 @@ function init(){
 	?>
 
 	<?php 
-		if (Yii::app()->user->checkAccess('inGroup',array('group'=>'anestesiologist')) or Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv')))
+		if (Yii::app()->user->checkAccess('inGroup',array('group'=>'anestesiologist')) or Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv'))))
 			$this->renderPartial('_anest_form',array('form'=>$form,'model'=>$model)); ?>
 
 

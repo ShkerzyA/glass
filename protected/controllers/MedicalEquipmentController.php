@@ -20,7 +20,7 @@ class MedicalEquipmentController extends Controller
 	}
 
 	public function access(){
-		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))))
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>array('medequipment')))))
             throw new CHttpException(403, 'У вас недостаточно прав');
 	}
 

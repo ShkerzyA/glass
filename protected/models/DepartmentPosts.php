@@ -28,6 +28,7 @@ class DepartmentPosts extends CActiveRecord
 	public static $modelLabelP='Штатная структура';
 
     public static $multifield=array('groups');
+    public static $db_array=array('groups');
 	
     public $personnelPostsHistoriesid_post;
     public $postSubdivRnpost_subdiv_rn;
@@ -39,6 +40,9 @@ class DepartmentPosts extends CActiveRecord
 
 	public function behaviors(){
 	return array(
+            'DbArray'=>array(
+                'class'=>'application.behaviors.DbArrayBehavior',
+                ),
 			'DateBeginEnd'=>array(
 				'class'=>'application.behaviors.DateBeginEndBehavior',
 				),

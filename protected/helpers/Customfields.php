@@ -4,9 +4,8 @@ Class Customfields{
 		Yii::app()->clientScript->registerPackage('customfields');
 
 		$result="<div class='multichoise'>";
-					echo'<input type=hidden name=group_anchor>';
-				$tmp=explode(',',$model->groups); 
-				foreach ($tmp as $v){
+				echo'<input type=hidden name=group_anchor>';
+				foreach ($model->groups as $v){
 					if(!empty($v)){
 					$group=PostsGroups::model()->find(array("condition"=>"group_key='$v'"));
 					$result.="<div class='choise_unit $v'>
@@ -25,8 +24,7 @@ Class Customfields{
 
 		$result="<div class='multichoise'>";
 					echo'<input type=hidden name=group_anchor>';
-				$tmp=explode(',',$model->executors); 
-				foreach ($tmp as $v){
+				foreach ($model->executors as $v){
 					if(!empty($v)){
 					$pers=Personnel::model()->findByPk($v);
 					$result.="<div class='choise_unit $v'>
@@ -44,8 +42,7 @@ Class Customfields{
 		$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_oper'>Изменить</div>";
 				echo'<input type=hidden name=group_anchor>';
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
-					$tmp=explode(',',$model->$field); 
-					foreach ($tmp as $v){
+					foreach ($model->$field as $v){
 						if(!empty($v)){
 							$oper=ListOperations::model()->findByPk($v);
 							$result.="<div class='choise_unit $field$v'>
@@ -65,8 +62,7 @@ Class Customfields{
 		$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_person'>Изменить</div>";
 				echo'<input type=hidden name=group_anchor>';
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
-					$tmp=explode(',',$model->$field); 
-					foreach ($tmp as $v){
+					foreach ($model->$field as $v){
 						if(!empty($v)){
 							$pers=Personnel::model()->findByPk($v);
 							$result.="<div class='choise_unit $field$v'>

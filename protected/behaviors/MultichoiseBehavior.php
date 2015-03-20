@@ -32,7 +32,7 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
             }    
         }
     }
-
+/*
     public function beforeSave($event){
         $fields=$this->getField();
         foreach ($fields as $val) {
@@ -51,6 +51,6 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
                 }
           //  }
         }
-    }
+    } */
 } 
 ?>

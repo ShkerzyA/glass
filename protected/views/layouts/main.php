@@ -79,20 +79,20 @@
 			'items'=>array(
 
 				array('label'=>'События', 'url'=>array('/rooms/show?Event_type=events'),'submenu'=>array(
-                			array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>'medequipment'))),
+                			array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>array('medequipment')))),
                 			array('Общественные','/rooms/show?Event_type=events'),
-                			array('Операционные','/rooms/show?Event_type=eventsOpPl',((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) )))),
+                			array('Операционные','/rooms/show?Event_type=eventsOpPl',((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) )))),
 				array('label'=>'Справочник', 'url'=>array('/cabinet/phones'),'submenu'=>
 						array(array('Телефоны','/cabinet/phones'),
-							array('Операции','/Eventsoper/plan2',((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) )),
-							array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
-							array('Кадры', '/personnel/index',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
-							array('Оборудование', '/equipment/index',Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
+							array('Операции','/Eventsoper/plan2',((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) )),
+							array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
+							array('Кадры', '/personnel/index',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
+							array('Оборудование', '/equipment/index',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
 							array('Отделы', '/department/tree',!Yii::app()->user->isGuest),
 							)),
                 array('label'=>'Документы', 'url'=>array('/myDocs/index')),
                 array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk')),
-                	array('label'=>'КККОД', 'url'=>array('/myAdmin/index'), 'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>'it'))),
+                	array('label'=>'КККОД', 'url'=>array('/myAdmin/index'), 'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
 
 				array('label'=>'Админ', 'url'=>array('/admin/index'), 'visible'=>(Yii::app()->user->role=='administrator'))
 			),

@@ -105,7 +105,7 @@ public function actionSuggest(){
 	 */
 	public function actionCreate()
 	{
-		if (!((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations')))  ))
+		if (!((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations'))))  ))
             throw new CHttpException(403, 'У вас недостаточно прав');
 		$model=new Eventsoper;
 
@@ -131,7 +131,7 @@ public function actionSuggest(){
 	 */
 	public function actionUpdate($id)
 	{
-		if (!((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'anestesiologist'))) ))
+		if (!((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('anestesiologist')))) ))
             throw new CHttpException(403, 'У вас недостаточно прав');
 		$model=$this->loadModel($id);
 
@@ -181,7 +181,7 @@ public function actionSuggest(){
 
 		public function actionMonUpdate($id)
 	{
-		if (!((Yii::app()->user->checkAccess('inGroup',array('group'=>'operationsv'))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>'operations'))) ))
+		if (!((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) ))
             throw new CHttpException(403, 'У вас недостаточно прав');
 		$model=$this->loadModel($id);
 
