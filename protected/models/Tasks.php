@@ -66,10 +66,10 @@ class Tasks extends CActiveRecord
 	}
 
 	public function join($id_pers=NULL){
-		$tmp=explode(',', $this->executors);
+		$tmp=$this->executors;
 		$tmp[]=(!empty($id_pers))?$id_pers:Yii::app()->user->id_pers;
 		$tmp=array_unique(array_diff($tmp,array('')));
-		$this->executors=implode(',',$tmp);
+		$this->executors=$tmp;
 	}
 
 	protected function beforeSave(){
