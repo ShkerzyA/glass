@@ -34,6 +34,13 @@ class Tasks extends CActiveRecord
 	public $executor0executor;
 
 
+	public function init(){
+		if(empty($this->executors)){
+			$this->executors=array();
+		}
+	}
+
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -117,11 +124,11 @@ class Tasks extends CActiveRecord
 
 	public function behaviors(){
 	return array(
-			'Multichoise'=>array(
-				'class'=>'application.behaviors.MultichoiseBehavior',
-				),
 			'DbArray'=>array(
 				'class'=>'application.behaviors.DbArrayBehavior',
+				),
+			'Multichoise'=>array(
+				'class'=>'application.behaviors.MultichoiseBehavior',
 				),
 			'TimeStamp'=>array(
 				'class'=>'application.behaviors.TimeStampBehavior',
