@@ -81,7 +81,7 @@ function notifyUser(mtitle,mbody) {
             options = {
               body: mbody,
               tag: 'preset',
-              icon: 'http://demo.pixelcom.crimea.ua/favicon.ico'
+              icon: 'http://glass/images/eye.png'
             };
   
           Notification.requestPermission(function() {
