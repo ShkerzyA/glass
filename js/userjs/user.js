@@ -81,7 +81,7 @@ function notifyUser(mtitle,mbody) {
             options = {
               body: mbody,
               tag: 'preset',
-              icon: 'http://glass/images/eye.png'
+              icon: '/glass/images/eye.png'
             };
   
           Notification.requestPermission(function() {

@@ -64,9 +64,8 @@ function updateChat(){
     $.post('/glass/messages/showNew',{time: timem},function(response){
             var res=$.parseJSON(response);
             timem=res.timem;
-        $(".mess_content").append(res.data);
-        var down=$(".mess_content")[0].scrollHeight;
-        $(".mess_content").animate({"scrollTop":down},"slow");
+        $(".mess_content").prepend(res.data);
+        $(".mess_content").animate({"scrollTop":0},"slow");
         if(res.taskUpd==true){
           notifyUser('Задачи','Добавлена новая задача');
           document.getElementById('horn').play();
@@ -85,8 +84,7 @@ updateMon();
 $(document).ready(init());
 
 window.onload=function(){
-    var down=$(".mess_content")[0].scrollHeight;
-    $(".mess_content").animate({"scrollTop":down},"slow");
+    $(".mess_content").animate({"scrollTop":0},"slow");
 }
 
 
