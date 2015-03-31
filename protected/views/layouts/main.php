@@ -116,6 +116,11 @@
 
 echo<<<END
 <script type='text/javascript'>
+
+function scrollT(){
+	$("html").animate({"scrollTop":0},"slow");
+}
+
 $(function () {
  var scroll_timer;
  var displayed = false;
@@ -150,7 +155,7 @@ function sttopmode(elem,over) {
 </script>
 <div id='scrollToTop' style='display:none; z-index:999; background:rgba(255,255,255,0); position:fixed; bottom:0px; left:0;
            width:100%; color:#939393;  height:14px; padding-top:1px; text-align:center; cursor:pointer;'
-           onClick='scroll(0,0); return false' onMouseOver='sttopmode(this,true)' onMouseOut='sttopmode(this,false)'>&#9650 Наверх</div> 
+           onClick='scrollT(); return false' onMouseOver='sttopmode(this,true)' onMouseOut='sttopmode(this,false)'>&#9650 Наверх</div> 
 END;
 
 ?>

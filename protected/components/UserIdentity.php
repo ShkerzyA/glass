@@ -35,15 +35,15 @@ class UserIdentity extends CUserIdentity
             }
             $this->setState('last_task','');
 
-            $temp='';
+            $temp=array();
             $id_posts=array();
             $id_departments=array();
+            $departments_rn=array();
 
             $islead=0;
 
             if(!empty($user->personnels->personnelPostsHistories)){
             $this->setState('postname', $user->personnels->personnelPostsHistories[0]->idPost->post);
-            $temp=array();
             foreach ($user->personnels->personnelPostsHistories as $v){
                 $temp=array_merge($temp,$v->idPost->groups);
                 $id_posts[]=$v->idPost->id;

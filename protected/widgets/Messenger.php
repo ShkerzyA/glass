@@ -3,7 +3,7 @@
 class Messenger extends CWidget{
 	public function run(){
 		
-		$model=Messages::model()->findAll(array('condition'=>'timestamp::date=\''.date('Y-m-d').'\'','order'=>'timestamp DESC'));
+		$model=Messages::model()->findAll(array('condition'=>'timestamp::date=\''.date('Y-m-d').'\'','order'=>'timestamp ASC'));
 		$this->render('Messenger',array('model'=>$model));
 	}
 

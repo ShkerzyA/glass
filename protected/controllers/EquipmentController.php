@@ -341,11 +341,46 @@ public function actionCartSearch(){
 	}
 
 	public function actionIpmac(){
-		$criteria=new CDbCriteria;
-		$criteria->addCondition(array('condition'=>'t.type in('.implode(',',Equipment::$netEqType).') and t.ip is NULL or t.mac is NULL'));
-		$model=Equipment::model()->find($criteria);
-		$nmap=exec('/home/al/localhost/www/glass/eq_scan 10.126.83.87');
-		echo $nmap;
+		echo"start<br>";
+		$js=file_get_contents('/home/al/myapp/dhcpinfo.txt');
+		//echo $js;
+		$js=json_decode($js,True);
+		unset($js[0]);
+		foreach ($js as $v) {
+			print_r($v);
+			echo'<br>';
+			$criteria=new CDbCriteria;
+
+			$mac='';
+			$realmac=NULL;
+			if(!empty($v['mac'])){
+				$realmac=mb_strtoupper($v['mac'][0],'UTF-8');
+				$macarr=explode(':',$realmac);
+				$mac=" OR (UPPER(t.notes) LIKE ('".implode('',$macarr)."') OR UPPER(t.notes) LIKE ('".implode(':',$macarr)."') OR UPPER(t.notes) LIKE ('".implode('-',$macarr)."'))";
+			}
+
+			//echo''.$mac.'<br>';
+			$criteria->addCondition(array('condition'=>"UPPER(t.notes) LIKE('%".$v['ip']."%')".($nm=(!empty($v['nm']))?"OR UPPER(t.notes) LIKE('%".$v['nm'][0]."%')":"").$mac));
+			$model=Equipment::model()->find($criteria);
+			if($model){
+				echo $model->full_name()." ".$model->notes." <br>";
+				$model->ip=$v['ip'];
+				if(!empty($realmac)){
+					$model->mac=$realmac;
+				}
+				#$model->save();
+			}
+		}
+
+		
+		//$criteria=new CDbCriteria;
+		//$criteria->addCondition(array('condition'=>'t.type in('.implode(',',Equipment::$netEqType).') and t.ip is NULL or t.mac is NULL'));
+		//$model=Equipment::model()->find($criteria);
+
+		/*
+		//$nmap=exec('/home/al/localhost/www/glass/scan 10.126.83.87');
+		$nmap=shell_exec("/usr/bin/bash /home/al/localhost/www/glass/scan 10.126.83.87");
+		print_r($nmap);
 		//	$this->redirect(array('/'));
 		echo $model->id.'\\'.$model->mark.'\\'.$model->notes.'<br>';
 
@@ -364,7 +399,7 @@ public function actionCartSearch(){
 
 		//$model->notes=$model->notes."\n гарантия до: ".$res[0];
 		//$model->save();
-		//echo '<meta http-equiv="Refresh" content="1" />';
+		//echo '<meta http-equiv="Refresh" content="1" />'; */
 
 	}
 
