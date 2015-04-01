@@ -13,7 +13,7 @@ function init(){
             ws.onopen = function () {
                 var mess = {
                     'type' :'user',
-                    'id' :$.cookie('id_pers')
+                    'id' :$.cookie('pers')
                 };
                 ws.send(JSON.stringify(mess));
                 //alert(document.cookie);*/
@@ -26,16 +26,16 @@ function init(){
 
 
             ws.onmessage = function (e) {
+                //alert(e.data);
                 var res=$.parseJSON(e.data);
                 console.log(e.data);
-                //alert(e.data);
                 if(res.type='action'){
                      if(res.id=='updateChat')
                         updateChat();
                     if(res.id=='updateMon')
                         updateMon();
                     if(res.id=='onWrite')
-                        onWrite();
+                        onWrite(res.user);
                     if(res.id=='onWriteOut')
                         onWriteOut();
                     if(res.id=='updateTasks'){

@@ -39,8 +39,8 @@ function init(){
     },20000); */
 
 }
-function onWrite(){
-    $('#Messages_ttext').attr('placeholder','Нечто набирает сообщение');
+function onWrite(user){
+    $('#Messages_ttext').attr('placeholder',user+'набирает сообщение');
 }
 
 function onWriteOut(){

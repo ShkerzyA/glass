@@ -46,10 +46,15 @@ class WebSocket(tornado.websocket.WebSocketHandler):
         #string.join(["%s=%s" % (k, v) for k, v in obj.items()])
         #db = self.application.db
         #db.chat.insert(message_dict)
+        ind=self.application.webSocketsPool.index(self)
         for key, value in enumerate(self.application.webSocketsPool):
-            #if value != self:
-            value.ws_connection.write_message(message)
-
+            if value == self and obj['type']=='user':
+                self.application.idPool[key]=obj['id']
+            if obj['type']=='action':
+                obj['user']=self.application.idPool[ind]
+                print self
+            value.ws_connection.write_message(json.dumps(obj))
+        print self.application.idPool
     def on_close(self, message=None):
         print('close')
         for key, value in enumerate(self.application.webSocketsPool):
@@ -59,6 +64,7 @@ class WebSocket(tornado.websocket.WebSocketHandler):
 class Application(tornado.web.Application):
     def __init__(self):
         self.webSocketsPool = []
+        self.idPool= {}
 
         place=os.path.abspath(os.path.dirname(__file__))
         settings = {

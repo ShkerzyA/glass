@@ -67,7 +67,7 @@ class UserIdentity extends CUserIdentity
             $this->setState('departments_rn',$departments_rn);
             $this->setState('islead',$islead);
             $this->errorCode=self::ERROR_NONE;
-            Yii::app()->request->cookies['id_pers'] = new CHttpCookie('id_pers', $user->personnels->id);
+            Yii::app()->request->cookies['pers'] = new CHttpCookie('pers', $user->personnels->fio());
         }
         return $this->errorCode==self::ERROR_NONE;
     }
