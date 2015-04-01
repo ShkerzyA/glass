@@ -325,6 +325,18 @@ class Tasks extends CActiveRecord
 						$result.="\nПринтер: $m->mark";
 				}			
 				break;
+
+			case '0':
+				$m=Workplace::model()->findByPk($this->details[0]);
+				if(!empty($m)){
+					$result.=$m->wpNameFull($short);
+					if($place==True){
+						$result.=' <a href=/glass/Workplace/'.$m->id.'><img src="../images/door.png" style="height: 24px;"></a>';
+					}
+					if(!$short)
+						$result.=" ";
+				}			
+				break;
 			
 			default:
 				break;

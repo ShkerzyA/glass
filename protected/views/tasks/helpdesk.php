@@ -60,7 +60,7 @@ $this->menu['all_menu']=array(
 
 
 <div id="add_task" class="add_unit fl_right">
-<a href="<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=<?php echo $this->id_department ?>&&Tasks[group]=<?php echo $this->group ?>">
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/tasks/create?Tasks[id_department]=<?php echo $this->id_department ?>&&Tasks[group]=<?php echo $this->group ?>&&Tasks[type]=0">
 	добавить
 	<img src='../images/add_task_40.png' title='Обычная задача'>
 </a>

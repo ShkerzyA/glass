@@ -52,7 +52,6 @@ class WebSocket(tornado.websocket.WebSocketHandler):
                 self.application.idPool[key]=obj['id']
             if obj['type']=='action':
                 obj['user']=self.application.idPool[ind]
-                print self
             value.ws_connection.write_message(json.dumps(obj))
         print self.application.idPool
     def on_close(self, message=None):

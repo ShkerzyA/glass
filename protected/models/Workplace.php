@@ -145,6 +145,19 @@ class Workplace extends CActiveRecord
 		);
 	}
 
+	public function suggestTag($keyword){
+		$keyword=mb_strtolower($keyword,'UTF-8');
+ 		$tags=$this->with('idPersonnel','idCabinet.idFloor.idBuilding')->findAll(array(
+   			'condition'=>'(LOWER("idPersonnel".surname) LIKE :keyword OR LOWER("idBuilding".bname) LIKE :keyword OR LOWER("idCabinet".num) LIKE :keyword OR LOWER("idCabinet".cname) LIKE :keyword)',
+   			'params'=>array(
+     		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+
+   		)
+   		,'order'=>'"idBuilding".bname asc, "idFloor".fnum asc, "idCabinet".num asc'
+ 		));
+ 		return $tags;
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

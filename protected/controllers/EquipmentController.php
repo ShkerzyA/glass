@@ -53,7 +53,7 @@ class EquipmentController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','export','cartSearch'),
+				'actions'=>array('index','view','export','cartSearch','suggest'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -339,6 +339,20 @@ public function actionCartSearch(){
 		echo '<meta http-equiv="Refresh" content="1" />';
 
 	}
+
+	public function actionSuggest(){
+		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
+  			$models = Equipment::model()->suggestTag($_GET['term']);
+  			$result = array();
+  			foreach ($models as $m)
+   			$result[] = array(
+     			'label' => $m->idWorkplace->wpNameFull().'/'.$m->mark,
+     			'value' => $m->idWorkplace->wpNameFull().'/'.$m->mark,
+     			'id' => $m->id,
+   			);
+  			echo CJSON::encode($result);
+ 		}
+ 	}
 
 	public function actionIpmac(){
 		echo"start<br>";

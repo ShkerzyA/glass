@@ -67,7 +67,7 @@ class TasksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','join','create','helpDesk','report', 'reportOtd','suggest'),
+				'actions'=>array('index','view','join','create','helpDesk','report', 'reportOtd'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -292,19 +292,8 @@ class TasksController extends Controller
 			$this->redirect(Yii::app()->getUrlManager()->createUrl('tasks/helpDesk?id_department=1011'));
 	}
 
-	public function actionSuggest(){
-		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
-  		$models = Equipment::model()->suggestTag($_GET['term']);
-  		$result = array();
-  		foreach ($models as $m)
-   		$result[] = array(
-     		'label' => $m->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$m->idWorkplace->idCabinet->idFloor->fname.'/'.$m->idWorkplace->idCabinet->num.' '.$m->idWorkplace->idCabinet->cname.'/'.$m->idWorkplace->wpName().'/'.$m->mark,
-     		'value' => $m->idWorkplace->idCabinet->idFloor->idBuilding->bname.'/'.$m->idWorkplace->idCabinet->idFloor->fname.'/'.$m->idWorkplace->idCabinet->num.' '.$m->idWorkplace->idCabinet->cname.'/'.$m->mark,
-     		'id' => $m->id,
-   		);
-  		echo CJSON::encode($result);
- 	}
-}
+	
+
 
 	public function actionHelpDesk($id_department=NULL,$type=3,$group=NULL){
 		$this->layout='//layouts/column2';
