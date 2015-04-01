@@ -32,6 +32,8 @@ class WebSocket(tornado.websocket.WebSocketHandler):
         return True
 
     def open(self):
+        self.count=self.application.getCount()
+        print self.count
         print('open')
         self.application.webSocketsPool.append(self)
 
@@ -42,16 +44,16 @@ class WebSocket(tornado.websocket.WebSocketHandler):
         #message=message.decode('utf-8')
         obj = json.loads(message)
 
+        print self.application.idPool
         #string='';
         #string.join(["%s=%s" % (k, v) for k, v in obj.items()])
         #db = self.application.db
         #db.chat.insert(message_dict)
-        ind=self.application.webSocketsPool.index(self)
         for key, value in enumerate(self.application.webSocketsPool):
             if value == self and obj['type']=='user':
-                self.application.idPool[key]=obj['id']
+                self.application.idPool[value.count]=obj['id']
             if obj['type']=='action':
-                obj['user']=self.application.idPool[ind]
+                obj['user']=self.application.idPool.get(self.count)
             value.ws_connection.write_message(json.dumps(obj))
         print self.application.idPool
     def on_close(self, message=None):
@@ -61,7 +63,11 @@ class WebSocket(tornado.websocket.WebSocketHandler):
                 del self.application.webSocketsPool[key]
 
 class Application(tornado.web.Application):
+    def getCount(self):
+        self.count=self.count+1
+        return self.count
     def __init__(self):
+        self.count=0
         self.webSocketsPool = []
         self.idPool= {}
 
