@@ -5,16 +5,18 @@ Class Customfields{
 
 		$result="<div class='multichoise'>";
 				echo'<input type=hidden name=group_anchor>';
-				foreach ($model->groups as $v){
-					if(!empty($v)){
-					$group=PostsGroups::model()->find(array("condition"=>"group_key='$v'"));
-					$result.="<div class='choise_unit $v'>
-						<input type=hidden name='groups[$v]' value=$v>
-						$group->group_name
-						<div id=$v class='close_this'></div>
-					</div>";
-					}
-				}	
+				if(!empty($model->groups)){
+					foreach ($model->groups as $v){
+						if(!empty($v)){
+						$group=PostsGroups::model()->find(array("condition"=>"group_key='$v'"));
+						$result.="<div class='choise_unit $v'>
+							<input type=hidden name='groups[$v]' value=$v>
+							$group->group_name
+							<div id=$v class='close_this'></div>
+						</div>";
+						}
+					}	
+				}
 		$result.="<div id='add_group' class='add_unit'>Добавить</div></div>";
 		return $result;
 	}
@@ -24,6 +26,7 @@ Class Customfields{
 
 		$result="<div class='multichoise'>";
 					echo'<input type=hidden name=group_anchor>';
+			if(!empty($model->executors)){
 				foreach ($model->executors as $v){
 					if(!empty($v)){
 					$pers=Personnel::model()->findByPk($v);
@@ -32,7 +35,8 @@ Class Customfields{
 						<div id=$v class='close_this'></div>
 					</div>";
 					}
-				}	
+				}
+			}	
 		$result.="<div class='add_post add_unit'>Добавить</div></div>";
 		return $result;
 	}
@@ -42,6 +46,7 @@ Class Customfields{
 		$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_oper'>Изменить</div>";
 				echo'<input type=hidden name=group_anchor>';
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
+				if(!empty($model->$field)){
 					foreach ($model->$field as $v){
 						if(!empty($v)){
 							$oper=ListOperations::model()->findByPk($v);
@@ -50,7 +55,8 @@ Class Customfields{
 								<div id=$field$v class='close_this'></div>
 							</div>";
 						}
-					}	
+					}
+				}	
 				
 		$result.="</div>";
 		return $result;
@@ -62,6 +68,7 @@ Class Customfields{
 		$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_person'>Изменить</div>";
 				echo'<input type=hidden name=group_anchor>';
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
+				if(!empty($model->$field)){
 					foreach ($model->$field as $v){
 						if(!empty($v)){
 							$pers=Personnel::model()->findByPk($v);
@@ -70,7 +77,8 @@ Class Customfields{
 								<div id=$field$v class='close_this'></div>
 							</div>";
 						}
-					}	
+					}
+				}	
 				
 		$result.="</div>";
 		return $result;
