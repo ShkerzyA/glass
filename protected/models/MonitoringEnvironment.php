@@ -50,7 +50,7 @@ class MonitoringEnvironment extends CActiveRecord
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('qms1, qms2, intet, dns, mos_gate, mos_intro, fog_space', 'safe', 'on'=>'search'),
+			array('qms1, intet, dns, mos_gate, mos_intro, fog_space', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -72,7 +72,7 @@ class MonitoringEnvironment extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'qms1' => 'QMS 172.16.45.4',
+			'qms1' => 'QMS 10.61.103.49',
 			'qms2' => 'QMS 172.16.46.4',
 			'intet' => 'Интернет',
 			'dns' => 'DNS сервер',
@@ -87,6 +87,7 @@ class MonitoringEnvironment extends CActiveRecord
 		$result=array();
 		unset($cols['id']);
 		unset($cols['mos_gate']);
+		unset($cols['qms2']);
 		foreach ($cols as $key => $value) {
 			switch ($key) {
 				case 'fog_space':
