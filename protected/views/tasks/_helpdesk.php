@@ -78,7 +78,7 @@
 			</div>
 			<span>
 
-			<?php echo '<div style="float: left; width: auto; overflow: hidden">'.$v->ico().'<a href=/glass/tasks/'.$v->id.'>'.$v['tname'].$v->detailsShow(true).'</a></div>'; ?>
+			<?php echo '<div style="float: left; width: auto; overflow: hidden">'.$v->ico().'<a href=/glass/tasks/'.$v->id.'>'.$v['tname'].' <span class=gray>'.$v->detailsShow(true).'</span></a></div>'; ?>
 			
 			<div class="texttask rotated"><pre><?php echo $v->detailsShow().'<br>'. $v['ttext']; ?></pre></div></span>
 		</div>
