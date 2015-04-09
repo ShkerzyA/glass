@@ -13,10 +13,7 @@ class FixedOwnerBehavior extends CActiveRecordBehavior{
                         $this->owner->$val=$id_pers; 
                     break;
             }
-
             return true;
         }
     }
-
-} 
-?>
+}

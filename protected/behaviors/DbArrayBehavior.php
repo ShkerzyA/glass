@@ -6,8 +6,7 @@ class DbArrayBehavior extends CActiveRecordBehavior{
         $val=$model_name::$db_array;
         return $val;
     }
-
-
+    
     public function beforeSave($event){
         $fields=$this->getField();
         foreach ($fields as $val) {
@@ -34,5 +33,4 @@ class DbArrayBehavior extends CActiveRecordBehavior{
           //  }
         }
     }
-} 
-?>
+}

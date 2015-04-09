@@ -1,7 +1,5 @@
 <?php 
 class DateBeginEndBehavior extends CActiveRecordBehavior{
-
-
     public function working(){
         $alias=$this->owner->getTableAlias();
         $this->owner->getDbCriteria()->mergeWith(
@@ -11,7 +9,6 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
 
     public function scopeWorking(){
         $alias=$this->owner->getTableAlias();
-        echo $alias;
         return array('criteria'=>"($alias.date_end is null or $alias.date_end>current_date) and 1=2"); // возвращаем массив условий, которые должны применяться. В массиве, кроме condition, могут использоваться и другие элементы, используемые в yii-запросах: order, limit и т.д.
     }
 
@@ -57,4 +54,3 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
         }
     }
 } 
-?>

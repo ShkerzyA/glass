@@ -97,11 +97,9 @@ class TasksActions extends CActiveRecord
 					if (!$ph->inactive()){
 						$pers=$ph->idPersonnel;
 						$pers['actions']=self::model()->findAll(array('condition'=>"t.creator=".$ph->id_personnel." and t.type=2 and t.timestamp::date=$date"));
-
 						$models[]=$pers;
 					}
 				}
-
 			}
 		}
 		return $models;

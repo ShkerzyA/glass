@@ -23,4 +23,3 @@ class GlassLoginBehavior extends CActiveRecordBehavior{
         return base64_encode(pack('H*', sha1((trim($password)))));
     } 
 } 
-?>

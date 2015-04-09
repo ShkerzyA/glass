@@ -52,5 +52,4 @@ class MultichoiseBehavior extends CActiveRecordBehavior{
           //  }
         }
     } */
-} 
-?>
+}

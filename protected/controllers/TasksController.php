@@ -101,13 +101,9 @@ class TasksController extends Controller
 	 */
 
 	public function actionReport($date='current_date'){
-
 		$model=TasksActions::UserReportToday($date);
-
 		$dt=($date=='current_date')?date('d.m.Y'):$date;
-
-		
-		$filename ='reportOtd.odt';
+		$filename ='report.odt';
 		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/tpl/'.$filename);
 		$user=Yii::app()->user;
 
@@ -135,7 +131,16 @@ class TasksController extends Controller
 
 	public function actionReportOtd($personInfo=false,$date='current_date'){
 		$model=TasksActions::OtdelReportToday($date);
-
+		/*
+		echo '<pre>';
+		foreach ($model as $v) {
+			print_r($v->attributes);
+			foreach ($v->actions as $x) {
+				print_r($x->attributes);
+			};
+		}
+		echo '</pre>'; */
+		//exit();
 		
 		$filename ='reportOtd.odt';
 
@@ -149,6 +154,7 @@ class TasksController extends Controller
 		$article = $odf->setSegment('articles');
 
 		$i=1;
+	
 		foreach ($model as $pers){
 			if(empty($pers->actions))
 				continue;
@@ -179,10 +185,8 @@ class TasksController extends Controller
 		 		$article->merge();
 		 		$i++;
 		 	}
-		}
+		} 
 		$odf->mergeSegment($article);
-
-
 		$odf->setVars('post', $user->postname,true, 'utf-8');
 		$odf->exportAsAttachedFile(); 
 		

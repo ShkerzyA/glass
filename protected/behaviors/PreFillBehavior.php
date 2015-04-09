@@ -13,6 +13,4 @@ class PreFillBehavior extends CActiveRecordBehavior{
         }
     } 
 
-} 
-
-?>
+}

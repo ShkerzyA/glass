@@ -159,17 +159,14 @@ function sttopmode(elem,over) {
 END;
 
 ?>
-
 <?php if(!(Yii::app()->user->isGuest)): ?>
 	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
 		<?php $this->widget('application.widgets.Messenger');  ?>
 	<?php endif; ?>
 <?php endif; ?>
-
 </body>
 </html>
 <?php 
-
 	//$this->endCache(); } 
 ?>
 	

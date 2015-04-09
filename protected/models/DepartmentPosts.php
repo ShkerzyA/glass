@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This is the model class for table "department_posts".
  *
@@ -10,11 +9,7 @@
  * @property string $date_begin
  * @property string $date_end
  *		 * The followings are the available model relations:
-
-
  * @property Department $idDepartment
-
-
  * @property PersonnelPostsHistory[] $personnelPostsHistories
  */
 class DepartmentPosts extends CActiveRecord
@@ -39,20 +34,20 @@ class DepartmentPosts extends CActiveRecord
 	}
 
 	public function behaviors(){
-	return array(
+	return array( 
             'DbArray'=>array(
                 'class'=>'application.behaviors.DbArrayBehavior',
+                ),
+            'Multichoise'=>array(
+                'class'=>'application.behaviors.MultichoiseBehavior',
                 ),
 			'DateBeginEnd'=>array(
 				'class'=>'application.behaviors.DateBeginEndBehavior',
 				),
-            'Multichoise'=>array(
-                'class'=>'application.behaviors.MultichoiseBehavior',
-                ),
             'PreFill'=>array(
                 'class'=>'application.behaviors.PreFillBehavior',
                 ),
-			);
+			 );
 	}
 	/**
 	 * @return string the associated database table name
@@ -86,17 +81,10 @@ class DepartmentPosts extends CActiveRecord
 
     public function freeOnly()
     {   
-
         return True;
-
     	if(!empty($_POST['DepartmentPosts']))
     		$this->attributes=$_POST['DepartmentPosts'];
-
     	$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post=".$this->id." and (date_end is null or date_end>current_date)"));
-
-    	//echo '<pre>';
-    	//print_r($Ph->attributes);
-    	//echo '</pre>';
         if (!empty($Ph)){
         	return False;
         }
@@ -141,7 +129,7 @@ class DepartmentPosts extends CActiveRecord
 	}
 
     public static function depPosts($subdiv_rn=''){
-        $DepPosts=self::model()->working()-> with(array(
+        $DepPosts=self::model()->working()->with(array(
             'personnelPostsHistories'=>array(
                 'joinType'=>'LEFT JOIN',
                 'alias'=>'personnelPostsHistories',
