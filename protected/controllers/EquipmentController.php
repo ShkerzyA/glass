@@ -194,7 +194,7 @@ public function actionCartSearch(){
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-		$oldModWp=$model->id_workplace;
+		$old_model=clone $model;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -203,21 +203,36 @@ public function actionCartSearch(){
 		{
 			$model->attributes=$_POST['Equipment'];
 			if($model->save()){
-				if($oldModWp!=$model->id_workplace){
-					$log=new EquipmentLog;
-					$log->saveLog('moveEq',array('details'=>array($oldModWp,$model->id_workplace),'object'=>$model->id));
-					
-					if(!empty($model->equipments))
-					foreach ($model->equipments as $eqId) {
-						if($eqId->id_workplace==$oldModWp){
-							$eqId->id_workplace=$model->id_workplace;
-							$eqId->save();
-							$log=new EquipmentLog;
-							$log->saveLog('moveEq',array('details'=>array($oldModWp,$eqId->id_workplace),'object'=>$eqId->id));	
+				foreach ($model->attributes as $k => $v) {
+					$chanded=array();
+					if($v!=$old_model->$k){
+						switch ($k) {
+							case 'id_workplace':
+								$log=new EquipmentLog;
+								$log->saveLog('moveEq',array('details'=>array($old_model->id_workplace,$model->id_workplace),'object'=>$model->id));
+								if(!empty($model->equipments))
+								foreach ($model->equipments as $eqId) {
+									if($eqId->id_workplace==$old_model->id_workplace){
+										$eqId->id_workplace=$model->id_workplace;
+										$eqId->save();
+										$log=new EquipmentLog;
+										$log->saveLog('moveEq',array('details'=>array($old_model->id_workplace,$eqId->id_workplace),'object'=>$eqId->id));	
+									}
+								}
+								break;
+							default:
+							$chanded[]=$model->getAttributeLabel($k).": ".$old_model->$k."/".$v."\n";
+								break;
 						}
 					}
+					if(!empty($chanded)){
+						$info=implode(' ',$chanded);
+						$log=new EquipmentLog;
+						$log->saveLog('chEq',array('details'=>array($info),'object'=>$model->id));
+					}
 				}
-				$this->redirect(array('/Workplace/view','id'=>$oldModWp));
+
+				$this->redirect(array('/Workplace/view','id'=>$old_model->id_workplace));
 			}
 		
 		}

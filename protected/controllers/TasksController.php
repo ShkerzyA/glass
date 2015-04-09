@@ -107,7 +107,7 @@ class TasksController extends Controller
 		$dt=($date=='current_date')?date('d.m.Y'):$date;
 
 		
-		$filename ='report.odt';
+		$filename ='reportOtd.odt';
 		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/tpl/'.$filename);
 		$user=Yii::app()->user;
 
