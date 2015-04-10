@@ -11,7 +11,9 @@
 
 var timem="<?php echo date('Y-m-d H:i:s');?>";
 var viewChat=<?php echo Yii::app()->user->viewChat;?>;
+var timeout=null;
 function init(){
+    keypressing=0;
     $('.messenger').live('mouseenter',function(){
         $(".mess_head").css("background","black");
     });
@@ -21,14 +23,17 @@ function init(){
         }
     });
 
-    $('#Messages_ttext').live('focus',function(){
-        Socket.ws.send('{"type":"action","id":"onWrite"}');
+    $('#Messages_ttext').live('keydown',function(){
+        if(keypressing==0){
+            keypressing=1;
+            Socket.ws.send('{"type":"action","id":"onWrite"}');    
+        }
+        if(globalTimeout != null) clearTimeout(globalTimeout);  
+        globalTimeout =setTimeout(function(){ 
+            Socket.ws.send('{"type":"action","id":"onWriteOut"}'); 
+            keypressing=0;
+        },1000);          
     });
-
-    $('#Messages_ttext').live('focusout',function(){
-        Socket.ws.send('{"type":"action","id":"onWriteOut"}');
-    });
-
     /*
     setInterval(function(){
         updateChat();
