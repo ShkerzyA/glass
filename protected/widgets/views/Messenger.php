@@ -45,11 +45,14 @@ function init(){
 
 }
 function onWrite(user){
-    $('#Messages_ttext').attr('placeholder',user+'набирает сообщение');
+    //$('#Messages_ttext').attr('placeholder',user+'набирает сообщение');
+    $('#mess_info').empty();
+    $('#mess_info').append(user+'набирает сообщение');
 }
 
 function onWriteOut(){
-    $('#Messages_ttext').attr('placeholder','текст сообщения (enter)');
+    //$('#Messages_ttext').attr('placeholder','текст сообщения (enter)');
+    $('#mess_info').empty();
 }
 
 function updateMon(){
@@ -110,6 +113,7 @@ window.onload=function(){
             </div>
            <!-- <div id=MessLock style=""><img height=100% src='<?php echo Yii::app()->baseUrl ?>/images/load.gif'> </div> -->
             <div class="mess_form">
+                <div id='mess_info'></div>
             <?php echo CHtml::form();
  
 echo CHtml::textArea('Messages[ttext]','',array('placeholder'=>'текст сообщения (enter)'));

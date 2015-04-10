@@ -313,6 +313,12 @@ h4.subscribe{
 	font-weight: bold;
 }
 
+#mess_info{
+	height: 14px;
+	font-size: 8pt;
+	color: grey;
+}
+
 #MessLock{
 position: absolute; 
 margin: 0px; 
