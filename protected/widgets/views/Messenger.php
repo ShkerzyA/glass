@@ -28,8 +28,8 @@ function init(){
             keypressing=1;
             Socket.ws.send('{"type":"action","id":"onWrite"}');    
         }
-        if(globalTimeout != null) clearTimeout(globalTimeout);  
-        globalTimeout =setTimeout(function(){ 
+        if(timeout != null) clearTimeout(timeout);  
+        timeout =setTimeout(function(){ 
             Socket.ws.send('{"type":"action","id":"onWriteOut"}'); 
             keypressing=0;
         },1000);          
