@@ -152,7 +152,7 @@ class Tasks extends CActiveRecord
 		return array(
 			array('type, creator, id_department, status', 'numerical', 'integerOnly'=>true),
 			array('details','checkDetails'),
-			array('tname', 'required'),
+			array('tname, id_department', 'required'),
 			array('tname', 'length', 'max'=>100),
 			array('group', 'length', 'max'=>255),
 			//array('details', 'length', 'max'=>255),
