@@ -108,13 +108,13 @@ h4.subscribe{
 .rightinfo{
 	z-index: 9;
 	background: inherit;
-	height: 20px;
+	height: 24px;
 	word-spacing: nowrap; 
 	position: relative;
 	float: right;
 	width: auto;
 	min-width: 25%;
-	top: 1px;
+	top: 0px;
 	right: 1px;
 }
 
