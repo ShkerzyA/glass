@@ -51,7 +51,8 @@
 						//print_r($v->TasksActions[0]->creator0);
 					
 						$rep='';
-						echo '<div class="hiddeninfotask rotated texttask">';
+						echo '<div class="hiddeninfotask rotated">';
+						echo'<span></span>';
 						foreach ($v->TasksActions as $action) {
 							if($action->type==1)
 								continue;
@@ -67,7 +68,7 @@
 
 						}
 
-						echo'<span></span></div>';
+						echo'</div>';
 						
 
 						echo'</div>';
@@ -76,11 +77,12 @@
 				
 				
 			</div>
-			<span>
-
-			<?php echo '<div style="float: left; width: auto; overflow: hidden">'.$v->ico().'<a href=/glass/tasks/'.$v->id.'>'.$v['tname'].' <span class=gray>'.$v->detailsShow(true).'</span></a></div>'; ?>
+			<div class="leftinfo">
+				<?php echo $v->ico().'<a href=/glass/tasks/'.$v->id.'>'.$v['tname'].' <span class=gray>'.$v->detailsShow(true).'</span></a>'; ?>
 			
-			<div class="texttask rotated"><pre><?php echo $v->detailsShow().'<br>'. $v['ttext']; ?></pre></div></span>
+				
+			</div>
+			<div class="texttask rotated"><pre><?php echo $v->detailsShow().'<br>'. $v['ttext']; ?></pre></div>
 		</div>
 <?php endforeach; ?>
 

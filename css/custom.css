@@ -106,9 +106,14 @@ h4.subscribe{
 }
 
 .rightinfo{
+	z-index: 9;
+	background: inherit;
 	height: 20px;
 	word-spacing: nowrap; 
-	position: absolute;
+	position: relative;
+	float: right;
+	width: auto;
+	min-width: 25%;
 	top: 1px;
 	right: 1px;
 }
@@ -117,6 +122,18 @@ h4.subscribe{
 	float: right;
 }
 
+.leftinfo{
+	position: absolute;
+	top: 0px;
+	float: left; 
+	width: 99%;
+	height: 100%;
+	overflow: hidden;
+}
+
+.leftinfo * {
+	white-space: nowrap; 
+}
 
 .taskmoreinfo{
 	display: inline-block;
@@ -134,8 +151,8 @@ h4.subscribe{
 }
 
 .hiddeninfotask{
-	min-width: 10px;
-	min-height: 10px;
+	min-width: 30px;
+	min-height: 30px;
 	white-space: nowrap;
 	z-index: 99;
 	position: absolute;
@@ -155,19 +172,31 @@ h4.subscribe{
 }
 
 
-.taskpanel span:hover .texttask{
+.leftinfo:hover ~ .texttask, .texttask:hover{
 	display: block;
 }
 
+.taskpanel:hover .taskmoreinfo.texttask{
+	display: none;
+}
 
 .texttask{
+	min-width: 600px;
+	min-height: 30px;
 	position: absolute;
-	z-index: 5;
+	padding: 0px;
+	top: 0px;
+	z-index: 10;
 	background: #fcfcfc;
 	display: none;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;
 	transition: opacity .4s ease 0s, height .4s ease 0s;
 }
+
+.texttask *{
+	white-space: normal;
+}
+
 .taskpanel:hover{
 	z-index: 4;
 }
@@ -240,6 +269,7 @@ h4.subscribe{
         font-size:16px;
         font-weight:bold;
 }
+
 
 
 .rep, .myrep{
@@ -352,6 +382,7 @@ display: none;
 .mess_unit{
 	position: relative; 
 	min-height: 30px;
+	max-width: 96%;
 
 }
 
@@ -804,7 +835,7 @@ select{
 	margin: 5px;
 	margin-top: 10px;
 	height: 26px; 
-	width: auto;
+	width: 100%;
 	position: relative;
 }
 
@@ -814,7 +845,6 @@ select{
 }
 
 .perspanel{
-
 	overflow: hidden;
 }
 
@@ -862,11 +892,12 @@ select{
 
 .done{
 	background: #ebf4e6;
-	z-index: 1;
+	z-index: 2;
  	position: relative;
 }
 
 .neurtal{
+	z-index: 1;
 	background: #fafafa;
 	color: gray; 
 }
