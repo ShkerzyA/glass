@@ -131,6 +131,15 @@ class Equipment extends CActiveRecord
 		return $res;
 	}
 
+	public function neighborsEq(){
+		$result=array('values'=>array());
+		$models=self::model()->findAll(array('condition'=>'t.id_workplace='.$this->id_workplace.' and t.id<>'.$this->id.' and t.type not in (18)'));
+		foreach ($models as $m) {
+			$result['values'][$m->id]=$m->full_name();
+		}
+		return $result;
+	}
+
 	public static function cartMassMovie($type,$inv){
 
 		$carts=array();
@@ -271,6 +280,7 @@ class Equipment extends CActiveRecord
 			'status' => 'Состояние',
 			'notes' => 'Примечания',
 			'place' => 'Местоположение',
+			'parent_id' => 'Привязка',
 			'ip' => 'IP',
 			'mac' => 'MAC',
 			'idWorkplaceid_workplace' => 'Рабочее место',

@@ -130,9 +130,9 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row">
 		<?php echo $form->labelEx($model,'parent_id'); ?>
 
-		<?php echo $form->textField($model,'parent_id',array('size'=>60,'maxlength'=>100,'autocomplete'=>"off")); ?>
-
-		<?php echo $form->error($model,'parent_id'); ?>
+		<?php $tmp=$model->neighborsEq();
+			echo $form->dropDownList($model,'parent_id',$tmp['values'],array('empty' => ''));
+		 	echo $form->error($model,'parent_id'); ?>
 	</div>
 <?php endif; ?>
 
