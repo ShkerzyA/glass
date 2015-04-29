@@ -750,8 +750,8 @@ select{
     border-radius: 2px 2px 0 0;
     box-shadow: 2px -2px 2px rgba(0, 0, 0, 0.1), -2px -2px 2px rgba(0, 0, 0, 0.1), 0 -90px 20px -100px #000000 inset;
 
-	margin: auto;
-	overflow-y: auto;
+	margin: auto; 
+	overflow: hidden;
 	max-height: 400px;
 	padding: 3px;
 
@@ -767,7 +767,8 @@ select{
 
 
 .window_awesom div{
-	overflow: hidden;
+	overflow-y: auto;
+	max-height: 400px;
 }
 
 .window_awesom .body_res {
