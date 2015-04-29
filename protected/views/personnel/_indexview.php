@@ -21,7 +21,7 @@
 		</div>
 		<?php 
 			if($act){
-				echo '<div style="width: 500px; display: inline-block; float: left">'.$data->personnelPostsHistories[0]->idPost->post.'/'.$data->personnelPostsHistories[0]->idPost->postSubdivRn->name.'</div>';
+				echo '<div style="width: 500px; display: inline-block; float: left">'.$data->personnelPostsHistories[0]->postInfo().'</div>';
 			}
 		?>
 	</a>

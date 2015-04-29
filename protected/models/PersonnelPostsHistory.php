@@ -83,6 +83,16 @@ class PersonnelPostsHistory extends CActiveRecord
         
     }
 
+
+    public function postInfo(){
+    	if(!empty($this->idPost)){
+    		return $this->idPost->post.'/'.$this->idPost->postSubdivRn->name;
+    	}else{
+    		return '-//-';
+    	}
+    		
+    }
+
 	/**
 	 * @return array relational rules.
 	 */

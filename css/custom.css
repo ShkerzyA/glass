@@ -835,7 +835,7 @@ select{
 	margin: 5px;
 	margin-top: 10px;
 	height: 26px; 
-	width: 100%;
+	width: auto;
 	position: relative;
 }
 
