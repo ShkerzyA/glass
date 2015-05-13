@@ -67,6 +67,7 @@ public function actionSuggest(){
 				$name='';
 			}
 
+			$modelN=(!empty($_POST['modelN']))?$_POST['modelN']:NULL;
 
 			if(!empty($name)){
 
@@ -80,7 +81,7 @@ public function actionSuggest(){
 				$model=NULL;
 			}
 			
-			$this->renderPartial('operSearch', array('name'=>$name,'model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$_POST['modelN']), false, true);
+			$this->renderPartial('operSearch', array('name'=>$name,'model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$modelN), false, true);
 		}else{
 			exit();
 		}

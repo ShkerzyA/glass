@@ -8,6 +8,7 @@
 <div class="back_in_black"></div>
 <div class="window_awesom">
 <div id="back" class='close_this'></div>
+<div>
 <br>
 <?php 
 	foreach ($model as $v){
@@ -17,5 +18,5 @@
 		
 	}
 ?>
-
+</div>
 </div></div><!-- form -->
