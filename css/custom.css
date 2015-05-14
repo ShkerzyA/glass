@@ -754,6 +754,7 @@ select{
 	overflow: hidden;
 	max-height: 400px;
 	padding: 3px;
+	padding-bottom: 40px;
 
 	position: absolute;
 	text-align: left;
