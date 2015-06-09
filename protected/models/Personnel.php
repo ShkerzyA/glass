@@ -205,6 +205,11 @@ class Personnel extends CActiveRecord
 	/**
 	 * @return array relational rules.
 	 */
+    public function username(){
+        if(!empty($this->idUser))
+            return $this->idUser->username;
+    }
+
 	public function relations()
 	{
 		// NOTE: you may need to adjust the relation name and the related
@@ -265,7 +270,7 @@ class Personnel extends CActiveRecord
         $criteria=new CDbCriteria;
 
         $criteria->with=array('EventsActions' => array('alias' => 'EventsActions'),'personnelPostsHistories' => array('alias' => 'personnelpostshistory'),'workplaces' => array('alias' => 'workplace'),'idUser' => array('alias' => 'users'));
-        $criteria->compare('id',$this->id);
+        $criteria->compare('t.id',$this->id);
         $criteria->compare('surname',$this->surname,true);
         $criteria->compare('name',$this->name,true);
         $criteria->compare('patr',$this->patr,true);

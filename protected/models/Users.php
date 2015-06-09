@@ -92,6 +92,11 @@ public $personnelsid_user;
 		);
 	}
 
+	public function post(){
+		if(!empty($this->idPost))
+			return $this->idPost->post;
+	}
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -122,7 +127,7 @@ public $personnelsid_user;
 		$criteria=new CDbCriteria;
 
 		$criteria->with=array('usersRules' => array('alias' => 'usersrules'),'idPost' => array('alias' => 'usersposts'),'personnels' => array('alias' => 'personnel'),);
-		$criteria->compare('id',$this->id);
+		$criteria->compare('t.id',$this->id);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
 		if(!empty($_GET['id_post']))
