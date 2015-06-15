@@ -1,3 +1,4 @@
 <?php
-echo "<tr><th colspan=6>".$date."</th></tr>";
+$colspan=($rul)?6:5;
+echo "<tr><th colspan=".$colspan.">".$date."</th></tr>";
 ?>

@@ -22,7 +22,7 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
    foreach ($model->equipments as $data){
       if($model->type=2 and !empty($data->EquipmentLog) and $data->EquipmentLog[0]->timestamp!=$date){
          $date=$data->EquipmentLog[0]->timestamp;
-         $this->renderPartial('/equipment/_date',array('date'=>$date),false,false);
+         $this->renderPartial('/equipment/_date',array('date'=>$date,'rul'=>$rul),false,false);
       }
       $this->renderPartial('/equipment/_view',array('data'=>$data,'status'=>$status,'rul'=>$rul),false,false);
    }
