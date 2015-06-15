@@ -62,6 +62,7 @@ class WorkplaceController extends Controller
 		$model=$this->loadModel($id);
 		switch ($model->type) {
 			case '1':
+			case '2':
         		$result=$model->eqCount();
         		$info=$this->renderPartial('/equipment/storagetableview',array('equipments'=>$result),true,false); 
 				break;
@@ -233,6 +234,18 @@ class WorkplaceController extends Controller
 		$model=Workplace::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
+		switch ($model->type) {
+			case '2':
+					$model=Workplace::model()->with(array(
+			'equipments',
+			//'equipments.EquipmentLog',
+			'equipments.EquipmentLog'=>array('joinType'=>'LEFT JOIN','alias'=>"EquipmentLog",'on'=>'1<>1) OR ("EquipmentLog".type in (3) and "equipments".inv=ANY("EquipmentLog"."details")'),
+			))->find(array('condition'=>'t.id='.$id,'order'=>'"EquipmentLog".timestamp DESC'));
+				break;
+			
+			default:
+				break;
+		}
 		return $model;
 	}
 

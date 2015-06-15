@@ -84,7 +84,7 @@ array(
 <?php
 	  if(!empty($model->equipments)){
       echo $info;
-      $this->renderPartial('/equipment/tableview',array('equipments'=>$model->equipments),false,false);   
+      $this->renderPartial('/equipment/tableview',array('model'=>$model),false,false);   
     } 
 	?>
     

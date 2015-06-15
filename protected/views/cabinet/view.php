@@ -55,6 +55,7 @@ $this->renderPartial('/workplace/storages');
 			if(!empty($wp->equipments)){
 				switch ($wp->type) {
 					case '1':
+					case '2':
 						$this->renderPartial('/equipment/storagetableview',array('equipments'=>$wp->eqCount()),false,false); 
 						break;
 					
