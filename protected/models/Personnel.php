@@ -169,7 +169,7 @@ class Personnel extends CActiveRecord
 	}
 
     public function posts(){
-        $res='';
+        $res=array();
         if(!empty($this->personnelPostsHistories)){
             foreach ($this->personnelPostsHistories as $v) {
                 if($v->working())
@@ -313,7 +313,7 @@ class Personnel extends CActiveRecord
         $criteria2=new CDbCriteria;
             $criteria2->compare('LOWER(t.surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(t.name)',mb_strtolower($v,'UTF-8'),true, 'OR');
-            $criteria2->compare('LOWER(t.patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            //$criteria2->compare('LOWER(t.patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(department_posts.post)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(cabinet.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );

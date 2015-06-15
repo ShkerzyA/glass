@@ -12,34 +12,37 @@
 )); ?>
 
 	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
+	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+   'name' => 'timestamp',
+   'model' => $model,
+   'attribute' => 'timestamp',
+   'language' => 'ru',
+   'options' => array(
+       'showAnim' => 'fold',
+   	),
+  	'htmlOptions' => array(
+  		'placeholder'=> 'ОТ',
+       	'style' => 'height:20px; width: 40%;'
+   	),
+	));?>
+
+	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+   'name' => 'timestamp_end',
+   'model' => $model,
+   'attribute' => 'timestamp_end',
+   'language' => 'ru',
+   'options' => array(
+       'showAnim' => 'fold',
+   ),
+   'htmlOptions' => array(
+   		'placeholder'=> 'ДО',
+       	'style' => 'height:20px; width: 40%;'
+   ),
+	));?>
 	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'timestamp'); ?>
-		<?php echo $form->textField($model,'timestamp'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'subject'); ?>
-		<?php echo $form->textField($model,'subject'); ?>
-	</div>
 
-	<div class="row">
-		<?php echo $form->label($model,'object'); ?>
-		<?php echo $form->textField($model,'object'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'type'); ?>
-		<?php echo $form->textField($model,'type'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'details'); ?>
-		<?php echo $form->textField($model,'details'); ?>
-	</div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Искать'); ?>

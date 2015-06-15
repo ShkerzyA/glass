@@ -43,6 +43,7 @@ class EquipmentLog extends CActiveRecord
 	
 	public $subject0subject;
 	public $object0object;
+	public $timestamp_end;
 
 
 	public static function model($className=__CLASS__)
@@ -162,7 +163,14 @@ class EquipmentLog extends CActiveRecord
 		public function details_full(){
 		switch ($this->type) {
 			case '0':
-				return 'Откуда: '.Workplace::model()->findByPk($this->details[0])->wpNameFull()."\n\n Куда: ".Workplace::model()->findByPk($this->details[1])->wpNameFull();
+				$d0='';
+				$d1='';
+				if(!empty($this->details[0]) and !empty($x0=Workplace::model()->findByPk($this->details[0])))
+					$d0=$x0->wpNameFull();
+				if(!empty($this->details[1]) and !empty($x1=Workplace::model()->findByPk($this->details[1])))
+					$d1=$x1->wpNameFull();
+
+				return 'Откуда: '.$d0."\n\n Куда: ".$d1;
 				break;
 			case '1':
 				$printer=(isset($this->details[1]))?Equipment::model()->findByPk($this->details[1])->full_name():'';
@@ -308,6 +316,32 @@ class EquipmentLog extends CActiveRecord
 
 	}
 
+	
+
+	public function search_for_index(){
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+		$criteria->with=array('subject0','objectEq.idWorkplace.idPersonnel','objectEq.idWorkplace.idCabinet.idFloor.idBuilding'); //
+		if(!empty($this->details))
+			$criteria->addCondition(array('condition'=>"'".$this->details."'=ANY(t.details)"));
+		$criteria->compare('t.id',$this->id);
+		$criteria->compare('t."timestamp"::text',$this->timestamp,true);
+		$criteria->compare('subject',$this->subject);
+		$criteria->compare('object',$this->object);
+		$criteria->compare('t.type',$this->type);
+		$criteria->compare('personnel.surname',$this->subject0subject,true);
+		$criteria->compare('equipment.inv',$this->object0object,true, 'OR');
+		$criteria->compare('equipment.serial',$this->object0object,true,'OR');
+		$criteria->order='t.timestamp DESC';
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+	}
+
+
+
 
 	public function search()
 	{
@@ -317,7 +351,7 @@ class EquipmentLog extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->with=array('subject0' => array('alias' => 'personnel'),'objectEq' => array('alias' => 'equipment'),);
-
+		
 		if(!empty($this->details))
 			$criteria->addCondition(array('condition'=>"'".$this->details."'=ANY(t.details)"));
 		$criteria->compare('t.id',$this->id);
