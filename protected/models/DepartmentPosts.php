@@ -79,18 +79,18 @@ class DepartmentPosts extends CActiveRecord
     }
 
 
-    public function freeOnly()
-    {   
-        return True;
-    	if(!empty($_POST['DepartmentPosts']))
-    		$this->attributes=$_POST['DepartmentPosts'];
-    	$Ph=PersonnelPostsHistory::model()->findAll(array('condition'=>"id_post=".$this->id." and (date_end is null or date_end>current_date)"));
-        if (!empty($Ph)){
-        	return False;
+
+    public static function colleagues($id_dep){
+        $res=array();
+        $mod=self::model()->with('postSubdivRn','personnelPostsHistories:working','personnelPostsHistories.idPersonnel')->findAll(array('condition'=>"\"postSubdivRn\".id=".$id_dep."",'order'=>'"idPersonnel".surname ASC'));
+        foreach ($mod as $v) {
+            foreach ($v->personnelPostsHistories as $x) {
+                if(!empty($x))
+                    $res[$x->idPersonnel->id]=$x->idPersonnel->fio_full();
+            }
+            
         }
-        else {
-        	return True;
-        }
+        return $res;
     }
 	/**
 	 * @return array relational rules.
@@ -99,7 +99,7 @@ class DepartmentPosts extends CActiveRecord
         // NOTE: you may need to adjust the relation name and the related
         // class name for the relations automatically generated below.
         return array(
-            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post','alias'=>'personnelPostsHistories','order'=>'"personnelPostsHistories".date_end DESC, "personnelPostsHistories".date_begin DESC'),
+            'personnelPostsHistories' => array(self::HAS_MANY, 'PersonnelPostsHistory', 'id_post','alias'=>'personnelPostsHistories','order'=>'"personnelPostsHistories".date_end DESC'),
             'postSubdivRn' => array(self::BELONGS_TO, 'Department', 'post_subdiv_rn'),
         );
     }

@@ -269,7 +269,7 @@ class Personnel extends CActiveRecord
 
         $criteria=new CDbCriteria;
 
-        $criteria->with=array('EventsActions' => array('alias' => 'EventsActions'),'personnelPostsHistories' => array('alias' => 'personnelpostshistory'),'workplaces' => array('alias' => 'workplace'),'idUser' => array('alias' => 'users'));
+        $criteria->with=array('EventsActions' => array('alias' => 'EventsActions'),'personnelPostsHistories' => array('scopes' => 'working','alias' => 'personnelpostshistory'),'workplaces' => array('alias' => 'workplace'),'idUser' => array('alias' => 'users'));
         $criteria->compare('t.id',$this->id);
         $criteria->compare('surname',$this->surname,true);
         $criteria->compare('name',$this->name,true);
@@ -302,7 +302,7 @@ class Personnel extends CActiveRecord
             'idUser' => array('alias' => 'users'),
             'workplaces' => array('alias' => 'workplace','together'=>True),
             'workplaces.idCabinet' => array('alias' => 'cabinet','together'=>True),
-            'personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL",'together'=>True),
+            'personnelPostsHistories:working' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','together'=>True),
             'personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
             'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
 

@@ -206,8 +206,12 @@ class EquipmentLogController extends Controller
 	 */
 	public function actionIndex()
 	{
+		
 		$model=new EquipmentLog('search_for_index');
 		$model->unsetAttributes();  // clear any default values
+		$model->timestamp=date('Y-m-d');
+		if(isset($_GET['EquipmentLog']))
+			$model->attributes=$_GET['EquipmentLog'];
 		$dataProvider=new CActiveDataProvider('EquipmentLog');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,'model'=>$model,'modelLabelP'=>EquipmentLog::$modelLabelP,

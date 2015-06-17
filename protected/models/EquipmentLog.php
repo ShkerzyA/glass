@@ -111,6 +111,15 @@ class EquipmentLog extends CActiveRecord
 		return $res;
 	}
 
+	public function subjectList(){
+		$res=array();
+		if(!empty(Yii::app()->user->id_departments[0]))
+			$res=DepartmentPosts::colleagues(Yii::app()->user->id_departments[0]);
+		//Тут находим всех коллег, и выводим списком
+		return $res;
+	}
+
+
 
 	public function getType(){
 		if(isset($this->type))
@@ -241,11 +250,11 @@ class EquipmentLog extends CActiveRecord
 		return array(
 			array('subject, object, type', 'numerical', 'integerOnly'=>true),
 			array('details','pgArray'),
-			array('timestamp, details', 'safe'),
+			array('timestamp,timestamp_end,details', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, timestamp, subject, object, type, details,subject0subject,object0object', 'safe', 'on'=>'search'),
+			array('id,timestamp,timestamp_end,subject,object,type,details,subject0subject,object0object', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -270,6 +279,7 @@ class EquipmentLog extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'timestamp' => 'Дата/время действия',
+			'timestamp_end' => 'Опциональный фильтр',
 			'subject' => 'Субъект',
 			'object' => 'Объект',
 			'type' => 'Тип действия',
@@ -328,15 +338,20 @@ class EquipmentLog extends CActiveRecord
 			$criteria->addCondition(array('condition'=>"'".$this->details."'=ANY(t.details)"));
 		$criteria->compare('t.id',$this->id);
 		$criteria->compare('t."timestamp"::text',$this->timestamp,true);
-		$criteria->compare('subject',$this->subject);
 		$criteria->compare('object',$this->object);
-		$criteria->compare('t.type',$this->type);
+		if(!empty($this->subject) and !empty($this->subject[0]))
+			$criteria->addCondition(array('condition'=>"t.subject in (".implode(',',$this->subject).")"));
+		if(!empty($this->type) and !empty($this->type[0]))
+			$criteria->addCondition(array('condition'=>"t.type in (".implode(',',$this->type).")"));
 		$criteria->compare('personnel.surname',$this->subject0subject,true);
 		$criteria->compare('equipment.inv',$this->object0object,true, 'OR');
 		$criteria->compare('equipment.serial',$this->object0object,true,'OR');
-		$criteria->order='t.timestamp DESC';
+		$criteria->order='t.timestamp DESC, t.type DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array(
+                'pageSize'=>30,
+            ),
 		));
 	}
 
@@ -355,15 +370,24 @@ class EquipmentLog extends CActiveRecord
 		if(!empty($this->details))
 			$criteria->addCondition(array('condition'=>"'".$this->details."'=ANY(t.details)"));
 		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t."timestamp"::text',$this->timestamp,true);
+		if(!empty($this->timestamp)){
+			if(!empty($this->timestamp_end)){
+				$criteria->addCondition(array('condition'=>"t.timestamp>'".$this->timestamp." 00:00:00' and t.timestamp<'".$this->timestamp_end." 23:59:59'"));
+			}else{
+				$criteria->addCondition(array('condition'=>"t.timestamp>'".$this->timestamp." 00:00:00' and t.timestamp<'".$this->timestamp." 23:59:59'"));
+			}
+		}
+		//$criteria->compare('t."timestamp"::text',$this->timestamp,true);
+		if(!empty($this->details))
+			$criteria->addCondition(array('condition'=>"'".$this->details."'=ANY(t.details)"));
 		$criteria->compare('subject',$this->subject);
 		$criteria->compare('object',$this->object);
 		$criteria->compare('t.type',$this->type);
 		$criteria->compare('personnel.surname',$this->subject0subject,true);
 		$criteria->compare('equipment.inv',$this->object0object,true, 'OR');
-		$criteria->compare('equipment.serial',$this->object0object,true,'OR');
+		$criteria->compare('equipment.serialf',$this->object0object,true,'OR');
 
-		$criteria->order='t.timestamp DESC';
+		$criteria->order='t.timestamp DESC, t.type DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

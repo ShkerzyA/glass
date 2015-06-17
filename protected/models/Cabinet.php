@@ -158,7 +158,7 @@ class Cabinet extends CActiveRecord
             
             'workplaces' => array('alias' => 'workplace','together'=>True),
             'workplaces.idPersonnel' => array('alias' => 'personnel'),
-            'workplaces.idPersonnel.personnelPostsHistories' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"\"personnelPostsHistories\".date_end is NULL",'together'=>True),
+            'workplaces.idPersonnel.personnelPostsHistories:working' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"",'together'=>True),
             'workplaces.idPersonnel.personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
             'workplaces.idPersonnel.personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
 

@@ -813,6 +813,41 @@ select{
 	overflow: hidden;
 }
 
+.logtable{
+	width: 99%;
+	margin: 10px;
+}
+
+.logtable, .logtable td, .logtable th {
+	font-size: 9pt;
+	border: 1px solid #d4d4d4;
+	border-collapse: none;
+	/* white-space: pre-wrap; */
+	overflow: hidden;
+}
+
+.logtable th{
+	background: #040404;
+	color: white;
+	overflow: hidden;
+}
+
+
+
+.logtable .t1 td{
+	box-shadow: inset 0px -20px 10px -10px #bababa;
+	background: #eff8ea;
+}
+
+.logtable .t2 td{
+	background: #eff8ea;
+}
+
+.logtable .t5 td{
+	box-shadow: inset 0px 20px 10px -10px #bababa;
+	background: #eff8ea;
+}
+
 .printtable, .printtable *{
 	border: 1px solid #d4d4d4;
 	border-collapse: none;

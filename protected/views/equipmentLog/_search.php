@@ -12,6 +12,7 @@
 )); ?>
 
 	<div class="row">
+    <?php echo $form->labelEx($model,'timestamp'); ?>
 	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
    'name' => 'timestamp',
    'model' => $model,
@@ -19,13 +20,15 @@
    'language' => 'ru',
    'options' => array(
        'showAnim' => 'fold',
+       'dateFormat'=>'yy-mm-dd',
+
    	),
   	'htmlOptions' => array(
   		'placeholder'=> 'ОТ',
-       	'style' => 'height:20px; width: 40%;'
+       	'style' => 'height:20px; width: 30%;'
    	),
 	));?>
-
+  <?php echo $form->labelEx($model,'timestamp_end'); ?>
 	<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
    'name' => 'timestamp_end',
    'model' => $model,
@@ -33,14 +36,29 @@
    'language' => 'ru',
    'options' => array(
        'showAnim' => 'fold',
+       'dateFormat'=>'yy-mm-dd',
    ),
    'htmlOptions' => array(
    		'placeholder'=> 'ДО',
-       	'style' => 'height:20px; width: 40%;'
+       	'style' => 'height:20px; width: 30%;'
    ),
 	));?>
 	</div>
+  <div class="row">
+    <?php echo $form->labelEx($model,'subject'); ?>
 
+    <?php echo $form->dropDownList($model,'subject',$model->subjectList(),array('style' => 'height: 100px;', 'multiple' => 'multiple','empty' => '',)); ?>
+
+    <?php echo $form->error($model,'subject'); ?>
+  </div>
+
+    <div class="row">
+    <?php echo $form->labelEx($model,'type'); ?>
+
+    <?php echo $form->dropDownList($model,'type',$model->filterType(),array('style' => 'height: 100px;', 'multiple' => 'multiple','empty' => '')); ?>
+
+    <?php echo $form->error($model,'type'); ?>
+  </div>
 
 
 
@@ -51,3 +69,4 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- search-form -->
+<div style="clear: both"></div>

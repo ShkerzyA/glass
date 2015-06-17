@@ -68,7 +68,7 @@ $this->menu=array(
 				echo'<div>Кабинет: <a href="/glass/Cabinet/'.$wp->idCabinet->id.'"">"'.CHtml::encode($wp->idCabinet->cname).' каб. №'.CHtml::encode($wp->idCabinet->num).'" '.CHtml::encode($wp->idCabinet->idFloor->fname).' '.CHtml::encode($wp->idCabinet->idFloor->idBuilding->bname).'</a></div>';
 			}
 			if(!empty($wp->equipments)) 
-				$this->renderPartial('/equipment/tableview',array('equipments'=>$wp->equipments)); 
+				$this->renderPartial('/equipment/tableview',array('model'=>$wp)); 
 		}
 	?>
 

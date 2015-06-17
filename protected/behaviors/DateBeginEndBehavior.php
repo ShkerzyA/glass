@@ -7,10 +7,11 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
         return $this->owner;
     }
 
+    /*
     public function scopeWorking(){
         $alias=$this->owner->getTableAlias();
-        return array('criteria'=>"($alias.date_end is null or $alias.date_end>current_date) and 1=2"); // возвращаем массив условий, которые должны применяться. В массиве, кроме condition, могут использоваться и другие элементы, используемые в yii-запросах: order, limit и т.д.
-    }
+        return array('criteria'=>"($alias.date_end is null or $alias.date_end>current_date)"); // возвращаем массив условий, которые должны применяться. В массиве, кроме condition, могут использоваться и другие элементы, используемые в yii-запросах: order, limit и т.д.
+    } */
 
     public function inactive(){
         if(empty($this->owner->date_end))
