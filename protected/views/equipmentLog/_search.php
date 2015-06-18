@@ -47,7 +47,7 @@
   <div class="row">
     <?php echo $form->labelEx($model,'subject'); ?>
 
-    <?php echo $form->dropDownList($model,'subject',$model->subjectList(),array('style' => 'height: 100px;', 'multiple' => 'multiple','empty' => '',)); ?>
+    <?php echo $form->dropDownList($model,'subject',$model->subjectList(),array('style' => 'height: 100px;', 'multiple' => 'multiple')); ?>
 
     <?php echo $form->error($model,'subject'); ?>
   </div>
@@ -55,7 +55,7 @@
     <div class="row">
     <?php echo $form->labelEx($model,'type'); ?>
 
-    <?php echo $form->dropDownList($model,'type',$model->filterType(),array('style' => 'height: 100px;', 'multiple' => 'multiple','empty' => '')); ?>
+    <?php echo $form->dropDownList($model,'type',$model->filterType(),array('style' => 'height: 100px;', 'multiple' => 'multiple')); ?>
 
     <?php echo $form->error($model,'type'); ?>
   </div>
