@@ -345,9 +345,9 @@ class EquipmentLog extends CActiveRecord
 			}
 		}
 		$criteria->compare('object',$this->object);
-		if(!empty($this->subject) and !empty($this->subject[0]))
+		if(!empty($this->subject))
 			$criteria->addCondition(array('condition'=>"t.subject in (".implode(',',$this->subject).")"));
-		if(!empty($this->type) and !empty($this->type[0]))
+		if(!empty($this->type))
 			$criteria->addCondition(array('condition'=>"t.type in (".implode(',',$this->type).")"));
 		$criteria->compare('personnel.surname',$this->subject0subject,true);
 		$criteria->compare('equipment.inv',$this->object0object,true, 'OR');
