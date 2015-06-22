@@ -250,11 +250,11 @@ class EquipmentLog extends CActiveRecord
 		return array(
 			array('subject, object, type', 'numerical', 'integerOnly'=>true),
 			array('details','pgArray'),
-			array('timestamp,timestamp_end,details', 'safe'),
+			array('timestamp,timestamp_end, details','safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id,timestamp,timestamp_end,subject,object,type,details,subject0subject,object0object', 'safe', 'on'=>'search'),
+			array('id, timestamp, timestamp_end, subject,object,type,details,subject0subject,object0object', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -337,7 +337,13 @@ class EquipmentLog extends CActiveRecord
 		if(!empty($this->details))
 			$criteria->addCondition(array('condition'=>"'".$this->details."'=ANY(t.details)"));
 		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t."timestamp"::text',$this->timestamp,true);
+		if(!empty($this->timestamp)){
+			if(!empty($this->timestamp_end)){
+				$criteria->addCondition(array('condition'=>"t.timestamp>'".$this->timestamp." 00:00:00' and t.timestamp<'".$this->timestamp_end." 23:59:59'"));
+			}else{
+				$criteria->addCondition(array('condition'=>"t.timestamp>'".$this->timestamp." 00:00:00' and t.timestamp<'".$this->timestamp." 23:59:59'"));
+			}
+		}
 		$criteria->compare('object',$this->object);
 		if(!empty($this->subject) and !empty($this->subject[0]))
 			$criteria->addCondition(array('condition'=>"t.subject in (".implode(',',$this->subject).")"));
