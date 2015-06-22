@@ -49,8 +49,5 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$model->search_for_index(),
 	'itemView'=>'_view',
-	'pager'=>array( 
-        'cssFile'=>false,
-    ),
 )); ?>
 </table>
