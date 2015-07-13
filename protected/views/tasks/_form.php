@@ -194,7 +194,7 @@ $(document).ready(init());
 
 <?php endif; ?>
 
-<?php if($model->scenario!='insert'):?>
+<?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_department'); ?>
 
@@ -203,9 +203,7 @@ $(document).ready(init());
 				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_department'); ?>
 	</div>
-<?php endif; ?>
 
-<?php if($model->scenario!='insert'):?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'creator'); ?>
 
@@ -214,8 +212,6 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 				return CHtml::encode($tmp->surname.' '.$tmp->name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
-<?php endif; ?>
-<?php if($model->scenario!='insert'):?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'group'); ?>
 
@@ -224,8 +220,8 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 				return CHtml::encode($tmp->group_name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'group'); ?>
 	</div>
-<?php else: ?>
-	<?php echo $form->hiddenField($model,'group'); ?>
+<?php //else: ?>
+	<?php //echo $form->hiddenField($model,'group'); ?>
 <?php endif; ?>
 
  <!--

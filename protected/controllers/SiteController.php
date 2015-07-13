@@ -162,12 +162,13 @@ public function actionInstall(){
     $moderator->addChild('monitoringOper');
     $moderator->addChild('saveStatus'); 
     $moderator->addChild('saveStatusEv'); 
-    $moderator->addChild('updateEv'); 
-    $moderator->addChild('updateTs'); 
+    
     //$moderator->addChild('operationSV'); 
 
 
     $administrator = $auth->createRole('administrator');
+    $administrator->addChild('updateTs'); 
+    $administrator->addChild('updateEv'); 
     $administrator->addChild('moderator');
     $administrator->addChild('taskReport');
     $administrator->addChild('otdReport');

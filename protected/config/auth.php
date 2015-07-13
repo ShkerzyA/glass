@@ -333,8 +333,6 @@ return array (
       7 => 'monitoringOper',
       8 => 'saveStatus',
       9 => 'saveStatusEv',
-      10 => 'updateEv',
-      11 => 'updateTs',
     ),
   ),
   'administrator' => 
@@ -345,12 +343,14 @@ return array (
     'data' => NULL,
     'children' => 
     array (
-      0 => 'moderator',
-      1 => 'taskReport',
-      2 => 'otdReport',
-      3 => 'inGroup',
-      4 => 'inGroupAndOwner',
-      5 => 'admin',
+      0 => 'updateTs',
+      1 => 'updateEv',
+      2 => 'moderator',
+      3 => 'taskReport',
+      4 => 'otdReport',
+      5 => 'inGroup',
+      6 => 'inGroupAndOwner',
+      7 => 'admin',
     ),
   ),
 );
