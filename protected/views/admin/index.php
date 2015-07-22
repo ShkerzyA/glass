@@ -59,7 +59,9 @@ $this->menu['all_menu']=array(
 	array('title'=>'Знания','items'=>array(
 		array('label'=>'Каталоги', 'url'=>array('/catalogs/admin')), 
 		array('label'=>'Документы', 'url'=>array('/docs/admin')), 
-		array('label'=>'Задачи', 'url'=>array('/tasks/admin')), 
+		array('label'=>'Задачи', 'url'=>array('/tasks/admin')),
+		array('label'=>'Лог Звонков', 'url'=>array('/callLog')), 
+		array('label'=>'Лог Звонков/импорт', 'url'=>array('/callLog/import')), 
 	)),
 
 		array('title'=>'MyDbase (нажимать нежно, сразу импорт)','items'=>array(

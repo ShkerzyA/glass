@@ -331,7 +331,6 @@ class EquipmentLog extends CActiveRecord
 	public function search_for_index(){
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
-
 		$criteria=new CDbCriteria;
 		$criteria->with=array('subject0','objectEq.idWorkplace.idPersonnel','objectEq.idWorkplace.idCabinet.idFloor.idBuilding'); //
 		if(!empty($this->details))

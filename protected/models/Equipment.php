@@ -140,6 +140,11 @@ class Equipment extends CActiveRecord
 		return $result;
 	}
 
+	public function lastPrintCount(){
+		//получение последнего числа отпечатков.
+		
+	}
+
 	public static function cartMassMovie($type,$inv){
 
 		$carts=array();
