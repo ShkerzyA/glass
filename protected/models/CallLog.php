@@ -120,7 +120,7 @@ class CallLog extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
-	public function search()
+	public function search($ret=NULL)
 	{
 		// Warning: Please modify the following code to remove attributes that
 		// should not be searched.
@@ -141,11 +141,15 @@ class CallLog extends CActiveRecord
 		$criteria->compare('duration',$this->duration);
 		$criteria->compare('cost',$this->cost);
 
-		return new CActiveDataProvider($this, array(
+		if($ret){
+			return self::model()->findAll($criteria);
+		}else{
+			return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'pagination'=>array(
-                'pageSize'=>100,
-            ),
-		));
+                	'pageSize'=>100,
+            	),
+			));
+		}
 	}
 }

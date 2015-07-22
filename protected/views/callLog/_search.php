@@ -71,3 +71,4 @@
 <?php $this->endWidget(); ?>
 
 </div><!-- search-form -->
+<div style="clear: both"></div>

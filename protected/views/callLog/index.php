@@ -11,7 +11,12 @@ $this->menu=array(
 	array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
+
+<a target="_blank" href="/glass/callLog/export?<?php echo $_SERVER["QUERY_STRING"] ?>">
+		<div id="add_task" class="add_unit fl_right" style="float: right; width: 200px">Экспорт текущей выборки</div>
+	</a>
 <h1><?php  echo CallLog::$modelLabelP; ?></h1>
+
 <?php
 
 Yii::app()->clientScript->registerScript('search', "

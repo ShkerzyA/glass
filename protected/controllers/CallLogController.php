@@ -26,6 +26,19 @@ class CallLogController extends Controller
 		$this->render('import',array('file'=>$file));
 	}
 
+	public function actionExport()
+	{
+		$this->layout='//layouts/leaf';
+		$model=new CallLog('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['CallLog'])){
+			$model->attributes=$_GET['CallLog'];
+		}
+		$Xls=new Xls;
+		$data=$model->search(1);
+		$Xls->exportLogCall($data);
+	}
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()

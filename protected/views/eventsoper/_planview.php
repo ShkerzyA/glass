@@ -18,7 +18,8 @@
 				foreach ($tmp as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->fio());
+						if(!empty($pers))
+							$exec[]=CHtml::encode($pers->fio());
 					}
 				}	
 				if(!empty($data->anesthesiologist_w))
@@ -30,7 +31,8 @@
 				foreach ($tmp as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->fio());
+						if(!empty($pers))
+							$exec[]=CHtml::encode($pers->fio());
 					}
 				}
 				if(!empty($data->scrub_nurse)){
@@ -42,8 +44,8 @@
 		$exec=array();
 				foreach ($tmp as $v){
 					if(!empty($v)){
-						$oper=ListOperations::model()->findByPk($v);
-						$exec[]=CHtml::encode($oper->name);
+						if ($oper=ListOperations::model()->findByPk($v))
+							$exec[]=CHtml::encode($oper->name);
 					}
 				}
 				echo (implode(', ', $exec)); ?></td>
