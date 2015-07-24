@@ -60,7 +60,8 @@ $this->menu['all_menu']=array(
 		array('label'=>'Каталоги', 'url'=>array('/catalogs/admin')), 
 		array('label'=>'Документы', 'url'=>array('/docs/admin')), 
 		array('label'=>'Задачи', 'url'=>array('/tasks/admin')),
-		array('label'=>'Лог Звонков', 'url'=>array('/callLog')), 
+		array('label'=>'Лог Звонков Автоматика', 'url'=>array('/callLog')), 
+		array('label'=>'Лог Звонков АПУС', 'url'=>array('/callLog/indexApus')), 
 		array('label'=>'Лог Звонков/импорт', 'url'=>array('/callLog/import')), 
 	)),
 

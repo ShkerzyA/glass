@@ -56,28 +56,6 @@ class Xls extends CFormModel{
 	$PHPExcel->getActiveSheet()->setCellValue("H$i",$out_cart=(!empty($row['out_cart_mark'])?$row['out_cart_mark']:''));
 	$PHPExcel->getActiveSheet()->setCellValue("I$i",$out_cart=(!empty($row['in_cart_inv'])?$row['in_cart_inv']:''));
 	$PHPExcel->getActiveSheet()->setCellValue("J$i",$out_cart=(!empty($row['in_cart_mark'])?$row['in_cart_mark']:''));
-	/*$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->idWorkplace->idCabinet->idFloor->idBuilding->bname);
-	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row->idWorkplace->idCabinet->idFloor->fname);
-	$PHPExcel->getActiveSheet()->setCellValue("K$i",$row->idWorkplace->idCabinet->num.' '.$row->idWorkplace->idCabinet->cname); */
-	/*
-	//$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->name_research);
-	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->birthday);
-	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row->fio_sender);
-	$PHPExcel->getActiveSheet()->setCellValue("K$i",$row->conclusion);
-	$PHPExcel->getActiveSheet()->setCellValue("L$i",$row->eed);
-	$PHPExcel->getActiveSheet()->setCellValue("M$i",$row->number_downtime);
-	$PHPExcel->getActiveSheet()->setCellValue("N$i",$row->reason_downtime);
-	$PHPExcel->getActiveSheet()->setCellValue("O$i",$row->measures_taken); */
-
-				/*$PHPExcel->getActiveSheet()->setCellValue("B$i",$row['CREATE_DATE']);
-				$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['SENT_DOC']);
-				$PHPExcel->getActiveSheet()->setCellValue("D$i",$row['SURNAME'].' '.$row['NAME'].' '.$row['PATR']);
-				$PHPExcel->getActiveSheet()->setCellValue("E$i",$row['AREA'].' '.$row['RAION'].' '.$row['CITY'].' ул.'.$row['STREET'].' д.'.$row['HOME'].' кв.'.$row['APART']);
-
-				$PHPExcel->getActiveSheet()->setCellValue("F$i",$row['BIRTHDAY']);
-				$PHPExcel->getActiveSheet()->setCellValue("G$i",$sex[$row['SEX']]);
-				$PHPExcel->getActiveSheet()->setCellValue("I$i",$row['mkb10'].' '.$row['DIAG']);
-				$PHPExcel->getActiveSheet()->setCellValue("O$i",$row['DRUG'].' '.$row['BENEFIT']); */
 
 				$i++;
 			
@@ -112,7 +90,7 @@ class Xls extends CFormModel{
 
     }
 
-    public function exportLogCall($data){
+    public function exportLogCall($data,$type){
 
 		$tpl=Yii::getPathOfAlias('webroot').'/tpl';
 		$media=Yii::getPathOfAlias('webroot.media');
@@ -122,8 +100,18 @@ class Xls extends CFormModel{
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
 		include($phpExcelPath . DIRECTORY_SEPARATOR . 'chunkReadFilter.php');
 
+		switch ($type) {
+			case 'apus':
+				$tp='call_apus.xls';
+				break;
+			case 'auto':
+			default:
+				$tp='call_auto.xls';
+				break;
+		}
+
 	
-			$PHPExcel = PHPExcel_IOFactory::load($tpl.'/call_tpl.xls');
+			$PHPExcel = PHPExcel_IOFactory::load($tpl.'/'.$tp);
 			$PHPExcel->getProperties()
 	    	->setCreator("ebdp")
 	    	->setLastModifiedBy("ebdp")
@@ -134,22 +122,35 @@ class Xls extends CFormModel{
 	    	->setCategory('Nodes export result file');
 
 			$i=3; //Начинаем с 3 строки
-			foreach ($data as $row) {
 
-		
-	
-	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row['calling_number']); 
-	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row['timestamp']);
-	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['code']); 
-	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row['direction']); 
-	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row['called_number']);
-	$PHPExcel->getActiveSheet()->setCellValue("F$i",$row['duration']);
-	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row['cost']);
-
-				$i++;
-			
+			switch ($type) {
+				case 'apus':
+					foreach ($data as $row) {
+						$PHPExcel->getActiveSheet()->setCellValue("A$i",$row['calling_number']); 
+						$PHPExcel->getActiveSheet()->setCellValue("B$i",$row['timestamp']);
+						$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['tarif']); 
+						$PHPExcel->getActiveSheet()->setCellValue("D$i",$row['duration']); 
+						$PHPExcel->getActiveSheet()->setCellValue("E$i",$row['quantity']);
+						$PHPExcel->getActiveSheet()->setCellValue("F$i",$row['cost']);
+						$i++;
+					}
+					break;
+				case 'auto':
+				default:
+					foreach ($data as $row) {
+						$PHPExcel->getActiveSheet()->setCellValue("A$i",$row['calling_number']); 
+						$PHPExcel->getActiveSheet()->setCellValue("B$i",$row['timestamp']);
+						$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['code']); 
+						$PHPExcel->getActiveSheet()->setCellValue("D$i",$row['direction']); 
+						$PHPExcel->getActiveSheet()->setCellValue("E$i",$row['called_number']);
+						$PHPExcel->getActiveSheet()->setCellValue("F$i",$row['duration']);
+						$PHPExcel->getActiveSheet()->setCellValue("G$i",$row['cost']);
+						$i++;
+					}
+					break;
 			}
 
+	
 			$bordercells=array(
 						'borders' => array(
       							'allborders' => array(
@@ -166,12 +167,12 @@ class Xls extends CFormModel{
       					));
 
 
-			$PHPExcel->getActiveSheet()->getStyle('A3:'.'O'.$i)->applyFromArray($bordercells);
+			$PHPExcel->getActiveSheet()->getStyle('A3:'.'G'.$i)->applyFromArray($bordercells);
 			$name='v';
    			 
    			$PHPExcel->getActiveSheet()->setTitle($name);
    			$PHPExcel->setActiveSheetIndex(0);
-   			$filename = 'export.xls';
+   			$filename = 'call_log_'.$type.'.xls';
    			 //$path = file_create_filename($filename, 'public://nodes_export');
   			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel5');
   			$objWriter->save($media.'/'.$filename);

@@ -2,10 +2,10 @@
 /* @var $this CallLogController */
 
 $this->breadcrumbs=array(
-	'Call Log',
+	'Лог звонков. Импорт',
 );
 ?>
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
+<h1>Лог звонков. Импорт</h1>
 
 <form enctype="multipart/form-data" method="post">
    <p><input type="file" name="f">

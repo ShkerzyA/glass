@@ -2,8 +2,23 @@
 /* @var $this CallLogController */
 /* @var $dataProvider CActiveDataProvider */
 
+switch (get_class($model)) {
+	case 'CallLogApus':
+		$pfx='Apus';
+		break;
+
+	case 'CallLogAuto':
+		$pfx='';
+		break;
+	
+	default:
+		$pfx='';
+		break;
+}
+
+
 $this->breadcrumbs=array(
-	''.CallLog::$modelLabelP,
+	''.$model::$modelLabelP,
 );
 
 $this->menu=array(
@@ -12,10 +27,10 @@ $this->menu=array(
 );
 ?>
 
-<a target="_blank" href="/glass/callLog/export?<?php echo $_SERVER["QUERY_STRING"] ?>">
+<a target="_blank" href="/glass/callLog/export<?php echo $pfx?>?<?php echo $_SERVER["QUERY_STRING"] ?>">
 		<div id="add_task" class="add_unit fl_right" style="float: right; width: 200px">Экспорт текущей выборки</div>
 	</a>
-<h1><?php  echo CallLog::$modelLabelP; ?></h1>
+<h1><?php  echo $model::$modelLabelP; ?></h1>
 
 <?php
 
@@ -38,22 +53,15 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 
 <?php echo CHtml::link($searcimg,'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:block">
-<?php $this->renderPartial('_search',array(
+<?php $this->renderPartial('_search'.$pfx,array(
 	'model'=>$model,
 )); ?>
 </div><!-- search-form -->
 <table class="logtable">
-	<tr>
-		<th>Вызывающий номер</th>
-		<th>Дата</th>
-		<th>Код</th>
-		<th>Направление</th>
-		<th>Вызываемый номер</th>
-		<th>Длительность</th>
-		<th>Сумма</th>
-	</tr>
+	<?php $this->renderPartial('_th'.$pfx); ?>
+
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$model->search(),
-	'itemView'=>'_view',
+	'itemView'=>'_view'.$pfx,
 )); ?>
 </table>

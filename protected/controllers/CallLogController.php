@@ -4,10 +4,20 @@ class CallLogController extends Controller
 {
 	public function actionIndex()
 	{
-		$model=new CallLog('search');
+		$model=new CallLogAuto('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['CallLog'])){
-			$model->attributes=$_GET['CallLog'];
+		if(isset($_GET['CallLogAuto'])){
+			$model->attributes=$_GET['CallLogAuto'];
+		}
+		$this->render('index',array('model'=>$model));
+	}
+
+	public function actionIndexApus()
+	{
+		$model=new CallLogApus('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['CallLogApus'])){
+			$model->attributes=$_GET['CallLogApus'];
 		}
 		$this->render('index',array('model'=>$model));
 	}
@@ -29,14 +39,28 @@ class CallLogController extends Controller
 	public function actionExport()
 	{
 		$this->layout='//layouts/leaf';
-		$model=new CallLog('search');
-		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['CallLog'])){
-			$model->attributes=$_GET['CallLog'];
+		$model=new CallLogAuto('search');
+		$model->unsetAttributes();
+		if(isset($_GET['CallLogAuto'])){
+			$model->attributes=$_GET['CallLogAuto'];
 		}
 		$Xls=new Xls;
 		$data=$model->search(1);
-		$Xls->exportLogCall($data);
+		$Xls->exportLogCall($data,'auto');
+	}
+
+	public function actionExportApus()
+	{
+		$this->layout='//layouts/leaf';
+		
+		$model=new CallLogApus('search');
+		$model->unsetAttributes();
+		if(isset($_GET['CallLogApus'])){
+			$model->attributes=$_GET['CallLogApus'];
+		}
+		$Xls=new Xls;
+		$data=$model->search(1);
+		$Xls->exportLogCall($data,'apus');
 	}
 
 	// Uncomment the following methods and override them if needed
