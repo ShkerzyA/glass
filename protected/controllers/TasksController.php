@@ -28,17 +28,17 @@ class TasksController extends Controller
 	/**
 	 * @return array action filters
 	 */
- /*
+ 
 	private function formHorn(){
 		/*$dir=scandir(Yii::getPathOfAlias('webroot').'/media/horn/');
 		unset($dir[0]);
 		unset($dir[1]);
 		print_r($dir);
 		$horn=array_rand($dir);
-		$this->horn=Yii::app()->request->baseUrl.'/media/horn/'.$dir[$horn];*/ /*
+		$this->horn=Yii::app()->request->baseUrl.'/media/horn/'.$dir[$horn];*/ 
 		$this->horn=Yii::app()->request->baseUrl.'/media/horn/horn6.ogg';
 		$this->isHorn=false;
-	} */
+	} 
 
 	public function mayShow($rule=NULL){
 		if(empty($rule)){
