@@ -5,7 +5,7 @@
 
 <?php Yii::app()->clientScript->registerPackage('userjs'); ?>
  <audio id='incmess' src="<?php echo Yii::app()->baseUrl?>/media/mess/kib2.ogg"></audio>
- <audio id='horn' src="<?php echo Yii::app()->baseUrl?>/media/horn/horn.ogg"></audio>
+ <audio id='horn' src="<?php echo Yii::app()->baseUrl?>/media/horn/horn6.ogg"></audio>
 <script type="text/javascript">
 
 

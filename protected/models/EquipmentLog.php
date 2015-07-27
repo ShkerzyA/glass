@@ -44,6 +44,7 @@ class EquipmentLog extends CActiveRecord
 	public $subject0subject;
 	public $object0object;
 	public $timestamp_end;
+	public $confirm;
 
 
 	public static function model($className=__CLASS__)
@@ -248,13 +249,14 @@ class EquipmentLog extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('confirm', 'numerical', 'integerOnly'=>true),
 			array('subject, object, type', 'numerical', 'integerOnly'=>true),
 			array('details','pgArray'),
 			array('timestamp,timestamp_end, details','safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, timestamp, timestamp_end, subject,object,type,details,subject0subject,object0object', 'safe', 'on'=>'search'),
+			array('id, timestamp, timestamp_end, subject,object,type,details,subject0subject,object0object,confirm', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -286,6 +288,7 @@ class EquipmentLog extends CActiveRecord
 			'details' => 'Детали',
 			'subject0subject' => 'Субъект',
 			'object0object' => 'Объект',
+			'confirm' => 'Подтвердить действие',
 		);
 	}
 

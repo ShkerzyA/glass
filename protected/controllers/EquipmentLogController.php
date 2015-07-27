@@ -128,15 +128,18 @@ class EquipmentLogController extends Controller
 		if(isset($_POST['EquipmentLog']))
 		{
 			$model->attributes=$_POST['EquipmentLog'];
-
 			$errors=Equipment::cartMassMovie($model->type,$model->details);
 			if(!empty($errors)){
 				foreach ($errors as $v) {
 					$model->addError('details',$v);
 				}
 			}else{
-				if($model->save())
-					$this->redirect(array('view','id'=>$model->id));
+				if($model->confirm==1){
+					if($model->save())
+						$this->redirect(array('view','id'=>$model->id));	
+				}else{
+					$model->addError('details','Подтвердите действие');
+				}
 			}
 		}
 

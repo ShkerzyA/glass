@@ -87,6 +87,13 @@
 ?>
 <?php $this->endWidget(); ?>
 -->
+  <div class="row">
+      <?php echo $form->labelEx($model,'confirm'); ?>
+
+      <?php echo $form->checkBox($model,'confirm',array('value'=>1,'size'=>2,'maxlength'=>2)); ?>
+
+      <?php echo $form->error($model,'confirm'); ?>
+  </div>
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
