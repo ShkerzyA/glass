@@ -18,10 +18,12 @@ class MyDbase extends CFormModel{
  		$this->pathToDb=$_SERVER['DOCUMENT_ROOT'].'/glass/base/';
  	}
 
+ 
  	public function read_table($tablename,$keycolumn=NULL,$charset=array('cp1251','UTF8')){
  		$result=array();
  		$this->dbase=dbase_open($this->pathToDb.$tablename,0);
- 		for($i=1;$i<=dbase_numrecords($this->dbase);$i++){
+ 		$num=dbase_numrecords($this->dbase);
+ 		for($i=1;$i<=$num;$i++){
  			$row=dbase_get_record_with_names($this->dbase,$i);
 
  			if(!empty($charset)){
@@ -108,12 +110,11 @@ class MyDbase extends CFormModel{
  	public function personnelImport(){
  		$personnel=$this->read_table('person.dbf','ORBASE_RN');
  		$zank=$this->read_table('zank.dbf','ANK_RN');
-
 		foreach ($personnel as &$v) {
 			$x=$v['ORBASE_RN'];
 			$v['ank']=array_filter($zank, function($var) use ($x){return ($var['ORGBASE_RN']==$x);});
 		}
-
+		
 		foreach ($personnel as $v) {
 				if(empty($v['PASSPORT_R'])){
 					//$pers=Personnel::model()->deleteAll(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>$v['ORBASE_RN'])));
@@ -152,8 +153,7 @@ class MyDbase extends CFormModel{
        			$newpers->save();
        			//var_dump($depPost->getErrors()); //вызывает задвоение
 		}
-
- 		return $personnel;
+ 		return $personnel; 
  	}
 
  	public function otdelPostsImport(){

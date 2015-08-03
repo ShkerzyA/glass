@@ -134,12 +134,8 @@ class EquipmentLogController extends Controller
 					$model->addError('details',$v);
 				}
 			}else{
-				if($model->confirm==1){
-					if($model->save())
-						$this->redirect(array('view','id'=>$model->id));	
-				}else{
-					$model->addError('details','Подтвердите действие');
-				}
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));	
 			}
 		}
 

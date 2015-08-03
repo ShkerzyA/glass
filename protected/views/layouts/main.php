@@ -25,8 +25,13 @@
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
-
 <body>
+<?php if(!(Yii::app()->user->isGuest)): ?>
+	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
+		<?php $this->widget('application.widgets.Messenger');  ?>
+	<?php endif; ?>
+<?php endif; ?>
+
 <?php if(!(Yii::app()->user->isGuest)): ?>
 
 	<?php if(!empty(Yii::app()->user->bg) and is_file(Yii::getPathOfAlias('webroot').'/images/'.Yii::app()->user->bg)): ?>
@@ -160,11 +165,7 @@ function sttopmode(elem,over) {
 END;
 
 ?>
-<?php if(!(Yii::app()->user->isGuest)): ?>
-	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
-		<?php $this->widget('application.widgets.Messenger');  ?>
-	<?php endif; ?>
-<?php endif; ?>
+
 </body>
 </html>
 <?php 

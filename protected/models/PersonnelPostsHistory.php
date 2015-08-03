@@ -54,7 +54,7 @@ class PersonnelPostsHistory extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_post','freeOnly'),
+			//array('id_post','freeOnly'),
 			array('id_personnel, id_post, is_main', 'numerical', 'integerOnly'=>true),
 			array('date_begin', 'date','format'=>'dd.MM.yyyy'),
 			// The following rule is used by search().

@@ -306,7 +306,7 @@ class TasksController extends Controller
 		$this->layout='//layouts/column2';
 
 		if(empty($id_department)){
-			if(!(Yii::app()->user->isGuest))
+			if(!(Yii::app()->user->isGuest) and !empty(Yii::app()->user->id_departments[0]))
 				$id_department=Yii::app()->user->id_departments[0];
 			else
 				$id_department=-1;

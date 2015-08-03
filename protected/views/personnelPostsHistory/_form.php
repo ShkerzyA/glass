@@ -30,7 +30,7 @@
 
         <?php $tmp=DepartmentPosts::model()->findall();
 echo $form->dropDownList($model,"id_post",CHtml::listData($tmp,"id",function($tmp) {
-                return CHtml::encode($tmp->post.'/'.$tmp->postSubdivRn->name.' #'.$tmp->id);}),array('empty' => '')); ?>
+                return CHtml::encode($tmp->id.' '.$tmp->post.'/'.$tmp->postSubdivRn->name);}),array('empty' => '')); ?>
         <?php echo $form->error($model,'id_post'); ?>
     </div>
 
