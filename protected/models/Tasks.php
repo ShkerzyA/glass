@@ -257,6 +257,8 @@ class Tasks extends CActiveRecord
 
 	public static function tasksForOtdAndGroup($id_department,$type=3,$group=NULL,$date='current_date'){
 
+		if (!in_array($id_department,Yii::app()->user->id_departments))
+			return array();
 		switch ($type) {
 			//все, кроме помеченных как просмотренные
 			//текущие
