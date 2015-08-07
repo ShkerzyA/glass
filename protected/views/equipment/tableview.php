@@ -6,7 +6,9 @@
 $status=$model->equipments[0]->getStatus();
 $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
 ?>
-
+<?php echo CHtml::beginForm('/glass/Equipment/massUpd','post'); ?>
+<?php $this->renderPartial('/workplace/massUpd'); ?>
+<div style="clear: both"></div>
    	<table class=phonetable>
    		<tr>
    			<th>Серийный номер</th>
@@ -28,3 +30,4 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
    }
 ?>
 </table>	
+<?php echo CHtml::endForm(); ?>

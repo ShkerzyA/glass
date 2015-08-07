@@ -26,6 +26,8 @@ if(Yii::app()->user->checkAccess('administrator')){
 
 $this->renderPartial('/workplace/storages');
 
+
+
 ?>
 
 <h1><?php  echo $model->wname.' (тел. '.$model->phone.')';?></h1> 
@@ -87,6 +89,7 @@ array(
       $this->renderPartial('/equipment/tableview',array('model'=>$model),false,false);   
     } 
 	?>
+
     
 
 

@@ -37,18 +37,12 @@ Yii::app()->clientScript->registerPackage('customfields');
 <?php if($model->scenario!='insert' or empty($model->id_workplace)): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_workplace'); ?>
-
 		<?php $tmp=Workplace::model()->with('idCabinet.idFloor.idBuilding','idPersonnel')->findall(array('order'=>'bname ASC, "idFloor".fnum ASC, "idCabinet".num ASC'));
 				echo $form->dropDownList($model,"id_workplace",CHtml::listData($tmp,"id",function($tmp) {
 				return CHtml::encode($tmp->wpNameFull());}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_workplace'); ?>
 	</div>
 <?php endif; ?>
-
-
-
-	
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>
 
@@ -114,7 +108,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 
-		<?php echo $form->dropDownList($model,'status',$model->getStatus()); ?>
+		<?php echo $form->dropDownList($model,'status',$model->getStatus(),array('empty' => '')); ?>
 
 		<?php echo $form->error($model,'status'); ?>
 	</div>
@@ -126,7 +120,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 
 		<?php echo $form->error($model,'notes'); ?>
 	</div>
-<?php if($model->scenario!='insert'): ?>
+<?php if($model->scenario=='update'): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'parent_id'); ?>
 
@@ -139,7 +133,10 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
 	</div>
-
+<?php 
+	if(!empty($mass_id))
+		echo CHtml::hiddenField('mass_id',implode(',',$mass_id));
+?>
 <?php $this->endWidget(); ?>
 
 </div><!-- form -->

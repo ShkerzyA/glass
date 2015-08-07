@@ -97,9 +97,16 @@ window.onload=function(){
 
 
 </script>
-    
+    <!--<div style="position: absolute; left: 0px; top 50px; border: 4px solid red;">
+        <embed src="http://localhost/glass/uflvplayer.swf" allowFullScreen="false" type="application/x-shockwave-flash" flashvars="way=http://localhost:7654/video.flv&skin=whiteblack&autoplay=1" /></embed>
+    </div> -->
+    <!--
+    <video width="320" height="240" controls="controls" autoplay poster="video/duel.jpg" style="position: absolute; top: 2px; right: 2px">
+            <source src="http://localhost:7654" type='video/mp4'  />
+            <source src="http://localhost:7654/demo.webm" type='video/webm; codecs="vp8, vorbis"' /> 
+    </video> -->
     <div class="serb"><div style="float: left;"></div><div style="float: left;" id="serb"></div></div>
-  
+     
     <div class="messenger">
         <div class="mess_head"></div>
         <div class="mess_body">

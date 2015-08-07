@@ -57,7 +57,7 @@ class EquipmentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','createPack','update','markSearch','delete','garant','ipmac'),
+				'actions'=>array('create','createPack','update','markSearch','delete','garant','ipmac','massUpd'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -194,7 +194,7 @@ public function actionCartSearch(){
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
-		$old_model=clone $model;
+		$model->rememberMe();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -203,42 +203,74 @@ public function actionCartSearch(){
 		{
 			$model->attributes=$_POST['Equipment'];
 			if($model->save()){
-				foreach ($model->attributes as $k => $v) {
-					$chanded=array();
-					if($v!=$old_model->$k){
-						switch ($k) {
-							case 'id_workplace':
-								$log=new EquipmentLog;
-								$log->saveLog('moveEq',array('details'=>array($old_model->id_workplace,$model->id_workplace),'object'=>$model->id));
-								if(!empty($model->equipments))
-								foreach ($model->equipments as $eqId) {
-									if($eqId->id_workplace==$old_model->id_workplace){
-										$eqId->id_workplace=$model->id_workplace;
-										$eqId->save();
-										$log=new EquipmentLog;
-										$log->saveLog('moveEq',array('details'=>array($old_model->id_workplace,$eqId->id_workplace),'object'=>$eqId->id));	
-									}
-								}
-								break;
-							default:
-							$chanded[]=$model->getAttributeLabel($k).": ".$old_model->$k."/".$v."\n";
-								break;
-						}
-					}
-					if(!empty($chanded)){
-						$info=implode(' ',$chanded);
-						$log=new EquipmentLog;
-						$log->saveLog('chEq',array('details'=>array($info),'object'=>$model->id));
-					}
-				}
-
-				$this->redirect(array('/Workplace/view','id'=>$old_model->id_workplace));
+				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
 			}
 		
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+		));
+	}
+
+	public function actionMassUpd(){
+		$mass_id=NULL;
+		if(!empty($_POST['EquipmentMass']) and !empty($_POST['EquipmentMass']['id'])){
+			$mass_id=$_POST['EquipmentMass']['id'];
+			$model=new Equipment;
+			$model->scenario='shi';
+			$models=Equipment::model()->findAll(array('condition'=>'t.id in ('.implode(',', $_POST['EquipmentMass']['id']).')'));
+			$attr=array();
+			foreach ($models as $v) {
+				foreach ($v->attributes as $k => $x) {
+					$attr[$k][]=$x; 
+				}
+			}
+
+			foreach ($attr as $k => $x) {
+				$uni=array_unique($x);
+				if(count($uni)==1)
+					$model->$k=$uni[0];
+			}
+
+			//print_r($model->attributes);
+		}
+		if(!empty($_POST['Equipment']) and !empty($_POST['mass_id'])){
+			$model=new Equipment;
+			$model->attributes=$_POST['Equipment'];
+			$models=Equipment::model()->findAll(array('condition'=>'t.id in ('.$_POST['mass_id'].')'));
+			foreach ($models as &$md) {
+				$md->rememberMe();
+			}
+
+
+			foreach ($model->attributes as $k => $v) {
+				if($v!='' and $k!='id'){
+					echo '<br>'.$k;
+					foreach ($models as &$mod) {
+						echo '|'.$mod->id.'('.$v.')';
+						$mod->$k=$v;
+					}
+				}
+			}
+			
+			foreach ($models as $modd) {
+				if ($modd->save())
+					echo 'ok';
+				else
+					echo 'error';
+			}
+			
+			if(!empty($model->id_workplace)){
+				$this->redirect(array('/Workplace/view','id'=>$model->id_workplace));
+			}
+			else{
+				$this->redirect(array('/Equipment/index'));
+			} 
+		}
+
+		$this->render('massUpd',array(
+			'model'=>$model,'mass_id'=>$mass_id
 		));
 	}
 

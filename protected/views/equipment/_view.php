@@ -3,7 +3,9 @@
          if($rul){
             $edit='<td><a href="'.$this->createUrl('/equipment/update/',array('id'=>$data->id)).'"><img src="'.$this->createUrl('/images/update.png').'"></a>';
             $edit.=CHtml::link('<img src="'.$this->createUrl('/images/delete.png').'">','#',array('submit'=>array('/equipment/delete','id'=>$data->id),'confirm' => 'Вы уверены?')).' ';
-            $edit.='<img class="showlog" style="cursor: pointer;" id="'.$data->id.'" src="'.$this->createUrl('/images/view.png').'"></td>';
+            $edit.='<img class="showlog" style="cursor: pointer;" id="'.$data->id.'" src="'.$this->createUrl('/images/view.png').'">';
+            $edit.='<input type=checkbox style="width: 10px;" name=EquipmentMass[id][] value="'.$data->id.'">';
+            $edit.='</td>';
          }else{
             $edit='';
          }

@@ -41,9 +41,12 @@ class Equipment extends CActiveRecord
 	public $related_eq;
 	public $parentparent_id;
 	public $equipmentsparent_id;
+	private $old_model;
 
 
-
+	public function rememberMe(){
+		$this->old_model=clone $this;
+	}
 
 	public function setMaxCartInv(){
 		if($this->type==18){
@@ -133,9 +136,11 @@ class Equipment extends CActiveRecord
 
 	public function neighborsEq(){
 		$result=array('values'=>array());
-		$models=self::model()->findAll(array('condition'=>'t.id_workplace='.$this->id_workplace.' and t.id<>'.$this->id.' and t.type not in (18)'));
-		foreach ($models as $m) {
-			$result['values'][$m->id]=$m->full_name();
+		if(!empty($this->id_workplace) and !empty($this->id)){
+			$models=self::model()->findAll(array('condition'=>'t.id_workplace='.$this->id_workplace.' and t.id<>'.$this->id.' and t.type not in (18)'));
+			foreach ($models as $m) {
+				$result['values'][$m->id]=$m->full_name();
+			}
 		}
 		return $result;
 	}
@@ -217,6 +222,40 @@ class Equipment extends CActiveRecord
 		if (empty($this->mac))
 			$this->mac=NULL;
 		return parent::beforeSave();
+	}
+
+	protected function afterSave(){
+		if (empty($this->old_model))
+			return false;
+		$chanded=array();
+		foreach ($this->attributes as $k => $v) {
+			//echo $v.'/'.$this->old_model->$k.'<br>';
+			if($v!=$this->old_model->$k){
+				switch ($k) {
+					case 'id_workplace':
+						$log=new EquipmentLog;
+						$log->saveLog('moveEq',array('details'=>array($this->old_model->id_workplace,$this->id_workplace),'object'=>$this->id));
+						if(!empty($this->equipments))
+						foreach ($this->equipments as $eqId) {
+							if($eqId->id_workplace==$this->old_model->id_workplace){
+								$eqId->id_workplace=$this->id_workplace;
+								$eqId->save();
+								$log=new EquipmentLog;
+								$log->saveLog('moveEq',array('details'=>array($this->old_model->id_workplace,$eqId->id_workplace),'object'=>$eqId->id));	
+							}
+						}
+						break;
+					default:
+					$chanded[]=$this->getAttributeLabel($k).": ".$this->old_model->$k."/".$v."\n";
+						break;
+				}
+			}
+		}
+		if(!empty($chanded)){
+			$info=implode(' ',$chanded);
+			$log=new EquipmentLog;
+			$log->saveLog('chEq',array('details'=>array($info),'object'=>$this->id));
+		}
 	}
 
 		public function uniqueInvSerial()
