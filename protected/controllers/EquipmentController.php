@@ -215,10 +215,10 @@ public function actionCartSearch(){
 
 	public function actionMassUpd(){
 		$mass_id=NULL;
+		$model=new Equipment;
 		if(!empty($_POST['EquipmentMass']) and !empty($_POST['EquipmentMass']['id'])){
 			$mass_id=$_POST['EquipmentMass']['id'];
-			$model=new Equipment;
-			$model->scenario='shi';
+			$model->scenario='massUpd';
 			$models=Equipment::model()->findAll(array('condition'=>'t.id in ('.implode(',', $_POST['EquipmentMass']['id']).')'));
 			$attr=array();
 			foreach ($models as $v) {
@@ -236,7 +236,6 @@ public function actionCartSearch(){
 			//print_r($model->attributes);
 		}
 		if(!empty($_POST['Equipment']) and !empty($_POST['mass_id'])){
-			$model=new Equipment;
 			$model->attributes=$_POST['Equipment'];
 			$models=Equipment::model()->findAll(array('condition'=>'t.id in ('.$_POST['mass_id'].')'));
 			foreach ($models as &$md) {
