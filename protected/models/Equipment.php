@@ -43,7 +43,6 @@ class Equipment extends CActiveRecord
 	public $equipmentsparent_id;
 	private $old_model;
 
-
 	public function rememberMe(){
 		$this->old_model=clone $this;
 	}
@@ -252,9 +251,8 @@ class Equipment extends CActiveRecord
 			}
 		}
 		if(!empty($chanded)){
-			$info=implode(' ',$chanded);
 			$log=new EquipmentLog;
-			$log->saveLog('chEq',array('details'=>array($info),'object'=>$this->id));
+			$log->saveLog('chEq',array('details'=>$chanded,'object'=>$this->id));
 		}
 	}
 

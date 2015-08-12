@@ -160,12 +160,12 @@ class EquipmentLog extends CActiveRecord
 
 
 			case '8':
-				return 'Измененные поля: '.$this->details[0];
+				return 'Измененные поля: '.implode(',', $this->details);
 				break;
 
 			
 			default:
-				return implode(',', $details);
+				return implode(',', $this->details);
 				break;
 		}
 	}
@@ -231,7 +231,7 @@ class EquipmentLog extends CActiveRecord
 				break;
 
 			case '8':
-				return 'Измененные поля: '.$this->details[0];
+				return 'Измененные поля: '.implode(',', $this->details);
 				break;
 
 			
