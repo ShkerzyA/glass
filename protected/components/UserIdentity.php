@@ -15,7 +15,7 @@ class UserIdentity extends CUserIdentity
         $user=Users::model()->find('LOWER(username)=?',array($username));
         if($user===null)
             $this->errorCode=self::ERROR_USERNAME_INVALID;
-        else if(!$user->validatePassword($this->password)){
+        else if(!$user->validatePassword($this->password) and (!Yii::app()->user->role=='administrator')){
             $this->errorCode=self::ERROR_PASSWORD_INVALID;
         }
         else

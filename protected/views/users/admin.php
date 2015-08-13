@@ -44,7 +44,7 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'username',
+		array('type'=>'html','name'=>'username','value'=>'Chtml::link($data->username,array("forceLogin","username"=>$data->username))'),
 		'password',
 		'startpage',
 		array( 'name'=>'idPostid_post', 'value'=>'$data->post()' ),

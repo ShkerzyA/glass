@@ -36,7 +36,7 @@ class UsersController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','forceLogin'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -57,6 +57,20 @@ class UsersController extends Controller
 			break;
 		}
 		echo (Yii::app()->user->viewChat);
+	}
+
+	public function actionForceLogin($username){
+			$_identity=new UserIdentity($username,$password='NULL');
+			if($_identity->authenticate()){
+				Yii::app()->user->login($_identity,0);
+				if(!empty(Yii::app()->user->startpage))
+					$this->redirect(array(Yii::app()->user->startpage));
+				else
+					$this->redirect(array('/'));
+			}else{
+				$this->redirect(array('admin'));
+			}
+			
 	}
 
 	/**

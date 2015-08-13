@@ -97,6 +97,7 @@ class Equipment extends CActiveRecord
 
 	public static function getStatus(){
 		return array(
+			''=>'',
 			0=>'В эксплуатации',
 			1=>'Не в эксплуатации',
 			2=>'Неисправно',
@@ -234,7 +235,7 @@ class Equipment extends CActiveRecord
 					case 'id_workplace':
 						$log=new EquipmentLog;
 						$log->saveLog('moveEq',array('details'=>array($this->old_model->id_workplace,$this->id_workplace),'object'=>$this->id));
-						if(!empty($this->equipments))
+						/*if(!empty($this->equipments)) //Если приспичит вернуть - Переписать. Детеныш делает rememberMe, потом меняет workplace и сохраняется. Если рабочее место меняется - лог автоматически запишется
 						foreach ($this->equipments as $eqId) {
 							if($eqId->id_workplace==$this->old_model->id_workplace){
 								$eqId->id_workplace=$this->id_workplace;
@@ -242,7 +243,7 @@ class Equipment extends CActiveRecord
 								$log=new EquipmentLog;
 								$log->saveLog('moveEq',array('details'=>array($this->old_model->id_workplace,$eqId->id_workplace),'object'=>$eqId->id));	
 							}
-						}
+						}*/
 						break;
 					default:
 					$chanded[]=$this->getAttributeLabel($k).": ".$this->old_model->$k."/".$v."\n";

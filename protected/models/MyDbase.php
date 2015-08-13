@@ -110,9 +110,9 @@ class MyDbase extends CFormModel{
  	public function personnelImport(){
  		$personnel=$this->read_table('person.dbf','ORBASE_RN');
  		$zank=$this->read_table('zank.dbf','ANK_RN');
-		foreach ($personnel as &$v) {
-			$x=$v['ORBASE_RN'];
-			$v['ank']=array_filter($zank, function($var) use ($x){return ($var['ORGBASE_RN']==$x);});
+		foreach ($personnel as &$z) {
+			$x=$z['ORBASE_RN'];
+			$z['ank']=array_filter($zank, function($var) use ($x){return ($var['ORGBASE_RN']==$x);});
 		}
 		
 		foreach ($personnel as $v) {
@@ -165,10 +165,10 @@ class MyDbase extends CFormModel{
  		$zpostch=$this->read_table('ZPOSTCH.DBF');
  		$ztipdol=$this->read_table('zTipDol.DBF','TIPDOL_RN');
 
-		foreach ($posts as &$v) {
-			$t=$v['POST_RN'];
-			$v['zpostch']=array_filter($zpostch, function($var) use ($t){return ($var['POSTBS_RN']===$t);});
-			$v['ztipdol']=$ztipdol[$v['TIPDOL_RN']];
+		foreach ($posts as &$c) {
+			$t=$c['POST_RN'];
+			$c['zpostch']=array_filter($zpostch, function($var) use ($t){return ($var['POSTBS_RN']===$t);});
+			$c['ztipdol']=$ztipdol[$c['TIPDOL_RN']];
 		}
 
 		foreach ($posts as $v) {
@@ -213,10 +213,10 @@ class MyDbase extends CFormModel{
  		$zank=$this->read_table('zank.dbf','ANK_RN');
 
  		//к лицевым счетам прикрепляем анкетные данные
-		foreach ($zfcac as &$v) {
-			$x=$v['ANK_RN'];
-			//echo($v['ANK_RN']).'<br>';
-			$v['ank']=array_filter($zank, function($var) use ($x){return ($var['ANK_RN']===$x);});
+		foreach ($zfcac as &$c) {
+			$x=$c['ANK_RN'];
+			//echo($c['ANK_RN']).'<br>';
+			$c['ank']=array_filter($zank, function($var) use ($x){return ($var['ANK_RN']===$x);});
 
 		}
 		unset($zank);
