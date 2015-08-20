@@ -25,6 +25,15 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'department'); ?>
+
+		<?php $tmp=Department::model()->findAll(array('order'=>'t.name asc'));
+				echo $form->dropDownList($model,"department",CHtml::listData($tmp,"subdiv_rn",function($tmp) {
+				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
+		<?php echo $form->error($model,'department'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'serial'); ?>
 		<?php echo $form->textField($model,'serial',array('size'=>60,'maxlength'=>100)); ?>
 	</div>
@@ -38,6 +47,8 @@
 				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'type'); ?>
 	</div>
+
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'producer'); ?>

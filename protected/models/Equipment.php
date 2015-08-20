@@ -41,6 +41,7 @@ class Equipment extends CActiveRecord
 	public $related_eq;
 	public $parentparent_id;
 	public $equipmentsparent_id;
+	public $department;
 	private $old_model;
 
 	public function rememberMe(){
@@ -212,7 +213,7 @@ class Equipment extends CActiveRecord
 			array('mark', 'length', 'max'=>200),
 			array('notes,ip,mac', 'safe'),
 			array('id','uniqueInvSerial'),
-			array('id, id_workplace, serial, type, producer, mark, inv, ip, mac, status, parent_id, notes,idWorkplaceid_workplace,place,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
+			array('id, id_workplace, serial, type, producer, mark, inv, ip, mac, status, parent_id, notes,idWorkplaceid_workplace,place,department,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -323,6 +324,7 @@ class Equipment extends CActiveRecord
 			'status' => 'Состояние',
 			'notes' => 'Примечания',
 			'place' => 'Местоположение',
+			'department' => 'Отдел',
 			'parent_id' => 'Привязка',
 			'ip' => 'IP',
 			'mac' => 'MAC',
@@ -385,7 +387,7 @@ class Equipment extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('idWorkplace' => array('alias' => 'workplace'),'idWorkplace.idCabinet.idFloor.idBuilding');
+		$criteria->with=array('idWorkplace' => array('alias' => 'workplace'),'idWorkplace.idCabinet.idFloor.idBuilding','idWorkplace.wpSubdivRn'=>array('alias'=>'department'));
 		$criteria->compare('t.id',$this->id);
 		if(!empty($_GET['id_workplace']))
 				$criteria->compare('workplace.wname',$_GET['id_workplace'],true);
@@ -416,6 +418,7 @@ class Equipment extends CActiveRecord
 		$criteria->compare('ip',$this->ip,true);
 		$criteria->compare('mac',$this->mac,true);
 		$criteria->compare('notes',$this->notes,true);
+		$criteria->compare('department.subdiv_rn',$this->department,true);
 		$criteria->compare('workplace.wname',$this->idWorkplaceid_workplace,true);
         $criteria->compare('equipment.parent_id',$this->parentparent_id,true);
         $criteria->compare('equipment.parent_id',$this->equipmentsparent_id,true);

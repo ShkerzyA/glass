@@ -72,16 +72,11 @@ array(
 <div style="clear: both"></div>
 <dl>
   <dt>Кабинет</dt>
-   <dd><?php echo ($model->idCabinet->cname.' '.$model->idCabinet->num) ?></dd>
-  <dt>Сотрудник</dt>
-   <dd><?php 
-   	if(!empty($model->idPersonnel)){
-   		echo ($model->idPersonnel->surname.' '.$model->idPersonnel->name.' '.$model->idPersonnel->patr);		
-   	}else{
-   		echo '-//-';
-   	}
-   	?>
-    </dd>
+   <dd><?php echo ($model->wpNameFull(1)) ?></dd>
+  <dt>Рабочее место</dt>
+   <dd><?php echo ($model->wpName());	?></dd>
+  <dt>Отдел</dt>
+   <dd><?php echo ($model->department()); ?></dd>
 </dl>
 <?php
 	  if(!empty($model->equipments)){

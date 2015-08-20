@@ -91,6 +91,7 @@ public $departmentPostspost_subdiv_rn;
             'parentSubdivRn' => array(self::BELONGS_TO, 'Department', 'parent_subdiv_rn'),
             'departments' => array(self::HAS_MANY, 'Department', 'parent_subdiv_rn'),
             'departmentPosts' => array(self::HAS_MANY, 'DepartmentPosts', 'post_subdiv_rn'),
+            'workplaces' => array(self::HAS_MANY, 'workplaces', 'wp_subdiv_rn'),
         );
     }
 
@@ -104,7 +105,6 @@ public $departmentPostspost_subdiv_rn;
 			'name' => 'Название отдела',
 			'date_begin' => 'Начало работы',
 			'date_end' => 'Окончание работы',
-
             'subdiv_rn' => 'Код Отдела в Парусе',
             'parent_subdiv_rn' => 'Вышестоящий отдел в парусе',
             'parentSubdivRnparent_subdiv_rn' => 'Вышестоящий отдел',

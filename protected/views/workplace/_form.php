@@ -25,6 +25,16 @@ echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function(
 		<?php echo $form->error($model,'id_cabinet'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'wp_subdiv_rn'); ?>
+
+		<?php $tmp=Department::model()->findall(array('order'=>'t.name asc'));
+echo $form->dropDownList($model,"wp_subdiv_rn",CHtml::listData($tmp,"subdiv_rn",function($tmp) {
+				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
+		<?php echo $form->error($model,'wp_subdiv_rn'); ?>
+	</div>
+
+
 
 
 	<div class="row">

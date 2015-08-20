@@ -44,7 +44,7 @@ class WorkplaceController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','AutoSetDepartment'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -57,6 +57,11 @@ class WorkplaceController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+
+	public function actionAutoSetDepartment(){
+		Workplace::autoSetDepartment();
+	}
+
 	public function actionView($id)
 	{
 		$model=$this->loadModel($id);

@@ -37,6 +37,7 @@ class Workplace extends CActiveRecord
 	public $idPersonnelid_personnel;
 	public $idCabinetid_cabinet;
 	public $equipmentsid_workplace;
+	public $wpSubdivRnwp_subdiv_rn;
 
 	public function behaviors(){
 		return array(
@@ -49,6 +50,20 @@ class Workplace extends CActiveRecord
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public static function autoSetDepartment(){
+		echo 'не актуально';
+		return false;
+		//был разовый запуск, предположительно больше не понадобится и можно будет удалить функцию и действие в контроллере
+		$models=Workplace::model()->findAll(array('condition'=>"t.wp_subdiv_rn is NULL"));
+		foreach ($models as $v) {
+			if(empty($v->idPersonnel) or empty($v->idPersonnel->personnelPostsHistories) or empty($v->idPersonnel->personnelPostsHistories[0]))
+				continue;
+			$v->wp_subdiv_rn=$v->idPersonnel->personnelPostsHistories[0]->idPost->postSubdivRn->subdiv_rn;
+			if($v->save())
+				echo $v->wpNameFull().'</br>';
+		}
 	}
 
 	/**
@@ -111,10 +126,10 @@ class Workplace extends CActiveRecord
 			array('id_cabinet','required'),
 			array('wname', 'length', 'max'=>50),
 			array('phone', 'length', 'max'=>100),
-		
+			array('wp_subdiv_rn', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_cabinet,type, id_personnel, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace,phone', 'safe', 'on'=>'search'),
+			array('id, id_cabinet,type, id_personnel, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace,phone,wp_subdiv_rn', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -129,7 +144,15 @@ class Workplace extends CActiveRecord
 			'idPersonnel' => array(self::BELONGS_TO, 'Personnel', 'id_personnel'),
 			'idCabinet' => array(self::BELONGS_TO, 'Cabinet', 'id_cabinet'),
             'equipments' => array(self::HAS_MANY, 'Equipment', 'id_workplace','order'=>'"equipments".mark ASC, "equipments".inv ASC'),
+            'wpSubdivRn' => array(self::BELONGS_TO, 'Department', 'wp_subdiv_rn'),
 		);
+	}
+
+	public function department(){
+		if(!empty($this->wp_subdiv_rn))
+			return $this->wpSubdivRn->name;
+		else
+			return '-//-';
 	}
 
 	/**
@@ -142,11 +165,13 @@ class Workplace extends CActiveRecord
 			'id_cabinet' => 'Кабинет',
 			'id_personnel' => 'Персонал',
 			'wname' => 'Рабочее место',
-			'idPersonnelid_personnel' => 'Персонал',
+			'idPersonnelid_personnel' => 'Рабочее место',
 			'idCabinetid_cabinet' => 'Кабинет',
             'equipmentsid_workplace' => 'Оборудование',
             'phone'=>'Телефон',
             'type'=>'Тип рабочего места',
+            'wp_subdiv_rn'=>'Отдел',
+            'wpSubdivRnwp_subdiv_rn'=>'Отдел',
 		);
 	}
 
@@ -186,6 +211,7 @@ class Workplace extends CActiveRecord
 				$criteria->compare('id_personnel',$this->id_personnel);
 		$criteria->compare('wname',$this->wname,true);
 		$criteria->compare('phone',$this->phone,true);
+		$criteria->compare('wp_subdiv_rn',$this->wp_subdiv_rn,true);
 		$criteria->compare('personnel.id_personnel',$this->idPersonnelid_personnel,true);
 		$criteria->compare('cabinet.cname',$this->idCabinetid_cabinet,true);
         $criteria->compare('equipment.ename',$this->equipmentsid_workplace,true);

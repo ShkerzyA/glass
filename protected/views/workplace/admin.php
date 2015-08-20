@@ -44,9 +44,9 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array( 'name'=>'idCabinetid_cabinet', 'value'=>'$data->idCabinet->idFloor->idBuilding->bname."/".$data->idCabinet->idFloor->fname."/".$data->idCabinet->cname." #".$data->idCabinet->num'),
-		array( 'name'=>'idPersonnelid_personnel', 'value'=>'$data->idPersonnel->surname." ".$data->idPersonnel->name." ".$data->idPersonnel->patr' ),
-		'wname',
+		array( 'name'=>'idCabinetid_cabinet', 'value'=>'$data->wpNameFull(1)'),
+		array( 'name'=>'idPersonnelid_personnel', 'value'=>'$data->wpName()' ),
+		array( 'name'=>'wpSubdivRnwp_subdiv_rn', 'value'=>'$data->department()' ),
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -37,6 +37,7 @@ $this->menu['all_menu']=array(
 			array('label'=>'Этажи', 'url'=>array('/floor/admin')), 
 			array('label'=>'Кабинеты', 'url'=>array('/cabinet/admin')), 
 			array('label'=>'Рабочие места', 'url'=>array('/workplace/admin')),
+			array('label'=>'Рабочие места/автоотдел', 'url'=>array('/workplace/AutoSetDepartment')),
 		)),
 	)),
 
