@@ -67,11 +67,11 @@ class TasksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','join','create','helpDesk','report', 'reportOtd'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update'),
+				'actions'=>array('update','join','create','helpDesk','report', 'reportOtd'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
