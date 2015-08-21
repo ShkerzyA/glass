@@ -362,7 +362,7 @@ class Equipment extends CActiveRecord
 
 	public function search_for_export(){
 		$criteria=new CDbCriteria;
-		$criteria->with=array('type0','producer0','idWorkplace.idPersonnel','idWorkplace.idCabinet.idFloor.idBuilding'); // 
+		$criteria->with=array('type0','producer0','idWorkplace.idPersonnel','idWorkplace.idCabinet.idFloor.idBuilding','idWorkplace.wpSubdivRn'); // 
 		$criteria->order=('"idBuilding".bname ASC, "idFloor".fnum ASC, "idCabinet".num ASC');
 		//$criteria->compare('personnel.creator',$this->creator0creator,true);
 		return self::model()->findAll($criteria);

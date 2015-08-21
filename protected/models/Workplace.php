@@ -175,6 +175,12 @@ class Workplace extends CActiveRecord
 		);
 	}
 
+	protected function beforeSave(){
+		if(!empty($this->idPersonnel) and !empty($this->idPersonnel->personnelPostsHistories) and !empty($this->idPersonnel->personnelPostsHistories[0]))
+			$this->wp_subdiv_rn=$this->idPersonnel->personnelPostsHistories[0]->idPost->postSubdivRn->subdiv_rn;
+		return parent::beforeSave();
+	}
+
 	public function suggestTag($keyword){
 		$keyword=mb_strtolower($keyword,'UTF-8');
  		$tags=$this->with('idPersonnel','idCabinet.idFloor.idBuilding')->findAll(array(

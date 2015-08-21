@@ -221,6 +221,7 @@ class Xls extends CFormModel{
 	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->idWorkplace->idCabinet->idFloor->idBuilding->bname);
 	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row->idWorkplace->idCabinet->idFloor->fname);
 	$PHPExcel->getActiveSheet()->setCellValue("K$i",$row->idWorkplace->idCabinet->num.' '.$row->idWorkplace->idCabinet->cname);
+	$PHPExcel->getActiveSheet()->setCellValue("L$i",$row->idWorkplace->department());
 	/*
 	//$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->name_research);
 	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->birthday);
