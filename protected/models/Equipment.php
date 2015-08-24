@@ -108,7 +108,7 @@ class Equipment extends CActiveRecord
 	}
 
 	public function getProducer(){
-		if(!empty($this->producer))
+		if(isset($this->producer))
 			return $this->producer0->name;
 	}
 

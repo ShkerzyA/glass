@@ -193,18 +193,20 @@ class EquipmentLog extends CActiveRecord
 			case '4':
 				$res='';
 				//$res.=implode(', ',$det)."\n";
-				$mod=Equipment::model()->findAll(array('condition'=>'t.type=18 and t.inv in(\''.implode('\',\'',$this->details).'\')','order'=>'t.mark ASC, t.inv::integer ASC'));
+				$mod=Equipment::model()->findAll(array('condition'=>'t.type=18 and t.inv in(\''.implode('\',\'',$this->details).'\')','order'=>'t.mark ASC, t.producer ASC, t.inv::integer ASC'));
 				
 				$mark='x';
+				$producer='x';
 				$all=0;
 				foreach ($mod as $v) {
-					if($v->mark!=$mark){
+					if($v->mark!=$mark or $v->producer!=$producer){
 						if(!empty($n))
 							$res.="<div style='margin-top: 2px;  position: relative; clear: both;'><b>Итого ".$mark.' : '.$n.'</b></div>';
 						$n=0;
 						$mark=$v->mark;
+						$producer=$v->producer;
 						$res.="<div style='height: 3px; position: relative; clear: both; border-bottom: 1px solid grey;'></div>";
-						$res.='<div style="margin: 2px;"><u>'.$v->mark.'</u></div>';
+						$res.='<div style="margin: 2px;"><u>'.$v->getProducer().'/'.$v->mark.'</u></div>';
 					}
 						
 					//$mod=Equipment::model()->find(array('condition'=>'t.type=18 and t.inv=\''.$v.'\''));
@@ -212,7 +214,7 @@ class EquipmentLog extends CActiveRecord
 					$n++;
 					$all++;
 				}
-				$res.="<div style='margin-top: 2px;  position: relative; clear: both;'><b>Итого ".$mark.' : '.$n.'</b></div>';
+				$res.="<div style='margin-top: 2px;  position: relative; clear: both;'><b>Итого ".$producer.' '.$mark.' : '.$n.'</b></div>';
 				$res.="<div style='height: 3px; position: relative; clear: both;'></div><hr>".'<b>Итого:  '.$all.'</b>';
 				return $res;
 				//return 'номера картриджей: '.implode(', ',$det);
