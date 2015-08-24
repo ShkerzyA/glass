@@ -210,7 +210,7 @@ class Xls extends CFormModel{
 		
 	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row->serial); 
 	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row->type0->name);
-	$PHPExcel->getActiveSheet()->setCellValue("C$i",$producer=(!empty($row->producer))?$row->producer0->name:'');
+	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row->getProducer());
 	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row->mark);
 	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row->inv);
 	$PHPExcel->getActiveSheet()->setCellValue("F$i",$status[$row->status]);
