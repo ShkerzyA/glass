@@ -71,7 +71,7 @@ class TasksController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update','join','create','helpDesk','report', 'reportOtd'),
+				'actions'=>array('update','join','create','helpDesk','report', 'reportOtd','sameTasks'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -334,6 +334,26 @@ class TasksController extends Controller
 			$this->render('helpdesk',array(
 				'model'=>$model,
 			));
+		}
+	}
+
+	public function actionSameTasks($id,$type){
+		if(Yii::app()->request->isAjaxRequest){
+			switch ($type) {
+				case 'wp':
+					$ttype=0;
+					break;
+				case 'eq':
+					$ttype=1;
+					break;
+				default:
+					return false;
+					break;
+			}
+			$models=Tasks::model()->findAll(array('condition'=>"'".$id."'"."=t.details[1] and t.type=".$ttype,'order'=>'t.timestamp DESC'));
+			$this->renderPartial('_helpdesk',array(
+				'model'=>$models,
+			),false,false);
 		}
 	}
 

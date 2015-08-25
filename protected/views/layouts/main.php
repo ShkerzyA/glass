@@ -21,6 +21,7 @@
 
 	<?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
 	<?php Yii::app()->getClientScript()->registerCoreScript('jquery.cookie'); ?>
+	<?php Yii::app()->getClientScript()->registerCoreScript('glassCommon'); ?>
 	<?php Yii::app()->request->cookies['tornado'] = new CHttpCookie('tornado', Yii::app()->params['tornado']); ?>
 
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
@@ -75,7 +76,7 @@
 		
 
 </div><!-- header -->
-<div class="container" id="page">
+<div class="container" id="page" class="killClick">
 	<div id="mainmenu">
 
 				<!--array('label'=>'КККОД', 'url'=>array('/site/index')),

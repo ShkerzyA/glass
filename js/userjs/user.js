@@ -9,6 +9,10 @@ function init(){
 		$('.'+this.id).remove();
 	});
 
+  $('.killClick').live('click',function(){ 
+    $(this).remove();
+  });
+
 	$("#EquipmentLog_details").live('keydown',function(e){
         if(e.keyCode==13){
         	tmp=$("#EquipmentLog_details").val();
@@ -40,6 +44,11 @@ function init(){
 
 }
 
+function awesomeWindowWrap(data){
+  var res='<div class="back"><div class="window_awesom killClick" style="width: 80%; left: 10%; position: fixed; max-width: 90%; min-height: 50px; top: 30%; margin: auto; font-size: 9pt; overflow: hidden;"><div id="back" class="close_this"></div><div class="wa_body" style="min-height: 200px;">'+ data + '</div></div></div>';
+  return res;
+}
+
 
 $(document).ready(init());
 
@@ -52,7 +61,7 @@ function showLog(id){
         $.post("/glass/EquipmentLog/showLog", {id: id},
             function(data, status) {
                 if (status == "success") {
-                    $('html').append('<div class="back"><div class="window_awesom" style="width: 80%; left: 10%; position: fixed; max-width: 90%; min-height: 50px; top: 30%; margin: auto; font-size: 9pt"><div id="back" class="close_this"></div><div>'+ data + '</div></div></div>');
+                    $('html').append(awesomeWindowWrap(data));
                 }else{
                     alert('Ошибка');
                 }

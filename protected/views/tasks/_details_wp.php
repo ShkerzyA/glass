@@ -1,4 +1,5 @@
-	<div class="row">
+
+  <div class="row">
 		<?php echo CHtml::label('Рабочее место',''); ?>
 		<?php echo $form->hiddenField($model,'details[0]'); ?>
 
@@ -15,7 +16,7 @@
     $val=(!empty($model->details[0]))?$model->detailsShow():'';
 
     $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-   'name'=>'Printer_details',
+   'name'=>'Wp_details',
    'value'=>$val,
 //'value' => $model->id,
    'source'=>"js:function(request, response) {
@@ -30,6 +31,7 @@
  	'multiple'=>false,
      'select'=>"js:function(event, ui) {
      	$('#Tasks_details_0').val(ui.item.id);
+        sameTasks(ui.item.id,'wp');
          var terms = split(this.value);
          // remove the current input
          terms.pop();
@@ -48,7 +50,7 @@
   ));
   // Для подсветки набираемого куска запроса в предлагаемом списке
   Yii::app()->clientScript->registerScript('unique.script.identifier', "
- $('#Printer_details').data('autocomplete')._renderItem = function( ul, item ) {
+ $('#Wp_details').data('autocomplete')._renderItem = function( ul, item ) {
    var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
    var highlightedResult = item.label.replace( re, '<b>$1</b>' );
    return $( '<li></li>' )

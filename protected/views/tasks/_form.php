@@ -15,6 +15,22 @@ Yii::app()->getClientScript()->registerCssFile(Yii::app()
 ?>
 <script type="text/javascript">
 
+function sameTasks(id,type){
+if(id){
+    $.get("/glass/tasks/sameTasks", {id: id, type: type},
+            function(data, status) {
+                if (status == "success") {
+                    if(data.length>0){
+                        $('html').append(awesomeWindowWrap(data));
+                    }
+                }else{
+                    alert('Ошибка');
+                }
+            },"html"
+      	);
+  	}	
+}
+
 function init(){
   $("#tasks-form > *").live('keydown',function(e){
         if(e.ctrlKey && e.keyCode==13){
@@ -26,6 +42,7 @@ function init(){
 $(document).ready(init());
 
 </script>
+
 
 <div class="form">
 

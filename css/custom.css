@@ -761,14 +761,14 @@ select{
 	text-align: left;
 	min-width: 14px;
 
-	z-index: 99;
+	z-index: 20;
 	
 }
 
 
 
 
-.window_awesom div{
+.window_awesom .wa_body{
 	overflow-y: auto;
 	max-height: 400px;
 }

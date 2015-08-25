@@ -30,6 +30,7 @@
  	'multiple'=>false,
      'select'=>"js:function(event, ui) {
      	$('#Tasks_details_0').val(ui.item.id);
+        sameTasks(ui.item.id,'eq');
          var terms = split(this.value);
          // remove the current input
          terms.pop();

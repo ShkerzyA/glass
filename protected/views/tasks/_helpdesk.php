@@ -85,6 +85,3 @@
 			<div class="texttask rotated"><pre><?php echo $v->detailsShow().'<br>'. $v['ttext']; ?></pre></div>
 		</div>
 <?php endforeach; ?>
-
-
-
