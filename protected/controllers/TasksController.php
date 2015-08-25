@@ -350,7 +350,7 @@ class TasksController extends Controller
 					return false;
 					break;
 			}
-			$models=Tasks::model()->findAll(array('condition'=>"'".$id."'"."=t.details[1] and t.type=".$ttype,'order'=>'t.timestamp DESC'));
+			$models=Tasks::model()->findAll(array('condition'=>"'".$id."'"."=t.details[1] and t.type=".$ttype,'order'=>'t.timestamp DESC','limit'=>10));
 			$this->renderPartial('_helpdesk',array(
 				'model'=>$models,
 			),false,false);
