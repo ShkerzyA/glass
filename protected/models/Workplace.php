@@ -176,7 +176,9 @@ class Workplace extends CActiveRecord
 	}
 
 	protected function beforeSave(){
-		if(!empty($this->idPersonnel) and !empty($this->idPersonnel->personnelPostsHistories) and !empty($this->idPersonnel->personnelPostsHistories[0]))
+		if(empty($this->wp_subdiv_rn))
+			$this->wp_subdiv_rn=NULL;
+		if(!empty($this->id_personnel and !empty($this->idPersonnel) and !empty($this->idPersonnel->personnelPostsHistories) and !empty($this->idPersonnel->personnelPostsHistories[0])))
 			$this->wp_subdiv_rn=$this->idPersonnel->personnelPostsHistories[0]->idPost->postSubdivRn->subdiv_rn;
 		return parent::beforeSave();
 	}
