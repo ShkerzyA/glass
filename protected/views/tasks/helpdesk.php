@@ -44,6 +44,7 @@ $this->menu['all_menu']=array(
 		array('title'=>'Фильтры задач','items'=>array(
 			array('label'=>'Актуальные', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=1')),
 			array('label'=>'За сегодня', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=3')),
+			array('label'=>'[Мое]', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=2')),
 		)
 	));
 ?>

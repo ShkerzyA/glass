@@ -29,6 +29,7 @@ class Tasks extends CActiveRecord
 	public static $db_array=array('group','details','executors');
 	public static $statJoin=array(1,2,5);
 	public static $statFixEnd=array(2,3);
+	public $inExecutors=0;
 	
 	public $creator0creator;
 	public $executor0executor;
@@ -268,7 +269,7 @@ class Tasks extends CActiveRecord
 				break;
 
 			case '2':
-				$condition="id_department=".$id_department." and ((t.timestamp::date=$date or t.timestamp_end::date=$date))";
+				$condition="id_department=".$id_department." and status in (0,1,5) and '".Yii::app()->user->id_pers."'=ANY(\"executors\")";
 				$order="status asc,t.timestamp desc";
 				break;
 			default:
@@ -372,8 +373,8 @@ class Tasks extends CActiveRecord
 	public function search(){
 
 		$criteria=new CDbCriteria;
-
 		$criteria->with=array('creator0' => array('alias' => 'departmentposts'),);
+		$criteria->compare("'".Yii::app()->user->id_pers."'=ANY(\"executors\")",$this->inExecutors);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('tname',$this->tname,true);
 		$criteria->compare('ttext',$this->ttext,true);
@@ -384,6 +385,7 @@ class Tasks extends CActiveRecord
 		$criteria->compare('group',$this->group,true);
 		$criteria->compare('details',$this->details,true);
 		$criteria->compare('type',$this->type);
+		
 		if(!empty($_GET['creator']))
 				$criteria->compare('creator',$_GET['creator']);
 		else

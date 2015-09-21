@@ -753,6 +753,7 @@ select{
 
 	margin: auto; 
 	overflow: hidden;
+	overflow-y: auto;
 	max-height: 400px;
 	padding: 3px;
 	padding-bottom: 40px;
