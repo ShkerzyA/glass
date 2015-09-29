@@ -25,5 +25,5 @@ function init(){
        'placeholder'=>'посмотреть за дату'
    ),
 	));?></div>
-  <?php echo CHtml::hiddenField('type',2); ?>
+  <?php echo CHtml::hiddenField('type',4); ?>
 	<?php echo CHtml::endForm(); ?>
