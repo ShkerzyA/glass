@@ -241,6 +241,26 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 	<?php //echo $form->hiddenField($model,'group'); ?>
 <?php endif; ?>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'project'); ?>
+
+		<?php $tmp=Projects::model()->findall();
+echo $form->dropDownList($model,"project",CHtml::listData($tmp,"id",function($tmp) {
+				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
+		<?php echo $form->error($model,'project'); ?>
+
+		<?php echo $form->error($model,'project'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'deadline'); ?>
+
+		<?php echo $form->textField($model,'deadline'); ?>
+
+		<?php echo $form->error($model,'deadline'); ?>
+	</div>
+
+
  <!--
 	<div class="row">
 		<?php //echo $form->labelEx($model,'executor'); ?>

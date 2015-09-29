@@ -31,6 +31,14 @@ class TimeStampBehavior extends CActiveRecordBehavior{
                 $this->owner->timestamp_end=NULL;
             }  
         }
+
+         if(isset($this->owner->deadline)){
+            if(!empty($this->owner->deadline)){
+                $this->owner->deadline=date('Y-m-d H:i:s', strtotime($this->owner->timestamp_end));//strtotime($this->date_start);
+            }else{
+                $this->owner->deadline=NULL;
+            }  
+        }
         
     }
 
@@ -44,6 +52,11 @@ class TimeStampBehavior extends CActiveRecordBehavior{
          if(!empty($this->owner->timestamp_end)){
             $date = date('d.m.Y H:i:s', strtotime($this->owner->timestamp_end));
             $this->owner->timestamp_end = $date;
+        }
+
+          if(!empty($this->owner->deadline)){
+            $date = date('d.m.Y H:i:s', strtotime($this->owner->deadline));
+            $this->owner->deadline = $date;
         }
     }
 } 

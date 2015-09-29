@@ -114,8 +114,9 @@ class PersonnelController extends Controller
 			}
 
 			$modelN=(!empty($_POST['modelN']))?$_POST['modelN']:'';
+			$action=(!empty($_POST['action']))?$_POST['action']:'';
 			
-			$this->renderPartial('surnameSearch', array('surname'=>$surname,'model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$modelN), false, true);
+			$this->renderPartial('surnameSearch', array('surname'=>$surname,'model'=>$model,'action'=>$action, 'field'=>$_POST['field'], 'modelN'=>$modelN), false, true);
 		}else{
 			exit();
 		}

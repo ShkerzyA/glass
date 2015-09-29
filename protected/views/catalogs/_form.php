@@ -56,7 +56,7 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 		<?php 
 			$tmp=Personnel::model()->findall();
 			echo $form->dropDownList($model,"owner",CHtml::listData($tmp,"id",function($tmp) {
-			return CHtml::encode($tmp->surname.' '.$tmp->name.' '.$tmp->patr);}),array('empty' => '')); ?>
+			return CHtml::encode($tmp->fio());}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'owner'); ?>
 	</div>
 

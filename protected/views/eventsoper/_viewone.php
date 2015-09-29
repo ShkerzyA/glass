@@ -13,12 +13,11 @@ echo '<div class="comment " id="taskbody">
 
 		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('operations')); ?></td> 
    		<td><?php
-   		$tmp=explode(',',$model->operations); 
 		$exec=array();
-				foreach ($tmp as $v){
+				foreach ($model->operations as $v){
 					if(!empty($v)){
-						$oper=ListOperations::model()->findByPk($v);
-						$exec[]=CHtml::encode($oper->name);
+						if($oper=ListOperations::model()->findByPk($v))
+							$exec[]=CHtml::encode($oper->name);
 					}
 				}	
 				echo (implode(', ', $exec)); ?></td></tr>
@@ -43,12 +42,11 @@ echo '<div class="comment " id="taskbody">
 
    		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('anesthesiologists')); ?></td> 
    		<td><?php
-   		$tmp=explode(',',$model->anesthesiologists); 
 		$exec=array();
-				foreach ($tmp as $v){
+				foreach ($model->anesthesiologists as $v){
 					if(!empty($v)){
-						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->fio());
+						if($pers=Personnel::model()->findByPk($v))
+							$exec[]=CHtml::encode($pers->fio());
 					}
 				}	
 				echo (implode(', ', $exec)); ?></td></tr>
@@ -66,12 +64,11 @@ echo '<div class="comment " id="taskbody">
 
    		<tr><td><?php echo CHtml::encode($model->getAttributeLabel('brigade')); ?></td> 
    		<td><?php
-   		$tmp=explode(',',$model->brigade); 
 		$exec=array();
-				foreach ($tmp as $v){
+				foreach ($model->brigade as $v){
 					if(!empty($v)){
-						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->fio());
+						if($pers=Personnel::model()->findByPk($v))
+							$exec[]=CHtml::encode($pers->fio());
 					}
 				}	
 				echo (implode(', ', $exec)); ?></td></tr>

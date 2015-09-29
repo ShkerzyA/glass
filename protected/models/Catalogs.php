@@ -32,7 +32,6 @@ class Catalogs extends CActiveRecord
 	 */
 	public static $modelLabelS='Каталог';
 	public static $modelLabelP='Каталоги';
-	public static $multifield=array('groups');
 	public static $db_array=array('groups');
 	
 	public $docsid_catalog;
@@ -51,10 +50,6 @@ class Catalogs extends CActiveRecord
 			'DbArray'=>array(
 				'class'=>'application.behaviors.DbArrayBehavior',
 				),
-			'Multichoise'=>array(
-				'class'=>'application.behaviors.MultichoiseBehavior',
-				),
-			
 			'PreFill'=>array(
 				'class'=>'application.behaviors.PreFillBehavior',
 				),
@@ -110,6 +105,16 @@ class Catalogs extends CActiveRecord
 			'catalogs' => array(self::HAS_MANY, 'Catalogs', 'id_parent'),
 			'owner0' => array(self::BELONGS_TO, 'Personnel', 'owner'),
 		);
+	}
+
+	public function parentId(){
+		if(!empty($this->idParent))
+			return $this->idParent->id;
+	}
+
+	public function parentName(){
+		if(!empty($this->idParent))
+			return $this->idParent->cat_name;
 	}
 
 	/**

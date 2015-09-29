@@ -13,16 +13,24 @@
 <div class='body_res'>
 <?php 
 
-	if(!empty($modelN)){
-		if(!empty($model))
-		foreach ($model as $v){
-			echo "<div id='$v->id' text='".$v->name."' class='replace_personnel' f=".$field." field=".$modelN."[".$field."]>".$v->name."</div>";	
-		}	
-	}else{
-		if(!empty($model))
-		foreach ($model as $v){
-			echo "<div id='$v->id' text='".$v->name."' class='join_personnel' f=".$field." field=".$field.">".$v->name."</div>";	
-		}	
+	if(!empty($model)){
+		switch ($action) {
+			case 'join':
+					foreach ($model as $v){
+						echo "<div id='$v->id' text='".$v->name."' class='join_personnel' f=".$field." field=".$modelN."[".$field."][$v->id]>".$v->name."</div>";	
+					}	
+				break;
+
+			case 'replace':
+					foreach ($model as $v){
+						echo "<div id='$v->id' text='".$v->name."' class='replace_personnel' f=".$field." field=".$modelN."[".$field."]>".$v->name."</div>";	
+					}	
+				break;
+			
+			default:
+				# code...
+				break;
+		}
 	}
 	
 ?>

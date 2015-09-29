@@ -1,8 +1,9 @@
 <?php
-/* @var $this CatalogsController */
-/* @var $model Catalogs */
+/* @var $this ProjectsController */
+/* @var $model Projects */
 
 $this->breadcrumbs=array(
+	'Администрирование'=>array('/admin/index'),
 	$model::$modelLabelP=>array('index'),
 	'Управление',
 );
@@ -20,7 +21,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#catalogs-grid').yiiGridView('update', {
+	$('#projects-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -39,14 +40,22 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'catalogs-grid',
+	'id'=>'projects-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'cat_name',
-		array( 'name'=>'owner0owner', 'value'=>'$data->owner0->fio()' ),
-		array('name'=>'groups', 'value'=>'implode(",",$data->groups)'),
+		'name',
+		'description',
+		'timestamp',
+		'timestamp_end',
+		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->fio()' ),
+		/*
+		'id_department',
+		'status',
+		'executors',
+		'group',
+		*/
 		array(
 			'class'=>'CButtonColumn',
 		),

@@ -12,21 +12,20 @@
 			echo'<a href='.Yii::app()->request->baseUrl.'/eventsoper/'.$v->id.' title="'.$v->creator0->personnelPostsHistories[0]->idPersonnel->surname.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->name.' '.$v->creator0->personnelPostsHistories[0]->idPersonnel->patr.'('.$status['label'].')">';
 			echo '<div class="event '.$status['css_class'].' '.$v->anestAlert().'" style="top: '.$top.'px; height: '.$height.'px">';
 				echo '<div class=information><p>';
-				$tmp=explode(',',$v->operations); 
+				$tmp=$v->operations; 
 				if(!empty($tmp[0])){
-					$oper=ListOperations::model()->findByPk($tmp[0]);
-					echo $oper->name;
+					if($oper=ListOperations::model()->findByPk($tmp[0]))
+						echo $oper->name;
 				}
 					
 				echo'</p>';
 				echo 'Оператор: '.CHtml::encode($v->operator0->surname.' '.mb_substr($v->operator0->name,0,1,'utf-8').'. '.mb_substr($v->operator0->patr,0,1,'utf-8')).'.<br>'; 
    				//echo 'Анестезиолог: '.CHtml::encode($v->anesthesiologist0->surname.' '.mb_substr($v->anesthesiologist0->name,0,1,'utf-8').'. '.mb_substr($v->anesthesiologist0->patr,0,1,'utf-8')).'.<br>';
-				$tmp=explode(',',$v->anesthesiologists); 
 				$exec=array();
-				foreach ($tmp as $x){
+				foreach ($v->anesthesiologists as $x){
 					if(!empty($x)){
-						$pers=Personnel::model()->findByPk($x);
-						$exec[]=CHtml::encode($pers->surname.' '.mb_substr($pers->name,0,1,'utf-8').'. '.mb_substr($pers->patr,0,1,'utf-8').'. ');
+						if($pers=Personnel::model()->findByPk($x))
+							$exec[]=CHtml::encode($pers->surname.' '.mb_substr($pers->name,0,1,'utf-8').'. '.mb_substr($pers->patr,0,1,'utf-8').'. ');
 					}
 				}	
 				echo 'Анестезиологи: '.(implode(', ', $exec)); 

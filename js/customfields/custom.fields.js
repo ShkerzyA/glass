@@ -55,7 +55,7 @@ function init(){
 
 	$('.join_group').live('click',function(){ 
 		$('.'+this.id).remove();
-		$('.multichoise').append('<div class="choise_unit '+this.id+'"><input type=hidden name="groups['+this.id+']" value='+this.id+'>'+this.getAttribute('text')+'<div id='+this.id+' class="close_this"></div></div>');
+		$('.multichoise').append('<div class="choise_unit '+this.id+'"><input type=hidden name='+this.getAttribute('field')+' value='+this.id+'>'+this.getAttribute('text')+'<div id='+this.id+' class="close_this"></div></div>');
 	});
 
 	$('.join_post').live('click',function(){ 
@@ -65,7 +65,7 @@ function init(){
 
 	$('.join_personnel').live('click',function(){ 
 		$('.'+($(this).attr('f'))+this.id).remove();
-		$('.multichoise#'+($(this).attr('f'))+'').append('<div class="choise_unit '+($(this).attr('f'))+this.id+'"><input type=hidden name="'+$(this).attr('field')+'['+this.id+']" value='+this.id+'>'+this.getAttribute('text')+'<div id='+($(this).attr('f'))+this.id+' class="close_this"></div></div>');
+		$('.multichoise#'+($(this).attr('f'))+'').append('<div class="choise_unit '+($(this).attr('f'))+this.id+'"><input type=hidden name="'+$(this).attr('field')+'" value='+this.id+'>'+this.getAttribute('text')+'<div id='+($(this).attr('f'))+this.id+' class="close_this"></div></div>');
 	});
 
 	$('.replace_personnel').live('click',function(){ 
@@ -96,7 +96,8 @@ function getAjax_freeday(){
 
 
 function getAjax_groups(){
-	$.post('/glass/PostsGroups/allgroups',{},function(data,status){
+	var model=$('.modelN#groups').val()
+	$.post('/glass/PostsGroups/allgroups?mn='+model,{},function(data,status){
 		if(status=='success'){
 			show_groups(data);
 		}
@@ -119,8 +120,9 @@ function getAjax_surnameSearch(){
 	var field=$('.field#'+id+'').val();
 	var modelN=$('.modelN#'+id+'').val();
 	var search=$('.search_surname#'+id+'').val();
+	var action=$('.action#'+id+'').val();
 	//alert(search);
-	$.post('/glass/Personnel/surnameSearch',{search: search, field: field, modelN: modelN},function(data,status){
+	$.post('/glass/Personnel/surnameSearch',{search: search, field: field, modelN: modelN, action: action},function(data,status){
 		if(status=='success'){
 			show_res(data,'search_surname');
 		}
@@ -132,8 +134,9 @@ function getAjax_operSearch(){
 	var field=$('.field#'+id+'').val();
 	var modelN=$('.modelN#'+id+'').val();
 	var search=$('.search_oper#'+id+'').val();
+	var action=$('.action#'+id+'').val();
 	//alert(search);
-	$.post('/glass/Eventsoper/operSearch',{search: search, field: field, modelN: modelN},function(data,status){
+	$.post('/glass/Eventsoper/operSearch',{search: search, field: field, modelN: modelN, action: action},function(data,status){
 		if(status=='success'){
 			show_res(data,'search_oper');
 		}

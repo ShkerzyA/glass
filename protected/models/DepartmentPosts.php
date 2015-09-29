@@ -22,7 +22,6 @@ class DepartmentPosts extends CActiveRecord
 	public static $modelLabelS='Штатная структура';
 	public static $modelLabelP='Штатная структура';
 
-    public static $multifield=array('groups');
     public static $db_array=array('groups');
 	
     public $personnelPostsHistoriesid_post;
@@ -38,16 +37,13 @@ class DepartmentPosts extends CActiveRecord
             'DbArray'=>array(
                 'class'=>'application.behaviors.DbArrayBehavior',
                 ),
-            'Multichoise'=>array(
-                'class'=>'application.behaviors.MultichoiseBehavior',
-                ),
 			'DateBeginEnd'=>array(
 				'class'=>'application.behaviors.DateBeginEndBehavior',
 				),
             'PreFill'=>array(
                 'class'=>'application.behaviors.PreFillBehavior',
                 ),
-			 );
+			);
 	}
 	/**
 	 * @return string the associated database table name

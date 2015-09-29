@@ -81,7 +81,7 @@ public function actionSuggest(){
 				$model=NULL;
 			}
 			
-			$this->renderPartial('operSearch', array('name'=>$name,'model'=>$model, 'field'=>$_POST['field'], 'modelN'=>$modelN), false, true);
+			$this->renderPartial('operSearch', array('name'=>$name,'model'=>$model,'field'=>$_POST['field'],'action'=>$_POST['action'],'modelN'=>$modelN), false, true);
 		}else{
 			exit();
 		}

@@ -31,8 +31,8 @@ class Events extends CActiveRecord
 	 */
 	public static $modelLabelS='Событие';
 	public static $modelLabelP='События';
-	public static $multifield=array();
 	public static $statFixEnd=array();
+	public static $db_array=array();
 
 	public $creator0creator;
 	public $idRoomid_room;
@@ -188,11 +188,9 @@ class Events extends CActiveRecord
 			'FixedOwner'=>array(
 				'class'=>'application.behaviors.FixedOwnerBehavior',
 				),
-			
-			'Multichoise'=>array(
-				'class'=>'application.behaviors.MultichoiseBehavior',
-				),
-			);
+			 'DbArray'=>array(
+                'class'=>'application.behaviors.DbArrayBehavior',
+                ));
 	}
 
 

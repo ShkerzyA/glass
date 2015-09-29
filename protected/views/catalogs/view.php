@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('/myDocs'),
-	$model->idParent->cat_name=>array('catalogs/'.$model->id_parent),
+	$model->parentName()=>array('catalogs/'.$model->parentId()),
 	$model->cat_name,
 );
 

@@ -46,7 +46,7 @@ class Eventsoper extends Events
 	public static $step='5'; //минуты
 	public static $modelLabelS='Операция';
 	public static $modelLabelP='Операции';
-	public static $multifield=array('brigade','anesthesiologists','operations');
+	public static $db_array=array('brigade','anesthesiologists','operations');
 	public $operator0operator;
 	public $anesthesiologist0anesthesiologist;
 	public $operation0operation;
@@ -138,11 +138,12 @@ class Eventsoper extends Events
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('id','freeOnly'),
 			array('id_room,date,operator, timestamp, timestamp_end, fio_pac', 'required'),
 			array('id_room, creator, operator, anesthesiologist_w, scrub_nurse, type_operation, id_eventsoper', 'numerical', 'integerOnly'=>true),
 			array('fio_pac', 'length', 'max'=>250),
 			array('date, timestamp, timestamp_end, date_gosp, brigade, anesthesiologists, type_operation, operations', 'safe'),
-			array('id','freeOnly'),
+			
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -163,8 +164,6 @@ class Eventsoper extends Events
 			'anesthesiologist_w0'=> array(self::BELONGS_TO, 'Personnel', 'anesthesiologist_w'), 
 			'scrub_nurse0'=> array(self::BELONGS_TO, 'Personnel', 'scrub_nurse'),
 			'idRoom' => array(self::BELONGS_TO, 'Rooms', 'id_room'),
-            'idEventsoper' => array(self::BELONGS_TO, 'Eventsoper', 'id_eventsoper'),
-            'eventsopers' => array(self::HAS_ONE, 'Eventsoper', 'id_eventsoper'),
 		);
 	}
 
@@ -177,7 +176,15 @@ class Eventsoper extends Events
 	}
 
 	protected function beforeSave(){
+		//print_r($this->attributes);
+		//break;
 		return parent::beforeSave();
+	}
+
+	protected function beforeValidate(){
+		//print_r($this->attributes);
+		//break;
+		return parent::beforeValidate();
 	}
 
 	protected function afterValidate(){
@@ -294,9 +301,10 @@ class Eventsoper extends Events
 	public function freeOnly()
     {   
 
+    	//return ;
+    	//if(!empty($_POST['Eventsoper']))
+    	//	$this->attributes=$_POST['Eventsoper'];
 
-    	if(!empty($_POST['Eventsoper']))
-    		$this->attributes=$_POST['Eventsoper'];
 
     	if($this->status==3)
     		return false;

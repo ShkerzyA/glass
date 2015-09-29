@@ -71,7 +71,7 @@ class TasksController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update','join','create','helpDesk','report', 'reportOtd','sameTasks'),
+				'actions'=>array('update','join','create','helpDesk','report', 'reportOtd','sameTasks','helpDeskProject'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -299,6 +299,13 @@ class TasksController extends Controller
 			$this->redirect(Yii::app()->getUrlManager()->createUrl('tasks/helpDesk?id_department=1011'));
 	}
 
+	public function actionHelpDeskProject(){
+		$this->layout='//layouts/leaf';
+		$model=new Projects();
+		$models=Projects::myGroupProjects();
+		$this->render('helpdeskproject',array(
+				'model'=>$model,'models'=>$models));
+	}
 	
 
 

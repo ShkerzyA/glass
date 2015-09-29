@@ -13,9 +13,8 @@
 	<!--<td><?php // echo CHtml::encode($data->date_gosp); ?></td> -->
 	<td><?php echo CHtml::encode($data->operator0->fio_full()); ?></td>
 	<td><?php
-   		$tmp=explode(',',$data->anesthesiologists); 
-		$exec=array();
-				foreach ($tmp as $v){
+			$exec=array();
+				foreach ($data->anesthesiologists as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
 						if(!empty($pers))
@@ -26,9 +25,8 @@
 					$exec[]='<br>анестезист: '.CHtml::encode($data->anesthesiologist_w0->fio());
 				echo (implode(', ', $exec));?></td>
 	<td><?php
-   		$tmp=explode(',',$data->brigade); 
 		$exec=array();
-				foreach ($tmp as $v){
+				foreach ($data->brigade as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
 						if(!empty($pers))
@@ -40,9 +38,8 @@
 				}	
 				echo (implode(', ', $exec)); ?></td>
 	<td><?php
-   		$tmp=explode(',',$data->operations); 
 		$exec=array();
-				foreach ($tmp as $v){
+				foreach ($data->operations as $v){
 					if(!empty($v)){
 						if ($oper=ListOperations::model()->findByPk($v))
 							$exec[]=CHtml::encode($oper->name);

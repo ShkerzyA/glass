@@ -21,7 +21,7 @@ class Rooms extends CActiveRecord
 	 */
 	public static $modelLabelS='Помещение';
 	public static $modelLabelP='Помещения';
-	public static $multifield=array('managers');
+	public static $db_array=array('managers');
 	
 	public $idCabinetid_cabinet;
 
@@ -33,9 +33,9 @@ class Rooms extends CActiveRecord
 
 	public function behaviors(){
 	return array(
-			'Multichoise'=>array(
-				'class'=>'application.behaviors.MultichoiseBehavior',
-				)
+			'DbArray'=>array(
+				'class'=>'application.behaviors.DbArrayBehavior',
+				),
 			);
 	}
 
@@ -100,6 +100,13 @@ class Rooms extends CActiveRecord
 			}
 		return $roomsM;
 
+	}
+
+	public function getCabName(){
+		if(!empty($this->idCabinet))
+			return $this->idCabinet->cabNameFull(1);
+		else
+			return '';
 	}
 
 
@@ -176,6 +183,7 @@ class Rooms extends CActiveRecord
 			'eventsid_room' => 'События',
 			'managers' => 'Ответственные',
 			'idCabinetid_cabinet' => 'Кабинет',
+			'type' => 'Тип',
 		);
 	}
 
@@ -196,7 +204,7 @@ class Rooms extends CActiveRecord
 				$criteria->compare('id_cabinet',$_GET['id_cabinet']);
 		else
 				$criteria->compare('id_cabinet',$this->id_cabinet);
-		$criteria->compare('events.id_room',$this->idCabinet->cname,true);
+		$criteria->compare('events.id_room',$this->getCabName(),true);
 		$criteria->compare('managers',$this->managers,true);
 		$criteria->compare('cabinet.id_cabinet',$this->idCabinetid_cabinet,true);
 

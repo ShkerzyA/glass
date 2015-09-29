@@ -1,6 +1,6 @@
 <?php
 
-class PostsGroupsController extends Controller
+class ProjectsController extends Controller
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -28,7 +28,7 @@ class PostsGroupsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','rootFillTree','AjaxFillTree','allgroups'),
+				'actions'=>array('index','view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -60,25 +60,16 @@ class PostsGroupsController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionAllgroups($mn){
-		if(Yii::app()->request->isAjaxRequest){
-			$model=PostsGroups::model()->findAll();
-			$this->renderPartial('choise_group', array('model'=>$model,'mn'=>$mn), false, true);
-		}else{
-			exit();
-		}
-	}
-
 	public function actionCreate()
 	{
-		$model=new PostsGroups;
+		$model=new Projects;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['PostsGroups']))
+		if(isset($_POST['Projects']))
 		{
-			$model->attributes=$_POST['PostsGroups'];
+			$model->attributes=$_POST['Projects'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -100,9 +91,9 @@ class PostsGroupsController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['PostsGroups']))
+		if(isset($_POST['Projects']))
 		{
-			$model->attributes=$_POST['PostsGroups'];
+			$model->attributes=$_POST['Projects'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -131,9 +122,9 @@ class PostsGroupsController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('PostsGroups');
+		$dataProvider=new CActiveDataProvider('Projects');
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider, 'modelLabelP'=>PostsGroups::$modelLabelP,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Projects::$modelLabelP,
 		));
 	}
 
@@ -142,10 +133,10 @@ class PostsGroupsController extends Controller
 	 */
 	public function actionAdmin()
 	{
-		$model=new PostsGroups('search');
+		$model=new Projects('search');
 		$model->unsetAttributes();  // clear any default values
-		if(isset($_GET['PostsGroups']))
-			$model->attributes=$_GET['PostsGroups'];
+		if(isset($_GET['Projects']))
+			$model->attributes=$_GET['Projects'];
 
 		$this->render('admin',array(
 			'model'=>$model,
@@ -156,12 +147,12 @@ class PostsGroupsController extends Controller
 	 * Returns the data model based on the primary key given in the GET variable.
 	 * If the data model is not found, an HTTP exception will be raised.
 	 * @param integer $id the ID of the model to be loaded
-	 * @return PostsGroups the loaded model
+	 * @return Projects the loaded model
 	 * @throws CHttpException
 	 */
 	public function loadModel($id)
 	{
-		$model=PostsGroups::model()->findByPk($id);
+		$model=Projects::model()->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
@@ -169,11 +160,11 @@ class PostsGroupsController extends Controller
 
 	/**
 	 * Performs the AJAX validation.
-	 * @param PostsGroups $model the model to be validated
+	 * @param Projects $model the model to be validated
 	 */
 	protected function performAjaxValidation($model)
 	{
-		if(isset($_POST['ajax']) && $_POST['ajax']==='posts-groups-form')
+		if(isset($_POST['ajax']) && $_POST['ajax']==='projects-form')
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();

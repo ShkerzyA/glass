@@ -10,12 +10,9 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('id_cabinet')); ?>:</b>
-	<?php echo CHtml::encode($data->idCabinet->id_cabinet); ?>
+	<?php echo CHtml::encode($data->getCabName()); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('managers')); ?>:</b>
-	<?php echo CHtml::encode($data->managers); ?>
-	<br />
 
 
 </div>

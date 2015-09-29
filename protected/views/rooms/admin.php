@@ -44,8 +44,7 @@ $('.search-form form').submit(function(){
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array( 'name'=>'idCabinetid_cabinet', 'value'=>'$data->idCabinet->cname' ),
-		'managers',
+		array( 'name'=>'idCabinetid_cabinet', 'value'=>'$data->getCabName()' ),
 		array(
 			'class'=>'CButtonColumn',
 		),

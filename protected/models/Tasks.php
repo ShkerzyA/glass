@@ -25,7 +25,7 @@ class Tasks extends CActiveRecord
 	 */
 	public static $modelLabelS='Задача';
 	public static $modelLabelP='Задачи';
-	public static $multifield=array('executors');
+	#public static $multifield=array('executors','group');
 	public static $db_array=array('group','details','executors');
 	public static $statJoin=array(1,2,5);
 	public static $statFixEnd=array(2,3);
@@ -128,9 +128,6 @@ class Tasks extends CActiveRecord
 			'DbArray'=>array(
 				'class'=>'application.behaviors.DbArrayBehavior',
 				),
-			'Multichoise'=>array(
-				'class'=>'application.behaviors.MultichoiseBehavior',
-				),
 			'TimeStamp'=>array(
 				'class'=>'application.behaviors.TimeStampBehavior',
 				),
@@ -151,19 +148,19 @@ class Tasks extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, creator, id_department, status', 'numerical', 'integerOnly'=>true),
+			array('type, creator, id_department, status,project', 'numerical', 'integerOnly'=>true),
 			array('details','checkDetails'),
 			array('tname, id_department', 'required'),
 			array('tname', 'length', 'max'=>100),
 			array('group', 'length', 'max'=>255),
 			//array('details', 'length', 'max'=>255),
-			array('ttext, timestamp, timestamp_end', 'safe'),
+			array('ttext, timestamp,deadline,timestamp_end', 'safe'),
 
 			array('executors', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tname, ttext, timestamp, timestamp_end, type, id_department, status, creator, executors,creator0creator,executor0executor,group,details', 'safe', 'on'=>'search'),
+			array('id, tname, ttext, timestamp, timestamp_end, type, deadline, id_department, status, creator, executors,creator0creator,executor0executor,group,details,project', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -200,6 +197,7 @@ class Tasks extends CActiveRecord
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
 			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),
+			'Project0' => array(self::BELONGS_TO, 'Projects', 'project'),
 		);
 	}
 
@@ -222,6 +220,7 @@ class Tasks extends CActiveRecord
 			'creator0creator' => 'Создатель',
 			'group' => 'Группа',
 			'details' => 'Ключевые данные',
+			'project' => 'Проект',
 		);
 	}
 
@@ -272,12 +271,17 @@ class Tasks extends CActiveRecord
 				$condition="id_department=".$id_department." and status in (0,1,5) and '".Yii::app()->user->id_pers."'=ANY(\"executors\")";
 				$order="status asc,t.timestamp desc";
 				break;
-			default:
-			//за день
+			
 			case '3':
 				$condition="id_department=".$id_department." and ((t.timestamp::date=$date or t.timestamp_end::date=$date) or status in (0,1,5))";
 				$order="status asc,t.timestamp desc";
 				break;
+			//за день
+			case '4':
+				$condition="id_department=".$id_department." and ((t.timestamp::date=$date or t.timestamp_end::date=$date))";
+				$order="status asc,t.timestamp desc";
+				break;
+
 			default:
 				
 			break;
@@ -385,6 +389,7 @@ class Tasks extends CActiveRecord
 		$criteria->compare('group',$this->group,true);
 		$criteria->compare('details',$this->details,true);
 		$criteria->compare('type',$this->type);
+		$criteria->compare('project',$this->project);
 		
 		if(!empty($_GET['creator']))
 				$criteria->compare('creator',$_GET['creator']);
