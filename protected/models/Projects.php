@@ -104,9 +104,20 @@ class Projects extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
-			'Tasks' => array(self::HAS_MANY,'Tasks','project'),
+			'Tasks' => array(self::HAS_MANY,'Tasks','project','order'=>'"Tasks".status ASC, "Tasks".timestamp DESC'),
 		);
 	}
+
+	public function findExecutors(){
+		$result=array();
+		$exec=(is_array($this->executors))?$this->executors:array();
+		$tmp=array_diff($exec,array(''));
+		foreach ($tmp as $v) {
+			$result[]=Personnel::model()->findByPk($v);
+		}
+		return $result;
+	}
+
 
 	public static function myGroupProjects(){
 		$models=self::model()->with('Tasks')->findAll(array('condition'=>'t.group[1] in (\''.implode('\',\'',Yii::app()->user->groups).'\')'));

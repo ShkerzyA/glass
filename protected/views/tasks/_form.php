@@ -239,7 +239,7 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 	</div>
 <?php //else: ?>
 	<?php //echo $form->hiddenField($model,'group'); ?>
-<?php endif; ?>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'project'); ?>
@@ -251,11 +251,20 @@ echo $form->dropDownList($model,"project",CHtml::listData($tmp,"id",function($tm
 
 		<?php echo $form->error($model,'project'); ?>
 	</div>
+<?php endif; ?>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'deadline'); ?>
 
-		<?php echo $form->textField($model,'deadline'); ?>
+		<?php Yii::import('zii.widgets.jui.CJuiDateTimePicker');
+    $this->widget('CJuiDateTimePicker',array(
+        'model'=>$model, //Model object
+        'attribute'=>'deadline', //attribute name
+                'mode'=>'datetime', //use "time","date" or "datetime" (default)
+        'options'=>array(),
+        'htmlOptions'=>array('placeholder'=>'Заполнить или оставить пустым')
+    ));
+?>
 
 		<?php echo $form->error($model,'deadline'); ?>
 	</div>

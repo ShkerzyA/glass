@@ -864,7 +864,7 @@ select{
 	margin-left: 10%;
 }
 
-.taskpanel, .perspanel, .mess_unit{
+.taskpanel, .perspanel, .mess_unit, .projectpanel{
 	color: #06c;
 	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
 	border-radius: 2px;
@@ -876,6 +876,13 @@ select{
 	height: 26px; 
 	width: auto;
 	position: relative;
+}
+
+.projectpanel{
+	box-shadow: none;
+	border-top: 2px solid black;
+	color: #040404;
+	font-weight: bold;
 }
 
 .mess_unit{

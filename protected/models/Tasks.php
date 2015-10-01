@@ -87,6 +87,20 @@ class Tasks extends CActiveRecord
 		return parent::beforeValidate();
 	}
 
+	public function getDeadline(){
+		if(empty($this->deadline))
+			return false;
+		$current_date=new DateTime();
+		$date=new DateTime($this->deadline);
+
+		$interval=$current_date->diff($date);
+
+		$days=$interval->format('%r%a');
+		$difhours=($days==0)?$interval->format('%r%h'):0;
+		$hours=$date->format('H');
+
+		return array('difdays'=>$days,'difhours'=>$difhours,'hours'=>$hours);
+	}
 
 
 	public function getStatus(){
@@ -220,6 +234,7 @@ class Tasks extends CActiveRecord
 			'creator0creator' => 'Создатель',
 			'group' => 'Группа',
 			'details' => 'Ключевые данные',
+			'deadline' => 'Срок исполнения',
 			'project' => 'Проект',
 		);
 	}
@@ -318,8 +333,10 @@ class Tasks extends CActiveRecord
 		return $result;
 	}
 	
-	public function detailsShow($short=False,$place=True){
+	public function detailsShow($short=False,$place=True,$moreinfo=False){
 		$result='';
+		if($moreinfo)
+			$result.='<div class=rightinfo><i>Срок исполнения: '.$this->deadline.'</i></div>';	
 		switch ($this->type) {
 			case '1':
 				$m=Equipment::model()->findByPk($this->details[0]);

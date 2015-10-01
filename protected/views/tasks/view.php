@@ -43,7 +43,7 @@ echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: left;"><h2>'.$model->tname.'</h2></div>
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
 		Создатель:  '.$model->creator0->surname.' '.$model->creator0->name.' '.$model->creator0->patr.'</i></div>'.
-		'<hr><p class="norm_text"><pre>'.$model->detailsShow().'<br>'.$model->ttext.'</pre></p>
+		'<hr><p class="norm_text"><pre>'.$model->detailsShow(0,1,1).'<br>'.$model->ttext.'</pre></p>
 		<span style="float: right">Участники: ';
 		$exec=array();
 				foreach ($model->executors as $v){

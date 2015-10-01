@@ -99,7 +99,7 @@
 							)),
                 array('label'=>'Документы', 'url'=>array('/myDocs/index')),
                 array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk'),'submenu'=>
-						array(array('Проекты','/tasks/helpDeskProject',(Yii::app()->user->role=='administrator')),)),
+						array(array('Проекты','/tasks/helpDeskProject',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),))),
                 	array('label'=>'КККОД', 'url'=>array('/myAdmin/index'), 'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
 
 				array('label'=>'Админ', 'url'=>array('/admin/index'), 'visible'=>(Yii::app()->user->role=='administrator'))
