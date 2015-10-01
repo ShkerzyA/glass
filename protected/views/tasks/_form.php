@@ -256,7 +256,7 @@ echo $form->dropDownList($model,"project",CHtml::listData($tmp,"id",function($tm
 	<div class="row">
 		<?php echo $form->labelEx($model,'deadline'); ?>
 
-		<?php Yii::import('zii.widgets.jui.CJuiDateTimePicker');
+		<?php Yii::import('zii.widgets.jui.CJuiDateTimePicker.CJuiDateTimePicker');
     $this->widget('CJuiDateTimePicker',array(
         'model'=>$model, //Model object
         'attribute'=>'deadline', //attribute name
