@@ -1,3 +1,4 @@
+
 <?php foreach($models as $project): ?>
 	<tr>
 		<td colspan=23><div class=projectpanel>Проект: <?php  $this->renderPartial('addtask',array(
@@ -8,7 +9,7 @@
 
 
 						foreach ($exec as $z) {
-							echo '<img height=100% src="';
+							echo '<img height=100% class="dragPers" id="'.$z->id.'" src="';
 							echo $z->ava();
 							echo'">'.$z->fio();
 						}

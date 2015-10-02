@@ -20,8 +20,6 @@ function tdEcho($num){
 			}
 ?>
 
-
-
 <style>
 
 
@@ -40,7 +38,7 @@ function tdEcho($num){
 	border: 1px solid #dadada;
 }
 </style>
-<div style="widht=100%; height: 100%;">
+<div style="widht=100%; height: 100%;"  id="tableContainer" class="tableContainer">
 	<table class="calendar">
 		<tr>
 			<th colspan=3>
@@ -81,9 +79,11 @@ function tdEcho($num){
 			}
 			?>
 		</tr>
+		<tbody class="scrollContent">
 		<?php $this->renderPartial('_helpdeskproject',array(
 			'model'=>$model,'models'=>$models,
 		)) ?>
+	</tbody>
 	</table>
 	<div class=cont style="position: absolute; top: 0px; left: 0px; width: 100%; z-index: 20;">
 	</div>

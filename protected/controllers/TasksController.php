@@ -14,7 +14,7 @@ class TasksController extends Controller
 	public $target_date;
 
 	public $tasks_menu=array(
-		array('name'=>'IT crowd','id_department'=>'1011','group'=>'','rule'=>array('it')),
+		array('name'=>'IT crowd','id_department'=>'1011','group'=>'it','rule'=>array('it')),
 		array('name'=>'Плотники','id_department'=>'1074','group'=>'carpenters','rule'=>array()),
 		array('name'=>'Сантехники','id_department'=>'1074','group'=>'plumbers','rule'=>array()),
 		array('name'=>'Электрики','id_department'=>'1074','group'=>'electricians','rule'=>array()),
