@@ -63,13 +63,16 @@ $this->menu=array(
 </div>
 	<div style="clear: both;"></div>
 	<?php
-		foreach ($model->workplaces as $wp) {
-			if (!empty($wp->idCabinet)){
-				echo'<div>Кабинет: <a href="/glass/Cabinet/'.$wp->idCabinet->id.'"">"'.CHtml::encode($wp->idCabinet->cname).' каб. №'.CHtml::encode($wp->idCabinet->num).'" '.CHtml::encode($wp->idCabinet->idFloor->fname).' '.CHtml::encode($wp->idCabinet->idFloor->idBuilding->bname).'</a></div>';
+		if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))){
+			foreach ($model->workplaces as $wp) {
+				if (!empty($wp->idCabinet)){
+					echo'<div>Кабинет: <a href="/glass/Cabinet/'.$wp->idCabinet->id.'"">"'.CHtml::encode($wp->idCabinet->cname).' каб. №'.CHtml::encode($wp->idCabinet->num).'" '.CHtml::encode($wp->idCabinet->idFloor->fname).' '.CHtml::encode($wp->idCabinet->idFloor->idBuilding->bname).'</a></div>';
+				}
+				if(!empty($wp->equipments)) 
+					$this->renderPartial('/equipment/tableview',array('model'=>$wp)); 
 			}
-			if(!empty($wp->equipments)) 
-				$this->renderPartial('/equipment/tableview',array('model'=>$wp)); 
 		}
+	
 	?>
 
 

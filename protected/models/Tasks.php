@@ -400,10 +400,10 @@ class Tasks extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->with=array('creator0' => array('alias' => 'departmentposts'),);
 		$criteria->compare("'".Yii::app()->user->id_pers."'=ANY(\"executors\")",$this->inExecutors);
-		$criteria->compare('id',$this->id);
-		$criteria->compare('tname',$this->tname,true);
-		$criteria->compare('ttext',$this->ttext,true);
-		$criteria->compare('timestamp',$this->timestamp,true);
+		$criteria->compare('t.id',$this->id);
+		$criteria->compare('t.tname',$this->tname,true);
+		$criteria->compare('t.ttext',$this->ttext,true);
+		$criteria->compare('t.timestamp',$this->timestamp,true);
 		$criteria->compare('timestamp_end',$this->timestamp_end,true);
 		$criteria->compare('id_department',$this->id_department,true);
 		$criteria->compare('status',$this->status,true);
