@@ -1,7 +1,11 @@
 <?php foreach($models as $project): ?>
 	<tr>
-		<td colspan=23><div class=projectpanel>Проект: <?php print($project->name); ?> <div class="taskmoreinfo"><?php
+		<td colspan=23><div class=projectpanel>Проект: <?php  $this->renderPartial('addtask',array(
+			'project'=>$project,
+		)); print($project->name); ?> <div class="taskmoreinfo"><?php
 		$exec=$project->findExecutors();
+		 
+
 
 						foreach ($exec as $z) {
 							echo '<img height=100% src="';

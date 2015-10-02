@@ -28,7 +28,7 @@ class Projects extends CActiveRecord
 	 */
 	public static $modelLabelS='Проект';
 	public static $modelLabelP='Проекты';
-	public static $db_array=array('group','executors');
+	public static $db_array=array('group','executors','tasktype');
 	
 	public $creator0creator;
 
@@ -87,7 +87,7 @@ class Projects extends CActiveRecord
 		return array(
 			array('creator, id_department, status', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
-			array('description, timestamp, timestamp_end, executors, group', 'safe'),
+			array('description, timestamp, timestamp_end, executors, group, tasktype', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -104,7 +104,7 @@ class Projects extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
-			'Tasks' => array(self::HAS_MANY,'Tasks','project','order'=>'"Tasks".status ASC, "Tasks".timestamp DESC'),
+			'Tasks' => array(self::HAS_MANY,'Tasks','project','condition'=>'(("Tasks".timestamp::date=current_date or "Tasks".timestamp_end::date=current_date) or "Tasks".status in (0,1,5))','order'=>'"Tasks".status ASC, "Tasks".timestamp DESC'),
 		);
 	}
 

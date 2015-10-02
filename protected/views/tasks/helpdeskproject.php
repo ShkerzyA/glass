@@ -18,8 +18,9 @@ function tdEcho($num){
 					echo '<td></td>';
 				}
 			}
-
 ?>
+
+
 
 <style>
 
@@ -87,3 +88,5 @@ function tdEcho($num){
 	<div class=cont style="position: absolute; top: 0px; left: 0px; width: 100%; z-index: 20;">
 	</div>
 </div>
+
+

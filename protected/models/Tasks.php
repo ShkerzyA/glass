@@ -29,6 +29,7 @@ class Tasks extends CActiveRecord
 	public static $db_array=array('group','details','executors');
 	public static $statJoin=array(1,2,5);
 	public static $statFixEnd=array(2,3);
+	public static $taskType=array(0=>array('Зачада','add_task_40.png'),1=>array('Замена картриджа','printer_40.png'));
 	public $inExecutors=0;
 	
 	public $creator0creator;
@@ -333,9 +334,9 @@ class Tasks extends CActiveRecord
 		return $result;
 	}
 	
-	public function detailsShow($short=False,$place=True,$moreinfo=False){
+	public function detailsShow($short=False,$place=True,$htmlinfo=False){
 		$result='';
-		if($moreinfo)
+		if($htmlinfo)
 			$result.='<div class=rightinfo><i>Срок исполнения: '.$this->deadline.'</i></div>';	
 		switch ($this->type) {
 			case '1':

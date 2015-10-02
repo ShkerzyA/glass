@@ -672,13 +672,15 @@ select{
 }
 
 .add_unit, .trinity_left{
-	width: 23%;
+	width: 150px;
+	max-width: 23%;
 	float: left;	
 	position: relative;
 }
 
 #add_task{
-	margin: 0px 2px 0px 2px ;
+	font-weight: normal;
+	margin: 2px 2px 2px 2px ;
 	height: 24px;
 
 	/*
@@ -881,6 +883,8 @@ select{
 .projectpanel{
 	box-shadow: none;
 	border-top: 2px solid black;
+	min-height: 30px;
+	background: linear-gradient(to top, #fafafa, #ebf4e6);
 	color: #040404;
 	font-weight: bold;
 }
