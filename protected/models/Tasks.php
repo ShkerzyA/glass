@@ -275,6 +275,9 @@ class Tasks extends CActiveRecord
 
 		if (!in_array($id_department,Yii::app()->user->id_departments))
 			return array();
+		
+		if (!in_array($group,Yii::app()->user->groups))
+			return array();
 		switch ($type) {
 			//все, кроме помеченных как просмотренные
 			//текущие

@@ -320,6 +320,13 @@ class TasksController extends Controller
 		
 		}
 
+		if(empty($group)){
+			if(!(Yii::app()->user->isGuest) and !empty(Yii::app()->user->groups[0]))
+				$group=Yii::app()->user->groups[0];
+			else
+				$group=-1;
+		
+		}
 		
 		$this->rightWidget=array(
 			'df'=>$this->renderPartial('_date_filter',array(),true)
