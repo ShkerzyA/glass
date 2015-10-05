@@ -90,8 +90,12 @@ class TasksController extends Controller
 	 */
 	public function actionView($id)
 	{
+		$model=$this->loadModel($id);
+		$this->rightWidget=array(
+			'df'=>$this->renderPartial('_subscribe_form',array('model'=>$model),true)
+		);
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
 		));
 	}
 
@@ -252,11 +256,21 @@ class TasksController extends Controller
 	 * @param integer $id the ID of the model to be updated
 	 */
 
-	public function actionJoin($id){
+	public function actionJoin($id,$id_pers=NULL){
 		$model=$this->loadModel($id);
-		$model->join();
-		if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+		$pers=Personnel::model()->findByPk($id_pers);
+		$model->join($id_pers);
+
+		if($model->save()){
+			$mess=new TasksActions();
+			$mess->type=1;
+			$mess->ttext='Подписан: '.$pers->fio_full();
+			$mess->id_task=$model->id;
+			$mess->save();
+			$this->redirect(array('view','id'=>$model->id));
+		}
+
+				
 	}
 
 	public function actionUpdate($id)

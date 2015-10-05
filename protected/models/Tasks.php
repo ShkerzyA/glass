@@ -204,6 +204,11 @@ class Tasks extends CActiveRecord
 		return $result;
 	}
 
+
+	public function potentialExecutors(){
+		$group=$this->Project0->group;
+		return Personnel::groupMembers($group);
+	}
 	/**
 	 * @return array relational rules.
 	 */

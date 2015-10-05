@@ -100,6 +100,18 @@ class DepartmentPosts extends CActiveRecord
         );
     }
 
+    public static function groupMembers($group){
+         $DepPosts=self::model()->working()->with(array(
+            'personnelPostsHistories'=>array(
+                'joinType'=>'LEFT JOIN',
+                'alias'=>'personnelPostsHistories',
+                'order'=>'"personnelPostsHistories".date_end DESC'
+            ),
+            'personnelPostsHistories.idPersonnel',
+        ))->findAll(array('condition'=>" (t.\"groups\"::text[] && array['".implode("','",$group)."'])",'order'=>'islead DESC, t.date_begin ASC'));
+        return $DepPosts;
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
