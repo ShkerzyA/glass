@@ -43,8 +43,8 @@ $this->menu=array(
 $this->menu['all_menu']=array(
 		array('title'=>'Создать задачу','items'=>array(
 			array('label'=>"Добавить", 'url'=>array('tasks/create?Tasks[type]=0')),
-			array('label'=>"<img src='../images/printer_40.png' title='Замена картриджа'> Зам. карт", 'url'=>array('tasks/create?Tasks[type]=1&&Tasks[project]=3')),
-			array('label'=>"<img src='../images/add_task_40.png' title='Деклассированная задача'> Общая", 'url'=>array('tasks/create?Tasks[type]=0&&Tasks[project]=4')),
+			array('label'=>"<img src='../images/printer_40.png' title='Замена картриджа'> Зам. карт", 'url'=>array('tasks/create?Tasks[type]=1&&Tasks[project]=3'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
+			array('label'=>"<img src='../images/add_task_40.png' title='Деклассированная задача'> Общая", 'url'=>array('tasks/create?Tasks[type]=0&&Tasks[project]=4'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
 		)),
 
 		array('title'=>'Фильтры задач','items'=>array(
