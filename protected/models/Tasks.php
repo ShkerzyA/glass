@@ -285,7 +285,7 @@ class Tasks extends CActiveRecord
 				break;
 
 			case '2':
-				$condition="t.status in (0,1,5) and '".Yii::app()->user->id_pers."'=ANY(\"executors\")";
+				$condition="t.status in (0,1,5) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")";
 				$order="t.status asc,t.timestamp desc";
 				break;
 			
