@@ -1450,7 +1450,12 @@ ul.yiiPager .hidden a {
 ul.yiiPager .first, ul.yiiPager .last {
     display: none;
 }
+
+.operations li img{
+	height: 20px;
+}
 /*
+
 
 
 .inset2{

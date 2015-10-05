@@ -3,7 +3,7 @@
 /* @var $model Tasks */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('helpDesk?id_department='.$model->id_department.'&&group='.$model->group),
+	$model::$modelLabelP=>array('helpDesk'),
 	'Создать',
 );
 

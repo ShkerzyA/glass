@@ -13,11 +13,15 @@ $this->menu=array(
 
 $week=array(0=>'<span style="color:red">Вс</span>',1=>'Пн',2=>'Вт',3=>'Ср',4=>'Чт',5=>'Пт',6=>'<span style="color:red">Сб</span>');
 
-function tdEcho($num){
+
+function tdEcho($num, $id){
+				$tdL=array(0=>'',1=>'',2=>'',3=>'',4=>'',5=>'',6=>'',7=>'',8=>'',9=>'',10=>'',11=>'',12=>'',13=>'',14=>'',15=>'',16=>'',17=>'',18=>'',19=>'',20=>'',21=>'',22=>'',23=>'');
 				for ($i=0; $i < $num; $i++) { 
-					echo '<td></td>';
+					echo '<td id=t'.$id.'>'.$tdL[$id].'</td>';
+					$id++;
 				}
 			}
+
 ?>
 
 <style>
@@ -27,7 +31,7 @@ function tdEcho($num){
 	border-collapse: collapse;
 }
 
-.calendar, .calendar td, .calendar th{
+.calendar, .calendar td, .calendar  th{
 	border-left : 1px solid #dadada; 
 	border-right: 1px solid #dadada; 
 	font-weight: normal;
@@ -37,9 +41,12 @@ function tdEcho($num){
 .calendar th{
 	border: 1px solid #dadada;
 }
+
+
 </style>
 <div style="widht=100%; height: 100%;"  id="tableContainer" class="tableContainer">
 	<table class="calendar">
+		<thead class="fixedHeader">
 		<tr>
 			<th colspan=3>
 				Просрочено
@@ -79,6 +86,7 @@ function tdEcho($num){
 			}
 			?>
 		</tr>
+		</thead>
 		<tbody class="scrollContent">
 		<?php $this->renderPartial('_helpdeskproject',array(
 			'model'=>$model,'models'=>$models,

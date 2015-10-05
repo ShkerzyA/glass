@@ -139,9 +139,17 @@ $(document).ready(init());
 
 	<?php endif ?>
 
+		<div class="row">
+		<?php echo $form->labelEx($model,'project'); ?>
+
+		<?php $tmp=Projects::myProjects();
+				echo $form->dropDownList($model,"project",CHtml::listData($tmp,"id",function($tmp) {
+				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
+		<?php echo $form->error($model,'project'); ?>
+	</div>
 	
 
-	<input type=hidden name=id_dep id=id_dep value="<?php echo $model->id_department ?>">
+	<!-- <input type=hidden name=id_dep id=id_dep value="<?php echo $model->id_department ?>"> -->
 	<div class="row">
 		<?php echo $form->labelEx($model,'tname'); ?>
 
@@ -240,17 +248,6 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 <?php //else: ?>
 	<?php //echo $form->hiddenField($model,'group'); ?>
 
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'project'); ?>
-
-		<?php $tmp=Projects::model()->findall();
-echo $form->dropDownList($model,"project",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
-		<?php echo $form->error($model,'project'); ?>
-
-		<?php echo $form->error($model,'project'); ?>
-	</div>
 <?php endif; ?>
 
 	<div class="row">

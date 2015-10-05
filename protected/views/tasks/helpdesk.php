@@ -41,27 +41,32 @@ $this->menu=array(
 			);
 
 $this->menu['all_menu']=array(
+		array('title'=>'Создать задачу','items'=>array(
+			array('label'=>"Добавить", 'url'=>array('tasks/create?Tasks[type]=0')),
+			array('label'=>"<img src='../images/printer_40.png' title='Замена картриджа'> Зам. карт", 'url'=>array('tasks/create?Tasks[type]=1&&Tasks[project]=3')),
+			array('label'=>"<img src='../images/add_task_40.png' title='Деклассированная задача'> Общая", 'url'=>array('tasks/create?Tasks[type]=0&&Tasks[project]=4')),
+		)),
+
 		array('title'=>'Фильтры задач','items'=>array(
-			array('label'=>'Актуальные', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=1')),
-			array('label'=>'За сегодня', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=3')),
-			array('label'=>'[Мое]', 'url'=>array('HelpDesk?id_department='.$this->id_department.'&&group='.$this->group.'&&type=2')),
+			array('label'=>'Актуальные', 'url'=>array('HelpDesk?group='.$this->group.'&&type=1')),
+			array('label'=>'За сегодня', 'url'=>array('HelpDesk?group='.$this->group.'&&type=3')),
+			array('label'=>'[Мое]', 'url'=>array('HelpDesk?group='.$this->group.'&&type=2')),
 		)
+
 	));
 ?>
 <?php foreach ($this->tasks_menu as $x): ?>
 
 	<?php if($this->mayShow($x['rule'])): ?>
-	<a href=<?php echo(Yii::app()->request->baseUrl) ?>/tasks/helpDesk?id_department=<?php echo $x['id_department'] ?>&&group=<?php echo $x['group'] ?>>
-		<div class="inset2 <?php echo $cl_act=($x['id_department']==$this->id_department&&$x['group']==$this->group)?'active':''; ?>"><?php echo $x['name'] ?>
+	<a href=<?php echo(Yii::app()->request->baseUrl) ?>/tasks/helpDesk?group=<?php echo $x['group'] ?>>
+		<div class="inset2 <?php echo $cl_act=($x['group']==$this->group)?'active':''; ?>"><?php echo $x['name'] ?>
 			<div class=downp></div>
 		</div>
 	</a>
 	<?php endif; ?>
 <?php endforeach; ?>
 
-<?php $this->renderPartial('addtask',array(
-			'model'=>$model,
-		)) ?>
+<?php // $this->renderPartial('addtask',array('model'=>$model)) ?>
 
 <br><br><br>
 <div id='taskbody'>

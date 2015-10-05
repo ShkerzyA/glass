@@ -14,11 +14,11 @@ class TasksController extends Controller
 	public $target_date;
 
 	public $tasks_menu=array(
-		array('name'=>'IT crowd','id_department'=>'1011','group'=>'it','rule'=>array('it')),
-		array('name'=>'Плотники','id_department'=>'1074','group'=>'carpenters','rule'=>array()),
-		array('name'=>'Сантехники','id_department'=>'1074','group'=>'plumbers','rule'=>array()),
-		array('name'=>'Электрики','id_department'=>'1074','group'=>'electricians','rule'=>array()),
-		array('name'=>'Вентиляция','id_department'=>'1074','group'=>'ventilation','rule'=>array()),
+		array('name'=>'IT crowd','group'=>'it','rule'=>array('it')),
+		array('name'=>'Плотники','group'=>'carpenters','rule'=>array()),
+		array('name'=>'Сантехники','group'=>'plumbers','rule'=>array()),
+		array('name'=>'Электрики','group'=>'electricians','rule'=>array()),
+		array('name'=>'Вентиляция','group'=>'ventilation','rule'=>array()),
 		);
 	public $rightWidget;
 
@@ -309,14 +309,16 @@ class TasksController extends Controller
 	
 
 
-	public function actionHelpDesk($id_department=NULL,$type=3,$group=NULL){
+	public function actionHelpDesk($type=3,$group=NULL){
 		$this->layout='//layouts/column2';
 
+
+		/*
 		if(empty($id_department)){
 			if(!(Yii::app()->user->isGuest) and !empty(Yii::app()->user->id_departments[0]))
 				$id_department=Yii::app()->user->id_departments[0];
 			else
-				$id_department=-1;
+				$id_department=array();
 		
 		}
 
@@ -324,22 +326,26 @@ class TasksController extends Controller
 			if(!(Yii::app()->user->isGuest) and !empty(Yii::app()->user->groups[0]))
 				$group=Yii::app()->user->groups[0];
 			else
-				$group=-1;
+				$group=array();
 		
-		}
+		}*/
 		
 		$this->rightWidget=array(
 			'df'=>$this->renderPartial('_date_filter',array(),true)
 		);
 		$this->target_date=(!empty($_GET['date']))?"'".$_GET['date']."'":"'".date('d.m.Y')."'";
 		
-		$this->id_department=$id_department;
-		$this->group=$group;
+		//$this->id_department=$id_department;
+
+		$this->group=!empty($group)?$group:NULL;
+		$group=!empty($group)?array($group):array();
+
 
 		if(!Yii::app()->user->isGuest){
-			$this->isHorn=Tasks::isHorn($id_department,$group);
+			$this->isHorn=Tasks::isHorn();
 		}
-		$model=Tasks::tasksForOtdAndGroup($id_department,$type,$group,$this->target_date);
+		//$model=Tasks::tasksForOtdAndGroup($id_department,$type,$group,$this->target_date);
+		$model=Tasks::GroupTasks($group,$type,$this->target_date);
 		if(Yii::app()->request->isAjaxRequest){
 			$this->renderPartial('_helpdesk',array(
 				'model'=>$model,

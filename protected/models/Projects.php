@@ -124,6 +124,11 @@ class Projects extends CActiveRecord
 		return $models;
 	}
 
+	public static function myProjects(){
+		$models=self::model()->findAll(array('condition'=>'t.group[1] in (\''.implode('\',\'',Yii::app()->user->groups).'\')'));
+		return $models;
+	}
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */

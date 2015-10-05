@@ -59,9 +59,9 @@
 				$after=19;
 			}
 
-			echo tdEcho($befor);
+			echo tdEcho($befor,0);
 			echo '<td colspan='.$colspan.'>';
-			echo $this->renderPartial('taskpanel',array('v'=>$task),false,false).'</td>'.tdEcho($after);
+			echo $this->renderPartial('taskpanel',array('v'=>$task),false,false).'</td>'.tdEcho($after,$befor+$colspan);
 
 			//print_r($deadline);
 			/*

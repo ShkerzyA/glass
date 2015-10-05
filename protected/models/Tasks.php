@@ -165,7 +165,7 @@ class Tasks extends CActiveRecord
 		return array(
 			array('type, creator, id_department, status,project', 'numerical', 'integerOnly'=>true),
 			array('details','checkDetails'),
-			array('tname, id_department', 'required'),
+			array('tname, project', 'required'),
 			array('tname', 'length', 'max'=>100),
 			array('group', 'length', 'max'=>255),
 			//array('details', 'length', 'max'=>255),
@@ -240,15 +240,15 @@ class Tasks extends CActiveRecord
 		);
 	}
 
-	public static function isHorn($id_department=0,$group=''){
+	public static function isHorn(){
 		$res=false;
-		$condition="id_department=".$id_department;
-		if(!empty($group))
-			$condition.=" and '".$group."'=ANY(\"group\")";
+		$condition=" (t.\"group\"::text[] && array['".implode("','",Yii::app()->user->groups)."'])";
 		$order="t.timestamp desc  LIMIT 2";
 		$model=Tasks::model()->findAll(array('condition'=>$condition,'order'=>$order));
 
-		if(in_array($id_department,Yii::app()->user->id_departments) and !empty($model)){
+
+
+		if(!empty($model)){
 			if(Yii::app()->user->last_task!=$model[0]->id){
 				if(!empty(Yii::app()->user->last_task))
 					$res=true;
@@ -271,6 +271,51 @@ class Tasks extends CActiveRecord
 		}
 	}
 
+	public static function GroupTasks ($group=array(),$type=3,$date='current_date'){
+		
+
+		$wh_group=(!empty($group))?array_uintersect($group,Yii::app()->user->groups,"strcasecmp"):Yii::app()->user->groups;
+		//print_r($wh_group); 
+		switch ($type) {
+			//все, кроме помеченных как просмотренные
+			//текущие
+			case '1':
+				$condition="t.status in (0,1,5) ";
+				$order="t.status asc,t.timestamp desc";
+				break;
+
+			case '2':
+				$condition="t.status in (0,1,5) and '".Yii::app()->user->id_pers."'=ANY(\"executors\")";
+				$order="t.status asc,t.timestamp desc";
+				break;
+			
+			case '3':
+				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5))";
+				$order="t.status asc,t.timestamp desc";
+				break;
+			//за день
+			case '4':
+				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date))";
+				$order="t.status asc,t.timestamp desc";
+				break;
+
+			default:
+				
+			break;
+		}
+
+		$condition.=" and  ((t.\"group\"::text[] && array['".implode("','",$wh_group)."']) or (\"Project0\".\"group\"::text[] && array['".implode("','",$wh_group)."']) )";
+
+		//	$model=Tasks::model()->with(array(
+ 		//		'TasksActions'=>array('alias'=>'TasksActions','condition'=>'"TasksActions".type=0','order'=>'"TasksActions".date DESC,"TasksActions".timestamp DESC')))->findAll(array('condition'=>$condition,'order'=>$order));
+		
+
+		$model=Tasks::model()->with(array('Project0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".type ASC, "TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel'))->findAll(array('condition'=>$condition,'order'=>$order));
+		return $model;
+
+	}
+
+	/*
 	public static function tasksForOtdAndGroup($id_department,$type=3,$group=NULL,$date='current_date'){
 
 		if (!in_array($id_department,Yii::app()->user->id_departments))
@@ -316,7 +361,7 @@ class Tasks extends CActiveRecord
 		$model=Tasks::model()->with(array('TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".type ASC, "TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel'))->findAll(array('condition'=>$condition,'order'=>$order));
 		return $model;
 
-	}
+	} */
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
