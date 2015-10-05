@@ -107,6 +107,7 @@ class Tasks extends CActiveRecord
 	public function getStatus(){
 
 		$status=array(  0 => 'Назначено',
+						6 => 'Требует уточнения',
 						1 => 'Принято',
 						5 => 'В работе',
 						2 => 'Выполнено',
@@ -128,6 +129,7 @@ class Tasks extends CActiveRecord
 
 	public function gimmeStatus(){
 		$status=array(  0 => array('label'=>'Назначено','css_class'=>'open','css_status'=>'red'),
+						6 => array('label'=>'Требует уточнения','css_class'=>'open','css_status'=>''),
 						1 => array('label'=>'Принято','css_class'=>'open','css_status'=>'green'),
 						5 => array('label'=>'В работе','css_class'=>'neurtal','css_status'=>'gray'),
 						2 => array('label'=>'Выполнено','css_class'=>'done','css_status'=>'green'),
@@ -280,23 +282,23 @@ class Tasks extends CActiveRecord
 			//все, кроме помеченных как просмотренные
 			//текущие
 			case '1':
-				$condition="t.status in (0,1,5) ";
-				$order="t.status asc,t.timestamp desc";
+				$condition="t.status in (0,1,5,6) ";
+				$order="t.status asc,t.deadline ASC,t.timestamp desc";
 				break;
 
 			case '2':
-				$condition="t.status in (0,1,5) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")";
-				$order="t.status asc,t.timestamp desc";
+				$condition="t.status in (0,1,5,6) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")";
+				$order="t.status asc,t.deadline ASC,t.timestamp desc";
 				break;
 			
 			case '3':
-				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5))";
-				$order="t.status asc,t.timestamp desc";
+				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5,6))";
+				$order="t.status asc,t.deadline ASC,t.timestamp desc";
 				break;
 			//за день
 			case '4':
 				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date))";
-				$order="t.status asc,t.timestamp desc";
+				$order="t.status asc,t.deadline ASC,t.timestamp desc";
 				break;
 
 			default:

@@ -13,6 +13,10 @@ function init(){
     $(this).remove();
   });
 
+  $('.prjT').live('click',function(){
+    $('.prj'+this.id).toggle();
+  });
+
 	$("#EquipmentLog_details").live('keydown',function(e){
         if(e.keyCode==13){
         	tmp=$("#EquipmentLog_details").val();

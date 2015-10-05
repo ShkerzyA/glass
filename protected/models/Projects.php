@@ -29,6 +29,7 @@ class Projects extends CActiveRecord
 	public static $modelLabelS='Проект';
 	public static $modelLabelP='Проекты';
 	public static $db_array=array('group','executors','tasktype');
+	public $countTask=array();
 	
 	public $creator0creator;
 
@@ -104,7 +105,7 @@ class Projects extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
-			'Tasks' => array(self::HAS_MANY,'Tasks','project','on'=>'(("Tasks".timestamp::date=current_date or "Tasks".timestamp_end::date=current_date) or "Tasks".status in (0,1,5))','order'=>'"Tasks".status ASC, "Tasks".timestamp DESC'),
+			'Tasks' => array(self::HAS_MANY,'Tasks','project','on'=>'(("Tasks".timestamp::date=current_date or "Tasks".timestamp_end::date=current_date) or "Tasks".status in (0,1,5,6))','order'=>'"Tasks".deadline ASC, "Tasks".status ASC, "Tasks".timestamp DESC'),
 		);
 	}
 
@@ -116,6 +117,14 @@ class Projects extends CActiveRecord
 			$result[]=Personnel::model()->findByPk($v);
 		}
 		return $result;
+	}
+
+	public function tasksStatic(){
+		$num=0;
+		foreach ($this->Tasks as $v) {
+			$num++;
+		}
+		$this->countTask=array('name'=>'Всего','val'=>$num);
 	}
 
 

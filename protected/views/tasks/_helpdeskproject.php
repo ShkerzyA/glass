@@ -1,6 +1,7 @@
 
 <?php foreach($models as $project): ?>
-	<tr>
+	<?php $project->tasksStatic(); ?>
+	<tr class=prjT id=<?php echo $project->id ?>>
 		<td colspan=23><div class=projectpanel>Проект: <?php  $this->renderPartial('addtask',array(
 			'project'=>$project,
 		)); print($project->name); ?> <div class="taskmoreinfo"><?php
@@ -17,7 +18,7 @@
 					</td>
 	</tr>
 	<?php foreach($project->Tasks as $task): ?>
-		<tr>
+		<tr class=prj<?php echo $project->id ?>>
 		<?php
 			$all_cols=23;
 			$deadline=$task->getDeadline();
