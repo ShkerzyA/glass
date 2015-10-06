@@ -108,7 +108,7 @@ h4.subscribe{
 }
 
 .rightinfo{
-	z-index: 9;
+	z-index: 3;
 	background: inherit;
 	height: 24px;
 	word-spacing: nowrap; 
