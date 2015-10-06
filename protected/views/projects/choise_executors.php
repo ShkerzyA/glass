@@ -5,17 +5,13 @@
 ?>
 
 <div class="back">
-<div class="back_in_black"></div>
 <div class="window_awesom">
 <div id="back" class='close_this'></div>
-<div>
 <br>
+<div>
 <?php 
-	foreach ($model as $v){
-		if(!empty($v)){
-			echo "<div id='$v->id' text='".$v->fio()."' class='join_post'>".$v->fio()."</div>";	
-		}
-		
+	foreach ($model as $k=>$v){
+		echo "<div id='$k' field=".$mn."[executors][$k] text='$v' f='executors' class='join_personnel'>$v</div>";
 	}
 ?>
 </div>

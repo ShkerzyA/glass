@@ -35,6 +35,12 @@ function init(){
 		getAjax_surnameSearch();
 	});
 
+	$('.add_executors').live('click',function(){ 
+		$('.modal2').remove();
+		globid=this.id;
+		getAjax_executors();
+	});
+
 	$('.add_oper').live('click',function(){ 
 		$('.modal2').remove();
 		globid=this.id;
@@ -129,6 +135,30 @@ function getAjax_surnameSearch(){
 	},'html');
 }
 
+function getAjax_executors(){
+	var id=globid;
+	
+	var modelN=$('.modelN#'+id+'').val();
+
+	switch (modelN) {
+	   case 'Tasks':
+	      var project=$('#Tasks_project').val();
+	      break;
+	   case 'Projects':
+	      var project=$('#Projects_id').val();
+	      break;
+	}
+
+
+	//alert(search);
+	$.get('/glass/Projects/projectGroupMembers',{id: project, modelN: modelN},function(data,status){
+		if(status=='success'){
+			show_res(data,'search_surname');
+		}
+	},'html');
+}
+
+
 function getAjax_operSearch(){
 	var id=globid;
 	var field=$('.field#'+id+'').val();
@@ -136,7 +166,7 @@ function getAjax_operSearch(){
 	var search=$('.search_oper#'+id+'').val();
 	var action=$('.action#'+id+'').val();
 	//alert(search);
-	$.post('/glass/Eventsoper/operSearch',{search: search, field: field, modelN: modelN, action: action},function(data,status){
+	$.get('/glass/Eventsoper/operSearch',{search: search, field: field, modelN: modelN, action: action},function(data,status){
 		if(status=='success'){
 			show_res(data,'search_oper');
 		}

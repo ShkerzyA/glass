@@ -280,7 +280,7 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 <?php //if($model->scenario!='insert'):?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'executors'); ?>
-		<?php echo Customfields::multiPersonnel($model,'executors'); ?>
+		<?php echo Customfields::multiPersonnel($model,'executors','add_executors'); ?>
 		<?php echo $form->error($model,'executors'); ?>
 	</div>
 <?php //endif; ?>

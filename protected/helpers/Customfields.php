@@ -68,10 +68,10 @@ Class Customfields{
 	}
 
 
-	public static function multiPersonnel($model,$field){
+	public static function multiPersonnel($model,$field,$action='add_person'){
 		Yii::app()->clientScript->registerPackage('customfields');
 		$mn=get_class($model);
-		$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_person'>Изменить</div>";
+		$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit ".$action."'>Изменить</div>";
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
 				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
 				echo'<input type=hidden name=action class=action id='.$field.' value="join">';

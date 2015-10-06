@@ -28,7 +28,7 @@ class ProjectsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','projectGroupMembers'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -49,6 +49,15 @@ class ProjectsController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+	public function actionProjectGroupMembers($id,$modelN)
+	{
+		$model=$this->loadModel($id);
+		$res=Personnel::groupMembers($model->group);
+		$this->renderPartial('choise_executors',array('model'=>$res,'mn'=>$modelN),false,false);
+		
+	}
+
+
 	public function actionView($id)
 	{
 		$this->render('view',array(
