@@ -1,4 +1,5 @@
-	<script>
+<div class=rw>	
+<script>
 $(document).ready(init());
 
 function init(){
@@ -27,3 +28,4 @@ function init(){
 	));?></div>
   <?php echo CHtml::hiddenField('type',4); ?>
 	<?php echo CHtml::endForm(); ?>
+</div>

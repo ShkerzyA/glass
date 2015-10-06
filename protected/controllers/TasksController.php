@@ -327,27 +327,12 @@ class TasksController extends Controller
 	public function actionHelpDesk($type=3,$group=NULL){
 		$this->layout='//layouts/column2';
 
-
-		/*
-		if(empty($id_department)){
-			if(!(Yii::app()->user->isGuest) and !empty(Yii::app()->user->id_departments[0]))
-				$id_department=Yii::app()->user->id_departments[0];
-			else
-				$id_department=array();
-		
-		}
-
-		if(empty($group)){
-			if(!(Yii::app()->user->isGuest) and !empty(Yii::app()->user->groups[0]))
-				$group=Yii::app()->user->groups[0];
-			else
-				$group=array();
-		
-		}*/
 		
 		$this->rightWidget=array(
-			'df'=>$this->renderPartial('_date_filter',array(),true)
+			'df'=>$this->renderPartial('_date_filter',array(),true),
+			'cc'=>$this->renderPartial('/equipment/countCart',array('model'=>Equipment::countCart()),true,false)
 		);
+
 		$this->target_date=(!empty($_GET['date']))?"'".$_GET['date']."'":"'".date('d.m.Y')."'";
 		
 		//$this->id_department=$id_department;

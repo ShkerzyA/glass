@@ -80,11 +80,12 @@ class Equipment extends CActiveRecord
 	}
 
 	public static function countCart(){
-		$sql="select eq.mark, count(eq.mark) as cou, 
-		count(lim.mark) as licou 
-		from equipment eq 
-		left join equipment lim on(eq.id=lim.id and lim.id_workplace=".self::$cartFull.") 
-		where eq.type=18 and eq.status=0 group by eq.mark";
+	$sql="select eq.mark, count(eq.mark) as cou, 
+	count(lim.mark) as licou,
+	CAST(((CAST(count(lim.mark) as real)/CAST(count(eq.mark) as real))*100) as int ) as prc
+	from equipment eq 
+	left join equipment lim on(eq.id=lim.id and lim.id_workplace=".self::$cartFull.") 
+	where eq.type=18 and eq.status=0 group by eq.mark order by prc asc";
 		$req = Yii::app()->db->createCommand($sql);
 		$res=$req->queryAll();
 		return $res;

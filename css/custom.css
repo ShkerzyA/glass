@@ -1454,7 +1454,42 @@ ul.yiiPager .first, ul.yiiPager .last {
 .operations li img{
 	height: 20px;
 }
+
+.rw{
+	margin: 0 0 15px;
+	overflow: hidden;
+}
+
+.rightTable{
+	width: 99%;
+}
+
+.rightTable *{
+	color: #0066a4;
+}
+
+.rightTable .red *{
+	color: red;
+}
+
+
+.rightTable, .rightTable td, .rightTable th {
+	font-size: 9pt;
+	/*border: 1px solid #d4d4d4; */
+	border-collapse: none;
+	overflow: hidden;
+	padding: 1px;
+	/* white-space: pre-wrap; */
+}
+
+.rightTable th{
+	background: rgba(0, 0, 0, 0) url("../images/portlet_bg.png");
+	color: white;
+	overflow: hidden;
+}
+
 /*
+
 
 
 
