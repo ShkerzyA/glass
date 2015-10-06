@@ -75,7 +75,7 @@ echo $form->dropDownList($model,"id_user",CHtml::listData($tmp,"id",function($tm
        'style' => 'height:20px;'
    ),
 ));?>
-		<?php echo $form->error($model,'date_end'); ?>
+		<?php echo $form->error($model,'birthday'); ?>
 	</div>
 
 		<div class="row">

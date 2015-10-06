@@ -69,7 +69,7 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
    			<th>Модель</th>
    			<th>Расположение</th>
    			<!--<th>Инвентарный номер</th>-->
-   			<th>Состояние</th>
+   			<th>Состояние/Дата выпуска</th>
    			<th>Примечания</th>
 
             <?php if($rul) echo '<th>Редактировать</th>'; ?>

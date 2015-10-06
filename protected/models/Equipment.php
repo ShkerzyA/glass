@@ -13,6 +13,10 @@
  * @property string $inv
  * @property integer $status
  * @property string $notes
+ * @property integer $parent_id
+ * @property string $ip
+ * @property string $mac
+ * @property string $released
  *		 * The followings are the available model relations:
 
 
@@ -209,15 +213,17 @@ class Equipment extends CActiveRecord
 		return array(
 			array('id_workplace, type, producer, status, parent_id', 'numerical', 'integerOnly'=>true),
 			array('id_workplace,type','required'),
-			array('serial,inv', 'length', 'max'=>100),
+			array('serial,inv,released', 'length', 'max'=>100),
 			array('mark', 'length', 'max'=>200),
-			array('notes,ip,mac', 'safe'),
+			array('notes,ip,mac,released', 'safe'),
 			array('id','uniqueInvSerial'),
-			array('id, id_workplace, serial, type, producer, mark, inv, ip, mac, status, parent_id, notes,idWorkplaceid_workplace,place,department,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
+			array('id, id_workplace, serial, type, producer, mark, inv, released, ip, mac, status, parent_id, notes,idWorkplaceid_workplace,place,department,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
 		);
 	}
 
 	protected function beforeSave(){
+		if(empty($this->released))
+			$this->released=NULL;
 		if (empty($this->ip))
 			$this->ip=NULL;
 		if (empty($this->mac))
@@ -256,6 +262,14 @@ class Equipment extends CActiveRecord
 			$log=new EquipmentLog;
 			$log->saveLog('chEq',array('details'=>$chanded,'object'=>$this->id));
 		}
+	}
+
+	public function afterFind(){
+		  if(!empty($this->released)){
+            $date = date('d.m.Y', strtotime($this->released));
+            $this->released = $date;
+        }
+
 	}
 
 		public function uniqueInvSerial()
@@ -326,6 +340,7 @@ class Equipment extends CActiveRecord
 			'place' => 'Местоположение',
 			'department' => 'Отдел',
 			'parent_id' => 'Привязка',
+			'released' => 'Дата выпуска',
 			'ip' => 'IP',
 			'mac' => 'MAC',
 			'idWorkplaceid_workplace' => 'Рабочее место',
@@ -419,6 +434,7 @@ class Equipment extends CActiveRecord
 		$criteria->compare('ip',$this->ip,true);
 		$criteria->compare('mac',$this->mac,true);
 		$criteria->compare('notes',$this->notes,true);
+		$criteria->compare('released',$this->released,true);
 		$criteria->compare('department.subdiv_rn',$this->department,true);
 		$criteria->compare('workplace.wname',$this->idWorkplaceid_workplace,true);
         $criteria->compare('equipment.parent_id',$this->parentparent_id,true);
