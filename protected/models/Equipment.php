@@ -78,6 +78,17 @@ class Equipment extends CActiveRecord
 				),
 			);
 	}
+
+	public static function countCart(){
+		$sql="select eq.mark, count(eq.mark) as cou, 
+		count(lim.mark) as licou 
+		from equipment eq 
+		left join equipment lim on(eq.id=lim.id and lim.id_workplace=".self::$cartFull.") 
+		where eq.type=18 and eq.status=0 group by eq.mark";
+		$req = Yii::app()->db->createCommand($sql);
+		$res=$req->queryAll();
+		return $res;
+	}
 	
 	/**
 	 * @return string the associated database table name

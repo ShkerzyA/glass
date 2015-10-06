@@ -171,7 +171,7 @@ class ActionsController extends Controller
 
 				if(get_class($this->parent)=="Tasks"){
 					if(in_array($_POST['stat'], $parent::$statJoin)){
-						$this->parent->join();
+						$this->parent->join(Yii::app()->user->id_pers);
 					}
 				}
 
