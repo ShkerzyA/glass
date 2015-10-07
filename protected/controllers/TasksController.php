@@ -92,7 +92,7 @@ class TasksController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$this->rightWidget=array(
-			'df'=>$this->renderPartial('_subscribe_form',array('model'=>$model),true)
+			'df'=>array($this->renderPartial('_subscribe_form',array('model'=>$model),true))
 		);
 		$this->render('view',array(
 			'model'=>$model,
@@ -329,8 +329,8 @@ class TasksController extends Controller
 
 		
 		$this->rightWidget=array(
-			'df'=>$this->renderPartial('_date_filter',array(),true),
-			'cc'=>$this->renderPartial('/equipment/countCart',array('model'=>Equipment::countCart()),true,false)
+			'df'=>array($this->renderPartial('_date_filter',array(),true)),
+			'cc'=>array($this->renderPartial('/equipment/countCart',array('model'=>Equipment::countCart()),true,false),'it')
 		);
 
 		$this->target_date=(!empty($_GET['date']))?"'".$_GET['date']."'":"'".date('d.m.Y')."'";

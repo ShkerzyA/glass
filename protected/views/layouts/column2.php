@@ -49,7 +49,13 @@
 
 		if(!empty($this->rightWidget)){
 			foreach ($this->rightWidget as $r) {
-				echo $r;
+				if(!empty($r[1])){
+					if(Yii::app()->user->checkAccess('inGroup',array('group'=>array($r[1]))))
+						echo $r[0];
+				}else{
+					echo $r[0];
+				}
+				
 			}
 		}
 
