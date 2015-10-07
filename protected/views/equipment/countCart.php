@@ -4,7 +4,7 @@
 <?php 
 foreach ($model as $v) {
   $prc=round(($v['licou']/$v['cou'])*100);
-  echo '<tr class="'.($cl=($prc<11)?'red':'').'"><td>'.$v['mark'].'</td><td>'.$v['licou'].'</td><td>'.$prc.'%</td></tr>';  
+  echo '<tr class="'.($cl=($prc<11)?'red':'').'"><td>'.$v['mark'].'</td><td>'.$v['licou'].'/'.$v['cou'].'</td><td>'.$prc.'%</td></tr>';  
 }
 ?>
 </table>

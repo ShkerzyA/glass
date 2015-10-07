@@ -47,10 +47,6 @@ class CatalogsController extends Controller
 		);
 	}
 
-	public function access($group){
-		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$group))))
-           throw new CHttpException(403, 'У вас недостаточно прав');
-	}
 
 	   public function actionAjaxFillTree($cat_id=NULL)
     {
@@ -121,7 +117,7 @@ class CatalogsController extends Controller
 	{
 
 		$model=$this->loadModel($id);
-		$this->access($model->groups);
+		$model->access();
 
 
 		//$docs=Docs::model()->working()->findAll(array('condition'=>"id_catalog='$model->id'",'order'=>'doc_name ASC, t.date_begin ASC'));

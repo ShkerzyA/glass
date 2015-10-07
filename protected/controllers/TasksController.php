@@ -311,7 +311,7 @@ class TasksController extends Controller
 
 		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 		if(!isset($_GET['ajax']))
-			$this->redirect(Yii::app()->getUrlManager()->createUrl('tasks/helpDesk?id_department=1011'));
+			$this->redirect(Yii::app()->getUrlManager()->createUrl('tasks/helpDesk'));
 	}
 
 	public function actionHelpDeskProject(){

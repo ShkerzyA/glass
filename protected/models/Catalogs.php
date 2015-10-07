@@ -74,6 +74,12 @@ class Catalogs extends CActiveRecord
 		return 'catalogs';
 	}
 
+
+	public function access(){
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->groups))))
+           throw new CHttpException(403, 'У вас недостаточно прав');
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

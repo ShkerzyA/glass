@@ -52,11 +52,8 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 <?php if($model->scenario!='insert'):?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'owner'); ?>
-
-		<?php 
-			$tmp=Personnel::model()->findall();
-			echo $form->dropDownList($model,"owner",CHtml::listData($tmp,"id",function($tmp) {
-			return CHtml::encode($tmp->fio());}),array('empty' => '')); ?>
+		<?php echo Customfields::searchPersonnel($model,'owner'); ?>
+	
 		<?php echo $form->error($model,'owner'); ?>
 	</div>
 
