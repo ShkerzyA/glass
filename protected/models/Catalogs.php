@@ -76,7 +76,7 @@ class Catalogs extends CActiveRecord
 
 
 	public function access(){
-		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->groups))))
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->groups))) and !(Yii::app()->user->checkAccess('isOwner',array('mod'=>$this))))
            throw new CHttpException(403, 'У вас недостаточно прав');
 	}
 

@@ -53,7 +53,7 @@ class EquipmentController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','export','cartSearch','suggest'),
+				'actions'=>array('index','view','export','cartSearch','suggest','commonCartInfo'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -83,6 +83,11 @@ public function actionCartSearch(){
   		echo CJSON::encode($result);
  	}
 }
+
+	public function actionCommonCartInfo(){
+		$this->layout='column1';
+		$this->render('countCartFull',array('model'=>Equipment::countCart()));
+	}
 
 	/**
 	 * Displays a particular model.
