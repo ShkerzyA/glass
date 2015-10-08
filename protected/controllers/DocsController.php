@@ -45,10 +45,6 @@ class DocsController extends Controller
 		);
 	}
 
-	public function access($group){
-		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$group))))
-            throw new CHttpException(403, 'У вас недостаточно прав');
-	}
 
 	/**
 	 * Displays a particular model.
@@ -57,7 +53,7 @@ class DocsController extends Controller
 	public function actionView($id)
 	{
 		$model=$this->loadModel($id);
-		$this->access($model->idCatalog->groups);
+		$model->access();
 
 
 		//$docs=Docs::model()->working()->findAll(array('condition'=>"id_catalog='$model->id'",'order'=>'doc_name ASC, t.date_begin ASC'));

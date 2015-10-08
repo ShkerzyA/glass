@@ -87,6 +87,20 @@ public $creator0creator;
 		return $d;
 	}
 
+	public function access($exception=True){
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->idCatalog->groups))) and !(Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))){
+			if($exception){
+				throw new CHttpException(403, 'У вас недостаточно прав');
+			}else{
+				return False;
+			}
+		}
+		return True;
+		//if (!Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))
+           
+	}
+
+
 	public function isOwner(){
 		if(Yii::app()->user->id_pers==$this->creator)
 			return True;
