@@ -98,6 +98,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'isOwner' => 
+  array (
+    'type' => 0,
+    'description' => 'Владелец объекта',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'inGroupAndOwner' => 
   array (
     'type' => 0,
@@ -167,6 +174,17 @@ return array (
     'children' => 
     array (
       0 => 'inGroupAndOwner',
+    ),
+  ),
+  'isOwnerUser' => 
+  array (
+    'type' => 1,
+    'description' => 'Владелец объекта',
+    'bizRule' => 'return $params["mod"]->isOwner();',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'isOwner',
     ),
   ),
   'inGroupUser' => 
@@ -294,14 +312,15 @@ return array (
       3 => 'OwnSaveStatus',
       4 => 'ManagerSaveStatusEv',
       5 => 'inGroupUser',
-      6 => 'inGroupAndOwnerUser',
-      7 => 'taskReportUser',
-      8 => 'otdReportUser',
-      9 => 'monitoringOperUser',
-      10 => 'changeObjectsUser',
-      11 => 'OwnUpdateEv',
-      12 => 'OwnUpdateTs',
-      13 => 'ownMedicalEquipment',
+      6 => 'isOwnerUser',
+      7 => 'inGroupAndOwnerUser',
+      8 => 'taskReportUser',
+      9 => 'otdReportUser',
+      10 => 'monitoringOperUser',
+      11 => 'changeObjectsUser',
+      12 => 'OwnUpdateEv',
+      13 => 'OwnUpdateTs',
+      14 => 'ownMedicalEquipment',
     ),
   ),
   'observer' => 
@@ -349,8 +368,9 @@ return array (
       3 => 'taskReport',
       4 => 'otdReport',
       5 => 'inGroup',
-      6 => 'inGroupAndOwner',
-      7 => 'admin',
+      6 => 'isOwner',
+      7 => 'inGroupAndOwner',
+      8 => 'admin',
     ),
   ),
 );

@@ -157,6 +157,8 @@ class CatalogsController extends Controller
 	public function actionUpdate($id)
 	{
 		$model=$this->loadModel($id);
+		if(!(Yii::app()->user->checkAccess('isOwner',array('mod'=>$model))))
+			throw new CHttpException(403, 'У вас недостаточно прав');
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

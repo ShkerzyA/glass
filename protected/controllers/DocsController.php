@@ -28,7 +28,7 @@ class DocsController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','delete'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -36,7 +36,7 @@ class DocsController extends Controller
 				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -127,9 +127,10 @@ class DocsController extends Controller
 	 */
 	public function actionDelete($id)
 	{
-		$this->loadModel($id)->delete();
-
-		// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+		$model=$this->loadModel($id);
+		if(!(Yii::app()->user->checkAccess('isOwner',array('mod'=>$model))))
+			throw new CHttpException(403, 'У вас недостаточно прав');
+		$model->delete();
 		if(!isset($_GET['ajax']))
 			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
 	}

@@ -75,9 +75,24 @@ class Catalogs extends CActiveRecord
 	}
 
 
-	public function access(){
-		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->groups))) and !(Yii::app()->user->checkAccess('isOwner',array('mod'=>$this))))
-           throw new CHttpException(403, 'У вас недостаточно прав');
+	public function access($exception=True){
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->groups))) and !(Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))){
+			if($exception){
+				throw new CHttpException(403, 'У вас недостаточно прав');
+			}else{
+				return False;
+			}
+		}
+		return True;
+		//if (!Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))
+           
+	}
+
+	public function isOwner(){
+		if(Yii::app()->user->id_pers==$this->owner)
+			return True;
+		else
+			return False;
 	}
 
 	/**

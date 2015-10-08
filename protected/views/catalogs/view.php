@@ -11,8 +11,8 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	//array('label'=>'Список', 'url'=>array('index')),
 	//array('label'=>'Создать', 'url'=>array('create')),
-	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>Yii::app()->user->checkAccess('isOwner',array('mod'=>$model))),
+	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'params'=>array('returnUrl'=>Yii::app()->request->baseUrl.'/catalogs/'.$model->parentId()),'confirm'=>'Уверены?'),'visible'=>Yii::app()->user->role=='administrator'),
 	//array('label'=>'Управление', 'url'=>array('admin')),
 );
 ?>
@@ -24,13 +24,14 @@ $this->menu=array(
 //echo ($model->owner0->post);
 $person=$model->owner0;
 
-echo ('  <i>'.$person->surname.' '.mb_substr($person->name,0,1,'utf-8').'. '.mb_substr($person->patr,0,1,'utf-8').'.</i>');
+echo ('  <i>'.$person->fio().'.</i>');
 ?></h6> 
 <hr>
 
 <?php 
 if (!empty($model->catalogs)){
 	foreach ($model->catalogs as $v){
+		if($v->access(False))
 		echo '<div style="border-radius: 3px; min-height: 46px; margin: 3px; background: url(\'../images/folder_24.png\') no-repeat; padding-left: 40px;">
 		<a href=/glass/catalogs/'.$v->id.'><h4 style="margin: 3px;">'.$v->cat_name.'</h4></a>
 		</div><hr>';

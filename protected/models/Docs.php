@@ -87,6 +87,13 @@ public $creator0creator;
 		return $d;
 	}
 
+	public function isOwner(){
+		if(Yii::app()->user->id_pers==$this->creator)
+			return True;
+		else
+			return False;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */

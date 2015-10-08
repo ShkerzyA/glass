@@ -16,7 +16,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-<?php if($model->scenario!='insert'):?>
+<?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'creator'); ?>
@@ -30,10 +30,9 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 
-<?php endif; ?>
 
 
-<?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_catalog'); ?>
 
