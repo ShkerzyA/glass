@@ -53,9 +53,6 @@ class DocsController extends Controller
 	public function actionView($id)
 	{
 		$model=$this->loadModel($id);
-		$model->access();
-
-
 		//$docs=Docs::model()->working()->findAll(array('condition'=>"id_catalog='$model->id'",'order'=>'doc_name ASC, t.date_begin ASC'));
 		$this->render('view',array(
 			'model'=>$model,
