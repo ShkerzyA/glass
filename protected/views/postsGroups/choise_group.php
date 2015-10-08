@@ -11,7 +11,7 @@
 <div>
 <?php 
 	foreach ($model as $v){
-		echo "<div id='$v->group_key' field=".$mn."[groups][$v->group_key] text='$v->group_name' class='join_group'>$v->group_name</div>";
+		echo "<div id='$v->group_key' f='$field' field=".$mn."[$field][$v->group_key] text='$v->group_name' class='join_group'>$v->group_name</div>";
 	}
 ?>
 </div>

@@ -1,24 +1,25 @@
 <?php 
 Class Customfields{
-	public static function multigroup($model){
+	public static function multigroup($model,$field='groups'){
 		Yii::app()->clientScript->registerPackage('customfields');
 		$mn=get_class($model);
-		$result="<div class='multichoise'>";
-				echo'<input type=hidden name=modelN class=modelN id="groups" value='.$mn.'>';
-				echo"<input type=hidden name='".$mn."[groups][]' value=''>";
-				if(!empty($model->groups)){
-					foreach ($model->groups as $v){
+		$result="<div id='".$field."' class='multichoise'><div id='$field' class='add_group add_unit'>Добавить</div>";
+				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
+				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
+				echo"<input type=hidden name='".$mn."[$field][]' value=''>";
+				if(!empty($model->$field)){
+					foreach ($model->$field as $v){
 						if(!empty($v)){
 						$group=PostsGroups::model()->find(array("condition"=>"group_key='$v'"));
-						$result.="<div class='choise_unit $v'>
-							<input type=hidden name='".$mn."[groups][$v]' value=$v>
+						$result.="<div class='choise_unit $field$v'>
+							<input type=hidden name='".$mn."[$field][$v]' value=$v>
 							$group->group_name
-							<div id=$v class='close_this'></div>
+							<div id=$field$v class='close_this'></div>
 						</div>";
 						}
 					}	
 				}
-		$result.="<div id='add_group' class='add_unit'>Добавить</div></div>";
+		$result.="</div>";
 		return $result;
 	}
 

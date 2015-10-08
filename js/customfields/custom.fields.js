@@ -5,9 +5,9 @@ function init(){
 		$('.'+this.id).remove();
 	});
 
-	$('#add_group').live('click',function(){ 
+	$('.add_group').live('click',function(){ 
 		$('.modal2').remove();
-		getAjax_groups();
+		getAjax_groups(this.id);
 	});
 
 	$('.add_post').live('click',function(){ 
@@ -61,7 +61,7 @@ function init(){
 
 	$('.join_group').live('click',function(){ 
 		$('.'+this.id).remove();
-		$('.multichoise').append('<div class="choise_unit '+this.id+'"><input type=hidden name='+this.getAttribute('field')+' value='+this.id+'>'+this.getAttribute('text')+'<div id='+this.id+' class="close_this"></div></div>');
+		$('.multichoise#'+($(this).attr('f'))+'').append('<div class="choise_unit '+($(this).attr('f'))+this.id+'"><input type=hidden name='+this.getAttribute('field')+' value='+this.id+'>'+this.getAttribute('text')+'<div id='+($(this).attr('f'))+this.id+' class="close_this"></div></div>');
 	});
 
 	$('.join_post').live('click',function(){ 
@@ -101,9 +101,21 @@ function getAjax_freeday(){
 }
 
 
+/*
 function getAjax_groups(){
 	var model=$('.modelN#groups').val()
 	$.post('/glass/PostsGroups/allgroups?mn='+model,{},function(data,status){
+		if(status=='success'){
+			show_groups(data);
+		}
+	},'html');
+}*/
+
+function getAjax_groups(id){
+	var field=$('.field#'+id+'').val();
+	var modelN=$('.modelN#'+id+'').val();
+	//alert(search);
+	$.get('/glass/PostsGroups/allgroups',{mn: modelN, field: field},function(data,status){
 		if(status=='success'){
 			show_groups(data);
 		}

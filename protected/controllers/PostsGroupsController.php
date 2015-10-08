@@ -60,10 +60,10 @@ class PostsGroupsController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionAllgroups($mn){
+	public function actionAllgroups($mn,$field){
 		if(Yii::app()->request->isAjaxRequest){
 			$model=PostsGroups::model()->findAll();
-			$this->renderPartial('choise_group', array('model'=>$model,'mn'=>$mn), false, true);
+			$this->renderPartial('choise_group', array('model'=>$model,'mn'=>$mn,'field'=>$field), false, true);
 		}else{
 			exit();
 		}
