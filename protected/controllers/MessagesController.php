@@ -69,7 +69,7 @@ class MessagesController extends Controller
 		$result['data']='';
 
 		//Временно для оповещения инф. отдела по задачам
-		$result['taskUpd']=Tasks::isHorn('1011');
+		$result['taskUpd']=Tasks::isHorn();
 		$models=Messages::model()->findAll(array('condition'=>'timestamp>\''.$time.'\'','order'=>'timestamp DESC'));
 		$result['timem']=(isset($models[0]->timestamp))?$models[0]->timestamp:$time;
 		foreach ($models as $v) {

@@ -86,7 +86,7 @@ echo '<div class="comment " id="taskbody">
 				continue;
 			}
 			echo'<div class="comment" id='.$action->id.'>';
-			echo'<div class="comment-topline"><i>'.$action->creator0->surname.' '.$action->creator0->name.' '.$action->creator0->patr.'</i> &nbsp;&nbsp;&nbsp; '.$action->timestamp.'</div>';
+			echo'<div class="comment-topline"><i>'.$action->creator0->fio_full().'</i> &nbsp;&nbsp;&nbsp; '.$action->timestamp.'</div>';
 			echo'<div class="sign"></div>';
 
 			echo'<div style="position: relative; float: left; height: 60px; margin: 5px;"> <img height=100% src="';

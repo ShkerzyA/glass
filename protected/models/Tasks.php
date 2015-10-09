@@ -249,9 +249,9 @@ class Tasks extends CActiveRecord
 
 	public static function isHorn(){
 		$res=false;
-		$condition=" (t.\"group\"::text[] && array['".implode("','",Yii::app()->user->groups)."'])";
+		$condition=" (\"Project0\".\"group\"::text[] && array['".implode("','",Yii::app()->user->groups)."'])";
 		$order="t.timestamp desc  LIMIT 2";
-		$model=Tasks::model()->findAll(array('condition'=>$condition,'order'=>$order));
+		$model=Tasks::model()->with('Project0')->findAll(array('condition'=>$condition,'order'=>$order));
 
 
 

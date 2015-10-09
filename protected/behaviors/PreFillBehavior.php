@@ -1,6 +1,5 @@
 <?php 
 class PreFillBehavior extends CActiveRecordBehavior{
-
     public function afterConstruct($event){
         if ($this->owner->scenario=='insert'){
             $model_name=trim(get_class($this->owner));
