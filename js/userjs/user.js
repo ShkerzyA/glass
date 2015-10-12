@@ -48,6 +48,23 @@ function init(){
 
 }
 
+function sameTasks(id,type){
+if(id){
+    $.get("/glass/tasks/sameTasks", {id: id, type: type},
+            function(data, status) {
+                if (status == "success") {
+                    if(data.length>0){
+                        $('html').append(awesomeWindowWrap(data));
+                    }
+                }else{
+                    alert('Ошибка');
+                }
+            },"html"
+        );
+    } 
+}
+
+
 function awesomeWindowWrap(data){
   var res='<div class="back"><div class="window_awesom killClick" style="width: 80%; left: 10%; position: fixed; max-width: 90%; min-height: 50px; top: 30%; margin: auto; font-size: 9pt; overflow: hidden;"><div id="back" class="close_this"></div><div class="wa_body" style="min-height: 200px;">'+ data + '</div></div></div>';
   return res;

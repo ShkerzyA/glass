@@ -23,6 +23,10 @@ if(Yii::app()->user->checkAccess('administrator')){
     $this->menu[]=array('label'=>'Управление', 'url'=>array('admin'));
 }
 
+if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))){
+      $this->menu[]=array('label'=>'Местные Задачи', 'url'=>'#','linkOptions'=>array('class'=>'done','onclick'=>'sameTasks('.$model->id.',"wp")'));
+}
+
 
 $this->renderPartial('/workplace/storages');
 

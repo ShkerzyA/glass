@@ -361,16 +361,22 @@ class TasksController extends Controller
 		if(Yii::app()->request->isAjaxRequest){
 			switch ($type) {
 				case 'wp':
-					$ttype=0;
+					$wp=Workplace::model()->findByPk($id);
+					$condition="('".$id."'"."=t.details[1] and t.type=0)";
+					foreach ($wp->equipments as $equip){
+						$condition.=" OR ('".$equip->id."'"."=t.details[1] and t.type=1)";	
+					}
 					break;
 				case 'eq':
-					$ttype=1;
+					$eq=Equipment::model()->findByPk($id);
+					$condition="('".$id."'"."=t.details[1] and t.type=1)";
+					$condition.="OR ('".$eq->idWorkplace->id."'"."=t.details[1] and t.type=0)";
 					break;
 				default:
 					return false;
 					break;
 			}
-			$models=Tasks::model()->findAll(array('condition'=>"'".$id."'"."=t.details[1] and t.type=".$ttype,'order'=>'t.timestamp DESC','limit'=>10));
+			$models=Tasks::model()->findAll(array('condition'=>$condition,'order'=>'t.timestamp DESC'));
 			$this->renderPartial('_helpdesk',array(
 				'model'=>$models,
 			),false,false);
