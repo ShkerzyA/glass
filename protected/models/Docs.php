@@ -64,6 +64,19 @@ public $creator0creator;
 		return 'docs';
 	}
 
+	public function access($exception=True){
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->idCatalog->groups))) and !(Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))){
+			if($exception){
+				throw new CHttpException(403, 'У вас недостаточно прав');
+			}else{
+				return False;
+			}
+		}
+		return True;
+		//if (!Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))
+           
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
