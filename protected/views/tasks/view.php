@@ -3,7 +3,7 @@
 /* @var $model Tasks */
 
 $this->breadcrumbs=array(
-	$model::$modelLabelP=>array('helpDesk&&Tasks[group]='.(implode(',',$model->group))),
+	$model::$modelLabelP=>array('helpDesk?group='.(implode(',',$model->Project0->group))),
 	$model->id,
 );
 

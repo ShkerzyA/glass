@@ -21,12 +21,8 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'creator'); ?>
 
-		<?php 
-		$tmp=Personnel::model()->with(array(
-			'personnelPostsHistories'=>array('order'=>'"personnelPostsHistories".date_begin DESC'),
-			))->findall();
-echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->surname.' '.$tmp->name);}),array('empty' => '')); ?>
+
+		<?php echo Customfields::searchPersonnel($model,'creator'); ?>
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 
