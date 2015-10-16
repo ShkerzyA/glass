@@ -62,6 +62,12 @@ class Equipment extends CActiveRecord
 		}	
 	}
 
+	public function cartInvOnly(){
+		if($this->type=18 and (empty($this->inv))){
+			$this->addError('Equipment["inv"]','Не заполнен инвентарный номер картриджа');
+		}
+	}
+
 
 	public static function model($className=__CLASS__)
 	{
@@ -233,12 +239,14 @@ class Equipment extends CActiveRecord
 			array('id_workplace, type, producer, status, parent_id', 'numerical', 'integerOnly'=>true),
 			array('id_workplace,type','required'),
 			array('serial,inv,released', 'length', 'max'=>100),
+			array('inv','cartInvOnly'),
 			array('mark', 'length', 'max'=>200),
 			array('notes,ip,mac,released', 'safe'),
 			array('id','uniqueInvSerial'),
 			array('id, id_workplace, serial, type, producer, mark, inv, released, ip, mac, status, parent_id, notes,idWorkplaceid_workplace,place,department,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
 		);
 	}
+
 
 	protected function beforeSave(){
 		if(empty($this->released))
