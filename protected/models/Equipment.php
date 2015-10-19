@@ -63,7 +63,7 @@ class Equipment extends CActiveRecord
 	}
 
 	public function cartInvOnly(){
-		if($this->type=18 and (empty($this->inv))){
+		if($this->type==18 and (empty($this->inv))){
 			$this->addError('Equipment["inv"]','Не заполнен инвентарный номер картриджа');
 		}
 	}
