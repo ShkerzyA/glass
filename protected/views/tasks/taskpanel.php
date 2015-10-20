@@ -1,4 +1,4 @@
-	<?php $status=$v->gimmeStatus(); ?>
+	<?php $status=$v->status0; ?>
 	<div class="taskpanel <?php echo $status['css_class']; ?>">
 			
 			<div  class="rightinfo">

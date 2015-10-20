@@ -17,7 +17,7 @@ $this->menu=array(
 
 
 	$status_arr=$model->getStatus();
-	$status=$model->gimmeStatus();
+	$status=$model->status0;
 	if(Yii::app()->user->checkAccess('saveStatus',array('mod'=>$model))){
 		echo(CHtml::dropDownList('status',$model->status,$status_arr,array('class'=>$status['css_class']))); 
 	}

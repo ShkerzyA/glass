@@ -105,21 +105,7 @@ class Tasks extends CActiveRecord
 
 
 	public function getStatus(){
-
-		$status=array(  0 => 'Назначено',
-						6 => 'Требует уточнения',
-						1 => 'Принято',
-						5 => 'В работе',
-						2 => 'Выполнено',
-						3 => 'Не выполнено');
-		if(!empty(Yii::app()->user->islead)){
-			if(Yii::app()->user->islead==1){
-				$status[4]='Подтверждено выполнение';
-			}	
-		}
-		
-
-		return $status;
+		return TasksStatus::statusList();
 	}
 
 	public function tasksUnits(){
@@ -127,6 +113,7 @@ class Tasks extends CActiveRecord
 		return $result;
 	}
 
+	/*
 	public function gimmeStatus(){
 		$status=array(  0 => array('label'=>'Назначено','css_class'=>'open','css_status'=>'red'),
 						6 => array('label'=>'Требует уточнения','css_class'=>'open','css_status'=>''),
@@ -136,7 +123,7 @@ class Tasks extends CActiveRecord
 						3 => array('label'=>'Не выполнено','css_class'=>'closed','css_status'=>'red'),
 						4 => array('label'=>'Подтверждено выполнение','css_class'=>'done','css_status'=>'green'));
 		return $status[$this->status];
-	}
+	} */
 
 
 
@@ -220,6 +207,7 @@ class Tasks extends CActiveRecord
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
 			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),
 			'Project0' => array(self::BELONGS_TO, 'Projects', 'project'),
+			'status0' => array(self::BELONGS_TO, 'TasksStatus', 'status','order'=>'"status0".sort ASC'),
 		);
 	}
 
@@ -288,22 +276,22 @@ class Tasks extends CActiveRecord
 			//текущие
 			case '1':
 				$condition="t.status in (0,1,5,6) ";
-				$order="t.status asc,t.deadline ASC,t.timestamp desc";
+				$order="status0.sort asc,t.deadline ASC,t.timestamp desc";
 				break;
 
 			case '2':
 				$condition="t.status in (0,1,5,6) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")";
-				$order="t.status asc,t.deadline ASC,t.timestamp desc";
+				$order="status0.sort asc,t.deadline ASC,t.timestamp desc";
 				break;
 			
 			case '3':
 				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5,6))";
-				$order="t.status asc,t.deadline ASC,t.timestamp desc";
+				$order="status0.sort asc,t.deadline ASC,t.timestamp desc";
 				break;
 			//за день
 			case '4':
 				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date))";
-				$order="t.status asc,t.deadline ASC,t.timestamp desc";
+				$order="status0.sort asc,t.deadline ASC,t.timestamp desc";
 				break;
 
 			default:
@@ -317,7 +305,7 @@ class Tasks extends CActiveRecord
  		//		'TasksActions'=>array('alias'=>'TasksActions','condition'=>'"TasksActions".type=0','order'=>'"TasksActions".date DESC,"TasksActions".timestamp DESC')))->findAll(array('condition'=>$condition,'order'=>$order));
 		
 
-		$model=Tasks::model()->with(array('Project0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".type ASC, "TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel'))->findAll(array('condition'=>$condition,'order'=>$order));
+		$model=Tasks::model()->with(array('Project0','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".type ASC, "TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel'))->findAll(array('condition'=>$condition,'order'=>$order));
 		return $model;
 
 	}
