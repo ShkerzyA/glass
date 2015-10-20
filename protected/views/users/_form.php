@@ -48,6 +48,31 @@
 		<?php echo $form->error($model,'bg'); ?>
 	</div>
 
+	 <div class="row">
+        <?php echo $form->labelEx($model,'horn'); ?>
+
+
+        <?php echo $form->dropDownList($model,'horn',Users::SoundList(),
+              array('empty' => '')); ?>
+        <?php echo $form->error($model,'horn'); ?>
+    </div>
+
+	<div class="row">
+        <?php echo $form->labelEx($model,'chatsound'); ?>
+
+        <?php echo $form->checkBox($model,'chatsound',array('value'=>1,'size'=>2,'maxlength'=>2)); ?>
+
+        <?php echo $form->error($model,'chatsound'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'tasksound'); ?>
+
+        <?php echo $form->checkBox($model,'tasksound',array('value'=>1,'size'=>2,'maxlength'=>2)); ?>
+
+        <?php echo $form->error($model,'tasksound'); ?>
+    </div>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_post'); ?>
 

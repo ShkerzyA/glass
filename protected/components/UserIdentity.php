@@ -25,6 +25,9 @@ class UserIdentity extends CUserIdentity
             $this->setState('username', $user->username);
             $this->setState('startpage', $user->startpage);
             $this->setState('bg', $user->bg);
+            $this->setState('horn', $user->horn);
+            $this->setState('chatsound', $user->chatsound);
+            $this->setState('tasksound', $user->tasksound);
             if(!empty($user->personnels)){
                 $this->setState('surname', $user->personnels->surname);
                 $this->setState('name', $user->personnels->name);

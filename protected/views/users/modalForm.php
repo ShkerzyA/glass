@@ -38,6 +38,33 @@
 
 		<?php echo $form->error($model->personnels,'photo'); ?>
 	</div>
+
+<?php if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))): ?>
+	<div class="row">
+        <?php echo $form->labelEx($model,'horn'); ?>
+
+
+        <?php echo $form->dropDownList($model,'horn',Users::SoundList(),
+              array('empty' => '')); ?>
+        <?php echo $form->error($model,'horn'); ?>
+    </div>
+
+	<div class="row">
+        <?php echo $form->labelEx($model,'chatsound'); ?>
+
+        <?php echo $form->checkBox($model,'chatsound',array('value'=>1,'size'=>2,'maxlength'=>2)); ?>
+
+        <?php echo $form->error($model,'chatsound'); ?>
+    </div>
+
+    <div class="row">
+        <?php echo $form->labelEx($model,'tasksound'); ?>
+
+        <?php echo $form->checkBox($model,'tasksound',array('value'=>1,'size'=>2,'maxlength'=>2)); ?>
+
+        <?php echo $form->error($model,'tasksound'); ?>
+    </div>
+<?php endif; ?>
 	<!--
 	Фото
 	<?php echo CHtml::fileField('photo', '', $htmlOptions=array ( )); ?>

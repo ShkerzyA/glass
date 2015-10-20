@@ -4,8 +4,13 @@
 <?php if(!Yii::app()->user->isGuest):?>
 
 <?php Yii::app()->clientScript->registerPackage('userjs'); ?>
- <audio id='incmess' src="<?php echo Yii::app()->baseUrl?>/media/mess/kib2.ogg"></audio>
- <audio id='horn' src="<?php echo Yii::app()->baseUrl?>/media/horn/horn6.ogg"></audio>
+    <?php if (!empty(Yii::app()->user->chatsound)):?>
+        <audio id='incmess' src="<?php echo Yii::app()->baseUrl?>/media/mess/kib2.ogg"></audio>
+    <?php endif; ?>
+    <?php if (!empty(Yii::app()->user->tasksound)):?>
+        <?php $sound=(!empty(Yii::app()->user->horn))?Yii::app()->user->horn:'horn6.ogg'?>
+        <audio id='horn' src="<?php echo Yii::app()->baseUrl?>/media/horn/<?php echo $sound ?>"></audio>
+    <?php endif; ?>
 <script type="text/javascript">
 
 

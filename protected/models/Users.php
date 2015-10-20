@@ -18,6 +18,11 @@
 
 
  * @property Personnel[] $personnels
+  * @property string $startpage
+ * @property string $bg
+ * @property string $horn
+ * @property integer $tasksound
+ * @property integer $chatsound
  */
 class Users extends CActiveRecord
 {
@@ -68,9 +73,10 @@ public $personnelsid_user;
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_post', 'numerical', 'integerOnly'=>true),
+			array('id_post, tasksound, chatsound', 'numerical', 'integerOnly'=>true),
 			array('username, password', 'length', 'max'=>50),
 			array('startpage, bg', 'length', 'max'=>250),
+			array('horn', 'length', 'max'=>100),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -112,7 +118,22 @@ public $personnelsid_user;
 			'usersRulesid_user' => 'Правила',
 			'idPostid_post' => 'Роль',
 			'personnelsid_user' => 'Сотрудник',
+			'horn' => 'Вариант звучания',
+			'tasksound' => 'Звук задачи',
+			'chatsound' => 'Звук чата',
 		);
+	}
+
+	public static function SoundList(){
+		$res=array();
+		$src=Yii::getPathOfAlias('webroot').'/media/horn/';
+        if ($handle = opendir($src)) {
+            while (false !== ($file = readdir($handle))) {
+            	if($file!='.' && $file!='..')
+            		$res[$file]=$file; 
+            }
+        }
+        return $res;
 	}
 
 	/**
@@ -137,6 +158,9 @@ public $personnelsid_user;
 		$criteria->compare('usersrules.id_user',$this->usersRulesid_user,true);
 		$criteria->compare('usersposts.id_post',$this->idPostid_post,true);
 		$criteria->compare('personnel.id_user',$this->personnelsid_user,true);
+		$criteria->compare('horn',$this->horn,true);
+		$criteria->compare('tasksound',$this->tasksound);
+		$criteria->compare('chatsound',$this->chatsound);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
