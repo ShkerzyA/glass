@@ -237,7 +237,7 @@ class Equipment extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_workplace, type, producer, status, parent_id', 'numerical', 'integerOnly'=>true),
-			array('id_workplace,type','required'),
+			array('id_workplace,type,status','required'),
 			array('serial,inv,released', 'length', 'max'=>100),
 			array('inv','cartInvOnly'),
 			array('mark', 'length', 'max'=>200),
