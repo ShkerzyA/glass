@@ -35,6 +35,7 @@ class Personnel extends CActiveRecord
 	public $personnelPostsHistoriesid_personnel;
     public $departments_name;
     public $allfields;
+    public $id_building;
     public $actions=array();
 
 	 public function defaultScope()
@@ -164,7 +165,7 @@ class Personnel extends CActiveRecord
             array('orbase_rn', 'unique',),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, surname, name, patr, photo, id_user, birthday, date_begin, orbase_rn, sex, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel,departments_name,allfields', 'safe', 'on'=>'search'),
+			array('id, surname, name, patr, photo, id_user, birthday, date_begin, orbase_rn, sex, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel,departments_name,allfields, id_building', 'safe', 'on'=>'search,search_pers,search_pers_phones'),
 		);
 	}
 
@@ -217,6 +218,24 @@ class Personnel extends CActiveRecord
     public function username(){
         if(!empty($this->idUser))
             return $this->idUser->username;
+    }
+
+    public function workplacesPhones(){
+        $res=array();
+        if(!empty($this->workplaces))
+        foreach ($this->workplaces as $v) {
+            $res[]=$v->phones();
+        }
+        return implode(',',$res);
+    }
+
+    public function allCab(){
+        $res=array();
+        if(!empty($this->workplaces))
+        foreach ($this->workplaces as $v) {
+            $res[]=$v->wpNameFull(False);
+        }
+        return implode(',',$res);
     }
 
 	public function relations()
@@ -338,6 +357,45 @@ class Personnel extends CActiveRecord
             'pagination'=>array(
                 'pageSize'=>20,
             ),
+        ));
+    }
+
+     public function search_pers_phones()
+    {
+        $criteria=new CDbCriteria;
+        $criteria->with=array(
+            'idUser' => array('alias' => 'users'),
+            'workplaces' => array('alias' => 'workplace','together'=>True),
+            'workplaces.idCabinet' => array('alias' => 'cabinet','together'=>True),
+            'workplaces.idCabinet.idFloor.idBuilding',
+            'personnelPostsHistories:working' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','together'=>True),
+            'personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
+            'personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
+
+        $criteria->compare('id',$this->id);
+        $criteria->addCondition(array('condition'=>'cabinet.phone<>\'\' or "workplace".phone<>\'\''));
+        $criteria->compare('"idBuilding".id',$this->id_building);
+        $words=explode(" ",$this->allfields);
+
+        foreach ($words as $v) {
+        $criteria2=new CDbCriteria;
+            $criteria2->compare('LOWER(t.surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(t.name)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            //$criteria2->compare('LOWER(t.patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(department_posts.post)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(cabinet.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(cabinet.num)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(cabinet.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(workplace.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+        $criteria->mergeWith($criteria2);
+        }
+        $criteria->order='"t".surname ASC';
+        $criteria->order='workplace.phone||cabinet.phone ASC';
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination'=>False
         ));
     }
 

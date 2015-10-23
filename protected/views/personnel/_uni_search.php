@@ -11,6 +11,15 @@
 	'method'=>'get',
 )); ?>
 
+	<div class="row">
+		
+
+		<?php 	$tmp=Building::model()->findall();
+				echo $form->dropDownList($model,"id_building",CHtml::listData($tmp,"id",function($tmp) {
+				return CHtml::encode($tmp->bname);}),array('empty' => '','onchange'=>'submit()')); ?>
+		<?php 	echo $form->error($model,'id_building'); ?>
+	</div>
+
 
 		<div class="inline">
 		<?php echo $form->textField($model,'allfields',array('size'=>50,'maxlength'=>50,'placeholder'=>'ПОИСК')); ?>

@@ -93,6 +93,15 @@ class Workplace extends CActiveRecord
         return $query->queryAll();
 	}
 
+	public function phones(){
+		$res=array();
+		$res[]=$this->phone;
+		if(!empty($this->idCabinet))
+			$res[]=$this->idCabinet->phone;
+		$res=array_filter($res);
+		return implode(',',$res);
+	}
+
 	public function wpName(){
 		if(!empty($this->id_personnel))
 			return $this->idPersonnel->fio();
