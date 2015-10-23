@@ -42,13 +42,13 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 
 <table class='phonetable' style="table-layout: auto" >
 	<tr>
-		<th>Телефон</th><th>ФИО/Кабинет</th><th>Подробности</th>
+		<th>Кабинет</th><th></th><th>Телефон</th>
 	</tr>
 <?php 
 //$dataProvider->itemCount=$dataProvider->getItemCount();
 
 $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$model->search_phones(),
-	'itemView'=>'_persphoneview',
+	'itemView'=>'_phoneview',
 )); ?>
 </table>
