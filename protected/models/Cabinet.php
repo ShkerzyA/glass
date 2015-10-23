@@ -148,8 +148,78 @@ class Cabinet extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	
+	public function search_phones()
+    {
+        // Warning: Please modify the following code to remove attributes that
+        // should not be searched.
 
-	   public function search_phones()
+        $criteria=new CDbCriteria;
+        $criteria->with=array(
+            'idFloor.idBuilding',
+            'workplaces' => array('alias' => 'workplace','together'=>True),
+            'workplaces.idPersonnel' => array('alias' => 'personnel'),
+            'workplaces.idPersonnel.personnelPostsHistories:working' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','together'=>True),
+            'workplaces.idPersonnel.personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
+            'workplaces.idPersonnel.personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
+
+        $criteria->compare('id',$this->id);
+        $criteria->addCondition(array('condition'=>'t.phone<>\'\' or "workplace".phone<>\'\''));
+
+        if(!empty($this->place)){
+			$place=explode('_',$this->place);
+			switch ($place[0]) {
+				case 'b':
+					$criteria->compare('"idBuilding".id',$place[1]);
+					break;
+				case 'f':
+					$criteria->compare('"idFloor".id',$place[1]);
+					break;
+				default:
+					# code...
+					break;
+			}
+		}
+
+        $words=explode(" ",$this->allfields);
+
+
+        foreach ($words as $v) {
+        $criteria2=new CDbCriteria;
+            $criteria2->compare('LOWER(personnel.surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(personnel.name)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(personnel.patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(department_posts.post)',mb_strtolower($v,'UTF-8'),true, 'OR');
+            $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(t.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(t.num)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(t.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(workplace.phone)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+            $criteria2->compare('LOWER(workplace.wname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
+        $criteria->mergeWith($criteria2);
+        }
+
+        
+        $criteria->order='"t".num ASC, "t".phone ASC';
+
+        $pag=49;
+        foreach ($this->attributes as $x) {
+            if(!empty($x)){
+                $pag=100;
+                break;
+            }
+        }
+      
+
+        return new CActiveDataProvider($this, array(
+            'criteria'=>$criteria,
+            'pagination'=>array(
+            	'pageSize'=>$pag
+            ),
+        ));
+    }
+
+	public function search_phones2()
     {
         // Warning: Please modify the following code to remove attributes that
         // should not be searched.
