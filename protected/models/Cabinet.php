@@ -38,6 +38,7 @@ class Cabinet extends CActiveRecord
 	public $idFloorid_floor;
 	public $workplacesid_cabinet;
 	public $allfields;
+	public $place;
 
 	public function behaviors(){
 		return array(
@@ -74,8 +75,8 @@ class Cabinet extends CActiveRecord
 			array('cname', 'length', 'max'=>200),
 			array('num', 'length', 'max'=>10),
 			array('phone', 'length', 'max'=>100),
-			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,workplacesid_cabinet', 'safe', 'on'=>'search_phones'),
-			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,workplacesid_cabinet', 'safe', 'on'=>'search'),
+			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,workplacesid_cabinet,place', 'safe', 'on'=>'search_phones'),
+			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,workplacesid_cabinet,place', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -155,14 +156,31 @@ class Cabinet extends CActiveRecord
 
         $criteria=new CDbCriteria;
         $criteria->with=array(
-            
+            'idFloor.idBuilding',
             'workplaces' => array('alias' => 'workplace','together'=>True),
             'workplaces.idPersonnel' => array('alias' => 'personnel'),
-            'workplaces.idPersonnel.personnelPostsHistories:working' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','condition'=>"",'together'=>True),
+            'workplaces.idPersonnel.personnelPostsHistories:working' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','together'=>True),
             'workplaces.idPersonnel.personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
             'workplaces.idPersonnel.personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
 
         $criteria->compare('id',$this->id);
+        $criteria->addCondition(array('condition'=>'t.phone is not NULL or "workplace".phone is not NULL'));
+
+        if(!empty($this->place)){
+			$place=explode('_',$this->place);
+			switch ($place[0]) {
+				case 'b':
+					$criteria->compare('"idBuilding".id',$place[1]);
+					break;
+				case 'f':
+					$criteria->compare('"idFloor".id',$place[1]);
+					break;
+				default:
+					# code...
+					break;
+			}
+		}
+
         $words=explode(" ",$this->allfields);
 
 
@@ -181,8 +199,8 @@ class Cabinet extends CActiveRecord
         $criteria->mergeWith($criteria2);
         }
 
-        $criteria->addCondition(array('condition'=>'t.phone is not NULL or workplace.phone is not NULL'));
-        $criteria->order='"t".num ASC, t.phone ASC';
+        
+        $criteria->order='"t".num ASC, "t".phone ASC';
 
         $pag=49;
         foreach ($this->attributes as $x) {
