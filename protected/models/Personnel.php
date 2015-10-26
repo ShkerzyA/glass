@@ -360,7 +360,7 @@ class Personnel extends CActiveRecord
         ));
     }
 
-     public function search_pers_phones()
+    public function search_pers_phones()
     {
         $criteria=new CDbCriteria;
         $criteria->with=array(

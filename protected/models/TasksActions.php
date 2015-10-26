@@ -114,6 +114,7 @@ class TasksActions extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('type, creator, id_task', 'numerical', 'integerOnly'=>true),
+			array('creator, id_task', 'required'),
 			array('ttext, timestamp', 'safe'),
 		
 			// The following rule is used by search().
