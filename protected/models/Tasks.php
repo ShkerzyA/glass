@@ -276,22 +276,22 @@ class Tasks extends CActiveRecord
 			//текущие
 			case '1':
 				$condition="t.status in (0,1,5,6) ";
-				$order="status0.sort asc,t.deadline ASC,t.timestamp desc";
+				$order="status0.sort asc,t.timestamp desc";
 				break;
 
 			case '2':
 				$condition="t.status in (0,1,5,6) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")";
-				$order="status0.sort asc,t.deadline ASC,t.timestamp desc";
+				$order="status0.sort asc,t.timestamp desc";
 				break;
 			
 			case '3':
 				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5,6))";
-				$order="status0.sort asc,t.deadline ASC,t.timestamp desc";
+				$order="status0.sort asc,t.timestamp desc";
 				break;
 			//за день
 			case '4':
 				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date))";
-				$order="status0.sort asc,t.deadline ASC,t.timestamp desc";
+				$order="status0.sort asc,t.timestamp desc";
 				break;
 
 			default:
