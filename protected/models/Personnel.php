@@ -231,9 +231,17 @@ class Personnel extends CActiveRecord
 
     public function allCab(){
         $res=array();
+        $isit=(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))));
+
         if(!empty($this->workplaces))
         foreach ($this->workplaces as $v) {
-            $res[]=$v->wpNameFull(False);
+            $wp='';
+            if($isit){
+                $wp='<a href="'.Yii::app()->baseUrl.'/Cabinet/'.$v->idCabinet->id.'">'.$v->wpNameFull(False).'</a>';
+            }else{
+                $wp=$v->wpNameFull(False);
+            }
+            $res[]=$wp;
         }
         return implode(',',$res);
     }
