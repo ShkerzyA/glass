@@ -16,7 +16,7 @@ if(!empty($data->workplaces)){
 
 <tr>
 	<td><b><?php echo $data->phone ?></b></td>
-	<td><b>Общий</b></td>
+	<td><b><?php echo $data->cabNameFull(1) ?></b></td>
 	<td><?php 
 		$isit=(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))));
 		if($isit)

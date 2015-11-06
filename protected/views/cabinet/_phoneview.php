@@ -8,7 +8,7 @@ if(!empty($data->workplaces)){
 	foreach ($data->workplaces as $v) {
 		if(!empty($v->idPersonnel)){
 			$num++;
-			$res.='<tr><td>'.implode(' ', $v->idPersonnel->posts()).'/<b>'.$v->idPersonnel->fio_full().'</b></td><td>'.$v->phone.'</td></tr>';
+			$res.='<tr><td>'.$v->phone.'</td><td><b>'.$v->idPersonnel->fio_full().'</b></td></tr>';
 		}
 	}
 }
@@ -18,6 +18,8 @@ if(!empty($data->workplaces)){
 
 
 <tr>
+	<td><b><?php echo $data->phone ?></b></td>
+	<td><b></b></td>
 	<td rowspan=<?php echo $num; ?>><?php 
 		$isit=(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))));
 		if($isit)
@@ -27,7 +29,5 @@ if(!empty($data->workplaces)){
 			echo '</a>';
 		?>
 	</td>
-	<td><b>Общий</b></td>
-	<td><b><?php echo $data->phone ?></b></td>
 </tr>
 <?php echo $res; ?>

@@ -49,6 +49,6 @@ $searcimg='<img align=right src='.(Yii::app()->request->baseUrl.'/images/magnifi
 
 $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$model->search_phones(),
-	'itemView'=>'_phoneview',
+	'itemView'=>'_persphoneview',
 )); ?>
 </table>

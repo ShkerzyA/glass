@@ -35,7 +35,7 @@ class CabinetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','rootFillTree','AjaxFillTree','phones'),
+				'actions'=>array('index','view','rootFillTree','AjaxFillTree','phones','phones2'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -77,7 +77,6 @@ class CabinetController extends Controller
         'alias'=>'equipments'
     	),
 	))->findByPk($id);
-
 		$this->render('view',array(
 			'model'=>$model,
 		));
@@ -117,6 +116,23 @@ class CabinetController extends Controller
 		}
 
 		$this->render('phones',array(
+			'model'=>$model,
+		));
+
+
+	}
+
+			public function actionPhones2()
+	{
+
+		$this->layout='//layouts/column1';
+		$model=new Cabinet('search_phones');
+		//$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Cabinet'])){
+			$model->attributes=$_GET['Cabinet'];
+		}
+
+		$this->render('phones2',array(
 			'model'=>$model,
 		));
 
