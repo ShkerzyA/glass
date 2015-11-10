@@ -1493,6 +1493,11 @@ ul.yiiPager .first, ul.yiiPager .last {
 	overflow: hidden;
 }
 
+.nob{
+	border-left: 0px !important;
+	border-right: 0px !important;
+	border-top: 3px solid grey !important;
+}
 /*
 
 

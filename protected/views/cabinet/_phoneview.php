@@ -17,10 +17,10 @@ if(!empty($data->workplaces)){
 ?>
 
 
-<tr>
-	<td><b><?php echo $data->phone ?></b></td>
-	<td><b></b></td>
-	<td rowspan=<?php echo $num; ?>><?php 
+<tr >
+	<td class=nob><b><?php echo $data->phone ?></b></td>
+	<td class=nob></td>
+	<td class=nob rowspan=<?php echo $num; ?>><?php 
 		$isit=(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))));
 		if($isit)
 			echo '<a href="'.Yii::app()->baseUrl.'/Cabinet/'.$data->id.'">';
