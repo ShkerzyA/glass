@@ -47,8 +47,8 @@
 						$colspan+=$deadline['hours']-7;
 						$after-=$deadline['hours']-7;
 					}else if($deadline['difdays']<8){
-						$colspan+=$deadline['difdays']+12;
-						$after-=$deadline['difdays']+12;
+						$colspan+=$deadline['difdays']+11;
+						$after-=$deadline['difdays']+11;
 					}else{
 						$colspan=20;
 						$after=0;
