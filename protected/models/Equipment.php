@@ -220,11 +220,11 @@ class Equipment extends CActiveRecord
 	}
 
 	public function findMyCart(){
-		if(!empty($this->equipments))
+		/*if(!empty($this->equipments))  //Убрал привязку картриджа к принтеру. Такие дела
 			$cart_old=$this->equipments[0];
 
-		if(empty($cart_old))
-			$cart_old=Equipment::model()->with('EquipmentLog')->find(array('condition'=>"t.type=18 and t.id_workplace=$this->id_workplace and \"EquipmentLog\".details[2]='$this->id'",'order'=>'"EquipmentLog".timestamp DESC'));
+		if(empty($cart_old)) */
+		$cart_old=Equipment::model()->with('EquipmentLog')->find(array('condition'=>"t.type=18 and t.id_workplace=$this->id_workplace and \"EquipmentLog\".details[2]='$this->id'",'order'=>'"EquipmentLog".timestamp DESC'));
 		
 		return $cart_old;
 	}

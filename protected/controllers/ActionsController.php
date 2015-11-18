@@ -136,7 +136,6 @@ class ActionsController extends Controller
 
 						if(!empty($cart)){
 							$cart->id_workplace=$print->id_workplace;
-							$cart->parent_id=$print->id;
 							$cart->save();
 							$log=new EquipmentLog;
 							$log->saveLog('cartIn',array('details'=>array($print->id_workplace,$print->id),'object'=>$cart->id,'timestamp'=>$timestamp));
