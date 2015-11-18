@@ -127,7 +127,6 @@ class Equipment extends CActiveRecord
 
 	public static function getStatus(){
 		return array(
-			''=>'',
 			0=>'В эксплуатации',
 			1=>'Не в эксплуатации',
 			2=>'Неисправно',
