@@ -86,7 +86,7 @@ public $creator0creator;
 		// will receive user inputs.
 		return array(
 			array('creator,  id_catalog', 'numerical', 'integerOnly'=>true),
-			array('doc_name, link', 'length', 'max'=>100),
+			array('doc_name', 'length', 'max'=>100),
 			array('text_docs, date_begin, date_end', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

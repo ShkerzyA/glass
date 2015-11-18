@@ -199,7 +199,7 @@ class EquipmentLog extends CActiveRecord
 				$producer='x';
 				$all=0;
 				foreach ($mod as $v) {
-					if($v->mark!=$mark or $v->producer!=$producer){
+					if($v->mark!==$mark or $v->producer!==$producer){
 						if(!empty($n))
 							$res.="<div style='margin-top: 2px;  position: relative; clear: both;'><b>Итого ".$mark.' : '.$n.'</b></div>';
 						$n=0;

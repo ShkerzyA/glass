@@ -67,11 +67,6 @@ class DocsController extends Controller
 	public function actionCreate()
 	{
 		$model=new Docs;
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
-
 		$md=$model->getMetadata();
 
 
