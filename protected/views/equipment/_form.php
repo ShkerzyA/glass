@@ -108,7 +108,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 
-		<?php echo $form->dropDownList($model,'status',$model->getStatus(); ?>
+		<?php echo $form->dropDownList($model,'status',$model->getStatus()); ?>
 
 		<?php echo $form->error($model,'status'); ?>
 	</div>
