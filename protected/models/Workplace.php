@@ -102,19 +102,36 @@ class Workplace extends CActiveRecord
 		return implode(',',$res);
 	}
 
-	public function wpName(){
-		if(!empty($this->id_personnel))
-			return $this->idPersonnel->fio();
-		else
-			return $this->wname;
+	public function myEqStr($type=array()){
+		$result=array();
+		foreach ($this->equipments as $eq) {
+			if(in_array($eq->type,$type))
+				$result[]=$eq->mark;
+		}
+
+		return implode(', ',$result);
+
 	}
 
-	public function wpNameFull($short=false){
+	public function wpName($withEq=false){
+		$eqStr=($withEq)?'('.$this->myEqStr(array(2,3,4)).')':'';
+
+		$res='';
+		if(!empty($this->id_personnel))
+			$res=$this->idPersonnel->fio();
+		else
+			$res=$this->wname;
+
+		return $res.' '.$eqStr;
+
+	}
+
+	public function wpNameFull($short=false,$withEq=false){
 	if(!empty($this->idCabinet)){
 		if($short){
 			$result=$this->idCabinet->cabNameFull($short);	
 		}else{
-			$result=$this->idCabinet->cabNameFull($short)."/ ".$this->wpName();;	
+			$result=$this->idCabinet->cabNameFull($short)."/ ".$this->wpName($withEq);;	
 		}	
 		return $result;}
 	else{

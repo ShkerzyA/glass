@@ -1,10 +1,10 @@
 
 <?php foreach($models as $project): ?>
-	<?php $project->tasksStatic(); ?>
+	
 	<tr class=prjT id=<?php echo $project->id ?>>
 		<td colspan=23><div class=projectpanel>Проект: <?php  $this->renderPartial('addtask',array(
 			'project'=>$project,
-		)); print($project->name); ?> <div class="taskmoreinfo"><?php
+		)); print($project->name); ?> <?php $this->renderPartial('/tasks/_projectInfo',array('project'=>$project->projectInfo())); ?> <div class="taskmoreinfo"><?php
 		$exec=$project->findExecutors();
 		 
 

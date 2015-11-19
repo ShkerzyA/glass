@@ -119,12 +119,16 @@ class Projects extends CActiveRecord
 		return $result;
 	}
 
-	public function tasksStatic(){
-		$num=0;
-		foreach ($this->Tasks as $v) {
-			$num++;
-		}
-		$this->countTask=array('name'=>'Всего','val'=>$num);
+	public function projectInfo(){
+	 	$sql = Yii::app()->db->createCommand(
+        	"
+        	select t1.status, t1.cou, t2.cou as me, ts.label, ts.css_class, ts.css_status from (SELECT status, count(status) cou from tasks where project=4 group by status) as t1 left join 
+			(SELECT status, count(status) cou from tasks where project=".$this->id." and '".Yii::app()->user->id_pers."'=ANY(executors)group by status ) as t2 on (t1.status=t2.status) 
+			left join tasks_status as ts on (ts.id=t1.status) where t1.status not in (2,4,3) order by ts.sort
+			"   
+        );
+    	$result = $sql->queryAll();
+    	return $result;
 	}
 
 

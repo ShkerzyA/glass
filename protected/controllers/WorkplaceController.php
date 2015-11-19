@@ -219,8 +219,8 @@ class WorkplaceController extends Controller
   			$result = array();
   			foreach ($models as $m)
    			$result[] = array(
-     			'label' => $m->wpNameFull(),
-     			'value' => $m->wpNameFull(),
+     			'label' => $m->wpNameFull(false,true),
+     			'value' => $m->wpNameFull(false,true),
      			'id' => $m->id,
    			);
   			echo CJSON::encode($result);
