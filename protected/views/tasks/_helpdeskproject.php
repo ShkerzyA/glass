@@ -1,10 +1,16 @@
-
 <?php foreach($models as $project): ?>
 	
-	<tr class=prjT id=<?php echo $project->id ?>>
-		<td colspan=23><div class=projectpanel>Проект: <?php  $this->renderPartial('addtask',array(
+	<tr class=prjT id= <?php echo $project->id ?> >
+		<td colspan=23><div class=projectpanel> 
+		<?php $this->renderPartial('addtask',array(
 			'project'=>$project,
-		)); print($project->name); ?> <?php $this->renderPartial('/tasks/_projectInfo',array('project'=>$project->projectInfo())); ?> <div class="taskmoreinfo"><?php
+		)); 
+		?>
+		<div style="width: 300px; float: left">
+		Проект:
+		<?php print($project->name); ?> 
+		</div>
+		<?php $this->renderPartial('/tasks/_projectInfo',array('project'=>$project->projectInfo())); ?> <div class="taskmoreinfo"><?php
 		$exec=$project->findExecutors();
 		 
 
@@ -12,7 +18,7 @@
 						foreach ($exec as $z) {
 							echo '<img height=100% class="dragPers" id="'.$z->id.'" src="';
 							echo $z->ava();
-							echo'">'.$z->fio();
+							echo'" title="'.$z->fio().'">';
 						}
 						?> </div></div>
 					</td>

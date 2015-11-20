@@ -55,8 +55,16 @@ class Personnel extends CActiveRecord
 			'DateBeginEnd'=>array(
 				'class'=>'application.behaviors.DateBeginEndBehavior',
 				),
+            'Log'=>array(
+                'class'=>'application.behaviors.LogBehavior',
+                ),
+
 			);
 	}
+
+    public function nameL(){
+        return $this->fio_full();
+    }
 	
 	public static function model($className=__CLASS__)
 	{
@@ -297,7 +305,25 @@ class Personnel extends CActiveRecord
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
 
+    public function prepareSave(){
+        if(!empty($this->birthday)){
+            $bd=new DateTime($this->birthday);
+            $this->birthday=$bd->format('Y-m-d');   
+        }
+        if(!empty($this->date_begin)){
+            $bd=new DateTime($this->date_begin);
+            $this->date_begin=$bd->format('Y-m-d');   
+        }
+        if(!empty($this->date_end)){
+            $bd=new DateTime($this->date_end);
+            $this->date_end=$bd->format('Y-m-d');   
+        }   
+    }
 
+    protected function beforeSave(){
+        //$this->prepareSave();
+        return parent::beforeSave();
+    }
     public function search()
     {
         // Warning: Please modify the following code to remove attributes that

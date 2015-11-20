@@ -43,6 +43,9 @@ class DepartmentPosts extends CActiveRecord
             'PreFill'=>array(
                 'class'=>'application.behaviors.PreFillBehavior',
                 ),
+            'Log'=>array(
+                'class'=>'application.behaviors.LogBehavior',
+                ),
 			);
 	}
 	/**
@@ -52,6 +55,10 @@ class DepartmentPosts extends CActiveRecord
 	{
 		return 'department_posts';
 	}
+
+    public function nameL(){
+        return $this->post;
+    }
 
 	/**
 	 * @return array validation rules for model attributes.

@@ -7,6 +7,14 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
         return $this->owner;
     }
 
+    public function fired(){
+        $alias=$this->owner->getTableAlias();
+        $this->owner->getDbCriteria()->mergeWith(
+            array('condition'=>'"'.$alias.'".date_end<current_date'));
+        return $this->owner;
+    }
+
+
     /*
     public function scopeWorking(){
         $alias=$this->owner->getTableAlias();
@@ -45,12 +53,12 @@ class DateBeginEndBehavior extends CActiveRecordBehavior{
     public function afterFind($event) {
 
         if(!empty($this->owner->date_begin)){
-            $date = date('d.m.Y', strtotime($this->owner->date_begin));
+            $date = date('Y-m-d', strtotime($this->owner->date_begin));
             $this->owner->date_begin = $date;
         }
 
         if(!empty($this->owner->date_end)){
-            $date = date('d.m.Y', strtotime($this->owner->date_end));
+            $date = date('Y-m-d', strtotime($this->owner->date_end));
             $this->owner->date_end = $date;
         }
     }

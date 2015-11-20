@@ -44,7 +44,7 @@ class WorkplaceController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','AutoSetDepartment'),
+				'actions'=>array('admin','delete','AutoSetDepartment','wpWithoutPers'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -102,6 +102,12 @@ class WorkplaceController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionWpWithoutPers(){
+		$models=Workplace::model()->findAll(array('condition'=>'id_personnel is null'));
+		$this->render('list',array('models'=>$models));
+		
 	}
 
 	/**

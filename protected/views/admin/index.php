@@ -12,7 +12,10 @@ $this->menu=array(
 			);
 
 $this->menu['all_menu']=array(
-
+	array('title'=>'Инструменты самодиагностики','items'=>array(
+		array('label'=>'Уволенные пользователи на рабочиж местах', 'url'=>array('/personnel/firedButInWp')),
+		array('label'=>'Рабочие места без людей', 'url'=>array('/workplace/wpWithoutPers'))
+	)),
 
 
 	array('title'=>'Персонал','items'=>array(
@@ -58,6 +61,7 @@ $this->menu['all_menu']=array(
 	)),
 
 	array('title'=>'Знания','items'=>array(
+		array('label'=>'Лог', 'url'=>array('/log/admin')), 
 		array('label'=>'Каталоги', 'url'=>array('/catalogs/admin')), 
 		array('label'=>'Документы', 'url'=>array('/docs/admin')), 
 		array('label'=>'Проекты', 'url'=>array('/projects/admin')), 

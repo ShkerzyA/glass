@@ -48,7 +48,7 @@ echo $form->dropDownList($model,"wp_subdiv_rn",CHtml::listData($tmp,"subdiv_rn",
 	<div class="row">
 		<?php echo $form->labelEx($model,'wname'); ?>
 
-		<?php echo $form->textField($model,'wname',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'wname',array('size'=>50,'maxlength'=>50,'placeholder'=>'Заполнять только при невозможности привязки персонала')); ?>
 
 		<?php echo $form->error($model,'wname'); ?>
 	</div>

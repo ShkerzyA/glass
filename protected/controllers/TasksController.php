@@ -305,7 +305,7 @@ class TasksController extends Controller
 	public function actionHelpDeskProject(){
 		$this->layout='//layouts/leaf2';
 		$model=new Projects();
-		$models=Projects::myGroupProjects();
+		$models=Projects::myExecProjects();
 		$this->render('helpdeskproject',array(
 				'model'=>$model,'models'=>$models));
 	}

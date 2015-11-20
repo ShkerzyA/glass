@@ -122,8 +122,8 @@ class Projects extends CActiveRecord
 	public function projectInfo(){
 	 	$sql = Yii::app()->db->createCommand(
         	"
-        	select t1.status, t1.cou, t2.cou as me, ts.label, ts.css_class, ts.css_status from (SELECT status, count(status) cou from tasks where project=4 group by status) as t1 left join 
-			(SELECT status, count(status) cou from tasks where project=".$this->id." and '".Yii::app()->user->id_pers."'=ANY(executors)group by status ) as t2 on (t1.status=t2.status) 
+        	select t1.status, t1.cou, t2.cou as my, ts.label, ts.css_class, ts.ico, ts.css_status from (SELECT status, count(status) cou from tasks where project=".$this->id." group by status) as t1 left join 
+			(SELECT status, count(status) cou from tasks where project=".$this->id." and '".Yii::app()->user->id_pers."'=ANY(executors) group by status ) as t2 on (t1.status=t2.status) 
 			left join tasks_status as ts on (ts.id=t1.status) where t1.status not in (2,4,3) order by ts.sort
 			"   
         );
@@ -134,6 +134,11 @@ class Projects extends CActiveRecord
 
 	public static function myGroupProjects(){
 		$models=self::model()->with('Tasks.status0')->findAll(array('condition'=>'t.group[1] in (\''.implode('\',\'',Yii::app()->user->groups).'\')'));
+		return $models;
+	}
+
+	public static function myExecProjects(){
+		$models=self::model()->with('Tasks.status0')->findAll(array('condition'=>'t.group[1] in (\''.implode('\',\'',Yii::app()->user->groups).'\') and \''.Yii::app()->user->id_pers.'\'=ANY(t.executors) '));
 		return $models;
 	}
 

@@ -130,20 +130,20 @@ class MyDbase extends CFormModel{
        			$newpers->surname=trim($v['SURNAME']);
        			$newpers->name=trim($v['FIRSTNAME']);
        			$newpers->patr=trim($v['SECONDNAME']);
-       			$newpers->birthday=date('d.m.Y',strtotime($v['BIRTHDAY']));
+       			$newpers->birthday=date('Y-m-d',strtotime($v['BIRTHDAY']));
 
        			$date_begin=array();
        			$date_end=array();
 
        			if (!empty($v['ank'])){
        				foreach ($v['ank'] as $q) {
-       					$date_begin[]=new DateTime(date('d.m.Y',strtotime(substr($q['JOBBEGIN'] , 6,2).'.'.substr($q['JOBBEGIN'] , 4,2).'.'.substr($q['JOBBEGIN'] ,0,4))));
-						$date_end[]=new DateTime(date('d.m.Y',strtotime(substr($q['JOBEND'] , 6,2).'.'.substr($q['JOBEND'] , 4,2).'.'.substr($q['JOBEND'] ,0,4))));
+       					$date_begin[]=new DateTime(date('Y-m-d',strtotime(substr($q['JOBBEGIN'] , 6,2).'.'.substr($q['JOBBEGIN'] , 4,2).'.'.substr($q['JOBBEGIN'] ,0,4))));
+						$date_end[]=new DateTime(date('Y-m-d',strtotime(substr($q['JOBEND'] , 6,2).'.'.substr($q['JOBEND'] , 4,2).'.'.substr($q['JOBEND'] ,0,4))));
        				}
 
-       				$newpers->date_begin=min($date_begin)->format('d.m.Y');
-       				$newpers->date_end=max($date_end)->format('d.m.Y');
-       				$newpers->date_end=($newpers->date_end!='01.01.1970')?$newpers->date_end:NULL;
+       				$newpers->date_begin=min($date_begin)->format('Y-m-d');
+       				$newpers->date_end=max($date_end)->format('Y-m-d');
+       				$newpers->date_end=($newpers->date_end!='1970-01-01')?$newpers->date_end:NULL;
        			}
        			$newpers->orbase_rn=$v['ORBASE_RN'];
        			if(trim($v['SEX'])=='М')
@@ -159,7 +159,7 @@ class MyDbase extends CFormModel{
  	public function otdelPostsImport(){
 
  		//DepartmentPosts::model()->deleteAll();
- 		DepartmentPosts::model()->updateAll(array('upd_flag' => NULL));
+ 		//DepartmentPosts::model()->updateAll(array('upd_flag' => NULL));
  	
  		$posts=$this->read_table('ZPOST.DBF','POST_RN');
  		$zpostch=$this->read_table('ZPOSTCH.DBF');
@@ -175,7 +175,7 @@ class MyDbase extends CFormModel{
 			//echo $v['POST_RN'].'<br>';
 			foreach ($v['zpostch'] as $z) {
 
-						if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn and upd_flag is NULL','params'=>array(":post_rn"=>$v['POST_RN'])))){
+						if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])))){
 							$depPost=$findPost;
 						}else{
 							//echo 'создана должность<br>';
@@ -185,12 +185,12 @@ class MyDbase extends CFormModel{
        					$depPost->post_rn=$v['POST_RN'];
        					$depPost->date_begin=substr($z['CHSTARTDAT'] , 6,2).'.'.substr($z['CHSTARTDAT'] , 4,2).'.'.substr($z['CHSTARTDAT'] ,0,4);
        					$depPost->date_end=substr($z['CHENDDATE'] , 6,2).'.'.substr($z['CHENDDATE'] , 4,2).'.'.substr($z['CHENDDATE'] ,0,4);
+       					$depPost->date_end=($depPost->date_end=='31.12.8888')?'':$depPost->date_end;
        					if($findDep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['SUBDIV_RN'])))){
        						$depPost->post_subdiv_rn=trim($v['SUBDIV_RN']);
        					}else{
        						$depPost->post_subdiv_rn='XXXX';
        					}
-       					$depPost->upd_flag=1;
        					$depPost->rate=$z['STQNT'];
        					$depPost->save();
        					//var_dump($depPost->getErrors()); //вызывает задвоение	
@@ -198,8 +198,6 @@ class MyDbase extends CFormModel{
 				
 		}
 
-		//DepartmentPosts::model()->updateAll(array('upd_flag' => NULL));
-		DepartmentPosts::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
 
  		return $posts;
 

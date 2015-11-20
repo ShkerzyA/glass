@@ -44,6 +44,10 @@ class Workplace extends CActiveRecord
 			'PreFill'=>array(
 				'class'=>'application.behaviors.PreFillBehavior',
 				),
+			'Log'=>array(
+                'class'=>'application.behaviors.LogBehavior',
+                ),
+
 			);
 	}
 
@@ -139,6 +143,10 @@ class Workplace extends CActiveRecord
 	}
 	
 	}
+
+	public function nameL(){
+        return $this->wpNameFull();
+    }
 
 	/**
 	 * @return array validation rules for model attributes.

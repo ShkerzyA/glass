@@ -46,6 +46,10 @@ class Cabinet extends CActiveRecord
 			'PreFill'=>array(
 				'class'=>'application.behaviors.PreFillBehavior',
 				),
+			 'Log'=>array(
+                'class'=>'application.behaviors.LogBehavior',
+                ),
+
 			);
 	}
 
@@ -119,6 +123,10 @@ class Cabinet extends CActiveRecord
 		}	
 		return $result;
 	}
+
+	 public function nameL(){
+        return $this->cabNameFull();
+    }
 
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.

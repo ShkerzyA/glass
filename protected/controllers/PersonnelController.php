@@ -38,7 +38,7 @@ class PersonnelController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','import'),
+				'actions'=>array('admin','delete','import','firedButInWp'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -96,6 +96,13 @@ class PersonnelController extends Controller
 			echo $v->inOpenFire($inpolic=false).'</br>';
 		}
 
+	}
+
+	public function actionFiredButInWp(){
+		$models=Personnel::model()->with('workplaces')->fired()->findAll(array('condition'=>'workplaces.id is not null'));
+		$this->render('firedButInWp',array(
+			'models'=>$models,
+		));
 	}
 
 
