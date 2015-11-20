@@ -77,6 +77,8 @@ class CabinetController extends Controller
         'alias'=>'equipments'
     	),
 	))->findByPk($id);
+	if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
 		$this->render('view',array(
 			'model'=>$model,
 		));

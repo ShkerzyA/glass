@@ -81,7 +81,8 @@ class Log extends CActiveRecord
 	}
 
 	protected function afterFind(){
-		$this->metaData->addRelation('object',array(self::BELONGS_TO, $this->object_model, 'object_id'));
+		if(!empty($this->object_model))
+			$this->metaData->addRelation('object',array(self::BELONGS_TO, $this->object_model, 'object_id'));
 	}
 
 	public function saveLog($action,$data){
@@ -129,6 +130,44 @@ class Log extends CActiveRecord
 		else
 			return self::$typeM;
 	}
+
+	public function listSubject(){
+		$res=array();
+		$criteria = new CDbCriteria;
+		$criteria->select = "subject";
+		$criteria->with=array('subject0');
+
+            //$criteria->compare('type',$_POST['type']);
+            //$criteria->compare('producer',$_POST['producer']);
+			//$criteria->condition = "type=:type and producer=:producer";
+			//$criteria->params = array(':type'=>$_POST['type'],':producer'=>$_POST['producer']);
+		$criteria->distinct = True;
+		$models=self::model()->findAll($criteria);
+		foreach ($models as $v) {
+			$res[$v->subject0->surname]=$v->subject0->fio();
+		}
+		return $res;
+	}
+
+	public function listObjectModels(){
+		$res=array();
+		$criteria = new CDbCriteria;
+		$criteria->select = "object_model";
+
+            //$criteria->compare('type',$_POST['type']);
+            //$criteria->compare('producer',$_POST['producer']);
+			//$criteria->condition = "type=:type and producer=:producer";
+			//$criteria->params = array(':type'=>$_POST['type'],':producer'=>$_POST['producer']);
+		$criteria->distinct = True;
+		$models=self::model()->findAll($criteria);
+		foreach ($models as $v) {
+			$model_name=$v->object_model;
+			$res[$v->object_model]=$model_name::$modelLabelS;
+		}
+		return $res;
+	}
+
+
 
 	public function details(){
 		switch ($this->type) {
@@ -236,8 +275,6 @@ class Log extends CActiveRecord
 			}
 		}
 		//$criteria->compare('t."timestamp"::text',$this->timestamp,true);
-		if(!empty($this->details))
-			$criteria->addCondition(array('condition'=>"'".$this->details."'=ANY(t.details)"));
 		$criteria->compare('subject',$this->subject);
 		$criteria->compare('object_model',$this->object_model);
 		$criteria->compare('object_id',$this->object_id);

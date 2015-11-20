@@ -46,10 +46,10 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'timestamp',
-		array( 'name'=>'subject0subject', 'value'=>'$data->subject0->fio()' ),
+		array( 'name'=>'subject0subject', 'value'=>'$data->subject0->fio()','filter'=>$model->listSubject()),
 		array('name'=>'object0object','value'=>'$x=(!empty($data->object))?$data->object->nameL():"нет связи"'),
-		'object_model',
-		'object_id',
+		array( 'name'=>'object_model', 'value'=>'$data->object_model','filter'=>$model->listObjectModels()),
+		array( 'name'=>'object_id','type'=>'raw','value'=>'CHtml::link("$data->object_id",Yii::app()->request->baseUrl."/".$data->object_model."/".$data->object_id)'),
 		array('name'=>'type','value'=>'$data->getType()["name"]','filter'=>$model->filterType() ),
 		'details',
 		array(
