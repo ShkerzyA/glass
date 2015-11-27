@@ -29,6 +29,12 @@ class EquipmentType extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public static function getAll(){
+		$models=self::model()->findAll(array('order'=>'t.name ASC'));
+		return $models;
+
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */

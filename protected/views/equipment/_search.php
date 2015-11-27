@@ -42,7 +42,7 @@
 <div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>
 
-		<?php $tmp=EquipmentType::model()->findall();
+		<?php $tmp=EquipmentType::model()->getAll();
 				echo $form->dropDownList($model,"type",CHtml::listData($tmp,"id",function($tmp) {
 				return CHtml::encode($tmp->name);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'type'); ?>

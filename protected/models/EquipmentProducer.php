@@ -32,7 +32,7 @@ class EquipmentProducer extends CActiveRecord
 
 	public static function getAll(){
 		$result=array();
-		$models=self::model()->findAll();
+		$models=self::model()->findAll(array('order'=>'t.name ASC'));
 		foreach ($models as $m) {
 			$result['values'][$m->id]=$m->name;
 			$result['css_class'][$m->id]=array('class'=>$m->type);

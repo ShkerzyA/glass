@@ -289,14 +289,17 @@ public function actionCartSearch(){
 			}
 
 			$criteria = new CDbCriteria;
-			$criteria->select = "mark";
+			$criteria->select = "t.mark, count(t.mark) as cou";
 
 
             $criteria->compare('type',$_POST['type']);
             $criteria->compare('producer',$_POST['producer']);
+
 			//$criteria->condition = "type=:type and producer=:producer";
 			//$criteria->params = array(':type'=>$_POST['type'],':producer'=>$_POST['producer']);
-			$criteria->distinct = True;
+			//$criteria->distinct = True;
+			$criteria->group="mark";
+			$criteria->order="cou DESC";
 
 			$model=Equipment::model()->findall($criteria);
 			$this->renderPartial('markSearch', array('model'=>$model), false, false);

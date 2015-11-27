@@ -671,6 +671,7 @@ select{
 
 .join_group,.join_post,.join_personnel,.replace_personnel, .add_mark{
 	padding-right: 20px;	
+	overflow: hidden;
 }
 
 .add_unit, .trinity_left{
