@@ -1,8 +1,11 @@
 <?php
 
 		
+		$file='';
 		if(!empty($doc->link)){
-			$file='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$doc->link.'><img class=s16 src="'.$doc->getIco().'"></a>';
+			foreach ($doc->link as $link) {
+				$file.='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$link.'><img class=s16 src="'.$model->getIco($link).'"></a>';
+			}
 		}else{
 			$file='нет вложений';
 		}
