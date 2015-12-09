@@ -45,6 +45,26 @@ class DocsController extends Controller
 		);
 	}
 
+	public function getDocModel($type){
+		switch ($type) {
+			case '0':
+				return 'DocsOrd';
+				break;
+			case '1':
+				return 'DocsInt';
+				break;
+			case '2':
+				return 'DocsInc';
+				break;
+			case '3':
+				return 'DocsOut';
+				break;
+			default:
+				return 'Docs';
+				break;
+		}
+	}
+
 
 	/**
 	 * Displays a particular model.
@@ -64,15 +84,12 @@ class DocsController extends Controller
 	 * Creates a new model.
 	 * If creation is successful, the browser will be redirected to the 'view' page.
 	 */
-	public function actionCreate()
+	public function actionCreate($type)
 	{
+		//$modelN=$this->getDocModel($type);
 		$model=new Docs;
-		$md=$model->getMetadata();
+		//$md=$model->getMetadata();
 
-
-		//print_r($md);
-
-		//print_r($md->columns['date_begin']->dbType);
 		if(isset($_POST['Docs']))
 		{
 			$model->attributes=$_POST['Docs'];

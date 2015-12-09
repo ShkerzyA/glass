@@ -33,6 +33,7 @@ class Cabinet extends CActiveRecord
 		'query'=>"SELECT m1.id, m1.num||' '||m1.cname AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM cabinet AS m1 LEFT JOIN workplace AS m2 ON m1.id=m2.id_cabinet",
 		'group'=>'GROUP BY m1.id  ORDER BY m1.num ASC',
 		'child'=>'Workplace',
+		'where'=>'AND (m1.deactive is null or m1.deactive<>1)',
 	);
 	
 	public $idFloorid_floor;
@@ -76,12 +77,12 @@ class Cabinet extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('id_floor', 'required'),
-			array('id_floor', 'numerical', 'integerOnly'=>true),
+			array('id_floor,deactive', 'numerical', 'integerOnly'=>true),
 			array('cname', 'length', 'max'=>200),
 			array('num', 'length', 'max'=>10),
 			array('phone', 'length', 'max'=>100),
-			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,workplacesid_cabinet,place,id_building', 'safe', 'on'=>'search_phones'),
-			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,workplacesid_cabinet,place,id_building', 'safe', 'on'=>'search'),
+			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,deactive,workplacesid_cabinet,place,id_building', 'safe', 'on'=>'search_phones'),
+			array('id, id_floor, cname, num, allfields, phone,idFloorid_floor,deactive,workplacesid_cabinet,place,id_building', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -112,6 +113,7 @@ class Cabinet extends CActiveRecord
 			'idFloorid_floor' => 'Этаж',
 			'workplacesid_cabinet' => 'Рабочие места',
 			'id_building' => 'Здание',
+			'deactive'=>'Деактивация',
 		);
 	}
 
@@ -148,6 +150,7 @@ class Cabinet extends CActiveRecord
 				$criteria->compare('id_floor',$_GET['id_floor']);
 		else
 				$criteria->compare('id_floor',$this->id_floor);
+		$criteria->compare('deactive',$this->deactive);
 		$criteria->compare('cname',$this->cname,true);
 		$criteria->compare('num',$this->num,true);
 		$criteria->compare('phone',$this->phone,true);

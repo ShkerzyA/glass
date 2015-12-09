@@ -16,9 +16,11 @@ $this->menu=array(
 <h1 style="margin: 3px"><?php  echo $model::$modelLabelS; ?>  "<?php echo $model->doc_name; ?>"</h1> 
 
 <?php
-
+		$file='';
 		if(!empty($model->link)){
-			$file='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$model->link.'><img class=s16 src="'.$model->getIco().'"></a>';
+			foreach ($model->link as $link) {
+				$file.='<a target="_blank" href='.Yii::app()->request->baseUrl.'/media/docs/'.$link.'><img class=s16 src="'.$model->getIco($link).'"></a>';
+			}
 		}else{
 			$file='нет вложений';
 		}

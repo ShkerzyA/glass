@@ -1,7 +1,7 @@
 <?php 
 class FixedOwnerBehavior extends CActiveRecordBehavior{
     
-    public $own=array('EquipmentLog'=>'subject','Log'=>'subject','Projects'=>'creator','Docs'=>'creator','Catalogs'=>'owner','Tasks'=>'creator','MedicalEquipment'=>'creator','Messages'=>'creator','TasksActions'=>'creator','Events'=>'creator','Eventsoper'=>'creator','EventsActions'=>'creator');
+    public $own=array('EquipmentLog'=>'subject','VehicleShedule'=>'creator','Log'=>'subject','Projects'=>'creator','Docs'=>'creator','Catalogs'=>'owner','Tasks'=>'creator','MedicalEquipment'=>'creator','Messages'=>'creator','TasksActions'=>'creator','Events'=>'creator','Eventsoper'=>'creator','EventsActions'=>'creator');
 
     public function beforeValidate($event){
        if($this->owner->scenario=='insert'){

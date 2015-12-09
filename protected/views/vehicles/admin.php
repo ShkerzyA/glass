@@ -1,8 +1,9 @@
 <?php
-/* @var $this CabinetController */
-/* @var $model Cabinet */
+/* @var $this VehiclesController */
+/* @var $model Vehicles */
 
 $this->breadcrumbs=array(
+	'Администрирование'=>array('/admin/index'),
 	$model::$modelLabelP=>array('index'),
 	'Управление',
 );
@@ -20,7 +21,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#cabinet-grid').yiiGridView('update', {
+	$('#vehicles-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -39,16 +40,16 @@ $('.search-form form').submit(function(){
 </div><!-- search-form -->
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'cabinet-grid',
+	'id'=>'vehicles-grid',
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array( 'name'=>'idFloorid_floor', 'value'=>'$data->idFloor->fname' ),
-		'cname',
-		'num',
-		'phone',
+		array( 'name'=>'owner0owner', 'value'=>'$data->owner0->fio_full()' ),
+		'mark',
+		'number',
 		'deactive',
+		'status',
 		array(
 			'class'=>'CButtonColumn',
 		),

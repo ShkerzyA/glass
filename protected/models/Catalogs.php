@@ -69,6 +69,8 @@ class Catalogs extends CActiveRecord
 		return $status;
 	}
 
+
+
 	public function tableName()
 	{
 		return 'catalogs';

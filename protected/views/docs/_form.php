@@ -56,13 +56,31 @@ echo $form->dropDownList($model,"id_catalog",CHtml::listData($tmp,"id",function(
 		<?php echo $form->error($model,'text_docs'); ?>
 	</div>
 
+ <!--
 	<div class="row">
 		<?php echo $form->labelEx($model,'link'); ?>
 
-		<?php echo $form->fileField($model,'link',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->fileField($model,'link',array('size'=>60,'maxlength'=>100,'multiple'=>True)); ?>
 
 		<?php echo $form->error($model,'link'); ?>
-	</div>
+	</div>  -->
+
+	<?php 
+	echo $form->labelEx($model, 'link');
+$this->widget('CMultiFileUpload', array(
+  'model' => $model,
+  'attribute' => 'link',
+  'accept' => '*',
+  'duplicate' => 'Этот файл уже выбран!',
+  'denied' => 'Недопустимый тип файла',
+  'htmlOptions' => array(
+    'multiple' => 'multiple',
+  ),
+));
+if ($model->link) {
+   print_r($model->link);
+}
+?>
 
 <?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
 

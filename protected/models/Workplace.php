@@ -32,6 +32,7 @@ class Workplace extends CActiveRecord
 		'query'=>"SELECT m1.id, array_to_string(array[m1.wname,'(',m2.surname,m2.name,m2.patr,')'],' ') AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM workplace AS m1 LEFT JOIN personnel AS m2 ON m1.id_personnel=m2.id",
 		'group'=>'GROUP BY m1.id, m2.surname, m2.name, m2.patr ORDER BY m1.wname ASC',
 		'child'=>'Personnel',
+		'where'=>'AND (m1.deactive is null or m1.deactive<>1)',
 	);
 
 	public $idPersonnelid_personnel;
@@ -156,14 +157,14 @@ class Workplace extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_cabinet, id_personnel, type', 'numerical', 'integerOnly'=>true),
+			array('id_cabinet, id_personnel, deactive, type', 'numerical', 'integerOnly'=>true),
 			array('id_cabinet','required'),
 			array('wname', 'length', 'max'=>50),
 			array('phone', 'length', 'max'=>100),
 			array('wp_subdiv_rn', 'length', 'max'=>10),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_cabinet,type, id_personnel, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace,phone,wp_subdiv_rn', 'safe', 'on'=>'search'),
+			array('id, id_cabinet,type, id_personnel, deactive, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace,phone,wp_subdiv_rn', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -206,6 +207,7 @@ class Workplace extends CActiveRecord
             'type'=>'Тип рабочего места',
             'wp_subdiv_rn'=>'Отдел',
             'wpSubdivRnwp_subdiv_rn'=>'Отдел',
+            'deactive'=>'Деактивация',
 		);
 	}
 
@@ -253,6 +255,7 @@ class Workplace extends CActiveRecord
 				$criteria->compare('id_personnel',$this->id_personnel);
 		$criteria->compare('wname',$this->wname,true);
 		$criteria->compare('phone',$this->phone,true);
+		$criteria->compare('deactive',$this->deactive);
 		$criteria->compare('wp_subdiv_rn',$this->wp_subdiv_rn,true);
 		$criteria->compare('personnel.id_personnel',$this->idPersonnelid_personnel,true);
 		$criteria->compare('cabinet.cname',$this->idCabinetid_cabinet,true);

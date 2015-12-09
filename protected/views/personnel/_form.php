@@ -112,9 +112,6 @@ echo $form->dropDownList($model,"id_user",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'date_end'); ?>
 	</div>
 
-
-
-
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

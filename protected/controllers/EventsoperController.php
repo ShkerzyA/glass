@@ -61,13 +61,13 @@ public function actionSuggest(){
 
 	public function actionOperSearch(){
 		if(Yii::app()->request->isAjaxRequest){
-			if(!empty($_POST['search'])){
-				$name=$_POST['search'];
+			if(!empty($_GET['search'])){
+				$name=$_GET['search'];
 			}else{
 				$name='';
 			}
 
-			$modelN=(!empty($_POST['modelN']))?$_POST['modelN']:NULL;
+			$modelN=(!empty($_GET['modelN']))?$_GET['modelN']:NULL;
 
 			if(!empty($name)){
 
@@ -81,7 +81,7 @@ public function actionSuggest(){
 				$model=NULL;
 			}
 			
-			$this->renderPartial('operSearch', array('name'=>$name,'model'=>$model,'field'=>$_POST['field'],'action'=>$_POST['action'],'modelN'=>$modelN), false, true);
+			$this->renderPartial('operSearch', array('name'=>$name,'model'=>$model,'field'=>$_GET['field'],'action'=>$_GET['action'],'modelN'=>$modelN), false, true);
 		}else{
 			exit();
 		}

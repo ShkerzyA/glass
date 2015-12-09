@@ -17,6 +17,17 @@ $this->menu['all_menu']=array(
 		array('label'=>'Рабочие места без людей', 'url'=>array('/workplace/wpWithoutPers'))
 	)),
 
+	array('title'=>'Транспорт','items'=>array(
+		array('label'=>'Транспорт', 'url'=>array('/vehicles/admin'),'items'=>array(
+		/*array('label'=>'Роли', 'url'=>array('/usersPosts/admin')),
+		array('label'=>'Права', 'url'=>array('/usersRules/admin')) */
+		)),
+		array('label'=>'Расписание вьезда', 'url'=>array('/VehicleShedule/admin'),'items'=>array(
+		/*array('label'=>'Роли', 'url'=>array('/usersPosts/admin')),
+		array('label'=>'Права', 'url'=>array('/usersRules/admin')) */
+		)),
+	)),
+
 
 	array('title'=>'Персонал','items'=>array(
 		array('label'=>'Пользователи', 'url'=>array('/users/admin'),'items'=>array(

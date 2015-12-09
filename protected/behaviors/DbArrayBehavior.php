@@ -13,7 +13,9 @@ class DbArrayBehavior extends CActiveRecordBehavior{
         foreach ($fields as $val) {
             if(!empty($this->owner->$val)){
                 if(is_array($this->owner->$val)){
-                    $this->owner->$val=array_filter($this->owner->$val);               
+                    $array_empty = array(null);
+                    $this->owner->$val = array_diff($this->owner->$val, $array_empty);
+                    //$this->owner->$val=array_filter($this->owner->$val);               
                     $this->owner->$val=implode(',',$this->owner->$val);
                 }
                 $this->owner->$val='{'.$this->owner->$val.'}';
@@ -26,7 +28,7 @@ class DbArrayBehavior extends CActiveRecordBehavior{
 
 
     public function afterValidate($event){
-         $fields=$this->getField();
+        $fields=$this->getField();
         foreach ($fields as $val) {
                 if(!empty($this->owner->$val)){
                     $tmp=substr($this->owner->$val,1,-1);
@@ -40,12 +42,14 @@ class DbArrayBehavior extends CActiveRecordBehavior{
     }
 
     public function beforeSave($event){
-          $fields=$this->getField();
+        $fields=$this->getField();
         //print_r($fields);
         foreach ($fields as $val) {
             if(!empty($this->owner->$val)){
                 if(is_array($this->owner->$val)){
-                    $this->owner->$val=array_filter($this->owner->$val);               
+                    $array_empty = array(null);
+                    $this->owner->$val = array_diff($this->owner->$val, $array_empty);
+                    //$this->owner->$val=array_filter($this->owner->$val);               
                     $this->owner->$val=implode(',',$this->owner->$val);
                 }
                 $this->owner->$val='{'.$this->owner->$val.'}';

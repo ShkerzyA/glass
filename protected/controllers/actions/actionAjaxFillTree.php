@@ -24,9 +24,10 @@
 
         
         // сам запрос на получение данных детей (через обычный LEFT JOIN)
+        $treeWhere=(!empty($tree['where']))?$tree['where']:'';
         $req = Yii::app()->db->createCommand(
             //"SELECT m1.id, m1.name AS text, m1.id_parent as parent_id, count(m2.id) AS \"hasChildren\" FROM department AS m1 LEFT JOIN department AS m2 ON m1.id=m2.id_parent WHERE m1.id_parent $parentId and (m1.date_end is null  or m1.date_end>current_date) GROUP BY m1.id  ORDER BY m1.name ASC"
-            $tree['query'].' '.$where.' '.$tree['group']
+            $tree['query'].' '.$where.' '.$treeWhere. ' '.$tree['group']
         );
 
         $children = $req->queryAll();

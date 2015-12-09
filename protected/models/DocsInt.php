@@ -21,7 +21,7 @@
 
  * @property DepartmentPosts $creator0
  */
-class DocsIn extends Docs
+class DocsInt extends Docs
 {
 
 }

@@ -29,10 +29,22 @@ function init(){
         globalTimeout =setTimeout(function(){ getAjax_markSearch(id) },100);  
     });
 
+    $('.vehiclemarksearch').live('keyup',function(){
+		id=$(this).attr('id');
+        if(globalTimeout != null) clearTimeout(globalTimeout);  
+        globalTimeout =setTimeout(function(){ getAjax_vehiclemarkSearch(id) },100);  
+    });
+
 	$('.add_person').live('click',function(){ 
 		$('.modal2').remove();
 		globid=this.id;
 		getAjax_surnameSearch();
+	});
+
+	$('.add_shedule').live('click',function(){ 
+		$('.modal2').remove();
+		globid=this.id;
+		getAjax_sheduleSearch();
 	});
 
 	$('.add_executors').live('click',function(){ 
@@ -147,6 +159,20 @@ function getAjax_surnameSearch(){
 	},'html');
 }
 
+function getAjax_sheduleSearch(){
+	var id=globid;
+	var field=$('.field#'+id+'').val();
+	var modelN=$('.modelN#'+id+'').val();
+	var search=$('.search_shedule#'+id+'').val();
+	var action=$('.action#'+id+'').val();
+	//alert(search);
+	$.post('/glass/VehicleShedule/sheduleSearch',{search: search, field: field, modelN: modelN, action: action},function(data,status){
+		if(status=='success'){
+			show_res(data,'search_shedule');
+		}
+	},'html');
+}
+
 function getAjax_executors(){
 	var id=globid;
 	
@@ -191,6 +217,18 @@ function getAjax_markSearch(id){
 	producer=$('#'+id_s+'producer').val();
 	if(type.length){
 		$.post('/glass/Equipment/markSearch',{type: type, producer: producer},function(data,status){
+			if(status=='success'){
+				show_under(id,data);
+			}
+		},'html');	
+	}
+}
+
+
+function getAjax_vehiclemarkSearch(id){
+	val=$('#'+id).val();
+	if(val.length>2){
+		$.post('/glass/Vehicles/markSearch',{val: val},function(data,status){
 			if(status=='success'){
 				show_under(id,data);
 			}

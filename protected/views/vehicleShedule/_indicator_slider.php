@@ -6,8 +6,8 @@ function init(){
 
 	//$('#Events_timestamp').val()
 	//$('#Events_timestamp_end').val()
-	var x=$('#Eventsoper_timestamp').val();
-	var y=$('#Eventsoper_timestamp_end').val();
+	var x=$('#VehicleShedule_timestamp').val();
+	var y=$('#VehicleShedule_timestamp_end').val();
 
 	if(x){
 		x=x.split(":");
@@ -51,20 +51,20 @@ function init(){
 		}
 			
 
-      $("#Eventsoper_timestamp").val(x0+':'+y0);
-      $("#Eventsoper_timestamp_end").val(x1+':'+y1);
+      $("#VehicleShedule_timestamp").val(x0+':'+y0);
+      $("#VehicleShedule_timestamp_end").val(x1+':'+y1);
    }});
 }
 
 </script>
-
+<!--
 <div class="indicator_slider">
 		<?php 
-			$allDay=(Eventsoper::$endDay-Eventsoper::$beginDay)*60;
-			foreach ($evItervals as $interv) {
+			//$allDay=(VehicleShedule::$endDay-VehicleShedule::$beginDay)*60;
+			/*foreach ($evItervals as $interv) {
 				echo '<div style=" left: '.(round((($interv['b']/$allDay)*100),2)).'%; width: '.(round(((($interv['e']-$interv['b'])/$allDay)*100),2)).'%;"></div>';
-			}
+			}*/
 
 		?>		
-</div>
+</div> -->
 

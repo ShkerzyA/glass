@@ -65,9 +65,12 @@ class FloorController extends Controller
        // 'select'=>True,
         'joinType'=>'LEFT JOIN',
         'alias'=>'c',
-        'order'=>'c.num ASC'
+        'order'=>'c.num ASC',
+        'scopes'=>array('active'),
     	),
 		))->findByPk($id);
+
+		//$model=Floor::model()->with('cabinets:active')->findByPk($id);
 
 		$this->render('view',array(
 			'model'=>$model,

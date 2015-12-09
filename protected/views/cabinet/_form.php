@@ -26,6 +26,14 @@ echo $form->dropDownList($model,"id_floor",CHtml::listData($tmp,"id",function($t
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'deactive'); ?>
+
+		<?php echo $form->checkBox($model,'deactive',array('value'=>1)); ?>
+
+		<?php echo $form->error($model,'deactive'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'cname'); ?>
 
 		<?php echo $form->textField($model,'cname',array('size'=>50,'maxlength'=>50)); ?>

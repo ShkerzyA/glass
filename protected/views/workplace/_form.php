@@ -15,6 +15,13 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'deactive'); ?>
+
+		<?php echo $form->checkBox($model,'deactive',array('value'=>1)); ?>
+
+		<?php echo $form->error($model,'deactive'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_cabinet'); ?>
@@ -24,6 +31,7 @@ echo $form->dropDownList($model,"id_cabinet",CHtml::listData($tmp,"id",function(
 				return CHtml::encode($tmp->idFloor->idBuilding->bname.'/'.$tmp->idFloor->fname.'/'.$tmp->num.' '.$tmp->cname);}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_cabinet'); ?>
 	</div>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'wp_subdiv_rn'); ?>

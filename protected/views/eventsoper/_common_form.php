@@ -55,7 +55,7 @@ echo $form->dropDownList($model,"id_room",CHtml::listData($tmp,"id",function($tm
 	
 	<?php 
 	$evItervals=$model->freeDay(); 
-	$this->renderPartial('_indicator_slider',array('evItervals'=>$evItervals),false,false); ?>
+	$this->renderPartial('_indicator_slider',array('model'=>$model,'evItervals'=>$evItervals),false,false); ?>
 	<div id="slider" style="width: 93%;"></div>
 
 	<div class="row">

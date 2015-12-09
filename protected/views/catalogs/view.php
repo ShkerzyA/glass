@@ -17,7 +17,7 @@ $this->menu=array(
 );
 ?>
 <h2 style="margin: 2px;"><?php echo $model->cat_name; ?></h2> 
-<a href=/glass/docs/create?Docs[id_catalog]=<?php echo $model->id ?>><div class="add_unit">Добавить документ</div></a>
+<a href=/glass/docs/create?type=<?php echo $model->type?>&&Docs[id_catalog]=<?php echo $model->id ?>><div class="add_unit">Добавить документ</div></a>
 <a href=/glass/catalogs/create?Catalogs[id_parent]=<?php echo $model->id ?>><div class="add_unit">Добавить каталог</div></a>
 
 <h6 style="text-align: right; margin: 2px"><span style='color: #D0D0D0'>владелец: </span> <?php 

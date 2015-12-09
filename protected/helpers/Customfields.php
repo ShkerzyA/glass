@@ -116,6 +116,32 @@ Class Customfields{
 		return $result;
 		# code...
 	}
+
+	public static function searchShedule($model,$field)
+	{
+		Yii::app()->clientScript->registerPackage('customfields');
+			$mn=get_class($model);
+			$result="<div class='multichoise' id='".$field."'><div id='".$field."' class='add_unit add_shedule'>Изменить</div>";
+				echo"<input type=hidden name='".$mn."[".$field."]' value=''>"; //Это чтоб было пустое значение
+				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
+				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
+				echo'<input type=hidden name=action class=action id='.$field.' value="join">';
+					foreach ($model->$field as $tmp) {
+						if(!empty($tmp)){
+							$sh=VehicleShedule::model()->findByPk($tmp);
+							$result.="<div class='choise_unit $field$tmp'>
+								<input type=hidden 
+								name='".$mn."[".$field."][$tmp]' value=$tmp>".(CHtml::encode($sh->name()))."
+								<div id=$field$tmp class='close_this'></div>
+							</div>"; 
+						}
+					}
+				
+				
+		$result.="</div>";
+		return $result;
+		# code...
+	}
 }
 
 ?>

@@ -30,6 +30,8 @@ class Docs extends CActiveRecord
 	 */
 	public static $modelLabelS='Документ';
 	public static $modelLabelP='Документы';
+	public static $ownerField='creator';
+	public static $db_array=array('link');
 	
 	public $idCatalogid_catalog;
 public $creator0creator;
@@ -44,6 +46,9 @@ public $creator0creator;
 		return array(
 			'File'=>array(
 				'class'=>'application.behaviors.FileBehavior',
+				),
+			'DbArray'=>array(
+				'class'=>'application.behaviors.DbArrayBehavior',
 				),
 			'DateBeginEnd'=>array(
 				'class'=>'application.behaviors.DateBeginEndBehavior',
@@ -86,16 +91,18 @@ public $creator0creator;
 		// will receive user inputs.
 		return array(
 			array('creator,  id_catalog', 'numerical', 'integerOnly'=>true),
+			array('id_catalog','required'),
 			array('doc_name', 'length', 'max'=>100),
 			array('text_docs, date_begin, date_end', 'safe'),
+			array('link','file','types'=>'jpg,jpeg,doc,docx,rar,zip,xls,xlsx,png,gif,pdf,djvu,txt,tif','allowEmpty'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, creator, doc_name, text_docs, link, date_begin, date_end, id_catalog,idCatalogid_catalog,creator0creator', 'safe', 'on'=>'search'),
 		);
 	}
 
-	public function getIco(){
-		$fl=explode('.', $this->link);
+	public function getIco($link){
+		$fl=explode('.', $link);
 		$d=(is_file(Yii::getPathOfAlias('webroot').'/images/ico/'.mb_strtolower($fl[1]).'.png')?Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png':Yii::app()->request->baseUrl.'/images/ico/hz.png');
 		return $d;
 	}

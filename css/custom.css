@@ -704,10 +704,12 @@ select{
 }
 
  .choise_unit {
- 	width: 38%;
+ 	min-width: 38%;
 	float: left;	
 	position: relative;
 	overflow: hidden;
+	overflow-x: auto; 
+	padding-right: 10px; 
  }
 
 .fl_right{
