@@ -84,6 +84,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'viewTs' => 
+  array (
+    'type' => 0,
+    'description' => 'Просмотреть задачу',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'updateTs' => 
   array (
     'type' => 0,
@@ -256,12 +263,23 @@ return array (
   'OwnUpdateTs' => 
   array (
     'type' => 1,
-    'description' => 'Изменение своих событий',
+    'description' => 'Изменение своих задач',
     'bizRule' => 'return $params["mod"]->mayUserUpd();',
     'data' => NULL,
     'children' => 
     array (
       0 => 'updateTs',
+    ),
+  ),
+  'userviewTs' => 
+  array (
+    'type' => 1,
+    'description' => 'Просмотр задач',
+    'bizRule' => 'return $params["mod"]->mayUserView();',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'viewTs',
     ),
   ),
   'changeObjectsUser' => 
@@ -318,9 +336,10 @@ return array (
       9 => 'otdReportUser',
       10 => 'monitoringOperUser',
       11 => 'changeObjectsUser',
-      12 => 'OwnUpdateEv',
-      13 => 'OwnUpdateTs',
-      14 => 'ownMedicalEquipment',
+      12 => 'userviewTs',
+      13 => 'OwnUpdateEv',
+      14 => 'OwnUpdateTs',
+      15 => 'ownMedicalEquipment',
     ),
   ),
   'observer' => 
@@ -362,15 +381,16 @@ return array (
     'data' => NULL,
     'children' => 
     array (
-      0 => 'updateTs',
-      1 => 'updateEv',
-      2 => 'moderator',
-      3 => 'taskReport',
-      4 => 'otdReport',
-      5 => 'inGroup',
-      6 => 'isOwner',
-      7 => 'inGroupAndOwner',
-      8 => 'admin',
+      0 => 'viewTs',
+      1 => 'updateTs',
+      2 => 'updateEv',
+      3 => 'moderator',
+      4 => 'taskReport',
+      5 => 'otdReport',
+      6 => 'inGroup',
+      7 => 'isOwner',
+      8 => 'inGroupAndOwner',
+      9 => 'admin',
     ),
   ),
 );

@@ -60,7 +60,7 @@ class Tasks extends CActiveRecord
 	public function isChangeStatus(){
 		if(Yii::app()->user->isGuest)
 			return False;
-		if((in_array($this->id_department,Yii::app()->user->id_departments) and empty($this->group)) or (in_array($this->group,Yii::app()->user->groups))){
+		if((in_array($this->id_department,Yii::app()->user->id_departments) and empty($this->group)) or (in_array($this->group,Yii::app()->user->groups)) or !empty(array_intersect($this->Project0->group,Yii::app()->user->groups))){
 			return True; 
 		}else {
 			return False;
@@ -264,6 +264,12 @@ class Tasks extends CActiveRecord
 		}else{
 			return False;
 		}
+	}
+
+	public function mayUserView(){
+		if(Yii::app()->user->isGuest)
+			return False;
+		return $this->isChangeStatus();
 	}
 
 	public static function GroupTasks ($group=array(),$type=3,$date='current_date'){

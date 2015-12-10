@@ -62,8 +62,10 @@ class WorkplaceController extends Controller
 		Workplace::autoSetDepartment();
 	}
 
-	public function actionView($id)
-	{
+	public function actionView($id){
+	if(!Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))))
+		throw new CHttpException(403, 'У вас недостаточно прав');
+
 		$model=$this->loadModel($id);
 		switch ($model->type) {
 			case '1':

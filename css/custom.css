@@ -682,6 +682,10 @@ select{
 	position: relative;
 }
 
+.trinity_left * {
+	width: 90%;
+}
+
 #add_task{
 	font-weight: normal;
 	margin: 2px 2px 2px 2px ;

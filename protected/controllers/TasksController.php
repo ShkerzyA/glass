@@ -55,7 +55,7 @@ class TasksController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('view'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -79,6 +79,8 @@ class TasksController extends Controller
 	public function actionView($id)
 	{
 		$model=$this->loadModel($id);
+		if(!Yii::app()->user->checkAccess('viewTs',array('mod'=>$model)))
+			throw new CHttpException(403, 'У вас недостаточно прав');
 		$this->rightWidget=array(
 			'df'=>array($this->renderPartial('_subscribe_form',array('model'=>$model),true))
 		);

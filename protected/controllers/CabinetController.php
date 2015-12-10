@@ -58,7 +58,9 @@ class CabinetController extends Controller
 	 */
 	public function actionView($id)
 	{
-
+		
+	if(!Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))))
+		throw new CHttpException(403, 'У вас недостаточно прав');
 
 	$model=Cabinet::model()->with(array(
     	'workplaces'=>array(

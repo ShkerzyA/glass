@@ -327,6 +327,8 @@ public function actionCartSearch(){
 	public function actionIndex()
 	{
 	
+		if(!Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))))
+			throw new CHttpException(403, 'У вас недостаточно прав');
 		/*	$dataProvider=new CActiveDataProvider('Equipment');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider, 'modelLabelP'=>Equipment::$modelLabelP,
