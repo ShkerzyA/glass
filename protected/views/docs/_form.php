@@ -77,8 +77,10 @@ $this->widget('CMultiFileUpload', array(
     'multiple' => 'multiple',
   ),
 ));
+
 if ($model->link) {
-   print_r($model->link);
+   echo $form->labelEx($model,'dellink');
+   $this->renderPartial('_files_form',array('model'=>$model),false,false);
 }
 ?>
 

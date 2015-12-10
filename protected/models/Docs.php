@@ -32,9 +32,11 @@ class Docs extends CActiveRecord
 	public static $modelLabelP='Документы';
 	public static $ownerField='creator';
 	public static $db_array=array('link');
+	public static $pic_array=array('jpg','jpeg','png','gif','tif');
 	
 	public $idCatalogid_catalog;
 public $creator0creator;
+public $dellink=array();
 
 
 	public static function model($className=__CLASS__)
@@ -93,17 +95,29 @@ public $creator0creator;
 			array('creator,  id_catalog', 'numerical', 'integerOnly'=>true),
 			array('id_catalog','required'),
 			array('doc_name', 'length', 'max'=>100),
-			array('text_docs, date_begin, date_end', 'safe'),
+			array('text_docs, date_begin, date_end, dellink', 'safe'),
 			array('link','file','types'=>'jpg,jpeg,doc,docx,rar,zip,xls,xlsx,png,gif,pdf,djvu,txt,tif','allowEmpty'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, creator, doc_name, text_docs, link, date_begin, date_end, id_catalog,idCatalogid_catalog,creator0creator', 'safe', 'on'=>'search'),
+			array('id, creator, doc_name, text_docs, link, date_begin, dellink, date_end, id_catalog,idCatalogid_catalog,creator0creator', 'safe', 'on'=>'search'),
 		);
 	}
 
+	public function getFilePath($link){
+		return Yii::app()->request->baseUrl.'/media/docs/'.$link;
+	}
+
 	public function getIco($link){
+		$fp=$this->getFilePath($link);
 		$fl=explode('.', $link);
-		$d=(is_file(Yii::getPathOfAlias('webroot').'/images/ico/'.mb_strtolower($fl[1]).'.png')?Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png':Yii::app()->request->baseUrl.'/images/ico/hz.png');
+		if(in_array(mb_strtolower($fl[1]),self::$pic_array)){
+			$d=$fp;
+		}else{
+			$d=(is_file(Yii::getPathOfAlias('webroot').'/images/ico/'.mb_strtolower($fl[1]).'.png')?Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png':Yii::app()->request->baseUrl.'/images/ico/hz.png');	
+		}
+
+
+		
 		return $d;
 	}
 
@@ -137,12 +151,13 @@ public $creator0creator;
 			'creator' => 'Создатель',
 			'doc_name' => 'Название',
 			'text_docs' => 'Текст',
-			'link' => 'Ссылка',
+			'link' => 'Добавить файлы',
 			'date_begin' => 'Дата создания',
 			'date_end' => 'Дата закрытия',
 			'id_catalog' => 'Каталог',
 			'idCatalogid_catalog' => 'Каталог',
 			'creator0creator' => 'Создатель',
+			'dellink' => 'Удалить файлы',
 		);
 	}
 
