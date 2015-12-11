@@ -2,6 +2,7 @@
 <div id="add_rep" class="add_unit fl_right act_button">добавить отчет</div>
 <div style="border: 1px solid grey; position: absolute; margin-top: 40px; z-index: 88; display: none; background: #F0F0F0" class=modal_window id='add_rep'>
 <div class=close_this style="align: right; "></div>
+<div class=w98>
 	<input type=text name=taskname id=taskname value="<?php echo $model->tname.' '.$model->detailsShow(true,false) ?>" placeholder='Имя задачи'>
 	<?php 
 		if($model->type==1) 
@@ -17,4 +18,5 @@
 
 	
 	<input type=button name="put_report" id="put_report" value="сохранить отчет">
+</div>
 </div>

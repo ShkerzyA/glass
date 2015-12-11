@@ -686,6 +686,12 @@ select{
 	width: 90%;
 }
 
+.w98, .w98 * {
+	width: 98%;
+}
+
+
+
 #add_task{
 	font-weight: normal;
 	margin: 2px 2px 2px 2px ;
