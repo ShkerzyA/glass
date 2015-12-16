@@ -25,8 +25,9 @@ class Vehicles extends CActiveRecord
 	public static $modelLabelS='Транспорт';
 	public static $modelLabelP='Транспорт';
 	public static $db_array=array('shedule');
-	public static $status=array('1'=>'Вне территории','2'=>'На территории');
+	public static $status=array('1'=>'Вне территории','2'=>'На территории','3'=>'');
 	public $shedule0=array();
+	public $act;
 	
 	public $owner0owner;
 
@@ -44,9 +45,20 @@ class Vehicles extends CActiveRecord
 		return 'vehicles';
 	}
 
+	public static function returnStatus($status){
+		return self::$status[$status];
+	}
+
 	public function getStatus(){
 		if(!empty($this->status))
 			return self::$status[$this->status];
+	}
+
+	public function isDeactive(){
+		if(!empty($this->deactive))
+			return 'Запрет';
+		else
+			return '';
 	}
 
 
@@ -86,7 +98,15 @@ class Vehicles extends CActiveRecord
 	}
 
 
-
+	public function suggestNumbers($keyword){
+ 		$models=$this->findAll(array(
+   		'condition'=>'number LIKE :keyword',
+   		'params'=>array(
+     		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+   			)
+ 		));
+ 		return $models;
+	}
 
 	/**
 	 * @return array relational rules.
@@ -130,17 +150,17 @@ class Vehicles extends CActiveRecord
     }
 
 	public function beforeValidate(){
-		$this->Ru2Lat();
+		self::Ru2Lat($this->number);
 		return parent::beforeValidate();
 	}
 
-	public function Ru2Lat(){
-        $string=mb_strtoupper($this->number,'UTF-8');
+	public static function Ru2Lat($number){
+        $string=mb_strtoupper($number,'UTF-8');
 
         $rus1=array("А","В","Е","К","М","Н","О","Р","С","Т","У","Х");
         $lat1=array("A","B","E","K","M","H","O","P","C","T","Y","X");
         $string = str_replace($rus1,$lat1,$string);
-        $this->number=$string;
+        return $string;
     }
 
 	/**

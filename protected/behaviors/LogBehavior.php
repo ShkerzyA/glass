@@ -6,10 +6,12 @@ class LogBehavior extends CActiveRecordBehavior{
 
     private function anyway($x){
         if(is_array($x)){
-            return implode(',',$x);
-        }else{
-            return $x;
+            $x=implode('|',$x);
+            
         }
+        $x=str_replace(array('{','}'),'',$x);
+        $x=str_replace(array(','),'|',$x);
+        return $x;
     }
 
     public function active(){
@@ -29,37 +31,40 @@ class LogBehavior extends CActiveRecordBehavior{
     }
 
     public function afterSave($event){
-        if($this->owner->scenario!='insert'){
-            if (empty($this->old_model))
-                return false;
-            $chanded=array();
-            foreach ($this->owner->attributes as $k => $v) {
-                if(in_array($k,$this->ignore))
-                    continue;
-                if($v!=$this->old_model->$k){
-                    switch ($k) {
-                        default:
-                            $a=$this->anyway($this->old_model->$k);
-                            $a=str_replace(array('{','}'),'',$a);
-                            $a=str_replace(array(','),'|',$a);
-                            $b=str_replace(array('{','}'),'',$v);
-                            $b=str_replace(array(','),'|',$b);
-                            //$a='no';
-                            //$b='no';
-                            $chanded[]=$this->owner->getAttributeLabel($k).": ".$a."/".$b."\n";   
-                            break;
-                    }
- 
-                }
-            }
-            if(!empty($chanded)){
-                $log=new Log;
-                $log->saveLog('change',array('details'=>$chanded,'object_model'=>$this->model_name,'object_id'=>$this->owner->id));
-            }
+        switch ($this->owner->scenario) {
+            case 'insert':
+                    $log=new Log;
+                    $log->saveLog('add',array('details'=>array(),'object_model'=>$this->model_name,'object_id'=>$this->owner->id));
+                break;
+
+             case 'accountingCar':
+                    $log=new Log;
+                    $log->saveLog('accountingCar',array('details'=>array($this->owner->status),'object_model'=>$this->model_name,'object_id'=>$this->owner->id));
+                break;
             
-        }else if($this->owner->scenario=='insert'){
-                $log=new Log;
-                $log->saveLog('add',array('details'=>array(),'object_model'=>$this->model_name,'object_id'=>$this->owner->id));
+            default:
+                if (empty($this->old_model))
+                    return false;
+                $chanded=array();
+                foreach ($this->owner->attributes as $k => $v) {
+                    if(in_array($k,$this->ignore))
+                        continue;
+                    if(trim($this->anyway($v))!=trim($this->anyway($this->old_model->$k))){
+                        switch ($k) {
+                            default:
+                                $a=$this->anyway($this->old_model->$k);
+                                $b=$this->anyway($v);
+                                $chanded[]=$this->owner->getAttributeLabel($k).": ".$a."/".$b."\n";   
+                                break;
+                        }
+ 
+                    }
+                }
+                if(!empty($chanded)){
+                    $log=new Log;
+                    $log->saveLog('change',array('details'=>$chanded,'object_model'=>$this->model_name,'object_id'=>$this->owner->id));
+                }
+                break;
         }
         
     }

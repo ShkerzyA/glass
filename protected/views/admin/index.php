@@ -26,6 +26,10 @@ $this->menu['all_menu']=array(
 		/*array('label'=>'Роли', 'url'=>array('/usersPosts/admin')),
 		array('label'=>'Права', 'url'=>array('/usersRules/admin')) */
 		)),
+		array('label'=>'Собственно сабж', 'url'=>array('/vehicles/accounting'),'items'=>array(
+		/*array('label'=>'Роли', 'url'=>array('/usersPosts/admin')),
+		array('label'=>'Права', 'url'=>array('/usersRules/admin')) */
+		)),
 	)),
 
 

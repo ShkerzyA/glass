@@ -32,6 +32,8 @@ class Log extends CActiveRecord
 	public static $typeM=array(
 				0=>array('action'=>'add','name'=>'Добавление'),
 				1=>array('action'=>'change','name'=>'Изменение'),
+				2=>array('action'=>'accountingCar','name'=>'Доступ авто'),
+				3=>array('action'=>'unknowCar','name'=>'Незарегистрированные авто')
 			);
 	
 	public $subject0subject;
@@ -71,6 +73,43 @@ class Log extends CActiveRecord
 		);
 	}
 
+	public function lastVehiclesLog($limit=10){
+		
+		
+		$criteria=$this->makeCriteria();
+		$criteria=new CDbCriteria;
+
+		$criteria->with=array('subject0' => array('alias' => 'personnel'),'object'=>array('on' => '.id=t.id AND (works.work_id=$SOMEVALUE OR ...)')););
+		$criteria->addCondition(array('condition'=>'t.object_model=\'Vehicles\' and t.subject='.Yii::app()->user->id_pers.'','order'=>'t.timestamp DESC'));
+		}
+		//$criteria->compare('t."timestamp"::text',$this->timestamp,true);
+		$criteria->compare('subject',$this->subject);
+		if(!empty($this->object_model))
+			$this->metaData->addRelation('object',array(self::BELONGS_TO, $this->object_model, 'object_id'));
+		$criteria->compare('object_model',$this->object_model);
+		$criteria->compare('object_id',$this->object_id);
+		$criteria->compare('t.type',$this->type);
+		$criteria->compare('personnel.surname',$this->subject0subject,true);
+		$criteria->compare('equipment.inv',$this->object0object,true, 'OR');
+		$criteria->compare('equipment.serialf',$this->object0object,true,'OR');
+
+		$criteria->order='t.timestamp DESC, t.type DESC';
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
+
+
+
+
+
+
+
+
+		self->metaData->addRelation('object',array(self::BELONGS_TO,'Vehicles', 'object_id'));
+		$models=self::model()->findAll(array('condition'=>));
+		return $models; 
+	}
+
 
 	/**
 	 * @return string the associated database table name
@@ -83,6 +122,7 @@ class Log extends CActiveRecord
 	protected function afterFind(){
 		if(!empty($this->object_model))
 			$this->metaData->addRelation('object',array(self::BELONGS_TO, $this->object_model, 'object_id'));
+		return parent::afterFind();
 	}
 
 	public function saveLog($action,$data){
@@ -175,6 +215,11 @@ class Log extends CActiveRecord
 				return 'Измененные поля: '.implode(',', $this->details);
 				break;
 
+			case '2':
+				$model_name=$this->object_model;
+				return $model_name::returnStatus($this->details[0]);
+				break;
+
 			
 			default:
 				return implode(',', $this->details);
@@ -186,6 +231,10 @@ class Log extends CActiveRecord
 		switch ($this->type) {
 			case '1':
 				return 'Измененные поля: '.implode(',', $this->details);
+				break;
+
+			case '2':
+				return $this->details[0];
 				break;
 
 			
@@ -253,13 +302,7 @@ class Log extends CActiveRecord
 	 */
 
 
-
-
-	public function search()
-	{
-		// Warning: Please modify the following code to remove attributes that
-		// should not be searched.
-
+	private function makeCriteria(){
 		$criteria=new CDbCriteria;
 
 		$criteria->with=array('subject0' => array('alias' => 'personnel'));
@@ -276,6 +319,8 @@ class Log extends CActiveRecord
 		}
 		//$criteria->compare('t."timestamp"::text',$this->timestamp,true);
 		$criteria->compare('subject',$this->subject);
+		if(!empty($this->object_model))
+			$this->metaData->addRelation('object',array(self::BELONGS_TO, $this->object_model, 'object_id'));
 		$criteria->compare('object_model',$this->object_model);
 		$criteria->compare('object_id',$this->object_id);
 		$criteria->compare('t.type',$this->type);
@@ -284,6 +329,17 @@ class Log extends CActiveRecord
 		$criteria->compare('equipment.serialf',$this->object0object,true,'OR');
 
 		$criteria->order='t.timestamp DESC, t.type DESC';
+
+		return $criteria;
+	}
+
+
+
+	public function search()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+		$criteria=$this->makeCriteria();
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));

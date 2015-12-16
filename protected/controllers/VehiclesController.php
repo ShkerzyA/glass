@@ -7,6 +7,7 @@ class VehiclesController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
+	public $rightWidget;
 
 	/**
 	 * @return array action filters
@@ -28,8 +29,12 @@ class VehiclesController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','markSearch'),
+				'actions'=>array('index','view','markSearch','searchNumber','checkVehiclesAccess','setAction'),
 				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('accounting'),
+				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
@@ -106,6 +111,61 @@ class VehiclesController extends Controller
 		));
 	}
 
+	public function actionAccounting(){
+		$this->layout='//layouts/column2';
+		$log=new Log;
+		$this->rightWidget=array(
+			'cc'=>array($this->renderPartial('/log/rightColumn',array('model'=>$log->search()),true,false))
+		);
+
+		$model=new Vehicles;
+		$finded_model=NULL;
+		if(!empty($_POST['Vehicles'])){
+			$model->attributes=$_POST['Vehicles'];
+			if(!empty($_POST['find'])){
+				$finded_model=Vehicles::model()->find(array('condition'=>"t.number='".$model->number."'"));
+				if(empty($finded_model)){
+					$log=new Log;
+					$log->saveLog('unknowCar',array('details'=>array(Vehicles::Ru2Lat($model->number)),'object_model'=>'Vehicles','object_id'=>NULL));
+					$model=new Vehicles;
+				}
+			}
+		}
+
+
+		$this->render('accounting',array(
+			'model'=>$model,'finded_model'=>$finded_model
+		));
+	}
+
+	public function actionSetAction()
+	{
+
+
+		$id =(!empty($_POST['Vehicles']['id']))?$_POST['Vehicles']['id']:NULL;
+		if(empty($id))
+			throw new CHttpException(400, 'Некорректный запрос. 100%');
+		$model=$this->loadModel($id);
+		$model->scenario='accountingCar';
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['in']))
+		{
+			$model->status=2;
+		}else if(isset($_POST['out'])){
+			$model->status=1;
+		}else if(isset($_POST['deny'])){
+			$model->status=3;
+		}
+			
+			if($model->save())
+				$this->redirect(array('accounting')); 
+
+	}
+
+
 	/**
 	 * Updates a particular model.
 	 * If update is successful, the browser will be redirected to the 'view' page.
@@ -153,6 +213,28 @@ class VehiclesController extends Controller
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider, 'modelLabelP'=>Vehicles::$modelLabelP,
 		));
+	}
+
+	public function actionSearchNumber(){
+		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
+  			$models = Vehicles::model()->suggestNumbers(Vehicles::Ru2Lat($_GET['term']));
+  			$result = array();
+  			foreach ($models as $m)
+   				$result[] = array(
+     			'label' => $m->number,
+     			'value' => $m->number,
+     			'id' => $m->id,
+   			);
+  			echo CJSON::encode($result);
+ 		}
+	}
+
+	public function actionCheckVehiclesAccess($id){
+		if (!Yii::app()->request->isAjaxRequest)
+			return false;
+		$model=$this->loadModel($id);
+		$this->renderPartial('_carAccess',array('model'=>$model),false,false);
+		$this->renderPartial('view',array('model'=>$model),false,false);
 	}
 
 	/**

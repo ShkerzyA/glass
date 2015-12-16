@@ -51,7 +51,7 @@ $('.search-form form').submit(function(){
 		array( 'name'=>'object_model', 'value'=>'$data->object_model','filter'=>$model->listObjectModels()),
 		array( 'name'=>'object_id','type'=>'raw','value'=>'CHtml::link("$data->object_id",Yii::app()->request->baseUrl."/".$data->object_model."/".$data->object_id)'),
 		array('name'=>'type','value'=>'$data->getType()["name"]','filter'=>$model->filterType() ),
-		'details',
+		array( 'name'=>'details', 'value'=>'$data->details()' ),
 		array(
 			'class'=>'CButtonColumn',
 		),

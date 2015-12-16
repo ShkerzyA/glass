@@ -1,6 +1,6 @@
 <?php
-/* @var $this VehiclesController */
-/* @var $model Vehicles */
+/* @var $this LogController */
+/* @var $model Log */
 
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('index'),
@@ -16,27 +16,11 @@ $this->menu=array(
 );
 ?>
 
-<h1><?php  echo $model::$modelLabelS; ?>  <?php echo $model->nameL(); ?></h1> 
+<h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		array(
-            'name'=>'owner',
-            'value'=>$model->owner0->fio_full(),
-        ),
-		'mark',
-		'number',
-		array('name'=>'deactive',
-			'value'=>$model->isDeactive()),
-		array('name'=>'status',
-			'value'=>$model->getStatus()),
-		
-        array(
-        	'name'=>'shedule',
-        	'type'=>'html',
-        	'value'=>$model->StrShedule(),
-        	),
-
+		'details',
 	),
 )); ?>

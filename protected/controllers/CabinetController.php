@@ -67,7 +67,8 @@ class CabinetController extends Controller
        // 'select'=>True,
         'joinType'=>'LEFT JOIN',
         'alias'=>'w',
-        'scopes'=>'active'
+        'scopes'=>'active',
+        'order'=>'w.wname ASC'
     	),
     	'workplaces.idPersonnel'=>array(
        // 'select'=>True,

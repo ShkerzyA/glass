@@ -49,6 +49,19 @@ class VehicleShedule extends CActiveRecord
 		return 'vehicle_shedule';
 	}
 
+	public function checkNow(){
+		$now=new DateTime();
+		if(!$this->working)
+			return false;
+		$time=$now->format('H:i:s');
+		if(!($this->timestamp<$time and $time<$this->timestamp_end))
+			return false;
+
+		
+		return true;
+
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
