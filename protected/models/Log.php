@@ -74,8 +74,8 @@ class Log extends CActiveRecord
 	}
 
 	public function lastVehiclesLog($limit=10){
-		
-		
+		/*
+
 		$criteria=$this->makeCriteria();
 		$criteria=new CDbCriteria;
 
@@ -99,15 +99,9 @@ class Log extends CActiveRecord
 		));
 
 
-
-
-
-
-
-
 		self->metaData->addRelation('object',array(self::BELONGS_TO,'Vehicles', 'object_id'));
 		$models=self::model()->findAll(array('condition'=>));
-		return $models; 
+		return $models; */
 	}
 
 
