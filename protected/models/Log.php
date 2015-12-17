@@ -33,7 +33,7 @@ class Log extends CActiveRecord
 				0=>array('action'=>'add','name'=>'Добавление'),
 				1=>array('action'=>'change','name'=>'Изменение'),
 				2=>array('action'=>'accountingCar','name'=>'Доступ авто'),
-				3=>array('action'=>'unknowCar','name'=>'Незарегистрированные авто')
+				3=>array('action'=>'unknowCar','name'=>'Учет авто')
 			);
 	
 	public $subject0subject;
@@ -190,7 +190,7 @@ class Log extends CActiveRecord
 
 			case '2':
 				$model_name=$this->object_model;
-				return $model_name::returnStatus($this->details[0]);
+				return $model_name::returnStatusLog($this->details[0]);
 				break;
 
 			

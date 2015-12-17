@@ -50,9 +50,18 @@ class Vehicles extends CActiveRecord
 		return self::$status[$status];
 	}
 
+	public static function returnStatusLog($status){
+		return self::$status_log[$status];
+	}
+
 	public function getStatus(){
 		if(!empty($this->status))
 			return self::$status[$this->status];
+	}
+
+	public function getStatusLog(){
+		if(!empty($this->status))
+			return self::$status_log[$this->status];
 	}
 
 	public function isDeactive(){
