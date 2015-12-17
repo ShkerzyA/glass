@@ -124,7 +124,9 @@ class Vehicles extends CActiveRecord
 	public function joinShedule(){
 		if(!empty($this->shedule))
 		foreach ($this->shedule as $v) {
-			$this->shedule0[]=VehicleShedule::model()->findByPk($v);
+			$shedule=VehicleShedule::model()->working()->findByPk($v);
+			if(!empty($shedule))
+				$this->shedule0[]=$shedule;
 		}
 	}
 
@@ -134,6 +136,16 @@ class Vehicles extends CActiveRecord
 			$res[]=$v->name();
 		}
 		return implode('<br>',$res);	
+	}
+
+	public function checkAccessNow(){
+		if($this->deactive==1)
+			return False;
+		foreach ($this->shedule0 as $v) {
+			if($v->checkNow())
+				return True;
+		}
+		return False;
 	}
 
 	public function relations()

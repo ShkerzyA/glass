@@ -105,6 +105,7 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 			<td>Пн</td><td>Вт</td><td>Ср</td><td>Чт</td><td>Пт</td><td>Сб</td><td>Вс</td>
 		</tr>
 		<tr>
+			
 		<td><?php echo $form->checkBox($model,'week[0]'); ?></td>
 		<td><?php echo $form->checkBox($model,'week[1]'); ?></td>
 		<td><?php echo $form->checkBox($model,'week[2]'); ?></td>
@@ -117,6 +118,7 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'week'); ?>
 	</div>
 
+	<!--
 	<div class="row">
 		<?php echo $form->labelEx($model,'weekdays'); ?>
 
@@ -131,7 +133,7 @@ echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->checkBox($model,'holydays'); ?>
 
 		<?php echo $form->error($model,'holydays'); ?>
-	</div>
+	</div> -->
 
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>

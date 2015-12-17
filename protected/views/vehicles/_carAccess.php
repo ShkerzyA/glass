@@ -13,6 +13,7 @@
 
 		<div class="row">
 			<?php echo $form->hiddenField($model,'id'); ?>
+			<?php echo $form->hiddenField($model,'number'); ?>
 			<?php echo $form->error($model,'id'); ?>
 		</div>
 		<div class="row">

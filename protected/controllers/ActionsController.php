@@ -53,7 +53,7 @@ class ActionsController extends Controller
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('index','ChatSaveMessage','SaveMessage','SaveStatus','SaveReport','delete'),
-				'users'=>array('*'),
+				'roles'=>array('user'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),

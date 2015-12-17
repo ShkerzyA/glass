@@ -126,9 +126,11 @@ Class Customfields{
 				echo'<input type=hidden name=field class=field id='.$field.' value='.$field.'>';
 				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
 				echo'<input type=hidden name=action class=action id='.$field.' value="join">';
+					if(!empty($model->$field))
 					foreach ($model->$field as $tmp) {
 						if(!empty($tmp)){
 							$sh=VehicleShedule::model()->findByPk($tmp);
+							if(!empty($sh))
 							$result.="<div class='choise_unit $field$tmp'>
 								<input type=hidden 
 								name='".$mn."[".$field."][$tmp]' value=$tmp>".(CHtml::encode($sh->name()))."

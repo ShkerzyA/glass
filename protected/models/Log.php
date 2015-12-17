@@ -32,8 +32,8 @@ class Log extends CActiveRecord
 	public static $typeM=array(
 				0=>array('action'=>'add','name'=>'Добавление'),
 				1=>array('action'=>'change','name'=>'Изменение'),
-				2=>array('action'=>'accountingCar','name'=>'Доступ авто'),
-				3=>array('action'=>'unknowCar','name'=>'Учет авто')
+				2=>array('action'=>'accountingCar','name'=>'Учтенные авт.'),
+				3=>array('action'=>'unknowCar','name'=>'Неучтенные авт.')
 			);
 	
 	public $subject0subject;
@@ -53,6 +53,18 @@ class Log extends CActiveRecord
 			$res[$key]=$value['name'];
 		}
 		return $res;
+	}
+
+	public function altName(){
+		switch ($this->type) {
+			case '3':
+				return $this->details[1];
+				break;
+			
+			default:
+				return '-//-';
+				break;
+		}
 	}
 
 
@@ -193,6 +205,11 @@ class Log extends CActiveRecord
 				return $model_name::returnStatusLog($this->details[0]);
 				break;
 
+			case '3':
+				$model_name=$this->object_model;
+				return $model_name::returnStatusLog($this->details[0]);
+				break;
+
 			
 			default:
 				return implode(',', $this->details);
@@ -210,6 +227,10 @@ class Log extends CActiveRecord
 				return $this->details[0];
 				break;
 
+			case '3':
+				$model_name=$this->object_model;
+				return $model_name::returnStatusLog($this->details[0]);
+				break;
 			
 			default:
 				return implode(', ', $this->details);

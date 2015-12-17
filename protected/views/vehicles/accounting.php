@@ -14,20 +14,18 @@ $(document).ready(init());
 </script>
 
 
-<div class="search-form">
-<?php $this->renderPartial('_search_num',array(
-	'model'=>$model,
-)); ?>
-</div>
+
 <div style="float: right; width: 40%;"><?php
 $log=new Log;
 $this->renderPartial('/log/rightColumn',array('model'=>$log->lastVehiclesLog(10)),false,false);
 ?>
 </div>
-<div style="float: right; width: 50%;">
+<div style="float: left; width: 58%;">
 <?php
+	$this->renderPartial('_search_num',array('model'=>$model,)); 
 	if(!empty($finded_model)){
-		$this->renderPartial('shortview',array('model'=>$finded_model),false,false);
+		if(!empty($finded_model->id))
+			$this->renderPartial('shortView',array('model'=>$finded_model),false,false);
 		$this->renderPartial('_carAccess',array('model'=>$finded_model),false,false);
 	}
 ?>

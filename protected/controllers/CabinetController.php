@@ -35,8 +35,13 @@ class CabinetController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','rootFillTree','AjaxFillTree','phones','phones2'),
+				'actions'=>array('index','rootFillTree','AjaxFillTree','phones','phones2'),
 				'users'=>array('*'),
+			),
+			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+				'actions'=>array('view',),
+				'expression'=>'Yii::app()->user->checkAccess("inGroup",array("group"=>array("it")))',
+				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update','delete'),
@@ -58,9 +63,6 @@ class CabinetController extends Controller
 	 */
 	public function actionView($id)
 	{
-		
-	if(!Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))))
-		throw new CHttpException(403, 'У вас недостаточно прав');
 
 	$model=Cabinet::model()->with(array(
     	'workplaces'=>array(

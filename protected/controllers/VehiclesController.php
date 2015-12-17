@@ -38,7 +38,8 @@ class VehiclesController extends Controller
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'roles'=>array('moderator'),
+				'expression'=>'Yii::app()->user->checkAccess("inGroup",array("group"=>array("security_admin")))',
+				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
@@ -121,9 +122,10 @@ class VehiclesController extends Controller
 			if(!empty($_POST['find'])){
 				$finded_model=Vehicles::model()->find(array('condition'=>"t.number='".$model->number."'"));
 				if(empty($finded_model)){
-					$log=new Log;
-					$log->saveLog('unknowCar',array('details'=>array(Vehicles::Ru2Lat($model->number)),'object_model'=>'Vehicles','object_id'=>NULL));
-					$this->redirect(array('accounting')); 
+					$finded_model=$model;
+					//$log=new Log;
+					//$log->saveLog('unknowCar',array('details'=>array(Vehicles::Ru2Lat($model->number)),'object_model'=>'Vehicles','object_id'=>NULL));
+					//$this->redirect(array('accounting')); 
 				}
 			}
 		}
@@ -139,14 +141,14 @@ class VehiclesController extends Controller
 
 
 		$id =(!empty($_POST['Vehicles']['id']))?$_POST['Vehicles']['id']:NULL;
-		if(empty($id))
-			throw new CHttpException(400, 'Некорректный запрос. 100%');
-		$model=$this->loadModel($id);
-		$model->scenario='accountingCar';
-
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
-
+		if(!empty($id)){
+			$model=$this->loadModel($id);
+			$model->scenario='accountingCar';
+		}else{
+			$model=new Vehicles;
+			$model->attributes=$_POST['Vehicles'];
+		}
+		
 		if(isset($_POST['in']))
 		{
 			$model->status=2;
@@ -155,9 +157,15 @@ class VehiclesController extends Controller
 		}else if(isset($_POST['deny'])){
 			$model->status=3;
 		}
-			
-			if($model->save())
-				$this->redirect(array('accounting')); 
+
+		if(!empty($model->id)){
+			$model->save();
+		}else{
+			$log=new Log;
+			$log->saveLog('unknowCar',array('details'=>array($model->status,Vehicles::Ru2Lat($model->number)),'object_model'=>'Vehicles','object_id'=>NULL));
+		}
+
+		$this->redirect(array('accounting')); 
 
 	}
 

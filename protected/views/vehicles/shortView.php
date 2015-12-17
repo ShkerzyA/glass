@@ -1,0 +1,24 @@
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'itemCssClass'=>array(),
+	'data'=>$model,
+	'attributes'=>array(
+		array(
+            'name'=>'owner',
+            'value'=>$model->owner0->fio_full(),
+        ),
+		'mark',
+		'number',
+		//array('name'=>'deactive','value'=>$model->isDeactive()),
+		array('name'=>'status',
+			'value'=>$model->getStatus()),
+
+	),
+)); ?>
+
+<?php
+if($model->checkAccessNow())
+	echo'<div style="height: 30px; width: 100%; background: green"><h1 style="color: white; text-align: center">Разрешено</h1></div>';
+else
+	echo'<div style="height: 30px; width: 100%; background: red"><h1 style="color: white; text-align: center">Запрещено</h1></div>';
+
+?>

@@ -4,15 +4,14 @@
 /* @var $form CActiveForm */
 ?>
 
-<div class="wide form">
-
+<div style="position: relative; width: 500px; left: 50%; margin-left: -250px;">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'post',
 )); ?>
 
 
- <?php echo $form->labelEx($model,'number'); ?>
+
  <?php echo CHtml::script("
      function split(val) {
       return val.split(/,\s*/);
@@ -49,7 +48,8 @@
        }",
    ),
    'htmlOptions'=>array(
-     'size'=>'40'
+     'size'=>'40',
+     'placeholder'=>'Номер автомобиля'
    ),
   ));
   // Для подсветки набираемого куска запроса в предлагаемом списке
@@ -65,12 +65,8 @@
 ");  
 ?>
 <?php echo CHtml::submitButton('Запрос',array('name'=>'find')); ?></td>
-
-
-  
-
-
 <?php $this->endWidget(); ?>
 
-</div><!-- search-form -->
-<div style="clear: both"></div>
+</div>
+
+<div style="clear: both; height: 10px;"></div>

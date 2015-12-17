@@ -50,16 +50,15 @@ class VehicleShedule extends CActiveRecord
 	}
 
 	public function checkNow(){
+		$week=array(6,0,1,2,3,4,5);
 		$now=new DateTime();
-		if(!$this->working)
-			return false;
 		$time=$now->format('H:i:s');
 		if(!($this->timestamp<$time and $time<$this->timestamp_end))
 			return false;
-
-		
+		$dow=$now->format('w');
+		if($this->week[$week[$dow]]!=1)
+			return false;
 		return true;
-
 	}
 
 	/**

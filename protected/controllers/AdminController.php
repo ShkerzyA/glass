@@ -31,10 +31,6 @@ class AdminController extends Controller
 				//'users'=>array('*'),
 				'roles'=>array('administrator'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'roles'=>array('moderator'),
-			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
 				'roles'=>array('administrator'),

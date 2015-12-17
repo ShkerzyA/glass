@@ -61,13 +61,14 @@ Yii::app()->clientScript->registerPackage('customfields');
 		<?php echo $form->error($model,'deactive'); ?>
 	</div>
 
+	<!--
 	<div class="row">
-		<?php echo $form->labelEx($model,'status'); ?>
+		<?php // echo $form->labelEx($model,'status'); ?>
 
-		<?php echo $form->dropDownList($model,"status",Vehicles::$status,array('empty' => '')); ?>
+		<?php // echo $form->dropDownList($model,"status",Vehicles::$status,array('empty' => '')); ?>
 
-		<?php echo $form->error($model,'status'); ?>
-	</div>
+		<?php // echo $form->error($model,'status'); ?>
+	</div> -->
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'shedule'); ?>
