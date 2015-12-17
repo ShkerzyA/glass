@@ -26,6 +26,7 @@ class Vehicles extends CActiveRecord
 	public static $modelLabelP='Транспорт';
 	public static $db_array=array('shedule');
 	public static $status=array('1'=>'Вне территории','2'=>'На территории','3'=>'');
+	public static $status_log=array('1'=>'Выезд','2'=>'Въезд','3'=>'Отказ');
 	public $shedule0=array();
 	public $act;
 	

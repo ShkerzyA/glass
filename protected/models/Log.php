@@ -74,34 +74,13 @@ class Log extends CActiveRecord
 	}
 
 	public function lastVehiclesLog($limit=10){
-		/*
-
+		
+		$this->subject=Yii::app()->user->id_pers;
+		$this->object_model='Vehicles';
 		$criteria=$this->makeCriteria();
-		$criteria=new CDbCriteria;
-
-		$criteria->with=array('subject0' => array('alias' => 'personnel'),'object'=>array('on' => '.id=t.id AND (works.work_id=$SOMEVALUE OR ...)')););
-		$criteria->addCondition(array('condition'=>'t.object_model=\'Vehicles\' and t.subject='.Yii::app()->user->id_pers.'','order'=>'t.timestamp DESC'));
-		}
-		//$criteria->compare('t."timestamp"::text',$this->timestamp,true);
-		$criteria->compare('subject',$this->subject);
-		if(!empty($this->object_model))
-			$this->metaData->addRelation('object',array(self::BELONGS_TO, $this->object_model, 'object_id'));
-		$criteria->compare('object_model',$this->object_model);
-		$criteria->compare('object_id',$this->object_id);
-		$criteria->compare('t.type',$this->type);
-		$criteria->compare('personnel.surname',$this->subject0subject,true);
-		$criteria->compare('equipment.inv',$this->object0object,true, 'OR');
-		$criteria->compare('equipment.serialf',$this->object0object,true,'OR');
-
-		$criteria->order='t.timestamp DESC, t.type DESC';
-		return new CActiveDataProvider($this, array(
-			'criteria'=>$criteria,
-		));
-
-
-		self->metaData->addRelation('object',array(self::BELONGS_TO,'Vehicles', 'object_id'));
-		$models=self::model()->findAll(array('condition'=>));
-		return $models; */
+		$criteria->limit=$limit;
+		$models=self::model()->findAll($criteria);
+		return $models; 
 	}
 
 

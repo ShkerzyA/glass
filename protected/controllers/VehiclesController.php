@@ -112,12 +112,8 @@ class VehiclesController extends Controller
 	}
 
 	public function actionAccounting(){
-		$this->layout='//layouts/column2';
+		$this->layout='//layouts/column1';
 		$log=new Log;
-		$this->rightWidget=array(
-			'cc'=>array($this->renderPartial('/log/rightColumn',array('model'=>$log->search()),true,false))
-		);
-
 		$model=new Vehicles;
 		$finded_model=NULL;
 		if(!empty($_POST['Vehicles'])){
@@ -127,7 +123,7 @@ class VehiclesController extends Controller
 				if(empty($finded_model)){
 					$log=new Log;
 					$log->saveLog('unknowCar',array('details'=>array(Vehicles::Ru2Lat($model->number)),'object_model'=>'Vehicles','object_id'=>NULL));
-					$model=new Vehicles;
+					$this->redirect(array('accounting')); 
 				}
 			}
 		}
