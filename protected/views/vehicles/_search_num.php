@@ -4,10 +4,11 @@
 /* @var $form CActiveForm */
 ?>
 
-<div style="position: relative; width: 500px; left: 50%; margin-left: -250px;">
+<div style="text-align: center;">
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'post',
+  'id'=>'searchNum',
 )); ?>
 
 
@@ -43,14 +44,18 @@
          // add placeholder to get the comma-and-space at the end
          terms.push('');
          this.value = terms.join('');
-         //vehiclesAccess(ui.item.id);
+         //vehiclesAccess(ui.item.value);
+         $('#searchNum').submit();
          return false;
        }",
    ),
    'htmlOptions'=>array(
-     'size'=>'40',
-     'placeholder'=>'Номер автомобиля'
-   ),
+     'size'=>'8',
+     'style'=>'font-size: 32px',
+     'placeholder'=>'Номер авто.'
+
+    ),
+
   ));
   // Для подсветки набираемого куска запроса в предлагаемом списке
   Yii::app()->clientScript->registerScript('unique.script.identifier', "
@@ -64,7 +69,7 @@
  };
 ");  
 ?>
-<?php echo CHtml::submitButton('Запрос',array('name'=>'find')); ?></td>
+<?php //echo CHtml::submitButton('Запрос',array('name'=>'find')); ?></td>
 <?php $this->endWidget(); ?>
 
 </div>

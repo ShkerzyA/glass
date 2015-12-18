@@ -119,15 +119,14 @@ class VehiclesController extends Controller
 		$finded_model=NULL;
 		if(!empty($_POST['Vehicles'])){
 			$model->attributes=$_POST['Vehicles'];
-			if(!empty($_POST['find'])){
-				$finded_model=Vehicles::model()->find(array('condition'=>"t.number='".$model->number."'"));
-				if(empty($finded_model)){
+			$finded_model=Vehicles::model()->find(array('condition'=>"t.number='".$model->number."'"));
+			if(empty($finded_model)){
 					$finded_model=$model;
 					//$log=new Log;
 					//$log->saveLog('unknowCar',array('details'=>array(Vehicles::Ru2Lat($model->number)),'object_model'=>'Vehicles','object_id'=>NULL));
 					//$this->redirect(array('accounting')); 
-				}
 			}
+			
 		}
 
 

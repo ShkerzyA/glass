@@ -4,6 +4,12 @@
 /* @var $form CActiveForm */
 ?>
 
+<style>
+td input{
+	width: 100%;
+}
+</style>
+
 <div class="wide form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -11,20 +17,15 @@
 	'method'=>'post',
 )); ?>
 
-		<div class="row">
 			<?php echo $form->hiddenField($model,'id'); ?>
 			<?php echo $form->hiddenField($model,'number'); ?>
 			<?php echo $form->error($model,'id'); ?>
-		</div>
-		<div class="row">
-		<table style='width: 100%'><tr>
+	
+		<table style='width: 100%; margin: 0px;'><tr>
 			<td><?php echo CHtml::submitButton('Въезд',array('name'=>'in')); ?></td>
 			<td><?php echo CHtml::submitButton('Выезд',array('name'=>'out')); ?></td>
 			<td><?php echo CHtml::submitButton('Отклонить',array('name'=>'deny')); ?></td>
 		</tr></table>
-		</div>
-
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->
+<div>
 <div style='clear: both'></div>
