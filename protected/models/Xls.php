@@ -16,6 +16,72 @@ class Xls extends CFormModel{
         );
     } 
 
+    public function exportPhones($data){
+
+		$tpl=Yii::getPathOfAlias('webroot').'/tpl';
+		$media=Yii::getPathOfAlias('webroot.media');
+    	$phpExcelPath = Yii::getPathOfAlias('ext.PHPExcel.Classes');
+		spl_autoload_unregister(array('YiiBase','autoload'));
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel.php');
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'PHPExcel/IOFactory.php');
+		include($phpExcelPath . DIRECTORY_SEPARATOR . 'chunkReadFilter.php');
+
+			//$type=Equipment::getType();
+			//$producer=Equipment::getProducer();
+
+			$PHPExcel = PHPExcel_IOFactory::load($tpl.'/phones_tpl.xls');
+			$PHPExcel->getProperties()
+	    	->setCreator("ebdp")
+	    	->setLastModifiedBy("ebdp")
+	    	->setTitle('Office 2003 XLS Document')
+	    	->setSubject('Office 2003 XLS Document')
+	    	->setDescription('Document for Office 2003 XLS, generated using PHP classes.')
+	    	->setKeywords('office 2003 openxml php')
+	    	->setCategory('Nodes export result file');
+
+			$i=3; //Начинаем с 3 строки
+			foreach ($data as $row) {
+
+		
+	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row['fio']); 
+	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row['post']); 
+	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['cabinet']); 
+	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row['phone_int']); 
+	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row['phone_out']); 
+
+				$i++;
+			
+	}
+
+			$bordercells=array(
+						'borders' => array(
+      							'allborders' => array(
+        							'style' => PHPExcel_Style_Border::BORDER_THIN,
+      							),
+    					),
+    					'alignment' => array(
+      							'wrap'=>true,
+      							'horizontal' 	=> PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+								'vertical'   	=> PHPExcel_Style_Alignment::VERTICAL_TOP,
+      					),
+      					'font' => array(
+								'name'      	=> 'Times New Roman',
+      					));
+
+
+			$PHPExcel->getActiveSheet()->getStyle('A3:'.'O'.$i)->applyFromArray($bordercells);
+			$name='v';
+   			 
+   			$PHPExcel->getActiveSheet()->setTitle($name);
+   			$PHPExcel->setActiveSheetIndex(0);
+   			$filename = 'export.xls';
+   			 //$path = file_create_filename($filename, 'public://nodes_export');
+  			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel5');
+  			$objWriter->save($media.'/'.$filename);
+  			header("Location: ".Yii::app()->baseUrl."/media/$filename"); 
+
+    }
+
 
     public function exportLogCart($data){
 

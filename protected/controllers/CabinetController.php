@@ -48,7 +48,7 @@ class CabinetController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
+				'actions'=>array('admin','exportPhones'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -145,6 +145,20 @@ class CabinetController extends Controller
 		));
 
 
+	}
+
+
+	public function actionExportPhones(){
+		$this->layout='//layouts/leaf';
+		$Xls=new Xls;
+		$data=Cabinet::search_phones_export();
+		/*echo '<pre>';
+		for ($i=0; $i <10 ; $i++) { 
+			print_r($data[$i]);
+		}
+		echo '</pre>';*/
+
+		$Xls->exportPhones($data);
 	}
 
 

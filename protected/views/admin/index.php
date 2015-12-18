@@ -72,6 +72,7 @@ $this->menu['all_menu']=array(
 		array('label'=>'Проекты', 'url'=>array('/projects/admin')), 
 		array('label'=>'Задачи', 'url'=>array('/tasks/admin')),
 		array('label'=>'Статусы Задач', 'url'=>array('/tasksStatus/admin')),
+		array('label'=>'Телефоны/Экспорт', 'url'=>array('/Cabinet/exportPhones')), 
 		array('label'=>'Лог Звонков Автоматика', 'url'=>array('/callLog')), 
 		array('label'=>'Лог Звонков АПУС', 'url'=>array('/callLog/indexApus')), 
 		array('label'=>'Лог Звонков/импорт', 'url'=>array('/callLog/import')), 

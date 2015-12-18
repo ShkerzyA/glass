@@ -161,6 +161,88 @@ class Cabinet extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public static function split_phones($phone){
+		$res=array('int'=>array(),'out'=>array());
+		$ph=explode(',', $phone);
+		$ph=array_filter($ph);
+		foreach ($ph as $v) {
+			$x=trim($v);
+			if(mb_strlen($x)<5){
+				$res['int'][]=$v;
+			}else{
+				$res['out'][]=$v;
+			}
+		}
+		return $res;
+	}
+
+	public static function search_phones_export(){
+		$criteria=new CDbCriteria;
+		 $criteria->with=array(
+            'idFloor.idBuilding',
+            'workplaces' => array('alias' => 'workplace','together'=>True),
+            'workplaces.idPersonnel' => array('alias' => 'personnel'),
+            'workplaces.idPersonnel.personnelPostsHistories:working' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','together'=>True),
+            'workplaces.idPersonnel.personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
+            'workplaces.idPersonnel.personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
+
+        $criteria->addCondition(array('condition'=>'t.phone is not NULL or "workplace".phone is not NULL'));
+       	$criteria->order='workplace.phone||"t".phone ASC';
+		//$criteria->compare('personnel.creator',$this->creator0creator,true);
+		$models=self::model()->findAll($criteria);
+		$result=array();
+
+		foreach ($models as $cab) {
+		
+			$ph_cab=self::split_phones($cab->phone);
+			$name_cab=$cab->cabNameFull();
+			$wp_count=0;
+
+			if(!empty($cab->workplaces)){
+				foreach ($cab->workplaces as $wp) {
+
+					$res=array();
+					if(!empty($wp->id_personnel) and (!empty($wp->phone))){
+						$ph_wp=self::split_phones($wp->phone);
+						$res['fio']=$wp->idPersonnel->fio();
+						$post=$wp->idPersonnel->posts();
+						$res['post']=(!empty($post))?$post[0]:'';
+						$res['cabinet']=$name_cab;
+						$res['phone_int']=implode(',',array_unique(array_merge($ph_wp['int'],$ph_cab['int'])));
+						$res['phone_out']=implode(',',array_unique(array_merge($ph_wp['out'],$ph_cab['out'])));
+						$result[]=$res;
+						$wp_count++;
+					}else if(!empty($wp->phone)){
+						$ph_wp=self::split_phones($wp->phone);
+						$res['fio']=$wp->wpName();
+						$res['post']='';
+						$res['cabinet']=$name_cab;
+						$res['phone_int']=implode(',',array_unique(array_merge($ph_wp['int'],$ph_cab['int'])));
+						$res['phone_out']=implode(',',array_unique(array_merge($ph_wp['out'],$ph_cab['out'])));
+						$result[]=$res;
+						$wp_count++;
+					}
+				
+				}
+			}
+			if($wp_count==0 and (!empty($cab->phone))){
+				$cb=array();
+				$cb['fio']='';
+				$cb['post']='';
+				$cb['cabinet']=$name_cab;
+				$cb['phone_int']=implode(',',$ph_cab['int']);
+				$cb['phone_out']=implode(',',$ph_cab['out']);
+				$result[]=$cb;
+			}
+
+		}
+
+		return $result;
+
+
+
+	}
 	
 	public function search_phones()
     {
