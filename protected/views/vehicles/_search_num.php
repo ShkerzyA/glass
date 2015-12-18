@@ -50,8 +50,8 @@
        }",
    ),
    'htmlOptions'=>array(
-     'size'=>'8',
-     'style'=>'font-size: 32px',
+     'size'=>'10',
+     'style'=>'font-size: 28px',
      'placeholder'=>'Номер авто.'
 
     ),

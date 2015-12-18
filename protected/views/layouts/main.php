@@ -89,7 +89,7 @@
                 			array('Общественные','/rooms/show?Event_type=events'),
                 			array('Операционные','/rooms/show?Event_type=eventsOpPl',((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) )),
 							array('Лог','/equipmentLog',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))))),
-				array('label'=>'Справочник', 'url'=>array('/personnel/phones'),'submenu'=>
+				array('label'=>'Справочник', 'url'=>array('/cabinet/phones'),'submenu'=>
 						array(
 							array('Телефоны','/cabinet/phones'),
 							//array('ПП','/personnel/phones'),
