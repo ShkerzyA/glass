@@ -121,7 +121,16 @@ class Cabinet extends CActiveRecord
 		if($short){
 			$result=$this->idFloor->idBuilding->bname.'/ '.$this->idFloor->fnum.' эт./ '.$this->num;	
 		}else{
-			$result="Кабинет: ".$this->idFloor->idBuilding->bname."/ ".$this->idFloor->fname."/ ".$this->num." ".$this->cname;	
+			$result=$this->idFloor->idBuilding->bname."/ ".$this->idFloor->fname."/ ".$this->num." ".$this->cname;	
+		}	
+		return $result;
+	}
+
+	public function cabNameFullArray($short=false){
+		if($short){
+			$result=array($this->idFloor->idBuilding->bname,$this->idFloor->fnum.' эт.',$this->num);	
+		}else{
+			$result=array($this->idFloor->idBuilding->bname,$this->idFloor->fname,$this->num." ".$this->cname);	
 		}	
 		return $result;
 	}
@@ -196,7 +205,7 @@ class Cabinet extends CActiveRecord
 		foreach ($models as $cab) {
 		
 			$ph_cab=self::split_phones($cab->phone);
-			$name_cab=$cab->cabNameFull();
+			$name_cab=$cab->cabNameFullArray();
 			$wp_count=0;
 
 			if(!empty($cab->workplaces)){
