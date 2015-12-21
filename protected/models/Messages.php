@@ -77,6 +77,11 @@ class Messages extends CActiveRecord
 
 
 	public function beforeSave(){
+
+		$pattern='~https?://([^\s]+(?=\.(mp3|ogg|MP3|OGG))\.\2)~';
+		$replacement='<audio controls src=$0>';
+		$this->ttext=preg_replace($pattern,$replacement, $this->ttext);
+
 		$pattern='~https?://([^\s]+(?=\.(jpg|jpeg|JPG|JPEG|GIF|PNG|gif|png))\.\2)~';
 		$replacement='<img class=chatImg src=$0>';
 		$this->ttext=preg_replace($pattern,$replacement, $this->ttext);

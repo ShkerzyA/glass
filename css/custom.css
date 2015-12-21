@@ -381,6 +381,10 @@ display: none;
 	height: 350px;
 }
 
+.mess_content audio{
+	max-width: 100%;
+}
+
 .mess_unit{
 	position: relative; 
 	min-height: 30px;
