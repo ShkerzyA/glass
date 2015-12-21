@@ -10,6 +10,15 @@ td input{
 }
 </style>
 
+<script type="text/javascript">
+
+function init () {
+	$('#Vehicles_number').attr('disabled', true); 
+}
+$(document).ready(init());
+
+</script>
+
 <div class="wide form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(

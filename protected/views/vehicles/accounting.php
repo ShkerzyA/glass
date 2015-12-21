@@ -8,6 +8,11 @@
 
 function init () {
 	$('#Vehicles_number').live('focus',function(){$(this).select()});
+	$('#Vehicles_number').live('keydown',function(e){
+        if(e.keyCode==13){
+        	return false;
+        }
+    });
 }
 $(document).ready(init());
 

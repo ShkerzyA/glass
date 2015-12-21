@@ -85,13 +85,22 @@ class Vehicles extends CActiveRecord
 			array('mark', 'length', 'max'=>200),
 			array('number', 'length', 'max'=>10),
 			array('number','unique'),
-			array('number', 'match', 'pattern'=>'/[A-Za-zА-Яа-я]\d{3}[A-Za-zА-Яа-я]{2}\d{2,3}/u'),
+			array('number', 'avtoNumber'),
 			array('shedule', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, owner, mark, number, deactive,shedule, status,owner0owner', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function avtoNumber(){
+		$x=preg_match('/[A-Za-zА-Яа-я]\d{3}[A-Za-zА-Яа-я]{2}\d{2,3}/u',$this->number);
+		if($x==0){
+			$this->addError('Vehicles["number"]','Неверный формат номера');
+			return False;
+		}
+		return True;
 	}
 
 	public function behaviors(){
@@ -172,7 +181,7 @@ class Vehicles extends CActiveRecord
     }
 
 	public function beforeValidate(){
-		self::Ru2Lat($this->number);
+		$this->number=self::Ru2Lat($this->number);
 		return parent::beforeValidate();
 	}
 

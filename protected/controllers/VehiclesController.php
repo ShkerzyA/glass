@@ -220,14 +220,26 @@ class VehiclesController extends Controller
 
 	public function actionSearchNumber(){
 		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
+			$model=new Vehicles;
+			$model->number=Vehicles::Ru2Lat($_GET['term']);
   			$models = Vehicles::model()->suggestNumbers(Vehicles::Ru2Lat($_GET['term']));
   			$result = array();
-  			foreach ($models as $m)
-   				$result[] = array(
-     			'label' => $m->number,
-     			'value' => $m->number,
-     			'id' => $m->id,
-   			);
+  			if(!empty($models)){
+  				foreach ($models as $m)
+   					$result[] = array(
+     				'label' => $m->number,
+     				'value' => $m->number,
+     				'id' => $m->id,
+   				);	
+  			}else{
+  				if($model->avtoNumber())
+  				$result[] = array(
+     				'label' => $model->number,
+     				'value' => $model->number,
+     				'id' => NULL,
+   				);	
+  			}
+  			
   			echo CJSON::encode($result);
  		}
 	}
