@@ -259,7 +259,7 @@ function show_groups(data){
 function show_under(id,data){
 
 	coords=$('#'+id).offset();
-	
+	$('.window_awesom').remove();
 	$('html').append(data);
 	$('.window_awesom').append('<input type=hidden id=target_id name=target_id value="'+id+'">');
 	$(".window_awesom").offset({top:coords.top+26, left:coords.left})

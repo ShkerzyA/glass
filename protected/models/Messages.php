@@ -89,6 +89,8 @@ class Messages extends CActiveRecord
 		$pattern='~(?<!(src=))https?://([^\s]+)~';
 		$replacement='<a href="$0" target=_blank>$0</a>';
 		$this->ttext=preg_replace($pattern,$replacement, $this->ttext);
+
+		$this->ttext=str_replace('localhost','glass',$this->ttext);
 		//echo $this->ttext;
 		return parent::beforeSave();
 	}

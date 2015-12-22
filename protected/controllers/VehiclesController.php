@@ -73,20 +73,21 @@ class VehiclesController extends Controller
 			}
 
 			$criteria = new CDbCriteria;
-			$criteria->select = "t.mark";
+			$criteria->with = array('producer0');
+			
 
 
-            $criteria->addCondition(array('condition'=>'lower(t.mark) like \'%'.$val.'%\''));
+            $criteria->addCondition(array('condition'=>'lower(producer0.name) like \'%'.$val.'%\' or lower(t.name) like \'%'.$val.'%\''));
      		$criteria->distinct=True;
 
 			//$criteria->condition = "type=:type and producer=:producer";
 			//$criteria->params = array(':type'=>$_POST['type'],':producer'=>$_POST['producer']);
 			//$criteria->distinct = True;
 			//$criteria->group="mark";
-			$criteria->order="mark ASC";
+			$criteria->order="producer0.name ASC, t.name ASC";
 
-			$model=Vehicles::model()->findall($criteria);
-			$this->renderPartial('/equipment/markSearch', array('model'=>$model), false, false);
+			$model=CarsMark::model()->findall($criteria);
+			$this->renderPartial('/vehicles/markSearch', array('model'=>$model), false, false);
 	}
 
 	/**
