@@ -23,7 +23,7 @@
 
 		<?php 	$tmp=Building::model()->findall();
 				echo $form->dropDownList($model,"id_building",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->bname);}),array('empty' => '','onchange'=>'submit()')); ?>
+				return CHtml::encode($tmp->bname);}),array('empty' => '(выбор корпуса)','onchange'=>'submit()')); ?>
 		<?php 	echo $form->error($model,'id_building'); ?>
 	</div>
 
