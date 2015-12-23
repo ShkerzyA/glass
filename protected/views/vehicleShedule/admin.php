@@ -44,11 +44,12 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
 		'date_begin',
 		'date_end',
 		'timestamp',
 		'timestamp_end',
+		array( 'name'=>'week', 'value'=>'$data->DaysOfWeek()' ),
+		
 		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->fio_full()' ),
 		/*
 		'week',
@@ -56,7 +57,7 @@ $('.search-form form').submit(function(){
 		'holydays',
 		*/
 		array(
-			'class'=>'CButtonColumn',
+			'class'=>'MyButtonColumn',
 		),
 	),
 )); ?>

@@ -3,12 +3,9 @@
 /* @var $data Vehicles */
 ?>
 
+<a href="<?php echo(Yii::app()->baseUrl.'/Vehicles/'.$data->id)?>">
 <div class="view">
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
-
+	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('owner')); ?>:</b>
 	<?php echo CHtml::encode($data->owner0->fio_full()); ?>
 	<br />
@@ -22,12 +19,13 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('deactive')); ?>:</b>
-	<?php echo CHtml::encode($data->deactive); ?>
+	<?php echo CHtml::encode($data->isDeactive()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('status')); ?>:</b>
-	<?php echo CHtml::encode($data->status); ?>
+	<?php echo CHtml::encode($data->getStatus()); ?>
 	<br />
 
 
 </div>
+</a>

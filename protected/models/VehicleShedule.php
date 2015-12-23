@@ -118,7 +118,7 @@ class VehicleShedule extends CActiveRecord
 		return '('.$this->date_begin.'/'.$this->date_end.') '.$this->timestamp.'-'.$this->timestamp_end.'['.$this->DaysOfWeek().']';
 	}
 
-	private function DaysOfWeek(){
+	public function DaysOfWeek(){
 		$res=array();
 		$lb=array('Пн','Вт','Ср','Чт','Пт','Сб','Вс','Будни','Праздники');
 		foreach ($this->week as $key => $v) {

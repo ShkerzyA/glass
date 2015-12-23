@@ -3,11 +3,8 @@
 /* @var $data VehicleShedule */
 ?>
 
+<a href="<?php echo(Yii::app()->baseUrl.'/VehicleShedule/'.$data->id)?>">
 <div class="view">
-
-	<b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id'=>$data->id)); ?>
-	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('date_begin')); ?>:</b>
 	<?php echo CHtml::encode($data->date_begin); ?>
@@ -30,14 +27,9 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('week')); ?>:</b>
-	<?php // echo CHtml::encode($data->week); ?>
+	<?php echo CHtml::encode($data->DaysOfWeek()); ?>
 	<br />
-
 	<?php /*
-	<b><?php echo CHtml::encode($data->getAttributeLabel('weekdays')); ?>:</b>
-	<?php echo CHtml::encode($data->weekdays); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('holydays')); ?>:</b>
 	<?php echo CHtml::encode($data->holydays); ?>
 	<br />
@@ -45,3 +37,4 @@
 	*/ ?>
 
 </div>
+</a>

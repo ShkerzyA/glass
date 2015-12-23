@@ -11,7 +11,7 @@ $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
 	array('label'=>'Создать', 'url'=>array('create')),
 	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Вы уверены?')),
+	array('label'=>'Удалить', 'url'=>'#', 'visible'=>Yii::app()->user->role=='administrator','linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Вы уверены?')),
 	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
 ?>
@@ -21,6 +21,11 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'holydays',
+		array('name'=>'creator','value'=>$model->creator0->fio_full()),
+		'date_begin',
+		'date_end',
+		'timestamp',
+		'timestamp_end',
+		array('name'=>'week','value'=>$model->DaysOfWeek()),
 	),
 )); ?>

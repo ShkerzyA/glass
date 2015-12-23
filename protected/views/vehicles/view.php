@@ -11,7 +11,7 @@ $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
 	array('label'=>'Создать', 'url'=>array('create')),
 	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Вы уверены?')),
+	array('label'=>'Удалить', 'url'=>'#','visible'=>Yii::app()->user->role=='administrator', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Вы уверены?')),
 	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
 ?>

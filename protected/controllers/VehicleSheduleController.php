@@ -32,12 +32,12 @@ class VehicleSheduleController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','admin'),
 				'expression'=>'Yii::app()->user->checkAccess("inGroup",array("group"=>array("security_admin")))',
 				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('delete'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users

@@ -11,10 +11,6 @@
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'owner'); ?>
@@ -33,12 +29,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'deactive'); ?>
-		<?php echo $form->textField($model,'deactive'); ?>
+		<?php echo $form->checkBox($model,'deactive'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'status'); ?>
-		<?php echo $form->textField($model,'status'); ?>
+		<?php echo $form->dropDownList($model,"status",Vehicles::$status,array('empty' => '')); ?>
 	</div>
 
 	<div class="row buttons">

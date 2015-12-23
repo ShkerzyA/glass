@@ -44,15 +44,14 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		'id',
 		array( 'name'=>'owner0owner', 'value'=>'$data->owner0->fio_full()' ),
 		array('name'=>'mark0mark',
             'value'=>'$data->markName()'),
 		'number',
-		'deactive',
-		'status',
+		array('name'=>'deactive','value'=>'$data->isDeactive()','filter'=>array('1'=>'Запрет')),
+		array('name'=>'status','value'=>'$data->getStatus()','filter'=>Vehicles::$status),
 		array(
-			'class'=>'CButtonColumn',
+			'class'=>'MyButtonColumn',
 		),
 	),
 )); ?>

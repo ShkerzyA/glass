@@ -6,9 +6,9 @@ $num=1;
 $res='';
 if(!empty($data->workplaces)){
 	foreach ($data->workplaces as $v) {
-		if(!empty($v->idPersonnel)){
+		if(!empty($v->phone)){
 			$num++;
-			$res.='<tr><td>'.$v->phone.'</td><td><b>'.$v->idPersonnel->fio_full().'</b></td></tr>';
+			$res.='<tr><td>'.$v->phone.'</td><td><b>'.$v->wpName().'</b></td></tr>';
 		}
 	}
 }

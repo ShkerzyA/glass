@@ -208,12 +208,13 @@ class Vehicles extends CActiveRecord
 		return array(
 			'id' => 'ID',
 			'owner' => 'Владелец',
-			'mark' => 'Марка',
+			'mark' => 'Модель',
 			'number' => 'Номер',
 			'deactive' => 'Запрет',
 			'status' => 'Статус',
 			'shedule' => 'Расписание въезда',
 			'owner0owner' => 'Владелец',
+			'mark0mark' => 'Модель',
 		);
 	}
 
@@ -228,16 +229,16 @@ class Vehicles extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('owner0' => array('alias' => 'personnel'),);
+		$criteria->with=array('mark0','owner0' => array('alias' => 'personnel'),);
 		$criteria->compare('id',$this->id);
-		$criteria->compare('owner',$this->owner);
-		$criteria->compare('mark',$this->mark,true);
+		$criteria->compare('mark0.name',$this->mark,true);
 		$criteria->compare('number',$this->number,true);
 		$criteria->compare('deactive',$this->deactive);
 		$criteria->compare('status',$this->status);
 		$criteria->compare('shedule',$this->shedule,true);
-		$criteria->compare('personnel.owner',$this->owner0owner,true);
-		$criteria->compare('carsmark.mark',$this->mark0mark,true);
+		$criteria->compare('personnel.surname',$this->owner,true);
+		$criteria->compare('personnel.surname',$this->owner0owner,true);
+		$criteria->compare('mark0.name',$this->mark0mark,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
