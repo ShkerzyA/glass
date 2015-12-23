@@ -31,6 +31,7 @@ class Vehicles extends CActiveRecord
 	public $act;
 	
 	public $owner0owner;
+	public $mark0mark;
 
 
 	public static function model($className=__CLASS__)
@@ -80,9 +81,8 @@ class Vehicles extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('owner, deactive, status', 'numerical', 'integerOnly'=>true),
+			array('owner, deactive, status, mark', 'numerical', 'integerOnly'=>true),
 			array('owner,mark,number','required'),
-			array('mark', 'length', 'max'=>200),
 			array('number', 'length', 'max'=>10),
 			array('number','unique'),
 			array('number', 'avtoNumber'),
@@ -92,6 +92,11 @@ class Vehicles extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('id, owner, mark, number, deactive,shedule, status,owner0owner', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function markName(){
+		if(!empty($this->mark) and !empty($this->mark0))
+			return $this->mark0->markName();
 	}
 
 	public function avtoNumber(){
@@ -163,11 +168,12 @@ class Vehicles extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'owner0' => array(self::BELONGS_TO, 'Personnel', 'owner'),
+			'mark0' => array(self::BELONGS_TO, 'CarsMark', 'mark'),
 		);
 	}
 
 	public function nameL(){
-        return $this->mark.' '.$this->number;
+        return $this->markName().' '.$this->number;
     }
 
     protected function beforeSave(){
@@ -231,6 +237,7 @@ class Vehicles extends CActiveRecord
 		$criteria->compare('status',$this->status);
 		$criteria->compare('shedule',$this->shedule,true);
 		$criteria->compare('personnel.owner',$this->owner0owner,true);
+		$criteria->compare('carsmark.mark',$this->mark0mark,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

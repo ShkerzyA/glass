@@ -46,7 +46,8 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		array( 'name'=>'owner0owner', 'value'=>'$data->owner0->fio_full()' ),
-		'mark',
+		array('name'=>'mark0mark',
+            'value'=>'$data->markName()'),
 		'number',
 		'deactive',
 		'status',

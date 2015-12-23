@@ -14,7 +14,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mark')); ?>:</b>
-	<?php echo CHtml::encode($data->mark); ?>
+	<?php echo CHtml::encode($data->markName()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('number')); ?>:</b>

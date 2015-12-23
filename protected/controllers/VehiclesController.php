@@ -120,7 +120,7 @@ class VehiclesController extends Controller
 		$finded_model=NULL;
 		if(!empty($_POST['Vehicles'])){
 			$model->attributes=$_POST['Vehicles'];
-			$finded_model=Vehicles::model()->find(array('condition'=>"t.number='".$model->number."'"));
+			$finded_model=Vehicles::model()->with('mark0')->find(array('condition'=>"t.number='".$model->number."'"));
 			if(empty($finded_model)){
 					$finded_model=$model;
 					//$log=new Log;

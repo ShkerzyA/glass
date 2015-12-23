@@ -38,6 +38,10 @@ class CarsMark extends CActiveRecord
 		return 'cars_mark';
 	}
 
+	public function markName(){
+		return $this->producer0->name.' '.$this->name;
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

@@ -17,7 +17,9 @@ function init(){
 
 	$('.add_mark').live('click',function(){ 
 		text=$(this).text();
+		id=this.id;
 		t_id=$('#target_id').val();
+		$('#hiddenMark').val(id);
 		$('#'+t_id).val(text);
 		$('.back').remove();
 		

@@ -27,7 +27,8 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<div class="row">
 		<?php echo $form->labelEx($model,'mark'); ?>
 
-		<?php echo $form->textField($model,'mark',array('size'=>60,'maxlength'=>200,'class'=>'vehiclemarksearch','autocomplete'=>"off")); ?>
+		<?php echo $form->textField($model,'mark',array('size'=>60,'value'=>$model->markName(),'maxlength'=>200,'class'=>'vehiclemarksearch','autocomplete'=>"off")); ?>
+		<?php echo $form->hiddenField($model,'mark',array('id'=>'hiddenMark')); ?>
 
 		<?php echo $form->error($model,'mark'); ?>
 	</div>
