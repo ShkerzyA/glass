@@ -172,12 +172,17 @@ class Cabinet extends CActiveRecord
 	}
 
 	public static function split_phones($phone){
-		$res=array('int'=>array(),'out'=>array());
+		$res=array('old'=>array(),'int'=>array(),'out'=>array());
 		$ph=explode(',', $phone);
+		foreach ($ph as &$f) {
+			$f=trim($f);
+		}
 		$ph=array_filter($ph);
 		foreach ($ph as $v) {
 			$x=trim($v);
-			if(mb_strlen($x)<5){
+			if(mb_strlen($x)<4){
+				$res['old'][]=$v;
+			}else if(mb_strlen($x)<5){
 				$res['int'][]=$v;
 			}else{
 				$res['out'][]=$v;
@@ -218,6 +223,7 @@ class Cabinet extends CActiveRecord
 						$post=$wp->idPersonnel->posts();
 						$res['post']=(!empty($post))?$post[0]:'';
 						$res['cabinet']=$name_cab;
+						$res['phone_old']=implode(',',array_unique(array_merge($ph_wp['old'],$ph_cab['old'])));
 						$res['phone_int']=implode(',',array_unique(array_merge($ph_wp['int'],$ph_cab['int'])));
 						$res['phone_out']=implode(',',array_unique(array_merge($ph_wp['out'],$ph_cab['out'])));
 						$result[]=$res;
@@ -227,6 +233,7 @@ class Cabinet extends CActiveRecord
 						$res['fio']=$wp->wpName();
 						$res['post']='';
 						$res['cabinet']=$name_cab;
+						$res['phone_old']=implode(',',array_unique(array_merge($ph_wp['old'],$ph_cab['old'])));
 						$res['phone_int']=implode(',',array_unique(array_merge($ph_wp['int'],$ph_cab['int'])));
 						$res['phone_out']=implode(',',array_unique(array_merge($ph_wp['out'],$ph_cab['out'])));
 						$result[]=$res;
@@ -240,6 +247,7 @@ class Cabinet extends CActiveRecord
 				$cb['fio']='';
 				$cb['post']='';
 				$cb['cabinet']=$name_cab;
+				$cb['phone_old']=implode(',',$ph_cab['old']);
 				$cb['phone_int']=implode(',',$ph_cab['int']);
 				$cb['phone_out']=implode(',',$ph_cab['out']);
 				$result[]=$cb;
