@@ -1,5 +1,5 @@
 	<?php $status=$v->status0; ?>
-	<div class="taskpanel <?php echo $status['css_class']; ?>">
+	<div class="taskpanel <?php echo $status['css_class']; ?> <?php echo $v->isGroovy(); ?>">
 			
 			<div  class="rightinfo">
 				<?php 	

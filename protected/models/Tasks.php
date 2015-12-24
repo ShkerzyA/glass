@@ -104,6 +104,25 @@ class Tasks extends CActiveRecord
 	}
 
 
+	public function isGroovy(){
+		$now=new DateTime();
+		if(!empty($this->TasksActions)){
+			$timestamp=new DateTime($this->TasksActions[0]->timestamp);
+			$interval=$now->diff($timestamp);
+			$min=$interval->format('%a%h%i');
+			if($min<10){
+				return 'groovy';
+			}
+			else{
+				return ' ';
+			}
+		}else{
+			return ' ';
+		}
+
+	}
+
+
 	public function getStatus(){
 		return TasksStatus::statusList();
 	}

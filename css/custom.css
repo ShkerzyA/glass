@@ -888,16 +888,22 @@ select{
 
 .taskpanel, .perspanel, .mess_unit, .projectpanel{
 	color: #06c;
-	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
+	border-bottom: 1px solid grey;
 	border-radius: 2px;
-	padding: 2px;
+	padding: 3px;
 	padding-left: 5px;
 	background: #fcfcfc;
-	margin: 5px;
-	margin-top: 10px;
-	height: 26px; 
+	margin: 2px;
+	margin-top: 5px;
+	height: 28px; 
 	width: auto;
 	position: relative;
+}
+
+.groovy{
+	border: 0px;
+	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
+	font-weight: bold;
 }
 
 .projectpanel{
