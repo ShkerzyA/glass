@@ -52,7 +52,7 @@ echo $form->dropDownList($model,"id_floor",CHtml::listData($tmp,"id",function($t
 	<div class="row">
 		<?php echo $form->labelEx($model,'phone'); ?>
 
-		<?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>100,'placeholder'=>'Общий телефонный номер кабинета')); ?>
 
 		<?php echo $form->error($model,'phone'); ?>
 	</div>

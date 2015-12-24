@@ -64,7 +64,7 @@ echo $form->dropDownList($model,"wp_subdiv_rn",CHtml::listData($tmp,"subdiv_rn",
 	<div class="row">
 		<?php echo $form->labelEx($model,'phone'); ?>
 
-		<?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'phone',array('size'=>60,'maxlength'=>100,'placeholder'=>'Личный телефонный номер рабочего места')); ?>
 
 		<?php echo $form->error($model,'phone'); ?>
 	</div>
