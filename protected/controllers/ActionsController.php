@@ -77,6 +77,7 @@ class ActionsController extends Controller
 	public function actionSaveMessage(){
 
 		if(Yii::app()->request->isAjaxRequest){
+			Yii::app()->Tornado->updateTaskMessage($this->act->id_task);
 			$this->act->ttext=$_POST['mess'];
 			$this->act->type=1;
 			$this->act->save();

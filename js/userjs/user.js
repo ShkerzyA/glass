@@ -117,8 +117,12 @@ function load_modalForm(){
 	},'html');
 }
 
+function updateTaskMessage(task){
+  notifyUser('Задачи','Новый комментарий к задаче',window.location.host+'glass/tasks/'+task);
+}
 
-function notifyUser(mtitle,mbody) {
+
+function notifyUser(mtitle,mbody,url) {
           if (!('Notification' in window)) {
             return false;
           }
@@ -133,6 +137,11 @@ function notifyUser(mtitle,mbody) {
   
           Notification.requestPermission(function() {
             var notification = new Notification(title, options);
+            notification.onclick = function() {
+              if(url){
+                window.open(url, '_blank');
+              }
+            }
           });
     }
   

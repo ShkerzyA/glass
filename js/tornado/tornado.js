@@ -30,8 +30,10 @@ function init(){
                 var res=$.parseJSON(e.data);
                 console.log(e.data);
                 if(res.type='action'){
-                     if(res.id=='updateChat')
+                    if(res.id=='updateChat')
                         updateChat();
+                    if(res.id=='updateTaskMessage')
+                        updateTaskMessage(res.task);
                     if(res.id=='updateMon')
                         updateMon();
                     if(res.id=='onWrite')
