@@ -67,8 +67,7 @@ $this->menu['all_menu']=array(
 <?php endforeach; ?>
 
 <?php // $this->renderPartial('addtask',array('model'=>$model)) ?>
-
-<br><br><br>
+<br><br>
 <div id='taskbody'>
 <?php $this->renderPartial('_helpdesk',array(
 			'model'=>$model,

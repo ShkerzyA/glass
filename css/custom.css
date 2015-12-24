@@ -1083,9 +1083,6 @@ pre {
 #taskbody{
 	border-radius: 2px; 
 	min-height: 46px; 
-
-	padding: 10px;
-	padding-bottom: 20px;
 	margin-bottom: 10px;
 }	
 
@@ -1321,7 +1318,7 @@ td .week_event{
 	/* box-shadow:  0px 0px 0px 1px white, 0px 0px 0px 2px black ; */
 	
 	border-radius: 2px 2px 0px 0px;
-	box-shadow: -2px 0px 1px 1px rgba(0, 0, 0, .7);
+	box-shadow: -2px 0px 1px 0px rgba(0, 0, 0, .7);
 	min-width: 85px;
 	position: relative;
 	float: left;

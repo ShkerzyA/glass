@@ -36,7 +36,7 @@ echo $form->dropDownList($model,"id_floor",CHtml::listData($tmp,"id",function($t
 	<div class="row">
 		<?php echo $form->labelEx($model,'cname'); ?>
 
-		<?php echo $form->textField($model,'cname',array('size'=>50,'maxlength'=>50)); ?>
+		<?php echo $form->textField($model,'cname',array('size'=>50,'maxlength'=>200)); ?>
 
 		<?php echo $form->error($model,'cname'); ?>
 	</div>
