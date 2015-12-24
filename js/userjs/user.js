@@ -118,7 +118,7 @@ function load_modalForm(){
 }
 
 function updateTaskMessage(task){
-  notifyUser('Задачи','Новый комментарий к задаче','http://'+window.location.host+'glass/tasks/'+task);
+  notifyUser('Задачи','Новый комментарий к задаче','http://'+window.location.host+'/glass/tasks/'+task);
 }
 
 
