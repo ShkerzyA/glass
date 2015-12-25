@@ -36,6 +36,7 @@ class Personnel extends CActiveRecord
     public $departments_name;
     public $allfields;
     public $id_building;
+    public $md;
     public $actions=array();
 
 	 public function defaultScope()
@@ -171,6 +172,7 @@ class Personnel extends CActiveRecord
             array('birthday, date_begin, date_end', 'safe'),
             array('orbase_rn', 'length', 'max'=>8),
             array('orbase_rn', 'unique',),
+            array('md','safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, surname, name, patr, photo, id_user, birthday, date_begin, orbase_rn, sex, date_end,idUserid_user,workplacesid_personnel,personnelPostsHistoriesid_personnel,departments_name,allfields, id_building', 'safe', 'on'=>'search,search_pers,search_pers_phones'),

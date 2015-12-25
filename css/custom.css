@@ -1362,6 +1362,8 @@ div.search-form{
 }
 
 
+
+
 #serb{
 	position: relative;
 
@@ -1519,6 +1521,14 @@ ul.yiiPager .first, ul.yiiPager .last {
 	border-right: 0px !important;
 	border-top: 3px solid grey !important;
 }
+
+.shortview td,.shortview th{
+	font-size: 14pt !important;
+	border-bottom: 1px solid grey !important;
+}
+
+
+
 /*
 
 

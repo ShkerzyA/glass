@@ -82,8 +82,9 @@ class Vehicles extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('owner, deactive, status, mark', 'numerical', 'integerOnly'=>true),
-			array('owner,mark,number','required'),
+			array('mark,number','required'),
 			array('number', 'length', 'max'=>10),
+			array('notes', 'length', 'max'=>200),
 			array('number','unique'),
 			array('number', 'avtoNumber'),
 			array('shedule', 'safe'),
@@ -177,6 +178,8 @@ class Vehicles extends CActiveRecord
     }
 
     protected function beforeSave(){
+    	if(empty($this->owner))
+    		$this->owner=NULL;
         //$this->prepareSave();
         return parent::beforeSave();
     }
@@ -200,6 +203,13 @@ class Vehicles extends CActiveRecord
         return $string;
     }
 
+    public function ownerName(){
+    	if(!empty($this->owner0))
+    		return $this->owner0->fio_full();
+    	else
+    		return '';
+    }
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -215,6 +225,7 @@ class Vehicles extends CActiveRecord
 			'shedule' => 'Расписание въезда',
 			'owner0owner' => 'Владелец',
 			'mark0mark' => 'Модель',
+			'notes' => 'Примечания',
 		);
 	}
 

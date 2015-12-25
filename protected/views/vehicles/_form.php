@@ -24,6 +24,27 @@ Yii::app()->clientScript->registerPackage('customfields');
 
 		<?php echo $form->error($model,'owner'); ?>
 	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'notes'); ?>
+
+		<?php //echo $form->textField($model,'number',array('size'=>10,'maxlength'=>10)); ?>
+
+		<?php /*
+			$this->widget('CMaskedTextField', array(
+			'model' => $model,// модель
+			'attribute' => 'number', // атрибут модели
+			'mask' => '*999**99?9', // маска ввода
+			'placeholder'=>'*',
+			'htmlOptions' => array('size' => 10)
+		)); */
+		?>
+		<?php echo $form->textField($model,'notes',array('size'=>10,'maxlength'=>200)); ?>
+
+		<?php echo $form->error($model,'notes'); ?>
+	</div>
+
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'mark'); ?>
 

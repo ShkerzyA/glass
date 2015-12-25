@@ -6,13 +6,14 @@ else
 
 ?>
 <?php $this->widget('zii.widgets.CDetailView', array(
-	'itemCssClass'=>array(),
+	'itemCssClass'=>array('shortview'),
 	'data'=>$model,
 	'attributes'=>array(
 		array(
             'name'=>'owner',
-            'value'=>$model->owner0->fio_full(),
+            'value'=>$model->ownerName(),
         ),
+        'notes',
 		array('name'=>'mark',
             'value'=>$model->markName()),
 		'number',

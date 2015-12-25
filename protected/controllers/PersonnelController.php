@@ -9,7 +9,6 @@ class PersonnelController extends Controller
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
 	public $layout='//layouts/column2';
-
 	/**
 	 * @return array action filters
 	 */
@@ -30,7 +29,7 @@ class PersonnelController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','tiles','view','rootFillTree','AjaxFillTree','depposts','surnameSearch','phones','suggest'),
+				'actions'=>array('index','tiles','view','rootFillTree','AjaxFillTree','depposts','surnameSearch','phones','suggest','birthdays'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -55,6 +54,11 @@ class PersonnelController extends Controller
 		$id = Yii::app()->request->getPost('id');
        	$model=new PersonnelPostsHistory;
         $this->renderPartial('_form_post_hist', array('model'=>$model,'id'=>$id), false, true);
+	}
+
+	public function actionBirthdays(){
+		$models=Personnel::model()->findAll(array('select'=>'t.surname, t.name, t.patr, t.birthday','condition'=>"(DATE_PART('doy',birthday::date)-DATE_PART('doy',current_date))<7 and (DATE_PART('doy',birthday::date)-DATE_PART('doy',current_date))>0",'order'=>"DATE_PART('month',birthday::date)::char||DATE_PART('day',birthday::date) ASC"));
+		$this->render('birthdays', array('models'=>$models));
 	}
 
 	public function actionajaxPostAdm(){
@@ -224,7 +228,7 @@ class PersonnelController extends Controller
 	public function actionIndex()
 	{
 
-		$this->layout='//layouts/column1';
+		//$this->layout='//layouts/column1';
 		$model=new Personnel('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Personnel']))

@@ -7,7 +7,7 @@
 <div class="view">
 	
 	<b><?php echo CHtml::encode($data->getAttributeLabel('owner')); ?>:</b>
-	<?php echo CHtml::encode($data->owner0->fio_full()); ?>
+	<?php echo CHtml::encode($data->ownerName()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('mark')); ?>:</b>

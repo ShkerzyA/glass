@@ -5,12 +5,12 @@
 $this->breadcrumbs=array(
 	'Кадры',
 );
-if (Yii::app()->user->name=='admin'){
 $this->menu=array(
 	array('label'=>'Добавить', 'url'=>array('create')),
-	array('label'=>'Управление кадрами', 'url'=>array('admin')),
+	array('label'=>'Управление кадрами', 'url'=>array('admin'),'visible'=>Yii::app()->user->role=='administrator'),
+	array('label'=>'Тиль', 'url'=>array('tiles'),'visible'=>Yii::app()->user->checkAccess('moderator')),
+	array('label'=>'Дни рождения', 'url'=>array('birthdays')),
 );
-}
 
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){

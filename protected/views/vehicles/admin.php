@@ -44,7 +44,7 @@ $('.search-form form').submit(function(){
 	'dataProvider'=>$model->search(),
 	'filter'=>$model,
 	'columns'=>array(
-		array( 'name'=>'owner0owner', 'value'=>'$data->owner0->fio_full()' ),
+		array( 'name'=>'owner0owner', 'value'=>'$data->ownerName()' ),
 		array('name'=>'mark0mark',
             'value'=>'$data->markName()'),
 		'number',

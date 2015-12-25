@@ -23,7 +23,7 @@ $this->menu=array(
 	'attributes'=>array(
 		array(
             'name'=>'owner',
-            'value'=>$model->owner0->fio_full(),
+            'value'=>$model->ownerName(),
         ),
 		array('name'=>'mark',
             'value'=>$model->markName()),
