@@ -5,7 +5,7 @@
 
 
 <div class="perspanel">
-	<a href="<?php echo $this->createUrl('/personnel/'.$model->id) ?>">
+	<!-- <a href="<?php echo $this->createUrl('/personnel/'.$model->id) ?>"> -->
 	<?php 
 		$act=!empty($model->personnelPostsHistories[0]);
 
@@ -19,11 +19,7 @@
 	?>
 		<?php echo CHtml::encode($model->fio_full()); ?> 
 		</div>
-		<?php 
-			if($act){
-				echo '<div style="width: 420px; display: inline-block; float: left">'.$model->birthday.'</div>';
-			}
-		?>
-	</a>
+		<?php //if($act){echo '<div style="width: 420px; display: inline-block; float: left">'.$model->birthday.'</div>';}	?>
+ <!--	</a> -->
 </div>
 
