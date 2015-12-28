@@ -95,6 +95,7 @@
 							//array('ПП','/personnel/phones'),
 							array('Операции','/Eventsoper/plan2',((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) )),
 							array('IT help','/Catalogs/26',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
+							array('Дни рождения', '/personnel/birthdays'),
 							array('Кадры', '/personnel/index',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
 							array('Оборудование', '/equipment/index',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
 							array('Отделы', '/department/tree',!Yii::app()->user->isGuest),

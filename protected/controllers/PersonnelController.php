@@ -29,11 +29,11 @@ class PersonnelController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','tiles','view','rootFillTree','AjaxFillTree','depposts','surnameSearch','phones','suggest'),
+				'actions'=>array('index','tiles','view','rootFillTree','AjaxFillTree','depposts','surnameSearch','birthdays','phones','suggest'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('birthdays','index','tiles','view'),
+				'actions'=>array('index','tiles','view'),
 				'expression'=>'Yii::app()->user->checkAccess("inGroup",array("group"=>array("it")))',
 				'roles'=>array('user'),
 			),

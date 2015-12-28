@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 	'Кадры',
 );
 $this->menu=array(
-	array('label'=>'Добавить', 'url'=>array('create')),
+	array('label'=>'Добавить', 'url'=>array('create'),'visible'=>Yii::app()->user->role=='administrator'),
 	array('label'=>'Управление кадрами', 'url'=>array('admin'),'visible'=>Yii::app()->user->role=='administrator'),
 	array('label'=>'Тиль', 'url'=>array('tiles'),'visible'=>Yii::app()->user->checkAccess('moderator')),
 	array('label'=>'Дни рождения', 'url'=>array('birthdays'),'visible'=>Yii::app()->user->checkAccess('moderator')),
