@@ -160,7 +160,7 @@ return array(
             		'except'=>'system.db.ar.*',
             		'showInFireBug' => true
                 ),
-            ),
+            ), 
         ), */
 	),
 

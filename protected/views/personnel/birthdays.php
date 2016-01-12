@@ -23,7 +23,7 @@ $months=array('','Январь','Февраль','Март','Апрель','Ма
 $date='';
 foreach ($models as $v) {
 	$dO=new DateTime($v->birthday.' 00:00:00');
-	$md=$months[$dO->format('m')].' '.$dO->format('d');
+	$md=$months[(int)$dO->format('m')].' '.$dO->format('d');
 	if($md!=$date){
 		$date=$md;
 		echo '<h2>'.$date.'</h2>';
