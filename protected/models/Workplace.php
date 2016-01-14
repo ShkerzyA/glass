@@ -222,12 +222,12 @@ class Workplace extends CActiveRecord
 	public function suggestTag($keyword){
 		$keyword=mb_strtolower($keyword,'UTF-8');
  		$tags=$this->with('idPersonnel','idCabinet.idFloor.idBuilding')->findAll(array(
-   			'condition'=>'(LOWER("idPersonnel".surname) LIKE :keyword OR LOWER("idBuilding".bname) LIKE :keyword OR LOWER("idCabinet".num) LIKE :keyword OR LOWER("idCabinet".cname) LIKE :keyword)',
+   			'condition'=>'(LOWER("idPersonnel".surname) LIKE :keyword OR LOWER("idBuilding".bname) LIKE :keyword OR LOWER("idCabinet".num) LIKE :keyword OR LOWER("idCabinet".cname) LIKE :keyword) AND (t.deactive is null or t.deactive<>1)',
    			'params'=>array(
      		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
 
    		)
-   		,'order'=>'"idBuilding".bname asc, "idFloor".fnum asc, "idCabinet".num asc'
+   		,'order'=>'"idBuilding".bname asc, "idFloor".fnum asc, "idCabinet".num||"idCabinet".cname asc, t.wname asc'
  		));
  		return $tags;
 	}
