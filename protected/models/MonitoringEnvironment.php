@@ -80,7 +80,7 @@ class MonitoringEnvironment extends CActiveRecord
 			'mos_gate' => 'Шлюз Московской',
 			'mos_intro' => 'Внутренняя сеть московской',
 			'fog_space' => 'Свободное место на fog',
-			'hosts_up' => 'Компьютеры в сети',
+			'hosts_up' => 'Под присмотром',
 		);
 	}
 
@@ -98,6 +98,7 @@ class MonitoringEnvironment extends CActiveRecord
 					break;
 
 				case 'hosts_up':
+					$ud=array('down','up');
 					$val=1;
 					$hosts=explode('|',$value);
 					$lb=array();
@@ -106,7 +107,7 @@ class MonitoringEnvironment extends CActiveRecord
 						if(!empty($v)){
 							if($v[1]==0)
 								$val=0;
-							$lb[]=$v[0].'-'.$v[1];
+							$lb[]=$v[0].'-'.$ud[$v[1]];
 						}
 					}
 					$result[]=array('label'=>$this->attributeLabels()[$key].': '.implode(',',$lb),'value'=>$val);
