@@ -417,7 +417,7 @@ class Equipment extends CActiveRecord
      		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
 
    		)
-   		,'order'=>'"idBuilding".bname asc, "idFloor".fnum asc, "idCabinet".num asc'
+   		,'order'=>'"idBuilding".bname asc, "idFloor".fnum asc, "idCabinet".num||"idCabinet".cname asc, "idWorkplace".wname asc'
  		));
  		return $tags;
 	}

@@ -47,10 +47,11 @@ class MonitoringEnvironment extends CActiveRecord
 		return array(
 			array('qms1, qms2, intet, dns, mos_gate, mos_intro', 'numerical', 'integerOnly'=>true),
 			array('fog_space', 'length', 'max'=>200),
+			array('hosts_up', 'length', 'max'=>255),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('qms1, intet, dns, mos_gate, mos_intro, fog_space', 'safe', 'on'=>'search'),
+			array('qms1, intet, dns, mos_gate, mos_intro, fog_space, hosts_up', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -79,6 +80,7 @@ class MonitoringEnvironment extends CActiveRecord
 			'mos_gate' => 'Шлюз Московской',
 			'mos_intro' => 'Внутренняя сеть московской',
 			'fog_space' => 'Свободное место на fog',
+			'hosts_up' => 'Компьютеры в сети',
 		);
 	}
 
@@ -94,6 +96,22 @@ class MonitoringEnvironment extends CActiveRecord
 					$val=($value>100)?1:0;
 					$result[]=array('label'=>'Свободно на ОБМЕННИКЕ '.$value.'мб','value'=>$val);
 					break;
+
+				case 'hosts_up':
+					$val=1;
+					$hosts=explode('|',$value);
+					$lb=array();
+					foreach ($hosts as $v) {
+						$v=explode(',',$v);
+						if(!empty($v)){
+							if($v[1]==0)
+								$val=0;
+							$lb[]=$v[0].'-'.$v[1];
+						}
+					}
+					$result[]=array('label'=>$this->attributeLabels()[$key].': '.implode(',',$lb),'value'=>$val);
+					break;
+
 				default:
 					$result[]=array('label'=>$this->attributeLabels()[$key],'value'=>$value);
 					break;
@@ -121,6 +139,7 @@ class MonitoringEnvironment extends CActiveRecord
 		$criteria->compare('dns',$this->dns);
 		$criteria->compare('mos_gate',$this->mos_gate);
 		$criteria->compare('mos_intro',$this->mos_intro);
+		$criteria->compare('hosts_up',$this->hosts_up);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

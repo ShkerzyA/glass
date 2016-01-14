@@ -24,6 +24,7 @@ class ApiController extends Controller
 	}
 
 	public function actionSaveMon(){
+		print_r($_REQUEST);
 		$model=MonitoringEnvironment::model()->findByPk(1);
 		if(!empty($_POST)){
 			$model->attributes=$_POST;
