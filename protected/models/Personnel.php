@@ -81,12 +81,26 @@ class Personnel extends CActiveRecord
                         }
     }
 
+    public function isWorking(){
+        $wk=False;
+        foreach ($this->personnelPostsHistories as $w) {
+            $wk.=(!$w->inactive())?True:False;
+        }
+        return $wk;
+    }
+
     public function fio($limiter='. '){
-        return $this->surname.($x=(!empty($limiter))?' ':'').mb_substr($this->name,0,1,'utf-8').$limiter.mb_substr($this->patr,0,1,'utf-8').$limiter;
+        $res=$this->surname.($x=(!empty($limiter))?' ':'').mb_substr($this->name,0,1,'utf-8').$limiter.mb_substr($this->patr,0,1,'utf-8').$limiter;
+        if(!$this->isWorking())
+            $res='<s>'.$res.'</s>';
+        return $res;
     }
 
     public function fio_full(){
-        return $this->surname.' '.$this->name.' '.$this->patr;
+        $res=$this->surname.' '.$this->name.' '.$this->patr;
+        if(!$this->isWorking())
+            $res='<s>'.$res.'</s>';
+        return $res;
     }
 
     public function ava(){
@@ -119,9 +133,6 @@ class Personnel extends CActiveRecord
         $str=mb_strtolower($this->surname.$this->name.$this->patr.$this->birthday,'binary').'scotland';
         //$res=$str;
         $res=substr(md5($str),0,3);
-
-
-
         return $res;
     }
 
