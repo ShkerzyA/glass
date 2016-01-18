@@ -231,8 +231,11 @@ public function actionInstall(){
 	 */
 	public function actionLogin()
 	{
-		$this->render('error',array('message'=>'Пройдите авторизацию'));
-	}
+        if(Yii::app()->request->isAjaxRequest)
+            $this->renderPartial('error',array('message'=>'Пройдите авторизацию'),false,false);
+        else
+            $this->render('error',array('message'=>'Пройдите авторизацию'),false,false);
+	}  
 
 	/**
 	 * Logs out the current user and redirect to homepage.
