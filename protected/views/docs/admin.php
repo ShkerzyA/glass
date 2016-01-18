@@ -46,7 +46,7 @@ $('.search-form form').submit(function(){
 		'id',
 		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->surname' ),
 		'doc_name',
-		'link',
+		//'link',
 		'date_begin',
 		/*
 		'date_end'
