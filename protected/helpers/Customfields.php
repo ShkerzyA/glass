@@ -82,7 +82,7 @@ Class Customfields{
 						if(!empty($v)){
 							$pers=Personnel::model()->findByPk($v);
 							$result.="<div class='choise_unit $field$v'>
-								<input type=hidden name='".$mn."[".$field."][$v]' value=$v>".(CHtml::encode($pers->fio()))."
+								<input type=hidden name='".$mn."[".$field."][$v]' value=$v>".$pers->fio()."
 								<div id=$field$v class='close_this'></div>
 							</div>";
 						}
@@ -106,7 +106,7 @@ Class Customfields{
 						if(!empty($tmp)){
 							$pers=Personnel::model()->findByPk($tmp);
 							$result.="<div class='choise_unit $field$tmp'>
-								<input type=hidden name='".$mn."[".$field."]' value=$tmp>".(CHtml::encode($pers->fio()))."
+								<input type=hidden name='".$mn."[".$field."]' value=$tmp>".$pers->fio()."
 								<div id=$field$tmp class='close_this'></div>
 							</div>";
 						}
