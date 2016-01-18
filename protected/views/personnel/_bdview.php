@@ -11,14 +11,14 @@
 
 		//print_r($model->personnelPostsHistories);
 
-		if(!$act)
+		/*if(!$act)
 			echo '<div style="text-decoration: line-through; color: gray; width: 250px; display: inline-block;">';
 		else
-			echo '<div style=" width: 250px; display: inline-block; float: left;">';
+			echo '<div style=" width: 250px; display: inline-block; float: left;">'; */
 
 	?>
-		<?php echo CHtml::encode($model->fio_full()); ?> 
-		</div>
+		<?php echo $model->fio_full(); ?> 
+		
 		<?php //if($act){echo '<div style="width: 420px; display: inline-block; float: left">'.$model->birthday.'</div>';}	?>
  <!--	</a> -->
 </div>

@@ -39,7 +39,7 @@ $this->menu=array(
 
 	$birthday=(!empty($model->birthday))?date('d.m.Y',strtotime($model->birthday)):'-//-';
 
-	echo'<div><b>'.CHtml::encode($model->fio_full()).'</b> ';
+	echo'<div><b>'.$model->fio_full().'</b> ';
 	$phone=$model->allPhones();
 	if(!empty($phone['cab'] or $phone['pers']))
 	echo '<br> Тел: (каб. '.implode(',',$phone['cab']).' личн. '.implode(',',$phone['pers']).')';
