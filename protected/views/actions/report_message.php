@@ -5,7 +5,7 @@
 <div class=w98>
 	<input type=text name=taskname id=taskname value="<?php echo $model->tname.' '.$model->detailsShow(true,false) ?>" placeholder='Имя задачи'>
 	<?php 
-		if($model->type==1) 
+		if($model->type==1 and !empty($model->details[0])) 
 			$this->renderPartial('/actions/report_cart',array('model'=>$model));
 	?>
 	<select name=taskstat id=taskstat>

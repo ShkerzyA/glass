@@ -27,7 +27,7 @@ $this->menu=array(
 <?php 
 
 if(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model))){
-	$this->renderPartial('/actions/report_message', array('model'=>$model), false, false);
+  	$this->renderPartial('/actions/report_message', array('model'=>$model), false, false);
 }
 if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))){
 	$this->renderPartial('/actions/message', array(), false, false);

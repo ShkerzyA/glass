@@ -92,14 +92,14 @@ class Personnel extends CActiveRecord
     public function fio($limiter='. '){
         $res=$this->surname.($x=(!empty($limiter))?' ':'').mb_substr($this->name,0,1,'utf-8').$limiter.mb_substr($this->patr,0,1,'utf-8').$limiter;
         if(!$this->isWorking())
-            $res='<s style="color: gray">'.$res.'</s>';
+            $res='<s style=\'color: gray\'>'.$res.'</s>';
         return $res;
     }
 
     public function fio_full(){
         $res=$this->surname.' '.$this->name.' '.$this->patr;
         if(!$this->isWorking())
-            $res='<s style="color: gray">'.$res.'</s>';
+            $res='<s style=\'color: gray\'>'.$res.'</s>';
         return $res;
     }
 
