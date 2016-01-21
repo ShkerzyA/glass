@@ -28,7 +28,7 @@ class LogController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','showLog'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -43,6 +43,18 @@ class LogController extends Controller
 				'users'=>array('*'),
 			),
 		);
+	}
+
+	public function actionShowLog($id,$mname)
+	{
+		$eq=$mname::model()->findByPk($id);
+		echo $eq->nameL().'<br>';
+		$logs=Log::model()->findAll(array('condition'=>'t.object_id='.$id.' and t.object_model=\''.$mname.'\'' ,'order'=>'t.timestamp DESC, t.type ASC'));
+		echo '<table class=bordertable><tr><th>Дата/Время</th><th>Тип действия</th><th>Субьект</th><th>Объект</th><th>Детали</th></tr>';
+		foreach ($logs as $v) {
+			echo '<tr><td>'.$v->timestamp.'</td><td>'.$v->getType()['name'].'</td><td>'.$v->subject0->fio().'</td><td>'.$v->object->nameL().'</td><td>'.$v->details_full().'</td></tr>';
+		}
+		echo '</table>';
 	}
 
 	/**

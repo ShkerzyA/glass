@@ -43,8 +43,12 @@ function init(){
 	});
 
 	$('.showlog').live('click',function(){
-		showLog(this.id);
+		showLogEq(this.id);
 	});
+
+  $('.showlogUni').live('click',function(){
+    showLog(this.id,$(this).attr('mod'));
+  });
 
 }
 
@@ -94,9 +98,24 @@ $(document).ready(init());
 
 
 
-function showLog(id){
+function showLogEq(id){
     if (id) {
-        $.post("/glass/EquipmentLog/showLog", {id: id},
+        $.get("/glass/EquipmentLog/showLog", {id: id},
+            function(data, status) {
+                if (status == "success") {
+                    $('html').append(awesomeWindowWrap(data));
+                }else{
+                    alert('Ошибка');
+                }
+            },"html"
+        );
+    }
+
+}
+
+function showLog(id,mname){
+    if (id) {
+        $.get("/glass/Log/showLog", {id: id, mname: mname},
             function(data, status) {
                 if (status == "success") {
                     $('html').append(awesomeWindowWrap(data));

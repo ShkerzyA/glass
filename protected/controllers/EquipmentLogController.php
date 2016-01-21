@@ -74,10 +74,10 @@ class EquipmentLogController extends Controller
 		));
 	}
 
-	public function actionShowLog()
+	public function actionShowLog($id)
 	{
-		if(!empty($_POST['id']))
-			$id=$_POST['id'];
+		//if(!empty($_POST['id']))
+		//	$id=$_POST['id'];
 		$eq=Equipment::model()->findByPk($id);
 		echo $eq->full_name().'<br>';
 		$logs=EquipmentLog::model()->findAll(array('condition'=>'t.object='.$id.' or (type=1 and \''.$id.'\'=details[2]) or (type in (3,4) and \''.$eq->inv.'\'=ANY("details"))','order'=>'t.timestamp DESC, t.type ASC'));

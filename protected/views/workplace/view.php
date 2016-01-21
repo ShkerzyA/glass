@@ -25,6 +25,7 @@ if(Yii::app()->user->checkAccess('administrator')){
 
 if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))){
       $this->menu[]=array('label'=>'Местные Задачи', 'url'=>'#','linkOptions'=>array('class'=>'done','onclick'=>'sameTasks('.$model->id.',"wp")'));
+      $this->menu[]=array('label'=>'Лог', 'url'=>'#','visible'=>(Yii::app()->user->checkAccess('inGroup',array('it'))),'linkOptions'=>array('class'=>'showlogUni','id'=>$model->id,'mod'=>get_class($model)),);
 }
 
 
