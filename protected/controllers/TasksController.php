@@ -350,6 +350,19 @@ class TasksController extends Controller
 	public function actionSameTasks($id,$type){
 		if(Yii::app()->request->isAjaxRequest){
 			switch ($type) {
+				case 'cab':
+					$cab=Cabinet::model()->findByPk($id);
+					$condition=array();
+					foreach ($cab->workplaces as $wp) {
+						$con="(('".$wp->id."'"."=t.details[1] and t.type=0)";
+						foreach ($wp->equipments as $equip){
+							$con.=" OR ('".$equip->id."'"."=t.details[1] and t.type=1)";	
+						}
+						$con.=')';
+						$condition[]=$con;	
+					}
+					$condition=implode(' OR ',$condition);
+					break;
 				case 'wp':
 					$wp=Workplace::model()->findByPk($id);
 					$condition="('".$id."'"."=t.details[1] and t.type=0)";
