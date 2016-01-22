@@ -65,7 +65,7 @@ function updateMon(){
             var res=$.parseJSON(response);
             $("#serb").empty();
             $.each(res, function(i, x) {
-                $("#serb").append('<img title="'+x.label+'" src="/glass/images/led'+x.value+'.png">');
+                $("#serb").append('<img title="'+x.label+'" src="/glass/images/led'+x.value+'.gif">');
             });
 
             
