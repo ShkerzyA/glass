@@ -320,8 +320,9 @@ class Equipment extends CActiveRecord
     }
 
 	public function inv(){
-		if($this->type==18)
+		if($this->type==18){
 			return ' инв.'.$this->inv;
+		}
 	}
 
 	public function full_name(){

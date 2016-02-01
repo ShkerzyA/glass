@@ -67,6 +67,14 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 
 	<br>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'persons'); ?>
+		<?php echo Customfields::multiPersonnel($model,'persons'); ?>
+		<?php echo $form->error($model,'persons'); ?>
+	</div>
+
+	<br>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
 	</div>

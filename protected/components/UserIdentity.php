@@ -38,7 +38,7 @@ class UserIdentity extends CUserIdentity
             }
             $this->setState('last_task','');
 
-            $temp=array();
+            $temp=array('all');
             $id_posts=array();
             $id_departments=array();
             $departments_rn=array();
@@ -58,12 +58,13 @@ class UserIdentity extends CUserIdentity
             }
             }
             $groups=array_unique($temp);
+            $groups=array_diff($groups,array(''));
 
-            if(!empty($groups)){
+            //if(!empty($groups)){
                 $this->setState('groups', $groups);
-            }else{
+            /*}else{
                 $this->setState('groups', -1);
-            }
+            }*/
             $this->setState('viewChat',0);
             $this->setState('id_posts',$id_posts);
             $this->setState('id_departments',$id_departments);

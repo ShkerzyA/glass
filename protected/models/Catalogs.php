@@ -32,12 +32,13 @@ class Catalogs extends CActiveRecord
 	 */
 	public static $modelLabelS='Каталог';
 	public static $modelLabelP='Каталоги';
-	public static $db_array=array('groups');
+	public static $db_array=array('groups','persons');
 	
 	public $docsid_catalog;
 	public $idParentid_parent;
 	public $catalogsid_parent;
 	public $owner0owner;
+	//public $persons;
 
 
 	public static function model($className=__CLASS__)
@@ -78,7 +79,7 @@ class Catalogs extends CActiveRecord
 
 
 	public function access($exception=True){
-		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->groups))) and !(Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))){
+		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->groups))) and !in_array(Yii::app()->user->id_pers,$this->persons) and !(Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))){
 			if($exception){
 				throw new CHttpException(403, 'У вас недостаточно прав');
 			}else{
@@ -107,11 +108,11 @@ class Catalogs extends CActiveRecord
 		return array(
 			array('id_parent, owner, type', 'numerical', 'integerOnly'=>true),
 			array('cat_name', 'length', 'max'=>100),
-			array('groups', 'safe'),
+			array('groups, persons', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_parent, cat_name, owner, type, groups,docsid_catalog,idParentid_parent,catalogsid_parent,owner0owner', 'safe', 'on'=>'search'),
+			array('id, id_parent, cat_name, owner, type, groups,persons, docsid_catalog,idParentid_parent,catalogsid_parent,owner0owner', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -151,6 +152,7 @@ class Catalogs extends CActiveRecord
 			'cat_name' => 'Название каталога',
 			'owner' => 'Владелец',
 			'groups' => 'Группы',
+			'persons' => 'Пользователи',
 			'type' => 'Тип',
 			'docsid_catalog' => 'id_catalog',
 			'idParentid_parent' => 'Родительский каталог',
@@ -181,6 +183,7 @@ class Catalogs extends CActiveRecord
 		else
 			$criteria->compare('owner',$this->owner);
 		$criteria->compare('groups',$this->groups,true);
+		$criteria->compare('persons',$this->persons,true);
 		$criteria->compare('docs.id_catalog',$this->docsid_catalog,true);
 		$criteria->compare('catalogsP.id',$this->idParentid_parent,true);
 		$criteria->compare('catalogs.id',$this->catalogsid_parent,true);

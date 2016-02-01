@@ -72,16 +72,7 @@ public $dellink=array();
 	}
 
 	public function access($exception=True){
-		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->idCatalog->groups))) and !(Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))){
-			if($exception){
-				throw new CHttpException(403, 'У вас недостаточно прав');
-			}else{
-				return False;
-			}
-		}
-		return True;
-		//if (!Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))
-           
+		$this->idCatalog->access();
 	}
 
 	/**

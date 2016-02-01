@@ -107,9 +107,9 @@ window.onload=function(){
     </div> -->
     <!--
     <video width="320" height="240" controls="controls" autoplay poster="video/duel.jpg" style="position: absolute; top: 2px; right: 2px">
-            <source src="http://localhost:7654" type='video/mp4'  />
+            <source src="http://localhost:7654" type='video/mp4' codecs="h264" />
             <source src="http://localhost:7654/demo.webm" type='video/webm; codecs="vp8, vorbis"' /> 
-    </video> -->
+    </video>  -->
     <div class="serb"><div style="float: left;"></div><div style="float: left;" id="serb"></div></div>
      
     <div class="messenger">
