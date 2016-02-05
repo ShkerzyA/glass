@@ -17,7 +17,7 @@ class MyDbase extends CFormModel{
 
  	public function __construct(){
  		$this->pathToDb=$_SERVER['DOCUMENT_ROOT'].'/glass/base/';
- 		$this->pdo=new PDO('pgsql:host=localhost;port=5432;dbname=parus', 'al', '123');
+ 		$this->pdo=new PDO('pgsql:host=localhost;port=5432;dbname=parus', 'postgres', '123');
  	}
 
  	/*
