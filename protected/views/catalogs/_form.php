@@ -65,7 +65,6 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 		<?php echo $form->error($model,'groups'); ?>
 	</div>
 
-	<br>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'persons'); ?>

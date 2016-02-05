@@ -52,7 +52,7 @@ class MyDbaseController extends Controller
 	public function actionReadPerson()
 	{
 		$model=new MyDbase;
-		$person=$model->read_table('person.dbf','ORBASE_RN');
+		$person=$model->read_table('person','orbase_rn');
 		$this->render('ReadPerson',array(
 			'model'=>$model,
 			'person'=>$person,

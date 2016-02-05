@@ -56,11 +56,10 @@ class PersonnelPostsHistory extends CActiveRecord
 		return array(
 			//array('id_post','freeOnly'),
 			array('id_personnel, id_post, is_main', 'numerical', 'integerOnly'=>true),
-			array('date_begin', 'date','format'=>'dd.MM.yyyy'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			//array('id, id_personnel, id_post, department_posts, date_begin, date_end, personnel', 'safe', 'on'=>'search'),
-			array('id, id_personnel, id_post, date_begin, date_end, is_main,idPersonnelid_personnel,idPostid_post', 'safe', 'on'=>'search'),
+			array('id_personnel, id_post, date_begin, date_end, is_main,idPersonnelid_personnel,idPostid_post', 'safe', 'on'=>'search'),
 		);
 	}
 

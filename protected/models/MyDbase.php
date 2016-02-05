@@ -11,14 +11,16 @@ class MyDbase extends CFormModel{
 
 	public static $modelLabelS='Операции с Dbase';
 	public static $modelLabelP='Операции с Dbase';
+	public $pdo;
 	public $dbase;
  	private $pathToDb;
 
  	public function __construct(){
  		$this->pathToDb=$_SERVER['DOCUMENT_ROOT'].'/glass/base/';
+ 		$this->pdo=new PDO('pgsql:host=localhost;port=5432;dbname=parus', 'al', '123');
  	}
 
- 
+ 	/*
  	public function read_table($tablename,$keycolumn=NULL,$charset=array('cp1251','UTF8')){
  		$result=array();
  		$this->dbase=dbase_open($this->pathToDb.$tablename,0);
@@ -45,6 +47,21 @@ class MyDbase extends CFormModel{
  		}
  		dbase_close($this->dbase);
  		return $result;
+ 	} */
+
+
+ 	public function read_table($tablename,$keycolumn=NULL){
+ 		$result=array();
+ 		$sql="SELECT * FROM $tablename";
+ 		$sth=$this->pdo->query($sql);
+        while($row=$sth->fetch(PDO :: FETCH_ASSOC)) {
+     		if($keycolumn){
+     			$result[$row[$keycolumn]]=$row;
+     		}else{
+     			$result[]=$row;
+     		}
+        }
+        return $result;
  	}
 
 
@@ -61,8 +78,8 @@ class MyDbase extends CFormModel{
 
  	public function otdelImport(){
 
- 		$acatalog=$this->read_table('ACATALOG.DBF','N1');
- 		$zSubDiv=$this->read_table('zsubdiv.dbf','CATALOG_RN');
+ 		$acatalog=$this->read_table('acatalog','rn');
+ 		$zSubDiv=$this->read_table('zsubdiv','catalog_rn');
 		
 		//$acatalog=array_filter($acatalog, function($var){return ($var['UNIT_RN']=="001g");});
 
@@ -72,31 +89,31 @@ class MyDbase extends CFormModel{
 
 		
 		foreach ($zSubDiv as &$v){
-			$v['cataloginfo']=$acatalog[$v['CATALOG_RN']];
+			$v['cataloginfo']=$acatalog[$v['catalog_rn']];
 			//002c это корневой каталог. Его нет в отделениях
-			if(array_key_exists(trim($v['cataloginfo']['N2']),$zSubDiv))
-				$v['PARENTPARENT']=$zSubDiv[trim($v['cataloginfo']['N2'])]['SUBDIV_RN'];
+			if(array_key_exists(trim($v['cataloginfo']['parent_rn']),$zSubDiv))
+				$v['parentparent']=$zSubDiv[trim($v['cataloginfo']['parent_rn'])]['subdiv_rn'];
 		}
 
 		foreach ($zSubDiv as $v) {
 
-			$dep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['SUBDIV_RN'])));
+			$dep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['subdiv_rn'])));
 			if(empty($dep)){
 				$dep=new Department();	
 			}
-			$dep->name=trim($v['NAME']);
-			$dep->date_begin=substr($v['STARTDATE'] , 6,2).'.'.substr($v['STARTDATE'] , 4,2).'.'.substr($v['STARTDATE'] , 0,4);
-            $dep->date_end=substr($v['ENDDATE'] , 6,2).'.'.substr($v['ENDDATE'] , 4,2).'.'.substr($v['ENDDATE'] ,0,4);
-			$dep->subdiv_rn=$v['SUBDIV_RN'];
+			$dep->name=trim($v['name']);
+			$dep->date_begin=$v['startdate'];
+            $dep->date_end=$v['enddate'];
+			$dep->subdiv_rn=$v['subdiv_rn'];
 			//$dep->parent_subdiv_rn=$v['PARENTPARENT'];
 			$dep->save();
 			//var_dump($depPost->getErrors()); //вызывает задвоение 
 		}
 
 		foreach ($zSubDiv as $v) {
-			$dep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['SUBDIV_RN'])));
-			if(!empty($v['PARENTPARENT']))
-				$dep->parent_subdiv_rn=$v['PARENTPARENT'];
+			$dep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['subdiv_rn'])));
+			if(!empty($v['parentparent']))
+				$dep->parent_subdiv_rn=$v['parentparent'];
 			$dep->save();
 		}
 
@@ -108,47 +125,47 @@ class MyDbase extends CFormModel{
 
 
  	public function personnelImport(){
- 		$personnel=$this->read_table('person.dbf','ORBASE_RN');
- 		$zank=$this->read_table('zank.dbf','ANK_RN');
+ 		$personnel=$this->read_table('person','orbase_rn');
+ 		$zank=$this->read_table('zank','ank_rn');
 		foreach ($personnel as &$z) {
-			$x=$z['ORBASE_RN'];
-			$z['ank']=array_filter($zank, function($var) use ($x){return ($var['ORGBASE_RN']==$x);});
+			$x=$z['orbase_rn'];
+			$z['ank']=array_filter($zank, function($var) use ($x){return ($var['orgbase_rn']==$x);});
 		}
 		
 		foreach ($personnel as $v) {
-				if(empty($v['PASSPORT_R'])){
+				if(empty($v['passport_r'])){
 					//$pers=Personnel::model()->deleteAll(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>$v['ORBASE_RN'])));
 					continue;
 				}
 					
 
-				if($pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>$v['ORBASE_RN'])))){
+				if($pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>$v['orbase_rn'])))){
 					$newpers=$pers;
 				}else{
 					$newpers=new Personnel();
 				}
-       			$newpers->surname=trim($v['SURNAME']);
-       			$newpers->name=trim($v['FIRSTNAME']);
-       			$newpers->patr=trim($v['SECONDNAME']);
-       			$newpers->birthday=date('Y-m-d',strtotime($v['BIRTHDAY']));
+       			$newpers->surname=trim($v['surname']);
+       			$newpers->name=trim($v['firstname']);
+       			$newpers->patr=trim($v['secondname']);
+       			$newpers->birthday=date('Y-m-d',strtotime($v['birthday']));
 
        			$date_begin=array();
        			$date_end=array();
 
        			if (!empty($v['ank'])){
        				foreach ($v['ank'] as $q) {
-       					$date_begin[]=new DateTime(date('Y-m-d',strtotime(substr($q['JOBBEGIN'] , 6,2).'.'.substr($q['JOBBEGIN'] , 4,2).'.'.substr($q['JOBBEGIN'] ,0,4))));
-						$date_end[]=new DateTime(date('Y-m-d',strtotime(substr($q['JOBEND'] , 6,2).'.'.substr($q['JOBEND'] , 4,2).'.'.substr($q['JOBEND'] ,0,4))));
+       					$date_begin[]=new DateTime(date('Y-m-d',strtotime($q['jobbegin'])));
+						$date_end[]=new DateTime(date('Y-m-d',strtotime($q['jobend'])));
        				}
-
        				$newpers->date_begin=min($date_begin)->format('Y-m-d');
        				$newpers->date_end=max($date_end)->format('Y-m-d');
+
        				$newpers->date_end=($newpers->date_end!='1970-01-01')?$newpers->date_end:NULL;
        			}
-       			$newpers->orbase_rn=$v['ORBASE_RN'];
-       			if(trim($v['SEX'])=='М')
+       			$newpers->orbase_rn=$v['orbase_rn'];
+       			if(trim($v['sex'])=='М')
        				$newpers->sex=0;
-       			else if(trim($v['SEX'])=='Ж')
+       			else if(trim($v['sex'])=='Ж')
        				$newpers->sex=1;
        			$newpers->save();
        			//var_dump($depPost->getErrors()); //вызывает задвоение
@@ -161,37 +178,36 @@ class MyDbase extends CFormModel{
  		//DepartmentPosts::model()->deleteAll();
  		//DepartmentPosts::model()->updateAll(array('upd_flag' => NULL));
  	
- 		$posts=$this->read_table('ZPOST.DBF','POST_RN');
- 		$zpostch=$this->read_table('ZPOSTCH.DBF');
- 		$ztipdol=$this->read_table('zTipDol.DBF','TIPDOL_RN');
+ 		$posts=$this->read_table('zpost','post_rn');
+ 		$zpostch=$this->read_table('zpostch');
+ 		$ztipdol=$this->read_table('ztipdol','tipdol_rn');
 
 		foreach ($posts as &$c) {
-			$t=$c['POST_RN'];
-			$c['zpostch']=array_filter($zpostch, function($var) use ($t){return ($var['POSTBS_RN']===$t);});
-			$c['ztipdol']=$ztipdol[$c['TIPDOL_RN']];
+			$t=$c['post_rn'];
+			$c['zpostch']=array_filter($zpostch, function($var) use ($t){return ($var['postbs_rn']===$t);});
+			$c['ztipdol']=$ztipdol[$c['tipdol_rn']];
 		}
 
 		foreach ($posts as $v) {
-			//echo $v['POST_RN'].'<br>';
 			foreach ($v['zpostch'] as $z) {
 
-						if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])))){
+						if($findPost=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['post_rn'])))){
 							$depPost=$findPost;
 						}else{
 							//echo 'создана должность<br>';
 							$depPost=new DepartmentPosts();
 						}
-       					$depPost->post=trim($v['ztipdol']['NAME']);
-       					$depPost->post_rn=$v['POST_RN'];
-       					$depPost->date_begin=substr($z['CHSTARTDAT'] , 6,2).'.'.substr($z['CHSTARTDAT'] , 4,2).'.'.substr($z['CHSTARTDAT'] ,0,4);
-       					$depPost->date_end=substr($z['CHENDDATE'] , 6,2).'.'.substr($z['CHENDDATE'] , 4,2).'.'.substr($z['CHENDDATE'] ,0,4);
-       					$depPost->date_end=($depPost->date_end=='31.12.8888')?'':$depPost->date_end;
-       					if($findDep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['SUBDIV_RN'])))){
-       						$depPost->post_subdiv_rn=trim($v['SUBDIV_RN']);
+       					$depPost->post=trim($v['ztipdol']['name']);
+       					$depPost->post_rn=$v['post_rn'];
+       					$depPost->date_begin=$z['chstartdat'];
+       					$depPost->date_end=$z['chenddate'];
+       					$depPost->date_end=($depPost->date_end=='8888-12-31')?'':$depPost->date_end;
+       					if($findDep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['subdiv_rn'])))){
+       						$depPost->post_subdiv_rn=trim($v['subdiv_rn']);
        					}else{
        						$depPost->post_subdiv_rn='XXXX';
        					}
-       					$depPost->rate=$z['STQNT'];
+       					$depPost->rate=$z['stqnt'];
        					$depPost->save();
        					//var_dump($depPost->getErrors()); //вызывает задвоение	
 			}
@@ -206,60 +222,46 @@ class MyDbase extends CFormModel{
  	public function personnelPostsHistoryImport(){
 
  		//$wtf=array();
- 		
- 		$zfcac=$this->read_table('ZFCAC.DBF');
- 		$zank=$this->read_table('zank.dbf','ANK_RN');
+ 		$zfcac=$this->read_table('zfcac');
+ 		$zank=$this->read_table('zank','ank_rn');
 
  		//к лицевым счетам прикрепляем анкетные данные
 		foreach ($zfcac as &$c) {
-			$x=$c['ANK_RN'];
+			$x=$c['ank_rn'];
 			//echo($c['ANK_RN']).'<br>';
-			$c['ank']=array_filter($zank, function($var) use ($x){return ($var['ANK_RN']===$x);});
+			$c['ank']=array_filter($zank, function($var) use ($x){return ($var['ank_rn']===$x);});
 
 		}
 		unset($zank);
-		$posts_tabl=$this->read_table('ZPOST.DBF','TIPDOL_RN');
+		$posts_tabl=$this->read_table('zpost','tipdol_rn');
 		PersonnelPostsHistory::model()->deleteAll();
-
-		//$g=0;
 		foreach ($zfcac as $v) {
-			/*$g++;
-			if($g>100){
-				break;
-			}*/
 
-			//echo '|'.$v['POST_RN'].'|<br>';
-			//echo ($v['FCAC_RN'].'<br>');
-
-			if(!empty(trim($v['POST_RN']))){
-				$post=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['POST_RN'])));	
-			}else if (array_key_exists($v['TIPDOL_RN'],$posts_tabl)){
-				$post=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$posts_tabl[$v['TIPDOL_RN']]['POST_RN'])));
+			if(!empty(trim($v['post_rn']))){
+				$post=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$v['post_rn'])));	
+			}else if (array_key_exists($v['tipdol_rn'],$posts_tabl)){
+				$post=DepartmentPosts::model()->find(array('condition'=>'post_rn=:post_rn','params'=>array(":post_rn"=>$posts_tabl[$v['tipdol_rn']]['post_rn'])));
 			}
 
-			$date_begin=date('d.m.Y',strtotime(substr($v['STARTDATE'] , 6,2).'.'.substr($v['STARTDATE'] , 4,2).'.'.substr($v['STARTDATE'] ,0,4)));
-			if(strripos($v['ENDDATE'],'8888')){
-				$date_end=NULL;
-			}else{
-				$date_end=date('d.m.Y',strtotime(substr($v['ENDDATE'] , 6,2).'.'.substr($v['ENDDATE'] , 4,2).'.'.substr($v['ENDDATE'] ,0,4)));
-				$date_end=($date_end!='01.01.1970')?$date_end:NULL;	
-			}
-			
+			$date_begin=(!empty($v['startdate']))?date('Y-m-d',strtotime($v['startdate'])):NULL;
+			$date_end=($v['enddate']=='8888-12-31')?NULL:date('Y-m-d',strtotime($v['enddate']));
+
 			if(!empty($v['ank']))
 			foreach ($v['ank'] as $z) {
 
-				$pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>trim($z['ORGBASE_RN']))));
+				$pers=Personnel::model()->find(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>trim($z['orgbase_rn']))));
 				//echo $pers->surname.' | '.$z['ORGBASE_RN'].'<br>';
 				$postH=new PersonnelPostsHistory();
 				if(!empty($pers))
 					$postH->id_personnel=$pers->id;
-				$postH->is_main=$v['ISMAINISP'];
-				$postH->date_begin=$date_begin;
-				$postH->date_end=$date_end;
+				$postH->is_main=$v['ismainisp'];
 				if(!empty($post))
 					$postH->id_post=$post->id;
+				$postH->date_begin=$date_begin;
+				if(!empty($date_end))
+					$postH->date_end=$date_end;
+
 				$postH->save();
-				
 			}
 		}
 		//PersonnelPostsHistory::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
