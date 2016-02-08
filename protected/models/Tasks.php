@@ -389,7 +389,7 @@ class Tasks extends CActiveRecord
 	public function ico(){
 		$result='';
 		if(!empty($this->Project0->photo))
-			$result='<img class=taskico src="../media/'.$this->Project0->photo.'">';
+			$result='<img label="'.$this->Project0->name.'" class=taskico src="../media/'.$this->Project0->photo.'">';
 		return $result;
 	}
 	/*

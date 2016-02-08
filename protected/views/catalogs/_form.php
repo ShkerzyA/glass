@@ -53,7 +53,6 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 	<div class="row">
 		<?php echo $form->labelEx($model,'owner'); ?>
 		<?php echo Customfields::searchPersonnel($model,'owner'); ?>
-	
 		<?php echo $form->error($model,'owner'); ?>
 	</div>
 

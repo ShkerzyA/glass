@@ -81,6 +81,7 @@ class Personnel extends CActiveRecord
                         }
     }
 
+
     public function isWorking(){
         $wk=False;
         foreach ($this->personnelPostsHistories as $w) {

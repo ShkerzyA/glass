@@ -11,7 +11,7 @@ class TimeStampBehavior extends CActiveRecordBehavior{
 
         $alias=$this->owner->getTableAlias();
         $this->owner->getDbCriteria()->mergeWith(
-            array('condition'=>"$alias.timestamp  or $alias.date_end>current_date"));
+            array('condition'=>"$alias.timestamp  or $alias.timestamp_end>current_date"));
         return $this->owner;
     }
 
