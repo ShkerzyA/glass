@@ -7,6 +7,7 @@
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
+	'htmlOptions'=>array('enctype'=>'multipart/form-data'),
 	'id'=>'projects-form',
 	'enableAjaxValidation'=>false,
 )); ?>
@@ -15,6 +16,13 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'photo'); ?>
+		<?php if(!empty($model->photo))
+					echo $model->photo; ?>
+		<?php echo $form->fileField($model,'photo',array('size'=>50,'maxlength'=>100)); ?>
+		<?php echo $form->error($model,'photo'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
@@ -50,10 +58,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'creator'); ?>
-
-		<?php $tmp=Personnel::model()->findall();
-echo $form->dropDownList($model,"creator",CHtml::listData($tmp,"id",function($tmp) {
-				return CHtml::encode($tmp->fio());}),array('empty' => '')); ?>
+		<?php echo Customfields::searchPersonnel($model,'creator'); ?>
 		<?php echo $form->error($model,'creator'); ?>
 	</div>
 

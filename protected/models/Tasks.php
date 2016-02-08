@@ -388,6 +388,13 @@ class Tasks extends CActiveRecord
 
 	public function ico(){
 		$result='';
+		if(!empty($this->Project0->photo))
+			$result='<img class=taskico src="../media/'.$this->Project0->photo.'">';
+		return $result;
+	}
+	/*
+	public function ico(){
+		$result='';
 		switch ($this->type) {
 			case '1':
 					$m=Equipment::model()->findByPk($this->details[0]);
@@ -398,7 +405,7 @@ class Tasks extends CActiveRecord
 				break;
 		}
 		return $result;
-	}
+	} */
 	
 	public function detailsShow($short=False,$place=True,$htmlinfo=False){
 		$result='';

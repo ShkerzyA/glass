@@ -13,8 +13,10 @@ class PhotoBehavior extends CActiveRecordBehavior{
     }   
 
     public function beforeSave($event){
+        print('st1');
        if(($this->owner->scenario=='insert' || $this->owner->scenario=='update') &&
             ($document=CUploadedFile::getInstance($this->owner,'photo'))){
+                print('st2');
                 $sourcePath = pathinfo($document->getName());
                 $fileName = date('YmdHsi') .'.'. $sourcePath['extension'];  // имя будущего файла в базе и ФС
                 $this->deletePhoto(); // старый документ удалим, потому что загружаем новый

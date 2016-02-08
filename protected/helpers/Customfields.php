@@ -77,7 +77,7 @@ Class Customfields{
 				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
 				echo'<input type=hidden name=action class=action id='.$field.' value="join">';
 				echo"<input type=hidden name='".$mn."[".$field."][]' value=''>";
-				if(!empty($model->$field)){
+				if(!empty($model->$field) and is_array($model->$field)){
 					foreach ($model->$field as $v){
 						if(!empty($v)){
 							$pers=Personnel::model()->findByPk($v);

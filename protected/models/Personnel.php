@@ -179,7 +179,7 @@ class Personnel extends CActiveRecord
 		return array(
 			array('id_user,sex', 'numerical', 'integerOnly'=>true),
 			array('surname, name, patr', 'length', 'max'=>50),
-			array('photo', 'length', 'max'=>200),
+			array('photo', 'length', 'max'=>100),
             array('birthday, date_begin, date_end', 'safe'),
             array('orbase_rn', 'length', 'max'=>8),
             array('orbase_rn', 'unique',),

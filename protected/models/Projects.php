@@ -63,6 +63,9 @@ class Projects extends CActiveRecord
 
 	public function behaviors(){
 	return array(
+			'Photo'=>array(
+				'class'=>'application.behaviors.PhotoBehavior',
+				),
 			'DbArray'=>array(
 				'class'=>'application.behaviors.DbArrayBehavior',
 				),
@@ -78,6 +81,15 @@ class Projects extends CActiveRecord
 			);
 	}
 
+	public function ava(){
+        if (!empty($this->photo)){
+            echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($this->photo)); 
+        }else{
+            echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
+        }
+
+    }
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
@@ -89,6 +101,7 @@ class Projects extends CActiveRecord
 			array('creator, id_department, status', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('description, timestamp, timestamp_end, executors, group, tasktype', 'safe'),
+			array('photo', 'length', 'max'=>100),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -154,16 +167,17 @@ class Projects extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'description' => 'Description',
-			'timestamp' => 'Timestamp',
-			'timestamp_end' => 'Timestamp End',
-			'creator' => 'Creator',
-			'id_department' => 'Id Department',
-			'status' => 'Status',
-			'executors' => 'Executors',
-			'group' => 'Group',
-			'creator0creator' => 'creator',
+			'name' => 'Назвение',
+			'description' => 'Описание',
+			'timestamp' => 'Начало',
+			'timestamp_end' => 'Окончание',
+			'creator' => 'Создатель',
+			'id_department' => 'Отдел',
+			'status' => 'Статус',
+			'executors' => 'Исполнители',
+			'group' => 'Группа',
+			'creator0creator' => 'Создатель',
+			'photo' => 'Логотип'
 		);
 	}
 

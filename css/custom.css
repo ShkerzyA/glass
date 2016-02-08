@@ -33,6 +33,11 @@ h4.subscribe{
 
 }
 
+.taskico{
+	max-width: 96%;
+	max-height: 96%;
+}
+
 .button_link{
 	border: 1px solid red;
 }
