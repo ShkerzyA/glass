@@ -1029,6 +1029,7 @@ select{
 .portlet-content{
 	border:2px solid #DADEE0;
 	background: #fffffe;
+	overflow: hidden;
 }
 
 #status{

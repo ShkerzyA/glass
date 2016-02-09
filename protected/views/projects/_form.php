@@ -19,7 +19,7 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'photo'); ?>
 		<?php if(!empty($model->photo))
-					echo $model->photo; ?>
+					echo $model->ico(); ?>
 		<?php echo $form->fileField($model,'photo',array('size'=>50,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'photo'); ?>
 	</div>
@@ -76,6 +76,14 @@
 		<?php echo $form->textField($model,'status'); ?>
 
 		<?php echo $form->error($model,'status'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'order'); ?>
+
+		<?php echo $form->textField($model,'order'); ?>
+
+		<?php echo $form->error($model,'order'); ?>
 	</div>
 
 <div class="row">

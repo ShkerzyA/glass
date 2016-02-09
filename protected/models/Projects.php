@@ -80,15 +80,16 @@ class Projects extends CActiveRecord
 				),
 			);
 	}
+	public function ico($default_ico=False){
+		if($default_ico)
+			$result='<img label="'.$this->name.'" class=taskico src="/glass/images/add_task_40.png">';
+		else
+			$result='';
+		if(!empty($this->photo))
+			$result='<img label="'.$this->name.'" class=taskico src="/glass/media/'.$this->photo.'">';
+		return $result;
+	}
 
-	public function ava(){
-        if (!empty($this->photo)){
-            echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($this->photo)); 
-        }else{
-            echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
-        }
-
-    }
 
 	/**
 	 * @return array validation rules for model attributes.
@@ -98,14 +99,14 @@ class Projects extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('creator, id_department, status', 'numerical', 'integerOnly'=>true),
+			array('creator, id_department, status, order', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('description, timestamp, timestamp_end, executors, group, tasktype', 'safe'),
 			array('photo', 'length', 'max'=>100),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, description, timestamp, timestamp_end, creator, id_department, status, executors, group,creator0creator', 'safe', 'on'=>'search'),
+			array('id, name, description, timestamp, timestamp_end, creator, id_department, status, order, executors, group,creator0creator', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -144,9 +145,16 @@ class Projects extends CActiveRecord
     	return $result;
 	}
 
+	public function getType(){
+		if(!empty($this->tasktype))
+			return $this->tasktype[0];
+		else
+			return 0;
+	}
+
 
 	public static function myGroupProjects(){
-		$models=self::model()->with('Tasks.status0')->findAll(array('condition'=>'t.group[1] in (\''.implode('\',\'',Yii::app()->user->groups).'\')'));
+		$models=self::model()->with('Tasks.status0')->findAll(array('condition'=>'t.group[1] in (\''.implode('\',\'',Yii::app()->user->groups).'\')','order'=>'t.order DESC'));
 		return $models;
 	}
 
@@ -156,7 +164,7 @@ class Projects extends CActiveRecord
 	}
 
 	public static function myProjects(){
-		$models=self::model()->findAll(array('condition'=>'t.group[1] in (\''.implode('\',\'',Yii::app()->user->groups).'\')'));
+		$models=self::model()->findAll(array('condition'=>'t.group[1] in (\''.implode('\',\'',Yii::app()->user->groups).'\')','order'=>'t.order DESC'));
 		return $models;
 	}
 
@@ -177,7 +185,8 @@ class Projects extends CActiveRecord
 			'executors' => 'Исполнители',
 			'group' => 'Группа',
 			'creator0creator' => 'Создатель',
-			'photo' => 'Логотип'
+			'photo' => 'Логотип',
+			'order' => 'Сортировка'
 		);
 	}
 
@@ -201,6 +210,7 @@ class Projects extends CActiveRecord
 		$criteria->compare('creator',$this->creator);
 		$criteria->compare('id_department',$this->id_department);
 		$criteria->compare('status',$this->status);
+		$criteria->compare('order',$this->order);
 		$criteria->compare('executors',$this->executors,true);
 		$criteria->compare('group',$this->group,true);
 		$criteria->compare('personnel.creator',$this->creator0creator,true);

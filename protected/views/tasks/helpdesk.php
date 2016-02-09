@@ -40,12 +40,18 @@ $this->menu=array(
 			array('label'=>'Отчет по сотрудникам отдела', 'url'=>array('reportOtd?personInfo=true'.$date), 'linkOptions'=>array('target'=>'_blank'),'visible'=>(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model)))),
 			);
 
+$projects=Projects::myProjects();
+$projectsArr=array(array('label'=>"Добавить", 'url'=>array('tasks/create?Tasks[type]=0')));
+$projectsArr=array();
+foreach ($projects as $pr) {
+	$projectsArr[]=array('label'=>'<nobr>'.$pr->ico(True).' '.$pr->name.'</nobr>','url'=>array('tasks/create?Tasks[type]='.$pr->getType().'&&Tasks[project]='.$pr->id.''));
+}
+
 $this->menu['all_menu']=array(
-		array('title'=>'Создать задачу','items'=>array(
-			array('label'=>"Добавить", 'url'=>array('tasks/create?Tasks[type]=0')),
-			array('label'=>"<img src='../images/printer_40.png' title='Замена картриджа'> Зам. карт", 'url'=>array('tasks/create?Tasks[type]=1&&Tasks[project]=3'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
-			array('label'=>"<img src='../images/add_task_40.png' title='Деклассированная задача'> Общая", 'url'=>array('tasks/create?Tasks[type]=0&&Tasks[project]=4'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
-		)),
+		array('title'=>'Создать задачу','items'=>$projectsArr
+		//	array('label'=>"<img src='../images/printer_40.png' title='Замена картриджа'> Зам. карт", 'url'=>array('tasks/create?Tasks[type]=1&&Tasks[project]=3'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
+		//	array('label'=>"<img src='../images/add_task_40.png' title='Деклассированная задача'> Общая", 'url'=>array('tasks/create?Tasks[type]=0&&Tasks[project]=4'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
+		),
 
 		array('title'=>'Фильтры задач','items'=>array(
 			array('label'=>'Актуальные', 'url'=>array('HelpDesk?group='.$this->group.'&&type=1')),
