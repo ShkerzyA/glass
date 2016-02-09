@@ -112,6 +112,7 @@ h4.subscribe{
 	background: #FFAAAA;
 }
 
+
 .rightinfo{
 	z-index: 3;
 	background: inherit;
@@ -1051,6 +1052,10 @@ select{
 	padding: 4px;
 	border-radius: 2px;
 	box-shadow: 1px 1px 5px 5px white;
+}
+
+.comment *{
+	max-width: 100%;
 }
 
 .comment-topline{

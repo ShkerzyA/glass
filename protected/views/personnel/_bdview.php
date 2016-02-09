@@ -9,7 +9,7 @@
 	<?php 
 		$act=!empty($model->personnelPostsHistories[0]);
 	?>
-		<?php echo $model->wrapFio('fio_full'; ?> 
+		<?php echo $model->wrapFio('fio_full'); ?> 
  <!--	</a> -->
 </div>
 
