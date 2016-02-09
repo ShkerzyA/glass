@@ -291,8 +291,11 @@ class Tasks extends CActiveRecord
 		return $this->isChangeStatus();
 	}
 
-	public static function GroupTasks ($group=array(),$type=3,$date='current_date'){
+	public static function GroupTasks ($group=array(),$type=3,$date='current_date',$search=NULL){
 		
+
+		$criteria=new CDbCriteria;
+		$criteria->with=array('Project0','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
 
 		$wh_group=(!empty($group))?array_uintersect($group,Yii::app()->user->groups,"strcasecmp"):Yii::app()->user->groups;
 		//print_r($wh_group); 
@@ -300,23 +303,34 @@ class Tasks extends CActiveRecord
 			//все, кроме помеченных как просмотренные
 			//текущие
 			case '1':
-				$condition="t.status in (0,1,5,6) ";
+				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) "));
 				$order="status0.sort asc,t.timestamp desc";
 				break;
 
 			case '2':
-				$condition="t.status in (0,1,5,6) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")";
-				$order="status0.sort asc,t.timestamp desc";
+				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")"));
+				$criteria->order="status0.sort asc,t.timestamp desc";
 				break;
 			
 			case '3':
-				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5,6))";
-				$order="status0.sort asc,t.timestamp desc";
+				$criteria->addCondition(array('condition'=>"((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5,6))"));
+				$criteria->order="status0.sort asc,t.timestamp desc";
 				break;
 			//за день
 			case '4':
-				$condition="((t.timestamp::date=$date or t.timestamp_end::date=$date))";
-				$order="status0.sort asc,t.timestamp desc";
+				$criteria->addCondition(array('condition'=>"((t.timestamp::date=$date or t.timestamp_end::date=$date))"));
+				$criteria->order="status0.sort asc,t.timestamp desc";
+				break;
+
+			case '5':
+				$search=mb_strtolower($search,'UTF-8');
+				if(!empty($search) and strlen($search)>4){
+					$criteria->compare('LOWER(t.tname)',$search,true, 'OR');	
+					$criteria->compare('LOWER(t.ttext)',$search,true, 'OR');	
+				}else{
+					$criteria->compare('t.id',0);
+				}
+				$criteria->order="status0.sort asc,t.timestamp desc";
 				break;
 
 			default:
@@ -324,11 +338,11 @@ class Tasks extends CActiveRecord
 			break;
 		}
 
-		$condition.=" and  ((t.\"group\"::text[] && array['".implode("','",$wh_group)."']) or (\"Project0\".\"group\"::text[] && array['".implode("','",$wh_group)."']) )";
+		$criteria->addCondition(array('condition'=>"((t.\"group\"::text[] && array['".implode("','",$wh_group)."']) or (\"Project0\".\"group\"::text[] && array['".implode("','",$wh_group)."']) )"));
 
 		//	$model=Tasks::model()->with(array(
  		//		'TasksActions'=>array('alias'=>'TasksActions','condition'=>'"TasksActions".type=0','order'=>'"TasksActions".date DESC,"TasksActions".timestamp DESC')))->findAll(array('condition'=>$condition,'order'=>$order));
-		$model=Tasks::model()->with(array('Project0','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel'))->findAll(array('condition'=>$condition,'order'=>$order));
+		$model=Tasks::model()->findAll($criteria);
 		return $model;
 
 	}
@@ -387,7 +401,8 @@ class Tasks extends CActiveRecord
 	 */
 
 	public function ico(){
-		return $this->Project0->ico();
+		if(!empty($this->Project0))
+			return $this->Project0->ico();
 	}
 	/*
 	public function ico(){

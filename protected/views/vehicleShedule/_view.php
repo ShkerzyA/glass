@@ -23,7 +23,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('creator')); ?>:</b>
-	<?php echo CHtml::encode($data->creator0->wrapFio('fio_full'); ?>
+	<?php echo CHtml::encode($data->creator0->wrapFio('fio_full')); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('week')); ?>:</b>

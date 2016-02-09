@@ -12,6 +12,7 @@ class TasksController extends Controller
 	public $horn;
 	public $isHorn;
 	public $target_date;
+	public $search;
 
 	public $tasks_menu=array(
 		array('name'=>'IT crowd','group'=>'it','rule'=>array('it')),
@@ -320,10 +321,12 @@ class TasksController extends Controller
 		
 		$this->rightWidget=array(
 			'df'=>array($this->renderPartial('_date_filter',array(),true)),
+			'ft'=>array($this->renderPartial('_fulltext_search',array(),true)),
 			'cc'=>array($this->renderPartial('/equipment/countCart',array('model'=>Equipment::countCart()),true,false),'it')
 		);
 
 		$this->target_date=(!empty($_GET['date']))?"'".$_GET['date']."'":"'".date('d.m.Y')."'";
+		$this->search=(!empty($_GET['search']))?$_GET['search']:NULL;
 		
 		//$this->id_department=$id_department;
 
@@ -335,7 +338,7 @@ class TasksController extends Controller
 			$this->isHorn=Tasks::isHorn();
 		}
 		//$model=Tasks::tasksForOtdAndGroup($id_department,$type,$group,$this->target_date);
-		$model=Tasks::GroupTasks($group,$type,$this->target_date);
+		$model=Tasks::GroupTasks($group,$type,$this->target_date,$this->search);
 		if(Yii::app()->request->isAjaxRequest){
 			$this->renderPartial('_helpdesk',array(
 				'model'=>$model,

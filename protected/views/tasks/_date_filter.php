@@ -22,7 +22,7 @@ function init(){
    ),
    'htmlOptions' => array(
    		'id'=> 'datefilter',
-       'style' => 'height:20px;',
+       'style' => 'height:20px; width: 100%;',
        'placeholder'=>'посмотреть за дату'
    ),
 	));?></div>
