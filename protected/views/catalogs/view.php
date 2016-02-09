@@ -24,7 +24,7 @@ $this->menu=array(
 //echo ($model->owner0->post);
 $person=$model->owner0;
 
-echo ('  <i>'.$person->fio().'.</i>');
+echo ('  <i>'.$person->wrapFio('fio').'.</i>');
 ?></h6> 
 <hr>
 

@@ -123,7 +123,7 @@ class Workplace extends CActiveRecord
 
 		$res='';
 		if(!empty($this->id_personnel))
-			$res=$this->idPersonnel->fio();
+			$res=$this->idPersonnel->wrapFio('fio');
 		else
 			$res=$this->wname;
 

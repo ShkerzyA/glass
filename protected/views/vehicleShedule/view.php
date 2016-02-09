@@ -22,7 +22,7 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		array('name'=>'creator','value'=>$model->creator0->fio_full()),
+		array('name'=>'creator','value'=>$model->creator0->wrapFio('fio_full'),
 		'date_begin',
 		'date_end',
 		'timestamp',

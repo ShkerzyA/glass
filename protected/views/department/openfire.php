@@ -22,7 +22,7 @@ $this->breadcrumbs=array(
 			if(!empty($dp->personnelPostsHistories)){
 				foreach($dp->personnelPostsHistories as $personnelPh){
 					
-					echo "<tr><td>".$personnelPh->idPersonnel->fio_full()."</td><td>логин: ".mb_strtolower($personnelPh->idPersonnel->fioRu2Lat())."</td><td>пароль: ".$personnelPh->idPersonnel->passGen()."</td></tr>";
+					echo "<tr><td>".$personnelPh->idPersonnel->wrapFio('fio_full')."</td><td>логин: ".mb_strtolower($personnelPh->idPersonnel->fioRu2Lat())."</td><td>пароль: ".$personnelPh->idPersonnel->passGen()."</td></tr>";
 				}
 			}
 		}

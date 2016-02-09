@@ -219,7 +219,7 @@ class Cabinet extends CActiveRecord
 					$res=array();
 					if(!empty($wp->id_personnel) and (!empty($wp->phone))){
 						$ph_wp=self::split_phones($wp->phone);
-						$res['fio']=$wp->idPersonnel->fio();
+						$res['fio']=$wp->idPersonnel->wrapFio('fio');
 						$post=$wp->idPersonnel->posts();
 						$res['post']=(!empty($post))?$post[0]:'';
 						$res['cabinet']=$name_cab;

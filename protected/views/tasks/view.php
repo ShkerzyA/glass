@@ -49,7 +49,7 @@ echo '<div class="comment " id="taskbody">
 				foreach ($model->executors as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->fio());
+						$exec[]=CHtml::encode($pers->wrapFio('fio'));
 					}
 				}	
 				echo (implode(', ', $exec));
@@ -86,7 +86,7 @@ echo '<div class="comment " id="taskbody">
 				continue;
 			}
 			echo'<div class="comment" id='.$action->id.'>';
-			$creator=(!empty($action->creator0))?$action->creator0->fio_full():'';
+			$creator=(!empty($action->creator0))?$action->creator0->wrapFio('fio_full'):'';
 			echo'<div class="comment-topline"><i>'.$creator.'</i> &nbsp;&nbsp;&nbsp; '.$action->timestamp.'</div>';
 			echo'<div class="sign"></div>';
 

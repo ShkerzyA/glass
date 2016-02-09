@@ -8,18 +8,8 @@
 	<!-- <a href="<?php echo $this->createUrl('/personnel/'.$model->id) ?>"> -->
 	<?php 
 		$act=!empty($model->personnelPostsHistories[0]);
-
-		//print_r($model->personnelPostsHistories);
-
-		/*if(!$act)
-			echo '<div style="text-decoration: line-through; color: gray; width: 250px; display: inline-block;">';
-		else
-			echo '<div style=" width: 250px; display: inline-block; float: left;">'; */
-
 	?>
-		<?php echo $model->fio_full(); ?> 
-		
-		<?php //if($act){echo '<div style="width: 420px; display: inline-block; float: left">'.$model->birthday.'</div>';}	?>
+		<?php echo $model->wrapFio('fio_full'; ?> 
  <!--	</a> -->
 </div>
 

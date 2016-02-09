@@ -27,7 +27,7 @@ $this->menu=array(
 
 echo '<div style="border-radius: 3px; min-height: 46px; background: padding-left: 40px;">
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->date_begin.'<br>
-		'.$model->creator0->fio_full().'</i></div> '.
+		'.$model->creator0->wrapFio('fio_full').'</i></div> '.
 		'<br><span style="margin: 10px; color: #D0D0D0">вложения: </span>'.$file.'<hr>'.
 		'<br><pre style="overflov: none;">'.$model->text_docs.'</pre></div>';
 

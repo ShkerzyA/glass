@@ -205,7 +205,7 @@ class Vehicles extends CActiveRecord
 
     public function ownerName(){
     	if(!empty($this->owner0))
-    		return $this->owner0->fio_full();
+    		return $this->owner0->wrapFio('fio_full');
     	else
     		return '';
     }

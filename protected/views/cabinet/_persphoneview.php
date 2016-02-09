@@ -5,7 +5,7 @@
 if(!empty($data->workplaces)){
 	foreach ($data->workplaces as $v) {
 		if(!empty($v->idPersonnel)){
-			echo '<tr><td>'.$v->phone.'</td><td><b>'.$v->idPersonnel->fio_full().'</b></td><td>'.$data->cabNameFull().'</td></tr>';
+			echo '<tr><td>'.$v->phone.'</td><td><b>'.$v->idPersonnel->wrapFio('fio_full').'</b></td><td>'.$data->cabNameFull().'</td></tr>';
 		}
 	}
 }

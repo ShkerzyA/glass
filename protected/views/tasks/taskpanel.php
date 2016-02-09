@@ -57,7 +57,7 @@
 									break;
 								}
 							}
-							echo'<span>'.$action->creator0->fio().' ('.$action->timestamp.')</span>';
+							echo'<span>'.$action->creator0->wrapFio('fio').' ('.$action->timestamp.')</span>';
 
 						}
 

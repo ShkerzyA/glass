@@ -11,18 +11,18 @@
 	<td><?php echo CHtml::encode($data->timestamp.' - '.$data->timestamp_end); ?></td>
 	<td><?php echo CHtml::encode($data->fio_pac); ?></td>
 	<!--<td><?php // echo CHtml::encode($data->date_gosp); ?></td> -->
-	<td><?php echo CHtml::encode($data->operator0->fio_full()); ?></td>
+	<td><?php echo CHtml::encode($data->operator0->wrapFio('fio_full'); ?></td>
 	<td><?php
 			$exec=array();
 				foreach ($data->anesthesiologists as $v){
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
 						if(!empty($pers))
-							$exec[]=CHtml::encode($pers->fio());
+							$exec[]=CHtml::encode($pers->wrapFio('fio'));
 					}
 				}	
 				if(!empty($data->anesthesiologist_w))
-					$exec[]='<br>анестезист: '.CHtml::encode($data->anesthesiologist_w0->fio());
+					$exec[]='<br>анестезист: '.CHtml::encode($data->anesthesiologist_w0->wrapFio('fio'));
 				echo (implode(', ', $exec));?></td>
 	<td><?php
 		$exec=array();
@@ -30,11 +30,11 @@
 					if(!empty($v)){
 						$pers=Personnel::model()->findByPk($v);
 						if(!empty($pers))
-							$exec[]=CHtml::encode($pers->fio());
+							$exec[]=CHtml::encode($pers->wrapFio('fio'));
 					}
 				}
 				if(!empty($data->scrub_nurse)){
-					$exec[]='<br>опер. сестра: '.CHtml::encode($data->scrub_nurse0->fio());
+					$exec[]='<br>опер. сестра: '.CHtml::encode($data->scrub_nurse0->wrapFio('fio'));
 				}	
 				echo (implode(', ', $exec)); ?></td>
 	<td><?php

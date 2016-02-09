@@ -89,7 +89,7 @@ class DepartmentPosts extends CActiveRecord
         foreach ($mod as $v) {
             foreach ($v->personnelPostsHistories as $x) {
                 if(!empty($x))
-                    $res[$x->idPersonnel->id]=$x->idPersonnel->fio_full();
+                    $res[$x->idPersonnel->id]=$x->idPersonnel->wrapFio('fio_full');
             }
             
         }

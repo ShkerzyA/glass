@@ -91,14 +91,29 @@ class Personnel extends CActiveRecord
     }
 
     public function fio($limiter='. '){
-        $res=$this->surname.($x=(!empty($limiter))?' ':'').mb_substr($this->name,0,1,'utf-8').$limiter.mb_substr($this->patr,0,1,'utf-8').$limiter;
-        if(!$this->isWorking())
-            $res='<s style=\'color: gray\'>'.$res.'</s>';
-        return $res;
+        return $this->surname.($x=(!empty($limiter))?' ':'').mb_substr($this->name,0,1,'utf-8').$limiter.mb_substr($this->patr,0,1,'utf-8').$limiter;
     }
 
     public function fio_full(){
-        $res=$this->surname.' '.$this->name.' '.$this->patr;
+        return $this->surname.' '.$this->name.' '.$this->patr;
+    }
+
+    public function wrapFio($function){
+        $res='';
+        switch ($function) {
+            case 'fio_full':
+                $res=$this->fio_full();
+                break;
+
+            case 'fio':
+                $res=$this->fio();
+                break;
+            
+            default:
+                # code...
+                break;
+
+        }
         if(!$this->isWorking())
             $res='<s style=\'color: gray\'>'.$res.'</s>';
         return $res;
@@ -229,7 +244,7 @@ class Personnel extends CActiveRecord
         $res=array();
         $models=self::model()->with('personnelPostsHistories.idPost')->working()->findAll(array('condition'=>" (\"idPost\".\"groups\"::text[] && array['".implode("','",$group)."'])"));
         foreach ($models as $v) {
-            $res[$v->id]=$v->fio();
+            $res[$v->id]=$v->wrapFio('fio');
         }
         return $res;
     }
