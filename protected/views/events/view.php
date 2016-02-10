@@ -48,9 +48,10 @@ if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))){
 <?php
 
 echo '<div class="comment " id="taskbody">
+		<br>
 		<div style="position: relative; float: left;"><h2>'.$model->name.'</h2></div>
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->date.' ('.$model->timestamp.'-'.$model->timestamp_end.')<br>
-		Создатель:  '.$model->creator0->surname.' '.$model->creator0->name.' '.$model->creator0->patr.'</i></div>'.
+		Создатель:  '.$model->creator0->wrapFio('fio_full').'</i></div>'.
 		'<hr><p class="norm_text"><pre>'.$model->description.'</pre></p>
 		</div> ';
 

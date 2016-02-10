@@ -225,7 +225,7 @@ class Events extends CActiveRecord
 	public function isChangeStatus(){
 		if(in_array('secretaries', Yii::app()->user->groups))
 			return true;
-		$managers=explode(',',$this->idRoom->managers);
+		$managers=$this->idRoom->managers;
 		if(in_array(Yii::app()->user->id_pers,$managers)){
 			return true;
 		}
