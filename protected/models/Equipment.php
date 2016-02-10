@@ -332,6 +332,34 @@ class Equipment extends CActiveRecord
 		return $this->type0->name.' '.$prod.' '.$this->mark.' <b>'.$this->serial.'</b> '.$notes.' '.$this->inv();
 	}
 
+
+	public function logInfo(){
+		$result='';
+		switch ($this->type) {
+			case '18':
+				$common=array('in'=>0,'load'=>0);
+				$criteria=new CDbCriteria;
+        		$criteria->addCondition(array('condition'=>'type in (3,4) and \''.$this->inv.'\'=ANY("details")'));
+        		$criteria->order='t.timestamp DESC, t.type ASC';
+				$logs=EquipmentLog::model()->findAll($criteria);
+				foreach ($logs as $l) {
+					if($l->type==3)
+						$common['load']+=1;
+				}
+				foreach ($this->EquipmentLog as $l) {
+					if($l->type==1)
+						$common['in']+=1;
+				}
+				$result='Установок: '.$common['in'].' Заправок: '.$common['load'];
+				break;
+			
+			default:
+				# code...
+				break;
+		}
+		return $result;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -344,6 +372,7 @@ class Equipment extends CActiveRecord
 			'type0' => array(self::BELONGS_TO, 'EquipmentType', 'type'),
 			'producer0' => array(self::BELONGS_TO, 'EquipmentProducer', 'producer'),
 			'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', 'object'),
+			//'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', '','with'=>'objectEq','on'=>'("EquipmentLog".type in (3,4) and '.$this->id.'=ANY("EquipmentLog"."details")) or "EquipmentLog"."object"='.$this->id),
 			'parentEq' => array(self::BELONGS_TO, 'Equipment', 'parent_id'),
             'equipments' => array(self::HAS_MANY, 'Equipment', 'parent_id'),
 		);
