@@ -353,7 +353,7 @@ class Equipment extends CActiveRecord
 						$common['load_last']=0;
 					}
 				}
-				$result='Запр.(ВСЕ): '.$common['load'].' Восст.: '.$common['repare'].' Запр.(ПВ): '.$common['load_last'];
+				$result='Запр.(ВСЕ): '.$common['load'].'<br> Восст.: '.$common['repare'].'<br> Запр.(ПВ): '.$common['load_last'];
 				break;
 			
 			default:
