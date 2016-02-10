@@ -39,6 +39,7 @@ class EquipmentLog extends CActiveRecord
 				6=>array('action'=>'moveWp','name'=>'Перемещение в составе рабочего места','fields'=>array('old_cabinet','cabinet')),
 				7=>array('action'=>'addEq','name'=>'Добавление оборудования','fields'=>array('workplace')),
 				8=>array('action'=>'chEq','name'=>'Изменение оборудования','fields'=>array('info')),
+				9=>array('action'=>'cartRepairIn','name'=>'Возврат с восстановления','fields'=>array('idcart')),
 			);
 	
 	public $subject0subject;
@@ -143,6 +144,7 @@ class EquipmentLog extends CActiveRecord
 
 			case '3':
 			case '4':
+			case '9':
 				return 'номера картриджей: '.$this->details[0];
 				break;
 
@@ -191,6 +193,7 @@ class EquipmentLog extends CActiveRecord
 				break;
 			case '3':
 			case '4':
+			case '9':
 				$res='';
 				//$res.=implode(', ',$det)."\n";
 				$mod=Equipment::model()->findAll(array('condition'=>'t.type=18 and t.inv in(\''.implode('\',\'',$this->details).'\')','order'=>'t.mark ASC, t.producer ASC, t.inv::integer ASC'));

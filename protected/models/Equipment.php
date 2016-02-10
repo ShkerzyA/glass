@@ -190,6 +190,7 @@ class Equipment extends CActiveRecord
 				$to=self::$cartRefill;
 				break;
 			case 4:
+			case 9:
 				$from=self::$cartRefill;
 				$to=self::$cartFull;
 				break;
@@ -337,20 +338,22 @@ class Equipment extends CActiveRecord
 		$result='';
 		switch ($this->type) {
 			case '18':
-				$common=array('in'=>0,'load'=>0);
+				$common=array('load_last'=>0,'load'=>0,'repare'=>0);
 				$criteria=new CDbCriteria;
         		$criteria->addCondition(array('condition'=>'type in (3,4) and \''.$this->inv.'\'=ANY("details")'));
         		$criteria->order='t.timestamp DESC, t.type ASC';
 				$logs=EquipmentLog::model()->findAll($criteria);
 				foreach ($logs as $l) {
-					if($l->type==3)
+					if($l->type==3){
 						$common['load']+=1;
+						$common['load_last']+=1;
+					}
+					if($l->type==9){
+						$common['repare']+=1;
+						$common['load_last']=0;
+					}
 				}
-				foreach ($this->EquipmentLog as $l) {
-					if($l->type==1)
-						$common['in']+=1;
-				}
-				$result='Установок: '.$common['in'].' Заправок: '.$common['load'];
+				$result='Запр.(ВСЕ): '.$common['load'].' Восст.: '.$common['repare'].' Запр.(ПВ): '.$common['load_last'];
 				break;
 			
 			default:
