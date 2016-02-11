@@ -14,6 +14,11 @@ Yii::app()->clientScript->registerPackage('customfields');
         	}
     	});
 
+    	$('#id_workplace').focus(function(e){
+    		//alert('fuuu');
+    		$(this).select();
+    	});
+
 		$('#Equipment_type').live('change',function (){ 
 
 			$('#Equipment_producer option:first').attr('selected', 'selected');
