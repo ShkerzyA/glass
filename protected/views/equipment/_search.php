@@ -72,6 +72,21 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'ip'); ?>
+		<?php echo $form->textField($model,'ip',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'mac'); ?>
+		<?php echo $form->textField($model,'mac',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'hostname'); ?>
+		<?php echo $form->textField($model,'hostname',array('size'=>60,'maxlength'=>100)); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 
 		<?php echo $form->dropDownList($model,'status',$model->getStatus(),array('empty' => '')); ?>

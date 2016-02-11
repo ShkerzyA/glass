@@ -176,6 +176,13 @@ Yii::app()->clientScript->registerPackage('customfields');
 		<?php echo $form->error($model,'mac'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'hostname'); ?>
+
+		<?php echo $form->textField($model,'hostname',array('size'=>60,'maxlength'=>100,'autocomplete'=>"off")); ?>
+
+		<?php echo $form->error($model,'hostname'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
@@ -184,6 +191,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 
 		<?php echo $form->error($model,'status'); ?>
 	</div>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'notes'); ?>

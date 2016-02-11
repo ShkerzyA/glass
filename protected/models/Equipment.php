@@ -17,6 +17,7 @@
  * @property string $ip
  * @property string $mac
  * @property string $released
+ * @property string $hostname
  *		 * The followings are the available model relations:
 
 
@@ -114,7 +115,7 @@ class Equipment extends CActiveRecord
 
 	public function netinfo(){
 		if(in_array($this->type, self::$netEqType)){
-			return "\n IP ".$this->ip."\n MAC ".$this->mac;
+			return "\n IP ".$this->ip."\n MAC ".$this->mac."\n HOST: ".$this->hostname;
 		}
 	}
 
@@ -238,7 +239,7 @@ class Equipment extends CActiveRecord
 		return array(
 			array('id_workplace, type, producer, status, parent_id', 'numerical', 'integerOnly'=>true),
 			array('id_workplace,type,status','required'),
-			array('serial,inv,released', 'length', 'max'=>100),
+			array('serial,inv,released,hostname', 'length', 'max'=>100),
 			array('inv','cartInvOnly'),
 			array('mark', 'length', 'max'=>200),
 			array('notes,ip,mac,released', 'safe'),
@@ -330,7 +331,7 @@ class Equipment extends CActiveRecord
 		$prod=(!empty($this->producer))?$this->producer0->name:'';
 		$notes=($this->type==0)?$this->notes:'';
 
-		return $this->type0->name.' '.$prod.' '.$this->mark.' <b>'.$this->serial.'</b> '.$notes.' '.$this->inv();
+		return $this->type0->name.' '.$prod.' '.$this->mark.' <b>'.$this->serial.'</b> '.$this->hostname.$notes.' '.$this->inv();
 	}
 
 
@@ -405,6 +406,7 @@ class Equipment extends CActiveRecord
 			'idWorkplaceid_workplace' => 'Рабочее место',
             'parentparent_id' => 'Принадлежность',
             'equipmentsparent_id' => 'Зависимое оборудование',
+            'hostname' => 'Имя хоста',
 		);
 	}
 
@@ -490,9 +492,30 @@ class Equipment extends CActiveRecord
 		$criteria->compare('mark',$this->mark,true);
 		$criteria->compare('inv',$this->inv,true);
 		$criteria->compare('status',$this->status);
-		$criteria->compare('ip',$this->ip,true);
-		$criteria->compare('mac',$this->mac,true);
-		$criteria->compare('notes',$this->notes,true);
+		
+		if($this->ip=='*'){
+			$criteria->addCondition("t.ip is NULL");
+		}else{
+			$criteria->compare('ip',$this->ip,true);
+		}		
+
+		if($this->mac=='*'){
+			$criteria->addCondition("t.mac is NULL");
+		}else{
+			$criteria->compare('mac',$this->mac,true);
+		}
+
+		if($this->hostname=='*'){
+			$criteria->addCondition("t.hostname is NULL");
+		}else{
+			$criteria->compare('hostname',$this->hostname,true);
+		}
+
+		if($this->notes=='*'){
+			$criteria->addCondition("t.notes=''");
+		}else{
+			$criteria->compare('notes',$this->notes,true);
+		}
 		$criteria->compare('released',$this->released,true);
 		$criteria->compare('department.subdiv_rn',$this->department,true);
 		$criteria->compare('workplace.wname',$this->idWorkplaceid_workplace,true);

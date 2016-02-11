@@ -412,56 +412,46 @@ public function actionCartSearch(){
 
 	public function actionIpmac(){
 		$dhcp=DhcpLeases::model()->findAll();
+		$i=1;
+		echo 'begin';
 		foreach ($dhcp as $v) {
 			$criteria=new CDbCriteria;
 
-			$mac='';
-			$realmac=NULL;
+			/*
 			if(!empty($v->mac)){
-				$realmac=mb_strtoupper($v['mac'][0],'UTF-8');
+				$realmac=mb_strtoupper($v->mac,'UTF-8');
+				echo $realmac.'<br>';
 				$macarr=explode(':',$realmac);
-				$mac=" OR (UPPER(t.notes) LIKE ('".implode('',$macarr)."') OR UPPER(t.notes) LIKE ('".implode(':',$macarr)."') OR UPPER(t.notes) LIKE ('".implode('-',$macarr)."'))";
+				$criteria->addCondition(array('condition'=>"(UPPER(t.notes) LIKE ('".implode('',$macarr)."') OR UPPER(t.notes) LIKE ('".implode(':',$macarr)."') OR UPPER(t.notes) LIKE ('".implode('-',$macarr)."'))"));
+			} */
+
+			if(!empty($v->hostname)){
+				$hostname=mb_strtolower($v->hostname,'UTF-8');
+				$criteria->compare('LOWER(notes)',$hostname,true);
+			}else{
+				continue;
 			}
 
 			//echo''.$mac.'<br>';
-			$criteria->addCondition(array('condition'=>"UPPER(t.notes) LIKE('%".$v['ip']."%') ".($nm=(!empty($v['hostname']))?"OR UPPER(t.notes) LIKE('%".mb_strtoupper($v['hostname'])."%')":"").$mac));
+			
+			//$criteria->compare('mac',mb_strtolower($v->mac,'UTF-8'));
+			//$criteria->compare('ip',$v->ip);
+			//$criteria->compare('hostname',$v->hostname); /**/
+			//$criteria->addCondition(array('condition'=>"UPPER(t.notes) LIKE('%".$v['ip']."%') ".($nm=(!empty($v['hostname']))?" OR UPPER(t.notes) LIKE('%".mb_strtoupper($v['hostname'])."%')":"").$mac));
 			$model=Equipment::model()->find($criteria);
 			if($model){
-				echo $model->full_name()." ".$model->netInfo()." <br>";
+				echo $i.' '.$model->full_name()." ".$model->netInfo()." <br>";
 				$model->ip=$v->ip;
 				$model->mac=$v->mac;
-				$model->save();
+				$model->hostname=$v->hostname;
+				$model->notes=str_replace($hostname,'',mb_strtolower($model->notes,'UTF-8'));
+				$i++;
+				echo '<pre>';
+				print_r($model->attributes);
+				echo '</pre>';
+				//$model->save();
 			}
 		}
-
-		
-		//$criteria=new CDbCriteria;
-		//$criteria->addCondition(array('condition'=>'t.type in('.implode(',',Equipment::$netEqType).') and t.ip is NULL or t.mac is NULL'));
-		//$model=Equipment::model()->find($criteria);
-
-		/*
-		//$nmap=exec('/home/al/localhost/www/glass/scan 10.126.83.87');
-		$nmap=shell_exec("/usr/bin/bash /home/al/localhost/www/glass/scan 10.126.83.87");
-		print_r($nmap);
-		//	$this->redirect(array('/'));
-		echo $model->id.'\\'.$model->mark.'\\'.$model->notes.'<br>';
-
-		preg_match('/[a-zA-Z0-9-_]+/',$model->notes,$name);
-		
-		echo $name[0];
-		
-		//$ip= 
-		//$mac=
-
-		echo '<br>name: '; print_r($name);
-		//$html = file_get_contents('http://h10025.www1.hp.com/ewfrf/wc/weResults?tmp_weCountry=ru&tmp_weSerial='.$model->serial.'&tmp_weProduct=CE538A&cc=ru&dlc=ru&lc=ru&product=');
-		//$result = preg_match('/>.*(ГГГГ-ММ-ДД)/', $html,$found); 
-		//$result2 = preg_match('/\d{4}-\d{2}-\d{2}/', $found[0], $res); 
-		//echo '<br>'.$res[0];
-
-		//$model->notes=$model->notes."\n гарантия до: ".$res[0];
-		//$model->save();
-		//echo '<meta http-equiv="Refresh" content="1" />'; */
 
 	}
 
