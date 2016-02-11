@@ -318,11 +318,10 @@ class TasksController extends Controller
 	public function actionHelpDesk($type=3,$group=NULL){
 		$this->layout='//layouts/column2';
 
-		
+		echo $this->renderPartial('/workplace/storages');
 		$this->rightWidget=array(
 			'df'=>array($this->renderPartial('_date_filter',array(),true)),
 			'ft'=>array($this->renderPartial('_fulltext_search',array(),true)),
-			'st'=>array($this->renderPartial('/workplace/storages')),
 			'cc'=>array($this->renderPartial('/equipment/countCart',array('model'=>Equipment::countCart()),true,false),'it')
 		);
 

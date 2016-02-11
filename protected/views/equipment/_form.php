@@ -35,13 +35,80 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<?php echo $form->errorSummary($model); ?>
 
 <?php if($model->scenario!='insert' or empty($model->id_workplace)): ?>
+
+	  <div class="row">
+		<?php echo CHtml::label('Рабочее место',''); ?>
+		<?php echo $form->hiddenField($model,'id_workplace'); ?>
+
+<?php echo CHtml::script("
+     function split(val) {
+      return val.split(/,\s*/);
+     }
+     function extractLast(term) {
+      return split(term).pop();
+     }
+   ")?>
+ <?php 
+
+    $val=(!empty($model->id_workplace))?$model->idWorkplace->wpNameFull():'';
+
+    $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+   'name'=>'id_workplace',
+   'value'=>$val,
+//'value' => $model->id,
+   'source'=>"js:function(request, response) {
+      $.getJSON('".$this->createUrl('/workplace/suggest')."', {
+        term: extractLast(request.term)
+      }, response);
+      }",
+   'options'=>array(
+     'delay'=>300,
+     'minLength'=>1,
+     'showAnim'=>'fold',
+ 	'multiple'=>false,
+     'select'=>"js:function(event, ui) {
+     	$('#Equipment_id_workplace').val(ui.item.id);
+        //sameTasks(ui.item.id,'wp');
+         var terms = split(this.value);
+         // remove the current input
+         terms.pop();
+         // add the selected item
+         terms.push( ui.item.value );
+         // add placeholder to get the comma-and-space at the end
+         terms.push('');
+         this.value = terms.join(' ');
+         return false;
+       }",
+   ),
+   'htmlOptions'=>array(
+     'size'=>'40',
+     'placeholder'=>'Поиск по кабинету ИЛИ фамилии'
+   ),
+  ));
+  // Для подсветки набираемого куска запроса в предлагаемом списке
+  Yii::app()->clientScript->registerScript('unique.script.identifier', "
+ $('#Wp_details').data('autocomplete')._renderItem = function( ul, item ) {
+   var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
+   var highlightedResult = item.label.replace( re, '<b>$1</b>' );
+   return $( '<li></li>' )
+     .data( 'item.autocomplete', item )
+     .append( '<a>' + highlightedResult + '</a>' )
+     .appendTo( ul );
+ };
+");  
+?>
+
+		<?php echo $form->error($model,'id_workplace'); ?>
+	</div>
+
+	<!--
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_workplace'); ?>
 		<?php $tmp=Workplace::model()->with('idCabinet.idFloor.idBuilding','idPersonnel')->findall(array('order'=>'bname ASC, "idFloor".fnum ASC, "idCabinet".num||"idCabinet".cname ASC, t.wname ASC'));
 				echo $form->dropDownList($model,"id_workplace",CHtml::listData($tmp,"id",function($tmp) {
 				return CHtml::encode($tmp->wpNameFull());}),array('empty' => '')); ?>
 		<?php echo $form->error($model,'id_workplace'); ?>
-	</div>
+	</div> -->
 <?php endif; ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'type'); ?>

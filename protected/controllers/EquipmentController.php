@@ -411,34 +411,26 @@ public function actionCartSearch(){
  	}
 
 	public function actionIpmac(){
-		echo"start<br>";
-		$js=file_get_contents('/home/al/myapp/dhcpinfo.txt');
-		//echo $js;
-		$js=json_decode($js,True);
-		unset($js[0]);
-		foreach ($js as $v) {
-			print_r($v);
-			echo'<br>';
+		$dhcp=DhcpLeases::model()->findAll();
+		foreach ($dhcp as $v) {
 			$criteria=new CDbCriteria;
 
 			$mac='';
 			$realmac=NULL;
-			if(!empty($v['mac'])){
+			if(!empty($v->mac)){
 				$realmac=mb_strtoupper($v['mac'][0],'UTF-8');
 				$macarr=explode(':',$realmac);
 				$mac=" OR (UPPER(t.notes) LIKE ('".implode('',$macarr)."') OR UPPER(t.notes) LIKE ('".implode(':',$macarr)."') OR UPPER(t.notes) LIKE ('".implode('-',$macarr)."'))";
 			}
 
 			//echo''.$mac.'<br>';
-			$criteria->addCondition(array('condition'=>"UPPER(t.notes) LIKE('%".$v['ip']."%')".($nm=(!empty($v['nm']))?"OR UPPER(t.notes) LIKE('%".$v['nm'][0]."%')":"").$mac));
+			$criteria->addCondition(array('condition'=>"UPPER(t.notes) LIKE('%".$v['ip']."%') ".($nm=(!empty($v['hostname']))?"OR UPPER(t.notes) LIKE('%".mb_strtoupper($v['hostname'])."%')":"").$mac));
 			$model=Equipment::model()->find($criteria);
 			if($model){
-				echo $model->full_name()." ".$model->notes." <br>";
-				$model->ip=$v['ip'];
-				if(!empty($realmac)){
-					$model->mac=$realmac;
-				}
-				#$model->save();
+				echo $model->full_name()." ".$model->netInfo()." <br>";
+				$model->ip=$v->ip;
+				$model->mac=$v->mac;
+				$model->save();
 			}
 		}
 
