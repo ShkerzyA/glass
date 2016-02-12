@@ -71,14 +71,15 @@ Yii::app()->clientScript->registerPackage('customfields');
      'minLength'=>1,
      'showAnim'=>'fold',
  	'multiple'=>false,
-     'select'=>"js:function(event, ui) {
+    'select'=>"js:function(event, ui) {
      	$('#Equipment_id_workplace').val(ui.item.id);
         //sameTasks(ui.item.id,'wp');
          var terms = split(this.value);
          // remove the current input
          terms.pop();
          // add the selected item
-         terms.push( ui.item.value );
+         terms.push( ui.item.value);
+         $('#id_workplace').attr('placeholder',ui.item.value);
          // add placeholder to get the comma-and-space at the end
          terms.push('');
          this.value = terms.join(' ');
@@ -87,7 +88,7 @@ Yii::app()->clientScript->registerPackage('customfields');
    ),
    'htmlOptions'=>array(
      'size'=>'40',
-     'placeholder'=>'Поиск по кабинету ИЛИ фамилии'
+     'placeholder'=>$val
    ),
   ));
   // Для подсветки набираемого куска запроса в предлагаемом списке

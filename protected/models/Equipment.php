@@ -502,7 +502,7 @@ class Equipment extends CActiveRecord
 		if($this->mac=='*'){
 			$criteria->addCondition("t.mac is NULL");
 		}else{
-			$criteria->compare('mac',$this->mac,true);
+			$criteria->compare('mac',$this->mac);
 		}
 
 		if($this->hostname=='*'){

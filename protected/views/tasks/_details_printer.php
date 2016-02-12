@@ -36,6 +36,7 @@
          terms.pop();
          // add the selected item
          terms.push( ui.item.value );
+         $('#Printer_details').attr('placeholder',ui.item.value);
          // add placeholder to get the comma-and-space at the end
          terms.push('');
          this.value = terms.join(' ');
@@ -44,7 +45,7 @@
    ),
    'htmlOptions'=>array(
      'size'=>'40',
-     'placeholder'=>'Поиск по кабинету ИЛИ фамилии'
+     'placeholder'=>$val
    ),
   ));
   // Для подсветки набираемого куска запроса в предлагаемом списке

@@ -61,7 +61,7 @@ class EquipmentController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
+				'actions'=>array('admin','adminMenu'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -320,6 +320,12 @@ public function actionCartSearch(){
 		if(!isset($_GET['ajax']))
 			$this->redirect(array('/Workplace/view','id'=>$id_wp));
 	}
+
+	public function actionAdminMenu(){
+		$this->render('adminMenu',array(
+		));
+	}
+
 
 	/**
 	 * Lists all models.

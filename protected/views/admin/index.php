@@ -57,6 +57,7 @@ $this->menu['all_menu']=array(
 	)),
 
 	array('title'=>'Оборудование','items'=>array(
+		array('label'=>'Инструменты админа', 'url'=>array('/equipment/adminMenu')), 
 		array('label'=>'Оборудование', 'url'=>array('/equipment/admin')), 
 		array('label'=>'Об./Тип', 'url'=>array('/equipmentType/admin')), 
 		array('label'=>'Об./Производитель', 'url'=>array('/equipmentProducer/admin')), 
