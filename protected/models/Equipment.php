@@ -53,6 +53,13 @@ class Equipment extends CActiveRecord
 		$this->old_model=clone $this;
 	}
 
+	public function onlyNetEq(){
+        $alias=$this->getTableAlias();
+        $this->getDbCriteria()->mergeWith(
+            array('condition'=>'"'.$alias.'".type in ('.implode(',',self::$netEqType).')'));
+        return $this;
+    }
+
 	public function setMaxCartInv(){
 		if($this->type==18){
 			if(empty(self::$maxCartInv)){
@@ -115,7 +122,7 @@ class Equipment extends CActiveRecord
 
 	public function netinfo(){
 		if(in_array($this->type, self::$netEqType)){
-			return "\n IP ".$this->ip."\n MAC ".$this->mac."\n HOST: ".$this->hostname;
+			return "\n <nobr>IP ".$this->ip."</nobr>\n<nobr>MAC ".$this->mac."</nobr>\n<nobr>HOST: ".$this->hostname.'</nobr>';
 		}
 	}
 
@@ -379,6 +386,7 @@ class Equipment extends CActiveRecord
 			//'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', '','with'=>'objectEq','on'=>'("EquipmentLog".type in (3,4) and '.$this->id.'=ANY("EquipmentLog"."details")) or "EquipmentLog"."object"='.$this->id),
 			'parentEq' => array(self::BELONGS_TO, 'Equipment', 'parent_id'),
             'equipments' => array(self::HAS_MANY, 'Equipment', 'parent_id'),
+            'dhcp' => array(self::HAS_MANY, 'DhcpLeases', '','on'=>'"dhcp".mac=t.mac','order'=>'"dhcp".date_end DESC'),
 		);
 	}
 

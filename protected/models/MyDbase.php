@@ -95,7 +95,7 @@ class MyDbase extends CFormModel{
 				$v['parentparent']=$zSubDiv[trim($v['cataloginfo']['parent_rn'])]['subdiv_rn'];
 		}
 
-		foreach ($zSubDiv as $v) {
+		foreach ($zSubDiv as &$v) {
 
 			$dep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['subdiv_rn'])));
 			if(empty($dep)){
@@ -105,12 +105,10 @@ class MyDbase extends CFormModel{
 			$dep->date_begin=$v['startdate'];
             $dep->date_end=$v['enddate'];
 			$dep->subdiv_rn=$v['subdiv_rn'];
-			//$dep->parent_subdiv_rn=$v['PARENTPARENT'];
 			$dep->save();
-			//var_dump($depPost->getErrors()); //вызывает задвоение 
 		}
-
-		foreach ($zSubDiv as $v) {
+		
+		foreach ($zSubDiv as &$v) {
 			$dep=Department::model()->find(array('condition'=>'subdiv_rn=:subdiv_rn','params'=>array(":subdiv_rn"=>$v['subdiv_rn'])));
 			if(!empty($v['parentparent']))
 				$dep->parent_subdiv_rn=$v['parentparent'];
@@ -119,7 +117,6 @@ class MyDbase extends CFormModel{
 
 		Department::model()->updateAll(array( 'date_end' => NULL ), 'date_end = \'01.01.1970\'');
 
- 		//$result[]=$acatalog;
  		return $zSubDiv; 
  	}
 
@@ -174,9 +171,6 @@ class MyDbase extends CFormModel{
  	}
 
  	public function otdelPostsImport(){
-
- 		//DepartmentPosts::model()->deleteAll();
- 		//DepartmentPosts::model()->updateAll(array('upd_flag' => NULL));
  	
  		$posts=$this->read_table('zpost','post_rn');
  		$zpostch=$this->read_table('zpostch');
@@ -209,7 +203,6 @@ class MyDbase extends CFormModel{
        					}
        					$depPost->rate=$z['stqnt'];
        					$depPost->save();
-       					//var_dump($depPost->getErrors()); //вызывает задвоение	
 			}
 				
 		}

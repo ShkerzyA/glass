@@ -8,14 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-			
-			array('label'=>'Оборудование/ Экспорт', 'url'=>array('/equipment/export'),'htmlOptions'=>array('target'=>'_blank')),
-			array('label'=>'Картриджи/ Экспорт', 'url'=>array('/equipmentLog/exportCart'), 'linkOptions'=>array('target'=>'_blank'),'visible'=>(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))))),
-			array('label'=>'Заправка картриджей', 'url'=>array('/equipmentLog/Crefill?type=outgo')),
-			array('label'=>'Возврат заправленных', 'url'=>array('/equipmentLog/Crefill?type=ingo')),
-			array('label'=>'Возврат востановленных', 'url'=>array('/equipmentLog/Crefill?type=ingo_r')),
-			array('label'=>'Принтеры/ Статистика', 'url'=>array('/equipmentLog/printersLog'),'htmlOptions'=>array('target'=>'_blank')),
-			array('label'=>'Картриджи/ Сводная таблица', 'url'=>array('/equipment/commonCartInfo'),'htmlOptions'=>array('target'=>'_blank')),
+				//array('label'=>'Сводная таблица сетевого оборудования', 'url'=>array('/Equipment/summaryTable')),
+				array('label'=>'DHCP=>EQ', 'url'=>array('/Equipment/dhcpWithEq')),
+				array('label'=>'EQ=>DHCP', 'url'=>array('/Equipment/netEqWithDhcp')),
+				//array('label'=>'IP и MAC по имени хоста', 'url'=>array('#')),
+				//array('label'=>'IP и хост по маку', 'url'=>array('#')),
 			);
 
 ?>

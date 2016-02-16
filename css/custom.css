@@ -5,6 +5,10 @@ table{
 	max-width: 99%;
 }
 
+.toptext *{
+	vertical-align: top;
+}
+
 td{
 	/*white-space: pre-wrap;*/
 }

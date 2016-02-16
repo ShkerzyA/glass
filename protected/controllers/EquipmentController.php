@@ -61,7 +61,7 @@ class EquipmentController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','adminMenu'),
+				'actions'=>array('admin','adminMenu','summaryTable','dhcpWithEq','netEqWithDhcp'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -324,6 +324,21 @@ public function actionCartSearch(){
 	public function actionAdminMenu(){
 		$this->render('adminMenu',array(
 		));
+	}
+
+	public function actionSummaryTable(){
+		$models=DhcpLeases::model()->findAll();
+		$this->render('summary_table',array('models'=>$models));
+	}
+
+	public function actionDhcpWithEq(){
+		$models=DhcpLeases::model()->with('equipment')->findAll(array('order'=>'t.date_end DESC'));
+		$this->render('dhcpWithEq',array('models'=>$models));
+	}
+
+	public function actionNetEqWithDhcp(){
+		$models=Equipment::model()->onlyNetEq()->with('dhcp')->findAll(array('condition'=>'t.type=0','order'=>'t.type ASC'));
+		$this->render('eqWithDhcp',array('models'=>$models));
 	}
 
 

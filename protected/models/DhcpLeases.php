@@ -9,6 +9,11 @@
  * @property string $date_end
  * @property string $mac
  * @property string $hostname
+ * @property integer $id
+ *		 * The followings are the available model relations:
+
+
+ * @property Equipment $mac0
  */
 class DhcpLeases extends CActiveRecord
 {
@@ -20,7 +25,8 @@ class DhcpLeases extends CActiveRecord
 	public static $modelLabelS='DhcpLeases';
 	public static $modelLabelP='DhcpLeases';
 	
-	
+	public $mac0mac;
+
 
 	public static function model($className=__CLASS__)
 	{
@@ -48,7 +54,7 @@ class DhcpLeases extends CActiveRecord
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ip, act, date_end, mac, hostname', 'safe', 'on'=>'search'),
+			array('ip, act, date_end, mac, hostname, id,mac0mac', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -60,7 +66,17 @@ class DhcpLeases extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'equipment' => array(self::BELONGS_TO, 'Equipment', '','on'=>'equipment.mac=t.mac'),
+			//'equipments' => array(self::BELONGS_TO, 'Equipment', 'mac'),
 		);
+	}
+
+	public function allIdent(){
+		if($this->mac==$this->equipment->mac and $this->ip==$this->equipment->ip and $this->hostname=$this->equipment->hostname){
+			return True;
+		}else{
+			return False;
+		}
 	}
 
 	/**
@@ -74,6 +90,8 @@ class DhcpLeases extends CActiveRecord
 			'date_end' => 'Date End',
 			'mac' => 'Mac',
 			'hostname' => 'Hostname',
+			'id' => 'ID',
+			'mac0mac' => 'mac',
 		);
 	}
 
@@ -88,11 +106,14 @@ class DhcpLeases extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
+		$criteria->with=array('mac0' => array('alias' => 'equipment'),);
 		$criteria->compare('ip',$this->ip,true);
 		$criteria->compare('act',$this->act);
 		$criteria->compare('date_end',$this->date_end,true);
 		$criteria->compare('mac',$this->mac,true);
 		$criteria->compare('hostname',$this->hostname,true);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('equipment.mac',$this->mac0mac,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
