@@ -72,7 +72,7 @@ class DhcpLeases extends CActiveRecord
 	}
 
 	public function allIdent(){
-		if($this->mac==$this->equipment->mac and $this->ip==$this->equipment->ip and $this->hostname=$this->equipment->hostname){
+		if($this->mac==$this->equipment->mac and $this->ip==$this->equipment->ip and trim($this->hostname)==trim($this->equipment->hostname)){
 			return True;
 		}else{
 			return False;

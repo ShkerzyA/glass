@@ -178,6 +178,8 @@ class ActionsController extends Controller
 				$this->parent->save();
 				$this->act->saveStatus();
 				Yii::app()->Tornado->updateTasks();
+				if($this->parent->status==2 and Yii::app()->user->id_pers==9)
+					Yii::app()->Tornado->sergGood();
 			}
 		}
 

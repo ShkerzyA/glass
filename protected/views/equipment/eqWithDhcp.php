@@ -37,7 +37,7 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
    		}else{
             $style='closed';
          }
-   		echo '<tr class="'.$style.'"><td class=nob rowspan='.$rows.'>'.$eq->full_name().'</td>';
+   		echo '<tr class="'.$style.'"><td class=nob rowspan='.$rows.'>'.$eq->getWorkplace().' '.$eq->full_name().'</td>';
    		echo '<td class=nob rowspan='.$rows.'>'.$eq->netInfo().'</td>';
          echo '<td colspan=4 class=nob> </td>';
    		echo '</tr>';

@@ -28,7 +28,7 @@ $rul=Yii::app()->user->checkAccess("ruleWorkplaces");
    	foreach ($models as $dhcp){
    		if(!empty($dhcp->equipment)){
    			$style='done';
-   			$eq=$dhcp->equipment->full_name();
+   			$eq=$dhcp->equipment->getWorkplace().' '.$dhcp->equipment->full_name();
    			$netinfo=$dhcp->equipment->netInfo();
    			$err=(!$dhcp->allIdent())?'red':'';
    		}else{

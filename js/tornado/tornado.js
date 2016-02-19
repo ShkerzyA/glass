@@ -44,6 +44,9 @@ function init(){
                         updateChat();
                         updateTasks();
                     }
+                    if(res.id=='sergGood'){
+                        sergGood();
+                    }
                 }
             };
             this.ws = ws;

@@ -32,4 +32,8 @@ class Tornado extends CApplicationComponent
 	public function updateTasks(){
 		$this->message('{"type":"action","id":"updateTasks"}');
 	}
+
+	public function sergGood(){
+		$this->message('{"type":"action","id":"sergGood"}');
+	}
 }
