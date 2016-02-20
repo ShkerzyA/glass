@@ -6,7 +6,10 @@
 <?php Yii::app()->clientScript->registerPackage('userjs'); ?>
     <audio id='serg_good' src="<?php echo Yii::app()->baseUrl?>/media/mess/serg.ogg"></audio>
     <?php if (!empty(Yii::app()->user->chatsound)):?>
-        <audio id='incmess' src="<?php echo Yii::app()->baseUrl?>/media/mess/kib2.ogg"></audio>
+        <audio id='incmess1' src="<?php echo Yii::app()->baseUrl?>/media/mess/mess1.ogg"></audio>
+        <audio id='incmess2' src="<?php echo Yii::app()->baseUrl?>/media/mess/mess2.ogg"></audio>
+        <audio id='incmess3' src="<?php echo Yii::app()->baseUrl?>/media/mess/mess3.ogg"></audio>
+        <audio id='incmess4' src="<?php echo Yii::app()->baseUrl?>/media/mess/mess4.ogg"></audio>
     <?php endif; ?>
     <?php if (!empty(Yii::app()->user->tasksound)):?>
         <?php $sound=(!empty(Yii::app()->user->horn))?Yii::app()->user->horn:'horn6.ogg'?>
@@ -90,7 +93,8 @@ function updateChat(){
                 if(viewChat!=0){
                     $(".mess_head").css("background","red");
                 }               
-            document.getElementById('incmess').play();
+            randnum=Math.floor(Math.random( ) * (4 - 1 + 1)) + 1;
+            document.getElementById('incmess'+randnum).play();
             notifyUser('Чат','Новое сообщение');
             }
         });
