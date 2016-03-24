@@ -13,6 +13,8 @@ td{
 	/*white-space: pre-wrap;*/
 }
 
+
+
 h4.subscribe{
 	margin: 0px;
 	margin-top : 20px; 
@@ -194,6 +196,7 @@ h4.subscribe{
 
 .texttask{
 	min-width: 600px;
+	max-width: 800px;
 	min-height: 30px;
 	position: absolute;
 	padding: 0px;
@@ -203,6 +206,10 @@ h4.subscribe{
 	display: none;
 	box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;
 	/*transition: opacity .4s ease 0s, height .4s ease 0s;*/
+}
+
+.texttask img{
+	max-width: 99%;
 }
 
 .texttask *{
