@@ -49,6 +49,7 @@ $('.search-form form').submit(function(){
 		'description',
 		'timestamp',
 		'timestamp_end',
+		'order',
 		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->fio()' ),
 		/*
 		'id_department',

@@ -76,6 +76,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 	<th><?php echo $items[0]->getAttributeLabel('notes'); ?></th>
 	<th><?php echo $items[0]->getAttributeLabel('ip'); ?></th>
 	<th><?php echo $items[0]->getAttributeLabel('mac'); ?></th>
+	<th><?php echo $items[0]->getAttributeLabel('hostname'); ?></th>
 </tr>
 <?php foreach($items as $i=>$item): ?>
 <tr>
@@ -99,6 +100,7 @@ echo CHtml::activedropDownList($item,"[$i]type", CHtml::listData($tmp,"id",funct
 <td><?php echo CHtml::activeTextField($item,"[$i]notes"); ?></td>
 <td><?php echo CHtml::activeTextField($item,"[$i]ip"); ?></td>
 <td><?php echo CHtml::activeTextField($item,"[$i]mac"); ?></td>
+<td><?php echo CHtml::activeTextField($item,"[$i]hostname"); ?></td>
 </tr>
 
 <?php endforeach; ?>

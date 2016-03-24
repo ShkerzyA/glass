@@ -120,7 +120,12 @@ window.onload=function(){
     <div class="serb"><div style="float: left;"></div><div style="float: left;" id="serb"></div></div>
      
     <div class="messenger">
-        <div class="mess_head"></div>
+        <div class="mess_head">
+        <?php
+            $staffEpl=Tasks::staffEmployment();
+            $this->controller->renderPartial('/tasks/_staffEmployment',array('staffEpl'=>$staffEpl));
+        ?>
+        </div>
         <div class="mess_body">
             <div class="mess_content">
             <?php

@@ -40,19 +40,23 @@ $this->renderPartial('/workplace/storages');
 <?php $ruleWP=Yii::app()->user->checkAccess('ruleWorkplaces'); ?>
 <?php if($ruleWP):?>
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/create?Equipment[id_workplace]=<?php echo $model->id ?>">
-	<div id="add_task" class="add_unit fl_right">добавить оборудование</div>
+	<div id="add_task" class="add_unit fl_right w100px">добавить об.</div>
 </a>
 
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/createPack?Equipment[id_workplace]=<?php echo $model->id ?>">
-	<div id="add_task" class="add_unit fl_right">добавить набор</div>
+	<div id="add_task" class="add_unit fl_right w100px">добавить набор</div>
 </a>
 
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/createPack?Equipment[id_workplace]=<?php echo $model->id ?>&&preset=HP">
-  <div id="add_task" class="add_unit fl_right">добавить HP набор</div>
+  <div id="add_task" class="add_unit fl_right w100px">добавить HP набор</div>
+</a>
+
+<a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/createPack?Equipment[id_workplace]=<?php echo $model->id ?>&&preset=polic">
+  <div id="add_task" class="add_unit fl_right w100px">Набор поликлиники</div>
 </a>
 
 <a href="<?php echo(Yii::app()->request->baseUrl) ?>/equipment/createPack?Equipment[id_workplace]=<?php echo $model->id ?>&&preset=cart">
-  <div id="add_task" class="add_unit fl_right">Картриджи</div>
+  <div id="add_task" class="add_unit fl_right w100px">Картриджи</div>
 </a>
 <?php endif; ?>
 

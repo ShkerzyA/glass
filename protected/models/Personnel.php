@@ -121,11 +121,19 @@ class Personnel extends CActiveRecord
 
     public function ava(){
         if (!empty($this->photo)){
-            echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($this->photo)); 
+            return (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($this->photo)); 
         }else{
-            echo (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
+            return (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
         }
 
+    }
+
+    public static function stAva($photo){
+        if (!empty($photo)){
+            return (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($photo)); 
+        }else{
+            return (Yii::app()->request->baseUrl.'/images/no_avatar.jpg');
+        }
     }
 
     public function fioRu2Lat(){

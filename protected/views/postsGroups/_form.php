@@ -32,6 +32,14 @@
 		<?php echo $form->error($model,'group_key'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'type'); ?>
+
+		<?php echo $form->textField($model,'type',array('size'=>30,'maxlength'=>1)); ?>
+
+		<?php echo $form->error($model,'type'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
 	</div>

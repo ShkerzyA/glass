@@ -21,6 +21,12 @@ class EquipmentController extends Controller
 			array('type'=>'6','producer'=>10),
 			array('type'=>'7'),
 			),
+		'polic'=>array(
+			array('type'=>'0','producer'=>61,'mark'=>'OEM'),
+			array('type'=>'1','producer'=>1,'mark'=>'S22C200B'),
+			array('type'=>'2','producer'=>62,'mark'=>'P2135DN'),
+			array('type'=>'7'),
+			),
 		'cart'=>array(
 			array('type'=>'18'),
 			array('type'=>'18'),

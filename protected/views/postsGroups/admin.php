@@ -46,6 +46,7 @@ $('.search-form form').submit(function(){
 		'id',
 		'group_name',
 		'group_key',
+		'type',
 		array(
 			'class'=>'CButtonColumn',
 		),

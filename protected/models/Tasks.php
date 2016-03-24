@@ -227,6 +227,7 @@ class Tasks extends CActiveRecord
 			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),
 			'Project0' => array(self::BELONGS_TO, 'Projects', 'project'),
 			'status0' => array(self::BELONGS_TO, 'TasksStatus', 'status','order'=>'"status0".sort ASC'),
+			//'place' => array(self::BELONGS_TO,'Workplace','','on'=>'t.type=0 and details[0]::integer="place".id'),
 		);
 	}
 
@@ -291,6 +292,23 @@ class Tasks extends CActiveRecord
 		return $this->isChangeStatus();
 	}
 
+	public static function staffEmployment($group=array()){
+		$tgArray=PostsGroups::tasksGroupKeys();
+		$wh_group=(!empty($group))?array_uintersect($group,Yii::app()->user->groups,"strcasecmp"):Yii::app()->user->groups;
+		$wh_group=array_uintersect($wh_group,$tgArray,"strcasecmp");
+	 	$sql = Yii::app()->db->createCommand(
+        	"
+        	select pr.id,pr.surname,pr.name,pr.patr,pr.photo, count(ts.id) as tasks from personnel as pr
+			left join personnel_posts_history as ph on(ph.id_personnel=pr.id and (ph.date_end is null or ph.date_end>current_date))
+			left join department_posts as dp on(ph.id_post=dp.id and (dp.date_end is null or dp.date_end>current_date))
+			left join tasks as ts on (pr.id::varchar=ANY(ts.executors) and ts.status in(1))
+			where (dp.groups::text[] && array['".implode("','",$wh_group)."']) group by pr.id,pr.surname,pr.name,pr.patr order by tasks asc
+        	"   
+        );
+    	$result = $sql->queryAll();
+    	return $result;
+	}
+
 	public static function GroupTasks ($group=array(),$type=3,$date='current_date',$search=NULL){
 		
 
@@ -298,6 +316,7 @@ class Tasks extends CActiveRecord
 		$criteria->with=array('Project0','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
 
 		$wh_group=(!empty($group))?array_uintersect($group,Yii::app()->user->groups,"strcasecmp"):Yii::app()->user->groups;
+
 		//print_r($wh_group); 
 		switch ($type) {
 			//все, кроме помеченных как просмотренные
@@ -437,6 +456,7 @@ class Tasks extends CActiveRecord
 				break;
 
 			case '0':
+				
 				$m=Workplace::model()->findByPk($this->details[0]);
 				if(!empty($m)){
 					$result.=$m->wpNameFull($short);
@@ -445,7 +465,12 @@ class Tasks extends CActiveRecord
 					}
 					if(!$short)
 						$result.=" ";
-				}			
+				}
+				/*
+				if(!empty($this->place)){
+					$result.=$this->place->wpNameFull($short);
+					$result.=' <a href=/glass/Workplace/'.$m->id.'><img src="../images/door.png" style="height: 24px;"></a>';
+				}	*/	
 				break;
 			
 			default:

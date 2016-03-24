@@ -61,6 +61,7 @@ $this->menu['all_menu']=array(
 
 	));
 ?>
+
 <?php foreach ($this->tasks_menu as $x): ?>
 
 	<?php if($this->mayShow($x['rule'])): ?>

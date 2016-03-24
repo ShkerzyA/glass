@@ -45,10 +45,11 @@ class PostsGroups extends CActiveRecord
 		return array(
 			array('group_name', 'length', 'max'=>50),
 			array('group_key', 'length', 'max'=>30),
+			array('type', 'numerical', 'integerOnly'=>true),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, group_name, group_key', 'safe', 'on'=>'search'),
+			array('id, group_name, group_key, type', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -63,6 +64,15 @@ class PostsGroups extends CActiveRecord
 		);
 	}
 
+	public static function tasksGroupKeys(){
+		$tasksGroup=self::model()->findAll(array('condition'=>'t.type=2'));
+		$tgArray=array();
+		foreach ($tasksGroup as $g) {
+			$tgArray[]=$g->group_key;
+		}
+		return $tgArray;
+	}
+
 	/**
 	 * @return array customized attribute labels (name=>label)
 	 */
@@ -70,8 +80,9 @@ class PostsGroups extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'Название группы' => 'Group Name',
-			'Ключ' => 'Group Key',
+			'group_name' => 'Название группы',
+			'group_key' => 'Ключ группы',
+			'type' => 'Тип группы'
 		);
 	}
 
@@ -88,6 +99,7 @@ class PostsGroups extends CActiveRecord
 
 		$criteria->compare('id',$this->id);
 		$criteria->compare('group_name',$this->group_name,true);
+		$criteria->compare('group_key',$this->group_key,true);
 		$criteria->compare('group_key',$this->group_key,true);
 
 		return new CActiveDataProvider($this, array(

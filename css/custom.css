@@ -342,11 +342,11 @@ h4.subscribe{
 	border-radius:   15px 15px 0px 0px; 
 	cursor: pointer;
 	margin: 0px;
-	height: 3px;
+	height: 15px;
 	overflow: hidden;
 	border: 2px solid grey;
 	background: black;
-	opacity: 0.5;
+	opacity: 0.7;
 	color: rgb(255,255,255);
 	padding: 3px;
 	text-align: center;
@@ -1192,6 +1192,15 @@ td .week_event{
 }
 .leaf .day_event{
 	width: 95%;
+}
+
+.leaf .form input{
+	max-width: 100px;
+}
+
+.w100px{
+	max-width: 120px;
+	padding: 1px;
 }
 
 .event{
