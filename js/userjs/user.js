@@ -1,5 +1,5 @@
 
-
+var plcJsFlt=0;
 function init(){
 	$('#userEd').live('click',function(){ 
 		load_modalForm();
@@ -23,6 +23,18 @@ function init(){
         	$("#EquipmentLog_details").val(tmp+',');
         }
     });
+
+  $(".plcJsFilter").live('click',function sss(){
+      if(plcJsFlt==0){
+        $(".taskpanel").hide();
+        $(".taskpanel:contains('"+this.id+"')").show();
+        scrollT();
+        plcJsFlt=1;
+      }else{
+        $(".taskpanel").show();
+        plcJsFlt=0;
+      }
+  });
 
   $(".filter_eq").live('click',function sss(){
       //alert($(this).text());

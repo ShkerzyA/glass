@@ -26,10 +26,11 @@ class Tasks extends CActiveRecord
 	public static $modelLabelS='Задача';
 	public static $modelLabelP='Задачи';
 	#public static $multifield=array('executors','group');
-	public static $db_array=array('group','details','executors');
+	public static $db_array=array('group','details','executors','deadlocks');
 	public static $statJoin=array(1,2,5);
 	public static $statFixEnd=array(2,3);
 	public static $taskType=array(0=>array('Зачада','add_task_40.png'),1=>array('Замена картриджа','printer_40.png'));
+	public static $locks=array(1=>'Определенные навыки',2=>'Требуется группа бойцов',3=>'Определенное время',4=>'Оборудование со склада после согласования',5=>'Сторонний чел');
 	public $inExecutors=0;
 	
 	public $creator0creator;
@@ -42,10 +43,18 @@ class Tasks extends CActiveRecord
 		}
 	}
 
-
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
+	}
+
+	public function getLocks(){
+		$result=array();
+		foreach (self::$locks as $k => $v) {
+			$act=(in_array($k,$this->deadlocks))?'a':'d';
+			$result[]=array($k,$act,$v);
+		}
+		return $result;
 	}
 
 	/**
@@ -227,7 +236,7 @@ class Tasks extends CActiveRecord
 			'TasksActions' => array(self::HAS_MANY, 'TasksActions', 'id_task','alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),
 			'Project0' => array(self::BELONGS_TO, 'Projects', 'project'),
 			'status0' => array(self::BELONGS_TO, 'TasksStatus', 'status','order'=>'"status0".sort ASC'),
-			//'place' => array(self::BELONGS_TO,'Workplace','','on'=>'t.type=0 and details[0]::integer="place".id'),
+			'place' => array(self::BELONGS_TO,'Workplace','','on'=>'t.type=0 and details[0]::integer="place".id'),
 		);
 	}
 
@@ -252,6 +261,7 @@ class Tasks extends CActiveRecord
 			'details' => 'Ключевые данные',
 			'deadline' => 'Срок исполнения',
 			'project' => 'Проект',
+			'deadlocks' => 'Траблы',
 		);
 	}
 
@@ -313,7 +323,7 @@ class Tasks extends CActiveRecord
 		
 
 		$criteria=new CDbCriteria;
-		$criteria->with=array('Project0','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
+		$criteria->with=array('Project0','place','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
 
 		$wh_group=(!empty($group))?array_uintersect($group,Yii::app()->user->groups,"strcasecmp"):Yii::app()->user->groups;
 
@@ -449,6 +459,7 @@ class Tasks extends CActiveRecord
 					$result.=$m->idWorkplace->wpNameFull($short);
 					if($place==True){
 						$result.=' <a href=/glass/Workplace/'.$m->idWorkplace->id.'><img src="../images/door.png" style="height: 24px;"></a>';
+						$result.=' <img src="../images/funnel.png" class=plcJsFilter id="'.$m->idWorkplace->getBuildingName().'" >';
 					}
 					if(!$short)
 						$result.="\nПринтер: $m->mark";
@@ -462,6 +473,7 @@ class Tasks extends CActiveRecord
 					$result.=$m->wpNameFull($short);
 					if($place==True){
 						$result.=' <a href=/glass/Workplace/'.$m->id.'><img src="../images/door.png" style="height: 24px;"></a>';
+						$result.=' <img src="../images/funnel.png" class=plcJsFilter id="'.$m->getBuildingName().'" ">';
 					}
 					if(!$short)
 						$result.=" ";

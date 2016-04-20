@@ -118,6 +118,10 @@ class Workplace extends CActiveRecord
 
 	}
 
+	public function getBuildingName(){
+		return $this->idCabinet->idFloor->idBuilding->bname;
+	}
+
 	public function wpName($withEq=false){
 		$eqStr=($withEq)?'('.$this->myEqStr(array(2,3,4)).')':'';
 

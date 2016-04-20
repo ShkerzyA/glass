@@ -36,9 +36,11 @@ if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))){
 ?>
 
 <div style="position: relative; clear: both;"></div>
+<div style="float: right">
+	<?php $this->renderPartial('_deadlocks',array('model'=>$model),false,false); ?>
+</div>
 
 <?php
-
 echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: left;"><h2>'.$model->tname.'</h2></div>
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
