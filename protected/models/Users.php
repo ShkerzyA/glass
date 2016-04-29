@@ -136,6 +136,18 @@ public $personnelsid_user;
         return $res;
 	}
 
+	public static function BgList(){
+		$res=array();
+		$src=Yii::getPathOfAlias('webroot').'/images/bg/';
+        if ($handle = opendir($src)) {
+            while (false !== ($file = readdir($handle))) {
+            	if($file!='.' && $file!='..')
+            		$res[$file]='<img style="height: 20px;" src="/glass/images/bg/'.$file.'">'; 
+            }
+        }
+        return $res;
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.

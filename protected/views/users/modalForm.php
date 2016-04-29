@@ -49,6 +49,12 @@
         <?php echo $form->error($model,'horn'); ?>
     </div>
 
+    <div class="row">
+        <?php echo $form->labelEx($model,'bg'); ?><br>
+        <?php echo $form->radioButtonList($model,'bg',Users::BgList(),array('separator'=>''));?>
+        <?php echo $form->error($model,'bg'); ?>
+    </div>
+
 	<div class="row">
         <?php echo $form->labelEx($model,'chatsound'); ?>
 

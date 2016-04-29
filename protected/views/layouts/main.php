@@ -35,10 +35,10 @@
 
 <?php if(!(Yii::app()->user->isGuest)): ?>
 
-	<?php if(!empty(Yii::app()->user->bg) and is_file(Yii::getPathOfAlias('webroot').'/images/'.Yii::app()->user->bg)): ?>
+	<?php if(!empty(Yii::app()->user->bg) and is_file(Yii::getPathOfAlias('webroot').'/images/bg/'.Yii::app()->user->bg)): ?>
 	<style>
 		body{
-			background: url("/glass/images/<?php echo Yii::app()->user->bg; ?>") 100% fixed;
+			background: url("/glass/images/bg/<?php echo Yii::app()->user->bg; ?>") 100% fixed;
 			background-size: 100%;
 		}
 	</style>
