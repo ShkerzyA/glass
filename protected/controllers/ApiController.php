@@ -11,7 +11,7 @@ class ApiController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('saveMon'),
+				'actions'=>array('saveMon','kmiacEvents'),
 				'users'=>array('*'),
 			),
 			array('deny',  // deny all users
@@ -30,6 +30,24 @@ class ApiController extends Controller
 			$model->attributes=$_POST;
 			$model->save();
 			Yii::app()->Tornado->updateMon();
+		}
+	}
+
+	public function actionKmiacEvents(){
+		foreach ($_POST as $ev) {
+			$ev=explode('\|/',$ev);
+			$kE=new KmiacEvents;
+			$kE->date=$ev[0];
+			$kE->t_time=$ev[1];
+			$kE->b_time=$ev[2];
+			$kE->e_time=$ev[3];
+			$kE->description=$ev[4];
+			$kE->party=$ev[5];
+			try {
+				$kE->save();
+			} catch (Exception $e) {
+				echo 'уже существует<br>';
+			}
 		}
 	}
 
