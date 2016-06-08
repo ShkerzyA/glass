@@ -923,6 +923,10 @@ select{
 	font-weight: bold;
 }
 
+.deadline{
+	box-shadow: 1px 1px 3px 0px grey, -3px -3px 2px 2px white;
+}
+
 .projectpanel{
 	box-shadow: none;
 	border-top: 2px solid black;

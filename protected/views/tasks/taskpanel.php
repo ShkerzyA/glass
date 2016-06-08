@@ -1,10 +1,10 @@
 	<?php $status=$v->status0; ?>
-	<div class="taskpanel <?php echo $status['css_class']; ?> <?php echo $v->isGroovy(); ?>">
+	<div class="taskpanel <?php echo $status['css_class']; ?> <?php echo $v->isGroovy(); ?> <?php echo $dl=(!empty($v->deadline))?' deadline ':'';?>">
 			
 			<div  class="rightinfo">
 				<?php 	
 						if(!empty($v->deadline)){
-							echo '<img src="'.Yii::app()->request->baseUrl.'/images/clock_24.png" title="Это нихера не шуточки. Это значит сделать точно в срок">';
+							echo '<img src="'.Yii::app()->request->baseUrl.'/images/clock_24.png" title="'.$v->deadline.'">';
 						}
 						echo'<div style="font-size: 9pt; text-align: left;">';
 					
