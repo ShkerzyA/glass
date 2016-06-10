@@ -28,7 +28,7 @@ class EquipmentLogController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view','exportCart','showLog','printersLog'),
+				'actions'=>array('index','view','exportCart','showLog','showLogWp','printersLog'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -81,6 +81,20 @@ class EquipmentLogController extends Controller
 		$eq=Equipment::model()->findByPk($id);
 		echo $eq->full_name().'<br>';
 		$logs=EquipmentLog::model()->findAll(array('condition'=>'t.object='.$id.' or (type=1 and \''.$id.'\'=details[2]) or (type in (3,4) and \''.$eq->inv.'\'=ANY("details"))','order'=>'t.timestamp DESC, t.type ASC'));
+		echo '<table class=bordertable><tr><th>Дата/Время</th><th>Тип действия</th><th>Субьект</th><th>Объект</th><th>Детали</th></tr>';
+		foreach ($logs as $v) {
+			echo '<tr><td>'.$v->timestamp.'</td><td>'.$v->getType()['name'].'</td><td>'.$v->subject0->fio().'</td><td>'.($ob_name=($v->objectEq)?$v->objectEq->full_name():'').'</td><td>'.$v->details_full().'</td></tr>';
+		}
+		echo '</table>';
+	}
+
+	public function actionShowLogWp($id_w)
+	{
+		//if(!empty($_POST['id']))
+		//	$id=$_POST['id'];
+		$wp=Workplace::model()->findByPk($id_w);
+		echo $wp->wpNameFull().'<br>';
+		$logs=EquipmentLog::model()->findAll(array('condition'=>'(t.type=0 and \''.$id_w.'\'=ANY("details")) or (t.type in (1,5,7) and \''.$id_w.'\'=details[1])','order'=>'t.timestamp DESC, t.type ASC'));
 		echo '<table class=bordertable><tr><th>Дата/Время</th><th>Тип действия</th><th>Субьект</th><th>Объект</th><th>Детали</th></tr>';
 		foreach ($logs as $v) {
 			echo '<tr><td>'.$v->timestamp.'</td><td>'.$v->getType()['name'].'</td><td>'.$v->subject0->fio().'</td><td>'.($ob_name=($v->objectEq)?$v->objectEq->full_name():'').'</td><td>'.$v->details_full().'</td></tr>';

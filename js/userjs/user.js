@@ -62,6 +62,10 @@ function init(){
     showLog(this.id,$(this).attr('mod'));
   });
 
+  $('.showlogWpEq').live('click',function(){
+    showLogWp(this.id);
+  });
+
 }
 
 function sameTasks(id,type){
@@ -139,6 +143,23 @@ function showLog(id,mname){
     }
 
 }
+
+function showLogWp(id){
+    if (id) {
+        $.get("/glass/EquipmentLog/showLogWp", {id_w: id},
+            function(data, status) {
+                if (status == "success") {
+                    $('html').append(awesomeWindowWrap(data));
+                }else{
+                    alert('Ошибка');
+                }
+            },"html"
+        );
+    }
+
+}
+
+
 
 function load_modalForm(){
 	$.post('/glass/Users/modalForm',{},function(data,status){
