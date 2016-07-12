@@ -8,6 +8,20 @@
 <div class="span-5 last">
 	<div id="sidebar">
 	<?php
+
+		if(!empty($this->rightWidgetUp)){
+			foreach ($this->rightWidgetUp as $r) {
+				if(!empty($r[1])){
+					if(Yii::app()->user->checkAccess('inGroup',array('group'=>array($r[1]))))
+						echo $r[0];
+				}else{
+					echo $r[0];
+				}
+				
+			}
+		}
+
+
 		if (!empty($this->menu)){
 			$this->beginWidget('zii.widgets.CPortlet', array(
 				'title'=>'Действия',

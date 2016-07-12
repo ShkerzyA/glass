@@ -22,8 +22,7 @@
 							}
 						}
 
-						echo ('<div class='.$status['css_status'].' style="text-align: left">'.$status['label'].'</div>');
-
+						echo ('<div class='.$status['css_status'].' style="text-align: left">'.$v->id.'/'.$status['label'].'</div>');
 						echo'</div>';
 
 						
@@ -75,5 +74,5 @@
 			
 				
 			</div>
-			<div class="texttask rotated"><pre><?php echo $v->detailsShow(False,True,True).'<br>'. $v['ttext']; ?></pre></div>
+			<div class="texttask rotated"><pre><?php echo $v->id.' '.$v->detailsShow(False,True,True).'<br>'. $v['ttext']; ?></pre></div>
 		</div>

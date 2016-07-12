@@ -22,6 +22,7 @@ class TasksController extends Controller
 		array('name'=>'Вентиляция','group'=>'ventilation','rule'=>array()),
 		);
 	public $rightWidget;
+	public $rightWidgetUp;
 
 	public function init(){
 	}
@@ -79,6 +80,11 @@ class TasksController extends Controller
 	 */
 	public function actionView($id)
 	{
+
+		$this->rightWidgetUp=array(
+			'idfield'=>array($this->renderPartial('_idfield',array(),true))
+		);
+
 		$model=$this->loadModel($id);
 		if(!Yii::app()->user->checkAccess('viewTs',array('mod'=>$model)))
 			throw new CHttpException(403, 'У вас недостаточно прав');
@@ -319,6 +325,12 @@ class TasksController extends Controller
 		$this->layout='//layouts/column2';
 
 		echo $this->renderPartial('/workplace/storages');
+
+		$this->rightWidgetUp=array(
+			'idfield'=>array($this->renderPartial('_idfield',array(),true))
+		);
+
+
 		$this->rightWidget=array(
 			'df'=>array($this->renderPartial('_date_filter',array(),true)),
 			'ft'=>array($this->renderPartial('_fulltext_search',array(),true)),

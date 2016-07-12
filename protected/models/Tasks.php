@@ -458,8 +458,8 @@ class Tasks extends CActiveRecord
 				if(!empty($m)){
 					$result.=$m->idWorkplace->wpNameFull($short);
 					if($place==True){
-						$result.=' <a href=/glass/Workplace/'.$m->idWorkplace->id.'><img src="../images/door.png" style="height: 24px;"></a>';
-						$result.=' <img src="../images/funnel.png" class=plcJsFilter id="'.$m->idWorkplace->getBuildingName().'" >';
+						$result.=' <a href=/glass/Workplace/'.$m->idWorkplace->id.'><img src="'.Yii::app()->request->baseUrl.'/images/door.png" style="height: 24px;"></a>';
+						$result.=' <img src="'.Yii::app()->request->baseUrl.'/images/funnel.png" class=plcJsFilter id="'.$m->idWorkplace->getBuildingName().'" >';
 					}
 					if(!$short)
 						$result.="\nПринтер: $m->mark";
@@ -472,8 +472,8 @@ class Tasks extends CActiveRecord
 				if(!empty($m)){
 					$result.=$m->wpNameFull($short);
 					if($place==True){
-						$result.=' <a href=/glass/Workplace/'.$m->id.'><img src="../images/door.png" style="height: 24px;"></a>';
-						$result.=' <img src="../images/funnel.png" class=plcJsFilter id="'.$m->getBuildingName().'" ">';
+						$result.=' <a href=/glass/Workplace/'.$m->id.'><img src="'.Yii::app()->request->baseUrl.'/images/door.png" style="height: 24px;"></a>';
+						$result.=' <img src="'.Yii::app()->request->baseUrl.'/images/funnel.png" class=plcJsFilter id="'.$m->getBuildingName().'" ">';
 					}
 					if(!$short)
 						$result.=" ";
