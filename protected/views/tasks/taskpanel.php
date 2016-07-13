@@ -22,7 +22,7 @@
 							}
 						}
 
-						echo ('<div class='.$status['css_status'].' style="text-align: left">'.$v->id.'/'.$status['label'].'</div>');
+						echo ('<div class='.$status['css_status'].' style="text-align: left">'.$status['label'].' <b>('.$v->id.')</b></div>');
 						echo'</div>';
 
 						
