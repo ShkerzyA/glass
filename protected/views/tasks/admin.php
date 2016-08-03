@@ -50,6 +50,7 @@ $('.search-form form').submit(function(){
 		'timestamp',
 		'timestamp_end',
 		'type',
+		array('name'=>'project','value'=>'$data->Project0->name'),
 		/*
 		array( 'name'=>'creator0creator', 'value'=>'$data->creator0->creator' ),
 		array( 'name'=>'executor0executor', 'value'=>'$data->executor0->executor' ),
