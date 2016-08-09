@@ -2,6 +2,9 @@
 /* @var $this TasksController */
 /* @var $model Tasks */
 
+//echo $model->id.' '.$model->tname.'|'.$model->detailsShow(0,0,0).' '.$model->ttext;
+//$model->sendMail();
+
 $this->breadcrumbs=array(
 	$model::$modelLabelP=>array('helpDesk?group='.(implode(',',$model->Project0->group))),
 	$model->id,

@@ -112,6 +112,18 @@ class Tasks extends CActiveRecord
 		return array('difdays'=>$days,'difhours'=>$difhours,'hours'=>$hours);
 	}
 
+	public function sendMail(){
+		$tmp=$this->potentialExecutors(True);
+		foreach ($tmp as $prs) {
+			if(!empty($prs->idUser)){
+				$head=$this->id.' '.$this->tname;
+				$body=$this->detailsShow(0,0,0).' '.$this->ttext;
+				$prs->idUser->sendMail($head,$body);
+			}
+			
+		}
+	}
+
 
 	public function isGroovy(){
 		$now=new DateTime();
@@ -220,9 +232,9 @@ class Tasks extends CActiveRecord
 	}
 
 
-	public function potentialExecutors(){
+	public function potentialExecutors($obj=false){
 		$group=$this->Project0->group;
-		return Personnel::groupMembers($group);
+		return Personnel::groupMembers($group,$obj);
 	}
 	/**
 	 * @return array relational rules.

@@ -82,6 +82,22 @@ echo $form->dropDownList($model,"id_post",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'id_post'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->labelEx($model,'email'); ?>
+
+		<?php echo $form->textField($model,'email',array('size'=>100,'maxlength'=>100)); ?>
+
+		<?php echo $form->error($model,'email'); ?>
+	</div>
+
+	<div class="row">
+        <?php echo $form->labelEx($model,'tasks_send_mail'); ?>
+
+        <?php echo $form->checkBox($model,'tasks_send_mail',array('value'=>1,'size'=>2,'maxlength'=>2)); ?>
+
+        <?php echo $form->error($model,'tasks_send_mail'); ?>
+    </div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Создать' : 'Сохранить'); ?>
 	</div>

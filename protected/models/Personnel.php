@@ -248,11 +248,15 @@ class Personnel extends CActiveRecord
         return 'login: '.$login.' pass: '.$pass; 
     }
 
-    public static function groupMembers($group){
+    public static function groupMembers($group,$obj=false){
         $res=array();
         $models=self::model()->with('personnelPostsHistories.idPost')->working()->findAll(array('condition'=>" (\"idPost\".\"groups\"::text[] && array['".implode("','",$group)."'])"));
-        foreach ($models as $v) {
-            $res[$v->id]=$v->wrapFio('fio');
+        if($obj){
+            $res=$models;
+        }else{
+            foreach ($models as $v) {
+                $res[$v->id]=$v->wrapFio('fio');
+            }   
         }
         return $res;
     }

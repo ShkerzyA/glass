@@ -47,6 +47,8 @@ $('.search-form form').submit(function(){
 		array('type'=>'html','name'=>'username','value'=>'Chtml::link($data->username,array("forceLogin","username"=>$data->username))'),
 		'password',
 		'startpage',
+		'email',
+		'tasks_send_mail',
 		array( 'name'=>'idPostid_post', 'value'=>'$data->post()' ),
 		array(
 			'class'=>'CButtonColumn',

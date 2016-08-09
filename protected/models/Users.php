@@ -23,6 +23,8 @@
  * @property string $horn
  * @property integer $tasksound
  * @property integer $chatsound
+ * @property string $email
+ * @property boolean $tasks_send_mail
  */
 class Users extends CActiveRecord
 {
@@ -76,11 +78,13 @@ public $personnelsid_user;
 			array('id_post, tasksound, chatsound', 'numerical', 'integerOnly'=>true),
 			array('username, password', 'length', 'max'=>50),
 			array('startpage, bg', 'length', 'max'=>250),
+			array('horn, email', 'length', 'max'=>100),
+			array('tasks_send_mail', 'safe'),
 			array('horn', 'length', 'max'=>100),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, startpage, bg, id_post,usersRulesid_user,idPostid_post,personnelsid_user', 'safe', 'on'=>'search'),
+			array('id, username, password, startpage, bg, email,tasks_send_mail, id_post,usersRulesid_user,idPostid_post,personnelsid_user', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -121,6 +125,8 @@ public $personnelsid_user;
 			'horn' => 'Вариант звучания',
 			'tasksound' => 'Звук задачи',
 			'chatsound' => 'Звук чата',
+			'email' => '@почта',
+			'tasks_send_mail' => 'Задачи на эл. почту',
 		);
 	}
 
@@ -148,6 +154,11 @@ public $personnelsid_user;
         return $res;
 	}
 
+	public function sendMail($head,$content){
+		if(!empty($this->email) and !empty($this->tasks_send_mail))
+		mail($this->email, $head, $content);
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -173,6 +184,8 @@ public $personnelsid_user;
 		$criteria->compare('horn',$this->horn,true);
 		$criteria->compare('tasksound',$this->tasksound);
 		$criteria->compare('chatsound',$this->chatsound);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('tasks_send_mail',$this->tasks_send_mail);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

@@ -70,6 +70,22 @@
 
         <?php echo $form->error($model,'tasksound'); ?>
     </div>
+
+    <div class="row">
+		<?php echo $form->labelEx($model,'email'); ?>
+
+		<?php echo $form->textField($model,'email',array('size'=>50,'maxlength'=>50)); ?>
+
+		<?php echo $form->error($model,'email'); ?>
+	</div>
+
+	<div class="row">
+        <?php echo $form->labelEx($model,'tasks_send_mail'); ?>
+
+        <?php echo $form->checkBox($model,'tasks_send_mail',array('value'=>1,'size'=>2,'maxlength'=>2)); ?>
+
+        <?php echo $form->error($model,'tasks_send_mail'); ?>
+    </div>
 <?php endif; ?>
 	<!--
 	Фото
