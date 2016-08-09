@@ -87,6 +87,10 @@ class Tasks extends CActiveRecord
 		return parent::beforeSave();
 	}
 
+	public function afterSave(){
+		return parent::afterSave();
+	}
+
 
 	protected function afterFind(){
 		return parent::afterFind();
@@ -117,7 +121,7 @@ class Tasks extends CActiveRecord
 		foreach ($tmp as $prs) {
 			if(!empty($prs->idUser)){
 				$head=$this->id.' '.$this->tname;
-				$body=$this->detailsShow(0,0,0).' '.$this->ttext;
+				$body=$this->status0->label."\n".$this->detailsShow(0,0,0).' '.$this->ttext;
 				$prs->idUser->sendMail($head,$body);
 			}
 			

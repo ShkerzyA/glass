@@ -2,7 +2,7 @@
 /* @var $this TasksController */
 /* @var $model Tasks */
 
-//echo $model->id.' '.$model->tname.'|'.$model->detailsShow(0,0,0).' '.$model->ttext;
+//echo $model->id.' '.$model->tname.'|'.$model->status0->label."\n".$model->detailsShow(0,0,0).' '.$model->ttext;
 //$model->sendMail();
 
 $this->breadcrumbs=array(
