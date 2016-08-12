@@ -22,6 +22,7 @@ class UserIdentity extends CUserIdentity
         {
             $this->_id = $user->id;
             $this->username=$user->username;
+            $this->setState('lastlogin',$user->lastLogin());
             $this->setState('username', $user->username);
             $this->setState('startpage', $user->startpage);
             $this->setState('bg', $user->bg);

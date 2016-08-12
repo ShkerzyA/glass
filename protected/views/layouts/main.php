@@ -34,7 +34,6 @@
 <?php endif; ?>
 
 <?php if(!(Yii::app()->user->isGuest)): ?>
-
 	<?php if(!empty(Yii::app()->user->bg) and is_file(Yii::getPathOfAlias('webroot').'/images/bg/'.Yii::app()->user->bg)): ?>
 	<style>
 		body{

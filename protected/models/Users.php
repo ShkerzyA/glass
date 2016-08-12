@@ -164,6 +164,22 @@ public $personnelsid_user;
 		
 	}
 
+
+	public function lastLogin(){
+		$res='';
+		$ll=UsersSession::model()->find(array('condition'=>'t.id_user='.$this->id,'order'=>'id DESC'));
+		if(empty($ll))
+			$ll=new UsersSession;
+		else
+			$res=$ll->lastLogin();
+		$ll->id_user=$this->id;
+		$ll->ip=$_SERVER['REMOTE_ADDR'];
+		$ll->timestamp=date('Y-m-d H:i:s');
+		$ll->save();
+		echo $res;
+		return $res;
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
