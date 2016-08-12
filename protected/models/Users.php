@@ -125,7 +125,7 @@ public $personnelsid_user;
 			'horn' => 'Вариант звучания',
 			'tasksound' => 'Звук задачи',
 			'chatsound' => 'Звук чата',
-			'email' => '@почта',
+			'email' => 'Эл. почта',
 			'tasks_send_mail' => 'Задачи на эл. почту',
 		);
 	}
@@ -155,8 +155,13 @@ public $personnelsid_user;
 	}
 
 	public function sendMail($head,$content){
-		if(!empty($this->email) and !empty($this->tasks_send_mail))
-		mail($this->email, $head, $content);
+		if(!empty($this->email) and !empty($this->tasks_send_mail)){
+			$headers = 'From: glass@onkolog24.ru' . "\r\n" .
+    					'Reply-To: glass@onkolog24.ru' . "\r\n" .
+    					'X-Mailer: PHP/' . phpversion();
+			mail($this->email, $head, $content, $headers);
+		}
+		
 	}
 
 	/**

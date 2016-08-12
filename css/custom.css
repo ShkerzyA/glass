@@ -649,7 +649,7 @@ select{
 
 .row input, .row select, .row label{
 	margin: 0px;
-	width: 77%;
+	width: 75%;
 	float: left;
 	clear: right;
 }
