@@ -45,7 +45,7 @@
 
 <?php if(!Yii::app()->user->isGuest):?>
 	<?php $patr=(!empty(Yii::app()->user->patr))?(Yii::app()->user->patr):''; ?>
-<span class=auth><div class=logout  style="color: black; height: 20px;"><span id="userEd"><img style="height: 100%; cursor: pointer;" title="<?php echo Yii::app()->user->lastlogin ?>" src=<?php echo Yii::app()->baseUrl.'/images/edit_user.png'?>> <?php echo(Yii::app()->user->name).' '.$patr.' '?></span><a href="<?php echo(Yii::app()->request->baseUrl); ?>/site/logout"><img alt="выход" title="выход" style="height: 100%" src=<?php echo Yii::app()->baseUrl.'/images/logout.png'?>> </a> </div></span>
+<span class=auth><div class=logout  style="color: black; height: 20px;"><span id="userEd"><img style="height: 100%; cursor: pointer;" title="" src=<?php echo Yii::app()->baseUrl.'/images/edit_user.png'?>> <?php echo(Yii::app()->user->name).' '.$patr.' '?></span><a href="<?php echo(Yii::app()->request->baseUrl); ?>/site/logout"><img alt="выход" title="выход" style="height: 100%" src=<?php echo Yii::app()->baseUrl.'/images/logout.png'?>> </a> </div></span>
 <?php endif?>
 
 
