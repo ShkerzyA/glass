@@ -169,7 +169,7 @@ public $personnelsid_user;
 		$res='';
 		$ll=UsersSession::model()->find(array('condition'=>'t.id_user='.$this->id,'order'=>'id DESC'));
 		if(empty($ll))
-			$ll=new UsersSession;
+			$ll=new UsersSession();
 		else
 			$res=$ll->lastLogin();
 		$ll->id_user=$this->id;

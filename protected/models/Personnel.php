@@ -248,6 +248,30 @@ class Personnel extends CActiveRecord
         return 'login: '.$login.' pass: '.$pass; 
     }
 
+
+    public function inAlfresco(){
+        $alf_host='http://10.126.80.179:8080';
+        $curl=new MyCurl;
+        $post=array('username=ian','password=qwe','submit=','success=/share/page','login=true');
+        $curl->goUrl($alf_host.'/share/page/dologin',$post);
+
+
+        $login=mb_strtolower($this->fioRu2Lat());
+        $pass=$this->passGen();
+        $post=array('username='.$login.'','name='.$this->fio().'','email=','password='.$pass.'','passwordConfirm='.$pass.'','create=1');
+        $curl->goUrl($alf_host.'/user-create.jsp',$post);
+
+        $post=array('username='.$login.'','password='.$pass.'','passwordConfirm='.$pass.'','update=1');
+        $curl->goUrl($alf_host.'/user-password.jsp',$post);
+
+        if($inpolic){
+            $post=array('username='.$login.'',"group=Поликлиника","add=Add","addbutton=Добавить");
+            $curl->goUrl($alf_host.'/group-edit.jsp',$post);
+        }
+
+        return 'login: '.$login.' pass: '.$pass;
+    }
+
     public static function groupMembers($group,$obj=false){
         $res=array();
         $models=self::model()->with('personnelPostsHistories.idPost')->working()->findAll(array('condition'=>" (\"idPost\".\"groups\"::text[] && array['".implode("','",$group)."'])"));
