@@ -46,8 +46,18 @@ $this->menu=array(
 	echo '<br> Тел: (каб. '.implode(',',$phone['cab']).' личн. '.implode(',',$phone['pers']).')';
 	echo'</div>';
 	echo'<div><b>Дата рождения: '.CHtml::encode($birthday).' (Пол: '.CHtml::encode($sex).')</b></div>';
-	if (in_array(1011,Yii::app()->user->id_departments))
-		echo '<div>jabber логин: <b>'.$model->fioRu2Lat().'</b> пароль: <b>'.$model->passGen().'</b> <a href='.Yii::app()->baseUrl.'/Personnel/inOpenFire?id='.$model->id.' target=_blank>регистрация в Openfire</a></div>';
+	?>
+	<?php if(in_array(1011,Yii::app()->user->id_departments)):?>
+		<?php header("Access-Control-Allow-Origin:*"); ?>
+		<?php Yii::app()->getClientScript()->registerCoreScript('alf'); ?>
+		<?php echo '<div>jabber логин: <b>'.$model->fioRu2Lat().'</b> пароль: <b>'.$model->passGen().'</b> <a href='.Yii::app()->baseUrl.'/Personnel/inOpenFire?id='.$model->id.' target=_blank>регистрация в Openfire</a></div>';	?>
+		<span id="alf_login">login</span>
+		<span id="alf_add">reg</span>
+
+		
+	<?php endif; ?>
+	<?php
+		
 	echo"<br><div><h3>Занимаемые должности:</h3>";
 	foreach($model->personnelPostsHistories as $posts){
 		$date_end=CHtml::encode($posts->date_end);

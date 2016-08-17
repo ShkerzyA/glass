@@ -71,7 +71,8 @@ class BuildingController extends Controller
        // 'select'=>True,
         'joinType'=>'LEFT JOIN',
         'alias'=>'c',
-        'order'=>'c.num ASC'
+        'order'=>'c.num ASC',
+        'scopes'=>array('active')
     	),
 	))->findByPk($id);
 
