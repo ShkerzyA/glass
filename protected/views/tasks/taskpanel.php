@@ -1,5 +1,5 @@
 	<?php $status=$v->status0; ?>
-	<div class="taskpanel <?php echo $status['css_class']; ?> <?php echo $v->isGroovy(); ?> <?php echo $dl=(!empty($v->deadline))?' deadline ':'';?>">
+	<div class="taskpanel <?php echo 'hide'.$status['id']; ?> <?php echo $status['css_class']; ?> <?php echo $v->isGroovy(); ?> <?php echo $dl=(!empty($v->deadline))?' deadline ':'';?>">
 			
 			<div  class="rightinfo">
 				<?php 	

@@ -6,7 +6,7 @@
 			<?php $status=$v->status0; 
 		if($last_stat!=$status['label']){
 			$i++;
-			echo "<h4 class='subscribe ".$status['css_status']."'>".$status['label']."</h4><hr>";
+			echo "<h4 id=".$status['id']." class='subscribe hideT ".$status['css_status']."'>".$status['label']."</h4><hr>";
 			$last_stat=$status['label'];
 		} 
 		$this->renderPartial('taskpanel',array('status'=>$status,'v'=>$v),false,false);

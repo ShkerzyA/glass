@@ -17,6 +17,10 @@ function init(){
     $('.prj'+this.id).toggle();
   });
 
+  $('.hideT').live('click',function(){
+    $('.hide'+this.id).toggle();
+  });
+
 	$("#EquipmentLog_details").live('keydown',function(e){
         if(e.keyCode==13){
         	tmp=$("#EquipmentLog_details").val();
