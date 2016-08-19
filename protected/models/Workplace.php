@@ -122,12 +122,12 @@ class Workplace extends CActiveRecord
 		return $this->idCabinet->idFloor->idBuilding->bname;
 	}
 
-	public function wpName($withEq=false){
+	public function wpName($withEq=false,$fio='fio'){
 		$eqStr=($withEq)?'('.$this->myEqStr(array(2,3,4)).')':'';
 
 		$res='';
 		if(!empty($this->id_personnel))
-			$res=$this->idPersonnel->wrapFio('fio');
+			$res=$this->idPersonnel->wrapFio($fio);
 		else
 			$res=$this->wname;
 
@@ -135,12 +135,12 @@ class Workplace extends CActiveRecord
 
 	}
 
-	public function wpNameFull($short=false,$withEq=false){
+	public function wpNameFull($short=false,$withEq=false,$fio='fio'){
 	if(!empty($this->idCabinet)){
 		if($short){
 			$result=$this->idCabinet->cabNameFull($short);	
 		}else{
-			$result=$this->idCabinet->cabNameFull($short)."/ ".$this->wpName($withEq);;	
+			$result=$this->idCabinet->cabNameFull($short)."/ ".$this->wpName($withEq,$fio);;	
 		}	
 		return $result;}
 	else{
