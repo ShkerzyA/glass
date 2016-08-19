@@ -12,6 +12,6 @@ function init(){
   <?php 
         $tmp=$model->potentialExecutors();
         echo CHtml::dropDownList('id_pers', '', 
-              $tmp,array('empty' => 'Подписать')); ?>
+              $tmp,array('empty' => 'Подписать','style' =>'width: 99%;')); ?>
   <?php echo CHtml::hiddenField('id', $model->id); ?>
 	<?php echo CHtml::endForm(); ?>

@@ -119,6 +119,10 @@ public $dellink=array();
 			return False;
 	}
 
+	public function nameL(){
+		return $this->idCatalog->cat_name.'/'.$this->doc_name;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */

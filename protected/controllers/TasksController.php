@@ -61,7 +61,7 @@ class TasksController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update','join','create','helpDesk','report', 'reportOtd','sameTasks','helpDeskProject'),
+				'actions'=>array('update','join','create','helpDesk','addDoc','report', 'reportOtd','sameTasks','helpDeskProject'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -89,7 +89,8 @@ class TasksController extends Controller
 		if(!Yii::app()->user->checkAccess('viewTs',array('mod'=>$model)))
 			throw new CHttpException(403, 'У вас недостаточно прав');
 		$this->rightWidget=array(
-			'df'=>array($this->renderPartial('_subscribe_form',array('model'=>$model),true))
+			'df'=>array($this->renderPartial('_subscribe_form',array('model'=>$model),true)),
+			'sd'=>array($this->renderPartial('_join_doc',array('model'=>$model),true))
 		);
 		$this->render('view',array(
 			'model'=>$model,
@@ -274,6 +275,25 @@ class TasksController extends Controller
 
 				
 	}
+
+	public function actionAddDoc($id,$id_doc=NULL){
+		$model=$this->loadModel($id);
+		$doc=Docs::model()->findByPk($id_doc);
+		$doc->access();
+
+		if($model->save()){
+			$mess=new TasksActions();
+			$mess->type=1;
+			$mess->ttext='Прикреплен документ: <a href="/glass/docs/'.$doc->id.'" target=_blank>'.$doc->nameL().'</a>';
+			$mess->id_task=$model->id;
+			$mess->save();
+			$this->redirect(array('view','id'=>$model->id));
+		}
+
+				
+	}
+
+
 
 	
 

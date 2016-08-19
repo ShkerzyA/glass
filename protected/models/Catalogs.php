@@ -77,6 +77,22 @@ class Catalogs extends CActiveRecord
 		return 'catalogs';
 	}
 
+	public static function allAccessCat(){
+		$res=array();
+		$cats=Catalogs::model()->with('docs')->findAll();
+		foreach ($cats as $c) {
+			if($c->access(false)){
+				foreach ($c->docs as $d) {
+					$res[$d->id]=$d->nameL();
+				}
+			}
+				
+		}
+
+		return $res;
+
+	}
+
 
 	public function access($exception=True){
 		if(!(Yii::app()->user->checkAccess('inGroup',array('group'=>$this->groups))) and !in_array(Yii::app()->user->id_pers,$this->persons) and !(Yii::app()->user->checkAccess('isOwner',array('mod'=>$this)))){

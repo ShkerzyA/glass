@@ -3,7 +3,7 @@
 
 $this->menu=array(
 	array('label'=>'Главная', 'url'=>array('tree')),
-	array('label'=>'Отделы из MU.dbf', 'url'=>array('mudbf')),
+	//array('label'=>'Отделы из MU.dbf', 'url'=>array('mudbf')),
 );
 //Yii::app()->getClientScript()->registerScriptFile( '/glass/js/jtree.async.custom.js' );
 $this->widget(
