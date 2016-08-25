@@ -17,7 +17,7 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
-
+<?php if(Yii::app()->user->role=='moderator'):?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_parent'); ?>
 
@@ -26,6 +26,12 @@ echo $form->dropDownList($model,"id_parent",CHtml::listData($tmp,"id",function($
 				return CHtml::encode($tmp->cat_name);}),array('empty' => '','disabled'=>!$do=(Yii::app()->user->CheckAccess('administrator')))); ?>
 		<?php echo $form->error($model,'id_parent'); ?>
 	</div>
+<?php else: ?>
+	<?php echo $form->hiddenField($model,'id_parent',array('size'=>60,'maxlength'=>100)); ?>
+<?php endif; ?>
+
+
+
 
 <?php if(Yii::app()->user->role=='administrator'):?>
 	<div class="row">
