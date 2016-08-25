@@ -34,11 +34,11 @@ class CatalogsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','delete'),
-				'roles'=>array('moderator'),
+				'actions'=>array('create','update'),
+				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin'),
+				'actions'=>array('delete','admin'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
