@@ -319,7 +319,7 @@ class Equipment extends CActiveRecord
     		foreach ($Ph as $v){
         		$this->addError('serial','Оборудование с данным серийным номером зарегистрировано ID:'.$v->id.')');
         	}
-    	}else (if(!empty($this->inv)) and $this->type==18){
+    	}else if(!empty($this->inv) and $this->type==18){
     		$Ph=self::findAll(array('condition'=>'t.inv=\''.$this->inv.'\' '.$idCheck));
     		foreach ($Ph as $v){
         		$this->addError('inv','Оборудование с данным инвентарным номером зарегистрировано ID:'.$v->id.')');
