@@ -835,22 +835,21 @@ select{
 	width: 20px;
 }
 .phonetable{
-	width: 99%;
-	table-layout: fixed;
-	margin: 10px;
+	max-width: 98% !important;
+	/*table-layout: fixed;*/
+	margin: 0px;
 }
 .phonetable, .phonetable td, .phonetable th {
 	font-size: 9pt;
 	border: 1px solid #d4d4d4;
-	border-collapse: none;
-	/* white-space: pre-wrap; */
-	overflow: hidden;
+	/*border-collapse: none;
+	
+	overflow: hidden;*/
 }
 
 .phonetable th{
 	background: #040404;
 	color: white;
-	overflow: hidden;
 }
 
 .logtable{
