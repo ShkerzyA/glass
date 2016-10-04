@@ -1,6 +1,6 @@
 <?php
 
-Yii::app()->clientScript->registerScript('search', "
+Yii::app()->clientScript->registerScript('msupd', "
 var mchck=false;
 $('.check_mass_checkbox').click(function(){
 	if(mchck){
