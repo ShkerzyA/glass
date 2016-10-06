@@ -1,6 +1,7 @@
 #index.php
 /nbproject/private/
 protected/extensions/*
+protected/config/main.php
 protected/modules/yiiadmin/*
 base/*
 media
