@@ -39,7 +39,7 @@ class Equipment extends CActiveRecord
 	public static $cartFull='597';
 	public static $cartRefill='596';
 	public static $db_array=array();
-	public static $netEqType=array(0,2,3,4,5,6,8,9,11,12,13,16,17);
+	public static $netEqType=array(0,2,3,4,5,6,8,9,11,12,13,16,17,25,26);
 	public $place;
 	public $DopLog;
 	public $idWorkplaceid_workplace;

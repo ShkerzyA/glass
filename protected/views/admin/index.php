@@ -31,6 +31,8 @@ $this->menu['all_menu']=array(
 		array('label'=>'Кадры', 'url'=>array('/personnel/admin'),'items'=>array(
 			array('label'=>'Должности кадров', 'url'=>array('/personnelPostsHistory/admin')),
 			array('label'=>'Всех в открытый огонь', 'url'=>array('/personnel/allInOpenFire')),
+			array('label'=>'Пользователи Quickq', 'url'=>array('/personnel/policInQuickq')),
+			
 		)),
 	)),
 	array('title'=>'Структура','items'=>array(

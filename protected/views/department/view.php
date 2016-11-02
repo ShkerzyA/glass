@@ -33,7 +33,7 @@ $this->menu=array(
 					echo '<span style="text-decoration: line-through">';
 				else
 					echo '<span>';
-			echo $dp->post." (".$dp->rate.")</span></b></td><td class='persList'>";
+			echo $dp->post_rn.'/'.$dp->post." (".$dp->rate.")</span></b></td><td class='persList'>";
 			if(!empty($dp->personnelPostsHistories)){
 			foreach($dp->personnelPostsHistories as $personnelPh){
 

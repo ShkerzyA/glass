@@ -49,10 +49,14 @@ $this->menu=array(
 	?>
 	<?php if(in_array(1011,Yii::app()->user->id_departments)):?>
 		<?php header("Access-Control-Allow-Origin:*"); ?>
+		<!--
 		<?php Yii::app()->getClientScript()->registerCoreScript('alf'); ?>
-		<?php echo '<div>jabber логин: <b>'.$model->fioRu2Lat().'</b> пароль: <b>'.$model->passGen().'</b> <a href='.Yii::app()->baseUrl.'/Personnel/inOpenFire?id='.$model->id.' target=_blank>регистрация в Openfire</a></div>';	?>
 		<span id="alf_login">login</span>
-		<span id="alf_add">reg</span>
+		<span id="alf_add">reg</span> -->
+		<?php Yii::app()->getClientScript()->registerCoreScript('quickq'); ?>
+		<?php if(!empty($model->usersQqs)) $this->renderPartial('_quickq',array('model'=>$model)); ?>
+		<?php echo '<div>jabber логин: <b>'.$model->fioRu2Lat().'</b> пароль: <b>'.$model->passGen().'</b> <a href='.Yii::app()->baseUrl.'/Personnel/inOpenFire?id='.$model->id.' target=_blank>регистрация в Openfire</a></div>';	?>
+		
 
 		
 	<?php endif; ?>

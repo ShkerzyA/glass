@@ -1,10 +1,5 @@
 
 function init(){
-    $('html').live('keydown',function(e){
-        if(e.ctrlKey && e.keyCode==13){
-            Socket.ws.send('Hey server, whats up?');
-        }
-    });
     Socket = {
         ws: null,
         init: function () {

@@ -42,7 +42,7 @@ class PersonnelController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','import','firedButInWp'),
+				'actions'=>array('admin','delete','import','firedButInWp','policInQuickq','inQQ'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -98,8 +98,42 @@ class PersonnelController extends Controller
 
 	}
 
+	public function actionInQQ($id){
+		$model=$this->loadModel($id);		
+		if(empty($model->usersQqs)){
+			$userQQ=new UsersQq;
+			$userQQ->id_personnel=$model->id;
+			$userQQ->save();	
+			echo 'add';
+		}
+		echo 'ok';
+		
 
-	public function actionAllInOpenFire(){
+	}
+
+
+	public function actionPolicInQuickq(){
+		$keys=array_keys(UsersQq::$postprefix);
+		$keys="'".(implode("','",$keys))."'";
+		$models=Personnel::model()->with('personnelPostsHistories.idPost','usersQqs')->findall(array('condition'=>"\"idPost\".post_rn in($keys)"));
+		echo '<table>';
+		echo '<tr><th>ФИО</th><th>Логин</th><th>Пароль</th></tr>';
+		foreach($models as $v){
+			if(!empty($v->usersQqs)){
+				echo '<tr><td>'.$v->fio_full().'</td><td>'. $v->usersQqs->getLogin().'</td><td>'.$v->usersQqs->getPassword().'</td></tr>';
+			}else{
+				$userQQ=new UsersQq;
+				$userQQ->id_personnel=$v->id;
+				$userQQ->save();	
+			}
+			
+			
+		}
+		echo'</table>';
+
+	}
+
+		public function actionAllInOpenFire(){
 		$models=Personnel::model()->findall();
 		foreach($models as $v){
 			echo $v->inOpenFire($inpolic=false).'</br>';
@@ -155,7 +189,7 @@ class PersonnelController extends Controller
 	public function actionView($id)
 	{
 		$this->render('view',array(
-			'model'=>$this->loadModel($id)->with('workplaces,PersonnelPostsHistory'),
+			'model'=>$this->loadModel($id)->with('workplaces,PersonnelPostsHistory,usersQqs'),
 		));
 	}
 

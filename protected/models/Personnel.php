@@ -38,6 +38,7 @@ class Personnel extends CActiveRecord
     public $id_building;
     public $md;
     public $actions=array();
+    public $usersQqsid_personnel;
 
 	 public function defaultScope()
     {
@@ -335,6 +336,7 @@ class Personnel extends CActiveRecord
             'EventsActions' => array(self::HAS_MANY, 'EventsActions', 'creator'),
             'Eventsoper' => array(self::HAS_MANY, 'Eventsoper', 'creator'),
             'MedicalEquipment' => array(self::HAS_MANY, 'MedicalEquipment', 'creator'),
+            'usersQqs' => array(self::HAS_ONE, 'UsersQq', 'id_personnel'),
 		);
 	}
 
@@ -362,6 +364,7 @@ class Personnel extends CActiveRecord
             'orbase_rn' => 'Код в парусе',
             'allfields' => 'Поиск',
             'sex' => 'Пол',
+            'usersQqsid_personnel' => 'Пользователь Quickq',
 		);
 	}
 
@@ -412,6 +415,8 @@ class Personnel extends CActiveRecord
         $criteria->compare('personnelpostshistory.id_personnel',$this->personnelPostsHistoriesid_personnel,true);
         $criteria->compare('workplace.id_personnel',$this->workplacesid_personnel,true);
         $criteria->compare('users.id_user',$this->idUserid_user,true);
+        $criteria->compare('usersqq.id_personnel',$this->usersQqsid_personnel,true);
+
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,
