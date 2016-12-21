@@ -40,6 +40,7 @@ class EquipmentLog extends CActiveRecord
 				7=>array('action'=>'addEq','name'=>'Добавление оборудования','fields'=>array('workplace')),
 				8=>array('action'=>'chEq','name'=>'Изменение оборудования','fields'=>array('info')),
 				9=>array('action'=>'cartRepairIn','name'=>'Возврат с восстановления','fields'=>array('idcart')),
+				10=>array('action'=>'cartCounter','name'=>'Отпечатано на картридже','fields'=>array('num_str')),
 			);
 	
 	public $subject0subject;
@@ -166,6 +167,10 @@ class EquipmentLog extends CActiveRecord
 				return 'Измененные поля: '.implode(',', $this->details);
 				break;
 
+			case '10':
+				return 'Число отпечатков: '.$this->details[0];
+				break;
+
 			
 			default:
 				return implode(',', $this->details);
@@ -238,6 +243,10 @@ class EquipmentLog extends CActiveRecord
 
 			case '8':
 				return 'Измененные поля: '.implode(',', $this->details);
+				break;
+
+			case '10':
+				return 'Число отпечатков: '.$this->details[0];
 				break;
 
 			

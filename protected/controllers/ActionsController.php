@@ -129,12 +129,21 @@ class ActionsController extends Controller
 				
 						$timestamp=date('Y-m-d H:i:s');
 
+						$moreinfo['num_str']=$_POST['num_str'];
+						$log=new EquipmentLog;
+						$log->saveLog('printerCounter',array('details'=>array(($det=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a')),'object'=>$print->id,'timestamp'=>$timestamp));
+						//$log->fnSubsNum();
+						$log=EquipmentLog::model()->findByPk($log->id);
+						$moreinfo['subs_num']=$log->subsNum;
+
 						if(!empty($cart_old)){
 							$moreinfo['cart_old']=$cart_old->inv;
 							//Убираем из связанного оборудования изымаемый картридж
 							$print->removeChildRel($cart_old->id);
 							$log=new EquipmentLog;
 							$log->saveLog('cartOut',array('details'=>array($cart_old->id_workplace),'object'=>$cart_old->id,'timestamp'=>$timestamp));
+							$log=new EquipmentLog;
+							$log->saveLog('cartCounter',array('details'=>array($moreinfo['subs_num']),'object'=>$cart_old->id,'timestamp'=>$timestamp));
 						}
 
 						if(!empty($cart)){
@@ -145,12 +154,7 @@ class ActionsController extends Controller
 							$log->saveLog('cartIn',array('details'=>array($print->id_workplace,$print->id),'object'=>$cart->id,'timestamp'=>$timestamp));
 						}
 						
-						$moreinfo['num_str']=$_POST['num_str'];
-						$log=new EquipmentLog;
-						$log->saveLog('printerCounter',array('details'=>array(($det=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a')),'object'=>$print->id,'timestamp'=>$timestamp));
-						//$log->fnSubsNum();
-						$log=EquipmentLog::model()->findByPk($log->id);
-						$moreinfo['subs_num']=$log->subsNum;
+						
 						break;
 					
 					default:
