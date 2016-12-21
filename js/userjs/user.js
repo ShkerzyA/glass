@@ -1,5 +1,6 @@
 
 var plcJsFlt=0;
+var globTimeout = null;
 function init(){
 	$('#userEd').live('click',function(){ 
 		load_modalForm();
@@ -27,6 +28,15 @@ function init(){
         	$("#EquipmentLog_details").val(tmp+',');
         }
     });
+
+  $('#num_str').live('keydown',function(){
+    clearInterval(globTimeout);
+    globTimeout=setTimeout(function(){
+      $('#subsNum').empty();
+      $('#subsNum').append($('#num_str').val()-$('#lastNumSt').val());
+    },1000);
+    
+  });
 
   $(".plcJsFilter").live('click',function sss(){
       if(plcJsFlt==0){
