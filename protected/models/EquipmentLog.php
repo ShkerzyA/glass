@@ -298,17 +298,17 @@ class EquipmentLog extends CActiveRecord
 		);
 	}
 
-
-	public function afterFind(){
-		parent::afterFind();
+	public function fnSubsNum(){
 		if($this->type==2){
 			$ll=EquipmentLog::model()->find(array('condition'=>'t.object='.$this->object.' and t.type=2 and t.timestamp<\''.$this->timestamp.'\'','order'=>'t.timestamp DESC'));
 			$this->subsNum=(!empty($this->details[0]) and !empty($ll->details[0]) and is_numeric($this->details[0]) and is_numeric($ll->details[0]))?$this->details[0]-$ll->details[0]:'n/a';
-		}
+		}	
+	}
 
-	
-	
-		
+
+	public function afterFind(){
+		parent::afterFind();
+		$this->fnSubsNum();
 	}
 
 	/**

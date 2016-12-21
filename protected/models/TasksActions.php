@@ -68,9 +68,24 @@ class TasksActions extends CActiveRecord
 		$this->save();
 	}
 
-	public function saveReport(){
+	private function cartInfo($moreinfo){
+		$result='<br>';
+		if(!empty($moreinfo['cart']))
+			$result.='установлен: '.$moreinfo['cart']."<br>";
+		if(!empty($moreinfo['cart_old']))
+			$result.='возвращен: '.$moreinfo['cart_old']."<br>";
+		if(!empty($moreinfo['num_str']))
+			$result.='Кол-во отпечатков: '.$moreinfo['num_str']."<br>";
+		if(!empty($moreinfo['subs_num']))
+			$result.='Отпечатано на картридже: '.$moreinfo['subs_num']."<br>";
 
-		$this->ttext=$_POST['taskname'].$this->limiter.$_POST['mess'].$this->limiter.$_POST['taskstat'].$this->limiter.$_POST['note'];
+		return $result;
+	}
+
+	public function saveReport($moreinfo=array()){
+
+		$cartInfo=$this->cartInfo($moreinfo);
+		$this->ttext=$_POST['taskname'].$this->limiter.$_POST['mess'].$cartInfo.$this->limiter.$_POST['taskstat'].$this->limiter.$_POST['note'];
 		$this->type=2;
 		$this->save();
 	}

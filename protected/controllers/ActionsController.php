@@ -93,6 +93,7 @@ class ActionsController extends Controller
 
 		if(Yii::app()->request->isAjaxRequest){
 			if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$this->parent))){
+				$moreinfo=array();
 				switch ($this->parent->type) {
 					case '1':
 						
@@ -129,6 +130,7 @@ class ActionsController extends Controller
 						$timestamp=date('Y-m-d H:i:s');
 
 						if(!empty($cart_old)){
+							$moreinfo['cart_old']=$cart_old->inv;
 							//Убираем из связанного оборудования изымаемый картридж
 							$print->removeChildRel($cart_old->id);
 							$log=new EquipmentLog;
@@ -136,21 +138,25 @@ class ActionsController extends Controller
 						}
 
 						if(!empty($cart)){
+							$moreinfo['cart']=$cart->inv;
 							$cart->id_workplace=$print->id_workplace;
 							$cart->save();
 							$log=new EquipmentLog;
 							$log->saveLog('cartIn',array('details'=>array($print->id_workplace,$print->id),'object'=>$cart->id,'timestamp'=>$timestamp));
 						}
 						
-						
+						$moreinfo['num_str']=$_POST['num_str'];
 						$log=new EquipmentLog;
 						$log->saveLog('printerCounter',array('details'=>array(($det=(!empty($_POST['num_str']))?$_POST['num_str']:'n/a')),'object'=>$print->id,'timestamp'=>$timestamp));
+						//$log->fnSubsNum();
+						$log=EquipmentLog::model()->findByPk($log->id);
+						$moreinfo['subs_num']=$log->subsNum;
 						break;
 					
 					default:
 						break;
 				}
-				$this->act->saveReport();
+				$this->act->saveReport($moreinfo);
 			}
 		}
 
