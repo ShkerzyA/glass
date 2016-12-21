@@ -117,14 +117,22 @@ class Xls extends CFormModel{
 	
 	$PHPExcel->getActiveSheet()->setCellValue("A$i",$row['timestamp']); 
 	$PHPExcel->getActiveSheet()->setCellValue("B$i",$row['fio']);
-	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['place']); 
-	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row['printer']); 
-	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row['printerSN']);
-	$PHPExcel->getActiveSheet()->setCellValue("F$i",$row['num_st']);
-	$PHPExcel->getActiveSheet()->setCellValue("G$i",$out_cart=(!empty($row['out_cart_inv'])?$row['out_cart_inv']:''));
-	$PHPExcel->getActiveSheet()->setCellValue("H$i",$out_cart=(!empty($row['out_cart_mark'])?$row['out_cart_mark']:''));
-	$PHPExcel->getActiveSheet()->setCellValue("I$i",$out_cart=(!empty($row['in_cart_inv'])?$row['in_cart_inv']:''));
-	$PHPExcel->getActiveSheet()->setCellValue("J$i",$out_cart=(!empty($row['in_cart_mark'])?$row['in_cart_mark']:''));
+	$PHPExcel->getActiveSheet()->setCellValue("C$i",$row['building']); 
+	$PHPExcel->getActiveSheet()->setCellValue("D$i",$row['floor']); 
+	$PHPExcel->getActiveSheet()->setCellValue("E$i",$row['place']); 
+	$PHPExcel->getActiveSheet()->setCellValue("F$i",$out_cart=(!empty($row['dep'])?$row['dep']:''));
+
+	$PHPExcel->getActiveSheet()->setCellValue("G$i",$row['printer']); 
+	$PHPExcel->getActiveSheet()->setCellValue("H$i",$row['printerSN']);
+	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row['num_st']);
+	$PHPExcel->getActiveSheet()->setCellValue("J$i",$out_cart=(!empty($row['subs_num'])?$row['subs_num']:''));
+	$PHPExcel->getActiveSheet()->setCellValue("K$i",$out_cart=(!empty($row['out_cart_inv'])?$row['out_cart_inv']:''));
+	$PHPExcel->getActiveSheet()->setCellValue("L$i",$out_cart=(!empty($row['out_cart_mark'])?$row['out_cart_mark']:''));
+	$PHPExcel->getActiveSheet()->setCellValue("M$i",$out_cart=(!empty($row['in_cart_inv'])?$row['in_cart_inv']:''));
+	$PHPExcel->getActiveSheet()->setCellValue("N$i",$out_cart=(!empty($row['in_cart_mark'])?$row['in_cart_mark']:''));
+
+	
+	
 
 				$i++;
 			

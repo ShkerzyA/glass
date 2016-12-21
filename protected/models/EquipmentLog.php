@@ -46,6 +46,7 @@ class EquipmentLog extends CActiveRecord
 	public $object0object;
 	public $timestamp_end;
 	public $confirm;
+	public $subsNum;
 
 
 	public static function model($className=__CLASS__)
@@ -139,7 +140,7 @@ class EquipmentLog extends CActiveRecord
 				return 'Рабочее место: '.$this->details[0].' Принтер: '.$this->details[1];
 				break;
 			case '2':
-				return 'Число отпечатков: '.$this->details[0];
+				return 'Число отпечатков: '.$this->details[0].' Отпечатано на картридже: '.$this->subsNum;
 				break;
 
 			case '3':
@@ -189,7 +190,7 @@ class EquipmentLog extends CActiveRecord
 				return 'Рабочее место: '.Workplace::model()->findByPk($this->details[0])->wpNameFull()."\n Принтер: $printer";
 				break;
 			case '2':
-				return 'Число отпечатков: '.$this->details[0];
+				return 'Число отпечатков: '.$this->details[0].' Отпечатано на картридже: '.$this->subsNum;
 				break;
 			case '3':
 			case '4':
@@ -297,6 +298,19 @@ class EquipmentLog extends CActiveRecord
 		);
 	}
 
+
+	public function afterFind(){
+		parent::afterFind();
+		if($this->type==2){
+			$ll=EquipmentLog::model()->find(array('condition'=>'t.object='.$this->object.' and t.type=2 and t.timestamp<\''.$this->timestamp.'\'','order'=>'t.timestamp DESC'));
+			$this->subsNum=(!empty($this->details[0]) and !empty($ll->details[0]) and is_numeric($this->details[0]) and is_numeric($ll->details[0]))?$this->details[0]-$ll->details[0]:'n/a';
+		}
+
+	
+	
+		
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -316,9 +330,13 @@ class EquipmentLog extends CActiveRecord
 			if($v->type==2){
 				$data[$v->timestamp]['timestamp']=$v->timestamp;
 				$data[$v->timestamp]['fio']=$v->subject0->fio();
-				$data[$v->timestamp]['place']=$v->objectEq->idWorkplace->wpNameFull();
+				$data[$v->timestamp]['building']=$v->objectEq->idWorkplace->getBuildingName();
+				$data[$v->timestamp]['floor']=$v->objectEq->idWorkplace->getFloorName();
+				$data[$v->timestamp]['place']=$v->objectEq->idWorkplace->getCabName().' '.$v->objectEq->idWorkplace->wpName();
 				$data[$v->timestamp]['printer']=$v->objectEq->full_name();
 				$data[$v->timestamp]['printerSN']=$v->objectEq->serial;
+				$data[$v->timestamp]['subs_num']=$v->subsNum;
+				$data[$v->timestamp]['dep']=$v->objectEq->idWorkplace->wpSubdivName();
 				$data[$v->timestamp]['num_st']=$v->details[0];
 			}else if($v->type==1){
 				$data[$v->timestamp]['in_cart_inv']=$v->objectEq->inv;

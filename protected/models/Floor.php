@@ -56,6 +56,10 @@ class Floor extends CActiveRecord
 		return 'floor';
 	}
 
+	public function nameL(){
+		return $this->fname;
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */

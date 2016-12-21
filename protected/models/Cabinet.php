@@ -117,11 +117,15 @@ class Cabinet extends CActiveRecord
 		);
 	}
 
+	public function cabName(){
+		return $this->num." ".$this->cname;
+	}
+
 	public function cabNameFull($short=false){
 		if($short){
 			$result=$this->idFloor->idBuilding->bname.'/ '.$this->idFloor->fnum.' эт./ '.$this->num;	
 		}else{
-			$result=$this->idFloor->idBuilding->bname."/ ".$this->idFloor->fname."/ ".$this->num." ".$this->cname;	
+			$result=$this->idFloor->idBuilding->bname."/ ".$this->idFloor->fname."/ ".$this->cabName();	
 		}	
 		return $result;
 	}
@@ -130,7 +134,7 @@ class Cabinet extends CActiveRecord
 		if($short){
 			$result=array($this->idFloor->idBuilding->bname,$this->idFloor->fnum.' эт.',$this->num);	
 		}else{
-			$result=array($this->idFloor->idBuilding->bname,$this->idFloor->fname,$this->num." ".$this->cname);	
+			$result=array($this->idFloor->idBuilding->bname,$this->idFloor->fname,$this->cabName());	
 		}	
 		return $result;
 	}

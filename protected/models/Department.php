@@ -61,6 +61,13 @@ public $departmentPostspost_subdiv_rn;
 		return 'department';
 	}
 
+
+    public function nameL(){
+        if(!empty($this->name))
+            return $this->name;
+        else
+            return '';
+    }
 	/**
 	 * @return array validation rules for model attributes.
 	 */

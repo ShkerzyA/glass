@@ -122,6 +122,15 @@ class Workplace extends CActiveRecord
 		return $this->idCabinet->idFloor->idBuilding->bname;
 	}
 
+	public function getFloorName(){
+		return $this->idCabinet->idFloor->nameL();
+	}
+
+	public function getCabName(){
+		return $this->idCabinet->cabName();
+	}
+
+
 	public function wpName($withEq=false,$fio='fio'){
 		$eqStr=($withEq)?'('.$this->myEqStr(array(2,3,4)).')':'';
 
@@ -170,6 +179,13 @@ class Workplace extends CActiveRecord
 			// Please remove those attributes that should not be searched.
 			array('id, id_cabinet,type, id_personnel, deactive, wname,idPersonnelid_personnel,idCabinetid_cabinet,equipmentsid_workplace,phone,wp_subdiv_rn', 'safe', 'on'=>'search'),
 		);
+	}
+
+	public function wpSubdivName(){
+		if(!empty($this->wpSubdivRn))
+			return $this->wpSubdivRn->name;
+		else
+			return '';
 	}
 
 	/**
