@@ -9,6 +9,6 @@
             $edit='';
          }
          $producer=(isset($data->producer))?$data->producer0->name:'';
-   		echo'<tr><td>SN: <b>'.$data->serial.'</b></td><td rowspan=2>'.$data->type0->name.'/ '.$producer.'/ '.$data->mark.'</td><td rowspan=2>'.$data->idWorkplace->wpNameFull().'</td><td>'.$status[$data->status].'</td><td rowspan=2>'.$data->notes.''.($pid=(!empty($data->parent_id))?'(pid '.$data->parent_id.')':'').$data->netinfo().'</td>'.$edit.'</tr>';
+   		echo'<tr><td>SN: <b>'.$data->serial.'</b></td><td rowspan=2>'.$data->type0->name.'/ '.$producer.'/ '.$data->mark.'</td><td rowspan=2>'.$data->idWorkplace->wpNameFull().'</td><td>'.$status[$data->status].'</td><td rowspan=2>'.$data->notes.$data->additionalInfo().''.($pid=(!empty($data->parent_id))?'(pid '.$data->parent_id.')':'').$data->netinfo().'</td>'.$edit.'</tr>';
    		echo'<tr><td>INV: <b>'.$data->inv.'</b></td><td>'.$data->released.'</td></tr>';
 ?>

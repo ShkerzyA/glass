@@ -48,6 +48,7 @@ class Equipment extends CActiveRecord
 	public $equipmentsparent_id;
 	public $department;
 	private $old_model;
+	public $countPrint;
 
 	public function rememberMe(){
 		$this->old_model=clone $this;
@@ -123,6 +124,18 @@ class Equipment extends CActiveRecord
 	public function netinfo(){
 		if(in_array($this->type, self::$netEqType)){
 			return "\n <nobr>IP ".$this->ip."</nobr>\n<nobr>MAC ".$this->mac."</nobr>\n<nobr>HOST: ".$this->hostname.'</nobr>';
+		}
+	}
+
+	public function additionalInfo(){
+		switch ($this->type) {
+			case '18':
+					return 'Отпечатано: '.$this->countPrint;
+				break;
+			
+			default:
+					return '';
+				break;
 		}
 	}
 
@@ -300,9 +313,16 @@ class Equipment extends CActiveRecord
 	}
 
 	public function afterFind(){
-		  if(!empty($this->released)){
+		if(!empty($this->released)){
             $date = date('d.m.Y', strtotime($this->released));
             $this->released = $date;
+        }
+
+        if($this->type==18){
+        	foreach ($this->EquipmentLog as $v) {
+        		if($v->type==10 and is_numeric($v->details[0]))
+        			$this->countPrint+=$v->details[0];
+        	}
         }
 
 	}
