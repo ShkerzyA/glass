@@ -5,7 +5,7 @@ $cart=$printer->findMyCart();
 $cart_inv=(!empty($cart))?$cart->inv:'';
 ?>
 
-<input type=hidden id='lastNumSt' value=<?php echo $LogNumSt->details[0]?>>
+<input type=hidden id='lastNumSt' value=<?php if(!empty($LogNumSt)) echo $LogNumSt->details[0]?>>
 <input type=text name=inv_cart id=inv_cart value="" placeholder='Инв. номер устанавливаемого картриджа'>
 <input type=text name=inv_cart_old id=inv_cart_old placeholder='Инв. номер возвращаемого картриджа' value="<?php echo $cart_inv;?>">
 <input type=text name=num_str id=num_str value="" placeholder='Число страниц'><br>

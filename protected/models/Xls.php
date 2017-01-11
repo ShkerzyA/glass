@@ -299,6 +299,8 @@ class Xls extends CFormModel{
 	$PHPExcel->getActiveSheet()->setCellValue("J$i",$row->idWorkplace->idCabinet->idFloor->fname);
 	$PHPExcel->getActiveSheet()->setCellValue("K$i",$row->idWorkplace->idCabinet->num.' '.$row->idWorkplace->idCabinet->cname);
 	$PHPExcel->getActiveSheet()->setCellValue("L$i",$row->idWorkplace->department());
+	$PHPExcel->getActiveSheet()->setCellValue("M$i",$row->mac);
+	$PHPExcel->getActiveSheet()->setCellValue("N$i",$row->hostname);
 	/*
 	//$PHPExcel->getActiveSheet()->setCellValue("H$i",$row->name_research);
 	$PHPExcel->getActiveSheet()->setCellValue("I$i",$row->birthday);
@@ -339,7 +341,7 @@ class Xls extends CFormModel{
       					));
 
 
-			$PHPExcel->getActiveSheet()->getStyle('A3:'.'O'.$i)->applyFromArray($bordercells);
+			$PHPExcel->getActiveSheet()->getStyle('A3:'.'N'.$i)->applyFromArray($bordercells);
 			$name='v';
    			 
    			$PHPExcel->getActiveSheet()->setTitle($name);
