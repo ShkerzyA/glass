@@ -63,11 +63,11 @@ class EquipmentController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','createPack','update','markSearch','delete','garant','ipmac','massUpd','adminMenu'),
+				'actions'=>array('create','createPack','update','markSearch','delete','garant','ipmac','massUpd','adminMenu','dhcpWithEq','netEqWithDhcp'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','summaryTable','dhcpWithEq','netEqWithDhcp'),
+				'actions'=>array('admin','summaryTable'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
