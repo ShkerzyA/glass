@@ -112,6 +112,13 @@ class Equipment extends CActiveRecord
 		$res=$req->queryAll();
 		return $res;
 	}
+
+	public static function countReloadsCarts(){
+		$sql="select mark, reloads, count(reloads) as carts from (select ct.mark, ct.inv, count(log.id) reloads from equipment ct left join equipment_log log on (log.type=3 and ct.inv::varchar=SOME(log.details)) where ct.type=18 and ct.status=0 group by mark, inv order by inv) as w group by mark, reloads order by mark, reloads desc";
+		$req = Yii::app()->db->createCommand($sql);
+		$res=$req->queryAll();
+		return $res;
+	}
 	
 	/**
 	 * @return string the associated database table name

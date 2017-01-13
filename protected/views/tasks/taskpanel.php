@@ -70,7 +70,7 @@
 				
 			</div>
 			<div class="leftinfo">
-				<?php echo $v->ico().'<a href=/glass/tasks/'.$v->id.'>'.$v['tname'].' <span class=gray>'.$v->detailsShow(true).'</span></a>'; ?>
+				<?php echo $v->ico().'<div style="float: right; width: 95%"><a href=/glass/tasks/'.$v->id.'>'.$v['tname'].' <span class=gray>'.$v->detailsShow(true).'</span></a></div>'; ?>
 			
 				
 			</div>
