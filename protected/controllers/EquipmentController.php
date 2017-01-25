@@ -338,7 +338,7 @@ public function actionCartSearch(){
 	}
 
 	public function actionDhcpWithEq(){
-		$models=DhcpLeases::model()->with('equipment')->findAll(array('order'=>'t.date_end DESC'));
+		$models=DhcpLeases::model()->with('equipment')->findAll(array('condition'=>"date_end>='".date('Y-m-d')."'",'order'=>'t.date_end DESC'));
 		$this->render('dhcpWithEq',array('models'=>$models));
 	}
 

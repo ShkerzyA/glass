@@ -19,7 +19,7 @@
 		 echo $form->error($model,'place'); */ ?>
 	</div> -->
 	<div class="row">
-		<?php echo $form->label($model,'Корпус: ','',array('htmlOptions'=>array('color'=>'red'))); ?>
+		
 
 		<?php 	$tmp=Building::model()->findall();
 				echo $form->dropDownList($model,"id_building",CHtml::listData($tmp,"id",function($tmp) {
@@ -28,7 +28,6 @@
 	</div>
 
 	<div class="inline">
-		<?php echo $form->label($model,'Поиск: '); ?>
 		<?php echo $form->textField($model,'allfields',array('size'=>50,'maxlength'=>50,'placeholder'=>'ПОИСК (по ФИО, должности, кабинету, номеру телефона)')); ?>
 	</div>
 	

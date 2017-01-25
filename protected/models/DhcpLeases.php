@@ -27,6 +27,9 @@ class DhcpLeases extends CActiveRecord
 	
 	public $mac0mac;
 
+	/*public function defaultScope() {
+		return array('condition'=>"date_end>='".date('Y-m-d')."'"); // возвращаем массив условий, которые должны применяться. В массиве, кроме condition, могут использоваться и другие элементы, используемые в yii-запросах: order, limit и т.д.
+	}*/
 
 	public static function model($className=__CLASS__)
 	{
@@ -72,7 +75,8 @@ class DhcpLeases extends CActiveRecord
 	}
 
 	public function allIdent(){
-		if($this->mac==$this->equipment->mac and $this->ip==$this->equipment->ip and trim($this->hostname)==trim($this->equipment->hostname)){
+		//and $this->ip==$this->equipment->ip
+		if($this->mac==$this->equipment->mac and trim($this->hostname)==trim($this->equipment->hostname)){
 			return True;
 		}else{
 			return False;
