@@ -67,7 +67,7 @@ class EquipmentController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','summaryTable'),
+				'actions'=>array('admin','summaryTable','correctNetEqforMAC'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -338,7 +338,7 @@ public function actionCartSearch(){
 	}
 
 	public function actionDhcpWithEq(){
-		$models=DhcpLeases::model()->with('equipment')->findAll(array('condition'=>"date_end>='".date('Y-m-d')."'",'order'=>'t.date_end DESC'));
+		$models=DhcpLeases::model()->with('equipment')->findAll(array('condition'=>"date_end>='".date('Y-m-d H:i:s')."'",'order'=>'t.date_end DESC'));
 		$this->render('dhcpWithEq',array('models'=>$models));
 	}
 
@@ -347,6 +347,13 @@ public function actionCartSearch(){
 		$this->render('eqWithDhcp',array('models'=>$models));
 	}
 
+	public function actionCorrectNetEqforMAC(){
+		$models=DhcpLeases::model()->with('equipment')->findAll(array('condition'=>"date_end>='".date('Y-m-d H:i:s')."'",'order'=>'t.date_end DESC'));
+		foreach ($models as $dhcpM) {
+			echo $dhcpM->hostname.'<br>';
+			$dhcpM->correctEq();
+		}
+	}
 
 	/**
 	 * Lists all models.
@@ -436,51 +443,6 @@ public function actionCartSearch(){
   			echo CJSON::encode($result);
  		}
  	}
-
-	public function actionIpmac(){
-		$dhcp=DhcpLeases::model()->findAll();
-		$i=1;
-		echo 'begin';
-		foreach ($dhcp as $v) {
-			$criteria=new CDbCriteria;
-
-			/*
-			if(!empty($v->mac)){
-				$realmac=mb_strtoupper($v->mac,'UTF-8');
-				echo $realmac.'<br>';
-				$macarr=explode(':',$realmac);
-				$criteria->addCondition(array('condition'=>"(UPPER(t.notes) LIKE ('".implode('',$macarr)."') OR UPPER(t.notes) LIKE ('".implode(':',$macarr)."') OR UPPER(t.notes) LIKE ('".implode('-',$macarr)."'))"));
-			} */
-
-			if(!empty($v->hostname)){
-				$hostname=mb_strtolower($v->hostname,'UTF-8');
-				$criteria->compare('LOWER(notes)',$hostname,true);
-			}else{
-				continue;
-			}
-
-			//echo''.$mac.'<br>';
-			
-			//$criteria->compare('mac',mb_strtolower($v->mac,'UTF-8'));
-			//$criteria->compare('ip',$v->ip);
-			//$criteria->compare('hostname',$v->hostname); /**/
-			//$criteria->addCondition(array('condition'=>"UPPER(t.notes) LIKE('%".$v['ip']."%') ".($nm=(!empty($v['hostname']))?" OR UPPER(t.notes) LIKE('%".mb_strtoupper($v['hostname'])."%')":"").$mac));
-			$model=Equipment::model()->find($criteria);
-			if($model){
-				echo $i.' '.$model->full_name()." ".$model->netInfo()." <br>";
-				$model->ip=$v->ip;
-				$model->mac=$v->mac;
-				$model->hostname=$v->hostname;
-				$model->notes=str_replace($hostname,'',mb_strtolower($model->notes,'UTF-8'));
-				$i++;
-				echo '<pre>';
-				print_r($model->attributes);
-				echo '</pre>';
-				//$model->save();
-			}
-		}
-
-	}
 
 	/**
 	 * Performs the AJAX validation.

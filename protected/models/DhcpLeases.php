@@ -53,11 +53,11 @@ class DhcpLeases extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('hostname', 'length', 'max'=>40),
-			array('ip, act, date_end, mac', 'safe'),
+			array('ip, act, date_end,date_start, mac', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('ip, act, date_end, mac, hostname, id,mac0mac', 'safe', 'on'=>'search'),
+			array('ip, act, date_end,date_start, mac, hostname, id,mac0mac', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -99,6 +99,29 @@ class DhcpLeases extends CActiveRecord
 		);
 	}
 
+	public function correctEq(){
+		if(!empty($this->equipment)){
+			$this->equipment->rememberMe();
+			$this->equipment->ip=$this->ip;
+			if(!empty(trim($this->hostname)))
+				$this->equipment->hostname=$this->hostname;
+
+
+			if(!empty($this->date_start)){
+				if(!empty($this->equipment->lastdate)){
+					$dtE=new DateTime($this->equipment->lastdate);
+					$dtD=new DateTime($this->date_start);
+					if($dtD>$dtE)
+						$this->equipment->lastdate=$this->date_start;
+				}else{
+					$this->equipment->lastdate=$this->date_start;
+				}
+			}
+			$this->equipment->save();
+		}
+
+	}
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
@@ -114,6 +137,7 @@ class DhcpLeases extends CActiveRecord
 		$criteria->compare('ip',$this->ip,true);
 		$criteria->compare('act',$this->act);
 		$criteria->compare('date_end',$this->date_end,true);
+		$criteria->compare('date_start',$this->date_start,true);
 		$criteria->compare('mac',$this->mac,true);
 		$criteria->compare('hostname',$this->hostname,true);
 		$criteria->compare('id',$this->id);

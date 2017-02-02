@@ -130,7 +130,7 @@ class Equipment extends CActiveRecord
 
 	public function netinfo(){
 		if(in_array($this->type, self::$netEqType)){
-			return "\n <nobr>IP ".$this->ip."</nobr>\n<nobr>MAC ".$this->mac."</nobr>\n<nobr>HOST: ".$this->hostname.'</nobr>';
+			return "\n IP ".$this->ip."\nMAC ".$this->mac."\nHOST: ".$this->hostname."\nв сети: ".$this->lastdate;
 		}
 	}
 
@@ -268,6 +268,7 @@ class Equipment extends CActiveRecord
 			array('id_workplace,type,status','required'),
 			array('serial,inv,released,hostname', 'length', 'max'=>100),
 			array('inv','cartInvOnly'),
+			array('lastdate','safe'), //'datetimeFormat'=>'yyyy-MM-dd HH:ii:ss'),
 			array('mark', 'length', 'max'=>200),
 			array('notes,ip,mac,released', 'safe'),
 			array('id','uniqueInvSerial'),
