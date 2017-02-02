@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
 
 <?php echo CHtml::link('Расширенный поиск','#',array('class'=>'search-button')); ?>
 <br><br>
-<div class="search-form" style="display:none">
+<div class="search-form" style="<?php echo $disp=(empty($_GET['Equipment']))?'display:none':''; ?>">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
