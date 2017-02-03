@@ -40,6 +40,7 @@ class Equipment extends CActiveRecord
 	public static $cartRefill='596';
 	public static $db_array=array();
 	public static $netEqType=array(0,2,3,4,5,6,8,9,11,12,13,16,17,25,26);
+	public static $ignoreLog=array('ip','lastdate');
 	public $place;
 	public $DopLog;
 	public $idWorkplaceid_workplace;
@@ -292,6 +293,8 @@ class Equipment extends CActiveRecord
 			return false;
 		$chanded=array();
 		foreach ($this->attributes as $k => $v) {
+			if(in_array($k,Equipment::$ignoreLog))
+				continue;
 			//echo $v.'/'.$this->old_model->$k.'<br>';
 			if($v!=$this->old_model->$k){
 				switch ($k) {
