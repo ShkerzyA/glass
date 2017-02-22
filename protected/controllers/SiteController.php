@@ -101,11 +101,11 @@ public function actionInstall(){
     $task = $auth->createTask('ManagerSaveStatusEv', 'Изменение подконтрольных событий', $bizRule);
     $task->addChild('saveStatusEv', 'Изменить статус');
 
-    $bizRule='return (Yii::app()->user->checkAccess("inGroup",array("group">array("it"))));';
+    $bizRule='return (in_array("it",Yii::app()->user->groups));';
     $task = $auth->createTask('taskReportUser', 'Право на мониторинг операции в конкретной операционной', $bizRule);
     $task->addChild('taskReport', 'Право на мониторинг операций');
 
-    $bizRule='return (Yii::app()->user->checkAccess("inGroup",array("group">array("it"))) and Yii::app()->user->islead);';
+    $bizRule='return (in_array("it",Yii::app()->user->groups) and Yii::app()->user->islead);';
     $task = $auth->createTask('otdReportUser', 'Право на мониторинг операции в конкретной операционной', $bizRule);
     $task->addChild('otdReport', 'Право на мониторинг операций');
 
