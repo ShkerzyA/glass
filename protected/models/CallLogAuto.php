@@ -47,8 +47,8 @@ class CallLogAuto extends CallLog
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('code, duration', 'numerical', 'integerOnly'=>true),
-			array('cost', 'numerical'),
+			array('code', 'numerical', 'integerOnly'=>true),
+			array('cost, duration', 'numerical'),
 			array('calling_number,called_number', 'length', 'max'=>14),
 			array('direction', 'length', 'max'=>250),
 			array('timestamp,timestamp_end','safe'),

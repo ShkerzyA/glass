@@ -28,7 +28,7 @@
 </head>
 <body>
 <?php if(!(Yii::app()->user->isGuest)): ?>
-	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
+	<?php if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))): ?>
 		<?php $this->widget('application.widgets.Messenger');  ?>
 	<?php endif; ?>
 <?php endif; ?>
@@ -42,7 +42,7 @@
 		}
 	</style>
 	<?php endif; ?>
-	<?php if (in_array(1011,Yii::app()->user->id_departments)): ?>
+	<?php if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))): ?>
 		<?php if((Yii::app()->user->id_pers==19705) or (Yii::app()->user->id_pers==20024) or (Yii::app()->user->id_pers==2)):?>
 			<div id='omsk'><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/nyan_bz.gif"></div>
 		<?php else: ?>

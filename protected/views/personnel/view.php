@@ -47,7 +47,7 @@ $this->menu=array(
 	echo'</div>';
 	echo'<div><b>Дата рождения: '.CHtml::encode($birthday).' (Пол: '.CHtml::encode($sex).')</b></div>';
 	?>
-	<?php if(in_array(1011,Yii::app()->user->id_departments)):?>
+	<?php if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))):?>
 		<?php header("Access-Control-Allow-Origin:*"); ?>
 		<!--
 		<?php Yii::app()->getClientScript()->registerCoreScript('alf'); ?>

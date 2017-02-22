@@ -43,7 +43,7 @@ class CallLog extends CActiveRecord
 			if(trim($splitted_v[0])=='Телефон'){
 				$calling_number=trim($splitted_v[1]);
 			}
-			if(preg_match("/^(\d{2}\.\d{2}\.\d{4}\s+\d{2}:\d{2})\s+(\d+)\s+([\S\s]+?)(\d{11})\s+(\d+)\s+(\d{1,3}\.\d{2})/", $v,$matches)){
+			if(preg_match("/^(\d{2}\.\d{2}\.\d{4}\s+\d{2}:\d{2})\s+(\d+)\s+([\S\s]+?)(\d{11})\s+(\d*?\.??\d+?)\s+(\d{1,3}\.\d{2})/", $v,$matches)){
 				$matches[]=$calling_number;
 				$result[]=$matches;
 				$callLog=new CallLogAuto;

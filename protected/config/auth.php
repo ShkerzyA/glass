@@ -220,7 +220,7 @@ return array (
   array (
     'type' => 1,
     'description' => 'Право на мониторинг операции в конкретной операционной',
-    'bizRule' => 'return (in_array(1011,Yii::app()->user->id_departments));',
+    'bizRule' => 'return (Yii::app()->user->checkAccess("inGroup",array("group">array("it"))));',
     'data' => NULL,
     'children' => 
     array (
@@ -231,7 +231,7 @@ return array (
   array (
     'type' => 1,
     'description' => 'Право на мониторинг операции в конкретной операционной',
-    'bizRule' => 'return ((in_array(1011,Yii::app()->user->id_departments)) and Yii::app()->user->islead);',
+    'bizRule' => 'return (Yii::app()->user->checkAccess("inGroup",array("group">array("it"))) and Yii::app()->user->islead);',
     'data' => NULL,
     'children' => 
     array (
