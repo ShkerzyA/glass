@@ -38,6 +38,7 @@ class Equipment extends CActiveRecord
 	public static $cartStorage='574';
 	public static $cartFull='597';
 	public static $cartRefill='596';
+	public static $cartRepair='744';
 	public static $db_array=array();
 	public static $netEqType=array(0,2,3,4,5,6,8,9,11,12,13,16,17,25,26);
 	public static $ignoreLog=array('ip','lastdate');
@@ -101,13 +102,16 @@ class Equipment extends CActiveRecord
 	count(lim.mark) as licou,
 	count(stor.mark) as st,
 	count(refill.mark) as ref,
+	count(repair.mark) as rep,
 	CAST(((CAST(count(lim.mark) as real)/CAST(count(eq.mark) as real))*100) as int ) as prc,
 	CAST(((CAST(count(stor.mark) as real)/CAST(count(eq.mark) as real))*100) as int ) as prc_st,
-	CAST(((CAST(count(refill.mark) as real)/CAST(count(eq.mark) as real))*100) as int ) as prc_ref
+	CAST(((CAST(count(refill.mark) as real)/CAST(count(eq.mark) as real))*100) as int ) as prc_ref,
+	CAST(((CAST(count(repair.mark) as real)/CAST(count(eq.mark) as real))*100) as int ) as prc_rep
 	from equipment eq 
 	left join equipment lim on(eq.id=lim.id and lim.id_workplace=".self::$cartFull.") 
 	left join equipment stor on(eq.id=stor.id and stor.id_workplace=".self::$cartStorage.")
 	left join equipment refill on(eq.id=refill.id and refill.id_workplace=".self::$cartRefill.")
+	left join equipment repair on(eq.id=repair.id and repair.id_workplace=".self::$cartRepair.")
 	where eq.type=18 and eq.status=0 group by eq.mark order by prc asc";
 		$req = Yii::app()->db->createCommand($sql);
 		$res=$req->queryAll();
@@ -457,7 +461,7 @@ class Equipment extends CActiveRecord
 		$models=self::model()->with('EquipmentLog')->findAll(array('condition'=>'t.type in (2,3,4,17)'));	
 		foreach ($models as &$v) {
 			$tmp=EquipmentLog::model()->findAll(array('condition'=>'t.type=1 and \''.$v->id.'\'=t.details[2]'));
-			//print_r($tmp);
+			print_r($tmp);
 			//$v->EquipmentLog=array_merge($v->EquipmentLog,$tmp);
 		}
 		return $models;

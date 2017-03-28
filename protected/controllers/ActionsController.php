@@ -114,6 +114,9 @@ class ActionsController extends Controller
 								exit();
 							}else{
 								switch ($_POST['return_place']) {
+									case '2':
+										$cart_old->id_workplace=Equipment::$cartRepair;
+										break;
 									case '1':
 										$cart_old->id_workplace=Equipment::$cartFull;
 										break;

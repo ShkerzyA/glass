@@ -12,3 +12,4 @@ $cart_inv=(!empty($cart))?$cart->inv:'';
 <div>Отпечатано на картридже: <span id=subsNum></span></div>
 <input type='radio' name='return_place' value='0' checked style="width: 10px;"> В пустые
 <input type='radio' name='return_place' value='1' style="width: 10px;"> В полные
+<input type='radio' name='return_place' value='2' style="width: 10px;"> На восстановление
