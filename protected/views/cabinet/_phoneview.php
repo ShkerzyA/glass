@@ -8,7 +8,10 @@ if(!empty($data->workplaces)){
 	foreach ($data->workplaces as $v) {
 		if(!empty($v->phone) or !empty($v->id_personnel)){
 			$num++;
-			$res.='<tr><td>'.$v->phone.'</td><td><b>'.$v->wpName(false,'fio_full').'</b></td></tr>';
+			$res.='<tr><td>'.$v->phone.'</td><td><b><nobr>'.$v->wpName(false,'fio_full');
+			if(!empty($v->idPersonnel) and !empty($v->idPersonnel->zempleavs))
+			$res.='(отпуск)';
+			$res.='</nobr></b></td></tr>';
 		}
 	}
 }

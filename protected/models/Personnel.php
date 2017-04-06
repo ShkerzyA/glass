@@ -99,7 +99,7 @@ class Personnel extends CActiveRecord
         return $this->surname.' '.$this->name.' '.$this->patr;
     }
 
-    public function wrapFio($function){
+    public function wrapFio($function,$vacation=False){
         $res='';
         switch ($function) {
             case 'fio_full':
@@ -337,7 +337,7 @@ class Personnel extends CActiveRecord
             'Eventsoper' => array(self::HAS_MANY, 'Eventsoper', 'creator'),
             'MedicalEquipment' => array(self::HAS_MANY, 'MedicalEquipment', 'creator'),
             'usersQqs' => array(self::HAS_ONE, 'UsersQq', 'id_personnel'),
-            'zempleavs' => array(self::HAS_MANY, 'Zempleav', 'orgbase_rn','condition'=>'zempleavs.docdate>=\''.date('Y').'-01-01'.'\'',),
+            'zempleavs' => array(self::HAS_MANY, 'Zempleav', 'orgbase_rn','scopes' => array('current_year')),
 		);
 	}
 
@@ -431,6 +431,8 @@ class Personnel extends CActiveRecord
     public function search_pers()
     {
         $criteria=new CDbCriteria;
+
+        $criteria->addCondition("\"personnelPostsHistories\".id is not null");
         $criteria->with=array(
             'idUser' => array('alias' => 'users'),
             'workplaces' => array('alias' => 'workplace','together'=>True),
@@ -446,7 +448,6 @@ class Personnel extends CActiveRecord
         $criteria2=new CDbCriteria;
             $criteria2->compare('LOWER(t.surname)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(t.name)',mb_strtolower($v,'UTF-8'),true, 'OR');
-            //$criteria2->compare('LOWER(t.patr)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(department_posts.post)',mb_strtolower($v,'UTF-8'),true, 'OR');
             $criteria2->compare('LOWER(departments.name)',mb_strtolower($v,'UTF-8'),true, 'OR' );
             $criteria2->compare('LOWER(cabinet.cname)',mb_strtolower($v,'UTF-8'),true, 'OR' );
@@ -456,6 +457,9 @@ class Personnel extends CActiveRecord
         $criteria->mergeWith($criteria2);
         }
         $criteria->order='"t".surname ASC';
+
+        $criteria->scopes=array('working');
+        
 
         return new CActiveDataProvider($this, array(
             'criteria'=>$criteria,

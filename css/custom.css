@@ -1561,7 +1561,9 @@ ul.yiiPager .first, ul.yiiPager .last {
 	border-bottom: 1px solid grey !important;
 }
 
-
+.zebra tr:nth-child(odd){
+	background: rgba(200,200,200,0.2);
+}
 
 /*
 

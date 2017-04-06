@@ -48,6 +48,19 @@ class Zempleav extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function scopes()
+    {
+    	$alias=$this->getTableAlias();
+        return array(
+            'is_today'=>array(
+                'condition' => '"'.$alias.'".startdate<=current_date and "'.$alias.'".enddate>=current_date'
+            ),
+            'current_year'=>array(
+                'condition' => '"'.$alias.'".docdate>=\''.date('Y').'-01-01'.'\''
+            ),
+        );
+    }
+
 	/**
 	 * @return string the associated database table name
 	 */

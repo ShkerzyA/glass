@@ -276,6 +276,7 @@ class Cabinet extends CActiveRecord
             'idFloor.idBuilding',
             'workplaces' => array('alias' => 'workplace'),
             'workplaces.idPersonnel' => array('alias' => 'personnel'),
+            'workplaces.idPersonnel.zempleavs'=>array('scopes'=>array('is_today')),
             'workplaces.idPersonnel.personnelPostsHistories:working' => array('order'=>'"personnelPostsHistories".date_end DESC','alias' => 'personnelPostsHistories','limit'=>1),
             'workplaces.idPersonnel.personnelPostsHistories.idPost'=>array('alias'=>'department_posts'),
             'workplaces.idPersonnel.personnelPostsHistories.idPost.postSubdivRn'=>array('alias'=>'departments'),);
