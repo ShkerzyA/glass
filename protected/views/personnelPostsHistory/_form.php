@@ -17,7 +17,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'id_personnel'); 
-		$personnels=Personnel::model()->findall();
+		$personnels=Personnel::model()->findall(array('order'=>'t.surname ASC'));
 		 echo $form->dropDownList($model,'id_personnel',CHtml::listData($personnels,'id',function($personnels) {
 			return CHtml::encode($personnels->surname.' '.$personnels->name.' '.$personnels->patr);
 		}	
@@ -28,7 +28,7 @@
 	    <div class="row">
         <?php echo $form->labelEx($model,'id_post'); ?>
 
-        <?php $tmp=DepartmentPosts::model()->findall();
+        <?php $tmp=DepartmentPosts::model()->findall(array('order'=>'t.id ASC'));
 echo $form->dropDownList($model,"id_post",CHtml::listData($tmp,"id",function($tmp) {
                 return CHtml::encode($tmp->id.' '.$tmp->post.'/'.$tmp->postSubdivRn->name);}),array('empty' => '')); ?>
         <?php echo $form->error($model,'id_post'); ?>

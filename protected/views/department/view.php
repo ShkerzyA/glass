@@ -20,8 +20,8 @@ $this->menu=array(
 <table id="personTbl" align=center>
 
 	<tr>
-		<td>Штатная структура:</td>
-		<td>Сотрудники:</td>
+		<th>Штатная структура:</th>
+		<th>Сотрудники:</th>
 <?php
 	//print_r($DepPosts[1]->personnelsPh[0]->personnel);
 	if(!empty($model->departmentPosts)){
@@ -34,9 +34,11 @@ $this->menu=array(
 				else
 					echo '<span>';
 			echo $dp->post_rn.'/'.$dp->post." (".$dp->rate.")</span></b></td><td class='persList'>";
+			echo'<table class="zebra">';
 			if(!empty($dp->personnelPostsHistories)){
 			foreach($dp->personnelPostsHistories as $personnelPh){
 
+				echo'<tr><td>';
 				if ($personnelPh->inactive())
 					echo '<span style="text-decoration: line-through">';
 				else
@@ -49,14 +51,21 @@ $this->menu=array(
 				}else{
 					echo ' совместительство';
 				}
-
-				echo"<br>";
+				echo"</td>";
+				echo'<td>';
+				foreach ($personnelPh->idPersonnel->zempleavs as $vacation) {
+					echo 'c '.$vacation->startdate.' по '.$vacation->enddate.'';
+				}
+				echo'</td></tr>';
 			}
 			}else{
 				echo '-//-';
 			}
+			echo'</table>';
 
-			echo "</span></td></tr>";
+			echo "</span></td>";
+			echo "<td>";
+			echo "</td></tr>";
 		}
 	}
 ?>

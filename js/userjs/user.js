@@ -53,6 +53,7 @@ function init(){
   $(".filter_eq").live('click',function sss(){
       //alert($(this).text());
       $(".str_eq").hide();
+      $('.mass_checkbox').prop('checked',''); 
       $(".str_eq:contains('"+$(this).text()+"')").show();
   });
 

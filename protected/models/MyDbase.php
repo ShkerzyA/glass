@@ -17,7 +17,7 @@ class MyDbase extends CFormModel{
 
  	public function __construct(){
  		$this->pathToDb=$_SERVER['DOCUMENT_ROOT'].'/glass/base/';
- 		$this->pdo=new PDO('pgsql:host=localhost;port=5432;dbname=parus', 'postgres', '123');
+ 		$this->pdo=new PDO('pgsql:host=localhost;port=5432;dbname=parus', 'postgres', '123',[PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
  	}
 
  	/*
@@ -124,9 +124,11 @@ class MyDbase extends CFormModel{
  	public function personnelImport(){
  		$personnel=$this->read_table('person','orbase_rn');
  		$zank=$this->read_table('zank','ank_rn');
+ 		$zempleav=$this->read_table('zempleav','empleav_rn');
 		foreach ($personnel as &$z) {
 			$x=$z['orbase_rn'];
 			$z['ank']=array_filter($zank, function($var) use ($x){return ($var['orgbase_rn']==$x);});
+			$z['empleav']=array_filter($zempleav, function($var) use ($x){return ($var['orgbase_rn']==$x);});
 		}
 		
 		foreach ($personnel as $v) {

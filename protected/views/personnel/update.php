@@ -17,6 +17,7 @@ $this->menu=array(
     $this->menu["details"]=array(
 array('label'=>'Рабочее место', 'url'=>array('Workplace/admin', 'id_personnel'=>$model->id)),
 array('label'=>'Занимаемые должности', 'url'=>array('PersonnelPostsHistory/admin', 'id_personnel'=>$model->id)),
+array('label'=>'Отпуска', 'url'=>array('Zempleav/admin', 'orgbase_rn'=>$model->orbase_rn)),
 );
 
 

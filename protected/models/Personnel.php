@@ -337,6 +337,7 @@ class Personnel extends CActiveRecord
             'Eventsoper' => array(self::HAS_MANY, 'Eventsoper', 'creator'),
             'MedicalEquipment' => array(self::HAS_MANY, 'MedicalEquipment', 'creator'),
             'usersQqs' => array(self::HAS_ONE, 'UsersQq', 'id_personnel'),
+            'zempleavs' => array(self::HAS_MANY, 'Zempleav', 'orgbase_rn','condition'=>'zempleavs.docdate>=\''.date('Y').'-01-01'.'\'',),
 		);
 	}
 

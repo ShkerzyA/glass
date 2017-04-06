@@ -5,10 +5,10 @@ var mchck=false;
 $('.check_mass_checkbox').click(function(){
 	if(mchck){
 		mchck=false;
-		$('.mass_checkbox').prop('checked','');	
+		$('.str_eq:visible .mass_checkbox').prop('checked','');	
 	}else{
 		mchck=true;
-		$('.mass_checkbox').prop('checked','checked');	
+		$('.str_eq:visible .mass_checkbox').prop('checked','checked');		
 	}
 	
 	return false;

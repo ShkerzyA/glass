@@ -74,6 +74,11 @@ $this->menu=array(
 	echo "</span>";
 	}
 	echo '</div>';
+	echo"<div><h3>Отпуск:</h3>";
+	foreach ($model->zempleavs as $vacation) {
+		echo"<div>с ".$vacation->startdate.' по '.$vacation->enddate."</div>";
+	}
+	echo '</div>';
 	?>
 </div>
 	<div style="clear: both;"></div>
