@@ -53,8 +53,21 @@ function init(){
   $(".filter_eq").live('click',function sss(){
       //alert($(this).text());
       $(".str_eq").hide();
+      mchck=false;
       $('.mass_checkbox').prop('checked',''); 
       $(".str_eq:contains('"+$(this).text()+"')").show();
+  });
+
+  var mchck=false;
+  $('.check_mass_checkbox').click(function(){
+    if(mchck){
+      mchck=false;
+      $('.str_eq:visible .mass_checkbox').prop('checked',''); 
+    }else{
+      mchck=true;
+      $('.str_eq:visible .mass_checkbox').prop('checked','checked');    
+    }
+    return false;
   });
 
 	$('.mess_head').live('click',function(){

@@ -78,6 +78,14 @@ class Zempleav extends CActiveRecord
 			);
 	}
 
+
+	public function afterFind(){
+		$this->startdate=date('d.m.Y',strtotime($this->startdate));
+		$this->enddate=date('d.m.Y',strtotime($this->enddate));
+		$this->docdate=date('d.m.Y',strtotime($this->docdate));
+		parent::afterFind();
+	}
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
