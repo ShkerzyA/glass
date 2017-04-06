@@ -1,6 +1,7 @@
 
 var plcJsFlt=0;
 var globTimeout = null;
+var mchck=false;
 function init(){
 	$('#userEd').live('click',function(){ 
 		load_modalForm();
@@ -58,8 +59,8 @@ function init(){
       $(".str_eq:contains('"+$(this).text()+"')").show();
   });
 
-  var mchck=false;
-  $('.check_mass_checkbox').click(function(){
+  
+  $('.check_mass_checkbox').live('click',function(){
     if(mchck){
       mchck=false;
       $('.str_eq:visible .mass_checkbox').prop('checked',''); 

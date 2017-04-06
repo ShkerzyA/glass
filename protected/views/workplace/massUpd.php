@@ -1,19 +1,4 @@
 <?php
-
-Yii::app()->clientScript->registerScript('msupd', "
-var mchck=false;
-$('.check_mass_checkbox').click(function(){
-	if(mchck){
-		mchck=false;
-		$('.str_eq:visible .mass_checkbox').prop('checked','');	
-	}else{
-		mchck=true;
-		$('.str_eq:visible .mass_checkbox').prop('checked','checked');		
-	}
-	
-	return false;
-});
-");
 /* @var $this WorkplaceController */
 /* @var $data Workplace */
 echo'<div class="clear"></div>';
