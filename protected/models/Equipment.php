@@ -112,7 +112,7 @@ class Equipment extends CActiveRecord
 	left join equipment stor on(eq.id=stor.id and stor.id_workplace=".self::$cartStorage.")
 	left join equipment refill on(eq.id=refill.id and refill.id_workplace=".self::$cartRefill.")
 	left join equipment repair on(eq.id=repair.id and repair.id_workplace=".self::$cartRepair.")
-	where eq.type=18 and eq.status=0 group by eq.mark order by prc asc";
+	where eq.type=18 and eq.status=0 group by eq.mark order by count(eq.mark) desc";
 		$req = Yii::app()->db->createCommand($sql);
 		$res=$req->queryAll();
 		return $res;
