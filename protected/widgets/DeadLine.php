@@ -3,7 +3,8 @@
 class DeadLine extends CWidget{
 	public function run(){
 		$deadline=Tasks::deadLineTasks();
-		$this->render('Deadline',array('deadline'=>$deadline));
+		if(!empty($deadline))
+			$this->render('Deadline',array('deadline'=>$deadline));
 	}
 
 }
