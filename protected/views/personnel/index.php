@@ -10,6 +10,7 @@ $this->menu=array(
 	array('label'=>'Управление кадрами', 'url'=>array('admin'),'visible'=>Yii::app()->user->role=='administrator'),
 	array('label'=>'Тиль', 'url'=>array('tiles'),'visible'=>Yii::app()->user->checkAccess('moderator')),
 	array('label'=>'Дни рождения', 'url'=>array('birthdays')),
+	array('label'=>'Отпуск', 'url'=>array('vacations'),'visible'=>Yii::app()->user->checkAccess('moderator')),
 );
 
 Yii::app()->clientScript->registerScript('search', "

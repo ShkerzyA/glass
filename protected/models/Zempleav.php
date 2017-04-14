@@ -51,12 +51,18 @@ class Zempleav extends CActiveRecord
 	public function scopes()
     {
     	$alias=$this->getTableAlias();
+    	$today=new DateTime();
+    	$future=new DateTime();
+    	$future->modify('+15 day');
         return array(
             'is_today'=>array(
                 'condition' => '"'.$alias.'".startdate<=current_date and "'.$alias.'".enddate>=current_date'
             ),
             'current_year'=>array(
                 'condition' => '"'.$alias.'".docdate>=\''.date('Y').'-01-01'.'\''
+            ),
+             'near'=>array(
+                'condition' => '"'.$alias.'".enddate>=\''.$today->format('Y-m-d').'\' and "'.$alias.'".startdate<=\''.$future->format('Y-m-d').'\''
             ),
         );
     }

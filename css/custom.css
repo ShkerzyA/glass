@@ -1565,6 +1565,9 @@ ul.yiiPager .first, ul.yiiPager .last {
 	background: rgba(200,200,200,0.2);
 }
 
+.downline td{
+	border-bottom: 1px solid grey;
+}
 /*
 
 

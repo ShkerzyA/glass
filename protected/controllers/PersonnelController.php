@@ -29,7 +29,7 @@ class PersonnelController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','tiles','view','rootFillTree','AjaxFillTree','depposts','surnameSearch','birthdays','phones','suggest'),
+				'actions'=>array('index','tiles','view','rootFillTree','AjaxFillTree','depposts','surnameSearch','birthdays','vacations','phones','suggest'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -64,6 +64,12 @@ class PersonnelController extends Controller
 	public function actionBirthdays(){
 		$models=Personnel::model()->with('personnelPostsHistories:working')->working()->findAll(array('select'=>'t.surname, t.name, t.patr, t.birthday','condition'=>"(DATE_PART('doy',birthday::date)-DATE_PART('doy',current_date))<7 and (DATE_PART('doy',birthday::date)-DATE_PART('doy',current_date))>=0 and \"personnelPostsHistories\".id is not null",'order'=>"(DATE_PART('month',birthday::date)::char||DATE_PART('day',birthday::date))::int ASC"));
 		$this->render('birthdays', array('models'=>$models));
+	}
+
+	public function actionVacations(){
+		#$this->layout='//layouts/leaf';
+		$models=Personnel::model()->with('zempleavs:near')->working()->findAll(array('condition'=>"zempleavs.empleav_rn is not null",'order'=>"zempleavs.startdate"));
+		$this->render('vacations', array('models'=>$models));
 	}
 
 	public function actionajaxPostAdm(){

@@ -17,18 +17,26 @@ $months=array('','Январь','Февраль','Март','Апрель','Ма
 
 ?>
 
-<p><span style="font-size: 20pt;">Кадры. Дни рождения</span>
+<p><span style="font-size: 20pt;">Кадры. Отпуска</span>
 </p>
 
+
+<table class='downline'>
 <?php 
-$date='';
-foreach ($models as $v) {
-	$dO=new DateTime($v->birthday.' 00:00:00');
-	$md=$months[(int)$dO->format('m')].' '.$dO->format('d');
-	if($md!=$date){
-		$date=$md;
-		echo '<h2>'.$date.'</h2>';
+$today=date('d.m.Y');
+$current_date='';
+foreach ($models as $pers) {
+	if($pers->zempleavs[0]->startdate != $current_date){
+		$current_date=$pers->zempleavs[0]->startdate;
+		$bg=($current_date==$today)?'red':'#ffddaa';
+		echo '<tr style="background: '.$bg.';"><td colspan=3>'.$current_date.'</td></tr>';
 	}
-	$this->renderPartial('_bdview',array('model'=>$v));
+	echo '<tr><td></td><td>'.$pers->fio_full().'</td><td>';
+	foreach ($pers->zempleavs as $vac) {
+		echo''.$vac->startdate.'-'.$vac->enddate.'<br>';
+		# code...
+	}
+	echo'</td></tr>';
 }
  ?>
+</table>
