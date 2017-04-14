@@ -335,6 +335,14 @@ class Tasks extends CActiveRecord
     	return $result;
 	}
 
+	public static function deadLineTasks(){
+		$criteria=new CDbCriteria;
+		$criteria->with=array('Project0','place','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
+		$criteria->addCondition(array('condition'=>"t.deadline<current_timestamp and t.status in (0,1,5,6) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")"));
+		$model=self::model()->findAll($criteria);
+		return $model;
+	}
+
 	public static function GroupTasks ($group=array(),$type=3,$date='current_date',$search=NULL){
 		
 

@@ -27,8 +27,10 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>
+
 <?php if(!(Yii::app()->user->isGuest)): ?>
 	<?php if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))): ?>
+		<?php $this->widget('application.widgets.DeadLine');  ?>
 		<?php $this->widget('application.widgets.Messenger');  ?>
 	<?php endif; ?>
 <?php endif; ?>
