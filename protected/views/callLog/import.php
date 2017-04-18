@@ -4,6 +4,13 @@
 $this->breadcrumbs=array(
 	'Лог звонков. Импорт',
 );
+
+$this->menu=array(
+	array('label'=>'Лог Звонков Автоматика', 'url'=>array('/callLog')), 
+	array('label'=>'Лог Звонков АПУС', 'url'=>array('/callLog/indexApus')), 
+	array('label'=>'Лог Звонков/импорт', 'url'=>array('/callLog/import')), 
+);
+
 ?>
 <h1>Лог звонков. Импорт</h1>
 

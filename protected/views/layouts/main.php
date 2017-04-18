@@ -101,7 +101,9 @@
 							array('Оборудование', '/equipment/index',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
 							array('Отделы', '/department/tree',!Yii::app()->user->isGuest),
 							)),
-                array('label'=>'Документы', 'url'=>array('/myDocs/index')),
+                array('label'=>'Документы', 'url'=>array('/myDocs/index'),'submenu'=>array(
+                		array('Журнал звонков','/callLog/',Yii::app()->user->checkAccess('inGroup',array('group'=>array('counting')))),
+                	)),
                 array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk'),'submenu'=>
 						array(array('Проекты','/tasks/helpDeskProject',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
 							array('Моё','/tasks/helpDesk?group=&&type=2',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),))),

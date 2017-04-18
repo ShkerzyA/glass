@@ -2,8 +2,10 @@
 
 class CallLogController extends Controller
 {
+	public $layout='/layouts/column2';
 	public function actionIndex()
 	{
+
 		$model=new CallLogAuto('search');
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['CallLogAuto'])){

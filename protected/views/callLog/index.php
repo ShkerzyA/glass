@@ -22,8 +22,9 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Создать', 'url'=>array('create')),
-	array('label'=>'Управление', 'url'=>array('admin')),
+	array('label'=>'Лог Звонков Автоматика', 'url'=>array('/callLog')), 
+	array('label'=>'Лог Звонков АПУС', 'url'=>array('/callLog/indexApus')), 
+	array('label'=>'Лог Звонков/импорт', 'url'=>array('/callLog/import')), 
 );
 ?>
 
