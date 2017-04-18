@@ -76,6 +76,15 @@ class Tasks extends CActiveRecord
 		}
 	}
 
+	public function deadKlok(){
+		if(!empty($this->deadline)){
+			$current=new DateTime();
+			$dl=new DateTime($this->deadline);
+			$interval=date_diff($current,$dl);
+			return array($interval->format('%r%d'),$interval->format('%h'));
+		}
+	}
+
 	public function join($id_pers){
 		$tmp=$this->executors;
 		$tmp[]=$id_pers;

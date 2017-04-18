@@ -1,3 +1,4 @@
+
 	<?php $status=$v->status0; ?>
 	<div class="taskpanel <?php echo 'hide'.$status['id']; ?> <?php echo $status['css_class']; ?> <?php echo $v->isGroovy(); ?> <?php echo $dl=(!empty($v->deadline))?' deadline ':'';?>">
 			
@@ -70,9 +71,8 @@
 				
 			</div>
 			<div class="leftinfo">
-				<?php echo $v->ico().'<div style="float: right; width: 92%"><a href=/glass/tasks/'.$v->id.'>'.$v['tname'].' <span class=gray>'.$v->detailsShow(true).'</span></a></div>'; ?>
-			
+				<?php echo $v->ico().'<div style="float: right; width: 92%"><a href=/glass/tasks/'.$v->id.'>'.Customtags::deadclockwrap($v).' '.$v['tname'].' <span class=gray>'.$v->detailsShow(true).'</span></a></div>'; ?>
 				
 			</div>
-			<div class="texttask rotated"><pre><?php echo $v->id.' '.$v->detailsShow(False,True,True).'<br>'. $v['ttext']; ?></pre></div>
+			<div class="texttask rotated"><pre><?php echo $v->id.' '.Customtags::deadclockwrap($v).' '.$v->detailsShow(False,True,True).'<br>'. $v['ttext']; ?></pre></div>
 		</div>

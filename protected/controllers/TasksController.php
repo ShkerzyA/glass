@@ -1,5 +1,7 @@
 <?php
 
+
+
 class TasksController extends Controller
 {
 	/**
@@ -25,7 +27,10 @@ class TasksController extends Controller
 	public $rightWidgetUp;
 
 	public function init(){
+
 	}
+
+
 	/**
 	 * @return array action filters
 	 */
