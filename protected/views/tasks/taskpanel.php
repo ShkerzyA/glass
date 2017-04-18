@@ -1,29 +1,29 @@
 
-	<?php $status=$v->status0; ?>
-	<div class="taskpanel <?php echo 'hide'.$status['id']; ?> <?php echo $status['css_class']; ?> <?php echo $v->isGroovy(); ?> <?php echo $dl=(!empty($v->deadline))?' deadline ':'';?>">
+	<?php $status=$data->status0; ?>
+	<div class="taskpanel <?php echo 'hide'.$status['id']; ?> <?php echo $status['css_class']; ?> <?php echo $data->isGroovy(); ?> <?php echo $dl=(!empty($data->deadline))?' deadline ':'';?>">
 			
 			<div  class="rightinfo">
 				<?php 	
-						if(!empty($v->deadline)){
-							echo '<img src="'.Yii::app()->request->baseUrl.'/images/clock_24.png" title="'.$v->deadline.'">';
+						if(!empty($data->deadline)){
+							echo '<img src="'.Yii::app()->request->baseUrl.'/images/clock_24.png" title="'.$data->deadline.'">';
 						}
 						echo'<div style="font-size: 9pt; text-align: left;">';
 					
-						if(!empty($v->timestamp_end)){
-							echo $v->timestamp_end;
+						if(!empty($data->timestamp_end)){
+							echo $data->timestamp_end;
 						}else{
-							echo $v->timestamp;
+							echo $data->timestamp;
 						}
 						echo'<br>';
 
-						if(Yii::app()->user->checkAccess('taskReport',array('mod'=>$v))){
-							$repcl=$v->reportInc();
+						if(Yii::app()->user->checkAccess('taskReport',array('mod'=>$data))){
+							$repcl=$data->reportInc();
 							if($repcl){
 								echo '<div class='.$repcl.' style="top: -3px"></div>';
 							}
 						}
 
-						echo ('<div class='.$status['css_status'].' style="text-align: left">'.$status['label'].' <b>('.$v->id.')</b></div>');
+						echo ('<div class='.$status['css_status'].' style="text-align: left">'.$status['label'].' <b>('.$data->id.')</b></div>');
 						echo'</div>';
 
 						
@@ -31,7 +31,7 @@
 
 						echo'<div class="taskmoreinfo">';
 
-						$exec=$v->findExecutors();
+						$exec=$data->findExecutors();
 
 						foreach ($exec as $z) {
 							echo '<img height=100% src="';
@@ -41,12 +41,12 @@
 						
 
 					
-						//print_r($v->TasksActions[0]->creator0);
+						//print_r($data->TasksActions[0]->creator0);
 					
 						$rep='';
 						echo '<div class="hiddeninfotask rotated">';
 						echo'<span></span>';
-						foreach ($v->TasksActions as $action) {
+						foreach ($data->TasksActions as $action) {
 							if($action->type==1)
 								continue;
 							if($action->type==2){
@@ -71,8 +71,8 @@
 				
 			</div>
 			<div class="leftinfo">
-				<?php echo $v->ico().'<div style="float: right; width: 92%"><a href=/glass/tasks/'.$v->id.'>'.Customtags::deadclockwrap($v).' '.$v['tname'].' <span class=gray>'.$v->detailsShow(true).'</span></a></div>'; ?>
+				<?php echo $data->ico().'<div style="float: right; width: 92%"><a href=/glass/tasks/'.$data->id.'>'.Customtags::deadclockwrap($data).' '.$data['tname'].' <span class=gray>'.$data->detailsShow(true).'</span></a></div>'; ?>
 				
 			</div>
-			<div class="texttask rotated"><pre><?php echo $v->id.' '.Customtags::deadclockwrap($v).' '.$v->detailsShow(False,True,True).'<br>'. $v['ttext']; ?></pre></div>
+			<div class="texttask rotated"><pre><?php echo $data->id.' '.Customtags::deadclockwrap($data).' '.$data->detailsShow(False,True,True).'<br>'. $data['ttext']; ?></pre></div>
 		</div>

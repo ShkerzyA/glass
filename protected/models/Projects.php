@@ -152,6 +152,15 @@ class Projects extends CActiveRecord
 			return 0;
 	}
 
+	public static function inArrayPrj($fnc){
+		$mdl=self::$fnc();
+		$res=array();
+		foreach ($mdl as $v) {
+			$res[$v->id]=$v->name;
+		}
+		return $res;
+	}
+
 
 	public static function myGroupProjects(){
 		$models=self::model()->with('Tasks.status0')->findAll(array('condition'=>'t.group[1] in (\''.implode('\',\'',Yii::app()->user->groups).'\')','order'=>'t.order DESC'));

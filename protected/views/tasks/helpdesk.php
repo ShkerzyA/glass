@@ -38,6 +38,8 @@ $this->menu=array(
 			array('label'=>'Персональный отчет', 'url'=>array('report?'.$date), 'linkOptions'=>array('target'=>'_blank'),'visible'=>Yii::app()->user->checkAccess('taskReport',array('mod'=>$model)),),
 			array('label'=>'Отчет по отделу', 'url'=>array('reportOtd?'.$date), 'linkOptions'=>array('target'=>'_blank'),'visible'=>(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model)))),
 			array('label'=>'Отчет по сотрудникам отдела', 'url'=>array('reportOtd?personInfo=true'.$date), 'linkOptions'=>array('target'=>'_blank'),'visible'=>(Yii::app()->user->checkAccess('taskReport',array('mod'=>$model)))),
+			array('label'=>'Расширенный поиск','url'=>array('index'),'visible'=>(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))))),
+			
 			);
 
 $projects=Projects::myProjects();
@@ -60,7 +62,12 @@ $this->menu['all_menu']=array(
 		)
 
 	));
+
+
 ?>
+
+<div style="clear: both"></div>
+
 
 <?php foreach ($this->tasks_menu as $x): ?>
 
@@ -73,8 +80,10 @@ $this->menu['all_menu']=array(
 	<?php endif; ?>
 <?php endforeach; ?>
 
+<div style="clear: both"></div>
+<br>
 <?php // $this->renderPartial('addtask',array('model'=>$model)) ?>
-<br><br>
+
 <div id='taskbody'>
 <?php $this->renderPartial('_helpdesk',array(
 			'model'=>$model,

@@ -115,7 +115,7 @@ class EquipmentLog extends CActiveRecord
 		return $res;
 	}
 
-	public function subjectList(){
+	public static function subjectList(){
 		$res=array();
 		if(!empty(Yii::app()->user->id_departments[0]))
 			$res=DepartmentPosts::colleagues(Yii::app()->user->id_departments[0]);

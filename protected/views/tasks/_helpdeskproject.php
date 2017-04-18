@@ -68,7 +68,7 @@
 
 			echo tdEcho($befor,0);
 			echo '<td colspan='.$colspan.'>';
-			echo $this->renderPartial('taskpanel',array('v'=>$task),false,false).'</td>'.tdEcho($after,$befor+$colspan);
+			echo $this->renderPartial('taskpanel',array('data'=>$task),false,false).'</td>'.tdEcho($after,$befor+$colspan);
 
 			//print_r($deadline);
 			/*
@@ -86,11 +86,11 @@
 			 
 			if(isset($deadline['difdays']) and $deadline['difdays']>=0){
 				echo '>';
-				echo $this->renderPartial('taskpanel',array('v'=>$task),false,false).'</td>';
+				echo $this->renderPartial('taskpanel',array('data'=>$task),false,false).'</td>';
 				echo tdEcho(18); 
 			}else{
 				echo '>';
-				echo $this->renderPartial('taskpanel',array('v'=>$task),false,false).'</td>';
+				echo $this->renderPartial('taskpanel',array('data'=>$task),false,false).'</td>';
 				echo tdEcho(18); 
 			} */?> 
 		</tr>

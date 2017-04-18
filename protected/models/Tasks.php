@@ -25,6 +25,8 @@ class Tasks extends CActiveRecord
 	 */
 	public static $modelLabelS='Задача';
 	public static $modelLabelP='Задачи';
+
+	public static $types=array('0'=>'Обычные','1'=>'Картриджи');
 	#public static $multifield=array('executors','group');
 	public static $db_array=array('group','details','executors','deadlocks');
 	public static $statJoin=array(1,2,5);
@@ -32,6 +34,7 @@ class Tasks extends CActiveRecord
 	public static $taskType=array(0=>array('Зачада','add_task_40.png'),1=>array('Замена картриджа','printer_40.png'));
 	public static $locks=array(1=>'Определенные навыки',2=>'Требуется группа бойцов',3=>'Определенное время',4=>'Оборудование со склада после согласования',5=>'Сторонний чел');
 	public $inExecutors=0;
+	public $place;
 	
 	public $creator0creator;
 	public $executor0executor;
@@ -160,6 +163,7 @@ class Tasks extends CActiveRecord
 	public function getStatus(){
 		return TasksStatus::statusList();
 	}
+
 
 	public function tasksUnits(){
 
@@ -353,8 +357,6 @@ class Tasks extends CActiveRecord
 	}
 
 	public static function GroupTasks ($group=array(),$type=3,$date='current_date',$search=NULL){
-		
-
 		$criteria=new CDbCriteria;
 		$criteria->with=array('Project0','place','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
 
@@ -551,31 +553,56 @@ class Tasks extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 		$criteria->with=array('creator0' => array('alias' => 'departmentposts'),);
-		$criteria->compare("'".Yii::app()->user->id_pers."'=ANY(\"executors\")",$this->inExecutors);
-		$criteria->compare('t.id',$this->id);
-		$criteria->compare('t.tname',$this->tname,true);
-		$criteria->compare('t.ttext',$this->ttext,true);
-		$criteria->compare('t.timestamp',$this->timestamp,true);
-		$criteria->compare('timestamp_end',$this->timestamp_end,true);
-		$criteria->compare('id_department',$this->id_department,true);
-		$criteria->compare('status',$this->status,true);
-		$criteria->compare('group',$this->group,true);
-		$criteria->compare('details',$this->details,true);
+		#$criteria->compare("'".Yii::app()->user->id_pers."'=ANY(\"executors\")",$this->inExecutors);
+
+		$tname=explode(' ',$this->tname);
+		foreach ($tname as $v) {
+			$criteria->compare('LOWER(t.tname)||LOWER(t.ttext)',mb_strtolower($v),true);
+		}
+
+		if(!empty($this->timestamp)){
+			if(!empty($this->timestamp_end)){
+				$criteria->addCondition(array('condition'=>"t.timestamp>'".$this->timestamp." 00:00:00' and t.timestamp<'".$this->timestamp_end." 23:59:59'"));
+			}else{
+				$criteria->addCondition(array('condition'=>"t.timestamp>'".$this->timestamp." 00:00:00' and t.timestamp<'".$this->timestamp." 23:59:59'"));
+			}
+		}
+
+		$criteria->compare('status',$this->status);
 		$criteria->compare('type',$this->type);
+
+
 		$criteria->compare('project',$this->project);
+
+		/*
+		if(!empty($this->place)){
+			$place=explode('_',$this->place);
+			switch ($place[0]) {
+				case 'b':
+					$criteria->compare('"idBuilding".id',$place[1]);
+					break;
+				case 'f':
+					$criteria->compare('"idFloor".id',$place[1]);
+					break;
+				default:
+					# code...
+					break;
+			}
+		}*/
+
+
+		$criteria->compare('departmentposts.id',$this->creator);
+		if(is_array($this->executors))
+		foreach ($this->executors as $v) {
+			$criteria->addCondition('\''.$v.'\'=ANY("executors")');
+		}
+	
 		
-		if(!empty($_GET['creator']))
-				$criteria->compare('creator',$_GET['creator']);
-		else
-				$criteria->compare('creator',$this->creator);
-		if(!empty($_GET['executors']))
-				$criteria->compare('executors',$_GET['executors']);
-		else
-				$criteria->compare('executors',$this->executors,true);
 		$criteria->compare('departmentposts.creator',$this->creator0creator,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array('pageSize'=>30),
 		));
 	}
 }

@@ -70,7 +70,7 @@ class TasksController extends Controller
 				'roles'=>array('user'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','index'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -377,11 +377,18 @@ class TasksController extends Controller
 		$group=!empty($group)?array($group):array();
 
 
+		$models=new Tasks();
+		$models->unsetAttributes();  // clear any default values
+		if(isset($_GET['Tasks']))
+			$models->attributes=$_GET['Tasks'];
+
+
 		if(!Yii::app()->user->isGuest){
 			$this->isHorn=Tasks::isHorn();
 		}
 		//$model=Tasks::tasksForOtdAndGroup($id_department,$type,$group,$this->target_date);
-		$model=Tasks::GroupTasks($group,$type,$this->target_date,$this->search);
+
+		$model=Tasks::GroupTasks($group,$type,$this->target_date,$this->search,$models);
 		if(Yii::app()->request->isAjaxRequest){
 			$this->renderPartial('_helpdesk',array(
 				'model'=>$model,
@@ -389,6 +396,7 @@ class TasksController extends Controller
 		}else{
 			$this->render('helpdesk',array(
 				'model'=>$model,
+				'models'=>$models,
 			));
 		}
 	}
@@ -437,9 +445,13 @@ class TasksController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Tasks');
+		$model=new Tasks('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Tasks']))
+			$model->attributes=$_GET['Tasks'];
+		$dataProvider=$model->search();
 		$this->render('index',array(
-			'dataProvider'=>$dataProvider, 'modelLabelP'=>Tasks::$modelLabelP,
+			'dataProvider'=>$dataProvider, 'modelLabelP'=>Tasks::$modelLabelP,'model'=>$model,
 		));
 	}
 
