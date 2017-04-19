@@ -176,7 +176,6 @@ public $personnelsid_user;
 		$ll->ip=$_SERVER['REMOTE_ADDR'];
 		$ll->timestamp=date('Y-m-d H:i:s');
 		$ll->save();
-		echo $res;
 		return $res;
 	}
 

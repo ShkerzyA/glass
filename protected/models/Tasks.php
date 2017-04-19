@@ -84,7 +84,7 @@ class Tasks extends CActiveRecord
 			$current=new DateTime();
 			$dl=new DateTime($this->deadline);
 			$interval=date_diff($current,$dl);
-			return array($interval->format('%r%d'),$interval->format('%h'));
+			return array($interval->format('%r'),$interval->format('%d'),$interval->format('%h'),$interval->format('%i'));
 		}
 	}
 

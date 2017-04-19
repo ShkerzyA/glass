@@ -3,15 +3,13 @@ class Customtags{
 	public static function deadclockwrap($v){
 		if(!empty($v->deadline)){
 			$interval=$v->deadKlok();
-			if($interval[0]<0){
+			if(!empty($interval[0])){
 				$color='red';
-				$minus='-';
 			}else{
 				$color='#040404';
-				$minus='';	
 			}
 			
-			return '<span style="float: left; color: '.$color.'">'.($days=($interval[0]!=0)?$interval[0].'д. ':$minus).$interval[1].'ч.</span>';
+			return '<span style="float: left; color: '.$color.'">'.$interval[0].($days=($interval[1]!=0)?$interval[1].'д. ':'').($hours=($interval[2]!=0)?$interval[2].'ч.':'').($min=(($interval[1]+$interval[2])==0)?$interval[3].'мин.':'').'</span>';
 		}
 	}
 }
