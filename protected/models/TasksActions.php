@@ -172,6 +172,36 @@ class TasksActions extends CActiveRecord
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
 	 */
+	public function tapesearch()
+	{
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+
+		$criteria=new CDbCriteria;
+
+		$criteria->with=array('creator0' => array('alias' => 'creator0'),'idTask' => array('alias' => 'idTask'),);
+		$criteria->compare('id',$this->id);
+		$criteria->compare('ttext',$this->ttext,true);
+		$criteria->compare('timestamp',$this->timestamp,true);
+		$criteria->compare('type',$this->type);
+		if(!empty($_GET['creator']))
+				$criteria->compare('creator',$_GET['creator']);
+		else
+				$criteria->compare('creator',$this->creator);
+		if(!empty($_GET['id_task']))
+				$criteria->compare('id_task',$_GET['id_task']);
+		else
+				$criteria->compare('id_task',$this->id_task);
+		$criteria->compare('creator0.creator',$this->creator0creator,true);
+		$criteria->compare('idTask.id_task',$this->idTaskid_task,true);
+		$criteria->order='t.id DESC';
+
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>array('pageSize'=>30),
+		));
+	}
+
 	public function search()
 	{
 		// Warning: Please modify the following code to remove attributes that

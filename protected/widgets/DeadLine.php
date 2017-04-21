@@ -1,4 +1,3 @@
-<?php Yii::app()->getClientScript()->registerCoreScript('tornado'); ?>
 <?php
 class DeadLine extends CWidget{
 	public function run(){

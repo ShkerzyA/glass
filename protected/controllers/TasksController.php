@@ -45,6 +45,8 @@ class TasksController extends Controller
 		return false;
 	}
 
+
+
 	public function filters()
 	{
 		return array(
@@ -66,7 +68,7 @@ class TasksController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update','join','create','helpDesk','addDoc','report', 'reportOtd','sameTasks','helpDeskProject'),
+				'actions'=>array('update','join','create','helpDesk','addDoc','report', 'reportOtd','sameTasks','helpDeskProject','taskTape'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -87,6 +89,13 @@ class TasksController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
+
+	public function actionTaskTape(){
+		$model=new TasksActions('tapesearch');
+		$dataProvider=$model->tapesearch();
+		$this->render('tapeindex',array('dataProvider'=>$dataProvider));
+	}
+
 	public function actionView($id)
 	{
 

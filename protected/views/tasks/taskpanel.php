@@ -1,6 +1,6 @@
 
 	<?php $status=$data->status0; ?>
-	<div class="taskpanel <?php echo 'hide'.$status['id']; ?> <?php echo $status['css_class']; ?> <?php echo $data->isGroovy(); ?> <?php echo $dl=(!empty($data->deadline))?' deadline ':'';?>">
+	<div  class="taskpanel <?php echo 'hide'.$status['id']; ?> <?php echo $status['css_class']; ?> <?php echo $data->isGroovy(); ?> <?php echo $dl=(!empty($data->deadline))?' deadline ':'';?>">
 			
 			<div  class="rightinfo">
 				<?php 	
@@ -70,7 +70,7 @@
 				
 				
 			</div>
-			<div class="leftinfo">
+			<div class="leftinfo" draggable='True'>
 				<?php echo $data->ico().'<div style="float: right; width: 92%"><a href=/glass/tasks/'.$data->id.'>'.Customtags::deadclockwrap($data).' '.$data['tname'].' <span class=gray>'.$data->detailsShow(true).'</span></a></div>'; ?>
 				
 			</div>
