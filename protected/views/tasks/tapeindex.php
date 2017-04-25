@@ -1,3 +1,8 @@
+<script type="text/javascript">
+	function updTape(){
+		location.reload();
+	}
+</script>
 <?php
 /* @var $this TasksController */
 /* @var $dataProvider CActiveDataProvider */
