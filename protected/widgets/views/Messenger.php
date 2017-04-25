@@ -89,9 +89,9 @@ function updateChat(){
           document.getElementById('horn').play();
         }
             if(res.data.length>0){
-                if(viewChat!=0){
-                    $(".mess_head").css("background","red");
-                }               
+            //if(viewChat!=0){
+            $(".mess_head").css("background","red");
+            //}               
             randnum=Math.floor(Math.random( ) * (4 - 1 + 1)) + 1;
             document.getElementById('incmess'+randnum).play();
             notifyUser('Чат','Новое сообщение');
