@@ -223,14 +223,16 @@ class WorkplaceController extends Controller
 
 	public function actionSuggest(){
 		if (Yii::app()->request->isAjaxRequest && isset($_GET['term'])) {
-  			$models = Workplace::model()->suggestTag($_GET['term']);
+  			$models = Workplace::model()->with('idPersonnel','idCabinet.idFloor.idBuilding')->suggestTag($_GET['term']);
   			$result = array();
-  			foreach ($models as $m)
-   			$result[] = array(
-     			'label' => $m->wpNameFull(false,true),
-     			'value' => $m->wpNameFull(false,true),
-     			'id' => $m->id,
-   			);
+  			foreach ($models as $m){
+  				$wn=$m->wpNameFull(false,false);
+   				$result[] = array(
+     				'label' => $wn,
+     				'value' => $wn,
+     				'id' => $m->id,
+   				);
+   			}
   			echo CJSON::encode($result);
  		}
  	}
