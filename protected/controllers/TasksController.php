@@ -124,7 +124,8 @@ class TasksController extends Controller
 		$model=TasksActions::UserReportToday($date);
 		$dt=($date=='current_date')?date('d.m.Y'):$date;
 		$filename ='report.odt';
-		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/tpl/'.$filename);
+		$config=array('PATH_TO_TMP'=>Yii::getPathOfAlias('webroot'));
+		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/tpl/'.$filename,$config);
 		$user=Yii::app()->user;
 
 		$odf->setVars('fio', $user->surname.' '.mb_substr($user->name,0,1,'UTF-8').'. '.mb_substr($user->patr,0,1,'UTF-8').'.', true, 'utf-8');
