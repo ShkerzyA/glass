@@ -52,7 +52,7 @@ class ActionsController extends Controller
 	{
 		return array(
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('index','ChatSaveMessage','SaveMessage','SaveStatus','SaveReport','delete'),
+				'actions'=>array('index','ChatSaveMessage','SaveMessage','SaveStatus','SaveReport','delete','globalSearch'),
 				'roles'=>array('user'),
 			),
 			array('deny',  // deny all users
@@ -87,6 +87,35 @@ class ActionsController extends Controller
 	public function actionDelete(){
 		$this->act=$this->act->findByPk($_POST['id']);
 		$this->act->delete();
+	}
+
+	public function actionGlobalSearch($term){
+		$docs=Docs::model()->suggestTag($term);
+		$models = Cabinet::model()->with('workplaces.idPersonnel','idFloor.idBuilding')->suggestTag($term);
+
+  			$result = array();
+  			
+  			$result[]=array('label'=>'<b>Кабинеты и места</b>');
+  			foreach ($models as $c){
+  					$cn=$c->cabNameFull(false,true);
+  					$result[] = array(
+     						'label' => '<a href=/glass/cabinet/'.$c->id.'>'.$cn.'</a>',
+   						);
+  					foreach ($c->workplaces as $m) {
+  						$wn=$m->wpNameFull(false,false,'fio',true);
+   						$result[] = array(
+     						'label' => '<a href=/glass/workplace/'.$m->id.'>-------'.$wn.'</a>',
+   						);
+  				}
+  				
+   			}
+   			$result[]=array('label'=>'<b>Документы</b>');
+  			foreach ($docs as $m){
+   				$result[] = array(
+     				'label' => '<a href=/glass/docs/'.$m->id.'>'.$m->nameL().'</a>',
+   				);
+   			}
+   			echo CJSON::encode($result);
 	}
 
 	public function actionSaveReport(){

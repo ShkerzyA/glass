@@ -94,6 +94,20 @@ public $dellink=array();
 		);
 	}
 
+	public function suggestTag($keyword){
+		$keyword=mb_strtolower($keyword,'UTF-8');
+ 		$tags=$this->with('idCatalog')->findAll(array(
+   			'condition'=>'(LOWER(t.doc_name) LIKE :keyword OR LOWER(t.text_docs) LIKE :keyword)',
+   			'params'=>array(
+     		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+
+   		)
+   		,'order'=>'t.date_begin ASC'
+ 		));
+ 		return $tags;
+	}
+
+
 	public function getFilePath($link){
 		return Yii::app()->request->baseUrl.'/media/docs/'.$link;
 	}

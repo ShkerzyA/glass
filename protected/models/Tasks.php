@@ -159,6 +159,23 @@ class Tasks extends CActiveRecord
 
 	}
 
+	public function suggestTag($keyword){
+		$keyword=mb_strtolower($keyword,'UTF-8');
+ 		$tags=$this->findAll(array(
+   			'condition'=>'(LOWER(t.tname) LIKE :keyword OR LOWER(t.ttext) LIKE :keyword)',
+   			'params'=>array(
+     		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+
+   		)
+   		,'order'=>'t.timestamp ASC'
+ 		));
+ 		return $tags;
+	}
+
+	public function nameL(){
+		return $this->tname;
+	}
+
 
 	public function getStatus(){
 		return TasksStatus::statusList();

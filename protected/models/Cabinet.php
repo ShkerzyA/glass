@@ -121,12 +121,15 @@ class Cabinet extends CActiveRecord
 		return $this->num." ".$this->cname;
 	}
 
-	public function cabNameFull($short=false){
+	public function cabNameFull($short=false,$withphone=false){
 		if($short){
 			$result=$this->idFloor->idBuilding->bname.'/ '.$this->idFloor->fnum.' эт./ '.$this->num;	
 		}else{
 			$result=$this->idFloor->idBuilding->bname."/ ".$this->idFloor->fname."/ ".$this->cabName();	
 		}	
+		if($withphone)
+			$result.='('.$this->phone.')';
+
 		return $result;
 	}
 
@@ -264,6 +267,22 @@ class Cabinet extends CActiveRecord
 
 
 	}
+
+
+	public function suggestTag($keyword){
+		$keyword=mb_strtolower($keyword,'UTF-8');
+ 		$tags=$this->with('workplaces.idPersonnel','idFloor.idBuilding')->findAll(array(
+   			'condition'=>'(t.phone LIKE :keyword OR "workplaces".phone LIKE :keyword OR LOWER("idPersonnel".surname) LIKE :keyword OR LOWER("idBuilding".bname) LIKE :keyword OR LOWER(t.num) LIKE :keyword OR LOWER(t.cname) LIKE :keyword OR LOWER("workplaces".wname) LIKE :keyword) AND ("workplaces".deactive is null or "workplaces".deactive<>1)',
+   			'params'=>array(
+     		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+
+   		)
+   		,'order'=>'"idBuilding".bname asc, "idFloor".fnum asc, t.num||t.cname asc, "workplaces".wname asc'
+ 		));
+ 		return $tags;
+	}
+
+
 	
 	public function search_phones()
     {

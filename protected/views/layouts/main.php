@@ -30,7 +30,6 @@
 
 <?php if(!(Yii::app()->user->isGuest)): ?>
 	<?php if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))): ?>
-		<?php // $this->widget('application.widgets.RoyalInBush');  ?>
 		<?php $this->widget('application.widgets.DeadLine');  ?>
 		<?php $this->widget('application.widgets.Messenger');  ?>
 	<?php endif; ?>
@@ -51,14 +50,18 @@
 		<?php else: ?>
 			<div id='omsk'><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/nyan.gif"></div>
 		<?php endif; ?>
+
 	<?php endif; ?>
 <?php endif; ?>
 
 <div id="header">
+
 		<div id="auth">
 			<?php $this->widget('application.widgets.GlassAuth'); ?>
+
 		</div>
-		<a href="http://10.126.84.31/"><div id="logo" style="float: left"><?php echo CHtml::encode(Yii::app()->name); ?></div></a>
+		<a href="http://10.126.84.31/"><div id="logo" style="float: left;"><?php echo CHtml::encode(Yii::app()->name); ?></div></a>
+		
 	<!--	<div id=it_tools> 
 			<img src="/glass/images/it_ico/coil.png"> 
 			<img src="/glass/images/it_ico/cable.png"> 
@@ -78,7 +81,11 @@
 		
 
 </div><!-- header -->
+<?php if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))): ?>
+			<?php $this->widget('application.widgets.RoyalInBush');  ?>
+		<?php endif; ?>
 <div class="container" id="page" class="killClick">
+
 	<div id="mainmenu">
 
 				<!--array('label'=>'КККОД', 'url'=>array('/site/index')),
