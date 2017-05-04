@@ -1127,8 +1127,8 @@ pre {
 #omsk{
 	position: fixed;
 	left: 3px;
-	bottom: 3px;
-	z-index: 100;
+	top: 3px;
+	z-index: 50;
 	width: 10%;
 }
 
@@ -1582,10 +1582,6 @@ ul.yiiPager .first, ul.yiiPager .last {
 	border-bottom: 1px solid grey;
 }
 
-.globS{
-	max-height: 500px;
-	overflow-y: auto;
-}
 
 /*
 

@@ -1,5 +1,5 @@
 
-<div style="position: relative; float: left; z-index: 99">
+<div style="position: fixed; left: 3px; top: 55px; z-index: 99">
 
 <?php echo CHtml::script("
      function split(val) {
