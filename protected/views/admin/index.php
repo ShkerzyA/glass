@@ -66,7 +66,7 @@ $this->menu['all_menu']=array(
 		array('label'=>'Об./Производитель', 'url'=>array('/equipmentProducer/admin')), 
 		array('label'=>'Об./ Лог', 'url'=>array('/equipmentLog/admin')),
 		array('label'=>'Мед. Оборудование', 'url'=>array('/medicalEquipment/admin')),
-
+		array('label'=>'Акты перемещения', 'url'=>array('/ActOfTransfer/admin')),
 	)),
 
 	array('title'=>'Знания','items'=>array(

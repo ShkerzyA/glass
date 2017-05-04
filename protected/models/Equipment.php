@@ -79,6 +79,11 @@ class Equipment extends CActiveRecord
 		}
 	}
 
+	public function nameL(){
+		$producer=(isset($data->producer))?$this->producer0->name:'';
+		return $this->serial.' '.$this->type0->name.'/ '.$producer.'/ '.$this->mark;
+	}
+
 
 	public static function model($className=__CLASS__)
 	{
@@ -422,6 +427,8 @@ class Equipment extends CActiveRecord
 			'parentEq' => array(self::BELONGS_TO, 'Equipment', 'parent_id'),
             'equipments' => array(self::HAS_MANY, 'Equipment', 'parent_id'),
             'dhcp' => array(self::HAS_MANY, 'DhcpLeases', '','on'=>'"dhcp".mac=t.mac','order'=>'"dhcp".date_end DESC'),
+            'eqActsoftransfers' => array(self::HAS_MANY, 'EqActsoftransfer', 'id_eq'),
+            'actsoftransfers'=>array(self::HAS_MANY,'ActOfTransfer','id_act','through'=>'eqActsoftransfers'),
 		);
 	}
 
