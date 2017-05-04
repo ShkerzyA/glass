@@ -8,9 +8,10 @@
  * @property string $name
  */
 
-$odfPath  = Yii::getPathOfAlias('ext.odtphp');
-require_once($odfPath . DIRECTORY_SEPARATOR . 'library/odf.php');
+$odfPath  = Yii::getPathOfAlias('ext.odtphp.lib');
+Yii::setPathOfAlias('Odtphp',Yii::getPathOfAlias('ext.odtphp.src'));
+require_once($odfPath . DIRECTORY_SEPARATOR . 'pclzip.lib.php');
 
 
-class myOdt extends odf{
+class myOdt extends Odtphp\Odf{
 }
