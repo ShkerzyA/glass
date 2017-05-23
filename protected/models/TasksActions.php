@@ -32,6 +32,7 @@ class TasksActions extends CActiveRecord
 	
 	public $creator0creator;
 	public $idTaskid_task;
+	public static $actType=array('Задача создана','Задача изменена');
 
 
 	public static function model($className=__CLASS__)
@@ -87,6 +88,14 @@ class TasksActions extends CActiveRecord
 		$cartInfo=$this->cartInfo($moreinfo);
 		$this->ttext=$_POST['taskname'].$this->limiter.$_POST['mess'].$cartInfo.$this->limiter.$_POST['taskstat'].$this->limiter.$_POST['note'];
 		$this->type=2;
+		$this->save();
+	}
+
+
+	public function saveAction($id_task,$actt,$fields=array()){
+		$this->type=3;
+		$this->id_task=$id_task;
+		$this->ttext=$actt.$this->limiter.(implode("\n",$fields));
 		$this->save();
 	}
 

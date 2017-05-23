@@ -10,6 +10,11 @@
 						$del=($data->creator==Yii::app()->user->id_pers)?'<div class="delete_this del_taskact" id='.$data->id.' style="float: right; z-index: 59; "></div>':'';
 						$mess=$del.'<h3 style="text-align: right; margin: 2px;">Отчет по задаче</h3>'.$rep[0].' ('.$rep[2].') <br>'.$rep[1].' ';
 					break;
+
+				case '3':
+					$rep=explode('\/',$data->ttext);
+					$mess='<h3 style="text-align: right; margin: 2px;">'.$data::$actType[$rep[0]].'</h3>'.$rep[1].'';
+					break;
 				case '1':
 				default:
 					$mess='<pre style="overflov: none;">'.$data->ttext.'</pre>';	

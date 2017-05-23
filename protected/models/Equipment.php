@@ -468,7 +468,7 @@ class Equipment extends CActiveRecord
 		$models=self::model()->with('EquipmentLog')->findAll(array('condition'=>'t.type in (2,3,4,17)'));	
 		foreach ($models as &$v) {
 			$tmp=EquipmentLog::model()->findAll(array('condition'=>'t.type=1 and \''.$v->id.'\'=t.details[2]'));
-			print_r($tmp);
+			//print_r($tmp);
 			//$v->EquipmentLog=array_merge($v->EquipmentLog,$tmp);
 		}
 		return $models;

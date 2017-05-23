@@ -35,6 +35,7 @@ class Tasks extends CActiveRecord
 	public static $locks=array(1=>'Определенные навыки',2=>'Требуется группа бойцов',3=>'Определенное время',4=>'Оборудование со склада после согласования',5=>'Сторонний чел');
 	public $inExecutors=0;
 	public $place;
+	private $old_model;
 	
 	public $creator0creator;
 	public $executor0executor;
@@ -69,6 +70,16 @@ class Tasks extends CActiveRecord
 		return 'tasks';
 	}
 
+	private function anyway($x){
+        if(is_array($x)){
+            $x=implode('|',$x);
+            
+        }
+        $x=str_replace(array('{','}'),'',$x);
+        $x=str_replace(array(','),'|',$x);
+        return $x;
+    }
+
 	public function isChangeStatus(){
 		if(Yii::app()->user->isGuest)
 			return False;
@@ -96,10 +107,42 @@ class Tasks extends CActiveRecord
 	}
 
 	protected function beforeSave(){
+		if($this->scenario!='insert'){
+            $this->old_model=self::model()->findByPk($this->id);
+            $this->old_model->TimeStamp->beforeSave(Null);
+        }
 		return parent::beforeSave();
 	}
 
 	public function afterSave(){
+        $ta=new TasksActions();
+		switch ($this->scenario) {
+            case 'insert':
+            		$ta->saveAction($this->id,0);
+                break;
+            
+            default:
+                if (empty($this->old_model))
+                    return false;
+                $chanded=array();
+                foreach ($this->attributes as $k => $v) {
+                    if(trim($this->anyway($v))!=trim($this->anyway($this->old_model->$k))){
+                        switch ($k) {
+                            default:
+                                $a=$this->anyway($this->old_model->$k);
+                                $b=$this->anyway($v);
+                                $chanded[]=$this->owner->getAttributeLabel($k).": ".$a."/".$b."\n";   
+                                break;
+                        }
+ 
+                    }
+                }
+                if(!empty($chanded)){
+                    $ta->saveAction($this->id,1,$chanded);
+                }
+                break;
+        }
+
 		return parent::afterSave();
 	}
 

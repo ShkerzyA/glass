@@ -82,6 +82,10 @@ echo '<div class="comment " id="taskbody">
 						$mess=NULL;
 					}
 					break;
+				case '3':
+					$rep=explode('\/',$action->ttext);
+					$mess='<h3 style="text-align: right; margin: 2px;">'.$action::$actType[$rep[0]].'</h3>'.$rep[1].'';
+					break;
 				case '1':
 				default:
 					$mess='<pre style="overflov: none;">'.$action->ttext.'</pre>';	
