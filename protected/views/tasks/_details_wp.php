@@ -51,11 +51,11 @@
   ));
   // Для подсветки набираемого куска запроса в предлагаемом списке
   Yii::app()->clientScript->registerScript('unique.script.identifier', "
- $('#Wp_details').data('autocomplete')._renderItem = function( ul, item ) {
+ $('#Wp_details').data('ui-autocomplete')._renderItem = function( ul, item ) {
    var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
    var highlightedResult = item.label.replace( re, '<b>$1</b>' );
    return $( '<li></li>' )
-     .data( 'item.autocomplete', item )
+     .data( 'ui-autocomplete-item', item )
      .append( '<a>' + highlightedResult + '</a>' )
      .appendTo( ul );
  };

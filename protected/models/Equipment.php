@@ -215,11 +215,6 @@ class Equipment extends CActiveRecord
 		return $result;
 	}
 
-	public function lastPrintCount(){
-		//получение последнего числа отпечатков.
-		
-	}
-
 	public static function cartMassMovie($type,$inv){
 
 		$carts=array();
@@ -343,13 +338,7 @@ class Equipment extends CActiveRecord
 
         
         if(in_array($this->type,array(2,3,4))){
-        	$this->countPrint='n/a';
-        	foreach ($this->EquipmentLog as $v) {
-        		if($v->type==2 and is_numeric($v->details[0])){
-        			$this->countPrint=$v->details[0];
-        			break;
-        		}
-        	}
+        	$this->countPrint=(!empty($this->LogCountPrint))?$this->LogCountPrint[0]->details[0]:'n/a';
         }
 
        	if($this->type==18){
@@ -437,10 +426,12 @@ class Equipment extends CActiveRecord
 			'type0' => array(self::BELONGS_TO, 'EquipmentType', 'type'),
 			'producer0' => array(self::BELONGS_TO, 'EquipmentProducer', 'producer'),
 			'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', 'object','order'=>'"EquipmentLog".id DESC'),
+			
 			//'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', '','with'=>'objectEq','on'=>'("EquipmentLog".type in (3,4) and '.$this->id.'=ANY("EquipmentLog"."details")) or "EquipmentLog"."object"='.$this->id),
 			'parentEq' => array(self::BELONGS_TO, 'Equipment', 'parent_id'),
             'equipments' => array(self::HAS_MANY, 'Equipment', 'parent_id'),
             'dhcp' => array(self::HAS_MANY, 'DhcpLeases', '','on'=>'"dhcp".mac=t.mac','order'=>'"dhcp".date_end DESC'),
+            'LogCountPrint' => array(self::HAS_MANY, 'EquipmentLog','object','on'=>'"LogCountPrint".type=2 and \'n/a\'<>"LogCountPrint".details[1]','order'=>'"LogCountPrint".id DESC','limit'=>'1'),
             'eqActsoftransfers' => array(self::HAS_MANY, 'EqActsoftransfer', 'id_eq'),
             'actsoftransfers'=>array(self::HAS_MANY,'ActOfTransfer','id_act','through'=>'eqActsoftransfers'),
 		);
@@ -591,7 +582,7 @@ class Equipment extends CActiveRecord
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
-			'pagination'=>array('pageSize'=>400),
+			'pagination'=>array('pageSize'=>50),
 		));
 	}
 }
