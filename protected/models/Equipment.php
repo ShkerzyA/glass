@@ -147,6 +147,9 @@ class Equipment extends CActiveRecord
 	public function additionalInfo(){
 		switch ($this->type) {
 			case '18':
+			case '2':
+			case '3':
+			case '4':
 					return 'Отпечатано: '.$this->countPrint;
 				break;
 			
@@ -338,7 +341,18 @@ class Equipment extends CActiveRecord
             $this->released = $date;
         }
 
-        if($this->type==18){
+        
+        if(in_array($this->type,array(2,3,4))){
+        	$this->countPrint='n/a';
+        	foreach ($this->EquipmentLog as $v) {
+        		if($v->type==2 and is_numeric($v->details[0])){
+        			$this->countPrint=$v->details[0];
+        			break;
+        		}
+        	}
+        }
+
+       	if($this->type==18){
         	foreach ($this->EquipmentLog as $v) {
         		if($v->type==10 and is_numeric($v->details[0]))
         			$this->countPrint+=$v->details[0];
@@ -422,7 +436,7 @@ class Equipment extends CActiveRecord
 			'idWorkplace' => array(self::BELONGS_TO, 'Workplace', 'id_workplace'),
 			'type0' => array(self::BELONGS_TO, 'EquipmentType', 'type'),
 			'producer0' => array(self::BELONGS_TO, 'EquipmentProducer', 'producer'),
-			'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', 'object'),
+			'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', 'object','order'=>'"EquipmentLog".id DESC'),
 			//'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', '','with'=>'objectEq','on'=>'("EquipmentLog".type in (3,4) and '.$this->id.'=ANY("EquipmentLog"."details")) or "EquipmentLog"."object"='.$this->id),
 			'parentEq' => array(self::BELONGS_TO, 'Equipment', 'parent_id'),
             'equipments' => array(self::HAS_MANY, 'Equipment', 'parent_id'),
