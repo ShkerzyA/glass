@@ -25,8 +25,9 @@ return CMap::mergeArray(
             'routes'=>array(
                 array(
                     'class'=>'CWebLogRoute',
-            		'categories'=>'system.*',
-            		'except'=>'system.db.ar.*',
+                    'levels'=>'profile', //Чтоб еще увидеть правила доступа, закомментить levels
+            		#'categories'=>'system.*',
+            		#'except'=>'system.db.ar.*',
             		'showInFireBug' => true
                 ),
             ), 

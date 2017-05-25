@@ -431,7 +431,7 @@ class Equipment extends CActiveRecord
 			'parentEq' => array(self::BELONGS_TO, 'Equipment', 'parent_id'),
             'equipments' => array(self::HAS_MANY, 'Equipment', 'parent_id'),
             'dhcp' => array(self::HAS_MANY, 'DhcpLeases', '','on'=>'"dhcp".mac=t.mac','order'=>'"dhcp".date_end DESC'),
-            'LogCountPrint' => array(self::HAS_MANY, 'EquipmentLog','object','on'=>'"LogCountPrint".type=2 and \'n/a\'<>"LogCountPrint".details[1]','order'=>'"LogCountPrint".id DESC','limit'=>'1'),
+            'LogCountPrint' => array(self::HAS_MANY, 'EquipmentLog','object','on'=>'"LogCountPrint".type=2 and \'n/a\'<>"LogCountPrint".details[1]','select'=>'details','order'=>'"LogCountPrint".id DESC','limit'=>'1'),
             'eqActsoftransfers' => array(self::HAS_MANY, 'EqActsoftransfer', 'id_eq'),
             'actsoftransfers'=>array(self::HAS_MANY,'ActOfTransfer','id_act','through'=>'eqActsoftransfers'),
 		);

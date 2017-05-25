@@ -549,7 +549,7 @@ class Tasks extends CActiveRecord
 			$result.='<div class=rightinfo><i>Срок исполнения: '.$this->deadline.'</i></div>';	
 		switch ($this->type) {
 			case '1':
-				$m=Equipment::model()->findByPk($this->details[0]);
+				$m=Equipment::model()->with('idWorkplace.idCabinet.idFloor.idBuilding')->findByPk($this->details[0]);
 				if(!empty($m)){
 					$result.=$m->idWorkplace->wpNameFull($short);
 					if($place==True){
@@ -563,7 +563,7 @@ class Tasks extends CActiveRecord
 
 			case '0':
 				
-				$m=Workplace::model()->findByPk($this->details[0]);
+				$m=Workplace::model()->with('idCabinet.idFloor.idBuilding')->findByPk($this->details[0]);
 				if(!empty($m)){
 					$result.=$m->wpNameFull($short);
 					if($place==True){
