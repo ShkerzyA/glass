@@ -23,14 +23,14 @@ return CMap::mergeArray(
 		'log'=>array(
             'class'=>'CLogRouter',
             'routes'=>array(
-                array(
-                    'class'=>'CWebLogRoute',
-                    'levels'=>'profile', //Чтоб еще увидеть правила доступа, закомментить levels
-            		#'categories'=>'system.*',
-            		#'except'=>'system.db.ar.*',
-            		'showInFireBug' => true
-                ),
-            ), 
-        ), 
+                    // …
+                    array(
+                        'class'=>'ext.db_profiler.DbProfileLogRoute',
+                        'countLimit' => 1, // How many times the same query should be executed to be considered inefficient
+                        'slowQueryMin' => 0.01, // Minimum time for the query to be slow
+                        //'showInFireBug' => true,
+                    ),
+            ),
+        ),
 	),
 ));

@@ -7,6 +7,7 @@ $this->breadcrumbs=array(
 	''.Equipment::$modelLabelP,
 );
 
+
 $this->menu=array(
 			array('label'=>'DHCP TOOLS', 'url'=>array('/equipment/adminMenu'),'htmlOptions'=>array()),
 			array('label'=>'Оборудование/ Экспорт', 'url'=>array('/equipment/export'),'htmlOptions'=>array('target'=>'_blank')),
@@ -14,9 +15,12 @@ $this->menu=array(
 			array('label'=>'Заправка картриджей', 'url'=>array('/equipmentLog/Crefill?type=outgo')),
 			array('label'=>'Возврат заправленных', 'url'=>array('/equipmentLog/Crefill?type=ingo')),
 			array('label'=>'Возврат востановленных', 'url'=>array('/equipmentLog/Crefill?type=ingo_r')),
-			array('label'=>'Принтеры/ Статистика', 'url'=>array('/equipmentLog/printersLog'),'htmlOptions'=>array('target'=>'_blank')),
+			//array('label'=>'Принтеры/ Статистика', 'url'=>array('/equipmentLog/printersLog'),'htmlOptions'=>array('target'=>'_blank')),
 			array('label'=>'Картриджи/ Сводная таблица', 'url'=>array('/equipment/commonCartInfo'),'htmlOptions'=>array('target'=>'_blank')),
 			);
+
+$this->menu['all_menu']=array();
+//$this->menu['all_menu']['']
 
 
 $this->renderPartial('/workplace/storages');
