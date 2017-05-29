@@ -25,6 +25,12 @@ class ActOfTransfer extends CActiveRecord
 	 */
 	public static $modelLabelS='Акт перемещения';
 	public static $modelLabelP='Акты перемещения';
+	public static $statusArr=array(
+		0=>'Создан',
+		1=>'Распечатан',
+		2=>'Подписан',
+		3=>'В архиве',
+		);
 	
 	public $eqActsoftransfersid_act;
 
@@ -80,6 +86,19 @@ class ActOfTransfer extends CActiveRecord
 		);
 	}
 
+	public function getStatus(){
+		if(!empty($this->status))
+			return self::$statusArr[$this->status];
+	}
+
+	public function getTransferring(){
+		return (!empty($this->transferring))?$this->transferring0->fio_full():'';
+	}
+
+	public function getReceiving(){
+		return (!empty($this->receiving))?$this->receiving0->fio_full():((!empty($this->receiving_var))?$this->receiving_var:'');
+	}
+
 	/**
 	 * @return array relational rules.
 	 */
@@ -88,6 +107,9 @@ class ActOfTransfer extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
+			'transferring0' => array(self::BELONGS_TO, 'Personnel', 'transferring'),
+			'receiving0' => array(self::BELONGS_TO, 'Personnel', 'receiving'),
 			'equipments'=>array(self::MANY_MANY,'Equipment','eq_actsoftransfer(id_act,id_eq)'),
 		);
 	}
@@ -99,12 +121,12 @@ class ActOfTransfer extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'timestamp' => 'Timestamp',
-			'status' => 'Status',
-			'transferring' => 'Transferring',
-			'receiving' => 'Receiving',
-			'receiving_var' => 'Receiving Var',
-			'creator' => 'Creator',
+			'timestamp' => 'Дата',
+			'status' => 'Статус',
+			'transferring' => 'Передал',
+			'receiving' => 'Принял',
+			'receiving_var' => 'Принял',
+			'creator' => 'Создал акт',
 			'eqActsoftransfersid_act' => 'id_act',
 		);
 	}
@@ -120,7 +142,7 @@ class ActOfTransfer extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('eqActsoftransfers' => array('alias' => 'eqactsoftransfer'),);
+		//$criteria->with=array('eqActsoftransfers' => array('alias' => 'eqactsoftransfer'),);
 		$criteria->compare('id',$this->id);
 		$criteria->compare('timestamp',$this->timestamp,true);
 		$criteria->compare('status',$this->status);
@@ -128,7 +150,7 @@ class ActOfTransfer extends CActiveRecord
 		$criteria->compare('receiving',$this->receiving);
 		$criteria->compare('receiving_var',$this->receiving_var,true);
 		$criteria->compare('creator',$this->creator);
-		$criteria->compare('eqactsoftransfer.id_act',$this->eqActsoftransfersid_act,true);
+		//$criteria->compare('eqactsoftransfer.id_act',$this->eqActsoftransfersid_act,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

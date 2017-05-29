@@ -32,7 +32,7 @@ class ActOfTransferController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','export'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -54,6 +54,35 @@ class ActOfTransferController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
+	}
+
+	public function actionExport($id){
+		$model=ActOfTransfer::model()->with('equipments')->findByPk($id);
+		$dt=date('d.m.Y');
+		$filename ='actOfTransfer.odt';
+		$config=array('PATH_TO_TMP'=>Yii::getPathOfAlias('webroot'));
+		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/tpl/'.$filename,$config);
+
+		$odf->setVars('date', $dt);
+		
+
+		$article = $odf->setSegment('articles');
+		$i=1;
+		foreach ($model->equipments as $eq){
+ 			$article->setVars('n',$i, true, 'utf-8');
+ 			$article->setVars('mark',$eq->mark, true, 'utf-8');
+ 			$article->setVars('serial',$eq->serial, true, 'utf-8');
+ 			$article->setVars('inv',$eq->inv, true, 'utf-8');
+ 			$article->setVars('note','', true, 'utf-8');
+		 	$article->merge();
+		 	$i++;
+		}
+		$odf->mergeSegment($article);
+		$odf->setVars('transf', $model->getTransferring(), true, 'utf-8');
+		$odf->setVars('recev', $model->getReceiving(), true, 'utf-8');
+
+		$odf->exportAsAttachedFile(); 
+		
 	}
 
 	/**

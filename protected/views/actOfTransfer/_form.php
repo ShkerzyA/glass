@@ -26,42 +26,34 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
-
-		<?php echo $form->textField($model,'status'); ?>
-
+		<?php echo $form->dropDownList($model,"status",ActOfTransfer::$statusArr,array('empty' => '')); ?>
 		<?php echo $form->error($model,'status'); ?>
 	</div>
+
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'transferring'); ?>
 
-		<?php echo $form->textField($model,'transferring'); ?>
+		<?php echo Customfields::searchPersonnel($model,'transferring'); ?>
 
 		<?php echo $form->error($model,'transferring'); ?>
 	</div>
 
-	<div class="row">
+		<div class="row">
 		<?php echo $form->labelEx($model,'receiving'); ?>
 
-		<?php echo $form->textField($model,'receiving'); ?>
+		<?php echo Customfields::searchPersonnel($model,'receiving'); ?>
 
 		<?php echo $form->error($model,'receiving'); ?>
 	</div>
 
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'receiving_var'); ?>
 
-		<?php echo $form->textField($model,'receiving_var',array('size'=>60,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'receiving_var',array('size'=>60,'maxlength'=>100,'placeholder'=>'Заполнять только при невозможности ввести предыдущее поле')); ?>
 
 		<?php echo $form->error($model,'receiving_var'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'creator'); ?>
-
-		<?php echo $form->textField($model,'creator'); ?>
-
-		<?php echo $form->error($model,'creator'); ?>
 	</div>
 
 	<div class="row buttons">
