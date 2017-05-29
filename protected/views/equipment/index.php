@@ -20,7 +20,10 @@ $this->menu=array(
 			);
 
 $this->menu['all_menu']=array();
-//$this->menu['all_menu']['']
+$this->menu['all_menu']['actsofactio']=array('title'=>'Акты перемещения','items'=>array(
+		array('label'=>'Создать акт', 'url'=>array('/equipmentLog/selectForAct')),
+		array('label'=>'Акты перемещения', 'url'=>array('/actOfTransfer/index')),
+	));
 
 
 $this->renderPartial('/workplace/storages');

@@ -18,13 +18,15 @@ $this->menu=array(
 
 <h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
 
-<?php foreach ($model->equipments as $eq) {
-	echo $eq->nameL();
-}?>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'creator',
-	),
-)); ?>
+<?php  
+
+echo $model->creator;
+if(!empty($model->equipments)){
+	foreach ($model->equipments as $eq) {
+		echo $eq->mark;
+		# code...
+	}
+}
+
+?>

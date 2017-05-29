@@ -52,6 +52,11 @@
     <?php echo $form->error($model,'subject'); ?>
   </div>
 
+  <?php switch ($this->route): 
+   case 'equipmentLog/selectForAct': ?>
+   <?php break; ?>
+
+  <?php default: ?>
     <div class="row">
     <?php echo $form->labelEx($model,'type'); ?>
 
@@ -59,6 +64,8 @@
 
     <?php echo $form->error($model,'type'); ?>
   </div>
+
+  <?php endswitch; ?>
 
 
 

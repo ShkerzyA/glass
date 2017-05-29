@@ -62,7 +62,7 @@ class PersonnelController extends Controller
 	}
 
 	public function actionBirthdays(){
-		$models=Personnel::model()->with('personnelPostsHistories:working')->working()->findAll(array('select'=>'t.surname, t.name, t.patr, t.birthday','condition'=>"(DATE_PART('doy',birthday::date)-DATE_PART('doy',current_date))<7 and (DATE_PART('doy',birthday::date)-DATE_PART('doy',current_date))>=0 and \"personnelPostsHistories\".id is not null",'order'=>"(DATE_PART('month',birthday::date)::char||DATE_PART('day',birthday::date))::int ASC"));
+		$models=Personnel::model()->with('personnelPostsHistories:working')->working()->findAll(array('select'=>'t.surname, t.name, t.patr, t.birthday','condition'=>"(DATE_PART('doy',birthday::date)-DATE_PART('doy',current_date))<7 and (DATE_PART('doy',birthday::date)-DATE_PART('doy',current_date))>=0 and \"personnelPostsHistories\".id is not null",'order'=>"(DATE_PART('month',birthday::date)::char||to_char(birthday,'DD'))::int ASC"));
 		$this->render('birthdays', array('models'=>$models));
 	}
 

@@ -53,6 +53,11 @@ class ActOfTransfer extends CActiveRecord
 			'FixedOwner'=>array(
 				'class'=>'application.behaviors.FixedOwnerBehavior',
 				),
+			'ESaveRelatedBehavior'=>array(
+				'class'=>'application.behaviors.ESaveRelatedBehavior',
+				),
+
+
 			);
 	}
 
@@ -67,11 +72,11 @@ class ActOfTransfer extends CActiveRecord
 		return array(
 			array('status, transferring, receiving, creator', 'numerical', 'integerOnly'=>true),
 			array('receiving_var', 'length', 'max'=>100),
-			array('timestamp', 'safe'),
+			array('timestamp,equipments', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, timestamp, status, transferring, receiving, receiving_var, creator,eqActsoftransfersid_act', 'safe', 'on'=>'search'),
+			array('id, timestamp, status, transferring, receiving, receiving_var,equipments, creator,eqActsoftransfersid_act', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,8 +88,7 @@ class ActOfTransfer extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'eqActsoftransfers' => array(self::HAS_MANY, 'EqActsoftransfer', 'id_act'),
-			'equipments'=>array(self::HAS_MANY,'Equipment','id_eq','through'=>'eqActsoftransfers'),
+			'equipments'=>array(self::MANY_MANY,'Equipment','eq_actsoftransfer(id_act,id_eq)'),
 		);
 	}
 

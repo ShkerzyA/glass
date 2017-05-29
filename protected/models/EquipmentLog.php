@@ -432,4 +432,35 @@ class EquipmentLog extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+
+	public function searchForAct(){
+		// Warning: Please modify the following code to remove attributes that
+		// should not be searched.
+		$criteria=new CDbCriteria;
+		$criteria->with=array('subject0','objectEq.idWorkplace.idPersonnel','objectEq.idWorkplace.idCabinet.idFloor.idBuilding'); //
+		if(!empty($this->details))
+			$criteria->addCondition(array('condition'=>"'".$this->details."'=ANY(t.details)"));
+		$criteria->compare('t.id',$this->id);
+		if(!empty($this->timestamp)){
+			if(!empty($this->timestamp_end)){
+				$criteria->addCondition(array('condition'=>"t.timestamp>'".$this->timestamp." 00:00:00' and t.timestamp<'".$this->timestamp_end." 23:59:59'"));
+			}else{
+				$criteria->addCondition(array('condition'=>"t.timestamp>'".$this->timestamp." 00:00:00' and t.timestamp<'".$this->timestamp." 23:59:59'"));
+			}
+		}
+		$criteria->compare('object',$this->object);
+		if(!empty($this->subject))
+			$criteria->addCondition(array('condition'=>"t.subject in (".implode(',',$this->subject).")"));
+		$criteria->addCondition(array('condition'=>"t.type in (0,7)"));
+		$criteria->compare('personnel.surname',$this->subject0subject,true);
+		$criteria->compare('equipment.inv',$this->object0object,true, 'OR');
+		$criteria->compare('equipment.serial',$this->object0object,true,'OR');
+		$criteria->order='t.timestamp DESC, t.type DESC';
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+			'pagination'=>array(
+                'pageSize'=>30,
+            ),
+		));
+	}
 }

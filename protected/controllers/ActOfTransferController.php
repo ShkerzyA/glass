@@ -70,7 +70,7 @@ class ActOfTransferController extends Controller
 		if(isset($_POST['ActOfTransfer']))
 		{
 			$model->attributes=$_POST['ActOfTransfer'];
-			if($model->save())
+			if($model->saveWithRelated('equipments'))
 				$this->redirect(array('view','id'=>$model->id));
 		}
 

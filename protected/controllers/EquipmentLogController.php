@@ -32,7 +32,7 @@ class EquipmentLogController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','crefill'),
+				'actions'=>array('create','update','crefill','selectForAct'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -234,6 +234,22 @@ class EquipmentLogController extends Controller
 		));
 	}
 
+
+	public function actionSelectForAct()
+	{
+		
+		$model=new EquipmentLog;
+		$model->type=0;
+		$model->unsetAttributes();  // clear any default values
+		$model->timestamp=date('Y-m-d');
+		if(isset($_GET['EquipmentLog']))
+			$model->attributes=$_GET['EquipmentLog'];
+		$dataProvider=new CActiveDataProvider('EquipmentLog');
+		$this->render('actForLog',array(
+			'dataProvider'=>$dataProvider,'model'=>$model,'modelLabelP'=>EquipmentLog::$modelLabelP,
+		));
+	}
+
 	/**
 	 * Manages all models.
 	 */
@@ -258,7 +274,7 @@ class EquipmentLogController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=EquipmentLog::model()->findByPk($id);
+		$model=EquipmentLog::model()->with('equipments')->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;
