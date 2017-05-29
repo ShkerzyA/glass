@@ -63,14 +63,14 @@ class ActOfTransferController extends Controller
 		$config=array('PATH_TO_TMP'=>Yii::getPathOfAlias('webroot'));
 		$odf = new myOdt(Yii::getPathOfAlias('webroot').'/tpl/'.$filename,$config);
 
+		$odf->setVars('id', $model->id, true, 'utf-8');
 		$odf->setVars('date', $dt);
-		
 
 		$article = $odf->setSegment('articles');
 		$i=1;
 		foreach ($model->equipments as $eq){
  			$article->setVars('n',$i, true, 'utf-8');
- 			$article->setVars('mark',$eq->mark, true, 'utf-8');
+ 			$article->setVars('mark',$eq->type0->name.'/ '.$eq->getProducer().'/ '.$eq->mark, true, 'utf-8');
  			$article->setVars('serial',$eq->serial, true, 'utf-8');
  			$article->setVars('inv',$eq->inv, true, 'utf-8');
  			$article->setVars('note','', true, 'utf-8');
