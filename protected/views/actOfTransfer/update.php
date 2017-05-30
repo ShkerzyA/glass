@@ -10,12 +10,12 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
-	array('label'=>'Создать', 'url'=>array('create')),
+	array('label'=>'Создать', 'url'=>array('create'),'visible'=>(Yii::app()->user->role=='administrator')),
 	array('label'=>'Отобразить', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Управление ', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
+	array('label'=>'Управление ', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
-	$this->menu["details"]=array(array('label'=>'EqActsoftransfer', 'url'=>array('EqActsoftransfer/admin', 'id_act'=>$model->id)),
-array('label'=>'Equipment', 'url'=>array('Equipment/admin', 'id_eq'=>$model->id)),
+	$this->menu["details"]=array(array('label'=>'EqActsoftransfer', 'url'=>array('EqActsoftransfer/admin', 'id_act'=>$model->id),'visible'=>(Yii::app()->user->role=='administrator')),
+array('label'=>'Equipment', 'url'=>array('Equipment/admin', 'id_eq'=>$model->id),'visible'=>(Yii::app()->user->role=='administrator')),
 );
 ?>
 

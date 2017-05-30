@@ -9,11 +9,11 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
-	array('label'=>'Создать', 'url'=>array('create')),
-	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Создать', 'url'=>array('create'),'visible'=>(Yii::app()->user->role=='administrator')),
+	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>(Yii::app()->user->checkAccess('updateAct',array('mod'=>$model)))),
 	array('label'=>'Экспорт в odt', 'url'=>array('export', 'id'=>$model->id),'htmlOptions'=>array('target'=>'_blank')),
-	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Вы уверены?')),
-	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
+	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Вы уверены?'),'visible'=>(Yii::app()->user->role=='administrator')),
+	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
 ?>
 

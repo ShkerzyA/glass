@@ -98,6 +98,13 @@ return array (
     'bizRule' => NULL,
     'data' => NULL,
   ),
+  'updateAct' => 
+  array (
+    'type' => 0,
+    'description' => 'Редактировать акт передачи',
+    'bizRule' => NULL,
+    'data' => NULL,
+  ),
   'inGroup' => 
   array (
     'type' => 0,
@@ -271,6 +278,17 @@ return array (
       0 => 'updateTs',
     ),
   ),
+  'OwnUpdateAct' => 
+  array (
+    'type' => 1,
+    'description' => 'Изменение своих задач',
+    'bizRule' => 'return $params["mod"]->mayUserUpd();',
+    'data' => NULL,
+    'children' => 
+    array (
+      0 => 'updateAct',
+    ),
+  ),
   'userviewTs' => 
   array (
     'type' => 1,
@@ -339,7 +357,8 @@ return array (
       12 => 'userviewTs',
       13 => 'OwnUpdateEv',
       14 => 'OwnUpdateTs',
-      15 => 'ownMedicalEquipment',
+      15 => 'OwnUpdateAct',
+      16 => 'ownMedicalEquipment',
     ),
   ),
   'observer' => 
@@ -383,14 +402,15 @@ return array (
     array (
       0 => 'viewTs',
       1 => 'updateTs',
-      2 => 'updateEv',
-      3 => 'moderator',
-      4 => 'taskReport',
-      5 => 'otdReport',
-      6 => 'inGroup',
-      7 => 'isOwner',
-      8 => 'inGroupAndOwner',
-      9 => 'admin',
+      2 => 'updateAct',
+      3 => 'updateEv',
+      4 => 'moderator',
+      5 => 'taskReport',
+      6 => 'otdReport',
+      7 => 'inGroup',
+      8 => 'isOwner',
+      9 => 'inGroupAndOwner',
+      10 => 'admin',
     ),
   ),
 );

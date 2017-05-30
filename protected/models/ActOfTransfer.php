@@ -99,6 +99,13 @@ class ActOfTransfer extends CActiveRecord
 		return (!empty($this->receiving))?$this->receiving0->fio_full():((!empty($this->receiving_var))?$this->receiving_var:'');
 	}
 
+	public function mayUserUpd(){
+		if(Yii::app()->user->isGuest)
+			return False;
+		if(Yii::app()->user->id_pers==$this->creator)
+			return True;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */

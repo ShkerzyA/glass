@@ -65,6 +65,7 @@ public function actionInstall(){
     $auth->createOperation('updateEv', 'Редактировать событие');
     $auth->createOperation('viewTs', 'Просмотреть задачу');
     $auth->createOperation('updateTs', 'Редактировать задачу');
+    $auth->createOperation('updateAct', 'Редактировать акт передачи');
     $auth->createOperation('inGroup', 'Принадлежность группе');
     $auth->createOperation('isOwner', 'Владелец объекта');
     $auth->createOperation('inGroupAndOwner', 'Принадлежность группе и владелец объекта манипуляции');
@@ -121,6 +122,10 @@ public function actionInstall(){
     $task = $auth->createTask('OwnUpdateTs', 'Изменение своих задач', $bizRule);
     $task->addChild('updateTs', 'Изменить статус');
 
+    $bizRule='return $params["mod"]->mayUserUpd();';
+    $task = $auth->createTask('OwnUpdateAct', 'Изменение своих задач', $bizRule);
+    $task->addChild('updateAct', 'Изменить статус');
+
     $bizRule='return $params["mod"]->mayUserView();';
     $task = $auth->createTask('userviewTs', 'Просмотр задач', $bizRule);
     $task->addChild('viewTs', 'Изменить статус');
@@ -158,6 +163,7 @@ public function actionInstall(){
     $user->addChild('userviewTs'); 
   	$user->addChild('OwnUpdateEv');
   	$user->addChild('OwnUpdateTs');
+    $user->addChild('OwnUpdateAct');
     $user->addChild('ownMedicalEquipment');
 
     $observer = $auth->createRole('observer');
@@ -181,6 +187,7 @@ public function actionInstall(){
     $administrator = $auth->createRole('administrator');
     $administrator->addChild('viewTs'); 
     $administrator->addChild('updateTs'); 
+    $administrator->addChild('updateAct'); 
     $administrator->addChild('updateEv'); 
     $administrator->addChild('moderator');
     $administrator->addChild('taskReport');
