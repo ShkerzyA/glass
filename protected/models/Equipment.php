@@ -101,6 +101,24 @@ class Equipment extends CActiveRecord
 			);
 	}
 
+	public static function printerRefillCou(){
+
+	$sql="select t.object, count(t.object) as cou,  eq.mark, eq.serial,
+(bl.bname||'/'||fl.fname||'/'||cb.cname||' '||cb.num||'/'||wp.wname) as place
+from equipment_log as t
+left join equipment as eq on (eq.id=t.object)
+left join workplace as wp on (eq.id_workplace=wp.id)
+left join cabinet as cb on (wp.id_cabinet=cb.id)
+left join floor as fl on (cb.id_floor=fl.id)
+left join building as bl on (fl.id_building=bl.id)
+where t.type=2 
+group by t.object, eq.mark, eq.serial,wp.wname, cb.cname, cb.num, fl.fname, bl.bname
+order by cou DESC";
+		$req = Yii::app()->db->createCommand($sql);
+		$res=$req->queryAll();
+		return $res;
+	}
+
 	public static function countCart(){
 
 	$sql="select eq.mark, count(eq.mark) as cou, 
@@ -426,6 +444,7 @@ class Equipment extends CActiveRecord
 			'type0' => array(self::BELONGS_TO, 'EquipmentType', 'type'),
 			'producer0' => array(self::BELONGS_TO, 'EquipmentProducer', 'producer'),
 			'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', 'object','order'=>'"EquipmentLog".id DESC'),
+			//'printRefCount'=> array(self::STAT,'EquipmentLog','object','condition'=>'t.type=2','order'=>'s DESC'), // hard to order by cou in Eq result, use pure sql
 			
 			//'EquipmentLog' => array(self::HAS_MANY, 'EquipmentLog', '','with'=>'objectEq','on'=>'("EquipmentLog".type in (3,4) and '.$this->id.'=ANY("EquipmentLog"."details")) or "EquipmentLog"."object"='.$this->id),
 			'parentEq' => array(self::BELONGS_TO, 'Equipment', 'parent_id'),

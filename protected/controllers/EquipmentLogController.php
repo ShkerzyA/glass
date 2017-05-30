@@ -68,7 +68,7 @@ class EquipmentLogController extends Controller
 
 	 */
 	public function actionPrintersLog(){
-		$models=Equipment::printersWithLog();
+		$models=Equipment::printerRefillCou();
 		$this->render('printersLog',array(
 			'model'=>$models,
 		));
