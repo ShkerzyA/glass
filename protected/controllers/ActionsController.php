@@ -90,6 +90,13 @@ class ActionsController extends Controller
 	}
 
 	public function actionGlobalSearch($term){
+		$$term=mb_strtolower($term,'UTF-8');
+		$wrds=explode(' ',$term);
+		if(in_array('*з',$wrds)){
+			$term=str_replace('*з ','',$term);
+			$tasks=Tasks::model()->actual_today()->suggestTag($term);
+		}
+
 		$docs=Docs::model()->suggestTag($term);
 		$models = Cabinet::model()->with('workplaces.idPersonnel','idFloor.idBuilding')->suggestTag($term);
 
@@ -114,6 +121,15 @@ class ActionsController extends Controller
    				$result[] = array(
      				'label' => '<a href=/glass/docs/'.$m->id.'>'.$m->nameL().'</a>',
    				);
+   			}
+
+   			if(!empty($tasks)){
+   				$result[]=array('label'=>'<b>Задачи</b>');
+   				foreach ($tasks as $m) {
+   					$result[] = array(
+     					'label' => '<a href=/glass/tasks/'.$m->id.'>'.$m->nameL().'</a>',
+     				);
+   				}
    			}
    			echo CJSON::encode($result);
 	}

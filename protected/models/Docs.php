@@ -97,7 +97,7 @@ public $dellink=array();
 	public function suggestTag($keyword){
 		$keyword=mb_strtolower($keyword,'UTF-8');
  		$tags=$this->with('idCatalog')->findAll(array(
-   			'condition'=>'(LOWER(t.doc_name) LIKE :keyword OR LOWER(t.text_docs) LIKE :keyword)',
+   			'condition'=>'(LOWER(t.doc_name) LIKE :keyword OR LOWER(t.text_docs) LIKE :keyword OR LOWER("idCatalog".cat_name) LIKE :keyword)',
    			'params'=>array(
      		':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
 

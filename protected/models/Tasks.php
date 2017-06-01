@@ -47,6 +47,14 @@ class Tasks extends CActiveRecord
 		}
 	}
 
+	public function scopes()
+	{
+    	$t=$this->getTableAlias(false);
+    	return array(
+        	'actual_today'=>array('condition'=>"(($t.timestamp::date=current_date or $t.timestamp_end::date=current_date) or $t.status in (0,1,5,6))"),
+    	);
+	}
+
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
