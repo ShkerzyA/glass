@@ -27,15 +27,17 @@ class CallLogController extends Controller
 	public function actionImport()
 	{
 		$file=array();
+		$result='';
 		if(isset($_FILES["f"])){
 			$file=file($_FILES["f"]["tmp_name"]);
 			foreach ($file as &$v) {
 				$v=iconv('cp1251','UTF8',$v);
 			}
 			$file=CallLog::parseCallLog($file);
+			$result='Данные импортированы';
 
 		}
-		$this->render('import',array('file'=>$file));
+		$this->render('import',array('result'=>$result));
 	}
 
 	public function actionExport()

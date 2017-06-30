@@ -60,7 +60,7 @@
 			<?php $this->widget('application.widgets.GlassAuth'); ?>
 
 		</div>
-		<a href="http://10.126.84.31/"><div id="logo" style="float: left;"><?php echo CHtml::encode(Yii::app()->name); ?></div></a>
+		<a href="http://10.126.85.156/"><div id="logo" style="float: left;"><?php echo CHtml::encode(Yii::app()->name); ?></div></a>
 		
 	<!--	<div id=it_tools> 
 			<img src="/glass/images/it_ico/coil.png"> 

@@ -20,10 +20,5 @@ $this->menu=array(
 </form> 
 
 <?php 
-	$i=1;
-	foreach ($file as $v) {
-		//echo $i.' | '.implode('^',$v[0])."\n<br>";
-		print_r($v);
-		$i++;
-	}
+	echo $result;
 ?>

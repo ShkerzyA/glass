@@ -183,7 +183,7 @@ return array(
 	// using Yii::app()->params['paramName']
 	'params'=>array(
 
-		'tornado'=>'10.126.84.31:8888',
+		'tornado'=>'10.126.85.156:8888',
 		// this is used in contact page
 		'adminEmail'=>'al_i_88@mail.ru',
 	),
