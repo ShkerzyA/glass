@@ -130,7 +130,7 @@ class MyDbase extends CFormModel{
 			$z['ank']=array_filter($zank, function($var) use ($x){return ($var['orgbase_rn']==$x);});
 			$z['empleav']=array_filter($zempleav, function($var) use ($x){return ($var['orgbase_rn']==$x);});
 		}
-		
+		die();	
 		foreach ($personnel as $v) {
 				if(empty($v['passport_r'])){
 					//$pers=Personnel::model()->deleteAll(array('condition'=>'orbase_rn=:orbase_rn','params'=>array(":orbase_rn"=>$v['ORBASE_RN'])));
