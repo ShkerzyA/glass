@@ -104,11 +104,13 @@ class PersonnelController extends Controller
 		foreach ($log as $l) {
 			$res.=$l->object->fio_full().' '.($p=(!empty($l->object->personnelPostsHistories))?$l->object->personnelPostsHistories[0]->postInfo():'').' '.$l->details_full()."<br><br>";
 		}
-		$t=new Tasks;
-		$t->tname='Изменения в кадрах('.date('d.m.Y').')';
-		$t->ttext=$res;
-		$t->project=4;
-		$t->save();
+		if(!empty($res)){
+			$t=new Tasks;
+			$t->tname='Изменения в кадрах('.date('d.m.Y').')';
+			$t->ttext=$res;
+			$t->project=4;
+			$t->save();
+		}
 	}
 
 	public function actionInOpenFire($id,$inpolic=true){
