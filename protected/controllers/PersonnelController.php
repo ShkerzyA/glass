@@ -42,7 +42,7 @@ class PersonnelController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','import','firedButInWp','policInQuickq','inQQ'),
+				'actions'=>array('admin','delete','import','firedButInWp','policInQuickq','inQQ','firedTodayAdd'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -98,6 +98,19 @@ class PersonnelController extends Controller
 	}
 	
 
+	public function actionFiredTodayAdd(){
+		$log=Log::model()->findAll(array('condition'=>"t.type=1 and t.object_model='Personnel' and date_trunc('day',t.timestamp)=current_date"));
+		$res='';
+		foreach ($log as $l) {
+			$res.=$l->object->fio_full().' '.($p=(!empty($l->object->personnelPostsHistories))?$l->object->personnelPostsHistories[0]->postInfo():'').' '.$l->details_full()."<br><br>";
+		}
+		$t=new Tasks;
+		$t->tname='Изменения в кадрах('.date('d.m.Y').')';
+		$t->ttext=$res;
+		$t->project=4;
+		$t->save();
+	}
+
 	public function actionInOpenFire($id,$inpolic=true){
 		$model=$this->loadModel($id);		
 		echo $model->inOpenFire($inpolic=true);
@@ -139,7 +152,7 @@ class PersonnelController extends Controller
 
 	}
 
-		public function actionAllInOpenFire(){
+	public function actionAllInOpenFire(){
 		$models=Personnel::model()->findall();
 		foreach($models as $v){
 			echo $v->inOpenFire($inpolic=false).'</br>';
