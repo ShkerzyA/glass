@@ -109,7 +109,7 @@ class ActionsController extends Controller
      						'label' => '<a href=/glass/cabinet/'.$c->id.'>'.$cn.'</a>',
    						);
   					foreach ($c->workplaces as $m) {
-  						$wn=$m->wpNameFull(false,false,'fio',true);
+  						$wn=$m->wpNameFull(false,false,'fio_full',true);
    						$result[] = array(
      						'label' => '<a href=/glass/workplace/'.$m->id.'>-------'.$wn.'</a>',
    						);

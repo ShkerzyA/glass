@@ -274,7 +274,7 @@ class EquipmentLogController extends Controller
 	 */
 	public function loadModel($id)
 	{
-		$model=EquipmentLog::model()->with('equipments')->findByPk($id);
+		$model=EquipmentLog::model()->with('objectEq')->findByPk($id);
 		if($model===null)
 			throw new CHttpException(404,'The requested page does not exist.');
 		return $model;

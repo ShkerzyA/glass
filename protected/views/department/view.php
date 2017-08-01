@@ -44,7 +44,7 @@ $this->menu=array(
 				else
 					echo '<span>';
 				if(!empty($personnelPh->idPersonnel))
-					echo "<a href='".Yii::app()->request->baseUrl."/personnel/".$personnelPh->idPersonnel->id."'>".$personnelPh->idPersonnel->surname.' '.$personnelPh->idPersonnel->fio_full()."</a> <br>";
+					echo "<a href='".Yii::app()->request->baseUrl."/personnel/".$personnelPh->idPersonnel->id."'>".$personnelPh->idPersonnel->fio_full()."</a> <br>";
 				//echo "<br>логин: ".mb_strtolower($personnelPh->idPersonnel->fioRu2Lat())."<br>пароль: ".$personnelPh->idPersonnel->passGen()."<br> <a href=".Yii::app()->baseUrl."/Personnel/inOpenFire?id=".$personnelPh->idPersonnel->id." target=_blank>регистрация в Openfire</a><br>";
 				echo "(c ".$personnelPh->date_begin.($de=(!empty($personnelPh->date_end))?(" по ".$personnelPh->date_end):'').")";
 				if($personnelPh->is_main==1){
