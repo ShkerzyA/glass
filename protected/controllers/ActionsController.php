@@ -92,11 +92,8 @@ class ActionsController extends Controller
 	public function actionGlobalSearch($term){
 		$$term=mb_strtolower($term,'UTF-8');
 		$wrds=explode(' ',$term);
-		if(in_array('*з',$wrds)){
-			$term=str_replace('*з ','',$term);
-			$tasks=Tasks::model()->actual_today()->suggestTag($term);
-		}
-
+		
+		$tasks=Tasks::model()->actual_today()->suggestTag($term);
 		$docs=Docs::model()->suggestTag($term);
 		$models = Cabinet::model()->with('workplaces.idPersonnel','idFloor.idBuilding')->suggestTag($term);
 
