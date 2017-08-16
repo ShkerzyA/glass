@@ -17,11 +17,6 @@ class TasksController extends Controller
 	public $search;
 
 	public $tasks_menu=array(
-		array('name'=>'IT crowd','group'=>'it','rule'=>array('it')),
-		array('name'=>'Плотники','group'=>'carpenters','rule'=>array()),
-		array('name'=>'Сантехники','group'=>'plumbers','rule'=>array()),
-		array('name'=>'Электрики','group'=>'electricians','rule'=>array()),
-		array('name'=>'Вентиляция','group'=>'ventilation','rule'=>array()),
 		);
 	public $rightWidget;
 	public $rightWidgetUp;
@@ -105,7 +100,7 @@ class TasksController extends Controller
 
 		$model=$this->loadModel($id);
 		if(!Yii::app()->user->checkAccess('viewTs',array('mod'=>$model)))
-			throw new CHttpException(403, 'У вас недостаточно прав');
+			throw new CHttpException(403, 'Нет такой задачи');
 		$this->rightWidget=array(
 			'df'=>array($this->renderPartial('_subscribe_form',array('model'=>$model),true)),
 			'sd'=>array($this->renderPartial('_join_doc',array('model'=>$model),true))
@@ -375,7 +370,7 @@ class TasksController extends Controller
 	public function actionHelpDesk($type=3,$group=NULL){
 		$this->layout='//layouts/column2';
 
-		echo $this->renderPartial('/workplace/storages');
+		$this->renderPartial('/workplace/storages',false,true);
 
 		$this->rightWidgetUp=array(
 			'idfield'=>array($this->renderPartial('_idfield',array(),true))
