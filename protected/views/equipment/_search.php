@@ -99,6 +99,16 @@
 		<?php echo $form->textField($model,'notes',array('rows'=>6, 'cols'=>50)); ?>
 	</div> 
 
+	<div class="row">
+		<?php echo $form->label($model,'lastdate'); ?>
+		<?php echo $form->textField($model,'lastdate',array('size'=>11,'maxlength'=>11,'autocomplete'=>"off",'placeholder'=>'<yyyy-mm-dd или >yyyy-mm-dd или yyyy-mm-dd ')); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'onlyneteq'); ?>
+		<?php echo $form->checkBox($model,'onlyneteq'); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Искать'); ?>
 	</div>

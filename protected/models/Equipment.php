@@ -51,6 +51,7 @@ class Equipment extends CActiveRecord
 	public $department;
 	private $old_model;
 	public $countPrint;
+	public $onlyneteq;
 
 	public function rememberMe(){
 		$this->old_model=clone $this;
@@ -292,13 +293,13 @@ order by cou DESC";
 		return array(
 			array('id_workplace, type, producer, status, parent_id', 'numerical', 'integerOnly'=>true),
 			array('id_workplace,type,status','required'),
-			array('serial,inv,released,hostname', 'length', 'max'=>100),
+			array('serial,inv,released,hostname,lastdate', 'length', 'max'=>100),
 			array('inv','cartInvOnly'),
 			array('lastdate','safe'), //'datetimeFormat'=>'yyyy-MM-dd HH:ii:ss'),
 			array('mark', 'length', 'max'=>200),
-			array('notes,ip,mac,released', 'safe'),
+			array('notes,ip,mac,released,onlyneteq', 'safe'),
 			array('id','uniqueInvSerial'),
-			array('id, id_workplace, serial, type, producer, mark, inv, released, ip, mac, status, parent_id, notes,idWorkplaceid_workplace,place,department,parentparent_id,equipmentsparent_id', 'safe', 'on'=>'search'),
+			array('id, id_workplace, serial, type, producer, mark, inv, released, ip, mac, status, parent_id, notes,idWorkplaceid_workplace,place,department,parentparent_id,equipmentsparent_id,onlyneteq', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -481,6 +482,8 @@ order by cou DESC";
             'parentparent_id' => 'Принадлежность',
             'equipmentsparent_id' => 'Зависимое оборудование',
             'hostname' => 'Имя хоста',
+            'lastdate' => 'Последняя аренда',
+            'onlyneteq' => 'Только сетевое',
 		);
 	}
 
@@ -559,6 +562,7 @@ order by cou DESC";
 			}
 		}
 
+		
 
 		$criteria->compare('LOWER(t.serial)',mb_strtolower($this->serial,'UTF-8'),true);
 		$criteria->compare('t.type',$this->type);
@@ -595,6 +599,26 @@ order by cou DESC";
 		$criteria->compare('workplace.wname',$this->idWorkplaceid_workplace,true);
         $criteria->compare('equipment.parent_id',$this->parentparent_id,true);
         $criteria->compare('equipment.parent_id',$this->equipmentsparent_id,true);
+
+        if(!empty($this->lastdate)){
+        	switch ($this->lastdate[0]) {
+        		case '<':
+        			$criteria->addCondition("t.lastdate::DATE<'".substr($this->lastdate,1)."'");
+        			break;
+
+        		case '>':
+        			$criteria->addCondition("t.lastdate::DATE>'".substr($this->lastdate,1)."'");
+        			break;
+        	
+        		default:
+        			$criteria->addCondition("t.lastdate::DATE='".$this->lastdate."'");
+        			break;
+        	}
+        }
+
+        if($this->onlyneteq){
+			$criteria->scopes[]='onlyNetEq';
+		}
 
 		if($this->type==18)
 			$criteria->order='t.inv::INT DESC';

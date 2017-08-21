@@ -201,6 +201,7 @@ Yii::app()->clientScript->registerPackage('customfields');
 
 		<?php echo $form->error($model,'notes'); ?>
 	</div>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'released'); ?>
 		<?php $this->widget('zii.widgets.jui.CJuiDatePicker', array(
