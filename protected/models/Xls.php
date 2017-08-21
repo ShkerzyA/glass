@@ -347,7 +347,7 @@ class Xls extends CFormModel{
    			 
    			$PHPExcel->getActiveSheet()->setTitle($name);
    			$PHPExcel->setActiveSheetIndex(0);
-   			$filename = 'export.xls';
+   			$filename = 'export'.date('Y-m-d').'.xls';
    			 //$path = file_create_filename($filename, 'public://nodes_export');
   			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel5');
   			$objWriter->save($media.'/'.$filename);
