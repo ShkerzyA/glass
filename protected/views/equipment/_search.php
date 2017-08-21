@@ -11,6 +11,7 @@
 	'method'=>'get',
 )); ?>
 
+	<h4># - поиск пустого значения ip,mac,host,примечания,аренда</h4>
 	<div class="row">
 		<?php echo $form->label($model,'id'); ?>
 		<?php echo $form->textField($model,'id'); ?>

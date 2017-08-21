@@ -571,25 +571,25 @@ order by cou DESC";
 		$criteria->compare('inv',$this->inv,true);
 		$criteria->compare('status',$this->status);
 		
-		if($this->ip=='*'){
+		if($this->ip=='#'){
 			$criteria->addCondition("t.ip is NULL");
 		}else{
 			$criteria->compare('ip',$this->ip,true);
 		}		
 
-		if($this->mac=='*'){
+		if($this->mac=='#'){
 			$criteria->addCondition("t.mac is NULL");
 		}else{
 			$criteria->compare('mac',$this->mac);
 		}
 
-		if($this->hostname=='*'){
+		if($this->hostname=='#'){
 			$criteria->addCondition("t.hostname is NULL");
 		}else{
 			$criteria->compare('hostname',$this->hostname,true);
 		}
 
-		if($this->notes=='*'){
+		if($this->notes=='#'){
 			$criteria->addCondition("t.notes=''");
 		}else{
 			$criteria->compare('notes',$this->notes,true);
@@ -602,6 +602,9 @@ order by cou DESC";
 
         if(!empty($this->lastdate)){
         	switch ($this->lastdate[0]) {
+        		case '#':
+        			$criteria->addCondition("t.lastdate is null");
+        			break;
         		case '<':
         			$criteria->addCondition("t.lastdate::DATE<'".substr($this->lastdate,1)."'");
         			break;
