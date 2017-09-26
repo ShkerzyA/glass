@@ -34,9 +34,8 @@
 						$exec=$data->findExecutors();
 
 						foreach ($exec as $z) {
-							echo '<img height=100% src="';
-							echo $z->ava();
-							echo'">';
+							if(method_exists($z,'ava'))
+							echo '<img height=100% src="'.$z->ava().'">';
 						}
 						
 
