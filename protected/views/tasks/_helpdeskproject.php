@@ -12,9 +12,6 @@
 		</div>
 		<?php $this->renderPartial('/tasks/_projectInfo',array('project'=>$project->projectInfo())); ?> <div class="taskmoreinfo"><?php
 		$exec=$project->findExecutors();
-		 
-
-
 						foreach ($exec as $z) {
 							echo '<img height=100% class="dragPers" id="'.$z->id.'" src="';
 							echo $z->ava();
