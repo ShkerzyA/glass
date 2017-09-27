@@ -229,7 +229,7 @@ class TasksController extends Controller
 				$model->ttext=$_POST['fio']." тел. ".$_POST['phone']."\n \n".$model->ttext;
 			}
 
-			if($model->save()){
+			if($model->saveWithRelated('bindTasks')){
 				Yii::app()->Tornado->updateTasks();
 
 				$sModel=Tasks::model()->findByPk($model->id);

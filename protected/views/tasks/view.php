@@ -18,6 +18,19 @@ $this->menu=array(
 	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>Yii::app()->user->role=='administrator'),
 );
 
+$projects=Projects::myProjects();
+$projectsArr=array();
+foreach ($projects as $pr) {
+	$projectsArr[]=array('label'=>'<nobr>'.$pr->ico(True).' '.$pr->name.'</nobr>','url'=>array('tasks/create?Tasks[type]='.$pr->getType().'&&Tasks[project]='.$pr->id.'&&Tasks[bindTasks][]='.$model->id.''));
+}
+
+$this->menu['all_menu']=array(
+		array('title'=>'Создать связанную задачу','items'=>$projectsArr
+		//	array('label'=>"<img src='../images/printer_40.png' title='Замена картриджа'> Зам. карт", 'url'=>array('tasks/create?Tasks[type]=1&&Tasks[project]=3'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
+		//	array('label'=>"<img src='../images/add_task_40.png' title='Деклассированная задача'> Общая", 'url'=>array('tasks/create?Tasks[type]=0&&Tasks[project]=4'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
+		),
+	);
+
 
 	$status_arr=$model->getStatus();
 	$status=$model->status0;
@@ -50,7 +63,7 @@ echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
 		Создатель:  '.$creator.'</i></div>'.
 		'<hr><p class="norm_text"><pre>'.$model->detailsShow(0,1,1).'<br>'.$model->ttext.'</pre></p>';
-				foreach (array_merge($model->bindTasks,$model->ownedTasks) as $d) {
+		foreach (array_merge($model->bindTasks,$model->ownedTasks) as $d) {
 			$this->renderPartial('taskpanel',array('data'=>$d),false,false);
 		}
 		echo '<span style="float: right">Участники: ';
@@ -69,9 +82,6 @@ echo '<div class="comment " id="taskbody">
 		$isRep=Yii::app()->user->checkAccess('taskReport',array('mod'=>$model));
 
 		foreach ($model->TasksActions as $action){
-			
-		
-
 			switch ($action->type) {
 				case '0':
 					$mess='<b>"'.$status_arr[$action->ttext].'"</b> Статус задачи изменен';

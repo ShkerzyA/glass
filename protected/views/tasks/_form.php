@@ -186,9 +186,6 @@ $(document).ready(init());
 	</div>
 
 
-
-
-
 	<div class="row">
 		<?php echo $form->labelEx($model,'status'); ?>
 
@@ -267,7 +264,11 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 		<?php echo Customfields::multiPersonnel($model,'executors','add_executors'); ?>
 		<?php echo $form->error($model,'executors'); ?>
 	</div>
-<?php //endif; ?>
+<?php 
+	foreach ($model->bindTasks as $bt) {
+		echo '<input type=hidden name=Tasks[bindTasks][] value='.$bt.'>';
+	}
+?>
 	
 
 <?php $this->endWidget(); ?>

@@ -43,7 +43,6 @@ $this->menu=array(
 			);
 
 $projects=Projects::myProjects();
-$projectsArr=array(array('label'=>"Добавить", 'url'=>array('tasks/create?Tasks[type]=0')));
 $projectsArr=array();
 foreach ($projects as $pr) {
 	$projectsArr[]=array('label'=>'<nobr>'.$pr->ico(True).' '.$pr->name.'</nobr>','url'=>array('tasks/create?Tasks[type]='.$pr->getType().'&&Tasks[project]='.$pr->id.''));

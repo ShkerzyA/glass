@@ -220,9 +220,9 @@ class ESaveRelatedBehavior extends CActiveRecordBehavior
         			    throw new CException("Unable to get table and foreign key information from MANY_MANY relation definition (".$relation->foreignKey.")");
         			}
                     $model = new $relation->className;
-                    $possibleModels = $model->findAll(new CDbCriteria(array( // find all models, that can be related (used to make sure only existing records are linked)
-                        'index' => $model->getMetaData()->tableSchema->primaryKey
-                    )));
+                    //$possibleModels = $model->findAll(new CDbCriteria(array( // find all models, that can be related (used to make sure only existing records are linked)
+                    //   'index' => $model->getMetaData()->tableSchema->primaryKey
+                    //)));
                     if (!@$config['append']) {
                         $criteria = new CDbCriteria;
                         $criteria->compare($info['mnFk1'], $this->owner->primaryKey);
@@ -233,7 +233,7 @@ class ESaveRelatedBehavior extends CActiveRecordBehavior
                         if (is_object($id)) { // get id if object was given
                             $id = $id->primaryKey;
                         }
-                        if (array_key_exists($id, $possibleModels)) { // only add if related model exists
+                        if ($model::model()->findByPk($id)) { // only add if related model exists
                             if ($hasMnTableClass) { // use class for inserting records into mn linking table if it exists
                                 $obj = new $info['mnTable'];
                                 $obj->attributes = array(
@@ -252,7 +252,7 @@ class ESaveRelatedBehavior extends CActiveRecordBehavior
                 			        )
                 			    )->execute();
                             }
-                            unset($possibleModels[$id]); // this makes sure that id will not be inserted twice if submitted data attempts to do so.
+                            //unset($possibleModels[$id]); // this makes sure that id will not be inserted twice if submitted data attempts to do so.
                         }
                     }
                     if ($result) {

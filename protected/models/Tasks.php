@@ -266,6 +266,9 @@ class Tasks extends CActiveRecord
 			'FixedOwner'=>array(
 				'class'=>'application.behaviors.FixedOwnerBehavior',
 				),
+			'ESaveRelatedBehavior'=>array(
+				'class'=>'application.behaviors.ESaveRelatedBehavior',
+				),
 			);
 	}
 
@@ -285,7 +288,7 @@ class Tasks extends CActiveRecord
 			//array('details', 'length', 'max'=>255),
 			array('ttext, timestamp,deadline,timestamp_end', 'safe'),
 
-			array('executors', 'safe'),
+			array('executors,bindTasks', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
