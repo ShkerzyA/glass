@@ -87,7 +87,7 @@ class ActOfTransfer extends CActiveRecord
 	}
 
 	public function getStatus(){
-		if(!empty($this->status))
+		if(isset($this->status))
 			return self::$statusArr[$this->status];
 	}
 

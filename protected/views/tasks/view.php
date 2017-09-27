@@ -49,8 +49,11 @@ echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: left;"><h2>'.$model->tname.'</h2></div>
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
 		Создатель:  '.$creator.'</i></div>'.
-		'<hr><p class="norm_text"><pre>'.$model->detailsShow(0,1,1).'<br>'.$model->ttext.'</pre></p>
-		<span style="float: right">Участники: ';
+		'<hr><p class="norm_text"><pre>'.$model->detailsShow(0,1,1).'<br>'.$model->ttext.'</pre></p>';
+				foreach (array_merge($model->bindTasks,$model->ownedTasks) as $d) {
+			$this->renderPartial('taskpanel',array('data'=>$d),false,false);
+		}
+		echo '<span style="float: right">Участники: ';
 		$exec=array();
 				foreach ($model->executors as $v){
 					if(!empty($v)){
@@ -59,6 +62,7 @@ echo '<div class="comment " id="taskbody">
 					}
 				}	
 				echo (implode(', ', $exec));
+
 		echo '</span></div> ';
 
 

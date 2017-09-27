@@ -331,6 +331,8 @@ class Tasks extends CActiveRecord
 			'Project0' => array(self::BELONGS_TO, 'Projects', 'project'),
 			'status0' => array(self::BELONGS_TO, 'TasksStatus', 'status','order'=>'"status0".sort ASC'),
 			'place' => array(self::BELONGS_TO,'Workplace','','on'=>'t.type=0 and details[0]::integer="place".id'),
+			'bindTasks'=>array(self::MANY_MANY,'Tasks','tasks_tasks(id_t1,id_t2)'),
+			'ownedTasks'=>array(self::MANY_MANY,'Tasks','tasks_tasks(id_t2,id_t1)'),
 		);
 	}
 
