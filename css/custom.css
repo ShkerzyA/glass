@@ -1589,7 +1589,9 @@ ul.yiiPager .first, ul.yiiPager .last {
 	border-bottom: 1px solid grey;
 }
 
-
+.chatImg{
+	width: 100%;
+}
 
 /*
 

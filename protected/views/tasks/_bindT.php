@@ -12,11 +12,25 @@ foreach ($projects as $pr) {
 $this->beginWidget('zii.widgets.CPortlet', array(
 					'title'=>'Связать задачи',
 				));
+
 $this->widget('zii.widgets.CMenu', array(
-				'items'=>$projectsArr,
-				'encodeLabel'=>false,
-				'htmlOptions'=>array('class'=>'operations'),
-			));
+        'items'=>$projectsArr,
+        'encodeLabel'=>false,
+        'htmlOptions'=>array('class'=>'operations'),
+      ));
+
+$this->widget('zii.widgets.jui.CJuiAccordion',array(
+    'panels'=>array(
+        'Связать задачи'=>'sdfsdfsdfsdf',
+        'Связать задачи1'=>'sdfsdfsdfsdf',
+        'Связать задачи2'=>'sdfsdfsdfsdf',
+        'Связать задачи3'=>'sdfsdfsdfsdf'
+    ),
+    // additional javascript options for the accordion plugin
+    'options'=>array(
+        'animate'=>'bounceslide',
+    ),
+));
 
 echo CHtml::script("
      function split(val) {
@@ -36,7 +50,7 @@ echo CHtml::script("
       }, response);
       }",
    'options'=>array(
-     'delay'=>300,
+     'delay'=>100,
      'minLength'=>0,
      'showAnim'=>'fold',
  	'multiple'=>false,
