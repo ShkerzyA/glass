@@ -51,7 +51,7 @@ class Tasks extends CActiveRecord
 	{
     	$t=$this->getTableAlias(false);
     	return array(
-        	'actual_today'=>array('condition'=>"(($t.timestamp::date=current_date or $t.timestamp_end::date=current_date) or $t.status in (0,1,5,6))"),
+        	'actual_today'=>array('with'=>array('status0','creator0','Project0'),'condition'=>"(($t.timestamp::date=current_date or $t.timestamp_end::date=current_date) or $t.status in (0,1,5,6))","order"=>"status0.sort asc, t.deadline asc, t.timestamp desc"),
     	);
 	}
 
@@ -557,6 +557,7 @@ class Tasks extends CActiveRecord
 		$result='';
 		if($htmlinfo)
 			$result.='<div class=rightinfo><i>Срок исполнения: '.$this->deadline.'</i></div>';	
+		if(!empty($this->details[0]))
 		switch ($this->type) {
 			case '1':
 				$m=Equipment::model()->with('idWorkplace.idCabinet.idFloor.idBuilding')->findByPk($this->details[0]);
@@ -583,11 +584,6 @@ class Tasks extends CActiveRecord
 					if(!$short)
 						$result.=" ";
 				}
-				/*
-				if(!empty($this->place)){
-					$result.=$this->place->wpNameFull($short);
-					$result.=' <a href=/glass/Workplace/'.$m->id.'><img src="../images/door.png" style="height: 24px;"></a>';
-				}	*/	
 				break;
 			
 			default:

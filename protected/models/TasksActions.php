@@ -40,6 +40,14 @@ class TasksActions extends CActiveRecord
 		return parent::model($className);
 	}
 
+	public function scopes()
+	{
+    	$t=$this->getTableAlias(false);
+    	return array(
+        	'defaultScope'=>array('with'=>array('creator0')),
+    	);
+	}
+
 	/**
 	 * @return string the associated database table name
 	 */
@@ -155,7 +163,7 @@ class TasksActions extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
+			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator','alias'=>'ccreator0'),
 			'idTask' => array(self::BELONGS_TO, 'Tasks', 'id_task'),
 		);
 	}

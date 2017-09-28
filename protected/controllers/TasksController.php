@@ -96,12 +96,14 @@ class TasksController extends Controller
 
 		$this->rightWidgetUp=array(
 			'idfield'=>array($this->renderPartial('_idfield',array(),true))
+
 		);
 
 		$model=$this->loadModel($id);
 		if(!Yii::app()->user->checkAccess('viewTs',array('mod'=>$model)))
 			throw new CHttpException(403, 'Нет такой задачи');
 		$this->rightWidget=array(
+			'sTask'=>array($this->renderPartial('_bindT',array('model'=>$model),true)),
 			'df'=>array($this->renderPartial('_subscribe_form',array('model'=>$model),true)),
 			'sd'=>array($this->renderPartial('_join_doc',array('model'=>$model),true))
 		);
