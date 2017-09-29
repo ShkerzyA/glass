@@ -18,7 +18,7 @@ $this->widget('zii.widgets.CMenu', array(
         'encodeLabel'=>false,
         'htmlOptions'=>array('class'=>'operations'),
       ));
-
+/*
 $this->widget('zii.widgets.jui.CJuiAccordion',array(
     'panels'=>array(
         'Связать задачи'=>'sdfsdfsdfsdf',
@@ -30,7 +30,7 @@ $this->widget('zii.widgets.jui.CJuiAccordion',array(
     'options'=>array(
         'animate'=>'bounceslide',
     ),
-));
+));*/
 
 echo CHtml::script("
      function split(val) {

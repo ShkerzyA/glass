@@ -948,9 +948,12 @@ select{
 	color: #040404;
 	font-weight: bold;
 }
-
+.mess_content{
+	position: relative;
+}
 .mess_unit{
 	height: auto;
+	width: 99%;
 	color: #040404;
 }
 
@@ -1589,9 +1592,7 @@ ul.yiiPager .first, ul.yiiPager .last {
 	border-bottom: 1px solid grey;
 }
 
-.chatImg{
-	width: 100%;
-}
+
 
 /*
 
