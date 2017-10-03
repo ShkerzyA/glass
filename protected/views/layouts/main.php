@@ -21,6 +21,7 @@
 
 	<?php Yii::app()->getClientScript()->registerCoreScript('jquery'); ?>
 	<?php Yii::app()->getClientScript()->registerCoreScript('jquery.cookie'); ?>
+	<?php //Yii::app()->getClientScript()->registerCoreScript( 'jquery.ui' ); ?>
 	<?php Yii::app()->getClientScript()->registerCoreScript('glassCommon'); ?>
 	<?php Yii::app()->request->cookies['tornado'] = new CHttpCookie('tornado', Yii::app()->params['tornado']); ?>
 

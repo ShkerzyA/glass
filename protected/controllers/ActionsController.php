@@ -91,26 +91,8 @@ class ActionsController extends Controller
 
 	public function actionTasksBind($term){
 		$result=array();
-		/*$term=mb_strtolower($term,'UTF-8');
-		$wrds=explode(' ',$term);
-		
-		$models = Cabinet::model()->with('workplaces.idPersonnel','workplaces.equipments','idFloor.idBuilding')->suggestTag($term);
-		$wps=array("'empty'");
-		$eqs=array("'empty'");
-		foreach ($models as $c) {
-			foreach ($c->workplaces as $w) {
-				$wps[]="'".$w->id."'";
-				foreach ($w->equipments as $e) {
-					if(in_array($e->type, array(2,3,4,17)))
-						$eqs[]="'".$e->id."'";
-				}
-			}
-		}*/
-		//$t1=Tasks::model()->actual_today()->findAll(array('condition'=>'(t.type=0 and t.details[0] in ('.implode(',',$wps).')) or (t.type=1 and t.details[0] in ('.implode(',',$eqs).'))'));
-		//$t2=Tasks::model()->actual_today()->suggestTag($term);
-		//$tasks=array_merge($t1,$t2);
-		$tasks=Tasks::model()->with('status0','creator0.personnelPostsHistories','TasksActions.creator0')->actual_today()->findAll();
-		//$this->render('/tasks/_helpdesk',array('model'=>$tasks));
+		$tasks=Tasks::model()->with('status0','creator0.personnelPostsHistories','TasksActions.creator0.personnelPostsHistories.idPersonnel')->actual_today()->findAll();
+
 		
    			if(!empty($tasks)){
    					$result[] = array(

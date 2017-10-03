@@ -11,6 +11,10 @@ function init(){
 		$('.'+this.id).remove();
 	});
 
+  $('.portlet-decoration').live('click',function(){ 
+    $(this).siblings('.portlet-content').toggle();
+  });
+
   $('.killClick').live('click',function(){ 
     $(this).remove();
   });
