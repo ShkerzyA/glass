@@ -2,10 +2,26 @@
 var plcJsFlt=0;
 var globTimeout = null;
 var mchck=false;
+
+ 
+
+  function gtfo(e){
+    alert(e);
+  }
+
+
 function init(){
 	$('#userEd').live('click',function(){ 
 		load_modalForm();
 	});
+
+   var tasks = document.querySelectorAll('.leftinfo');
+  [].forEach.call(tasks, function(col) {
+    col.addEventListener('dragstart', gtfo, false);
+    col.addEventListener('dragenter', gtfo, false);
+    col.addEventListener('dragover', gtfo, false);
+    col.addEventListener('dragleave', gtfo, false);
+  });
 
 	$('.close_this').live('click',function(){ 
 		$('.'+this.id).remove();
@@ -26,6 +42,12 @@ function init(){
   $('.hideT').live('click',function(){
     $('.hide'+this.id).toggle();
   });
+
+  $('.hideT').live('click',function(){
+    $('.hide'+this.id).toggle();
+  });
+
+
 
 	$("#EquipmentLog_details").live('keydown',function(e){
         if(e.keyCode==13){

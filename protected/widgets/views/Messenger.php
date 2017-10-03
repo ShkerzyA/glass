@@ -2,7 +2,6 @@
                 array('label'=>'Выход ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest) -->
 
 <?php if(!Yii::app()->user->isGuest):?>
-<?php Yii::app()->clientScript->registerPackage('userjs'); ?>
     <!--<audio id='serg_good' src="<?php echo Yii::app()->baseUrl?>/media/mess/serg.ogg"></audio>-->
     <?php if (!empty(Yii::app()->user->chatsound)):?>
         <audio id='incmess1' src="<?php echo Yii::app()->baseUrl?>/media/mess/mess1.ogg"></audio>

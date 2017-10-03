@@ -91,7 +91,7 @@ class ActionsController extends Controller
 
 	public function actionTasksBind($term){
 		$result=array();
-		$tasks=Tasks::model()->with('status0','creator0.personnelPostsHistories','TasksActions.creator0.personnelPostsHistories.idPersonnel')->actual_today()->findAll();
+		$tasks=Tasks::model()->with('status0','creator0','TasksActions.creator0.personnelPostsHistories.idPersonnel')->actual_today()->findAll();
 
 		
    			if(!empty($tasks)){

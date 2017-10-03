@@ -8,7 +8,7 @@ foreach ($projects as $pr) {
 
 
 $this->beginWidget('zii.widgets.CPortlet', array(
-					'title'=>'Связать задачи',
+					'title'=>'<img src="'.Yii::app()->request->baseUrl.'/images/chain24.png">Связанная задача',
           'contentCssClass'=>'portlet-content hide',
 				));
 
@@ -17,65 +17,6 @@ $this->widget('zii.widgets.CMenu', array(
         'encodeLabel'=>false,
         'htmlOptions'=>array('class'=>'operations'),
       ));
-
-
-
-echo CHtml::script("
-     function split(val) {
-      return val.split(/,\s*/);
-     }
-     function extractLast(term) {
-      return split(term).pop();
-     }
-   ");
-
-    $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-   'name'=>'bindExTask',
-   'value'=>'',
-   'source'=>"js:function(request, response) {
-      $.getJSON('".$this->createUrl('/actions/tasksBind')."', {
-        term: extractLast(request.term)
-      }, response);
-      }",
-   'options'=>array(
-     'delay'=>100,
-     'minLength'=>0,
-     'showAnim'=>'fold',
- 	'multiple'=>false,
-     'select'=>"js:function(event, ui) {
-         var terms = split(this.value);
-         // remove the current input
-         terms.pop();
-         // add the selected item
-         //terms.push( ui.item.value );
-         //$('#global_search').attr('placeholder',ui.item.value);
-         // add placeholder to get the comma-and-space at the end
-         terms.push('');
-         this.value = terms.join(' ');
-         return false;
-       }",
-   ),
-   'htmlOptions'=>array(
-     'size'=>'13',
-     'placeholder'=>'Поиск существующих'
-   ),
-  ));
-
-
-
-  // Для подсветки набираемого куска запроса в предлагаемом списке
-  Yii::app()->clientScript->registerScript('unique.script.identifier3', "
- $('#bindExTask').data('ui-autocomplete')._renderItem = function( ul, item ) {
-   var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
-   var highlightedResult = item.label.replace( re, '<b>$1</b>' );
-   return $( '<li></li>' )
-     .data( 'ui-autocomplete-item', item )
-     .append( '<a>' + highlightedResult + '</a>' )
-     .appendTo( ul );
- };
-");  
-
-
 
 $this->endWidget();
 

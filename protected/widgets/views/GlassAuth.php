@@ -2,7 +2,6 @@
 				array('label'=>'Выход ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest) -->
 
 
-<?php Yii::app()->clientScript->registerPackage('userjs'); ?>
 <?php if(Yii::app()->user->isGuest):?>
 
 		<div class="form">

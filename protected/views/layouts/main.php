@@ -192,6 +192,7 @@ END;
 
 </body>
 </html>
+<?php Yii::app()->clientScript->registerPackage('userjs'); ?>
 <?php 
 	//$this->endCache(); } 
 ?>
