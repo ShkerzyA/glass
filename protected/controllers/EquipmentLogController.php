@@ -68,9 +68,13 @@ class EquipmentLogController extends Controller
 
 	 */
 	public function actionPrintersLog(){
-		$models=Equipment::printerRefillCou();
+		$model=new EquipmentLog();
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['EquipmentLog']))
+			$model->attributes=$_GET['EquipmentLog'];
+		$models=Equipment::printerRefillCou($model);
 		$this->render('printersLog',array(
-			'model'=>$models,
+			'models'=>$models,'model'=>$model,
 		));
 	}
 

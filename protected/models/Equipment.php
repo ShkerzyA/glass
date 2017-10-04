@@ -102,7 +102,19 @@ class Equipment extends CActiveRecord
 			);
 	}
 
-	public static function printerRefillCou(){
+	public static function printerRefillCou($model=null){
+	$bwhere='';
+	$awhere='';
+	if(!empty($model->timestamp)){
+		if(!empty($model->timestamp_end)){
+			$bwhere=' and t.timestamp>=\''.$model->timestamp.'\'';
+			$awhere=' and t.timestamp<=\''.$model->timestamp_end.'\'';
+		}else{
+			$bwhere=' and t.timestamp=\''.$model->timestamp.'\'';
+		}	
+	}
+	
+	
 
 	$sql="select t.object, count(t.object) as cou,  eq.mark, eq.serial,
 (bl.bname||'/'||fl.fname||'/'||cb.cname||' '||cb.num||'/'||wp.wname) as place
@@ -112,7 +124,7 @@ left join workplace as wp on (eq.id_workplace=wp.id)
 left join cabinet as cb on (wp.id_cabinet=cb.id)
 left join floor as fl on (cb.id_floor=fl.id)
 left join building as bl on (fl.id_building=bl.id)
-where t.type=2 
+where t.type=2 ".$bwhere.$awhere."
 group by t.object, eq.mark, eq.serial,wp.wname, cb.cname, cb.num, fl.fname, bl.bname
 order by cou DESC";
 		$req = Yii::app()->db->createCommand($sql);

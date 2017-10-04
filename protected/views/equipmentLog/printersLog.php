@@ -7,6 +7,13 @@ $this->breadcrumbs=array(
 	'Лог принтеров',
 );
 ?>
+
+<div class="search-form">
+<?php $this->renderPartial('_searchPrintLog',array(
+	'model'=>$model,
+)); ?>
+</div>
+
 <table class="phonetable">
 	<tr>
 		<th>Принтер</th>
@@ -14,7 +21,7 @@ $this->breadcrumbs=array(
 		<th>Количество заправок</th>
 	</tr>
 <?php
-foreach ($model as $m) {
+foreach ($models as $m) {
 	echo '<tr><td><a href="/glass/equipment/'.$m['object'].'">'.$m['mark'].'/'.$m['serial'].'</a></td><td>'.$m['place'].'</td><td>'.$m['cou'].'</td></tr>';
 	# code...
 }
