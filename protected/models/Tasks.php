@@ -336,6 +336,7 @@ class Tasks extends CActiveRecord
 			'place' => array(self::BELONGS_TO,'Workplace','','on'=>'t.type=0 and details[0]::integer="place".id'),
 			'bindTasks'=>array(self::MANY_MANY,'Tasks','tasks_tasks(id_t1,id_t2)'),
 			'ownedTasks'=>array(self::MANY_MANY,'Tasks','tasks_tasks(id_t2,id_t1)'),
+			'files'=>array(self::MANY_MANY,'Files','files_throw(id_task,id_file)'),
 		);
 	}
 

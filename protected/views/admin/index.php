@@ -73,6 +73,7 @@ $this->menu['all_menu']=array(
 		array('label'=>'Лог', 'url'=>array('/log/admin')), 
 		array('label'=>'Каталоги', 'url'=>array('/catalogs/admin')), 
 		array('label'=>'Документы', 'url'=>array('/docs/admin')), 
+		array('label'=>'Файлы', 'url'=>array('/files/admin')),
 		array('label'=>'Проекты', 'url'=>array('/projects/admin')), 
 		array('label'=>'Задачи', 'url'=>array('/tasks/admin')),
 		array('label'=>'Статусы Задач', 'url'=>array('/tasksStatus/admin')),
