@@ -28,7 +28,7 @@ class ActOfTransferController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
+				'actions'=>array('index','view','actsForEq'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -162,6 +162,13 @@ class ActOfTransferController extends Controller
 	/**
 	 * Manages all models.
 	 */
+	public function actionActsForEq($id){
+		$model=ActOfTransfer::model()->with('equipments')->findAll(array('condition'=>'equipments.id='.(int)$id.'','order'=>'t.timestamp DESC'));
+		$this->renderPartial('indextable',array(
+			'models'=>$model,
+		),false,false);
+	}
+
 	public function actionAdmin()
 	{
 		$model=new ActOfTransfer('search');

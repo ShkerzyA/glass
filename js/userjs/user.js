@@ -3,25 +3,11 @@ var plcJsFlt=0;
 var globTimeout = null;
 var mchck=false;
 
- 
-
-  function gtfo(e){
-    alert(e);
-  }
-
 
 function init(){
 	$('#userEd').live('click',function(){ 
 		load_modalForm();
 	});
-
-   var tasks = document.querySelectorAll('.leftinfo');
-  [].forEach.call(tasks, function(col) {
-    col.addEventListener('dragstart', gtfo, false);
-    col.addEventListener('dragenter', gtfo, false);
-    col.addEventListener('dragover', gtfo, false);
-    col.addEventListener('dragleave', gtfo, false);
-  });
 
 	$('.close_this').live('click',function(){ 
 		$('.'+this.id).remove();
@@ -97,9 +83,24 @@ function init(){
     return false;
   });
 
-	$('.mess_head').live('click',function(){
-		$('.mess_body').toggle();
-		$.post("/glass/Users/viewChat", {},
+	$('.actFind').live('click',function(){
+		$.get("/glass/actOfTransfer/actsForEq", {id : this.id},
+            function(data, status) {
+                if (status == "success") {
+                    if(data.length>0){
+                        $('html').append(awesomeWindowWrap(data));
+                    }
+                }else{
+                    alert('Ошибка');
+                }
+            },"html"
+        );
+	});
+
+
+  $('.mess_head').live('click',function(){
+    $('.mess_body').toggle();
+    $.post("/glass/Users/viewChat", {},
             function(data, status) {
                 if (status == "success") {
                     }else{
@@ -107,7 +108,9 @@ function init(){
                 }
             },"html"
         );
-	});
+  });
+
+
 
 	$('.showlog').live('click',function(){
 		showLogEq(this.id);

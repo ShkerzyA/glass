@@ -9,6 +9,6 @@
          }else{
             $edit='';
          }
-   		echo'<tr class="str_eq"><td>'.$data->serial.'</td><td>'.$data->type0->name.'/ '.$data->getProducer().'/ '.$data->mark.'</td><td>'.$data->inv.'</td><td>'.$status[$data->status].' '.$data->logInfo().'<br>'.$data->released.'</td><td>'.$data->notes.$data->additionalInfo().''.($pid=(!empty($data->parent_id))?'(pid '.$data->parent_id.')':'').$data->netinfo().'</td>'.$edit.'</tr>';
+   		echo'<tr class="str_eq"><td>'.$data->serial.'</td><td>'.$data->type0->name.'/ '.$data->getProducer().'/ '.$data->mark.'</td><td>'.$data->inv.'</td><td>'.$status[$data->status].' '.$data->logInfo().'<br>'.$data->released.'</td><td>'.($actinfo=(!empty($data->actsoftransfers))?'<img class="actFind" id="'.$data->id.'" src="'.$this->createUrl('/images/report24.png').'">':'').$data->notes.$data->additionalInfo().''.($pid=(!empty($data->parent_id))?'(pid '.$data->parent_id.')':'').$data->netinfo().'</td>'.$edit.'</tr>';
    
 ?>

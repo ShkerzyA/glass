@@ -13,6 +13,9 @@ td{
 	/*white-space: pre-wrap;*/
 }
 
+.actFind{
+	cursor: pointer;
+}
 
 
 h4.subscribe{
