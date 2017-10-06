@@ -90,9 +90,10 @@ class Files extends CActiveRecord
 
 	public function beforeSave(){
         if(($this->scenario=='insert' || $this->scenario=='update') && ($document=CUploadedFile::getInstances($this,'link')) && !empty($document)){
-            $sourcePath = pathinfo($document->getName());  
-            $fileName = $sourcePath['filename'].'.'. $sourcePath['extension'];  // имя будущего файла в базе и ФС
-            $document->saveAs(
+            $sourcePath = pathinfo($document[0]->getName());  
+            $fileName = date('YmdHsi').mt_rand(10,99).'.'. $sourcePath['extension'];
+            $this->name=(empty($this->name))?$sourcePath['filename'].'.'. $sourcePath['extension']:$this->name;  // имя будущего файла в базе и ФС
+            $document[0]->saveAs(
             Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName);
             $this->link=$fileName;
         }

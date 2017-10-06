@@ -8,6 +8,7 @@
 
 <?php $form=$this->beginWidget('CActiveForm', array(
 	'id'=>'files-form',
+	'htmlOptions'=>array('enctype'=>'multipart/form-data'),
 	'enableAjaxValidation'=>false,
 )); ?>
 
