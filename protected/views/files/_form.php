@@ -28,7 +28,12 @@
 	<div class="row">
 		<?php echo $form->labelEx($model,'link'); ?>
 
-		<?php echo $form->fileField($model,'link',array('size'=>60,'maxlength'=>255)); ?>
+		<nobr>
+			<?php echo $form->textField($model,'url',array('size'=>60,'maxlength'=>255,'style'=>'max-width:30%;','placeholder'=>'url')); ?>
+			<?php echo $form->fileField($model,'link',array('size'=>60,'maxlength'=>255,'style'=>'max-width:30%;')); ?>
+			
+		
+		</nobr>
 
 		<?php echo $form->error($model,'link'); ?>
 	</div>

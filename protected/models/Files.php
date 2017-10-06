@@ -24,6 +24,7 @@ class Files extends CActiveRecord
 	public static $modelLabelS='Files';
 	public static $modelLabelP='Files';
 	public static $pic_array=array('jpg','jpeg','png','gif','tif');
+	public $url;
 	
 	public $creator0creator;
 
@@ -68,11 +69,12 @@ class Files extends CActiveRecord
 			array('creator', 'numerical', 'integerOnly'=>true),
 			array('name', 'length', 'max'=>100),
 			array('link', 'length', 'max'=>255),
+			array('url', 'length', 'max'=>255),
 			array('timestamp', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, creator, name, timestamp, link,creator0creator', 'safe', 'on'=>'search'),
+			array('id, creator, name, timestamp, url, link,creator0creator', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -90,13 +92,23 @@ class Files extends CActiveRecord
 	}
 
 	public function beforeSave(){
-        if(($this->scenario=='insert' || $this->scenario=='update') && ($document=CUploadedFile::getInstances($this,'link')) && !empty($document)){
-            $sourcePath = pathinfo($document[0]->getName());  
-            $fileName = date('YmdHsi').mt_rand(10,99).'.'. $sourcePath['extension'];
-            $this->name=(empty($this->name))?$sourcePath['filename'].'.'. $sourcePath['extension']:$this->name;  // имя будущего файла в базе и ФС
-            $document[0]->saveAs(
-            Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName);
-            $this->link=$fileName;
+        if($this->scenario=='insert' || $this->scenario=='update'){
+        	if (($document=CUploadedFile::getInstances($this,'link')) && !empty($document)){
+            	$sourcePath = pathinfo($document[0]->getName());  
+            	$fileName = date('YmdHsi').mt_rand(10,99).'.'. $sourcePath['extension'];
+            	$this->name=(empty($this->name))?$sourcePath['filename'].'.'. $sourcePath['extension']:$this->name;  // имя будущего файла в базе и ФС
+            	$document[0]->saveAs(
+            	Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName);
+            	$this->link=$fileName;
+        	}else{
+        		if(!empty($this->url)){
+        			$upl_file=explode('.',$this->url);
+        			$fileName = date('YmdHsi').mt_rand(10,99).'.'.array_pop($upl_file);
+        			file_put_contents(Yii::getPathOfAlias('webroot.media').DIRECTORY_SEPARATOR.'files'.DIRECTORY_SEPARATOR.$fileName, file_get_contents($this->url));
+        			$this->link=$fileName;
+        			$this->name=(empty($this->name))?$fileName:$this->name;
+        		}
+        	}
         }
         return parent::beforeSave();
     }
