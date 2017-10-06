@@ -22,5 +22,7 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'link',
+		'timestamp',
 	),
 )); ?>
+<?php echo ($model->name." <img style='max-width: 99%' src='".$model->getIco()."'> "); ?>

@@ -23,6 +23,7 @@ class Files extends CActiveRecord
 	 */
 	public static $modelLabelS='Files';
 	public static $modelLabelP='Files';
+	public static $pic_array=array('jpg','jpeg','png','gif','tif');
 	
 	public $creator0creator;
 
@@ -117,6 +118,24 @@ class Files extends CActiveRecord
        
         return true;
     }
+
+    public function getFilePath(){
+		return Yii::app()->request->baseUrl.'/media/files/'.$this->link;
+	}
+
+	public function getIco(){
+		$fp=$this->getFilePath();
+		$fl=explode('.', $this->link);
+		if(in_array(mb_strtolower($fl[1]),self::$pic_array)){
+			$d=$fp;
+		}else{
+			$d=(is_file(Yii::getPathOfAlias('webroot').'/images/ico/'.mb_strtolower($fl[1]).'.png')?Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png':Yii::app()->request->baseUrl.'/images/ico/hz.png');	
+		}
+
+
+		
+		return $d;
+	}
 
 	/**
 	 * @return array customized attribute labels (name=>label)

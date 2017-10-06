@@ -10,7 +10,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('creator')); ?>:</b>
-	<?php echo CHtml::encode($data->creator0->creator); ?>
+	<?php echo CHtml::encode($data->creator0->fio_full()); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
