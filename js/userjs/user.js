@@ -13,6 +13,10 @@ function init(){
 		$('.'+this.id).remove();
 	});
 
+  $('.remove_this').live('click',function(){ 
+        $(this).parent("div").remove();
+  });
+
   $('.portlet-decoration').live('click',function(){ 
     $(this).siblings('.portlet-content').toggle();
   });
@@ -97,6 +101,66 @@ function init(){
         );
 	});
 
+  $('.simplyAttach').live('click',function(){
+    var sa=$(this);
+    $.get("/glass/Files/CreateAjax", {},
+            function(data, status) {
+                if (status == "success") {
+                    if(data.length>0){
+                        sa.after(simplyWrap(data,'formFileAjax'));
+                    }
+                }else{
+                    alert('Ошибка');
+                }
+            },"html"
+        );
+  });
+
+  
+
+  $('#file-ajax-submit-btn').live('click',function(){
+    myAjaxSendData();
+  });
+
+
+  function myAjaxSendData() {
+    var formData = new FormData($("#files-form-ajax")[0]);
+    var fd=$('#files-form-ajax');
+    $.ajax({
+        url: "/glass/Files/CreateAjax",
+        type: 'POST',
+        data: formData,
+        datatype:'json',
+        success: function (data) {
+            var data=$.parseJSON(data);
+
+            var fta=fd.parents('.findTxArea');
+            if(!!fta.attr('model')){
+                fta.find('.simplyAttach').after('<div><div class="remove_this"></div><input type=hidden name='+fta.attr('model')+'[files][] value='+data.id+'>'+data.ico+'</div>');
+            }else{
+                fta.find('.simplyAttach').after(data.ico);
+                fta.find('.putFileLink').val(function(i, text) {
+                  return text + data.file;
+                }); 
+            }
+
+            
+
+            $('#formFileAjax').remove();
+        },
+        error: function (data) {
+            alert("Ошибка загрузки");
+            $('#formFileAjax').remove();
+        },
+        cache: false,
+        contentType: false,
+        processData: false
+    });
+
+    return false;
+} 
+
+
 
   $('.mess_head').live('click',function(){
     $('.mess_body').toggle();
@@ -162,6 +226,11 @@ if(id){
 
 function awesomeWindowWrap(data){
   var res='<div class="back"><div class="window_awesom killClick" style="width: 80%; left: 10%; position: fixed; max-width: 90%; min-height: 50px; top: 30%; margin: auto; font-size: 9pt; overflow: hidden;"><div id="back" class="close_this"></div><div class="wa_body" style="min-height: 200px;">'+ data + '</div></div></div>';
+  return res;
+}
+
+function simplyWrap(data,id){
+  var res='<div class="window_awesom" id="'+id+'" style="position: absolute; left: -50px; top: -100px; min-width: 380px; font-size: 9pt; overflow: auto;"><div id="back" class="remove_this"></div><div>'+ data + '</div></div>';
   return res;
 }
 

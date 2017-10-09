@@ -134,11 +134,12 @@ window.onload=function(){
             <div id=ancor></div>
             </div>
            <!-- <div id=MessLock style=""><img height=100% src='<?php echo Yii::app()->baseUrl ?>/images/load.gif'> </div> -->
-            <div class="mess_form">
+            <div class="mess_form findTxArea">
                 <div id='mess_info'></div>
+
             <?php echo CHtml::form();
- 
-echo CHtml::textArea('Messages[ttext]','',array('placeholder'=>'текст сообщения (enter)'));
+echo '<div style="position: relative"><img src="'.Yii::app()->request->baseUrl.'/images/attachFile24.png" class="simplyAttach"></div>';
+echo CHtml::textArea('Messages[ttext]','',array('class'=>'putFileLink','placeholder'=>'текст сообщения (enter)'));
 echo CHtml::ajaxSubmitButton('Отправить', '/glass/actions/chatSaveMessage', array(
     'type' => 'POST',
     'success' => 'function(response) {

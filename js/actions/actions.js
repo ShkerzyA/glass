@@ -4,6 +4,8 @@ function init(){
 		$('.modal_window_back').hide();
 	});
 
+
+
 	$('.act_button').live('click',function(){ 
 		$('.modal_window_back#'+this.id+'').show();
 		$('.modal_window#'+this.id+'').show();

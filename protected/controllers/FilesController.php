@@ -32,7 +32,7 @@ class FilesController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','createAjax','update'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -77,6 +77,29 @@ class FilesController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 		));
+	}
+
+	public function actionCreateAjax()
+	{
+		$model=new Files;
+
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+
+		if(isset($_POST['Files']))
+		{
+			$model->attributes=$_POST['Files'];
+			$model->save();
+			$res=array();
+			$res['id']=$model->id;
+			$res['ico']=$model->getFile(true,false,true);
+			$res['file']=$model->getFile(true,true,false);
+			echo json_encode($res);
+		}else{
+			$this->renderPartial('_formajax',array('model'=>$model,));	
+		}
+
+		
 	}
 
 	/**

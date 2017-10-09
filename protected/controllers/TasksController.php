@@ -231,7 +231,7 @@ class TasksController extends Controller
 				$model->ttext=$_POST['fio']." тел. ".$_POST['phone']."\n \n".$model->ttext;
 			}
 
-			if($model->saveWithRelated('bindTasks')){
+			if($model->saveWithRelated(array('bindTasks','files'))){
 				Yii::app()->Tornado->updateTasks();
 
 				$sModel=Tasks::model()->findByPk($model->id);
@@ -332,7 +332,7 @@ class TasksController extends Controller
 		if(isset($_POST['Tasks']))
 		{
 			$model->attributes=$_POST['Tasks'];
-			if($model->save()){
+			if($model->saveWithRelated(array('bindTasks','files'))){
 				Yii::app()->Tornado->updateTasks();
 				$this->redirect(array('view','id'=>$model->id));
 			}

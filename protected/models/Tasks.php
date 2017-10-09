@@ -288,7 +288,7 @@ class Tasks extends CActiveRecord
 			//array('details', 'length', 'max'=>255),
 			array('ttext, timestamp,deadline,timestamp_end', 'safe'),
 
-			array('executors,bindTasks', 'safe'),
+			array('executors,bindTasks,files', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

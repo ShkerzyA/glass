@@ -765,7 +765,7 @@ select{
 }
 
 
-.close_this, .delete_this{
+.close_this, .delete_this, .remove_this{
 	position: absolute;
 	right: 2px;
 	top: 2px;

@@ -25,4 +25,4 @@ $this->menu=array(
 		'timestamp',
 	),
 )); ?>
-<?php echo ($model->name." <img style='max-width: 99%' src='".$model->getIco()."'> "); ?>
+<?php echo ($model->name." <img style='max-width: 99%' src='".$model->getFile()."'> "); ?>

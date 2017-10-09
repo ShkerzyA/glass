@@ -135,7 +135,7 @@ class Files extends CActiveRecord
 		return Yii::app()->request->baseUrl.'/media/files/'.$this->link;
 	}
 
-	public function getIco(){
+	public function getFile($img=false,$link=false,$ico=false){
 		$fp=$this->getFilePath();
 		$fl=explode('.', $this->link);
 		if(in_array(mb_strtolower($fl[1]),self::$pic_array)){
@@ -143,9 +143,15 @@ class Files extends CActiveRecord
 		}else{
 			$d=(is_file(Yii::getPathOfAlias('webroot').'/images/ico/'.mb_strtolower($fl[1]).'.png')?Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png':Yii::app()->request->baseUrl.'/images/ico/hz.png');	
 		}
+		$iclass=($ico)?'s16':'';
+		if($img){
+			$d='<img class="'.$iclass.'" src="'.$d.'">';
+		}
 
+		if($link){
+			$d='<a target=_blank href="'.Yii::app()->request->baseUrl.'/media/files/'.$this->link.'">'.$d.'</a>';
+		}
 
-		
 		return $d;
 	}
 

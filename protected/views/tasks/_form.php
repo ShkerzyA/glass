@@ -166,8 +166,9 @@ $(document).ready(init());
 
 		<?php echo $form->error($model,'ttext'); ?>
 	</div>
-
-
+<div class="row findTxArea" model="Tasks" style="position: relative">
+<img src="<?php echo Yii::app()->request->baseUrl ?>/images/attachFile24.png" class="simplyAttach">
+</div>
 <?php if((Yii::app()->user->role=='administrator') and ($model->scenario!='insert')): ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'timestamp'); ?>
