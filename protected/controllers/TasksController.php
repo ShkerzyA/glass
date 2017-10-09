@@ -105,7 +105,6 @@ class TasksController extends Controller
 		$this->rightWidget=array(
 			'sTask'=>array($this->renderPartial('_bindT',array('model'=>$model),true)),
 			'df'=>array($this->renderPartial('_subscribe_form',array('model'=>$model),true)),
-			'sd'=>array($this->renderPartial('_join_doc',array('model'=>$model),true))
 		);
 		$this->render('view',array(
 			'model'=>$model,

@@ -70,6 +70,7 @@ $this->menu['all_menu']=array(
 	)),
 
 	array('title'=>'Знания','items'=>array(
+		array('label'=>'Новости', 'url'=>array('/news/admin')), 
 		array('label'=>'Лог', 'url'=>array('/log/admin')), 
 		array('label'=>'Каталоги', 'url'=>array('/catalogs/admin')), 
 		array('label'=>'Документы', 'url'=>array('/docs/admin')), 
