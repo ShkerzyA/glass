@@ -44,11 +44,19 @@ if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))){
 
 <?php
 $creator=(!empty($model->creator0))?$model->creator0->fio_full():'';
+
+if(!empty($model->files))
+	foreach ($model->files as $k => $v) {
+		$model->ttext=str_replace('['.$k.']',$v->getFile(true,true,false), $model->ttext);	
+	}
+
+
 echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: left;"><h2>'.$model->tname.'</h2></div>
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
 		Создатель:  '.$creator.'</i></div>'.
 		'<hr><p class="norm_text"><pre>'.$model->detailsShow(0,1,1).'<br>'.$model->ttext.'</pre></p>';
+		echo $model->attachedFilesView();
 		foreach (array_merge($model->bindTasks,$model->ownedTasks) as $d) {
 			$this->renderPartial('taskpanel',array('data'=>$d),false,false);
 		}

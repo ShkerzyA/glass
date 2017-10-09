@@ -136,7 +136,7 @@ function init(){
 
             var fta=fd.parents('.findTxArea');
             if(!!fta.attr('model')){
-                fta.find('.simplyAttach').after('<div><div class="remove_this"></div><input type=hidden name='+fta.attr('model')+'[files][] value='+data.id+'>'+data.ico+'</div>');
+                fta.find('.simplyAttach').after('<div class="icowithdel"><div class="remove_this"></div><input type=hidden name='+fta.attr('model')+'[files][] value='+data.id+'>'+data.ico+'</div>');
             }else{
                 fta.find('.simplyAttach').after(data.ico);
                 fta.find('.putFileLink').val(function(i, text) {

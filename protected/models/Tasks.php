@@ -296,6 +296,24 @@ class Tasks extends CActiveRecord
 		);
 	}
 
+	public function attachedFilesFormView(){
+		$res='';
+		if(!empty($this->files))
+			foreach ($this->files as $v) {
+				$res.='<div class="icowithdel"><div class="remove_this"></div><input type=hidden name=Tasks[files][] value='.$v->id.'>'.$v->getFile(true,false,true).'</div>';
+			}
+			return $res;
+	}
+
+	public function attachedFilesView(){
+		$res='';
+		if(!empty($this->files))
+			foreach ($this->files as $v) {
+				$res.='<div class="icowithdel"><input type=hidden name=Tasks[files][] value='.$v->id.'>'.$v->getFile(true,true,true).'</div>';
+			}
+			return $res;
+	}
+
 	public function checkDetails(){
 		switch($this->type){
 			case '1':

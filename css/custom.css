@@ -47,6 +47,8 @@ h4.subscribe{
 	max-height: 32px;
 }
 
+
+
 .button_link{
 	border: 1px solid red;
 }
@@ -850,6 +852,14 @@ select{
 	height: 20px;
 	width: 20px;
 }
+
+.icowithdel{
+	height: 40px;
+	width: 40px;
+	position: relative;
+	float: left;
+}
+
 .phonetable{
 	max-width: 100% !important;
 	table-layout: fixed;
