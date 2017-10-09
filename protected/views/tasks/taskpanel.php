@@ -70,8 +70,8 @@
 				
 			</div>
 			<div class="leftinfo" draggable='True'>
-				<?php echo $data->ico().'<div style="float: right; width: 92%"><a href=/glass/tasks/'.$data->id.'>'.Customtags::deadclockwrap($data).' '.$data['tname'].' <span class=gray>'.$data->detailsShow(true).'</span></a></div>'; ?>
+				<?php echo $data->ico().'<div style="float: right; width: 92%"><a href=/glass/tasks/'.$data->id.'>'.Custom::deadclockwrap($data).' '.$data['tname'].' <span class=gray>'.$data->detailsShow(true).'</span></a></div>'; ?>
 				
 			</div>
-			<div class="texttask rotated"><pre><?php echo $data->id.' '.Customtags::deadclockwrap($data).' '.$data->detailsShow(False,True,True).'<br>'. $data['ttext']; ?></pre></div>
+			<div class="texttask rotated"><pre><?php echo $data->id.' '.Custom::deadclockwrap($data).' '.$data->detailsShow(False,True,True).'<br>'. $data['ttext']; ?></pre></div>
 		</div>
