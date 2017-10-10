@@ -16,7 +16,7 @@ $this->menu=array(
 );
 ?>
 
-<h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
+<h1><?php echo $model->name?></h1> 
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -30,6 +30,11 @@ array(
             	'label'=>'Файлы',
             	'type'=>'raw',
             	'value'=>$model->FileModel->attachedFilesView()),
+
+array(               
+            	'label'=>'Текст',
+            	'type'=>'raw',
+            	'value'=>$model->FileModel->attachInText($model->text)),
 
 
 

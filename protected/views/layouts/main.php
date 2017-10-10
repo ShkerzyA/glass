@@ -46,7 +46,7 @@
 	</style>
 	<?php endif; ?>
 	<?php if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))): ?>
-		<?php if((Yii::app()->user->id_pers==19705) or (Yii::app()->user->id_pers==20024) or (Yii::app()->user->id_pers==2)):?>
+		<?php if(in_array(Yii::app()->user->id_pers, array(20670,19705,2))):?>
 			<div id='omsk'><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/nyan_bz.gif"></div>
 		<?php else: ?>
 			<div id='omsk'><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/nyan.gif"></div>
@@ -95,6 +95,7 @@
 			'items'=>array(
 
 				array('label'=>'События', 'url'=>array('/rooms/show?Event_type=events'),'submenu'=>array(
+                			array('Новости','/news/'),
                 			array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>array('medequipment')))),
                 			array('Общественные','/rooms/show?Event_type=events'),
                 			array('Операционные','/rooms/show?Event_type=eventsOpPl',((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) )),

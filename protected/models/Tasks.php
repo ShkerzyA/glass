@@ -23,6 +23,7 @@ class Tasks extends CActiveRecord
 	 * @param string $className active record class name.
 	 * @return Tasks the static model class
 	 */
+	private $tmpdetail;
 	public static $modelLabelS='Задача';
 	public static $modelLabelP='Задачи';
 
@@ -314,9 +315,11 @@ class Tasks extends CActiveRecord
 	}
 
 	public function findExecutors(){
+		$result=array();
 		$exec=(is_array($this->executors))?$this->executors:array();
 		$tmp=array_diff($exec,array(''));
-		$result = Personnel::model()->findAllByAttributes(array("id"=>$tmp));
+		if(!empty($tmp))
+			$result = Personnel::model()->findAllByAttributes(array("id"=>$tmp));
 		return $result;
 	}
 
@@ -565,7 +568,12 @@ class Tasks extends CActiveRecord
 		if(!empty($this->details[0]))
 		switch ($this->type) {
 			case '1':
-				$m=Equipment::model()->with('idWorkplace.idCabinet.idFloor.idBuilding')->findByPk($this->details[0]);
+				if(empty($this->tmpdetail)){
+					$m=Equipment::model()->with('idWorkplace.idCabinet.idFloor.idBuilding')->findByPk($this->details[0]);	
+					$this->tmpdetail=$m;
+				}else{
+					$m=$this->tmpdetail;
+				}
 				if(!empty($m)){
 					$result.=$m->idWorkplace->wpNameFull($short);
 					if($place==True){
@@ -578,8 +586,12 @@ class Tasks extends CActiveRecord
 				break;
 
 			case '0':
-				
-				$m=Workplace::model()->with('idCabinet.idFloor.idBuilding')->findByPk($this->details[0]);
+				if(empty($this->tmpdetail)){
+					$m=Workplace::model()->with('idCabinet.idFloor.idBuilding')->findByPk($this->details[0]);
+					$this->tmpdetail=$m;
+				}else{
+					$m=$this->tmpdetail;
+				}
 				if(!empty($m)){
 					$result.=$m->wpNameFull($short);
 					if($place==True){

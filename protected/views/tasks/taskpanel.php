@@ -30,7 +30,7 @@
 
 
 						echo'<div class="taskmoreinfo">';
-
+						
 						$exec=$data->findExecutors();
 
 						foreach ($exec as $z) {
@@ -45,6 +45,7 @@
 						$rep='';
 						echo '<div class="hiddeninfotask rotated">';
 						echo'<span></span>';
+						
 						foreach ($data->TasksActions as $action) {
 							if($action->type==1)
 								continue;

@@ -213,6 +213,10 @@ h4.subscribe{
 	/*transition: opacity .4s ease 0s, height .4s ease 0s;*/
 }
 
+img {
+	max-width: 99%;
+}
+
 .texttask img{
 	max-width: 99%;
 }
