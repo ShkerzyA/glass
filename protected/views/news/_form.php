@@ -31,7 +31,7 @@
 
 		<?php echo $form->error($model,'text'); ?>
 	</div>
-
+	<?php echo Custom::attachFileField($model); ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'timestamp'); ?>
 

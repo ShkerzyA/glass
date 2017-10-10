@@ -24,7 +24,13 @@ $this->menu=array(
 array(               
             	'label'=>'Personnel',
             	'type'=>'raw',
-            	'value'=>CHtml::link(CHtml::encode($model->creator0->fio_full()),
-                array('Personnel/view','id'=>$model->creator0->id)),
-        ),	),
-)); ?>
+            	'value'=>CHtml::link(CHtml::encode($model->creator0->fio_full()),array('Personnel/view','id'=>$model->creator0->id)),
+        ),	
+array(               
+            	'label'=>'Файлы',
+            	'type'=>'raw',
+            	'value'=>$model->FileModel->attachedFilesView()),
+
+
+
+))); ?>

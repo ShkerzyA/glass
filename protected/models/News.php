@@ -40,6 +40,9 @@ class News extends CActiveRecord
 			'FixedOwner'=>array(
 				'class'=>'application.behaviors.FixedOwnerBehavior',
 				),
+			'FileModel'=>array(
+				'class'=>'application.behaviors.FileModelBehavior',
+				),
 			'ESaveRelatedBehavior'=>array(
 				'class'=>'application.behaviors.ESaveRelatedBehavior',
 				),

@@ -70,7 +70,7 @@ class NewsController extends Controller
 		if(isset($_POST['News']))
 		{
 			$model->attributes=$_POST['News'];
-			if($model->save())
+			if($model->saveWithRelated(array('files')))
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
@@ -94,7 +94,7 @@ class NewsController extends Controller
 		if(isset($_POST['News']))
 		{
 			$model->attributes=$_POST['News'];
-			if($model->save())
+			if($model->saveWithRelated(array('files')))
 				$this->redirect(array('view','id'=>$model->id));
 		}
 

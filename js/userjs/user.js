@@ -133,7 +133,6 @@ function init(){
         datatype:'json',
         success: function (data) {
             var data=$.parseJSON(data);
-
             var fta=fd.parents('.findTxArea');
             if(!!fta.attr('model')){
                 fta.find('.simplyAttach').after('<div class="icowithdel"><div class="remove_this"></div><input type=hidden name='+fta.attr('model')+'[files][] value='+data.id+'>'+data.ico+'</div>');
