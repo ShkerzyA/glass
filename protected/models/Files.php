@@ -148,7 +148,7 @@ class Files extends CActiveRecord
 		}
 		$iclass=($ico)?'s16':'';
 		if($img){
-			$d=$name.'<img title="'.$this->name.'"class="'.$iclass.'" src="'.$d.'">';
+			$d=($name=($ico)?'':$name).'<img title="'.$this->name.'"class="'.$iclass.'" src="'.$d.'">';
 		}
 
 		if($link){
