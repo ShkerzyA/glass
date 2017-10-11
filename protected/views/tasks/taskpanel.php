@@ -43,6 +43,7 @@
 						//print_r($data->TasksActions[0]->creator0);
 					
 						$rep='';
+						/*
 						echo '<div class="hiddeninfotask rotated">';
 						echo'<span></span>';
 						
@@ -61,7 +62,7 @@
 
 						}
 
-						echo'</div>';
+						echo'</div>'; */
 						
 
 						echo'</div>';
