@@ -122,6 +122,7 @@ class NewsController extends Controller
 	 */
 	public function actionIndex()
 	{
+		$this->layout='//layouts/column1';
 		$dataProvider=new CActiveDataProvider('News');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider, 'modelLabelP'=>News::$modelLabelP,

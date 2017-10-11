@@ -139,13 +139,16 @@ class Files extends CActiveRecord
 		$fp=$this->getFilePath();
 		$fl=explode('.', $this->link);
 		if(in_array(mb_strtolower($fl[1]),self::$pic_array)){
+			$name='';
 			$d=$fp;
 		}else{
+			
+			$name=$this->name;
 			$d=(is_file(Yii::getPathOfAlias('webroot').'/images/ico/'.mb_strtolower($fl[1]).'.png')?Yii::app()->request->baseUrl.'/images/ico/'.mb_strtolower($fl[1]).'.png':Yii::app()->request->baseUrl.'/images/ico/hz.png');	
 		}
 		$iclass=($ico)?'s16':'';
 		if($img){
-			$d='<img class="'.$iclass.'" src="'.$d.'">';
+			$d=$name.'<img title="'.$this->name.'"class="'.$iclass.'" src="'.$d.'">';
 		}
 
 		if($link){
