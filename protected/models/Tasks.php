@@ -286,8 +286,10 @@ class Tasks extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('type, creator, id_department, status,project,rating', 'numerical', 'integerOnly'=>true),
+			array('rating','default','value'=>0),
 			array('details','checkDetails'),
 			array('tname, project', 'required'),
+
 			array('tname', 'length', 'max'=>100),
 			array('group', 'length', 'max'=>255),
 			//array('details', 'length', 'max'=>255),
@@ -448,22 +450,22 @@ class Tasks extends CActiveRecord
 			//текущие
 			case '1':
 				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) "));
-				$order="status0.sort asc,t.deadline asc,t.timestamp desc";
+				$order="status0.sort asc,t.rating desc,t.deadline asc,t.timestamp desc";
 				break;
 
 			case '2':
 				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")"));
-				$criteria->order="status0.sort asc, t.deadline asc, t.timestamp desc";
+				$criteria->order="status0.sort asc,t.rating desc, t.deadline asc, t.timestamp desc";
 				break;
 			
 			case '3':
 				$criteria->addCondition(array('condition'=>"((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5,6))"));
-				$criteria->order="status0.sort asc,t.deadline asc,t.timestamp desc";
+				$criteria->order="status0.sort asc,t.rating desc,t.deadline asc,t.timestamp desc";
 				break;
 			//за день
 			case '4':
 				$criteria->addCondition(array('condition'=>"((t.timestamp::date=$date or t.timestamp_end::date=$date))"));
-				$criteria->order="status0.sort asc,t.deadline asc,t.timestamp desc";
+				$criteria->order="status0.sort asc,t.rating desc,t.deadline asc,t.timestamp desc";
 				break;
 
 			case '5':
@@ -474,7 +476,7 @@ class Tasks extends CActiveRecord
 				}else{
 					$criteria->compare('t.id',0);
 				}
-				$criteria->order="status0.sort asc,t.timestamp desc";
+				$criteria->order="status0.sort asc,t.rating desc,t.timestamp desc";
 				break;
 
 			default:

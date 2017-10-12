@@ -24,6 +24,19 @@ h4.subscribe{
 	font-weight: bold;
 }
 
+.ratingStar{
+	position: absolute; 
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+	text-align: center;
+	left: 0px; bottom: 0px;
+	background: rgba(0, 0, 0, 0) url("../images/star.gif");
+}
+.ratingStar *{
+	vertical-align: middle;
+}
+
 .MyMenuSubmenu{
 	/*display: none;*/
 	position: absolute;
