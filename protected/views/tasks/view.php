@@ -39,7 +39,8 @@ if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))){
 
 <div style="position: relative; clear: both;"></div>
 <div style="float: right">
-	<?php $this->renderPartial('_deadlocks',array('model'=>$model),false,false); ?>
+	<?php //$this->renderPartial('_deadlocks',array('model'=>$model),false,false); ?>
+	<?php $this->widget('CStarRating',array('model'=>$model,'attribute'=>'rating','readOnly'=>true)); ?>
 </div>
 
 <?php
@@ -50,8 +51,7 @@ $creator=(!empty($model->creator0))?$model->creator0->fio_full():'';
 echo '<div class="comment " id="taskbody">
 		<div style="position: relative; float: left;"><h2>'.$model->tname.'</h2></div>
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
-		Создатель:  '.$creator.'</i></div>'.
-		'<hr><p class="norm_text"><pre>'.$model->detailsShow(0,1,1).'<br>'.$model->FileModel->attachInText($model->ttext).'</pre></p>';
+		Создатель:  '.$creator.'</i></div><hr><p class="norm_text"><pre>'.$model->detailsShow(0,1,1).'<br>'.$model->FileModel->attachInText($model->ttext).'</pre></p>';
 		echo $model->FileModel->attachedFilesView();
 		foreach (array_merge($model->bindTasks,$model->ownedTasks) as $d) {
 			$this->renderPartial('taskpanel',array('data'=>$d),false,false);

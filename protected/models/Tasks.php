@@ -37,6 +37,7 @@ class Tasks extends CActiveRecord
 	public $inExecutors=0;
 	public $place;
 	private $old_model;
+	public $rating;
 	
 	public $creator0creator;
 	public $executor0executor;
@@ -284,7 +285,7 @@ class Tasks extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('type, creator, id_department, status,project', 'numerical', 'integerOnly'=>true),
+			array('type, creator, id_department, status,project,rating', 'numerical', 'integerOnly'=>true),
 			array('details','checkDetails'),
 			array('tname, project', 'required'),
 			array('tname', 'length', 'max'=>100),
@@ -296,7 +297,7 @@ class Tasks extends CActiveRecord
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tname, ttext, timestamp, timestamp_end, type, deadline, id_department, status, creator, executors,creator0creator,executor0executor,group,details,project', 'safe', 'on'=>'search'),
+			array('id, tname, ttext, timestamp, timestamp_end, type, deadline, id_department, status, creator, executors,creator0creator,executor0executor,group,details,project,rating', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -369,6 +370,7 @@ class Tasks extends CActiveRecord
 			'deadline' => 'Срок исполнения',
 			'project' => 'Проект',
 			'deadlocks' => 'Траблы',
+			'rating' => 'Важность',
 		);
 	}
 

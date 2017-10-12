@@ -157,11 +157,10 @@ $(document).ready(init());
 <?php break;?>
 <?php endswitch;?>
 
-
-
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'ttext'); ?>
-
+		<?php $this->widget('CStarRating',array('model'=>$model,'attribute'=>'rating')); ?>
 		<?php echo $form->textArea($model,'ttext',array('rows'=>6, 'cols'=>50)); ?>
 
 		<?php echo $form->error($model,'ttext'); ?>
