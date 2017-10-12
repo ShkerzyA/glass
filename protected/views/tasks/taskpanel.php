@@ -1,7 +1,6 @@
 
 	<?php $status=$data->status0; ?>
 	<div  class="taskpanel <?php echo 'hide'.$status['id']; ?> <?php echo $status['css_class']; ?> <?php echo $data->isGroovy(); ?> <?php echo $dl=(!empty($data->deadline))?' deadline ':'';?>">
-			
 			<div  class="rightinfo">
 				<?php 	
 						if(!empty($data->deadline)){
@@ -71,7 +70,7 @@
 				
 				
 			</div>
-			<div class="leftinfo" draggable='True'>
+			<div class="leftinfo" draggable='True'><?php echo'<div style="position: absolute; left: 0px; bottom: 0px;">'.$this->widget('CStarRating',array('id'=>'rate'.$data->id,'model'=>$data,'attribute'=>'rating','readOnly'=>true),TRUE).'</div>'; ?>
 				<?php echo $data->ico().'<div style="float: right; width: 92%"><a href=/glass/tasks/'.$data->id.'>'.Custom::deadclockwrap($data).' '.$data['tname'].' <span class=gray>'.$data->detailsShow(true).'</span></a></div>'; ?>
 				
 			</div>
