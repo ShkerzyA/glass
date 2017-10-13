@@ -10,7 +10,7 @@ foreach ($personnel as $pr) {
 
 
 $this->beginWidget('zii.widgets.CPortlet', array(
-					'title'=>'<img src="'.Yii::app()->request->baseUrl.'/images/chain24.png">Фильтр по пользователям',
+					'title'=>'<img src="'.Yii::app()->request->baseUrl.'/images/funnel.png">Фильтр по пользователям',
           'contentCssClass'=>'portlet-content hide',
 				));
 
