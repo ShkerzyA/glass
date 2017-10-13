@@ -121,6 +121,7 @@ class Tasks extends CActiveRecord
             $this->old_model=self::model()->findByPk($this->id);
             $this->old_model->TimeStamp->beforeSave(Null);
         }
+        //$this->rating=(empty($this->rating))?0:$this->rating;
 		return parent::beforeSave();
 	}
 

@@ -40,7 +40,7 @@ if(Yii::app()->user->checkAccess('saveMessage',array('mod'=>$model))){
 <div style="position: relative; clear: both;"></div>
 <div style="float: right">
 	<?php //$this->renderPartial('_deadlocks',array('model'=>$model),false,false); ?>
-	<?php $this->widget('CStarRating',array('model'=>$model,'attribute'=>'rating','readOnly'=>true)); ?>
+	<?php $this->widget('CStarRating',array('model'=>$model,'starCount'=>10,'attribute'=>'rating','readOnly'=>true)); ?>
 </div>
 
 <?php
