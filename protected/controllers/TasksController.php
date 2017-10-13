@@ -281,6 +281,7 @@ class TasksController extends Controller
 
 	public function actionJoin($id,$id_pers=NULL){
 		$model=$this->loadModel($id);
+		$model->scenario='joinPers';
 		$id_pers=(!empty($id_pers))?$id_pers:Yii::app()->user->id_pers;
 		$pers=Personnel::model()->findByPk($id_pers);
 		$model->join($id_pers);

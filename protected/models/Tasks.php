@@ -132,7 +132,7 @@ class Tasks extends CActiveRecord
             		$ta->saveAction($this->id,0);
                 break;
             
-            default:
+            case 'update':
                 if (empty($this->old_model))
                     return false;
                 $chanded=array();
@@ -152,6 +152,8 @@ class Tasks extends CActiveRecord
                     $ta->saveAction($this->id,1,$chanded);
                 }
                 break;
+            default:
+             	break;
         }
 
 		return parent::afterSave();

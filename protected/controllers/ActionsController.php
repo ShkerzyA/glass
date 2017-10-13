@@ -243,7 +243,7 @@ class ActionsController extends Controller
 						$this->parent->join(Yii::app()->user->id_pers);
 					}
 				}
-
+				$this->parent->scenario='saveStatus';
 				$this->parent->save();
 
 				$sModel=Tasks::model()->findByPk($this->parent->id);
