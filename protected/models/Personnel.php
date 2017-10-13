@@ -274,6 +274,7 @@ class Personnel extends CActiveRecord
     }
 
     public static function groupMembers($group,$obj=false){
+        $group=array_diff($group,array('all'));
         $res=array();
         $models=self::model()->with('personnelPostsHistories.idPost')->working()->findAll(array('condition'=>" (\"idPost\".\"groups\"::text[] && array['".implode("','",$group)."'])"));
         if($obj){

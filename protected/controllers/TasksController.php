@@ -368,7 +368,7 @@ class TasksController extends Controller
 	
 
 
-	public function actionHelpDesk($type=3,$group=NULL){
+	public function actionHelpDesk($type=3,$group=NULL,$id_pers=NULL){
 		$this->layout='//layouts/column2';
 
 		$this->renderPartial('/workplace/storages',false,true);
@@ -379,6 +379,7 @@ class TasksController extends Controller
 
 
 		$this->rightWidget=array(
+			'userF'=>array($this->renderPartial('_tasksFilterUser',array(),true)),
 			'df'=>array($this->renderPartial('_date_filter',array(),true)),
 			'ft'=>array($this->renderPartial('_fulltext_search',array(),true)),
 			'cc'=>array($this->renderPartial('/equipment/countCart',array('model'=>Equipment::countCart()),true,false),'it')
@@ -403,8 +404,8 @@ class TasksController extends Controller
 			$this->isHorn=Tasks::isHorn();
 		}
 		//$model=Tasks::tasksForOtdAndGroup($id_department,$type,$group,$this->target_date);
-
-		$model=Tasks::GroupTasks($group,$type,$this->target_date,$this->search,$models);
+		$id_pers=Yii::app()->getRequest()->getQuery('id_pers');
+		$model=Tasks::GroupTasks($group,$type,$this->target_date,$this->search,$id_pers);
 		if(Yii::app()->request->isAjaxRequest){
 			$this->renderPartial('_helpdesk',array(
 				'model'=>$model,

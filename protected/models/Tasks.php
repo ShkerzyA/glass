@@ -439,7 +439,7 @@ class Tasks extends CActiveRecord
 		return $model;
 	}
 
-	public static function GroupTasks ($group=array(),$type=3,$date='current_date',$search=NULL){
+	public static function GroupTasks ($group=array(),$type=3,$date='current_date',$search=NULL,$id_pers=NULL){
 		$criteria=new CDbCriteria;
 		$criteria->with=array('Project0','place','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
 
@@ -455,7 +455,8 @@ class Tasks extends CActiveRecord
 				break;
 
 			case '2':
-				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")"));
+				$idp=(!empty($id_pers))?$id_pers:Yii::app()->user->id_pers;
+				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) and '".$idp."'=ANY(t.\"executors\")"));
 				$criteria->order="status0.sort asc,t.rating desc, t.deadline asc, t.timestamp desc";
 				break;
 			

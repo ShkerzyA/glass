@@ -1,21 +1,21 @@
 <?php
 
-$personnel=Personnel::groupMembers('it');
+$personnel=Personnel::groupMembers(Yii::app()->user->groups,true);
 
-$projects=Projects::myProjects();
-$projectsArr=array();
-foreach ($projects as $pr) {
-	$projectsArr[]=array('label'=>'<nobr>'.$pr->ico(True).' '.$pr->name.'</nobr>','url'=>array('tasks/create?Tasks[type]='.$pr->getType().'&&Tasks[project]='.$pr->id.'&&Tasks[bindTasks][]='.$model->id.''));
+$persArr=array();
+foreach ($personnel as $pr) {
+	if(is_object($pr))
+	$persArr[]=array('label'=>'<nobr>'.$pr->fio_full().'</nobr>','url'=>array('tasks/HelpDesk?group=&&type=2&&id_pers='.$pr->id.''));
 }
 
 
 $this->beginWidget('zii.widgets.CPortlet', array(
-					'title'=>'<img src="'.Yii::app()->request->baseUrl.'/images/chain24.png">Связанная задача',
+					'title'=>'<img src="'.Yii::app()->request->baseUrl.'/images/chain24.png">Фильтр по пользователям',
           'contentCssClass'=>'portlet-content hide',
 				));
 
 $this->widget('zii.widgets.CMenu', array(
-        'items'=>$projectsArr,
+        'items'=>$persArr,
         'encodeLabel'=>false,
         'htmlOptions'=>array('class'=>'operations'),
       ));
