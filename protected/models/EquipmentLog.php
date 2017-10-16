@@ -192,7 +192,9 @@ class EquipmentLog extends CActiveRecord
 				break;
 			case '1':
 				$printer=(isset($this->details[1]))?Equipment::model()->findByPk($this->details[1])->full_name():'';
-				return 'Рабочее место: '.Workplace::model()->findByPk($this->details[0])->wpNameFull()."\n Принтер: $printer";
+				$wp=Workplace::model()->findByPk($this->details[0]);
+				$workplace=(!empty($wp))?$wp->wpNameFull():'';
+				return 'Рабочее место: '.$workplace."\n Принтер: $printer";
 				break;
 			case '2':
 				return 'Число отпечатков: '.$this->details[0].' Отпечатано на картридже: '.$this->subsNum;
