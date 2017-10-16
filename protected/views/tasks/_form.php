@@ -160,6 +160,7 @@ $(document).ready(init());
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'ttext'); ?>
+		<?php echo $form->hiddenField($model,'rating',array('value'=>0)); ?>
 		<?php $this->widget('CStarRating',array('model'=>$model,'starCount'=>10,'attribute'=>'rating')); ?>		
 		<?php echo $form->textArea($model,'ttext',array('rows'=>6, 'cols'=>50)); ?>
 
