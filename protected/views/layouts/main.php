@@ -115,7 +115,8 @@
                 		array('Журнал звонков','/callLog/',Yii::app()->user->checkAccess('inGroup',array('group'=>array('counting')))),
                 	)),
                 array('label'=>'Задачи', 'url'=>array('/tasks/helpDesk'),'submenu'=>
-						array(array('Проекты','/tasks/helpDeskProject',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
+						array(array('Проекты/Моё','/tasks/helpDeskProject',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
+						array('Проекты/Группа','/tasks/helpDeskProject?type=group',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
 						array('Моё','/tasks/helpDesk?group=&&type=2',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
                 		array('Лента','/tasks/taskTape',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
                 		array('Дежурства','/tasks/deg',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),))),

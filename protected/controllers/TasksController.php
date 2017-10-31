@@ -359,10 +359,18 @@ class TasksController extends Controller
 			$this->redirect(Yii::app()->getUrlManager()->createUrl('tasks/helpDesk'));
 	}
 
-	public function actionHelpDeskProject(){
+	public function actionHelpDeskProject($type='my'){
 		$this->layout='//layouts/leaf2';
 		$model=new Projects();
-		$models=Projects::myExecProjects();
+		switch ($type) {
+			case 'group':
+				$models=Projects::myGroupProjects();
+				break;
+			case 'my':
+			default:
+				$models=Projects::myExecProjects();
+				break;
+		}
 		$this->render('helpdeskproject',array(
 				'model'=>$model,'models'=>$models));
 	}
