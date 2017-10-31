@@ -28,7 +28,7 @@
 				echo'<div class="comment-topline"><i>'.$creator.'</i> &nbsp;&nbsp;&nbsp; '.$data->timestamp.'</div>';
 				echo'<div class="sign"></div>';
 
-				echo'<div style="position: relative; float: left; height: 60px; margin: 5px;"> <img height=100% src="';
+				echo'<div style="position: relative; float: left; height: 30px; margin: 5px;"> <img height=100% src="';
 				if (!empty($data->creator0->photo)){
 					echo (Yii::app()->request->baseUrl.'/media'.DIRECTORY_SEPARATOR.CHtml::encode($data->creator0->photo)); 
 				}else{

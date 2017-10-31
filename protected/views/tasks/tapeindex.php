@@ -21,7 +21,7 @@ $this->menu=array(
 
 <h1>Лента</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
+<?php $this->widget('MyListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_tapeitem',
 )); ?>
