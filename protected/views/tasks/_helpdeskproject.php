@@ -21,12 +21,10 @@
 					</td>
 	</tr>
 	<?php foreach($project->Tasks as $task): ?>
-		<tr class=prj<?php echo $project->id ?>>
+		<tr class=prj<?php echo $project->id ?> style="display: none";>
 		<?php
 			$all_cols=23;
 			$deadline=$task->getDeadline();
-
-			//print_r($deadline);
 			if(!empty($deadline)){
 				if($deadline['difdays']<0 or ($deadline['difdays']==0 and $deadline['difhours']<0)){
 					if($deadline['difdays']<(-7)){
@@ -46,7 +44,7 @@
 					$befor=3;
 					$colspan=1;
 					$after=19;
-					if($deadline['difdays']<1){
+					if($deadline['difdays']<1 and $deadline['hours']>7){
 						$colspan+=$deadline['hours']-7;
 						$after-=$deadline['hours']-7;
 					}else if($deadline['difdays']<8){
@@ -66,30 +64,7 @@
 			echo tdEcho($befor,0);
 			echo '<td colspan='.$colspan.'>';
 			echo $this->renderPartial('taskpanel',array('data'=>$task),false,false).'</td>'.tdEcho($after,$befor+$colspan);
-
-			//print_r($deadline);
-			/*
-			if(isset($deadline['difdays']) and $deadline['difdays']<0 or ($deadline['difdays']==0 and $deadline['difhours']<0)){
-				if($deadline['difdays']<(-7)){
-					echo'<td colspan=4>';
-				}else if($deadline['difdays']<(-1)){
-					echo tdEcho(1).'<td colspan=3';
-				}else{
-					echo tdEcho(2).'<td colspan=2';
-				}
-			}else{
-				echo tdEcho(3).'<td';
-			}
-			 
-			if(isset($deadline['difdays']) and $deadline['difdays']>=0){
-				echo '>';
-				echo $this->renderPartial('taskpanel',array('data'=>$task),false,false).'</td>';
-				echo tdEcho(18); 
-			}else{
-				echo '>';
-				echo $this->renderPartial('taskpanel',array('data'=>$task),false,false).'</td>';
-				echo tdEcho(18); 
-			} */?> 
+			?> 
 		</tr>
 
 	<?php endforeach; ?>

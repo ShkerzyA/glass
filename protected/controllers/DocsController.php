@@ -93,7 +93,7 @@ class DocsController extends Controller
 		if(isset($_POST['Docs']))
 		{
 			$model->attributes=$_POST['Docs'];
-			if($model->save())
+			if($model->saveWithRelated(array('files')))
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
@@ -118,8 +118,9 @@ class DocsController extends Controller
 		if(isset($_POST['Docs']))
 		{
 			$model->attributes=$_POST['Docs'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->saveWithRelated(array('files')))
+				echo '1';
+				//$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(

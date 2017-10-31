@@ -49,9 +49,7 @@ public $dellink=array();
 			'File'=>array(
 				'class'=>'application.behaviors.FileBehavior',
 				),
-			'DbArray'=>array(
-				'class'=>'application.behaviors.DbArrayBehavior',
-				),
+			
 			'DateBeginEnd'=>array(
 				'class'=>'application.behaviors.DateBeginEndBehavior',
 				),
@@ -60,6 +58,15 @@ public $dellink=array();
 				),
 			'FixedOwner'=>array(
 				'class'=>'application.behaviors.FixedOwnerBehavior',
+				),
+			'FileModel'=>array(
+				'class'=>'application.behaviors.FileModelBehavior',
+				),
+			'ESaveRelatedBehavior'=>array(
+				'class'=>'application.behaviors.ESaveRelatedBehavior',
+				),
+			'DbArray'=>array(
+				'class'=>'application.behaviors.DbArrayBehavior',
 				),
 			);
 	}
@@ -147,6 +154,7 @@ public $dellink=array();
 		return array(
 			'idCatalog' => array(self::BELONGS_TO, 'Catalogs', 'id_catalog'),
 			'creator0' => array(self::BELONGS_TO, 'Personnel', 'creator'),
+			'files'=>array(self::MANY_MANY,'Files','files_throw(id_doc,id_file)'),
 		);
 	}
 

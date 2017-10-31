@@ -47,7 +47,7 @@ echo $form->dropDownList($model,"id_catalog",CHtml::listData($tmp,"id",function(
 
 		<?php echo $form->error($model,'doc_name'); ?>
 	</div>
-
+	<?php echo Custom::attachFileField($model); ?>
 	<div class="row">
 		<?php echo $form->labelEx($model,'text_docs'); ?>
 
