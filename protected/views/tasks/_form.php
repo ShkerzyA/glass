@@ -156,7 +156,16 @@ $(document).ready(init());
     )) ?>
 <?php break;?>
 <?php endswitch;?>
-
+	
+	<div>
+		<input type=hidden name=Tasks[bindTasks][]> 
+		<?php echo $form->labelEx($model,'bindTasks'); ?>
+		<?php 
+			foreach ($model->bindTasks as $bt) {
+				echo '<input type=checkbox name=Tasks[bindTasks][] checked value='.$bt->id.'>'.$bt->tname.'<br>';
+			}
+		?>
+	</div>
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'ttext'); ?>
@@ -263,11 +272,6 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 		<?php echo Customfields::multiPersonnel($model,'executors','add_executors'); ?>
 		<?php echo $form->error($model,'executors'); ?>
 	</div>
-<?php 
-	foreach ($model->bindTasks as $bt) {
-		echo '<input type=hidden name=Tasks[bindTasks][] value='.$bt.'>';
-	}
-?>
 	
 
 <?php $this->endWidget(); ?>

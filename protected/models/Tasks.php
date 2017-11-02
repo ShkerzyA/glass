@@ -386,6 +386,7 @@ class Tasks extends CActiveRecord
 			'project' => 'Проект',
 			'deadlocks' => 'Траблы',
 			'rating' => 'Важность',
+			'bindTasks'=>'Связанные задачи',
 		);
 	}
 
