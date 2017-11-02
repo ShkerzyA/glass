@@ -63,7 +63,7 @@ class TasksController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('update','join','create','helpDesk','addDoc','report', 'reportOtd','sameTasks','helpDeskProject','taskTape','deg'),
+				'actions'=>array('update','join','create','helpDesk','addDoc','report', 'reportOtd','sameTasks','helpDeskProject','taskTape','deg','bindTasks'),
 				'roles'=>array('user'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -425,6 +425,24 @@ class TasksController extends Controller
 				'models'=>$models,
 			));
 		}
+	}
+
+	public function actionBindTasks($id,$idBinded=NULL){
+		if(Yii::app()->request->isAjaxRequest){
+			if(empty($idBinded)){
+				$model=Tasks::GroupTasks();
+				$this->renderPartial('_bindtaskdesk',array(
+					'model'=>$model,'id'=>$id
+				),false,false);
+			}
+		}else{
+			if(!empty($idBinded)){
+				$model=Tasks::model()->findByPk($id);
+				if($model->bindTasksAndSave($idBinded))
+					Yii::app()->Tornado->updateTasks();
+				$this->redirect(array('view','id'=>$model->id));
+				}
+			}
 	}
 
 	public function actionSameTasks($id,$type){

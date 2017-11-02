@@ -320,6 +320,16 @@ class Tasks extends CActiveRecord
 		}
 	}
 
+	public function bindTasksAndSave($idBinded){
+		if($this->id!=$idBinded and $binded=Tasks::model()->findByPk($idBinded)){
+			$this->bindTasks=$binded->id;
+			if($this->saveWithRelated(array('bindTasks' => array('append' => true)))){
+				return True;
+			}
+		}
+		return False;
+	}
+
 	public function findExecutors(){
 		$result=array();
 		$exec=(is_array($this->executors))?$this->executors:array();

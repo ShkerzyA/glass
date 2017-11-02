@@ -37,31 +37,8 @@
 							echo '<img height=100% src="'.$z->ava().'">';
 						}
 						
-
-					
-						//print_r($data->TasksActions[0]->creator0);
-					
 						$rep='';
-						/*
-						echo '<div class="hiddeninfotask rotated">';
-						echo'<span></span>';
-						
-						foreach ($data->TasksActions as $action) {
-							if($action->type==1)
-								continue;
-							if($action->type==2){
-								$rep='<img style="max-height: 20px" src='.Yii::app()->request->baseUrl.'/images/doc.png>';
-								$id_pers=(!empty(Yii::app()->user->id_pers))?Yii::app()->user->id_pers:NULL;
-								if($action->creator==$id_pers){
-									$rep='<img style="max-height: 20px" src='.Yii::app()->request->baseUrl.'/images/doc_gold.png>';
-									break;
-								}
-							}
-							echo'<span>'.$action->creator0->wrapFio('fio').' ('.$action->timestamp.')</span>';
-
-						}
-
-						echo'</div>'; */
+				
 						
 
 						echo'</div>';

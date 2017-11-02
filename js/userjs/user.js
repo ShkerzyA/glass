@@ -211,7 +211,7 @@ if(id){
 
 function bindExistTask(id){
 if(id){
-    $.get("/glass/tasks/helpDesk", {id: id},
+    $.get("/glass/tasks/bindTasks", {id: id},
             function(data, status) {
                 if (status == "success") {
                     if(data.length>0){
