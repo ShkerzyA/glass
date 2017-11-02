@@ -250,12 +250,27 @@ class PersonnelController extends Controller
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+		$valid=True;
+		$persPrograms=array();
 
 		if(isset($_POST['Personnel']))
 		{
+			if(isset($_POST['PersProgram'])){
+				foreach ($_POST['PersProgram'] as $pp) {
+					$persProgram=(isset($pp['id']))?PersProgram::model()->findByPk($pp['id']):new PersProgram();
+					$persProgram->attributes=$pp;
+					$persProgram->id_pers=$model->id;
+					$valid=$persProgram->validate() && $valid;
+					$persPrograms[]=$persProgram;
+				}
+			}
 			$model->attributes=$_POST['Personnel'];
-			if($model->save())
+			if($valid && $model->save()){
+				foreach ($persPrograms as $pps) {
+					$pps->save();
+				}
 				$this->redirect(array('view','id'=>$model->id));
+				}
 		}
 
 		$this->render('update',array(

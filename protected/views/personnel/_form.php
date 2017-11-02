@@ -18,6 +18,10 @@
 
 	<?php echo $form->errorSummary($model); ?>
 
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'surname'); ?>
 		<?php echo $form->textField($model,'surname',array('size'=>50,'maxlength'=>50)); ?>
@@ -112,11 +116,15 @@ echo $form->dropDownList($model,"id_user",CHtml::listData($tmp,"id",function($tm
 		<?php echo $form->error($model,'date_end'); ?>
 	</div>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-	</div>
+	<?php $this->renderPartial('/persProgram/_tabform',array('items'=>$model->persPrograms),false,false); ?>
+
+
+
+
 
 <?php $this->endWidget(); ?>
+
+<?php $this->renderPartial('/persProgram/_empty_tabform',array(),false,false); ?>
 
 
 

@@ -42,6 +42,12 @@ function init(){
   });
 
 
+  $('.addPersProgram').live('click',function(){
+      var form_idx = $(this).attr('id');
+      $('#tablePersProg').append($('#emptyPersProgram').html().replace(/__prefix__/g, form_idx));
+      $(this).attr('id',parseInt(form_idx) + 1);
+  });
+
 
 	$("#EquipmentLog_details").live('keydown',function(e){
         if(e.keyCode==13){

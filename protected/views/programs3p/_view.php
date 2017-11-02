@@ -13,12 +13,12 @@
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('create_date')); ?>:</b>
-	<?php echo CHtml::encode($data->create_date); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('date_begin')); ?>:</b>
+	<?php echo CHtml::encode($data->date_begin); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('close_date')); ?>:</b>
-	<?php echo CHtml::encode($data->close_date); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('date_end')); ?>:</b>
+	<?php echo CHtml::encode($data->date_end); ?>
 	<br />
 
 

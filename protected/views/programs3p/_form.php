@@ -25,19 +25,11 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'create_date'); ?>
+		<?php echo $form->labelEx($model,'date_end'); ?>
 
-		<?php echo $form->textField($model,'create_date'); ?>
+		<?php echo $form->textField($model,'date_end'); ?>
 
-		<?php echo $form->error($model,'create_date'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'close_date'); ?>
-
-		<?php echo $form->textField($model,'close_date'); ?>
-
-		<?php echo $form->error($model,'close_date'); ?>
+		<?php echo $form->error($model,'date_end'); ?>
 	</div>
 
 	<div class="row buttons">

@@ -1,29 +1,33 @@
 <?php
 
 /**
- * This is the model class for table "programs3p".
+ * This is the model class for table "pers_program".
  *
- * The followings are the available columns in table 'programs3p':
+ * The followings are the available columns in table 'pers_program':
  * @property integer $id
- * @property string $name
- * @property string $date_begin
- * @property string $date_end
+ * @property integer $id_program
+ * @property integer $id_pers
+ * @property string $login
  *		 * The followings are the available model relations:
 
 
- * @property PersProgram[] $persPrograms
+ * @property Programs3p $idProgram
+
+
+ * @property Personnel $idPers
  */
-class Programs3p extends CActiveRecord
+class PersProgram extends CActiveRecord
 {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @param string $className active record class name.
-	 * @return Programs3p the static model class
+	 * @return PersProgram the static model class
 	 */
-	public static $modelLabelS='Стороннее ПО';
-	public static $modelLabelP='Стороннее ПО';
+	public static $modelLabelS='PersProgram';
+	public static $modelLabelP='PersProgram';
 	
-	public $persProgramsid_program;
+	public $idProgramid_program;
+public $idPersid_pers;
 
 
 	public static function model($className=__CLASS__)
@@ -36,17 +40,7 @@ class Programs3p extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'programs3p';
-	}
-
-	public function behaviors(){
-		return array(
-            // наше поведение для работы с файлом
-			'DateBeginEnd'=>array(
-				'class'=>'application.behaviors.DateBeginEndBehavior',
-				),
-
-			);
+		return 'pers_program';
 	}
 
 	/**
@@ -57,12 +51,13 @@ class Programs3p extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name', 'length', 'max'=>100),
-			array('date_begin, date_end', 'safe'),
+			array('id_program', 'required'),
+			array('id_program, id_pers', 'numerical', 'integerOnly'=>true),
+			array('login', 'length', 'max'=>100),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name, date_begin, date_end,persProgramsid_program', 'safe', 'on'=>'search'),
+			array('id, id_program, id_pers, login,idProgramid_program,idPersid_pers', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,7 +69,8 @@ class Programs3p extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'persPrograms' => array(self::HAS_MANY, 'PersProgram', 'id_program'),
+			'idProgram' => array(self::BELONGS_TO, 'Programs3p', 'id_program'),
+			'idPers' => array(self::BELONGS_TO, 'Personnel', 'id_pers'),
 		);
 	}
 
@@ -85,10 +81,11 @@ class Programs3p extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Программа',
-			'date_begin' => 'Дата начала использования',
-			'date_end' => 'Дата окончания использования',
-			'persProgramsid_program' => 'id_program',
+			'id_program' => 'Id Program',
+			'id_pers' => 'Id Pers',
+			'login' => 'Login',
+			'idProgramid_program' => 'id_program',
+			'idPersid_pers' => 'id_pers',
 		);
 	}
 
@@ -103,12 +100,13 @@ class Programs3p extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->with=array('persPrograms' => array('alias' => 'persprogram'),);
+		$criteria->with=array('idProgram' => array('alias' => 'programs3p'),'idPers' => array('alias' => 'personnel'),);
 		$criteria->compare('id',$this->id);
-		$criteria->compare('name',$this->name,true);
-		$criteria->compare('date_begin',$this->date_begin,true);
-		$criteria->compare('date_end',$this->date_end,true);
-		$criteria->compare('persprogram.id_program',$this->persProgramsid_program,true);
+		$criteria->compare('id_program',$this->id_program);
+		$criteria->compare('id_pers',$this->id_pers);
+		$criteria->compare('login',$this->login,true);
+		$criteria->compare('programs3p.id_program',$this->idProgramid_program,true);
+		$criteria->compare('personnel.id_pers',$this->idPersid_pers,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

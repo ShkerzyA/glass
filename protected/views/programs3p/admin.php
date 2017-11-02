@@ -46,8 +46,8 @@ $('.search-form form').submit(function(){
 	'columns'=>array(
 		'id',
 		'name',
-		'create_date',
-		'close_date',
+		'date_begin',
+		'date_end',
 		array(
 			'class'=>'CButtonColumn',
 		),

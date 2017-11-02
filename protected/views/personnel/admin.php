@@ -45,7 +45,6 @@ $('.search-form form').submit(function(){
         'surname',
         'name',
         'patr',
-        'photo',
         array( 'name'=>'idUserid_user', 'value'=>'$data->username()' ),
         'birthday',
         'date_begin',

@@ -339,6 +339,7 @@ class Personnel extends CActiveRecord
             'MedicalEquipment' => array(self::HAS_MANY, 'MedicalEquipment', 'creator'),
             'usersQqs' => array(self::HAS_ONE, 'UsersQq', 'id_personnel'),
             'zempleavs' => array(self::HAS_MANY, 'Zempleav', 'orgbase_rn','scopes' => array('current_year')),
+            'persPrograms'=>array(self::HAS_MANY, 'PersProgram','id_pers'),
 		);
 	}
 
