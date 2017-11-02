@@ -121,9 +121,12 @@ class News extends CActiveRecord
 		$criteria->compare('timestamp',$this->timestamp,true);
 		$criteria->compare('creator',$this->creator);
 		$criteria->compare('personnel.creator',$this->creator0creator,true);
+		$criteria->order='t."timestamp" DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination'=>array('pageSize'=>10),
+
 		));
 	}
 }

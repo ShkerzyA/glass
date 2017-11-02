@@ -29,6 +29,10 @@ function init(){
     $('.prj'+this.id).toggle();
   });
 
+  $('.bindExistingTasks').live('click',function(){
+    bindExistTask($(this).attr('id'));
+  });
+
   $('.hideT').live('click',function(){
     $('.hide'+this.id).toggle();
   });
@@ -192,6 +196,22 @@ function init(){
 function sameTasks(id,type){
 if(id){
     $.get("/glass/tasks/sameTasks", {id: id, type: type},
+            function(data, status) {
+                if (status == "success") {
+                    if(data.length>0){
+                        $('html').append(awesomeWindowWrap(data));
+                    }
+                }else{
+                    alert('Ошибка');
+                }
+            },"html"
+        );
+    } 
+}
+
+function bindExistTask(id){
+if(id){
+    $.get("/glass/tasks/helpDesk", {id: id},
             function(data, status) {
                 if (status == "success") {
                     if(data.length>0){

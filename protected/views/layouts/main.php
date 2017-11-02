@@ -95,7 +95,7 @@
 			'items'=>array(
 
 				array('label'=>'События', 'url'=>array('/rooms/show?Event_type=events'),'submenu'=>array(
-                			array('Новости','/news/'),
+                			array('Новости','/news/',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
                 			array('Мед. оборудование','/medicalEquipment/plan',Yii::app()->user->checkAccess('inGroup',array('group'=>array('medequipment')))),
                 			array('Общественные','/rooms/show?Event_type=events'),
                 			array('Операционные','/rooms/show?Event_type=eventsOpPl',((Yii::app()->user->checkAccess('inGroup',array('group'=>array('operationsv')))) or (Yii::app()->user->checkAccess('inGroup',array('group'=>array('operations')))) )),
@@ -119,7 +119,7 @@
 						array('Проекты/Группа','/tasks/helpDeskProject?type=group',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
 						array('Моё','/tasks/helpDesk?group=&&type=2',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
                 		array('Лента','/tasks/taskTape',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
-                		array('Дежурства','/tasks/deg',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),))),
+                	)),
                 array('label'=>'Охрана', 'url'=>array('/vehicles/accounting'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('security'))),'submenu'=>
 						array(array('Транспорт','/vehicles/index',Yii::app()->user->checkAccess('inGroup',array('group'=>array('security_admin'))),),
 							array('Расписание','/vehicleShedule/index',Yii::app()->user->checkAccess('inGroup',array('group'=>array('security_admin'))),)
