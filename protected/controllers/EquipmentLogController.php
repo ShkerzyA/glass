@@ -140,6 +140,9 @@ class EquipmentLogController extends Controller
 			case 'ingo_r':
 				$model->type=9;
 				break;
+			case 'outgo_r':
+				$model->type=11;
+				break;
 			default:
 				$this->redirect(array('/admin/index'));
 				break;

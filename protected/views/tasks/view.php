@@ -49,6 +49,7 @@ $creator=(!empty($model->creator0))?$model->creator0->fio_full():'';
 
 
 echo '<div class="comment " id="taskbody">
+		<div style="position: relative; float: left; margin-right: 5px;"><h3>'.$model->Project0->name.'</h3></div>
 		<div style="position: relative; float: left;"><h2>'.$model->tname.'</h2></div>
 		<div style="position: relative; float: right; text-align: right"><i>'.$model->timestamp.'<br>
 		Создатель:  '.$creator.'</i></div><hr><p class="norm_text"><pre>'.$model->detailsShow(0,1,1).'<br>'.$model->FileModel->attachInText($model->ttext).'</pre></p>';
