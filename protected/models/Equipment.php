@@ -250,7 +250,6 @@ order by cou DESC";
 
 		$carts=array();
 		$errors=array();
-
 		switch ($type) {
 			case 3:
 				$from=self::$cartStorage;
@@ -262,6 +261,7 @@ order by cou DESC";
 			case 9:
 				$from=self::$cartRepair;
 				$to=self::$cartFull;
+				break;
 			case 11:
 				$from=self::$cartStorage;
 				$to=self::$cartRepair;
@@ -271,7 +271,6 @@ order by cou DESC";
 				return array('Неопределенное действие');
 				break;
 		}
-
 
 		$inv=explode(',', $inv);
 		foreach ($inv as $v) {
