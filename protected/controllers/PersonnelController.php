@@ -259,6 +259,7 @@ class PersonnelController extends Controller
 				foreach ($_POST['PersProgram'] as $pp) {
 					$persProgram=(isset($pp['id']))?PersProgram::model()->findByPk($pp['id']):new PersProgram();
 					$persProgram->attributes=$pp;
+					$persProgram->delme=(!empty($pp['delme']))?$pp['delme']:0;
 					$persProgram->id_pers=$model->id;
 					$valid=$persProgram->validate() && $valid;
 					$persPrograms[]=$persProgram;
@@ -267,7 +268,13 @@ class PersonnelController extends Controller
 			$model->attributes=$_POST['Personnel'];
 			if($valid && $model->save()){
 				foreach ($persPrograms as $pps) {
-					$pps->save();
+					if($pps->delme){
+						if(!empty($pps->id))
+							$pps->delete();
+					}
+					else{
+						$pps->save();
+					}
 				}
 				$this->redirect(array('view','id'=>$model->id));
 				}

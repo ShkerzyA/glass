@@ -84,6 +84,10 @@ $this->menu=array(
 	<div style="clear: both;"></div>
 	<?php
 		if(Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))){
+
+			$this->renderPartial('/persProgram/_tabview',array('model'=>$model),false,false);
+			echo'<hr/>';
+
 			foreach ($model->workplaces as $wp) {
 				if (!empty($wp->idCabinet)){
 					echo'<div>Кабинет: <a href="/glass/Cabinet/'.$wp->idCabinet->id.'"">"'.CHtml::encode($wp->idCabinet->cname).' каб. №'.CHtml::encode($wp->idCabinet->num).'" '.CHtml::encode($wp->idCabinet->idFloor->fname).' '.CHtml::encode($wp->idCabinet->idFloor->idBuilding->bname).'</a></div>';

@@ -25,9 +25,10 @@ class PersProgram extends CActiveRecord
 	 */
 	public static $modelLabelS='PersProgram';
 	public static $modelLabelP='PersProgram';
+	public $delme;
 	
 	public $idProgramid_program;
-public $idPersid_pers;
+	public $idPersid_pers;
 
 
 	public static function model($className=__CLASS__)
@@ -52,12 +53,12 @@ public $idPersid_pers;
 		// will receive user inputs.
 		return array(
 			array('id_program', 'required'),
-			array('id_program, id_pers', 'numerical', 'integerOnly'=>true),
+			array('id_program, id_pers, delme', 'numerical', 'integerOnly'=>true),
 			array('login', 'length', 'max'=>100),
-		
+			array('delme','safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, id_program, id_pers, login,idProgramid_program,idPersid_pers', 'safe', 'on'=>'search'),
+			array('id, id_program, id_pers, login,idProgramid_program,idPersid_pers,delme', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -86,6 +87,7 @@ public $idPersid_pers;
 			'login' => 'Login',
 			'idProgramid_program' => 'id_program',
 			'idPersid_pers' => 'id_pers',
+			'delme' => 'Удалить',
 		);
 	}
 
