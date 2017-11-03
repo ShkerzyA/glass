@@ -420,9 +420,12 @@ class Xls extends CFormModel{
 
     }
 
-    public function load($table){
+    public function load($table,$abs=false){
 
-    	$file=Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.$table;
+    	if($abs)
+    		$file=$table;
+    	else
+    		$file=Yii::getPathOfAlias('webroot').DIRECTORY_SEPARATOR.'base'.DIRECTORY_SEPARATOR.$table;
 
     	$chunkSize = 2000;		//размер считываемых строк за раз
 		$startRow = 1;			//начинаем читать со строки 2, в PHPExcel первая строка имеет индекс 1, и как правило это строка заголовков
@@ -447,6 +450,7 @@ class Xls extends CFormModel{
 		$objReader->setReadFilter($chunkFilter); 
 		//внешний цикл, пока файл не кончится
 		$foo=1;
+		$result=array();
 		while ( !$exit ) 
 		{
    			$chunkFilter->setRows($startRow,$chunkSize); 	//устанавливаем знаечние фильтра
@@ -458,6 +462,7 @@ class Xls extends CFormModel{
     		for ($i = $startRow; $i < $startRow + $chunkSize; $i++) 	//внутренний цикл по строкам
     		{	
     			
+    			$rowResult=array();
     			$row = $objPHPExcel->getActiveSheet()->getRowIterator($i)->current();
 				$cellIterator = $row->getCellIterator();
 				$cellIterator->setIterateOnlyExistingCells(false);
@@ -466,7 +471,6 @@ class Xls extends CFormModel{
 
 	//			echo iconv('UTF-8','cp1251',$cellIterator[0]->getValue()).' | ' ;
 
-				echo $foo.' | ';
 				$foo++;
 				$num_col=1;
 				foreach ($cellIterator as $cell) {
@@ -476,15 +480,15 @@ class Xls extends CFormModel{
 						   	$empty_value++;		
 						}
 					}
-    				echo iconv('UTF-8','cp1251',$cell->getValue()).' | ' ;
-    				//echo $cell->getValue();
+    				//echo iconv('UTF-8','cp1251',$cell->getValue()).' | ' ;
+    				$rowResult[]=$cell->getValue();
         			$num_col++;
 				}
+				$result[]=$rowResult;
 				if ($empty_value > 2){			//после трех пустых значений, завершаем обработку файла, думая, что это конец
            		 		$exit = true;	
             			break;		
         		}
-				echo '<br>';
     			/*
         		$value = trim(htmlspecialchars($objWorksheet->getCellByColumnAndRow(0, $i)->getValue()));		//получаем первое знаение в строке
         		if ( empty($value) )		//проверяем значение на пустоту
@@ -502,7 +506,10 @@ class Xls extends CFormModel{
     		$objPHPExcel->disconnectWorksheets(); 				//чистим 
     		unset($objPHPExcel); 						//память
     		$startRow += $chunkSize;					//переходим на следующий шаг цикла, увеличивая строку, с которой будем читать файл
+
 		}
+		spl_autoload_register(array('YiiBase','autoload'));
+		return $result;
     	/*
     	$phpExcelPath = Yii::getPathOfAlias('ext.PHPExcel.Classes');
 		spl_autoload_unregister(array('YiiBase','autoload'));

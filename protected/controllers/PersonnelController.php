@@ -102,7 +102,7 @@ class PersonnelController extends Controller
 		$log=Log::model()->findAll(array('condition'=>"t.type=1 and t.object_model='Personnel' and date_trunc('day',t.timestamp)=current_date"));
 		$res='';
 		foreach ($log as $l) {
-			$res.=$l->object->fio_full().' '.($p=(!empty($l->object->personnelPostsHistories))?$l->object->personnelPostsHistories[0]->postInfo():'').' '.$l->details_full()."<br><br>";
+			$res.='<b>'.$l->object->fio_full().'</b> '.($p=(!empty($l->object->personnelPostsHistories))?$l->object->personnelPostsHistories[0]->postInfo():'').'<br><b>'.implode(';',$l->object->sideProgram()).'</b><br>'.$l->details_full()."<br><br>";
 		}
 		if(!empty($res)){
 			$t=new Tasks;

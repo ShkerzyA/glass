@@ -30,7 +30,6 @@ class PersProgram extends CActiveRecord
 	public $idProgramid_program;
 	public $idPersid_pers;
 
-
 	public static function model($className=__CLASS__)
 	{
 		return parent::model($className);
@@ -42,6 +41,11 @@ class PersProgram extends CActiveRecord
 	public function tableName()
 	{
 		return 'pers_program';
+	}
+
+
+	public function nameL(){
+		return $this->idProgram->name.'('.$this->login.')';
 	}
 
 	/**

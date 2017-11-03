@@ -194,6 +194,14 @@ class Personnel extends CActiveRecord
         return $tags;
     }
 
+    public function sideProgram(){
+        $res=array();
+        foreach ($this->persPrograms as $v) {
+            $res[]=$v->nameL();
+        }
+        return $res;
+    }
+
 	/**
 	 * @return array validation rules for model attributes.
 	 */
