@@ -34,24 +34,24 @@ class PersProgramCommand extends CConsoleCommand
 	public function actionFromXlsQuickq($filepath) {
 		$xls=new Xls();
 		$fileXls=$xls->load($filepath,True);
-		print_r($fileXls);
-		die();
+		//print_r($fileXls);
+		//die();
 		foreach ($fileXls as $persArr) {
 			if(empty($persArr[1]) or empty($persArr[2]) or empty($persArr[3]) ){
 				continue;
 			}
 			if($pers=Personnel::model()->find(array('condition'=>'t.surname=\''.$persArr[1].'\' and t.name=\''.$persArr[2].'\' and t.patr=\''.$persArr[3].'\''))){
 				$pp=new PersProgram;
-				$pp->attributes=array('id_pers'=>$pers->id,'id_program'=>2,'login'=>$persArr[0]);
+				$pp->attributes=array('id_pers'=>$pers->id,'id_program'=>4,'login'=>$persArr[0]);
 				if($pp->validate()){
-					print_r($pp->attributes);
-					/*
+					//print_r($pp->attributes);
+					
 					try{
 						$pp->save();
 					} catch (Exception $e) {
 						echo ($persArr[2]." ".$e->getMessage()."\n\n");  
 					}
-					*/
+					
 				}
 			}
 			
