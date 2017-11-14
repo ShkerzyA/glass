@@ -164,6 +164,15 @@ public $personnelsid_user;
 		
 	}
 
+	public function forceSendMail($head,$content){
+		if(!empty($this->email)){
+			$headers = 'From: glass@onkolog24.ru' . "\r\n" .
+    					'Reply-To: glass@onkolog24.ru' . "\r\n" .
+    					'X-Mailer: PHP/' . phpversion();
+			mail($this->email, $head, $content, $headers);
+		}
+	}
+
 
 	public function lastLogin(){
 		$res='';

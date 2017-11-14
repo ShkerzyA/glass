@@ -184,13 +184,18 @@ class Tasks extends CActiveRecord
 		return array('difdays'=>$days,'difhours'=>$difhours,'hours'=>$hours);
 	}
 
-	public function sendMail(){
+	public function sendMail($force=False){
 		$tmp=$this->potentialExecutors(True);
 		foreach ($tmp as $prs) {
 			if(!empty($prs->idUser)){
 				$head=$this->id.' '.$this->tname;
 				$body=$this->status0->label."\n".$this->detailsShow(0,0,0).' '.$this->ttext;
-				$prs->idUser->sendMail($head,$body);
+				if($force){
+					$prs->idUser->forceSendMail($head,$body);
+				}else{
+					$prs->idUser->sendMail($head,$body);	
+				}
+				
 			}
 			
 		}
@@ -448,6 +453,20 @@ class Tasks extends CActiveRecord
 		$criteria=new CDbCriteria;
 		$criteria->with=array('Project0','place','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
 		$criteria->addCondition(array('condition'=>"t.deadline<current_timestamp and t.status in (0,1,5,6) and '".Yii::app()->user->id_pers."'=ANY(t.\"executors\")"));
+		$model=self::model()->findAll($criteria);
+		return $model;
+	}
+
+	public static function beforeDeadline($minb,$mina){
+		$date=new DateTime();
+		$date->modify('+'.(int)$minb.' minutes');
+		$dateb=$date->format('Y-m-d H:i:s');
+		$date->modify('-'.(int)$mina.' minutes');
+		$datea=$date->format('Y-m-d H:i:s');
+		
+		$criteria=new CDbCriteria;
+		$criteria->with=array('Project0','place','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
+		$criteria->addCondition(array('condition'=>"t.deadline<'".$dateb."' and t.deadline>'".$datea."' and t.status in (0,1,5,6)"));
 		$model=self::model()->findAll($criteria);
 		return $model;
 	}
