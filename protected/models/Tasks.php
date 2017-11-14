@@ -189,7 +189,7 @@ class Tasks extends CActiveRecord
 		foreach ($tmp as $prs) {
 			if(!empty($prs->idUser)){
 				$head=$this->id.' '.$this->tname;
-				$body=$this->status0->label."\n".$this->detailsShow(0,0,0).' '.$this->ttext;
+				$body=$this->status0->label."\n".$this->deadline."\n".$this->detailsShow(0,0,0).' '.$this->ttext;
 				if($force){
 					$prs->idUser->forceSendMail($head,$body);
 				}else{
@@ -463,7 +463,7 @@ class Tasks extends CActiveRecord
 		$dateb=$date->format('Y-m-d H:i:s');
 		$date->modify('-'.(int)$mina.' minutes');
 		$datea=$date->format('Y-m-d H:i:s');
-		
+
 		$criteria=new CDbCriteria;
 		$criteria->with=array('Project0','place','status0','TasksActions'=>array('alias'=>'TasksActions','order'=>'"TasksActions".timestamp DESC'),'TasksActions.creator0.personnelPostsHistories.idPersonnel');
 		$criteria->addCondition(array('condition'=>"t.deadline<'".$dateb."' and t.deadline>'".$datea."' and t.status in (0,1,5,6)"));
