@@ -6,9 +6,12 @@
 			'project'=>$project,
 		)); 
 		?>
-		<div style="width: 300px; float: left">
+		<div class=projecttitle>
 		Проект:
-		<?php print($project->name); ?> 
+		<?php echo$project->name; ?> 
+		<div>
+			<?php echo $project->description ?>
+		</div>
 		</div>
 		<?php $this->renderPartial('/tasks/_projectInfo',array('project'=>$project->projectInfo())); ?> <div class="taskmoreinfo"><?php
 		$exec=$project->findExecutors();

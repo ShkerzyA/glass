@@ -1545,6 +1545,23 @@ ul {
     padding-left:10px; 
 }
 
+.projecttitle{
+	cursor: pointer;
+	width: 800px; 
+	float: left;
+}
+
+.projecttitle div{
+	background: white;
+	border: 1px solid grey;
+	position: absolute;
+	display: none;
+}
+
+.projecttitle:hover div{
+	display: block;
+}
+
 
 ul.yiiPager {
     border: 0 none;
