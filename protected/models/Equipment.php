@@ -259,6 +259,7 @@ order by cou DESC";
 			case 4:
 				$from=self::$cartRefill;
 				$to=self::$cartFull;
+				break;
 			case 9:
 				$from=self::$cartRepair;
 				$to=self::$cartFull;
