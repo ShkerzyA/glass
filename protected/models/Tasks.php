@@ -166,6 +166,9 @@ class Tasks extends CActiveRecord
 
 
 	protected function beforeValidate(){
+		if($this->scenario=='insert' && !in_array(Yii::app()->user->id_pers,$this->executors)){
+			$this->join(Yii::app()->user->id_pers);
+		}
 		return parent::beforeValidate();
 	}
 

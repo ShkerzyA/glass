@@ -77,15 +77,22 @@ Class Customfields{
 				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
 				echo'<input type=hidden name=action class=action id='.$field.' value="join">';
 				echo"<input type=hidden name='".$mn."[".$field."][]' value=''>";
-				if(!empty($model->$field) and is_array($model->$field)){
-					foreach ($model->$field as $v){
-						if(!empty($v)){
-							$pers=Personnel::model()->findByPk($v);
-							$result.="<div class='choise_unit $field$v'>
-								<input type=hidden name='".$mn."[".$field."][$v]' value=$v>".$pers->fio()."
-								<div id=$field$v class='close_this'></div>
+				if($model->scenario=='insert' and $action=='add_executors'){
+					$pers=$model->Project0->findExecutors();
+				}else{
+					if(is_array($model->$field)){
+						$tmp=array_unique(array_diff($model->$field,array('')));
+						if(!empty($tmp))
+							$pers=Personnel::model()->findAll(array('condition'=>'t.id in('.implode(',',$tmp).')'));
+					}
+				}
+				if(!empty($pers)){
+					foreach ($pers as $v){
+							if(!empty($v->id))
+							$result.="<div class='choise_unit $field".$v->id."'>
+								<input type=hidden name='".$mn."[".$field."][$v->id]' value=$v->id>".$v->fio()."
+								<div id=$field$v->id class='close_this'></div>
 							</div>";
-						}
 					}
 				}	
 				
