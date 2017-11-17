@@ -94,7 +94,7 @@ class ProjectsController extends Controller
 		//echo $edges;
 		//die();
 
-		$this->render('altavista',array('nodesPj'=>$nodesPj,'nodesPs'=>$nodesPs,'edges'=>$edges));
+		$this->renderPartial('altavista',array('nodesPj'=>$nodesPj,'nodesPs'=>$nodesPs,'edges'=>$edges),false,true);
 	}
 
 
