@@ -32,7 +32,7 @@ class ProjectsController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','altavista'),
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -55,6 +55,46 @@ class ProjectsController extends Controller
 		$res=Personnel::groupMembers($model->group);
 		$this->renderPartial('choise_executors',array('model'=>$res,'mn'=>$modelN),false,false);
 		
+	}
+
+	public function actionAltavista(){
+		$this->layout='//layouts/leaf2';
+		$pjArr=array();
+		$psArr=array();
+		$eArr=array();
+		$personnel=Personnel::groupMembers(Yii::app()->user->groups);
+		$projects=Projects::myGroupProjects();
+
+		$i=3;
+		foreach ($personnel as $p => $f) {
+			$psArr[]="{id:'ps".$p."',label: '".$f."',x: 1,y: ".(($i)*2).", size: 1,color: '#00ff00'}";
+			$i++;
+		}
+		
+		$i=1;
+		$j=1;
+		foreach ($projects as $p) {
+			$pi=$p->actualTaskCount();
+			$size=(!empty($pi[0]['cou']))?$pi[0]['cou']:'1';
+			$pjArr[]="{id:'pj".$p->id."',label: '".$p->name."',x: 40, y: ".($i).", size: ".sqrt($size).",color: '#ff0000'}";
+			$i++;
+			foreach ($p->executors as $e) {
+				if(!empty($e) and !empty($personnel[$e])){
+					$eArr[]="{id:'e".$j."',source: 'ps".$e."' ,target: 'pj".$p->id."',size: 5, color: '#ccc'}";
+					$j++;
+				}
+			}
+ 		}
+		$nodesPs="[".implode(',',$psArr)."]";
+		$nodesPj="[".implode(',',$pjArr)."]";
+		$edges="[".implode(',',$eArr)."]";
+
+		//$edges="[{id:'e1',source: 'ps2' ,target: 'pj13',size: 1,color: '#ccc'}]";
+
+		//echo $edges;
+		//die();
+
+		$this->render('altavista',array('nodesPj'=>$nodesPj,'nodesPs'=>$nodesPs,'edges'=>$edges));
 	}
 
 

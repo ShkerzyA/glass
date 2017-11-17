@@ -83,6 +83,7 @@ $this->menu['all_menu']=array(
 		array('label'=>'Лог Звонков Автоматика', 'url'=>array('/callLog')), 
 		array('label'=>'Лог Звонков АПУС', 'url'=>array('/callLog/indexApus')), 
 		array('label'=>'Лог Звонков/импорт', 'url'=>array('/callLog/import')), 
+		array('label'=>'Альтависта', 'url'=>array('/projects/altavista')), 
 	)),
 
 		array('title'=>'MyDbase (нажимать нежно, сразу импорт)','items'=>array(

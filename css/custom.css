@@ -1371,17 +1371,18 @@ td .week_event{
 }
 
 .leaf{
-	margin: 4px;
+	/*margin: 4px;*/
  	background: #FfFfFe;
  	/*min-height: 100%;*/
 	position: absolute;
 	overflow-y: visible;
 	z-index: 1;
-	width: 95%;
+	width: 100%;
 	min-width: 930px;
-	min-height: 500px;
-	left: 3%;
-	box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;
+	min-height: 900px;
+	left: 0;
+	border-top: 1px solid grey;
+	/*box-shadow: 0 1px 4px rgba(0, 0, 0, .3), -23px 0 20px -23px rgba(0, 0, 0, .8), 23px 0 20px -23px rgba(0, 0, 0, .8), 0 0 40px rgba(0, 0, 0, .1) inset;*/
 }
 
 .current{
