@@ -93,7 +93,7 @@ class Projects extends CActiveRecord
 		return $result;
 	}
 
-	public static function ordutf8($string, $offset) {
+	public static function ordutf8($string, &$offset) {
     	$code = ord(substr($string, $offset,1)); 
     	if ($code >= 128) {        //otherwise 0xxxxxxx
     	    if ($code < 224) $bytesnumber = 2;                //110xxxxx
@@ -114,10 +114,10 @@ class Projects extends CActiveRecord
 
 	public function color(){
 		$a=array();
-		$a[]=self::ordutf8($this->name,1);
-		$a[]=self::ordutf8($this->name,2);
-		$a[]=self::ordutf8($this->name,3);
-		print_r($a);
+		$a[]=dechex(0.7*ord(mb_substr($this->name,1,2)));
+		$a[]=dechex(0.8*ord(mb_substr($this->name,2,3)));
+		$a[]=dechex(0.9*ord(mb_substr($this->name,3,4)));
+		//print_r($a);
 		return '#'.implode('',$a);
 	}
 
