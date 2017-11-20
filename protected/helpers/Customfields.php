@@ -77,7 +77,7 @@ Class Customfields{
 				echo'<input type=hidden name=modelN class=modelN id='.$field.' value='.$mn.'>';
 				echo'<input type=hidden name=action class=action id='.$field.' value="join">';
 				echo"<input type=hidden name='".$mn."[".$field."][]' value=''>";
-				if($model->scenario=='insert' and $action=='add_executors'){
+				if($model->scenario=='insert' and $action=='add_executors' and False){
 					$pers=$model->Project0->findExecutors();
 				}else{
 					if(is_array($model->$field)){

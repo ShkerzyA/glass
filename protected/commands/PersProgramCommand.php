@@ -1,10 +1,12 @@
 <?php
 class PersProgramCommand extends CConsoleCommand
 {
-	public function actionFromXlsQms($filepath) {
+	public function actionFromXlsQms($filepath,$delete=False) {
 		$xls=new Xls();
 		$fileXls=$xls->load($filepath,True);
 		//print_r($fileXls);
+		if($delete)
+			PersProgram::model()->deleteAll(array('condition'=>'id_program=2'));
 		$now=strtotime("now");
 		foreach ($fileXls as $persArr) {
 			if(!empty($persArr[3])){
