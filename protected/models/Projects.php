@@ -81,16 +81,22 @@ class Projects extends CActiveRecord
 			);
 	}
 	public function ico($default_ico=False){
+		$mark=($this->isMyProject())?'<div style="position: absolute; top: 0; left: 0;"><img src="/glass/images/dot8.png"></div>':'';
 		if($default_ico)
 			$result='<img label="'.$this->name.'" class=taskico src="/glass/images/add_task_40.png">';
 		else
 			$result='';
 		if(!empty($this->photo)){
-			$result='<img label="'.$this->name.'" class=taskico src="/glass/media/'.$this->photo.'">';
+			//$result='<img label="'.$this->name.'" class=taskico src="/glass/media/'.$this->photo.'">';
+			$result='<div label="'.$this->name.'" class=divico style="background-image: url(\'/glass/media'.'/'.$this->photo.'\');  background-size:100% 100%;">'.$mark.'</div>';
 		}else{
-			$result='<div class=divico style="background: '.$this->color().';"><h2 style="color: white">'.mb_substr($this->name,0,1).'</h2></div>';
+			$result='<div label="'.$this->name.'" class=divico style="background: '.$this->color().';">'.$mark.'<h2 style="color: white">'.mb_substr($this->name,0,1).'</h2></div>';
 		}
 		return $result;
+	}
+
+	public function isMyProject(){
+		return in_array(Yii::app()->user->id_pers, $this->executors);
 	}
 
 	public static function ordutf8($string, &$offset) {
