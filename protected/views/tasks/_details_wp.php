@@ -50,7 +50,9 @@
    ),
   ));
   // Для подсветки набираемого куска запроса в предлагаемом списке
-  Yii::app()->clientScript->registerScript('unique.script.identifierwp', "
+
+/*
+    Yii::app()->clientScript->registerScript('unique.script.identifier42', "
  $('#Wp_details').data('ui-autocomplete')._renderItem = function( ul, item ) {
    var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
    var highlightedResult = item.label.replace( re, '<b>$1</b>' );
@@ -59,7 +61,7 @@
      .append( '<a>' + highlightedResult + '</a>' )
      .appendTo( ul );
  };
-");  
+");  */
 ?>
 
 		<?php echo $form->error($model,'details'); ?>

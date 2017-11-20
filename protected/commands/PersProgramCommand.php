@@ -21,6 +21,7 @@ class PersProgramCommand extends CConsoleCommand
 					if($pp->validate()){
 						try{
 							$pp->save();
+							//print_r($pp->attributes);
 						} catch (Exception $e) {
 							echo ($persArr[3]." ".$e->getMessage()."\n\n");  
 						}
