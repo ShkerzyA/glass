@@ -114,9 +114,15 @@ class Projects extends CActiveRecord
 
 	public function color(){
 		$a=array();
-		$a[]=dechex(0.7*ord(mb_substr($this->name,1,2)));
-		$a[]=dechex(0.8*ord(mb_substr($this->name,2,3)));
-		$a[]=dechex(0.9*ord(mb_substr($this->name,3,4)));
+		$time=strtotime($this->timestamp);
+		//echo $this->name.' ';
+		//echo $time.'<br>';
+		//echo (mb_substr($time,-2,2));
+		//echo (mb_substr($time,-4,2));
+		//echo (mb_substr($time,-6,2));
+		$a[]=dechex($t=(mb_substr($time,-2,2)>55)?mb_substr($time,-2,2)+100:mb_substr($time,-2,2)+200);
+		$a[]=dechex($t=(mb_substr($time,-4,2)>55)?mb_substr($time,-4,2)+100:mb_substr($time,-4,2)+200);
+		$a[]=dechex($t=(mb_substr($time,-6,2)>55)?mb_substr($time,-6,2)+100:mb_substr($time,-6,2)+200);
 		//print_r($a);
 		return '#'.implode('',$a);
 	}
