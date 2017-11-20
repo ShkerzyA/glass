@@ -115,14 +115,15 @@ class Projects extends CActiveRecord
 	public function color(){
 		$a=array();
 		$time=strtotime($this->timestamp);
-		//echo $this->name.' ';
-		//echo $time.'<br>';
-		//echo (mb_substr($time,-2,2));
-		//echo (mb_substr($time,-4,2));
-		//echo (mb_substr($time,-6,2));
-		$a[]=dechex($t=(mb_substr($time,-2,2)>55)?mb_substr($time,-2,2)+100:mb_substr($time,-2,2)+200);
-		$a[]=dechex($t=(mb_substr($time,-4,2)>55)?mb_substr($time,-4,2)+100:mb_substr($time,-4,2)+200);
-		$a[]=dechex($t=(mb_substr($time,-6,2)>55)?mb_substr($time,-6,2)+100:mb_substr($time,-6,2)+200);
+	
+		$a[]=dechex($t=(mb_substr($time,-2,2)>55)?mb_substr($time,-2,2)+80:mb_substr($time,-2,2)+180);
+		$a[]=dechex($t=(mb_substr($time,-4,2)>55)?mb_substr($time,-4,2)+80:mb_substr($time,-4,2)+180);
+		$a[]=dechex($t=(mb_substr($time,-6,2)>55)?mb_substr($time,-6,2)+80:mb_substr($time,-6,2)+180);
+
+		//$a[]=dechex($t=round(mb_substr($time,-3,3)*0.25));
+		//$a[]=dechex($t=round(mb_substr($time,-6,3)*0.25));
+		//$a[]=dechex($t=round(mb_substr($time,-9,3)*0.25));
+		//echo ($this->name);
 		//print_r($a);
 		return '#'.implode('',$a);
 	}
