@@ -33,7 +33,7 @@ class PersonnelController extends Controller
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('index','tiles','view'),
+				'actions'=>array('index','tiles','view','firedButInProgram'),
 				'expression'=>'Yii::app()->user->checkAccess("inGroup",array("group"=>array("it")))',
 				'roles'=>array('user'),
 			),
@@ -164,6 +164,13 @@ class PersonnelController extends Controller
 
 	public function actionFiredButInWp(){
 		$models=Personnel::model()->with('workplaces')->fired()->findAll(array('condition'=>'workplaces.id is not null'));
+		$this->render('firedButInWp',array(
+			'models'=>$models,
+		));
+	}
+
+	public function actionFiredButInProgram(){
+		$models=Personnel::model()->with('workplaces','persPrograms')->fired()->findAll(array('condition'=>'"persPrograms".id is not null'));
 		$this->render('firedButInWp',array(
 			'models'=>$models,
 		));

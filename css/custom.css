@@ -65,7 +65,18 @@ h4.subscribe{
 	max-height: 32px;
 }
 
+.divico{
+	display: inline-block;
+	max-width: 32px;
+	max-height: 32px;
+	width: 32px;
+	height: 32px;
+	text-align: center;
+}
 
+.divico *{
+
+}
 
 .button_link{
 	border: 1px solid red;

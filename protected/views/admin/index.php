@@ -14,6 +14,7 @@ $this->menu=array(
 $this->menu['all_menu']=array(
 	array('title'=>'Инструменты самодиагностики','items'=>array(
 		array('label'=>'Уволенные пользователи на рабочиж местах', 'url'=>array('/personnel/firedButInWp')),
+		array('label'=>'Уволенные пользователи с аккаунтами', 'url'=>array('/personnel/firedButInProgram')),
 		array('label'=>'Рабочие места без людей', 'url'=>array('/workplace/wpWithoutPers'))
 	)),
 

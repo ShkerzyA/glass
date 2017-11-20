@@ -11,6 +11,7 @@ $this->menu=array(
 	array('label'=>'Тиль', 'url'=>array('tiles'),'visible'=>Yii::app()->user->checkAccess('moderator')),
 	array('label'=>'Дни рождения', 'url'=>array('birthdays')),
 	array('label'=>'Отпуск', 'url'=>array('vacations'),'visible'=>Yii::app()->user->checkAccess('moderator')),
+	array('label'=>'Уволенные пользователи с аккаунтами', 'url'=>array('firedButInProgram'),'visible'=>Yii::app()->user->checkAccess("inGroup",array("group"=>array("it")))),
 );
 
 Yii::app()->clientScript->registerScript('search', "
