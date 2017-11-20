@@ -88,7 +88,7 @@ class Projects extends CActiveRecord
 		if(!empty($this->photo)){
 			$result='<img label="'.$this->name.'" class=taskico src="/glass/media/'.$this->photo.'">';
 		}else{
-			$result='<div class=divico style="background: '.$this->color().';"><h2>'.mb_substr($this->name,0,1).'</h2></div>';
+			$result='<div class=divico style="background: '.$this->color().';"><h2 style="color: white">'.mb_substr($this->name,0,1).'</h2></div>';
 		}
 		return $result;
 	}
@@ -116,9 +116,9 @@ class Projects extends CActiveRecord
 		$a=array();
 		$time=strtotime($this->timestamp);
 	
-		$a[]=dechex($t=(mb_substr($time,-2,2)>55)?mb_substr($time,-2,2)+80:mb_substr($time,-2,2)+180);
-		$a[]=dechex($t=(mb_substr($time,-4,2)>55)?mb_substr($time,-4,2)+80:mb_substr($time,-4,2)+180);
-		$a[]=dechex($t=(mb_substr($time,-6,2)>55)?mb_substr($time,-6,2)+80:mb_substr($time,-6,2)+180);
+		$a[]=dechex($t=(mb_substr($time,-2,2)>55)?mb_substr($time,-2,2)+40:mb_substr($time,-2,2)+140);
+		$a[]=dechex($t=(mb_substr($time,-4,2)>55)?mb_substr($time,-4,2)+40:mb_substr($time,-4,2)+140);
+		$a[]=dechex($t=(mb_substr($time,-6,2)>55)?mb_substr($time,-6,2)+40:mb_substr($time,-6,2)+140);
 
 		//$a[]=dechex($t=round(mb_substr($time,-3,3)*0.25));
 		//$a[]=dechex($t=round(mb_substr($time,-6,3)*0.25));
