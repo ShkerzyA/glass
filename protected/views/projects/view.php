@@ -9,18 +9,56 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Список', 'url'=>array('index')),
-	array('label'=>'Создать', 'url'=>array('create')),
-	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Удалить', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Вы уверены?')),
+	array('label'=>'Создать', 'url'=>array('create'),'visible'=>(Yii::app()->user->role=='administrator')),
+	array('label'=>'Изменить', 'url'=>array('update', 'id'=>$model->id),'visible'=>(Yii::app()->user->role=='administrator')),
 	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
 );
 ?>
 
-<h1>Отобразить "<?php  echo $model::$modelLabelS; ?>"  #<?php echo $model->id; ?></h1> 
+<div style="float: left"><?php echo $model->ico() ?></div><h1> <?php echo $model->name; ?></h1>
 
-<?php $this->widget('zii.widgets.CDetailView', array(
-	'data'=>$model,
-	'attributes'=>array(
-		'name',
-	),
-)); ?>
+<?php $exec=$model->findExecutors(); ?>
+<?php $all=$model->allTaskCount(); ?>
+<?php $tmp=array();
+	  $allC=array();
+	  $prototype=array();
+?>
+
+<table class=phonetable>
+	<tr>
+		<th>ФИО</th>
+		<?php 
+			foreach ($all as  $v) {
+				$tmp[$v['status']]='<th>'.$v['label'].'</th>';
+				$prototype[$v['status']]='<td></td>';
+			}
+			echo implode('',$tmp);
+		?>
+	</tr>
+	<tr>
+		<td>Общее</td>
+		<?php 
+			foreach ($all as  $v) {
+				$allC[$v['status']]=$v['cou'];
+			}
+			echo '<td>'.implode('</td><td>',$allC).'</td>';
+		?>
+	</tr>
+	<?php foreach ($exec as $ps): ?> 
+		<tr>
+			<td><?php echo $ps->fio_full(); ?></td>
+			<?php $cc=$model->persTaskCount($ps->id);
+			$tmp=$prototype;
+
+			?>
+			<?php 
+				foreach ($cc as  $v) {
+					$percent=round((($v['cou']/$allC[$v['status']])*100),2);
+					$tmp[$v['status']]='<td><div style="background: green; heigth: 100%; display: block; width: '.$percent.'%">'.$percent.'%</div></td>';
+				}
+				echo implode('',$tmp);
+			?>
+		</tr>
+	<?php endforeach; ?>
+</table>
+

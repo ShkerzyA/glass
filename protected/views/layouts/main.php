@@ -119,6 +119,7 @@
 						array('Проекты/Группа','/tasks/helpDeskProject?type=group',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
 						array('Моё','/tasks/helpDesk?group=&&type=2',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
                 		array('Лента','/tasks/taskTape',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
+                		array('Проекты','/projects/index',Yii::app()->user->checkAccess('inGroup',array('group'=>array('it'))),),
                 	)),
                 array('label'=>'Охрана', 'url'=>array('/vehicles/accounting'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('security'))),'submenu'=>
 						array(array('Транспорт','/vehicles/index',Yii::app()->user->checkAccess('inGroup',array('group'=>array('security_admin'))),),

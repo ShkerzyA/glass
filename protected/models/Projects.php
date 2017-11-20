@@ -167,6 +167,31 @@ class Projects extends CActiveRecord
     	return $result;
 	}
 
+	public function allTaskCount(){
+		$sql = Yii::app()->db->createCommand(
+        	"
+        	select t2.status, t2.cou, ts.label, ts.css_class, ts.ico, ts.css_status from 
+			(SELECT status, count(status) cou from tasks where project=".$this->id." group by status ) as t2
+			left join tasks_status as ts on (ts.id=t2.status) order by ts.sort
+			" 
+        );
+    	$result = $sql->queryAll();
+    	return $result;
+	}
+
+
+	public function persTaskCount($id_pers){
+		$sql = Yii::app()->db->createCommand(
+        	"
+        	select t2.status, t2.cou, ts.label, ts.css_class, ts.ico, ts.css_status from 
+			(SELECT status, count(status) cou from tasks where project=".$this->id." and '".$id_pers."'=ANY(executors) group by status ) as t2
+			left join tasks_status as ts on (ts.id=t2.status) order by ts.sort
+			" 
+        );
+    	$result = $sql->queryAll();
+    	return $result;
+	}
+
 	public function actualTaskCount(){
 		$sql = Yii::app()->db->createCommand(
         	"SELECT count(status) cou from tasks where project=".$this->id."  and status in (0,1,5,6)"   
