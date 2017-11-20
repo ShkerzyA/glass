@@ -72,10 +72,11 @@ h4.subscribe{
 	width: 32px;
 	height: 32px;
 	text-align: center;
+
 }
 
 .divico *{
-
+margin-top: 5px;
 }
 
 .button_link{
