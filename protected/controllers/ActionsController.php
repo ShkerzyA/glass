@@ -113,32 +113,36 @@ class ActionsController extends Controller
 
   			$result = array();
   			
-  			$result[]=array('label'=>'<b>Кабинеты и места</b>');
+  			$result[]=array('label'=>'КАБИНЕТЫ И МЕСТА');
   			foreach ($models as $c){
   					$cn=$c->cabNameFull(false,true);
   					$result[] = array(
-     						'label' => '<a href=/glass/cabinet/'.$c->id.'>'.$cn.'</a>',
+     						'label' => $cn,
+     						'value' => '/glass/cabinet/'.$c->id,
    						);
   					foreach ($c->workplaces as $m) {
   						$wn=$m->wpNameFull(false,false,'fio_full',true);
    						$result[] = array(
-     						'label' => '<a href=/glass/workplace/'.$m->id.'>-------'.$wn.'</a>',
+     						'label' => '-----'.$wn,
+     						'value' => '/glass/workplace/'.$m->id,
    						);
   				}
   				
    			}
-   			$result[]=array('label'=>'<b>Документы</b>');
+   			$result[]=array('label'=>'ДОКУМЕНТЫ');
   			foreach ($docs as $m){
    				$result[] = array(
-     				'label' => '<a href=/glass/docs/'.$m->id.'>'.$m->nameL().'</a>',
+     				'label' => $m->nameL(),
+     				'value' => '/glass/docs/'.$m->id,
    				);
    			}
 
    			if(!empty($tasks)){
-   				$result[]=array('label'=>'<b>Задачи</b>');
+   				$result[]=array('label'=>'ЗАДАЧИ');
    				foreach ($tasks as $m) {
    					$result[] = array(
-     					'label' => '<a href=/glass/tasks/'.$m->id.'>'.$m->nameL().'</a>',
+     					'label' => $m->nameL(),
+     					'value' => '/glass/tasks/'.$m->id,
      				);
    				}
    			}

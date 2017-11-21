@@ -15,6 +15,7 @@
 
     $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
    'name'=>'global_search',
+   'id'=>'globserch',
    'value'=>$val,
    'source'=>"js:function(request, response) {
       $.getJSON('".$this->controller->createUrl('/actions/globalSearch')."', {
@@ -23,7 +24,7 @@
       }",
    'options'=>array(
      'delay'=>300,
-     'minLength'=>1,
+     'minLength'=>2,
      'showAnim'=>'fold',
  	'multiple'=>false,
      'select'=>"js:function(event, ui) {
@@ -35,7 +36,8 @@
          //$('#global_search').attr('placeholder',ui.item.value);
          // add placeholder to get the comma-and-space at the end
          terms.push('');
-         this.value = terms.join(' ');
+         //this.value = terms.join(' ');
+         location.href=ui.item.value;
          return false;
        }",
    ),
@@ -48,7 +50,8 @@
 
 
   // Для подсветки набираемого куска запроса в предлагаемом списке
-/*  Yii::app()->clientScript->registerScript('unique.script.identifier2', "
+  /*
+  Yii::app()->clientScript->registerScript('unique.script.identifier332', "
  $('#global_search').data('ui-autocomplete')._renderItem = function( ul, item ) {
    var re = new RegExp( '(' + $.ui.autocomplete.escapeRegex(this.term) + ')', 'gi' );
    var highlightedResult = item.label.replace( re, '<b>$1</b>' );
@@ -57,7 +60,7 @@
      .append( '<a>' + highlightedResult + '</a>' )
      .appendTo( ul );
  };
-"); */ 
+"); */
 ?>
 
 
