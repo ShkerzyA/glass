@@ -17,7 +17,6 @@
 
     $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
    'name'=>'Wp_details',
-   'id'=>'Wpdetail',
    'value'=>$val,
 //'value' => $model->id,
    'source'=>"js:function(request, response) {

@@ -25,6 +25,11 @@
 	<?php Yii::app()->getClientScript()->registerCoreScript('glassCommon'); ?>
 	<?php Yii::app()->request->cookies['tornado'] = new CHttpCookie('tornado', Yii::app()->params['tornado']); ?>
 
+	 <?php Yii::app()->clientScript->registerScript('fix',"
+    $.curCSS = function (element, attrib, val) {
+      $(element).css(attrib, val);
+    };"); ?>
+
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 <body>

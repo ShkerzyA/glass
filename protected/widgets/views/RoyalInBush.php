@@ -12,10 +12,10 @@
  <?php 
 
     $val=(!empty($model->details[0]))?$model->detailsShow():'';
+ 
 
     $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
    'name'=>'global_search',
-   'id'=>'globserch',
    'value'=>$val,
    'source'=>"js:function(request, response) {
       $.getJSON('".$this->controller->createUrl('/actions/globalSearch')."', {
