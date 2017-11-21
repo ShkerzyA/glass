@@ -155,6 +155,10 @@ class Projects extends CActiveRecord
 		return $result;
 	}
 
+	public function potentialExecutors($obj=false){
+		return Personnel::groupMembers($this->group,$obj);
+	}
+
 	public function projectInfo(){
 	 	$sql = Yii::app()->db->createCommand(
         	"

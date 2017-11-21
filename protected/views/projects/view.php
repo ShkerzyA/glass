@@ -17,7 +17,7 @@ $this->menu=array(
 
 <div style="float: left"><?php echo $model->ico() ?></div><h1> <?php echo $model->name; ?></h1>
 
-<?php $exec=$model->findExecutors(); ?>
+<?php $exec=$model->potentialExecutors(True); ?>
 <?php $all=$model->allTaskCount(); ?>
 <?php $tmp=array();
 	  $allC=array();
@@ -46,7 +46,10 @@ $this->menu=array(
 	</tr>
 	<?php foreach ($exec as $ps): ?> 
 		<tr>
-			<td><?php echo $ps->fio_full(); ?></td>
+			<?php 
+				$fio=(in_array($ps->id,$model->executors))?$ps->fio_full():'<span style="color: grey">'.$ps->fio_full()."</span>";
+			?>
+			<td><?php echo $fio; ?></td>
 			<?php $cc=$model->persTaskCount($ps->id);
 			$tmp=$prototype;
 

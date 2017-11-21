@@ -8,7 +8,7 @@
 		?>
 		<div class=projecttitle>
 		Проект:
-		<?php echo$project->name; ?> 
+		<?php echo$project->name; echo CHtml::link(CHtml::image(Yii::app()->request->baseUrl.'/images/view.png'), array('/projects/view', 'id'=>$project->id));?> 
 		<div>
 			<?php echo $project->description ?>
 		</div>
