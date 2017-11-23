@@ -172,13 +172,24 @@ class Projects extends CActiveRecord
 	}
 
 	public static function allProjectsPersStat(){
+		/* by executors
 		$sql = Yii::app()->db->createCommand(
         	"
 			select res.pid, res.id, res.status, sum(res.cou) from (select pj.id as pid, pj.name,t2.cou, t2.status, ps.id from projects pj
 			left join personnel as ps on(ps.id::text=ANY(pj.executors))
 			left join (SELECT status, project,executors, count(status) cou from tasks group by status,project,executors order by status) as t2 on(pj.id = t2.project and ps.id::TEXT=ANY(t2.executors))) as res group by res.pid,res.id,res.status order by pid, status, id
 		"   
-        );
+        ); */
+		//by tasks_actions
+		$sql = Yii::app()->db->createCommand(
+        	"
+			select t.project as pid, t.status, ta.creator as id, count(t.id) as sum  
+			from tasks as t 
+			inner join tasks_actions as ta on (ta.id=(select id from tasks_actions where id_task=t.id and \"type\"=0 and ttext='2' order by timestamp DESC LIMIT 1)) 
+			group by project, ta.creator, status 
+			order by pid, id, status
+			"   
+        ); 
     	$result = $sql->queryAll();
     	$strictRes=array();
     	foreach ($result as $v) {

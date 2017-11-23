@@ -38,4 +38,8 @@ $('.search-form form').submit(function(){
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'taskpanel',
+	'sortableAttributes'=>array(
+        'tname',
+        'timestamp',
+    ),
 )); ?>

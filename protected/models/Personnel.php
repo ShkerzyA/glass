@@ -99,6 +99,22 @@ class Personnel extends CActiveRecord
         return $this->surname.' '.$this->name.' '.$this->patr;
     }
 
+    public function color(){
+        $a=array();
+        $time=strtotime($this->birthday);
+        //echo $time;
+        $a[]=(strlen($p=dechex($t=(mb_substr($time,-3,3)*0.24)))>1)?$p:'0'.$p;
+        $a[]=(strlen($p=dechex($t=(mb_substr($time,-9,3)*0.24)))>1)?$p:'0'.$p;
+        $a[]=(strlen($p=dechex($t=(mb_substr($time,-6,3)*0.24)))>1)?$p:'0'.$p;
+
+        //$a[]=dechex($t=round(mb_substr($time,-3,3)*0.25));
+        //$a[]=dechex($t=round(mb_substr($time,-6,3)*0.25));
+        //$a[]=dechex($t=round(mb_substr($time,-9,3)*0.25));
+        //echo ($this->name);
+        //print_r($a);
+        return '#'.implode('',$a);
+    }
+
     public function wrapFio($function,$vacation=False){
         $res='';
         switch ($function) {

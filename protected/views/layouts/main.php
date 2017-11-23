@@ -25,7 +25,10 @@
 	<?php Yii::app()->getClientScript()->registerCoreScript('glassCommon'); ?>
 	<?php Yii::app()->request->cookies['tornado'] = new CHttpCookie('tornado', Yii::app()->params['tornado']); ?>
 
-	 <?php Yii::app()->clientScript->registerScript('fix',"
+
+	 <?php 
+	 //fix autocomplete
+	 Yii::app()->clientScript->registerScript('fix',"
     $.curCSS = function (element, attrib, val) {
       $(element).css(attrib, val);
     };"); ?>

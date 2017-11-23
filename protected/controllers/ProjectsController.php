@@ -36,7 +36,7 @@ class ProjectsController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete','allStat'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -76,7 +76,7 @@ class ProjectsController extends Controller
 		foreach ($projects as $p) {
 			$pi=$p->actualTaskCount();
 			$size=(!empty($pi[0]['cou']))?$pi[0]['cou']:'1';
-			$pjArr[]="{id:'pj".$p->id."',label: '".$p->name."',x: 40, y: ".($i).", size: ".sqrt($size).",color: '#ff0000'}";
+			$pjArr[]="{id:'pj".$p->id."',label: '".$p->name."',x: 40, y: ".($i).", size: ".pow($size,1/2).",color: '#ff0000'}";
 			$i++;
 			foreach ($p->executors as $e) {
 				if(!empty($e) and !empty($personnel[$e])){
@@ -97,6 +97,17 @@ class ProjectsController extends Controller
 		$this->renderPartial('altavista',array('nodesPj'=>$nodesPj,'nodesPs'=>$nodesPs,'edges'=>$edges),false,true);
 	}
 
+
+
+	public function actionAllStat(){
+		$this->layout='//layouts/column1';
+		$personnel=Personnel::groupMembers(Yii::app()->user->groups,True);
+		$projects=Projects::myGroupProjects();
+		$persStat=Projects::allProjectsPersStat();
+		$commonStat=Projects::allProjectsStat();
+
+		$this->render('allStat',array('personnel'=>$personnel,'projects'=>$projects,'persStat'=>$persStat,'commonStat'=>$commonStat));
+	}
 
 	public function actionView($id)
 	{
