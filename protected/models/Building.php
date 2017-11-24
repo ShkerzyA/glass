@@ -67,10 +67,11 @@ class Building extends CActiveRecord
 		return array(
 			array('adress', 'length', 'max'=>100),
 			array('bname', 'length', 'max'=>50),
+			array('short', 'length', 'max'=>10),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, adress, bname,floorsid_building', 'safe', 'on'=>'search'),
+			array('id, adress, bname,short,floorsid_building', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -108,6 +109,7 @@ class Building extends CActiveRecord
 			'id' => 'ID',
 			'adress' => 'Адрес',
 			'bname' => 'Название',
+			'short' => 'Короткое название',
 			'floorsid_building' => 'Этаж',
 		);
 	}
@@ -127,6 +129,7 @@ class Building extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('adress',$this->adress,true);
 		$criteria->compare('bname',$this->bname,true);
+		$criteria->compare('short',$this->short,true);
 		$criteria->compare('floor.fname',$this->floorsid_building,true);
 
 		return new CActiveDataProvider($this, array(
