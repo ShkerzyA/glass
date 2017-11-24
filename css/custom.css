@@ -1127,6 +1127,13 @@ select{
 
 }
 
+.container {
+    width: 1280px;
+    margin: 0 auto;
+}
+
+
+
 #status{
 	margin: 3px;
 	padding: 2px;

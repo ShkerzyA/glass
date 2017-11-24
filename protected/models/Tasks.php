@@ -342,8 +342,9 @@ class Tasks extends CActiveRecord
 		$result=array();
 		$exec=(is_array($this->executors))?$this->executors:array();
 		$tmp=array_diff($exec,array(''));
-		if(!empty($tmp))
-			$result = Personnel::model()->findAllByAttributes(array("id"=>$tmp));
+		if(!empty($tmp)){
+			$result = Personnel::model()->findAll(array('index'=>'id','condition'=>"t.id in (".implode(',', $tmp).")"));
+		}
 		return $result;
 	}
 
@@ -351,6 +352,26 @@ class Tasks extends CActiveRecord
 	public function potentialExecutors($obj=false){
 		return $this->Project0->potentialExecutors($obj);
 	}
+
+	public function projectExecutors(){
+		return $this->Project0->findExecutors();
+	}
+
+	public function commExecutors(){
+		$result=array();
+		$pExecutors=$this->projectExecutors();
+		$executors=$this->findExecutors();
+
+		foreach ($pExecutors as $v) {
+			$result[]=array('executor'=>$v,'opacity'=>($k=(!empty($executors[$v->id]))?'1.0':'0.3'),'border'=>'');
+			unset($executors[$v->id]);
+		}
+		foreach ($executors as $v) {
+			$result[]=array('executor'=>$v,'opacity'=>'1.0','border'=>'border: 1px solid red;');
+		}
+		return $result;
+	}
+
 	/**
 	 * @return array relational rules.
 	 */

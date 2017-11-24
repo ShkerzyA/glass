@@ -30,11 +30,11 @@
 
 						echo'<div class="taskmoreinfo">';
 						
-						$exec=$data->findExecutors();
+						$exec=$data->commExecutors();
 
 						foreach ($exec as $z) {
 							//if(method_exists($z,'ava'))
-							echo '<img height=100% src="'.$z->ava().'">';
+							echo '<img height=100% style="opacity: '.$z['opacity'].';'.$z['border'].'" src="'.$z['executor']->ava().'">';
 						}
 						
 						$rep='';
