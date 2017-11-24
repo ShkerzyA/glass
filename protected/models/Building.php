@@ -21,6 +21,7 @@ class Building extends CActiveRecord
 	 */
 	public static $modelLabelS='Здание';
 	public static $modelLabelP='Здания';
+	public $short;
 
 	public static $tree=array(
 		'parent_id'=>'id',
