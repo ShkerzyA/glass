@@ -52,15 +52,7 @@ $this->menu['all_menu']=array(
 		array('title'=>'Создать задачу','items'=>$projectsArr
 		//	array('label'=>"<img src='../images/printer_40.png' title='Замена картриджа'> Зам. карт", 'url'=>array('tasks/create?Tasks[type]=1&&Tasks[project]=3'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
 		//	array('label'=>"<img src='../images/add_task_40.png' title='Деклассированная задача'> Общая", 'url'=>array('tasks/create?Tasks[type]=0&&Tasks[project]=4'),'visible'=>Yii::app()->user->checkAccess('inGroup',array('group'=>array('it')))),
-		),
-
-		array('title'=>'Фильтры задач','items'=>array(
-			array('label'=>'Актуальные', 'url'=>array('HelpDesk?group='.$this->group.'&&type=1')),
-			array('label'=>'За сегодня', 'url'=>array('HelpDesk?group='.$this->group.'&&type=3')),
-			array('label'=>'[Мое]', 'url'=>array('HelpDesk?group='.$this->group.'&&type=2')),
-		)
-
-	));
+			));
 
 
 

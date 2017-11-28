@@ -536,6 +536,12 @@ class Tasks extends CActiveRecord
 				$criteria->order="status0.sort asc,t.rating desc,t.timestamp desc";
 				break;
 
+			case '6':
+				$idp=(!empty($id_pers))?$id_pers:Yii::app()->user->id_pers;
+				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) and '".$idp."'=ANY(\"Project0\".\"executors\")"));
+				$criteria->order="status0.sort asc,t.rating desc, t.deadline asc, t.timestamp desc";
+				break;
+
 			default:
 				
 			break;

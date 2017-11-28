@@ -382,15 +382,16 @@ class TasksController extends Controller
 
 		$this->renderPartial('/workplace/storages',false,true);
 
+
 		$this->rightWidgetUp=array(
-			'idfield'=>array($this->renderPartial('_idfield',array(),true))
-		);
-
-
-		$this->rightWidget=array(
+			'idfield'=>array($this->renderPartial('_idfield',array(),true)),
+			'taskF'=>array($this->renderPartial('_tasksFilter',array(),true)),
 			'userF'=>array($this->renderPartial('_tasksFilterUser',array(),true)),
 			'df'=>array($this->renderPartial('_date_filter',array(),true)),
 			'ft'=>array($this->renderPartial('_fulltext_search',array(),true)),
+		);
+
+		$this->rightWidget=array(
 			'cc'=>array($this->renderPartial('/equipment/countCart',array('model'=>Equipment::countCart()),true,false),'it')
 		);
 
