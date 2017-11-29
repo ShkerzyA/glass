@@ -248,6 +248,6 @@ return array(
 
 		'tornado'=>'10.126.83.86:8888',
 		// this is used in contact page
-		'adminEmail'=>'al_i_88@mail.ru',
+		'adminEmail'=>'no@no.ru',
 	),
 );
