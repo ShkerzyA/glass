@@ -3,7 +3,7 @@ function init(){
     Socket = {
         ws: null,
         init: function () {
-            ws = new WebSocket('ws://' + document.location.host + ':8888/websocket'); должно быть так. прописано жестко, потому что еще develop server работает
+            ws = new WebSocket('ws://' + document.location + ':8888/websocket');// должно быть так. прописано жестко, потому что еще develop server работает
             //ws = new WebSocket('ws://'+$.cookie("tornado")+'/websocket'); - это было настроено для одновременной работы с dev сервером
             ws.onopen = function () {
                 var mess = {
