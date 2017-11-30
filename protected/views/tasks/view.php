@@ -58,14 +58,12 @@ echo '<div class="comment " id="taskbody">
 			$this->renderPartial('taskpanel',array('data'=>$d),false,false);
 		}
 		echo '<span style="float: right">Участники: ';
-		$exec=array();
-				foreach ($model->executors as $v){
-					if(!empty($v)){
-						$pers=Personnel::model()->findByPk($v);
-						$exec[]=CHtml::encode($pers->wrapFio('fio'));
-					}
-				}	
-				echo (implode(', ', $exec));
+		$exec=$model->commExecutors();
+						foreach ($exec as $z) {
+							echo '<span style="opacity: '.$z['opacity'].';'.$z['border'].'">'.$z['executor']->fio().'</span>';
+						}
+						
+						$rep='';
 
 		echo '</span></div> ';
 

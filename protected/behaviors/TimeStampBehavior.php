@@ -15,7 +15,11 @@ class TimeStampBehavior extends CActiveRecordBehavior{
         return $this->owner;
     }
 
-
+    public function short_date($field){
+        if(!empty($this->owner->$field)){
+            return date('d.m.y H:i', strtotime($this->owner->timestamp));
+        }
+    }
 
     public function beforeSave($event){
 

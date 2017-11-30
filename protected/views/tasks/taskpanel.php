@@ -9,9 +9,9 @@
 						echo'<div style="font-size: 9pt; text-align: left;">';
 					
 						if(!empty($data->timestamp_end)){
-							echo $data->timestamp_end;
+							echo $data->short_date('timestamp_end');
 						}else{
-							echo $data->timestamp;
+							echo $data->short_date('timestamp');
 						}
 						echo'<br>';
 
@@ -22,7 +22,7 @@
 							}
 						}
 
-						echo ('<div class='.$status['css_status'].' style="text-align: left">'.$status['label'].' <b>('.$data->id.')</b></div>');
+						echo ('<div class='.$status['css_status'].' style="text-align: left">'.$status['label'].'</div>');
 						echo'</div>';
 
 						
