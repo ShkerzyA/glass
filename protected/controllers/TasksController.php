@@ -379,10 +379,6 @@ class TasksController extends Controller
 
 	public function actionHelpDesk($type=3,$group=NULL,$id_pers=NULL){
 		$this->layout='//layouts/column2';
-
-		$this->renderPartial('/workplace/storages',false,true);
-
-
 		$this->rightWidgetUp=array(
 			'idfield'=>array($this->renderPartial('_idfield',array(),true)),
 			'taskF'=>array($this->renderPartial('_tasksFilter',array(),true)),
