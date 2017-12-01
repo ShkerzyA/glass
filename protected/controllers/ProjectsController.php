@@ -36,7 +36,7 @@ class ProjectsController extends Controller
 				'roles'=>array('moderator'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete','allStat'),
+				'actions'=>array('admin','delete','allStat','projectsExecutors'),
 				'roles'=>array('administrator'),
 			),
 			array('deny',  // deny all users
@@ -185,6 +185,11 @@ class ProjectsController extends Controller
 		$dataProvider=new CActiveDataProvider('Projects');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider, 'modelLabelP'=>Projects::$modelLabelP,
+		));
+	}
+
+	public function actionProjectsExecutors(){
+		$this->render('projectsExecutors',array(
 		));
 	}
 

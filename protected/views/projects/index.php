@@ -9,6 +9,9 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Создать', 'url'=>array('create'),'visible'=>(Yii::app()->user->role=='administrator')),
 	array('label'=>'Управление', 'url'=>array('admin'),'visible'=>(Yii::app()->user->role=='administrator')),
+	array('label'=>'Статистика', 'url'=>array('allStat'),'visible'=>(Yii::app()->user->role=='administrator')),
+	array('label'=>'Проекты\Исполнители', 'url'=>array('projectsExecutors'),'visible'=>(Yii::app()->user->role=='administrator')),
+
 );
 ?>
 

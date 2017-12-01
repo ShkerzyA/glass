@@ -9,6 +9,7 @@
  * @property string $ttext
  * @property string $date_begin
  * @property string $date_end
+ * @properity string $timestamp_start*
  * @property integer $type
  * @property integer $creator
  * @property integer $executor
@@ -36,6 +37,7 @@ class Tasks extends CActiveRecord
 	public static $locks=array(1=>'Определенные навыки',2=>'Требуется группа бойцов',3=>'Определенное время',4=>'Оборудование со склада после согласования',5=>'Сторонний чел');
 	public $inExecutors=0;
 	public $place;
+	public $timestamp_start;
 	private $old_model;
 	public $rating;
 	
@@ -304,13 +306,13 @@ class Tasks extends CActiveRecord
 			array('tname', 'length', 'max'=>100),
 			array('group', 'length', 'max'=>255),
 			//array('details', 'length', 'max'=>255),
-			array('ttext, timestamp,deadline,timestamp_end', 'safe'),
+			array('ttext, timestamp,deadline,timestamp_end,timestamp_start', 'safe'),
 
 			array('executors,bindTasks,files', 'safe'),
 		
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, tname, ttext, timestamp, timestamp_end, type, deadline, id_department, status, creator, executors,creator0creator,executor0executor,group,details,project,rating', 'safe', 'on'=>'search'),
+			array('id, tname, ttext, timestamp, timestamp_end, type, deadline, id_department, status,timestamp_start, creator, executors,creator0creator,executor0executor,group,details,project,rating', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -402,6 +404,7 @@ class Tasks extends CActiveRecord
 			'ttext' => 'Описание заявки',
 			'timestamp' => 'Дата начала',
 			'timestamp_end' => 'Дата окончания',
+			'timestamp_start' => 'Активна с',
 			'type' => 'Тип',
 			'creator' => 'Создатель',
 			'executors' => 'Сопричастные',

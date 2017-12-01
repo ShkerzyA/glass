@@ -240,6 +240,22 @@ echo $form->dropDownList($model,"group",CHtml::listData($tmp,"group_key",functio
 <?php endif; ?>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'timestamp_start'); ?>
+
+		<?php Yii::import('zii.widgets.jui.CJuiDateTimePicker.CJuiDateTimePicker');
+    $this->widget('CJuiDateTimePicker',array(
+        'model'=>$model, //Model object
+        'attribute'=>'timestamp_start', //attribute name
+                'mode'=>'datetime', //use "time","date" or "datetime" (default)
+        'options'=>array(),
+        'htmlOptions'=>array('placeholder'=>'Заполнить или оставить пустым')
+    ));
+?>
+
+		<?php echo $form->error($model,'timestamp_start'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->labelEx($model,'deadline'); ?>
 
 		<?php Yii::import('zii.widgets.jui.CJuiDateTimePicker.CJuiDateTimePicker');
