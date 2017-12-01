@@ -48,6 +48,7 @@ class Tasks extends CActiveRecord
 	public static $statFixEnd=array(2,3);
 	public static $taskType=array(0=>array('Зачада','add_task_40.png'),1=>array('Замена картриджа','printer_40.png'));
 	public static $locks=array(1=>'Определенные навыки',2=>'Требуется группа бойцов',3=>'Определенное время',4=>'Оборудование со склада после согласования',5=>'Сторонний чел');
+	private static $withstart='(timestamp_start is null or timestamp_start<=current_date)';
 	public $inExecutors=0;
 	public $place;
 	private $old_model;
@@ -67,7 +68,7 @@ class Tasks extends CActiveRecord
 	{
     	$t=$this->getTableAlias(false);
     	return array(
-        	'actual_today'=>array('with'=>array('status0','creator0','Project0'),'condition'=>"(($t.timestamp::date=current_date or $t.timestamp_end::date=current_date) or $t.status in (0,1,5,6))","order"=>"status0.sort asc, t.deadline asc, t.timestamp desc"),
+        	'actual_today'=>array('with'=>array('status0','creator0','Project0'),'condition'=>"(($t.timestamp::date=current_date or $t.timestamp_end::date=current_date) or $t.status in (0,1,5,6)) and ".self::$withstart."","order"=>"status0.sort asc, t.deadline asc, t.timestamp desc"),
     	);
 	}
 
@@ -520,23 +521,23 @@ class Tasks extends CActiveRecord
 			//все, кроме помеченных как просмотренные
 			//текущие
 			case '1':
-				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) "));
+				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6)  and ".self::$withstart.""));
 				$order="status0.sort asc,t.rating desc,t.deadline asc,t.timestamp desc";
 				break;
 
 			case '2':
 				$idp=(!empty($id_pers))?$id_pers:Yii::app()->user->id_pers;
-				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) and '".$idp."'=ANY(t.\"executors\")"));
+				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) and '".$idp."'=ANY(t.\"executors\") and ".self::$withstart.""));
 				$criteria->order="status0.sort asc,t.rating desc, t.deadline asc, t.timestamp desc";
 				break;
 			
 			case '3':
-				$criteria->addCondition(array('condition'=>"((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5,6))"));
+				$criteria->addCondition(array('condition'=>"((t.timestamp::date=$date or t.timestamp_end::date=$date) or t.status in (0,1,5,6)) and ".self::$withstart.""));
 				$criteria->order="status0.sort asc,t.rating desc,t.deadline asc,t.timestamp desc";
 				break;
 			//за день
 			case '4':
-				$criteria->addCondition(array('condition'=>"((t.timestamp::date=$date or t.timestamp_end::date=$date))"));
+				$criteria->addCondition(array('condition'=>"((t.timestamp::date=$date or t.timestamp_end::date=$date)) and ".self::$withstart.""));
 				$criteria->order="status0.sort asc,t.rating desc,t.deadline asc,t.timestamp desc";
 				break;
 
@@ -553,7 +554,7 @@ class Tasks extends CActiveRecord
 
 			case '6':
 				$idp=(!empty($id_pers))?$id_pers:Yii::app()->user->id_pers;
-				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) and '".$idp."'=ANY(\"Project0\".\"executors\")"));
+				$criteria->addCondition(array('condition'=>"t.status in (0,1,5,6) and '".$idp."'=ANY(\"Project0\".\"executors\") and ".self::$withstart.""));
 				$criteria->order="status0.sort asc,t.rating desc, t.deadline asc, t.timestamp desc";
 				break;
 
@@ -645,8 +646,9 @@ class Tasks extends CActiveRecord
 	
 	public function detailsShow($short=False,$place=True,$htmlinfo=False){
 		$result='';
-		if($htmlinfo)
-			$result.='<div class=rightinfo><i>Срок исполнения: '.$this->deadline.'</i></div>';	
+		if($htmlinfo){
+			$result.='<div class=rightinfo><i>Активна с: '.$this->timestamp_start.'<br>Срок исполнения: '.$this->deadline.'</i></div>';	
+		}
 		if(!empty($this->details[0]))
 		switch ($this->type) {
 			case '1':

@@ -27,7 +27,7 @@
 
 
 	 <?php 
-	 //fix autocomplete
+	 //fix autocomplete (after update jquery 1.8)
 	 Yii::app()->clientScript->registerScript('fix',"
     $.curCSS = function (element, attrib, val) {
       $(element).css(attrib, val);

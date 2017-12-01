@@ -168,6 +168,7 @@ h4.subscribe{
 
 .rightinfo div, .rightinfo span{
 	float: right;
+	text-align: right;
 }
 
 .leftinfo{
