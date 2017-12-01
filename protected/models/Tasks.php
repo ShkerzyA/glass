@@ -7,15 +7,28 @@
  * @property integer $id
  * @property string $tname
  * @property string $ttext
- * @property string $date_begin
- * @property string $date_end
- * @properity string $timestamp_start*
+ * @property string $timestamp
+ * @property string $timestamp_end
  * @property integer $type
  * @property integer $creator
- * @property integer $executor
- *		 * The followings are the available model relations:
- * @property DepartmentPosts $creator0
- * @property DepartmentPosts $executor0
+ * @property integer $id_department
+ * @property integer $status
+ * @property string $executors
+ * @property string $group
+ * @property string $details
+ * @property string $deadline
+ * @property integer $project
+ * @property string $deadlocks
+ * @property integer $rating
+ * @property string $timestamp_start
+ *         * The followings are the available model relations:
+ * @property Personnel $creator0
+ * @property Projects $project0
+ * @property TasksStatus $status0
+ * @property TasksActions[] $tasksActions
+ * @property TasksTasks[] $tasksTasks
+ * @property TasksTasks[] $tasksTasks1
+ * @property FilesThrow[] $filesThrows
  */
 class Tasks extends CActiveRecord
 {
@@ -37,7 +50,6 @@ class Tasks extends CActiveRecord
 	public static $locks=array(1=>'Определенные навыки',2=>'Требуется группа бойцов',3=>'Определенное время',4=>'Оборудование со склада после согласования',5=>'Сторонний чел');
 	public $inExecutors=0;
 	public $place;
-	public $timestamp_start;
 	private $old_model;
 	public $rating;
 	
