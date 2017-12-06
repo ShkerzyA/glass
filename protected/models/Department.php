@@ -28,6 +28,33 @@ class Department extends CActiveRecord
 public $departmentsparent_subdiv_rn;
 public $departmentPostspost_subdiv_rn;
 
+
+/*
+пример рекурсивного запроса к postgres
+Выбирает потомков 001ю и потомков их потомков до конца ветки
+
+
+WITH RECURSIVE r AS (
+   SELECT id, subdiv_rn, name, parent_subdiv_rn
+   FROM department
+   WHERE parent_subdiv_rn = '001ю'
+
+   UNION
+
+   SELECT deprec.id, deprec.subdiv_rn,deprec.name, deprec.parent_subdiv_rn
+   FROM department as deprec
+      JOIN r
+          ON deprec.parent_subdiv_rn = r.subdiv_rn
+)
+
+SELECT r.name as dep,dp.post, ps.surname, ps.name, ps.patr FROM r 
+left join department_posts as dp on (r.subdiv_rn=dp.post_subdiv_rn and (dp.date_end<current_date or dp.date_end is null))
+left join personnel_posts_history ph on (dp.id=ph.id_post and (ph.date_end<current_date or ph.date_end is null))
+left join personnel ps on (ps.id=ph.id_personnel and (ps.date_end<current_date or ps.date_end is null)) order by dep, post, surname;
+
+*/
+
+
     public static $tree=array(
         'parent_id'=>'id',
         'query'=>"SELECT m1.id, m1.bname AS text, m1.id as parent_id, count(m2.id) AS \"hasChildren\" FROM building AS m1 LEFT JOIN floor AS m2 ON m1.id=m2.id_building",

@@ -17,4 +17,10 @@ class Custom{
 		return'
 		<div class="row findTxArea" model="'.trim(get_class($model)).'" style="position: relative"><img src="'.Yii::app()->request->baseUrl.'/images/attachFile24.png" class="simplyAttach">'.$model->FileModel->attachedFilesFormView().'</div>';
 	}
+
+	public static function short_date($value){
+        if(!empty($value)){
+            return date('d.m.y H:i', strtotime($value));
+        }
+    }
 }
