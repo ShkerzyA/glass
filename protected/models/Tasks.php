@@ -48,7 +48,7 @@ class Tasks extends CActiveRecord
 	public static $statFixEnd=array(2,3);
 	public static $taskType=array(0=>array('Зачада','add_task_40.png'),1=>array('Замена картриджа','printer_40.png'));
 	public static $locks=array(1=>'Определенные навыки',2=>'Требуется группа бойцов',3=>'Определенное время',4=>'Оборудование со склада после согласования',5=>'Сторонний чел');
-	private static $withstart='(timestamp_start is null or timestamp_start<=current_date)';
+	private static $withstart='(timestamp_start is null or timestamp_start<=current_timestamp)';
 	public $inExecutors=0;
 	public $place;
 	private $old_model;
