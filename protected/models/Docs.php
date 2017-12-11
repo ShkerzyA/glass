@@ -18,7 +18,7 @@
 
  * @property Catalogs $idCatalog
 
-
+*  @property files[] $Files
  * @property DepartmentPosts $creator0
  */
 class Docs extends CActiveRecord
@@ -33,7 +33,7 @@ class Docs extends CActiveRecord
 	public static $ownerField='creator';
 	public static $db_array=array('link');
 	public static $pic_array=array('jpg','jpeg','png','gif','tif');
-	
+
 	public $idCatalogid_catalog;
 public $creator0creator;
 public $dellink=array();
@@ -93,7 +93,8 @@ public $dellink=array();
 			array('creator,  id_catalog', 'numerical', 'integerOnly'=>true),
 			array('id_catalog','required'),
 			array('doc_name', 'length', 'max'=>100),
-			array('text_docs, date_begin, date_end, dellink', 'safe'),
+			array('text_docs, date_begin, date_end, dellink, files', 'safe'),
+			array('files', 'safe'),
 			array('link','file','types'=>'jpg,jpeg,doc,docx,rar,zip,xls,xlsx,png,gif,pdf,djvu,txt,tif','allowEmpty'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -175,6 +176,7 @@ public $dellink=array();
 			'idCatalogid_catalog' => 'Каталог',
 			'creator0creator' => 'Создатель',
 			'dellink' => 'Удалить файлы',
+			'files' => 'Файлы',
 		);
 	}
 
@@ -200,6 +202,7 @@ public $dellink=array();
 		$criteria->compare('link',$this->link,true);
 		$criteria->compare('date_begin',$this->date_begin,true);
 		$criteria->compare('date_end',$this->date_end,true);
+		$criteria->compare('files',$this->files);
 		if(!empty($_GET['id_catalog']))
 				$criteria->compare('id_catalog',$_GET['id_catalog']);
 		else

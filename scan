@@ -1,5 +1,0 @@
-#!/bin/bash
-a=nmap -sP $1
-b=arp $1
-c=nmblookup -A $1
-echo $a$b$c

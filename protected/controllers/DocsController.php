@@ -119,7 +119,6 @@ class DocsController extends Controller
 		{
 			$model->attributes=$_POST['Docs'];
 			if($model->saveWithRelated(array('files')))
-				//echo '1';
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
