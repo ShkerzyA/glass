@@ -1,5 +1,6 @@
 /nbproject/private/
 protected/extensions/*
 protected/modules/yiiadmin/*
+assets/**
 base/*
 media
