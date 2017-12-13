@@ -6,7 +6,7 @@ class PersProgramCommand extends CConsoleCommand
 		$fileXls=$xls->load($filepath,True);
 		#$fileXls=array();
 		//print_r($fileXls);
-		spl_autoload_unregister(array('YiiBase','autoload'));
+		spl_autoload_register(array('YiiBase','autoload'));
 		if($delete)
 			PersProgram::model()->deleteAll(array('condition'=>'id_program=2'));
 		$now=strtotime("now");
