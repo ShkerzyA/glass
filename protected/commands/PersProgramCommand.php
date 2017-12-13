@@ -2,9 +2,9 @@
 class PersProgramCommand extends CConsoleCommand
 {
 	public function actionFromXlsQms($filepath,$delete=False) {
-		//$xls=new Xls();
-		//$fileXls=$xls->load($filepath,True);
-		$fileXls=array();
+		$xls=new Xls();
+		$fileXls=$xls->load($filepath,True);
+		#$fileXls=array();
 		//print_r($fileXls);
 		if($delete)
 			PersProgram::model()->deleteAll(array('condition'=>'id_program=2'));
