@@ -84,6 +84,7 @@ class Xls extends CFormModel{
    			 //$path = file_create_filename($filename, 'public://nodes_export');
   			$objWriter = PHPExcel_IOFactory::createWriter($PHPExcel, 'Excel5');
   			$objWriter->save($media.'/'.$filename);
+  			spl_autoload_register(array('YiiBase','autoload'));
   			header("Location: ".Yii::app()->baseUrl."/media/$filename"); 
 
     }
