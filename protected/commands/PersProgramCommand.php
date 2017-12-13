@@ -37,6 +37,7 @@ class PersProgramCommand extends CConsoleCommand
 	public function actionFromXlsQuickq($filepath) {
 		$xls=new Xls();
 		$fileXls=$xls->load($filepath,True);
+		unset($xls);
 		//print_r($fileXls);
 		//die();
 		foreach ($fileXls as $persArr) {

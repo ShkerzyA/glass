@@ -10,6 +10,9 @@
 class Xls extends CFormModel{
 	public $xls;
 
+	function __destruct() {
+       spl_autoload_register(array('YiiBase','autoload'));
+   	}
     public function rules(){
         return array(
             array('xls', 'file'),
