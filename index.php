@@ -9,6 +9,5 @@ if(in_array($_SERVER['SERVER_NAME'],array('10.126.86.61'))){
 	$config=dirname(__FILE__).'/protected/config/main.php';
 }
 // remove the following lines when in production mode
-
 require_once($yii);
 Yii::createWebApplication($config)->run();
