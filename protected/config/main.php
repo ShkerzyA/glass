@@ -218,6 +218,8 @@ return array(
 
 		'urlManager'=>array(
 			'showScriptName'=>false,
+			//Изменил тут на 'showScriptName'=>true чтобы мог зайти на glass и понять, почему не поднимается локальная версия glass
+			//'showScriptName'=>true,
 			'urlFormat'=>'path',
 			'rules'=>array(
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',

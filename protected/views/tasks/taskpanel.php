@@ -48,7 +48,7 @@
 				
 			</div>
 			<div class="leftinfo" draggable='True'><?php echo $sta=(!empty($data->rating))?'<div class="ratingStar"><b>'.$data->rating.'</b></div>':''; ?>
-				<?php echo $data->ico().'<div style="float: right; width: 92%"><a href=/glass/tasks/'.$data->id.'>'.Custom::deadclockwrap($data).' '.$data['tname'].' <span class=gray>'.$data->detailsShow(true).'</span></a></div>'; ?>
+				<?php echo $data->ico().'<div style="float: right; width: 92%"><a href='.Yii::app()->request->baseUrl.'/tasks/'.$data->id.'>'.Custom::deadclockwrap($data).' '.$data['tname'].' <span class=gray>'.$data->detailsShow(true).'</span></a></div>'; ?>
 				
 			</div>
 			<div class="texttask rotated"><pre><?php echo $data->id.' '.Custom::deadclockwrap($data).' '.$data->detailsShow(False,True,True).'<br>'. $data['ttext']; ?></pre></div>
